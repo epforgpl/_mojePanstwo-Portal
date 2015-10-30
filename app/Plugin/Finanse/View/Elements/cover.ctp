@@ -21,13 +21,13 @@ foreach ($dane as $rocznik) {
         $rok1['inflacja'] = $rocznik['fields']['source'][0]['data']['budzety.inflacja'];
         $rok1['pkb'] = $rocznik['fields']['source'][0]['data']['budzety.pkb'];
         $rok1['pkb_per_capita'] = $rocznik['fields']['source'][0]['data']['budzety.pkb_per_capita'];
-        $rok1['dlug_publiczny'] = $rocznik['fields']['source'][0]['data']['budzety.dlug_publiczny'];
+        $rok1['dlug_publiczny'] = $rocznik['fields']['source'][0]['data']['budzety.dlug_publiczny']*1000*1000;
         $rok1['eur'] = $rocznik['fields']['source'][0]['data']['budzety.eur'];
         $rok1['usd'] = $rocznik['fields']['source'][0]['data']['budzety.usd'];
         $rok1['dem'] = $rocznik['fields']['source'][0]['data']['budzety.dem'];
-        $rok1['wydatki'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_wydatki'];
-        $rok1['dochody'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_dochody'];
-        $rok1['deficyt'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_deficyt'];
+        $rok1['wydatki'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_wydatki']*1000;
+        $rok1['dochody'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_dochody']*1000;
+        $rok1['deficyt'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_deficyt']*1000;
     }
     if ($rocznik['fields']['source'][0]['data']['budzety.rok'] == $p2) {
         $rok2['premier_id'] = $rocznik['fields']['source'][0]['data']['budzety.premier_czlowiek_id'];
@@ -36,13 +36,13 @@ foreach ($dane as $rocznik) {
         $rok2['inflacja'] = $rocznik['fields']['source'][0]['data']['budzety.inflacja'];
         $rok2['pkb'] = $rocznik['fields']['source'][0]['data']['budzety.pkb'];
         $rok2['pkb_per_capita'] = $rocznik['fields']['source'][0]['data']['budzety.pkb_per_capita'];
-        $rok2['dlug_publiczny'] = $rocznik['fields']['source'][0]['data']['budzety.dlug_publiczny'];
+        $rok2['dlug_publiczny'] = $rocznik['fields']['source'][0]['data']['budzety.dlug_publiczny']*1000*1000;
         $rok2['eur'] = $rocznik['fields']['source'][0]['data']['budzety.eur'];
         $rok2['usd'] = $rocznik['fields']['source'][0]['data']['budzety.usd'];
         $rok2['dem'] = $rocznik['fields']['source'][0]['data']['budzety.dem'];
-        $rok2['wydatki'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_wydatki'];
-        $rok2['dochody'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_dochody'];
-        $rok2['deficyt'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_deficyt'];
+        $rok2['wydatki'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_wydatki']*1000;
+        $rok2['dochody'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_dochody']*1000;
+        $rok2['deficyt'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_deficyt']*1000;
     }
     if ($rocznik['fields']['source'][0]['data']['budzety.rok'] != 1989) {
         $lata[] = $rocznik['fields']['source'][0]['data']['budzety.rok'];
@@ -310,7 +310,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['czesci']['wzrost'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -335,7 +335,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['dzialy']['wzrost'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -360,7 +360,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['rozdzialy']['wzrost'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -396,7 +396,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['czesci']['spadek'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -420,7 +420,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['dzialy']['spadek'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -444,7 +444,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['rozdzialy']['spadek'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -479,7 +479,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['czesci']['bd'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -511,7 +511,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['dzialy']['bd'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -541,7 +541,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['rozdzialy']['bd'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -612,7 +612,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['dochody']['czesci']['wzrost'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -637,7 +637,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['dochody']['dzialy']['wzrost'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -674,7 +674,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['dochody']['czesci']['spadek'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -699,7 +699,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['dochody']['dzialy']['spadek'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -735,7 +735,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['czesci']['bd'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
@@ -765,7 +765,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         $i = 0;
                         foreach ($compareData['wydatki']['dzialy']['bd'] as $row) {
                             ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
+                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } if($i%2==1){?> grey <?}?>">
                                 <div class="col-sm-2 _label">
                                     <p><?= $row['tresc'] ?>:</p>
                                 </div>
