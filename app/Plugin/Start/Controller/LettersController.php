@@ -147,6 +147,8 @@ class LettersController extends StartAppController
                 } else {
                     $this->Session->setFlash('Wystąpił błąd podczas dodawania odpowiedzi');
                 }
+
+                $this->redirect($this->referer());
             }
 
             $this->title = $this->title . ' - Odpowiedzi';
@@ -396,6 +398,18 @@ class LettersController extends StartAppController
     {
         $this->set('output', $this->Pismo->templates_index($this->request->query));
         $this->set('_serialize', 'output');
+    }
+
+    public function attachment($letter_id, $slug = '', $attachment_id) {
+        $url = $this->LetterResponse->getAttachmentURL(
+            $attachment_id
+        );
+
+        if(!$url)
+            throw new NotFoundException;
+
+        $this->redirect($url);
+        return 0;
     }
 
 }

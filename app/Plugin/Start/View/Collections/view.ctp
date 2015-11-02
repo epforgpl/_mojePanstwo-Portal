@@ -30,11 +30,11 @@ echo $this->element('Start.pageBegin'); ?>
                     <input type="hidden" name="delete"/>
                     <button
                         data-tooltip="true"
-                        data-original-title="Usuń kolekcję"
+                        data-original-title="Dostęp"
                         data-placement="bottom"
                         class="btn btn-default btnRemove btn"
                         type="submit">
-                        <i class="glyphicon glyphicon-share" title="Usuń kolekcję" aria-hidden="true"></i>
+                        <i class="glyphicon glyphicon-share" title="Dostęp" aria-hidden="true"></i>
                     </button>
                 </li>
                 <li>
@@ -43,7 +43,7 @@ echo $this->element('Start.pageBegin'); ?>
                         data-tooltip="true"
                         data-original-title="Usuń kolekcję"
                         data-placement="bottom"
-                        class="btn btn-default btnRemove btn"
+                        class="btn btn-default btnCollectionRemove btn"
                         type="submit">
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
                     </button>

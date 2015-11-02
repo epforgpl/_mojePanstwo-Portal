@@ -126,7 +126,9 @@ if ($dataBrowser['mode'] == 'cover') {
                                     echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
 
                                     if (isset($afterItemElement))
-                                        echo $this->element($afterItemElement);
+                                        echo $this->element($afterItemElement, array(
+                                            'object' => $object
+                                        ));
                                 }
                                 ?>
                             </ul>

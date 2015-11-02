@@ -1,5 +1,16 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters-responses', array('plugin' => 'Start'))); ?>
+<?php
+
+// dropzone
+$this->Html->css(array('dropzone'), array('inline' => 'false', 'block' => 'cssBlock'));
+$this->Combinator->add_libs('js', 'dropzone.js') ;
+
+// datepicker
+$this->Html->css(array('../plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min'), array('inline' => 'false', 'block' => 'cssBlock'));
+$this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', '../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pl.min'), array('inline' => 'false', 'block' => 'scriptBlock'));
+
+?>
 <?php $this->Combinator->add_libs('js', 'Start.pismo.js') ?>
 <?php // $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>
 
@@ -355,14 +366,32 @@
                     <? foreach($responses as $response) { ?>
                         <li class="response">
                             <h2><?= $response['Response']['title'] ?> <span class="date"><?= dataSlownie($response['Response']['date']) ?></span></h2>
-                            <div class="content"><?= $response['Response']['content'] ?></div>
+                            <div class="content"><?= $response['Response']['content'] != '' ? $response['Response']['content'] : 'Brak treści' ?></div>
+							<? if(count($response['files'])) { ?>
+								<div class="files">
+									<h3><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Załączniki:</h3>
+									<? foreach($response['files'] as $file) { ?>
+										<div class="file">
+											<a target="_blank" href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/attachment/<?= $file['ResponseFile']['id'] ?>">
+												<?= $file['ResponseFile']['src_filename'] != '' ? $file['ResponseFile']['src_filename'] : 'Brak nazwy' ?>
+											</a>
+										</div>
+									<? } ?>
+								</div>
+							<? } ?>
                         </li>
                     <? } ?>
 	            <? } ?>
             </ul>
             
             <p class="buttons text-center">
-                <button data-action="add_response" class="btn btn-success btn-icon auto-width"><i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na pismo</button>
+                <button
+					data-action="add_response"
+					data-letter-alphaid="<?= $pismo['alphaid'] ?>"
+					data-letter-slug="<?= $pismo['slug'] ?>"
+					class="btn btn-success btn-icon auto-width">
+					<i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na pismo
+				</button>
             </p>
             
         </div>

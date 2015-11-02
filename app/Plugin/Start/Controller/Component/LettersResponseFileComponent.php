@@ -7,7 +7,7 @@ class LettersResponseFileComponent extends Component {
     public $components = array('S3', 'Auth', 'Session');
 
     private static $name = 'letters_response_files';
-    private static $path = 'letters/responses/%s';
+    private static $path = 'letters/responses/';
 
     private static $extensions = array('pdf','docx','doc','tif','html','jpg','xml','xls','xlsx','rtf','png');
 
@@ -16,17 +16,19 @@ class LettersResponseFileComponent extends Component {
         $name = uniqid() . '.' . $ext;
         $content = file_get_contents($file['tmp_name']);
 
+        $res = $this->S3->putObject(
+            $content,
+            S3Component::$bucket,
+            self::$path . $name,
+            S3::ACL_PRIVATE,
+            array(),
+            array('Content-Type' => $file['type'])
+        );
+
         if(
             $content &&
             in_array($ext, self::$extensions) &&
-            $this->S3->putObject(
-                $content,
-                S3Component::$bucket,
-                printf(self::$path, $name),
-                S3::ACL_PRIVATE,
-                array(),
-                array('Content-Type' => $file['type'])
-            )
+            $res
         ) {
             $files = $this->Session->read(self::$name);
             if (!$files)

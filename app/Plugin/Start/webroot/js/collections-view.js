@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 	var obj = $('.collectionObjects'),
 		checkboxes = obj.find('input[type=checkbox].browserContentCheckbox'),
-		btnRemove = $('.btnRemove').first(),
+		btnRemove = $('.btnCollectionRemove').first(),
 		nav = $('ul.nav.dataAggsDropdownList').first(),
 		counterSpan = $('.dataAggsDropdownList .dataCounter span').first(),
 		checked = 0,
@@ -98,7 +98,17 @@ $(document).ready(function() {
 					'</p>'
 				].join(''));
 			} else {
-
+				if(confirm('Zmiany zostaną odrzucone. Jesteś pewny/a, że chcesz anulować edycję?')) {
+					el.html([
+                        '<div class="content">',
+						content.html(),
+						'</div>',
+						'<button class="btn btn-sm pull-right btn-default btnNoteEdit btn" type="submit">',
+						'Edytuj',
+						'</button>'
+					].join(''));
+				} else
+					return false;
 			}
 		};
 

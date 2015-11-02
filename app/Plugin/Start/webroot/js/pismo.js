@@ -19,8 +19,11 @@ var PISMO = Class.extend({
 		this.responsesDiv = $('.lettersResponses');
 		this.responsesList = this.responsesDiv.find('.responses');
 		this.responsesButtons = this.responsesDiv.find('.buttons');
-		
-		this.responsesDiv.find('button[data-action=add_response]').click( $.proxy(this.addResponseForm, this) );
+		this.addResponseButton = this.responsesDiv.find('button[data-action=add_response]').first();
+		this.letterAlphaId = this.addResponseButton.data('letter-alphaid');
+		this.letterSlug = this.addResponseButton.data('letter-slug');
+
+		this.addResponseButton.click( $.proxy(this.addResponseForm, this) );
 		
 	},
 	showSendModal: function(event) {
@@ -78,7 +81,7 @@ var PISMO = Class.extend({
 	},
 	addResponseForm: function() {
 
-		var li = $('<li class="response response-form"><div class="well bs-component mp-form"><form class="letterResponseForm margin-top-10" method="post" data-url="/moje-pisma/responses.json"><fieldset>      <legend>Dodaj odpowiedź na to pismo:</legend><div class="row margin-top-10">                             <div class="col-md-9">                                 <div class="form-group">                                     <label for="responseName">Tytuł:</label>                                     <input maxlength="195" type="text" class="form-control" id="responseName" name="name">                                 </div>                             </div>                             <div class="col-md-3">                                 <div class="form-group">                                     <label for="responseDate">Data:</label>                                     <input type="text" value="" class="form-control datepickerResponseDate" id="responseDate"  name="date">                                 </div>                             </div>                         </div>                         <div class="form-group">                             <label for="responseContent">Treść:</label>                             <textarea class="form-control" rows="7" id="responseContent" name="content"></textarea>                         </div>                         <div class="form-group">                             <label for="collectionDescription">Załączniki:</label>                             <div class="dropzoneForm">                                 <div class="actions">                                     <a class="btn btn-default btn-addfile" href="#" role="button">Dodaj załącznik</a>                                 </div>                                 <div id="preview"></div>                             </div>                         </div>                         <div class="form-group overflow-hidden text-center margin-top-20"><button data-action="cancel" class="btn btn-default" type="button">Anuluj</button><button class="btn auto-width btn-primary btn-icon" type="submit">                                 <i class="icon glyphicon glyphicon-ok"></i>                                 Zapisz odpowiedź</button>                         </div></fieldset></form></div></li>');
+		var li = $('<li class="response response-form"><div class="well bs-component mp-form"><form class="letterResponseForm margin-top-10" method="post"  data-url="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json" action="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json"><fieldset>      <legend>Dodaj odpowiedź na to pismo:</legend><div class="row margin-top-10">                             <div class="col-md-9">                                 <div class="form-group">                                     <label for="responseName">Tytuł:</label>                                     <input maxlength="195" type="text" class="form-control" id="responseName" name="name">                                 </div>                             </div>                             <div class="col-md-3">                                 <div class="form-group">                                     <label for="responseDate">Data:</label>                                     <input type="text" value="" class="form-control datepickerResponseDate" id="responseDate"  name="date">                                 </div>                             </div>                         </div>                         <div class="form-group">                             <label for="responseContent">Treść:</label>                             <textarea class="form-control" rows="7" id="responseContent" name="content"></textarea>                         </div>                         <div class="form-group">                             <label for="collectionDescription">Załączniki:</label>                             <div class="dropzoneForm">                                 <div class="actions">                                     <a class="btn btn-default btn-addfile" href="#" role="button">Dodaj załącznik</a>                                 </div>                                 <div id="preview"></div>                             </div>                         </div>                         <div class="form-group overflow-hidden text-center margin-top-20"><button data-action="cancel" class="btn btn-default" type="button">Anuluj</button><button class="btn auto-width btn-primary btn-icon" type="submit">                                 <i class="icon glyphicon glyphicon-ok"></i>                                 Zapisz odpowiedź</button>                         </div></fieldset></form></div></li>');
 		this.responsesList.append(li.hide());	
 		
 		li.slideDown(function(){
@@ -99,6 +102,52 @@ var PISMO = Class.extend({
 			this.responsesButtons.slideDown();
 
 		}, this));
+
+		$('form.letterResponseForm').each(function() {
+
+			var form = $(this),
+				url = form.data('url'),
+				dropzone = form.find('.dropzoneForm').first(),
+				datepicker = form.find('.datepickerResponseDate').first();
+
+			$.fn.bootstrapDP = $.fn.datepicker.noConflict();
+
+			datepicker.bootstrapDP({
+				language: 'pl',
+				orientation: 'auto top',
+				format: "yyyy-mm-dd",
+				autoclose: true
+			});
+
+			dropzone.dropzone({
+				url: url,
+				clickable: '.btn-addfile',
+				acceptedFiles: '.pdf,.docx,.doc,.tif,.html,.jpg,.xml,.xls,.xlsx,.rtf,.png',
+				autoQueue: true,
+				autoProcessQueue: true,
+				previewsContainer: '#preview',
+				previewTemplate: [
+					'<div class="file">',
+					'<div class="title">',
+					'<span class="name" data-dz-name></span>',
+					'<span class="size" data-dz-size></span>',
+					'<span class="error text-danger" data-dz-errormessage></span>',
+					'</div>',
+					'<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">',
+					'<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress>',
+					'</div>',
+					'</div>',
+					'<div class="buttons">',
+					'</div>',
+					'</div>'
+				].join(''),
+                success: function(file, response){
+                    console.log(file);
+                    console.log(response);
+                }
+			});
+
+		});
 		
 	}
 });

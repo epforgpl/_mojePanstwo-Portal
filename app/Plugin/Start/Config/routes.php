@@ -201,6 +201,14 @@ foreach ($pisma_prefixes as $pisma_prefix) {
         'action' => 'response',
     ), array('id' => '[A-Za-z0-9]{5}', 'response_id' => '[0-9]{1,}', 'pass' => array('id', 'slug', 'response_id')));
 
+    // attachment
+
+    Router::connect("$pisma_prefix/:id,:slug/attachment/:attachment_id", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'attachment',
+    ), array('id' => '[A-Za-z0-9]{5}', 'attachment_id' => '[0-9]{1,}', 'pass' => array('id', 'slug', 'attachment_id')));
+
 
     // HTML
 

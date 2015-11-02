@@ -29,4 +29,12 @@ class LetterResponse extends AppModel {
         return $res;
     }
 
+    public function getAttachmentURL($attachment_id) {
+        $res = $this->getDataSource()->request('pisma/getAttachmentURL/' . $attachment_id . '.json', array(
+            'method' => 'GET'
+        ));
+
+        return $res;
+    }
+
 }
