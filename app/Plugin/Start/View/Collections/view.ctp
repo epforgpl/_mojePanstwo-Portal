@@ -6,7 +6,14 @@ $this->Combinator->add_libs('css', $this->Less->css('collections-view', array('p
 /* tinymce */
 echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
-echo $this->element('Start.pageBegin'); ?>
+echo $this->element('Start.pageBegin');
+
+$accessDict = array(
+    'prywatna',
+    'publiczna'
+);
+
+?>
 
 <form action="" method="post">
     <header class="collection-header">
@@ -27,15 +34,15 @@ echo $this->element('Start.pageBegin'); ?>
 
             <ul class="buttons pull-right">
                 <li>
-                    <input type="hidden" name="delete"/>
-                    <button
+                    <a
                         data-tooltip="true"
-                        data-original-title="Dostęp"
+                        data-original-title="Ustawienia prywatności"
                         data-placement="bottom"
-                        class="btn btn-default btnRemove btn"
-                        type="submit">
-                        <i class="glyphicon glyphicon-share" title="Dostęp" aria-hidden="true"></i>
-                    </button>
+                        data-toggle="modal"
+                        data-target="#accessOptions"
+                        class="btn btn-default btnAccess btn">
+                        <i class="glyphicon glyphicon-share" title="Ustawienia prywatności" aria-hidden="true"></i>
+                    </a>
                 </li>
                 <li>
                     <input type="hidden" name="delete"/>
@@ -54,6 +61,49 @@ echo $this->element('Start.pageBegin'); ?>
     </header>
 </form>
 
+<ul class="collection-meta">
+    <li>
+        <a href="#" data-toggle="modal" data-target="#accessOptions">
+            Kolekcja <?= $accessDict[$item->getData('is_public')] ?>
+        </a>
+    </li>
+    <? if($item->getData('object_id')) { ?>
+        <li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
+    <? } ?>
+</ul>
+
+<div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ustawienia prywatności</h4>
+                </div>
+                <div class="modal-body">
+                    <? foreach($accessDict as $value => $label) { ?>
+                        <div class="radio">
+                            <input
+                                id="access<?= $value ?>"
+                                type="radio"
+                                name="is_public"
+                                value="<?= $value ?>"
+                                <?= $value == ((int) $item->getData('is_public')) ? 'checked' : '' ?>>
+                            <label for="access<?= $value ?>">
+                                <?= ucfirst($label) ?>
+                            </label>
+                        </div>
+                    <? } ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                    <button type="submit" class="btn btn-primary">Zapisz</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <? $note = $item->getData('kolekcje.notatka'); ?>
 <div class="collection-main-note alert alert-info overflow-hidden note-editable<?= $note == '' ? ' empty' : '' ?>">
     <? if($note == '') { ?>
@@ -69,13 +119,6 @@ echo $this->element('Start.pageBegin'); ?>
         </button>
     <? } ?>
 </div>
-
-<ul class="collection-meta margin-top-20">
-	<li>Kolekcja <?= $item->getData('is_public') ? 'publiczna' : 'prywatna' ?></li>
-    <? if($item->getData('object_id')) { ?>
-	    <li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
-    <? } ?>
-</ul>
 
 <div class="block block-simple col-sm-12 margin-top-0 collectionObjects" data-collection-id="<?= $item->getId() ?>">
 

@@ -82,9 +82,34 @@ class CollectionsController extends StartAppController
     public function view($id)
     {
         if (count($this->request->data)) {
-            $this->Collection->delete($id);
-            $this->Session->setFlash('Kolekcja została poprawnie usunięta', null, array('class' => 'alert-success'));
-            $this->redirect('/moje-kolekcje');
+            if(isset($this->request->data['is_public'])) {
+                $results = $this->Collection->edit($id, $this->request->data);
+                $class = "alert-info";
+                $is_public = $this->request->data['is_public'];
+                if($is_public) {
+                    $this->Collection->publish($id);
+                } else {
+                    $this->Collection->unpublish($id);
+                }
+
+                if (isset($results['Collection'])) {
+                    $message = 'Kolekcja została poprawnie zapisana';
+                    $class = "alert-success";
+                } elseif (is_array($results)) {
+                    $errors = reset(array_values($results));
+                    $message = $errors[0];
+                    $class = "alert-error";
+                } else {
+                    $message = 'Wystąpił błąd';
+                    $class = "alert-error";
+                }
+
+                $this->Session->setFlash($message, null, array('class' => $class));
+            } else {
+                $this->Collection->delete($id);
+                $this->Session->setFlash('Kolekcja została poprawnie usunięta', null, array('class' => 'alert-success'));
+                $this->redirect('/moje-kolekcje');
+            }
         }
 
         $item = $this->Collection->load($id);
