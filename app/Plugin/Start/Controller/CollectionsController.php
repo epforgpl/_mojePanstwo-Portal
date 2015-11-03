@@ -15,14 +15,9 @@ class CollectionsController extends StartAppController
 
         $this->title = 'Moje Kolekcje';
 
-        $options = array(
-            'conditions' => array(
-                'dataset' => 'kolekcje',
-                'kolekcje.user_id' => $this->Auth->user('id'),
-            ),
-        );
-
-        $this->Components->load('Dane.DataBrowser', $options);
+        $this->Components->load('Dane.DataBrowser', array(
+            '_type' => 'collections'
+        ));
 
     }
 
@@ -92,15 +87,7 @@ class CollectionsController extends StartAppController
             $this->redirect('/moje-kolekcje');
         }
 
-        $this->loadModel('Dane.Dataobject');
-        $item = $this->Dataobject->find('first', array(
-            'conditions' => array(
-                'dataset' => 'kolekcje',
-                'id' => $id,
-                'kolekcje.user_id' => $this->Auth->user('id'),
-            ),
-        ));
-
+        $item = $this->Collection->load($id);
         if (!$item)
             throw new NotFoundException;
 

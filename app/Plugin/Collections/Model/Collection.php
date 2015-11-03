@@ -3,7 +3,18 @@
 class Collection extends AppModel {
 
     public $useDbConfig = 'mpAPI';
+	
+	public function load($id) {
+        
+        $res = $this->getDataSource()->request('collections/collections/' . $id, array(
+            'method' => 'GET',
+        ));
+		
+		require_once(APPLIBS . 'Collection.php');
+		return new MP\Lib\Collection($res);		
 
+	}
+	
     public function get($id) {
         return $this->getDataSource()->request('collections/collections/get/' . $id, array(
             'method' => 'GET'

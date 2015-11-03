@@ -18,6 +18,7 @@ class DataBrowserComponent extends Component
     private $routes = array();
     public $dataset = false;
     public $searchAction = false;
+    public $type = 'objects';
 
 	private $phrases_presets = array(
 		'krakow_posiedzenia' => array(
@@ -1413,7 +1414,10 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['dataset']))
             $this->dataset = $settings['dataset'];
-
+            
+		if (isset($settings['_type']))
+            $this->type = $settings['_type'];
+            
     }
 
     public function beforeRender($controller)
@@ -1676,6 +1680,7 @@ class DataBrowserComponent extends Component
             'aggs' => $this->getSettingsForField('aggs'),
             'order' => $this->getSettingsForField('order'),
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
+            '_type' => $this->type,
         );
 
 		if( isset($this->settings['feed']) )
