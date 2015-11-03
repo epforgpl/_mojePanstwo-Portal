@@ -365,8 +365,13 @@ $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-dat
 	            <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
                     <? foreach($responses as $response) { ?>
                         <li class="response">
-                            <h2><?= $response['Response']['title'] ?> <span class="date"><?= dataSlownie($response['Response']['date']) ?></span></h2>
-                            <div class="content"><?= $response['Response']['content'] != '' ? $response['Response']['content'] : 'Brak treści' ?></div>
+                            <h2>
+								<?= $response['Response']['title'] ?>
+								<span class="date"><?= dataSlownie($response['Response']['date']) ?></span>
+							</h2>
+                            <div class="content">
+								<?= $response['Response']['content'] != '' ? htmlspecialchars($response['Response']['content']) : 'Brak treści' ?>
+							</div>
 							<? if(count($response['files'])) { ?>
 								<div class="files">
 									<h3><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Załączniki:</h3>
