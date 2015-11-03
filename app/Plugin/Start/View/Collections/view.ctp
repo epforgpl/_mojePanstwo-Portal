@@ -78,7 +78,7 @@ $accessDict = array(
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Ustawienia prywatności</h4>
+                    <h4 class="modal-title" id="myModalLabel">Widoczność kolekcji</h4>
                 </div>
                 <div class="modal-body">
                     <? foreach($accessDict as $value => $label) { ?>
@@ -114,9 +114,16 @@ $accessDict = array(
         <div class="content">
             <?= $note ?>
         </div>
-        <button class="btn btn-sm pull-right btn-default btnNoteEdit btn" type="submit">
-            Edytuj
+        
+        <button
+        	type="submit"
+            data-tooltip="true"
+            data-original-title="Edytuj"
+            data-placement="bottom"
+            class="btn btn-default btnNoteEdit btn">
+            <i class="glyphicon glyphicon-edit" title="Edytuj notatkę" aria-hidden="true"></i>
         </button>
+        
     <? } ?>
 </div>
 

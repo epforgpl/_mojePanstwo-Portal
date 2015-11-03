@@ -9,9 +9,13 @@ class Collection extends AppModel {
         $res = $this->getDataSource()->request('collections/collections/' . $id, array(
             'method' => 'GET',
         ));
+        
+        if( $res ) {
 		
-		require_once(APPLIBS . 'Collection.php');
-		return new MP\Lib\Collection($res);		
+			require_once(APPLIBS . 'Collection.php');
+			return new MP\Lib\Collection($res);		
+		
+		} else return false;
 
 	}
 	

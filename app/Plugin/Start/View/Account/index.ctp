@@ -2,10 +2,7 @@
 <? $this->Combinator->add_libs('js', 'Paszport.paszport-profile.js'); ?>
 <?= $this->element('Start.pageBegin'); ?>
 
-<div class="appBanner">
-    <h1 class="appTitle">Konto</h1>
-    <p class="appSubtitle">Zarządzaj swoim kontem</p>
-</div>
+<h1>Ustawienia konta</h1>
 
 <form>
     <div class="form-group">
