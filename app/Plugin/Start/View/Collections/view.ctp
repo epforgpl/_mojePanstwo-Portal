@@ -139,6 +139,11 @@ $accessDict = array(
             'paginatorPhrases' => array('dokument', 'dokumenty', 'dokumentów'),
             'noResultsPhrase' => 'Kolekcja jest pusta',
             'nopaging' => true,
+            'innerParams' => array(
+	            'collection' => array(
+	            	'id' => $item->getId(),
+	            ),
+            ),
         )); ?>
     </div>
 

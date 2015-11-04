@@ -2,15 +2,18 @@
 <ul class="buttons">
     
     <li>
-        <input type="hidden" name="add-note"/>
-        <button
-            data-tooltip="true"
-            data-original-title="Dodaj notatkę"
-            data-placement="bottom"
-            class="btn btn-default btn"
-            type="submit">
-            <i class="glyphicon glyphicon-edit" title="Dodaj notatkę" aria-hidden="true"></i>
-        </button>
+    	<form method="post" action="/moje-kolekcje/<?= $innerParams['collection']['id'] ?>/<?= $object->getGlobalId() ?>.json">
+	        <input type="hidden" name="_action" value="edit" />
+	        <input type="hidden" name="note" value="Testowa notatka <?= uniqid() ?>" />
+	        <button
+	            data-tooltip="true"
+	            data-original-title="Dodaj notatkę"
+	            data-placement="bottom"
+	            class="btn btn-default btn"
+	            type="submit">
+	            <i class="glyphicon glyphicon-edit" title="Dodaj notatkę" aria-hidden="true"></i>
+	        </button>
+    	</form>
     </li>
     
     <li>

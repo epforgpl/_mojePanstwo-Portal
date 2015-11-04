@@ -135,5 +135,35 @@ class CollectionsController extends StartAppController
         $this->set('response', $this->Collection->unpublish($id));
         $this->set('_serialize', array('response'));
     }
+    
+    public function inner_post() {
+	    
+	    $response = false;
+	    
+	    if(
+		    @$this->request->params['collection_id'] && 
+		    @$this->request->params['object_id'] &&
+		    @$this->request->data['_action']
+	    ) {
+		    
+		    if( $this->request->data['_action'] == 'edit' ) {
+			    
+			    $data = array();
+			    
+			    if( isset($this->request->data['note']) )
+			    	$data['note'] = $this->request->data['note'];
+			    
+			    $response = $this->Collection->editObject($this->request->params['collection_id'], $this->request->params['object_id'], $data);
+			    
+		    }
+		    
+		}
+	    	    
+	    $this->set('response', $response);
+        $this->set('_serialize', 'response');
+        
+        $this->redirect( $this->referer() );
+	    
+    }
 
 }
