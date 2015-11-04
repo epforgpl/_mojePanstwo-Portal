@@ -1,4 +1,5 @@
 <div class="collections-note">
-	<? /*<div class="alert alert-info">Notatka dotycząca danego elementu</div>*/ ?>
-</div>
+	<? if( isset($object->collection['note']) && $object->collection['note'] ) { ?>
+		<div class="alert alert-info"><?= htmlspecialchars($object->collection['note']) ?></div>
+	<? } ?>
 </div>

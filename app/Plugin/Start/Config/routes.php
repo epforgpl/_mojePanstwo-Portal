@@ -14,6 +14,16 @@ Router::connect('/moje-kolekcje/nowe', array('plugin' => 'Start', 'controller' =
 Router::connect('/moje-kolekcje/:id', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'view'), array(
     'id' => '[0-9]{1,}', 'pass' => array('id'))
 );
+Router::connect('/moje-kolekcje/:collection_id/:object_id', array(
+	'plugin' => 'Start',
+	'controller' => 'Collections',
+	'action' => 'inner_post',
+	'[method]' => 'POST',
+), array(
+    'collection_id' => '([0-9]+)', 
+    'object_id' => '([0-9]+)', 
+    'pass' => array('collection_id', 'object_id')
+));
 
 Router::connect('/moje-kolekcje/:id/edytuj', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'edit'), array(
         'id' => '[0-9]{1,}', 'pass' => array('id'))

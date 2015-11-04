@@ -15,23 +15,24 @@ $accessDict = array(
 
 ?>
 
-<form action="" method="post">
-    <header class="collection-header">
-        
-        <ul class="breadcrumb">
-		  <li><a href="/moje-kolekcje">Moje Kolekcje</a></li>
-		  <li class="active">Kolekcja</li>
-		</ul>
-        
-        <div class="overflow-auto">
+<header class="collection-header">
 
-            <div class="content pull-left">
-                <i class="object-icon icon-datasets-kolekcje"></i>
-                <div class="object-icon-side">
-                    <input class="form-control h1-editable" type="text" name="nazwa" value="<?= $item->getData('nazwa') ?>"/>
-                </div>
+    <ul class="breadcrumb">
+      <li><a href="/moje-kolekcje">Moje Kolekcje</a></li>
+      <li class="active">Kolekcja</li>
+    </ul>
+
+    <div class="overflow-auto">
+
+        <div class="content pull-left">
+            <i class="object-icon icon-datasets-kolekcje"></i>
+            <div class="object-icon-side">
+                <input class="form-control h1-editable" type="text" name="nazwa" value="<?= $item->getData('nazwa') ?>"/>
             </div>
+        </div>
 
+
+        <form action="" method="post">
             <ul class="buttons pull-right">
                 <li>
                     <a
@@ -55,11 +56,12 @@ $accessDict = array(
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
                     </button>
                 </li>
-                
+
             </ul>
-        </div>
-    </header>
-</form>
+        </form>
+    </div>
+</header>
+
 
 <ul class="collection-meta">
     <li>
@@ -68,43 +70,50 @@ $accessDict = array(
         </a>
     </li>
     <? if($item->getData('object_id')) { ?>
-        <li>Redakcja: <a href="#">Fundacja ePaństwo</a></li>
+        <li>Redakcja: <a href="#">#<?= $item->getData('object_id') ?></a></li>
     <? } ?>
 </ul>
 
 <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
-        <form action="" method="post">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Widoczność kolekcji</h4>
-                </div>
-                <div class="modal-body">
-                    <? foreach($accessDict as $value => $label) { ?>
-                        <div class="radio">
-                            <input
-                                id="access<?= $value ?>"
-                                type="radio"
-                                name="is_public"
-                                value="<?= $value ?>"
-                                <?= $value == ((int) $item->getData('is_public')) ? 'checked' : '' ?>>
-                            <label for="access<?= $value ?>">
-                                <?= ucfirst($label) ?>
-                            </label>
-                        </div>
-                    <? } ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-                    <button type="submit" class="btn btn-primary">Zapisz</button>
+        <div class="modal-content">
+            <div class="well bs-component mp-form margin-top-0 margin-bottom-0">
+                <div class="modal-body padding-bottom-0 margin-bottom-0">
+                    <form action="" class="form-horizontal" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <? foreach($accessDict as $value => $label) { ?>
+                                        <div class="radio">
+                                            <input
+                                                id="access<?= $value ?>"
+                                                type="radio"
+                                                name="is_public"
+                                                value="<?= $value ?>"
+                                                <?= $value == ((int) $item->getData('is_public')) ? 'checked' : '' ?>>
+                                            <label for="access<?= $value ?>">
+                                                <?= ucfirst($label) ?>
+                                            </label>
+                                        </div>
+                                    <? } ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-9">
+                                    <button type="reset" data-dismiss="modal" class="btn btn-default">Anuluj</button>
+                                    <button type="submit" class="btn btn-md btn-primary btn-icon"><i class="icon glyphicon glyphicon-pencil"></i>Zapisz
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<? $note = $item->getData('kolekcje.notatka'); ?>
+<? $note = $item->getData('description'); ?>
 <div class="collection-main-note alert alert-info overflow-hidden note-editable<?= $note == '' ? ' empty' : '' ?>">
     <? if($note == '') { ?>
         <p class="text-center">
@@ -139,6 +148,11 @@ $accessDict = array(
             'paginatorPhrases' => array('dokument', 'dokumenty', 'dokumentów'),
             'noResultsPhrase' => 'Kolekcja jest pusta',
             'nopaging' => true,
+            'innerParams' => array(
+	            'collection' => array(
+	            	'id' => $item->getId(),
+	            ),
+            ),
         )); ?>
     </div>
 

@@ -18,7 +18,7 @@ $(document).ready(function() {
 		create: function(onChange) {
 			var _this = this, h = [
 				'<span>',
-					'Zarządzaj jako:',
+					'Dodaj jako:',
 				'</span>',
 				'<select class="form-control">',
 					'<option value="0">',
@@ -113,7 +113,7 @@ $(document).ready(function() {
 
 		var h = [];
 		if(nameStr.length) {
-			h.push('<button type="button" class="list-group-item new-collection"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Utwórz kolekcję: <b>' + nameStr + '</b> jako <b>' + manageAsComponent.label + '</b></button>');
+			h.push('<button type="button" class="list-group-item new-collection"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Dodaj kolekcję: <b>' + nameStr + '</b> jako <b>' + manageAsComponent.label + '</b></button>');
 		}
 
 		if(data.length) {

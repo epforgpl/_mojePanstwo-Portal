@@ -18,7 +18,7 @@
 
 
 <ul class="breadcrumb">
-  <li><a href="/moje-kolekcje">Moje Pisma</a></li>
+  <li><a href="/moje-pisma">Moje Pisma</a></li>
   <li class="active">Tworzenie nowego pisma</li>
 </ul>
 

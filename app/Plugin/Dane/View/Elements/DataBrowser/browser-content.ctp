@@ -120,14 +120,16 @@ if ($dataBrowser['mode'] == 'cover') {
 
                                     if (isset($beforeItemElement))
                                         echo $this->element($beforeItemElement, array(
-                                            'object' => $object
+                                            'object' => $object,
+                                            'innerParams' => @$innerParams,
                                         ));
 
                                     echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
 
                                     if (isset($afterItemElement))
                                         echo $this->element($afterItemElement, array(
-                                            'object' => $object
+                                            'object' => $object,
+                                            'innerParams' => @$innerParams,
                                         ));
                                 }
                                 ?>

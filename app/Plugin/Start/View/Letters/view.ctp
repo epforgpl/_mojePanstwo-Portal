@@ -10,6 +10,11 @@ $this->Combinator->add_libs('js', 'dropzone.js') ;
 $this->Html->css(array('../plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min'), array('inline' => 'false', 'block' => 'cssBlock'));
 $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', '../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pl.min'), array('inline' => 'false', 'block' => 'scriptBlock'));
 
+$accessDict = array(
+	'prywatna',
+	'publiczna'
+);
+
 ?>
 <?php $this->Combinator->add_libs('js', 'Start.pismo.js') ?>
 <?php // $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>
@@ -48,11 +53,12 @@ $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-dat
                     <input type="hidden" name="delete"/>
                     <button
                         data-tooltip="true"
-                        data-original-title="Usuń kolekcję"
+                        data-original-title="Ustawienia prywatności"
                         data-placement="bottom"
                         class="btn btn-default btnRemove btn"
-                        type="submit">
-                        <i class="glyphicon glyphicon-share" title="Usuń kolekcję" aria-hidden="true"></i>
+						data-toggle="modal"
+						data-target="#accessOptions">
+                        <i class="glyphicon glyphicon-share" title="Ustawienia prywatności" aria-hidden="true"></i>
                     </button>
                 </li>
                 <li>
@@ -71,6 +77,38 @@ $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-dat
         </div>
     </header>
 </form>
+
+<div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<form action="" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Widoczność kolekcji</h4>
+				</div>
+				<div class="modal-body">
+					<? foreach($accessDict as $value => $label) { ?>
+						<div class="radio">
+							<input
+								id="access<?= $value ?>"
+								type="radio"
+								name="is_public"
+								value="<?= $value ?>"
+								<?= $value == ((int) $pismo['is_public']) ? 'checked' : '' ?>>
+							<label for="access<?= $value ?>">
+								<?= ucfirst($label) ?>
+							</label>
+						</div>
+					<? } ?>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+					<button type="submit" class="btn btn-primary">Zapisz</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 
 <ul class="collection-meta">
 	<li>Pismo prywatne</li>
