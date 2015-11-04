@@ -220,4 +220,117 @@ $(document).ready(function() {
 		});
 	});
 
+	/* COLLECTION OBJECTS NOTES */
+
+	var CollectionObjectNote = function(e) {
+		var self = this;
+		self.e = e;
+		self.editor = false;
+		self.btn = e.find('.editCollectionNote')[0];
+		self.savePostAction = $(self.btn).data('save-post-action');
+		self.note = e.find('.collections-note')[0];
+		self.noteContent = self.getNoteContent();
+		$(self.btn).click(function() {
+			self.editNote();
+		});
+	};
+
+	CollectionObjectNote.prototype = {
+		constructor: CollectionObjectNote,
+
+		editNote: function() {
+			var self = this;
+			if(self.editor) {
+				$(self.note).find('textarea').focus();
+				return false;
+			}
+
+			$(self.note).html([
+				'<textarea class="form-control margin-bottom-5" rows="2">',
+				self.noteContent,
+				'</textarea>',
+				'<div class="overflow-hidden margin-bottom-10">',
+					'<button class="btn btn-sm margin-top-10 pull-right auto-width saveNote btn-primary" type="submit">',
+						'Zapisz',
+					'</button>',
+					'<button class="btn btn-sm margin-top-10 margin-sides-10 pull-right closeNoteEditor auto-width btn-default" type="submit">',
+						'Anuluj',
+					'</button>',
+				'</div>'
+			].join(''));
+
+			$(self.note).find('textarea').focus();
+			$(self.note).find('.closeNoteEditor').click(function() {
+				self.closeNoteEditor();
+			});
+			$(self.note).find('.saveNote').click(function() {
+				self.saveNote();
+			});
+
+			self.editor = true;
+		},
+
+		closeNoteEditor: function() {
+			var self = this;
+			if(!self.editor || !confirm('Zmiany zostaną odrzucone. Jesteś pewny/a, że chcesz anulować edycję?'))
+				return false;
+
+			$(self.note).html(null);
+			self.editor = false;
+		},
+
+		saveNote: function() {
+			var self = this;
+			if(!self.editor)
+				return false;
+
+			self.noteContent = $(self.note).find('textarea').val();
+
+			$.post(self.savePostAction, {
+				_action: 'edit',
+				note: self.noteContent
+			}, function(res) {
+				// @todo error handler
+			});
+
+			if(self.noteContent !== '') {
+				$(self.note).html([
+					'<div class="alert alert-info">',
+					self.escape(self.noteContent),
+					'</div>'
+				].join(''));
+			} else $(self.note).html(null);
+			self.editor = false;
+		},
+
+		getNoteContent: function() {
+			var c = $(this.note).find('.alert.alert-info');
+			if(c.length)
+				return c.html();
+			else return null;
+		},
+
+		escape: function(text) {
+			var map = {
+				'&': '&amp;',
+				'<': '&lt;',
+				'>': '&gt;',
+				'"': '&quot;',
+				"'": '&#039;'
+			};
+
+			return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+		}
+
+	};
+
+	$('.collectionObjectNote').each(function() {
+		new CollectionObjectNote($(this));
+	});
+
+	$('.btnRemoveObject').click(function() {
+		if(!confirm('sure?'))
+			return false;
+	});
+
 });
