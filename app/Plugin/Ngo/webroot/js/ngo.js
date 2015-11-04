@@ -74,7 +74,7 @@ $(document).ready(function () {
 	map.setOptions({styles: mapStyle});
 	border.setMap(map);
 
-	mapaWarstwy = new mapaWarstwy(map);
+	mapaWarstwy = new MapaWarstwy(map);
 	mapaWarstwy.loading = function () {
 		mapSpinner.removeClass('hide');
 	};

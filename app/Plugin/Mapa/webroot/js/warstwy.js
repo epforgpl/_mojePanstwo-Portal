@@ -1,4 +1,5 @@
-function CustomMarker(latlng, map, args) {
+function CustomMarker(mapaWarstwy, latlng, map, args) {
+	this.mapaWarstwy = mapaWarstwy;
 	this.latlng = latlng;
 	this.args = args;
 	this.setMap(map);
@@ -40,12 +41,12 @@ CustomMarker.prototype.draw = function () {
 					});
 					infoWindowBlock = '<div class="infoWindowNgo">' + ngoPlaceBlock + '</div>';
 
-					self.infowindow.setContent(infoWindowBlock)
+					self.mapaWarstwy.infowindow.setContent(infoWindowBlock)
 				});
-				if (self.infowindow)
-					self.infowindow.close();
+				if (self.mapaWarstwy.infowindow)
+					self.mapaWarstwy.infowindow.close();
 
-				self.infowindow = new google.maps.InfoWindow({
+				self.mapaWarstwy.infowindow = new google.maps.InfoWindow({
 					position: self.latlng,
 					content: '<div class="spinner grey">' +
 					'<div class="bounce1"></div>' +
@@ -53,8 +54,11 @@ CustomMarker.prototype.draw = function () {
 					'<div class="bounce3"></div>' +
 					'</li>'
 				});
-				self.infowindow.open(self.map);
+				self.mapaWarstwy.infowindow.open(self.map);
 				self.map.setCenter(self.latlng);
+				google.maps.event.addListener(self.mapaWarstwy.infowindow, 'domready', function () {
+					self.mapaWarstwy.map.setCenter(self.mapaWarstwy.infowindow.getPosition());
+				});
 			} else {
 				self.map.setCenter(self.latlng);
 				self.map.setZoom(self.map.getZoom() + 2);
@@ -85,14 +89,14 @@ CustomMarker.prototype.getPosition = function () {
 };
 
 
-function mapaWarstwy(map) {
+function MapaWarstwy(map) {
 	this.markers = {
 		instytucje: {},
 		biznes: {},
 		ngo: {},
 		komisje_wyborcze: {}
 	};
-	this.warstwyMarkers = [];
+	//this.warstwyMarkers = [];
 
 	this.pendingArea = {tl: false, br: false, zoom: false};
 	this.lastArea = {tl: false, br: false, zoom: false};
@@ -122,7 +126,7 @@ mapaWarstwy.prototype.setLayer = function (layer, showMarkers) {
 	}
 };
 
-mapaWarstwy.prototype.showPlaces = function (data) {
+MapaWarstwy.prototype.showPlaces = function (data) {
 	var icon = {
 			path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
 			fillColor: 'red',
@@ -175,7 +179,7 @@ mapaWarstwy.prototype.showPlaces = function (data) {
 					centerLat = center.lat + (inner_center.lat - center.lat) * f,
 					centerLng = center.lon + (inner_center.lon - center.lon) * f;
 
-				this.markers[self.layer][term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), self.map, {
+				this.markers[self.layer][term] = new CustomMarker(self, new google.maps.LatLng(centerLat, centerLng), self.map, {
 					title: cell.doc_count,
 					data: cell
 				});
@@ -185,7 +189,7 @@ mapaWarstwy.prototype.showPlaces = function (data) {
 };
 
 
-mapaWarstwy.prototype.getArea = function () {
+MapaWarstwy.prototype.getArea = function () {
 	var self = this,
 		bounds = self.map.getBounds(),
 		precision = self.map.getZoom(),
@@ -206,7 +210,7 @@ mapaWarstwy.prototype.getArea = function () {
 	};
 };
 
-mapaWarstwy.prototype.mapUpdateClear = function () {
+MapaWarstwy.prototype.mapUpdateClear = function () {
 	var self = this;
 
 	$.each(self.markers, function (k, v) {
@@ -224,7 +228,7 @@ mapaWarstwy.prototype.mapUpdateClear = function () {
 	};
 };
 
-mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
+MapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 	var self = this,
 		accordWarstwy = $('.accord.warstwy');
 
@@ -246,7 +250,7 @@ mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 	self.complete();
 };
 
-mapaWarstwy.prototype.mapUpdate = function (layer) {
+MapaWarstwy.prototype.mapUpdate = function (layer) {
 	var self = this;
 
 	self.loading();
@@ -282,10 +286,10 @@ mapaWarstwy.prototype.mapUpdate = function (layer) {
 
 };
 
-mapaWarstwy.prototype.loading = function () {
+MapaWarstwy.prototype.loading = function () {
 
 };
 
-mapaWarstwy.prototype.complete = function () {
+MapaWarstwy.prototype.complete = function () {
 
 };

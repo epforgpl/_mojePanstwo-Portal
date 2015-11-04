@@ -791,7 +791,7 @@ $(document).ready(function () {
 	var mPCookie = {mapa: {}},
 		explore = $('.explore');
 
-	mapaWarstwy = new mapaWarstwy(mapBrowser.map);
+	mapaWarstwy = new MapaWarstwy(mapBrowser.map);
 
 	if (Cookies.get('mojePanstwo') !== undefined)
 		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));

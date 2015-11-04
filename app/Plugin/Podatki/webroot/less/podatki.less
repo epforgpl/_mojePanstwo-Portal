@@ -1,16 +1,5 @@
 #podatki {
-    margin: 8px 0 30px;
-
-    h1 {
-        font-size: 36px;
-        margin-bottom: 14px;
-    }
-
-    h2 {
-        font-size: 18px;
-        font-weight: normal;
-        margin-bottom: 45px;
-    }
+    margin-bottom: 30px;
 
     hr {
         margin-bottom: 28px;
@@ -40,13 +29,8 @@
                     content: 'zł';
                     font-weight: bold;
                     position: absolute;
-                    top: 50%;
+                    bottom: 8px;
                     right: -20px;
-                    -webkit-transform: translate(0, -50%);
-                    -moz-transform: translate(0, -50%);
-                    -ms-transform: translate(0, -50%);
-                    -o-transform: translate(0, -50%);
-                    transform: translate(0, -50%);
                 }
 
                 label {
@@ -67,14 +51,38 @@
                 margin-top: 8px;
                 margin-bottom: 24px;
 
-                .checkbox label::before {
-                    margin-left: -25px;
-                    margin-top: 2px;
+                label {
+                    line-height: 17px;
+                    padding-left: 5px;
                 }
             }
 
             .btn {
                 margin-top: 16px;
+
+                &.btn-icon {
+                    width: auto;
+                }
+            }
+
+            .additional {
+                display: inline-block;
+                padding-top: 30px;
+                position: relative;
+
+                .closeAdditional {
+                    color: #888;
+                    font-size: 12px;
+                    position: absolute;
+                    right: 0;
+                    top: 35px;
+                    cursor: pointer;
+                }
+
+                > .form-group {
+                    border-top: 1px solid #ededed;
+                    padding-top: 30px;
+                }
             }
         }
     }

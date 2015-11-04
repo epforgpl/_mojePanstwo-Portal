@@ -22,6 +22,9 @@ msgstr "Przychody z umowy o dzieło"
 msgid "LC_PODATKI_INFO_FULL"
 msgstr "wpisz kwotę brutto, znajdziesz ją na umowie"
 
+msgid "LC_PODATKI_WARUNKI_PREFERENCYJNE"
+msgstr "Warunki preferencyjne"
+
 msgid "LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA"
 msgstr "Przychody z działalności gospodarczej"
 
@@ -30,6 +33,9 @@ msgstr "Koszt uzyskania przychodu"
 
 msgid "LC_PODATKI_INFO"
 msgstr "wpisz kwotę brutto"
+
+msgid "LC_PODATKI_INPUT_FLOAT"
+msgstr "Wprowadź liczbe z dwoma miejscami po przecinku"
 
 msgid "LC_PODATKI_ADD_NEW_UMOWA"
 msgstr "Dodaj kolejną umowę"
