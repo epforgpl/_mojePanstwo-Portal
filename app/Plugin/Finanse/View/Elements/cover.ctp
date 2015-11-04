@@ -268,10 +268,12 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             $i++;
                         } ?>
                     </div>
-                    <div class="wydatki_wzrost_on text-right"><span class="btn btn-link btn-sm">Więcej</span></div>
-
-                    <div class="wydatki_wzrost_off hidden text-right"><span
-                            class="btn btn-link btn-sm">Mniej</span>
+                    
+                    <div class="row">
+	                    <div class="col-sm-4">
+		                    <div class="wydatki_wzrost_on text-right"><span class="btn btn-link btn-sm">Więcej</span></div>
+		                    <div class="wydatki_wzrost_off hidden text-right"><span class="btn btn-link btn-sm">Mniej</span></div>
+	                    </div>
                     </div>
                 <? }
                 if (count($compareData['wydatki']['dzialy']['spadek']) !== 0) { ?>
@@ -556,7 +558,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             $i++;
                         } ?>
                     </div>
-                 <div class="dochody_wzrost_on text-right"><span class="btn btn-link btn-sm">Więcej</span></div> ?>
+                 <div class="dochody_wzrost_on text-right"><span class="btn btn-link btn-sm">Więcej</span></div>
 
                     <div class="dochody_wzrost_off hidden text-right"><span
                             class="btn btn-link btn-sm">Mniej</span>

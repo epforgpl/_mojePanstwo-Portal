@@ -25,7 +25,7 @@ $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-dat
     <header class="collection-header">
         
         <ul class="breadcrumb">
-		  <li><a href="/moje-kolekcje">Moje Pisma</a></li>
+		  <li><a href="/moje-pisma">Moje Pisma</a></li>
 		  <li class="active">Pismo</li>
 		</ul>
         
