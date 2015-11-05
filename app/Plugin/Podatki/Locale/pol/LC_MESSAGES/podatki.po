@@ -1,14 +1,14 @@
 msgid "LC_PODATKI_HEADLINE"
-msgstr "Jak są wydawane moje podatki"
+msgstr "Jak są wydawane moje podatki?"
 
 msgid "LC_PODATKI_SUBHEADLINE"
-msgstr "Chcesz wiedzieć na co wydawane są twoje podatki? Wypełnij formularz poniżej i sprawdź."
+msgstr "Wpisz poniżej wysokość twoich przychodów. Sprawdź ile podatków płacisz i na co są one wydawane."
 
 msgid "LC_PODATKI_RESULTS_SUBHEADLINE"
 msgstr "Poniżej znajdziesz podsumowanie, kliknij aby zobaczyć szczegóły."
 
 msgid "LC_PODATKI_INFORMATION"
-msgstr "Wpisz poniżej kwoty twoich przychodów brutto i klinij oblicz. <a href=\"%s\" target=\"_blank\">Co to kwota brutto?</a><br/>Dane podane w formularzu nie są nigdzie zapisywane i służa tylko do oszacowania wysokości płaconych przez Ciebie podatków."
+msgstr "Obliczenie jest anonimowe. Twoje dane nie będą nigdzie przechowywane."
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE"
 msgstr "Przychody z umowy o pracę"

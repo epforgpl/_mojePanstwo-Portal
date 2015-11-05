@@ -63,10 +63,12 @@
                     <label for="wniosek_<?php echo $pismo['szablon_id'] ?>"><?php echo $pismo['nazwa'] ?></label>
                 </div>
             <?php }; ?>
-
+			
+			<? /*
             <div class="radio templates_browser">
                 <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie szablony &raquo;</a>
             </div>
+            */ ?>
         </div>
       </div>
       <div class="form-group form-row">
@@ -81,7 +83,6 @@
       </div>
       <div class="form-group form-row">
         <div class="col-lg-10 col-lg-offset-2">
-          <button type="reset" class="btn btn-default">Anuluj</button>
           <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
             class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
 	      </button>

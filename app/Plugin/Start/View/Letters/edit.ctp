@@ -23,36 +23,64 @@
 </ul>
 
 <div class="well bs-component mp-form">
-  <form action="/moje-pisma" method="post" class="form-horizontal">
-  <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
-        echo ' value="' . $pismo['adresat_id'] . '"';
-    } ?>>
+  <form action="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" method="post" class="form-horizontal">
+  <input type="hidden" name="edit_from_inputs" value="1" />
     <fieldset>      
-       <legend>Wpisz treść pisma według wybranego szablonu:</legend>
+       <legend>Wpisz treść pisma:</legend>
+      
+      <? if( $szablon['Template'] ) {?>
       <div class="form-group form-row sm">
         <label class="col-lg-2 control-label">Szablon</label>
-        <div class="col-lg-10"><p class="form-value">Wniosek</p></div>
+        <div class="col-lg-10"><p class="form-value"><?= $szablon['Template']['nazwa'] ?></p></div>
       </div>
+      <? } ?>
+      
+      <? if( $pismo['to_name'] ) {?>
       <div class="form-group form-row sm">
         <label for="inputEmail" class="col-lg-2 control-label">Adresat</label>
-        <div class="col-lg-10"><p class="form-value">Kancelaria Prezesa Rady Ministrów</p></div>
+        <div class="col-lg-10"><p class="form-value"><?= $pismo['to_name'] ?></p></div>
       </div>
-      <div class="form-group form-row">
-        <label for="inputEmail" class="col-lg-12 control-label control-label-full">Jakie informacje chcesz uzyskać?</label>
-		<div class="col-lg-12">
-          <textarea class="form-control" rows="10" id="textArea"></textarea>
-          <span class="help-block">Informacje publiczne to lorem ipsum...</span>
-        </div>
-      </div>
-      <div class="form-group form-row">
-        <label for="inputEmail" class="col-lg-2 control-label">Adres e-mail</label>
-		<div class="col-lg-10">
-          <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-          <span class="help-block">Podaj adres e-mail na który chcesz uzyskać odpowiedź.</span>
-        </div>
-      </div>
+      <? } ?>
+      
+      <? 
+	  if( $szablon['Template'] ) {
+	      if( $inputs = $szablon['Inputs'] ) {
+		      foreach( $inputs as $input ) {
+			      $input = $input['Input'];
+				  
+				  if( $input['type']=='richtext' ) {
+		  ?>  
+			      <div class="form-group form-row">
+			        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
+					<div class="col-lg-12">
+			          <textarea class="form-control" rows="10" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"></textarea>
+			          <? if( @$input['description'] ) {?><span class="help-block"><?= $input['description'] ?></span><? } ?>
+			        </div>
+			      </div>  
+		  <?		  
+				  } elseif( $input['type']=='input' ) {
+		  ?>		  
+				  <div class="form-group form-row">
+			        <label for="inp<?= $input['id'] ?>" class="col-lg-2 control-label"><?= $input['label'] ?></label>
+					<div class="col-lg-10">
+			          <input type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+			          <? if( @$input['description'] ) {?><span class="help-block"><?= $input['description'] ?></span><? } ?>
+			        </div>
+			      </div>
+		  <?		  
+				  }
+			       
+		      }
+		  }
+	  } else {
+		  
+		  
+	  }
+	  ?>      
+      
       <div class="form-group form-row">
         <div class="col-lg-10 col-lg-offset-2">
+          <a type="button" href="/moje-pisma/nowe" class="btn btn-default">Anuluj</a>
           <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
             class="icon icon-applications-pisma"></i>Zobacz podgląd pisma
 	      </button>

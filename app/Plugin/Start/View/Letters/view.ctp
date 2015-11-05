@@ -84,7 +84,7 @@ $accessDict = array(
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Widoczność kolekcji</h4>
+					<h4 class="modal-title" id="myModalLabel">Widoczność pisma</h4>
 				</div>
 				<div class="modal-body">
 					<? foreach($accessDict as $value => $label) { ?>
@@ -412,10 +412,9 @@ $accessDict = array(
 							</div>
 							<? if(count($response['files'])) { ?>
 								<div class="files">
-									<h3><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Załączniki:</h3>
 									<? foreach($response['files'] as $file) { ?>
 										<div class="file">
-											<a target="_blank" href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/attachment/<?= $file['ResponseFile']['id'] ?>">
+											<a target="_blank" href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/attachment/<?= $file['ResponseFile']['id'] ?>"><span class="glyphicon glyphicon-download-alt"></span>
 												<?= $file['ResponseFile']['src_filename'] != '' ? $file['ResponseFile']['src_filename'] : 'Brak nazwy' ?>
 											</a>
 										</div>
