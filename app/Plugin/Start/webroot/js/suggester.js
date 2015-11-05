@@ -92,24 +92,32 @@
 				},
 				select: function (evt, ui) {
 					if (ui.item) {
-						if (suggesterInput.parent().find('.glyphicon.glyphicon-ok-circle').length === 0) {
-							suggesterInput.parent().append(
-								$('<div></div>').addClass('glyphicon glyphicon-ok-circle')
+						
+						console.log('select if');
+						
+						if (suggesterInput.closest('.searcher').find('.indicator').length === 0) {
+							suggesterInput.closest('.searcher').append(
+								$('<div></div>').addClass('glyphicon glyphicon-ok-circle indicator')
 							)
 						}
 						suggesterInput.val(ui.item.title);
-						suggesterForm.find('.adresaci input[name="adresat_id"]').val(ui.item.subdataset + ':' + ui.item.subid);
+						suggesterForm.find('input[name="adresat_id"]').val(ui.item.subdataset + ':' + ui.item.subid);
 						suggesterForm.find('.szablony .pisma-list-button').attr('data-adresatid', ui.item.subid);
 						$P.objects.adresaci = {
 							id: ui.item.subid,
 							dataset: ui.item.subdataset,
 							title: ui.item.title
 						};
+						
 					} else {
-						suggesterInput.parent().find('.glyphicon.glyphicon-ok-circle').remove();
-						suggesterForm.find('.adresaci input[name="adresat_id"]').val('');
+						
+						console.log('select else');
+						
+						suggesterInput.closest('.searcher').find('.indicator').remove();
+						suggesterForm.find('input[name="adresat_id"]').val('');
 						suggesterForm.find('.szablony .pisma-list-button').attr('data-adresatid', false);
 						$P.objects.adresaci = {};
+						
 					}
 					return false;
 				}

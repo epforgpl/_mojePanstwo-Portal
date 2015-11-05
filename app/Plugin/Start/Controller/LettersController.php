@@ -6,14 +6,14 @@ class LettersController extends StartAppController
 {
 
     public $chapter_selected = 'letters';
-
+	
     public $settings = array(
         'id' => 'pisma',
         'title' => 'Pisma',
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
     );
     public $helpers = array('Form');
-    public $uses = array('Pisma.Pismo', 'Sejmometr.Sejmometr', 'Start.LetterResponse');
+    public $uses = array('Pisma.Pismo', 'Sejmometr.Sejmometr', 'Start.LetterResponse', 'Start.Letter');
     public $components = array('RequestHandler', 'S3', 'Start.LettersResponseFile');
     public $appSelected = 'pisma';
     private $aggs_dict = array(
@@ -80,7 +80,14 @@ class LettersController extends StartAppController
     public function edit($id, $slug = '')
     {
         if ($pismo = $this->load($id)) {
-
+			
+			if( $pismo['template_id'] ) {
+				
+				$szablon = $this->Letter->getTemplate( $pismo['template_id'] );
+				$this->set('szablon', $szablon);
+				
+			}
+			
             if (!$pismo['is_owner'])
                 return $this->redirect($this->referer());
 
@@ -205,8 +212,13 @@ class LettersController extends StartAppController
         if ($id) {
 
             $redirect = 'object';
-
-            if (isset($this->request->data['delete'])) {
+			
+            if (isset($this->request->data['edit_from_inputs'])) {
+				
+				debug( $this->request->data ); die();
+                $this->Pismo->edit_from_inputs($id, $this->request->data);
+            
+            } elseif (isset($this->request->data['delete'])) {
 
                 $this->Pismo->documents_delete($id);
                 $redirect = 'my';
