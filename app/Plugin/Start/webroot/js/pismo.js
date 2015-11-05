@@ -141,7 +141,7 @@ var PISMO = Class.extend({
 				},
 				clickable: '.btn-addfile',
 				createImageThumbnails: false,
-				//acceptedFiles: '.pdf,.docx,.doc,.tif,.html,.jpg,.xml,.xls,.xlsx,.rtf,.png',
+				acceptedFiles: '.pdf,.docx,.doc,.tif,.html,.jpg,.xml,.xls,.xlsx,.rtf,.png',
 				autoQueue: true,
 				autoProcessQueue: true,
 				previewsContainer: '#preview',
