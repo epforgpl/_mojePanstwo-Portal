@@ -310,7 +310,7 @@ class mpAPISource extends DataSource {
 	    'GET', 'POST', 'DELETE', 'PATCH', 'PUT'
     );
     
-    public function request($endpoint, $params = array()) {
+    public function request($endpoint, $params = array(), $nastyHackToPassFollowingHttpErrors = array()) {
 	    
 	    $path = $this->getPath($endpoint);
 	    $method = ( isset($params['method']) && in_array($params['method'], $this->allowed_methods) ) ? $params['method'] : 'GET';
@@ -335,11 +335,12 @@ class mpAPISource extends DataSource {
 		    ));
 	    }
 
-        if (!$response->isOk()) {
-            throw new CakeException("Got HTTP error ". $response->code . " from API: " . $response);
+        if (!$response->isOk() && !in_array($response->code, $nastyHackToPassFollowingHttpErrors)) {
+            // don't hide HTTP errors, they are serious fellas!
+            throw new CakeException("Got HTTP error ". $response->code);
 
         } else if ($response->isRedirect()) {
-            throw new CakeException("API should not do redirects! Response: " . $response);
+            throw new CakeException("API should not do redirects!");
         }
 	    	    
 	    $res = json_decode($response, true);
@@ -368,10 +369,11 @@ class mpAPISource extends DataSource {
                 'password' => $password
             ),
             'method' => 'POST'
-        ));
+        ), array(400, 403, 404));
 
         $code = $this->Http->response->code;
 
+        // TODO krzysiek: poniższe stany powinny byc przekazywane jako response['status'] a nie kody http
         if($code == 200) {
 
             $user = $response['User'];

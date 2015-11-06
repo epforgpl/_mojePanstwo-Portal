@@ -187,16 +187,6 @@ class PaszportController extends ApplicationsController
         }
     }
 
-    private function saveRefererUrl()
-    {
-        if (!$this->Session->check('Auth.redirect')) {
-            $ref = $this->request->referer();
-            if ($ref != Router::url(null, true)) {
-                $this->Auth->redirectUrl($ref);
-            }
-        }
-    }
-
     public function login()
     {
         $this->setLayout(array(
