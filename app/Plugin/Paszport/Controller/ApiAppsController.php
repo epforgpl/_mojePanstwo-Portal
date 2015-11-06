@@ -7,6 +7,8 @@ class ApiAppsController extends PaszportAppController {
     public $uses = array('Paszport.ApiApp', 'Paszport.User');
 
     public function beforeFilter() {
+        $this->set('title_for_layout', 'Aplikacje API');
+
         parent::beforeFilter();
     }
 
@@ -23,7 +25,7 @@ class ApiAppsController extends PaszportAppController {
         );
 
         $menu['items'][] = array(
-            'label' => 'Aplikacje',
+            'label' => 'Aplikacje API',
             'id' => 'api_apps',
         );
 

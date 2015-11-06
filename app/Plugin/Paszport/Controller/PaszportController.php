@@ -39,7 +39,7 @@ class PaszportController extends ApplicationsController
         );
 
         $menu['items'][] = array(
-            'label' => 'Aplikacje',
+            'label' => 'Aplikacje API',
             'id' => 'api_apps',
         );
 

@@ -5,23 +5,29 @@
 
 <div class="editProfile container">
     <div class="mainBlock col-xs-12 col-md-6">
-        <h3><?php echo __('Api Apps'); ?></h3>
-        <?php echo $this->Html->link(__('New Api App'), array('action' => 'add'), array('class' => 'addAppBtn btn btn-primary btn-sm pull-right')); ?>
+        <h3>Aplikacja: <?= $this->request->data['ApiApp']['name'] ?></h3>
 
         <div class="apiApps edit">
             <fieldset>
                 <?php echo $this->Form->create('ApiApp'); ?>
                 <div class="form-group">
                     <div class="readonly">
-                        <label><?= __('Type') ?></label>
-
-                        <p class="form-control form-control-static"><?= $this->request->data['ApiApp']['type']; ?></p>
+                        <label>Typ</label>
+                        <div class="radio">
+                            <input type="radio" disabled="disabled" name="data[ApiApp][type]" id="apiNewTypeWeb" value="web" checked>
+                            <label for="apiNewTypeWeb">Aplikacja webowa</label>
+                        </div>
+                        <div class="radio">
+                            <input type="radio" disabled="disabled" name="data[ApiApp][type]" id="apiNewTypeDomain" value="domain">
+                            <label for="apiNewTypeDomain">Aplikacja serwerowa</label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <? echo $this->Form->input('name', array('class' => 'form-control')); ?>
                 </div>
+                <!--
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-primary btn-file">
@@ -31,15 +37,16 @@
                     <input type="text" class="form-control" readonly
                            value="<?= @$this->request->data['ApiApp']['logo']; ?>">
                 </div>
+                -->
                 <div class="form-group">
-                    <?php echo $this->Form->input('description', array('class' => 'form-control')); ?>
+                    <?php echo $this->Form->input('description', array('class' => 'form-control', 'label' => 'Opis')); ?>
                 </div>
                 <div class="form-group">
-                    <?php echo $this->Form->input('home_link', array('class' => 'form-control')); ?>
+                    <?php echo $this->Form->input('home_link', array('class' => 'form-control', 'label' => 'Strona projektu / link do aplikacji')); ?>
                 </div>
                 <? if ($this->request->data['ApiApp']['type'] !== 'domain') { ?>
                     <div class="form-group">
-                        <?php echo $this->Form->input('domains', array('class' => 'form-control')); ?>
+                        <?php echo $this->Form->input('domains', array('class' => 'form-control', 'label' => 'Obsługiwane domeny')); ?>
                     </div>
                 <? } ?>
             </fieldset>

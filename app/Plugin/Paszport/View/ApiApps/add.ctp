@@ -5,7 +5,7 @@
 
 <div class="editProfile container">
     <div class="mainBlock col-xs-12 col-md-6">
-        <h3><?php echo __('Api Apps'); ?></h3>
+        <h3>Dodaj aplikację</h3>
 
         <div class="apiApps add">
             <fieldset>
@@ -23,10 +23,10 @@
                     </div>
                     <span class="info-warning">Uwaga! Po utworzenie typu aplikacji niemożna go zmienić</span>
                 </div>
-
                 <div class="form-group">
-                    <? echo $this->Form->input('name', array('class' => 'form-control')); ?>
+                    <? echo $this->Form->input('name', array('class' => 'form-control', 'label' => 'Nazwa')); ?>
                 </div>
+                <!--
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-primary btn-file">
@@ -35,14 +35,15 @@
                     </span>
                     <input type="text" class="form-control" readonly>
                 </div>
+                -->
                 <div class="form-group">
-                    <?php echo $this->Form->input('description', array('class' => 'form-control')); ?>
+                    <?php echo $this->Form->input('description', array('class' => 'form-control', 'label' => 'Opis (jakie zbiory danych i w jakim celu będziesz wykorzystywać)')); ?>
                 </div>
                 <div class="form-group">
-                    <?php echo $this->Form->input('home_link', array('class' => 'form-control')); ?>
+                    <?php echo $this->Form->input('home_link', array('class' => 'form-control', 'label' => 'Strona projektu / link do aplikacji')); ?>
                 </div>
                 <div class="form-group domainBlock">
-                    <?php echo $this->Form->input('domains', array('class' => 'form-control')); ?>
+                    <?php echo $this->Form->input('domains', array('class' => 'form-control', 'label' => 'Obsługiwane domeny (dla aplikacji webowej)')); ?>
                 </div>
             </fieldset>
             <span class="info-normal col-xs-12 row">Dodając aplikację zgadasz się na wykorzystanie podanych informacji w działaniach promocyjnych serwisu Moje Państwo.</span>

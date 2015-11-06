@@ -26,13 +26,15 @@ class ApiApp extends AppModel {
         'name' => array(
             'notEmpty' => array(
                 'rule' => array('notEmpty'),
-                'required' => true
+                'required' => true,
+                'message' => 'Nazwa jest obowiązkowa'
             ),
         ),
         'description' => array(
             'notEmpty' => array(
                 'rule' => array('notEmpty'),
-                'required' => true
+                'required' => true,
+                'message' => 'Prosimy krótko opisać jakie zbiory danych i w jakim celu będziesz wykorzystywać'
             ),
         ),
         'type' => array(
@@ -59,7 +61,7 @@ class ApiApp extends AppModel {
         if (Validation::notEmpty(@$this->data[$this->alias]['type']) && $this->data[$this->alias]['type'] == 'web') {
             $this->validator()->add('domains', 'notEmpty', array(
                 'rule' => array('notEmpty'),
-                'message' => 'Domains are required for web application',
+                'message' => 'Należy podać domenę z jakiej będą wykonywane zapytania AJAX',
                 'allowEmpty' => false,
                 'required' => true
             ));
