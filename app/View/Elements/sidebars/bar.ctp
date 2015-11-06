@@ -36,6 +36,10 @@
                                target="_self"><?php echo __('LC_COCKPITBAR_USER_BASIC_INFO'); ?></a>
                         </li>
                         <li>
+                            <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'api_apps', 'action' => 'index')); ?>"
+                               target="_self"><?php echo __('LC_COCKPITBAR_USER_BASIC_APPS'); ?></a>
+                        </li>
+                        <li>
                             <a href="<?php echo $this->Html->url('/logout'); ?>"
                                target="_self"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>
                         </li>

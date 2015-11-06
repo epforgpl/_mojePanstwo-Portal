@@ -26,6 +26,26 @@ class PaszportController extends ApplicationsController
         parent::beforeRender();
     }
 
+    public function getMenu()
+    {
+        $menu = array(
+            'items' => array(),
+            'base' => '/' . $this->settings['id'],
+        );
+
+        $menu['items'][] = array(
+            'label' => 'Podstawowe informacje',
+            'id' => '',
+        );
+
+        $menu['items'][] = array(
+            'label' => 'Aplikacje API',
+            'id' => 'api_apps',
+        );
+
+        return $menu;
+    }
+
     public function profile()
     {
         if ($this->Auth->loggedIn()) {
@@ -154,6 +174,15 @@ class PaszportController extends ApplicationsController
                 $this->redirect($this->Auth->redirectUrl());
             } else {
                 throw new BadRequestException();
+            }
+        }
+    }
+
+    private function saveRefererUrl() {
+        if (!$this->Session->check('Auth.redirect')) {
+            $ref = $this->request->referer();
+            if ($ref != Router::url(null, true)) {
+                $this->Auth->redirectUrl($ref);
             }
         }
     }
