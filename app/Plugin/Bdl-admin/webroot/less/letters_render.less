@@ -1,0 +1,263 @@
+@editable: #fcfcaa;
+
+#editor-cont {
+    background-color: #FFFFFF;
+    border: 1px solid #E3E3E3;
+    padding: 30px 50px 80px;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 20px;
+    float: left;
+    width: 100%;
+
+    .editor-controls {
+        float: left;
+        width: 100%;
+
+        .control {
+            float: left;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            span, textarea, input {
+                padding: 10px 15px;
+            }
+
+            span.pre {
+                width: 100%;
+                height: auto;
+            }
+
+            input, textarea {
+                border: none;
+                resize: none;
+
+                &[disabled="disabled"] {
+                    background-color: #ffffff;
+                }
+            }
+
+            p {
+                margin-bottom: 0;
+                padding: 0 5px;
+            }
+
+            &.control-date {
+                width: 50%;
+                float: right;
+
+                input {
+                    float: right;
+                    text-align: right;
+
+                    &.datepicker {
+                        cursor: pointer;
+                    }
+
+                }
+            }
+            &.control-sender {
+                text-align: left;
+                width: 50%;
+                margin-left: -10px;
+
+                textarea {
+                    width: 100%;
+                    height: auto;
+                    overflow: hidden;
+
+                    &:invalid {
+                        border: 1px solid red;
+                    }
+                }
+
+                .pre {
+                    padding: 10px 15px;
+                }
+            }
+            &.control-addressee {
+                text-align: left;
+                margin-left: 65%;
+                width: 35%;
+                font-weight: bold;
+            }
+            &.control-template {
+                float: left;
+                text-align: center;
+                width: 100%;
+                font-size: 18px;
+                font-weight: 400;
+                margin-top: 60px;
+            }
+            &.control-signature {
+                text-align: left;
+                margin-left: 65%;
+                width: 35%;
+                margin-right: -10px;
+
+                textarea {
+                    width: 100%;
+                }
+            }
+            .empty {
+                color: #157ab5;
+                cursor: pointer;
+                font-weight: normal;
+            }
+
+            textarea.empty {
+                background-color: @editable;
+                color: inherit;
+                cursor: inherit;
+                font-family: inherit;
+                font-size: inherit;
+                font-weight: inherit;
+                text-transform: inherit;
+                text-decoration: none;
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -o-border-radius: 5px;
+            }
+
+            ::-moz-placeholder {
+                color: #444;
+                opacity: 1;
+            }
+
+            ::-webkit-placeholder {
+                color: #444;
+                opacity: 1;
+            }
+
+            ::-placeholder {
+                color: #444;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.wysihtml5-toolbar .dropdown-menu, #editor {
+    [data-wysihtml5-command-value="h1"], [data-wysihtml5-command-value="h2"], [data-wysihtml5-command-value="h3"], [data-wysihtml5-command-value="h4"], [data-wysihtml5-command-value="h5"], [data-wysihtml5-command-value="h6"],
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+        color: inherit;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+    }
+    h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
+        color: #999;
+        font-weight: 400;
+        line-height: 1;
+    }
+    h1, .h1, h2, .h2, h3, .h3 {
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    h2, .h2 {
+        text-align: left;
+    }
+    h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h1 .small, .h1 .small, h2 .small, .h2 .small, h3 .small, .h3 .small {
+        font-size: 65%;
+    }
+    h4, .h4, h5, .h5, h6, .h6 {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    h4 small, .h4 small, h5 small, .h5 small, h6 small, .h6 small, h4 .small, .h4 .small, h5 .small, .h5 .small, h6 .small, .h6 .small {
+        font-size: 75%;
+    }
+    [data-wysihtml5-command-value="h1"], h1, .h1 {
+        font-size: 36px;
+        font-weight: bold;
+    }
+    [data-wysihtml5-command-value="h2"], h2, .h2 {
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    [data-wysihtml5-command-value="h3"], h3, .h3 {
+        font-size: 24px;
+    }
+    [data-wysihtml5-command-value="h4"], h4, .h4 {
+        font-size: 18px;
+    }
+    [data-wysihtml5-command-value="h5"], h5, .h5 {
+        font-size: 14px;
+    }
+    [data-wysihtml5-command-value="h6"], h6, .h6 {
+        font-size: 12px;
+    }
+    p {
+        margin: 0 0 5px;
+    }
+
+}
+
+#editor {
+    width: 100%;
+    height: 100%;
+    line-height: 1.5em;
+    min-height: 300px;
+    padding: 10px;
+    outline: none;
+    float: left;
+
+    ul, ol {
+        margin-bottom: 10px;
+        margin-top: 0;
+        list-style: disc outside;
+        padding-left: 40px;
+    }
+
+    blockquote {
+        font-size: 14px;
+    }
+
+    p {
+        line-height: 1.5em;
+        margin: 0 0 15px;
+    }
+
+    .editable {
+        margin-bottom: -4px;
+        min-height: 20px;
+        background-color: @editable;
+        min-width: 50px;
+        margin-left: 4px;
+        margin-right: 4px;
+        padding-left: 4px;
+        padding-right: 4px;
+        display: inline-block;
+
+        input {
+            min-width: 110px;
+            background: none;
+            border: none;
+            text-align: center;
+        }
+
+        &.daterange {
+            background: none;
+            label {
+                font-weight: normal;
+                margin-bottom: 0;
+            }
+            input {
+                background-color: @editable;
+            }
+        }
+    }
+
+    .slownie {
+        ._slownie {
+            color: #999;
+        }
+    }
+
+}

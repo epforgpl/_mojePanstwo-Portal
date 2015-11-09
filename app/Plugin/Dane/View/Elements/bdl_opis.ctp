@@ -19,14 +19,14 @@
                     <div class="hidden alert alert-success info"></div>
                     <div class="row "><label class="">Nazwa:</label></div>
                     <div class="row"><input class="form-control nazwa"
-                                            value="<?= $object->getData('bdl_podgrupa.nazwa') ? $object->getData('bdl_podgrupa.nazwa') : $object->getData('bdl_podgrupa.tytul'); ?>">
+                                            value="<?= $object->getData('bdl_wskazniki.tytul') ? $object->getData('bdl_wskazniki.tytul') : ''; ?>">
                     </div>
                     <br>
 
                     <div class="row"><label>Opis:</label></div>
                 </div>
                 <article id="editor">
-                    <?= $object->getData('bdl_podgrupa.opis'); ?>
+                    <?= $object->getData('bdl_wskazniki.opis'); ?>
                 </article>
             </div>
             <div class="modal-footer">

@@ -162,10 +162,15 @@ ObjectUsersManagement.prototype.initialize = function() {
 			});
 		});
 	}
-
+	
+	console.log('this.editables', this.editables);
+	
 	for(var e in this.editables) {
 		if(this.editables.hasOwnProperty(e)) {
-			$('.open_' + this.editables[e] + '_modal').click(function() {
+			$('.open_' + this.editables[e] + '_modal').click(function(e) {
+				
+				e.preventDefault();
+				
 				switch($(this).data('name')) {
 
 					case 'users':
@@ -477,7 +482,8 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'</div>'
 		]);
 	}
-
+	
+	/*
 	if (jQuery.inArray("bdl_opis", this.editables) !== -1) {
 		$.merge(list, [
 			'<li><a class="bdl_opis" href="#">Zmiana opisu i nazwy</a></li>'
@@ -489,6 +495,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'<li><a class="bdl_wymiar" href="#">Ustaw wymiar rozwinięcia</a></li>'
 		]);
 	}
+	*/
 
 	if (jQuery.inArray("prawo_hasla_merge", this.editables) !== -1) {
 		$.merge(modal, [
