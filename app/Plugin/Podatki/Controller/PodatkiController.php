@@ -11,7 +11,8 @@ class PodatkiController extends ApplicationsController
 
     public function view()
     {
-
+		
+		/*
         $datasets = $this->getDatasets('prawo');
 
         $options = array(
@@ -56,6 +57,7 @@ class PodatkiController extends ApplicationsController
 
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
+        */
     }
 
     public function results()
