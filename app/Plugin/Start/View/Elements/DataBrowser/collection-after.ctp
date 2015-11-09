@@ -3,3 +3,4 @@
 		<div class="alert alert-info"><?= htmlspecialchars($object->collection['note']) ?></div>
 	<? } ?>
 </div>
+</div>

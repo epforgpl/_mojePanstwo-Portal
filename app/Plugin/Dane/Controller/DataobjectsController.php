@@ -50,10 +50,16 @@ class DataobjectsController extends AppController
     public $collectionsOptions = true;
 
     /**
-     * @desc Czy mogę wyświetlać kolekcje tego obiektu?
+     * @desc Czy wyświetlać kolekcje obiektu?
      * @var bool
      */
     public $objectCollections = false;
+
+    /**
+     * @desc Czy wyświetlać publiczne pisma obiektu?
+     * @var bool
+     */
+    public $objectLetters = false;
 
 
     public $_layout = array(
@@ -285,6 +291,8 @@ class DataobjectsController extends AppController
         if(!$this->objectCollections)
             throw new NotFoundException;
 
+        $this->request->params['action'] = 'kolekcje';
+
         $this->_prepareView();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
@@ -297,6 +305,24 @@ class DataobjectsController extends AppController
 
         $this->set('title_for_layout', 'Kolekcje ' . $this->object->getData('nazwa'));
         $this->render('Dane.KrsPodmioty/kolekcje');
+    }
+
+    public function pisma() {
+        if(!$this->objectLetters)
+            throw new NotFoundException;
+
+        $this->request->params['action'] = 'pisma';
+        $this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'pisma',
+                'pisma.object_id' => $this->object->getGlobalId(),
+            ),
+            'searchTitle' => 'Szukaj w pismach...',
+        ));
+
+        $this->set('title_for_layout', 'Pisma ' . $this->object->getData('nazwa'));
+        $this->render('Dane.KrsPodmioty/pisma');
     }
 
     public function dzialania()

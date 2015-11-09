@@ -27,6 +27,7 @@ class KrsPodmiotyController extends DataobjectsController
     public $objectActivities = true;
     public $objectData = true;
     public $objectCollections = true;
+    public $objectLetters = true;
 
     private $twitterAccountType = '0';
     private $twitterTimerange = '1W';
@@ -662,6 +663,16 @@ class KrsPodmiotyController extends DataobjectsController
                 'label' => 'Media',
             );
         }
+
+        $menu['items'][] = array(
+            'id' => 'kolekcje',
+            'label' => 'Kolekcje',
+        );
+
+        $menu['items'][] = array(
+            'id' => 'pisma',
+            'label' => 'Pisma',
+        );
 
         return $menu;
     }

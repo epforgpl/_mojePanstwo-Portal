@@ -120,19 +120,17 @@ $accessDict = array(
             <a href="#addnote" class="btn btn-link create-note">Dodaj notatkę</a>
         </p>
     <? } else { ?>
-        <div class="content">
-            <?= $note ?>
-        </div>
-        
         <button
-        	type="submit"
+            type="submit"
             data-tooltip="true"
             data-original-title="Edytuj"
             data-placement="bottom"
             class="btn btn-default btnNoteEdit btn">
             <i class="glyphicon glyphicon-edit" title="Edytuj notatkę" aria-hidden="true"></i>
         </button>
-        
+        <div class="content">
+            <?= $note ?>
+        </div>
     <? } ?>
 </div>
 
