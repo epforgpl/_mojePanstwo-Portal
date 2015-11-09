@@ -69,6 +69,7 @@ $(document).ready(function() {
 
 	var modal = $('#collectionsModal'),
 		name = $('#collectionName'),
+		note = $('#collectionObjectNote'),
 		header = $('.appHeader.dataobject').first(),
 		id = header.data('global-id'),
 		title = modal.data('object-title'),
@@ -121,10 +122,12 @@ $(document).ready(function() {
 				if(data.hasOwnProperty(i)) {
 					var row = data[i].Collection;
 					if(nameStr.length === 0 || (nameStr.length && row.name.toLowerCase().indexOf(nameStr.toLowerCase()) > -1)) {
-						h.push('<button type="button" data-collection-id="' + row.id + '" class="list-group-item ' + (typeof data[i].CollectionObject != 'undefined' && typeof data[i].CollectionObject.object_id == 'string' ? 'checked' : 'unchecked') + '"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i><i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i> ' + row.name + '<span class="belongs">' + (typeof data[i].Object != 'undefined' && typeof data[i].Object.slug == 'string' ? data[i].Object.slug : mPHeart.username.toLowerCase()) + '</span></button>');
+						var notEmpty = (typeof data[i].CollectionObject != 'undefined' && typeof data[i].CollectionObject.object_id == 'string');
+						h.push('<button type="button" data-collection-id="' + row.id + '" class="list-group-item ' + (notEmpty ? 'checked' : 'unchecked') + '"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i>' + (notEmpty ? '<i class="glyphicon glyphicon-comment" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="' + (data[i].CollectionObject.note ? data[i].CollectionObject.note : 'Brak notatki') + '"></i>' : '') + ' ' + row.name + '<span class="belongs">' + (typeof data[i].Object != 'undefined' && typeof data[i].Object.slug == 'string' ? data[i].Object.slug : mPHeart.username.toLowerCase()) + '</span></button>');
 					}
 				}
 			}
+
 		} else {
 			h.push('<button type="button" class="list-group-item empty">Nie posiadasz jeszcze żadnej kolekcji</button>');
 		}
@@ -133,7 +136,11 @@ $(document).ready(function() {
 
 		$('button.unchecked').click(function() {
 			var collection = $(this).data('collection-id');
-			$.get('/collections/collections/addObject/' + collection + '/' + id + '.json', function(res) {
+			$.post('/collections/collections/addObjectData.json', {
+				id: collection,
+				object_id: id,
+				note: note.val()
+			}, function(res) {
 				for(var d in data) {
 					if(data.hasOwnProperty(d)) {
 						var row = data[d];
@@ -146,6 +153,8 @@ $(document).ready(function() {
 						}
 					}
 				}
+
+				note.html(null);
 			});
 		});
 
@@ -183,6 +192,7 @@ $(document).ready(function() {
 			loading = true;
 			$.post('/collections/collections/create.json', {
 				name: nameStr,
+				description: note.val(),
 				object_id: manageAsComponent.id
 			}, function(res) {
 				if(typeof res.response.Collection != 'undefined') {
@@ -194,10 +204,13 @@ $(document).ready(function() {
 
 				nameStr = '';
 				name.val(nameStr).focus();
+				note.html(null);
 				loading = false;
 				updateList();
 			});
 		});
+
+		$('[data-toggle="tooltip"]').tooltip();
 	}
 
 	name.keyup(function() {

@@ -38,6 +38,11 @@ $object_id = $object->getId();
 
                             <div class="list-group"></div>
 
+                            <div class="form-group margin-top-10">
+                                <label for="collectionObjectNote">Notatka</label>
+                                <textarea id="collectionObjectNote" class="form-control" rows="2"></textarea>
+                            </div>
+
                             <div class="ManageAsComponent margin-top-10"></div>
 
                         </div>
