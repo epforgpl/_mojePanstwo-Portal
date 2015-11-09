@@ -37,6 +37,15 @@ class CollectionsController extends AppController {
         $this->set('_serialize', array('response'));
     }
 
+    /**
+     * To samo co addObject z tym, że tu wysyłamy w POST wszyskie dane tj.
+     * id (collections.id), object_id (objects.id), note (str)
+     */
+    public function addObjectData() {
+        $this->set('response', $this->Collection->addObjectData($this->request->data));
+        $this->set('_serialize', array('response'));
+    }
+
     public function removeObject($id, $object_id) {
         $this->set('response', $this->Collection->removeObject($id, $object_id));
         $this->set('_serialize', array('response'));

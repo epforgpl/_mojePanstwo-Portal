@@ -56,6 +56,13 @@ class Collection extends AppModel {
             'method' => 'GET'
         ));
     }
+
+    public function addObjectData($data) {
+        return $this->getDataSource()->request('collections/collections/addObjectData', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+    }
     
     public function editObject($id, $object_id, $data) {
         return $this->getDataSource()->request('collections/collections/editObject/' . $id . '/' . $object_id, array(

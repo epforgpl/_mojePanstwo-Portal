@@ -13,7 +13,12 @@ class LettersController extends StartAppController
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
     );
     public $helpers = array('Form');
-    public $uses = array('Pisma.Pismo', 'Sejmometr.Sejmometr', 'Start.LetterResponse', 'Start.Letter');
+    public $uses = array(
+        'Pisma.Pismo',
+        'Sejmometr.Sejmometr',
+        'Start.LetterResponse',
+        'Start.Letter',
+        'Dane.ObjectUsersManagement');
     public $components = array('RequestHandler', 'S3', 'Start.LettersResponseFile');
     public $appSelected = 'pisma';
     private $aggs_dict = array(
@@ -270,14 +275,11 @@ class LettersController extends StartAppController
 
     public function create()
     {
-
+        $map = array('adresat_id', 'szablon_id', 'object_id');
         $pismo = array();
-
-        if (isset($this->request->data['adresat_id']))
-            $pismo['adresat_id'] = $this->request->data['adresat_id'];
-
-        if (isset($this->request->data['szablon_id']))
-            $pismo['szablon_id'] = $this->request->data['szablon_id'];
+        foreach($map as $field)
+            if(isset($this->request->data[$field]))
+                $pismo[$field] = $this->request->data[$field];
 
         if (!$this->Auth->user())
             $this->Session->write('Pisma.transfer_anonymous', true);
@@ -287,7 +289,7 @@ class LettersController extends StartAppController
         if (isset($status['error']) && $status['error']) {
 
         } else {
-            return $this->redirect($status['url'] . '/edit');
+            $this->redirect($status['url'] . '/edit');
         }
 
     }
@@ -301,9 +303,11 @@ class LettersController extends StartAppController
             'adresat_id' => isset($query['adresat_id']) ? $query['adresat_id'] : false,
         );
 
+        if($this->Auth->user())
+            $this->set('objects', $this->ObjectUsersManagement->getUserObjects());
+
         $this->set('pismo_init', $pismo);
         $this->title = 'Nowe pismo';
-
     }
 
     public function my()
