@@ -2,7 +2,7 @@
 <? $this->Combinator->add_libs('js', 'Paszport.paszport-profile.js'); ?>
 
 <div class="editProfile container">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <h3>Podstawowe informacje</h3>
 
         <form>

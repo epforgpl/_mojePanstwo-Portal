@@ -28,6 +28,9 @@ msgstr "Moje Pisma"
 msgid "LC_COCKPITBAR_USER_BASIC_INFO"
 msgstr "Podstawowe informacje"
 
+msgid "LC_COCKPITBAR_USER_BASIC_APPS"
+msgstr "Aplikacje"
+
 msgid "LC_COCKPITBAR_USER_PUBLIC_DATA"
 msgstr "Dane publiczne"
 
