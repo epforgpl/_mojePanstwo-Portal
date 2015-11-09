@@ -136,17 +136,19 @@ $(document).ready(function() {
 
 		$('button.unchecked').click(function() {
 			var collection = $(this).data('collection-id');
+			var noteStr = note.val();
 			$.post('/collections/collections/addObjectData.json', {
 				id: collection,
 				object_id: id,
-				note: note.val()
+				note: noteStr
 			}, function(res) {
 				for(var d in data) {
 					if(data.hasOwnProperty(d)) {
 						var row = data[d];
 						if(typeof row.Collection != 'undefined' && row.Collection.id == collection) {
 							data[d].CollectionObject = {
-								object_id: id.toString()
+								object_id: id.toString(),
+								note: noteStr
 							};
 							updateList();
 							return false;
