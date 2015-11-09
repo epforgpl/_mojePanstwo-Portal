@@ -40,19 +40,16 @@ msgstr "Wprowadź liczbe z dwoma miejscami po przecinku"
 msgid "LC_PODATKI_ADD_NEW_UMOWA"
 msgstr "Dodaj kolejną umowę"
 
-msgid "LC_PODATKI_ADD_NEW_DZIALALNOSC"
-msgstr "Dodaj kolejną działalność"
-
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_BRUTTO"
 msgstr "Suma twoich przychodów brutto"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_NETTO"
 msgstr "Suma twoich przychodów netto"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS_TY"
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_US"
 msgstr "Składki na ubezpieczenie społeczne opłacone przez Ciebie"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS_PRACODAWCA"
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_US_PRACODAWCA"
 msgstr "Składki na ubezpieczenie społeczne opłacone przez pracodawcę"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS"

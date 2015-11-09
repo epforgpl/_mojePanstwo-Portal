@@ -88,21 +88,17 @@ $(document).ready(function () {
 				)
 			} else {
 				var id, label, name;
-				if (btnType == 'przychody_umowa_o_prace') {
-					id = "przychody_umowa_o_prace_" + number;
-					label = mPHeart.translation.LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE;
-					name = "umowa_o_prace[]";
+
+				if (btnType == 'przychody_umowa_zlecenie') {
+					id = 'przychody_umowa_zlecenie_' + number;
+					label = mPHeart.translation.LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE;
+					name = 'umowa_zlecenie[]';
 				} else {
-					if (btnType == 'przychody_umowa_zlecenie') {
-						id = 'przychody_umowa_zlecenie_' + number;
-						label = mPHeart.translation.LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE;
-						name = 'umowa_zlecenie[]';
-					} else {
-						id = 'przychody_umowa_o_dzielo_' + number;
-						label = mPHeart.translation.LC_PODATKI_PRZYCHODY_UMOWA_DZIELO;
-						name = 'umowa_o_dzielo[]';
-					}
+					id = 'przychody_umowa_o_dzielo_' + number;
+					label = mPHeart.translation.LC_PODATKI_PRZYCHODY_UMOWA_DZIELO;
+					name = 'umowa_o_dzielo[]';
 				}
+
 				content.attr('data-number', number).append(
 					$('<div></div>').addClass('form-group').append(
 						$('<label></label>').attr('for', id).text(label)
