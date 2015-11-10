@@ -3,7 +3,13 @@
 class DataobjectsController extends AppController
 {
 
-    public $uses = array('Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement');
+    public $uses = array(
+        'Dane.Dataobject',
+        'Dane.Subscription',
+        'Dane.ObjectUsersManagement',
+        'Collections.Collection'
+    );
+
     public $components = array('RequestHandler');
 
     public $object = false;
@@ -307,6 +313,36 @@ class DataobjectsController extends AppController
         $this->render('Dane.KrsPodmioty/kolekcje');
     }
 
+    public function kolekcja() {
+        if(!isset($this->params['subid']) ||
+            !is_numeric($this->params['subid']) ||
+            !$this->objectCollections)
+            throw new NotFoundException;
+
+        $id = (int) $this->params['subid'];
+
+        $this->request->params['action'] = 'kolekcje';
+        $this->_prepareView();
+
+        $item = $this->Collection->load($id);
+        if(!$item)
+            throw new NotFoundException;
+
+        if($item->getData('is_public') != '1' ||
+            $item->getData('object_id') != $this->object->getGlobalId())
+            throw new NotFoundException;
+
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'collection_id' => $id,
+            ),
+        ));
+
+        $this->title = $item->getTitle();
+        $this->set('item', $item);
+        $this->render('Dane.KrsPodmioty/kolekcja');
+    }
+
     public function pisma() {
         if(!$this->objectLetters)
             throw new NotFoundException;
@@ -323,6 +359,14 @@ class DataobjectsController extends AppController
 
         $this->set('title_for_layout', 'Pisma ' . $this->object->getData('nazwa'));
         $this->render('Dane.KrsPodmioty/pisma');
+    }
+
+    public function pismo($id) {
+        if(!$this->objectLetters)
+            throw new NotFoundException;
+
+        $this->request->params['action'] = 'pisma';
+
     }
 
     public function dzialania()
