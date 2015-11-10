@@ -227,15 +227,15 @@ class PodatkiController extends ApplicationsController
         $AKCYZA = 0.5 * $VAT;
 
         $RESULT_SUM = array(
-            'total' => number_format($SKLADKI1 + $SKLADKI2 + $SKLADKI3 + $PIT + $VAT + $AKCYZA, 2, ',', ' '),
-            'brutto' => number_format($DOCHODY_BRUTTO, 2, ',', ' '),
-            'netto' => number_format($DOCHODY_NETTO, 2, ',', ' '),
-            'us' => number_format($SKLADKI1, 2, ',', ' '),
-            'us_pracodawca' => number_format($SKLADKI2, 2, ',', ' '),
-            'zus' => number_format($SKLADKI3, 2, ',', ' '),
-            'pit' => number_format($PIT, 2, ',', ' '),
-            'vat' => number_format($VAT, 2, ',', ' '),
-            'akcyza' => number_format($AKCYZA, 2, ',', ' ')
+            'total' => number_format($SKLADKI1 + $SKLADKI2 + $SKLADKI3 + $PIT + $VAT + $AKCYZA, 2, '.', ''),
+            'brutto' => number_format($DOCHODY_BRUTTO, 2, '.', ''),
+            'netto' => number_format($DOCHODY_NETTO, 2, '.', ''),
+            'us' => number_format($SKLADKI1, 2, '.', ''),
+            'us_pracodawca' => number_format($SKLADKI2, 2, '.', ''),
+            'zus' => number_format($SKLADKI3, 2, '.', ''),
+            'pit' => number_format($PIT, 2, '.', ''),
+            'vat' => number_format($VAT, 2, '.', ''),
+            'akcyza' => number_format($AKCYZA, 2, '.', '')
         );
 
         return $RESULT_SUM;
