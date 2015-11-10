@@ -2,38 +2,49 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('bdl_opis', array('plugin' => 'Dane'))); ?>
 <?php $this->Combinator->add_libs('js', 'Dane.bdl_useritem'); ?>
 
-<?php echo $this->Html->css('/plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.min', array('block' => 'cssBlock')); ?>
-<?php echo $this->Html->script('/plugins/bootstrap3-wysiwyg/dist/bootstrap3-wysihtml5.all', array('block' => 'scriptBlock')); ?>
-<?php echo $this->Html->script('/plugins/bootstrap3-wysiwyg/dist/locales/bootstrap-wysihtml5.pl-PL', array('block' => 'scriptBlock')); ?>
-
 <div id="bdl_opis_modal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edycja nazwy i opisu wskaźnika:</h4>
-            </div>
-            <div class="modal-body">
-                <div class="col-sm-11">
-                    <div class="hidden alert alert-success info"></div>
-                    <div class="row "><label class="">Nazwa:</label></div>
-                    <div class="row"><input class="form-control nazwa"
-                                            value="<?= $object->getData('bdl_wskazniki.tytul') ? $object->getData('bdl_wskazniki.tytul') : ''; ?>">
-                    </div>
-                    <br>
+   
+            <div class="modal-body full">
+                
+                
+				<div class="well bs-component mp-form">
+					<form id="bdl_opis_form" action="<?= $object->getUrl() . '.json' ?>" method="post" class="form-horizontal">
+						<input type="hidden" name="action" value="opis" />
+						<fieldset>      
+							<legend>Edytuj wskaźnik:</legend>
+						
+							<div class="form-group form-row">
+								<label for="inp_nazwa" class="col-lg-12 control-label control-label-full">Nazwa</label>
+								<div class="col-lg-12">
+									<input id="inp_nazwa" type="text" class="form-control" name="nazwa" value="<?= $object->getData('bdl_wskazniki.tytul') ?>">
+								</div>
+							</div>
+							
+							<div class="form-group form-row">
+								<label for="inp_opis" class="col-lg-12 control-label control-label-full">Opis</label>
+								<div class="col-lg-12">
+									<textarea class="form-control" rows="10" id="inp_opis" name="opis"></textarea>
+								</div>
+							</div>
+							
+							<div class="form-group form-row">
+								<div class="col-lg-12">
+									<button type="submit" class="btn btn-md btn-primary btn-icon" id="bdl_savebtn"><i
+					                        class="icon glyphicon glyphicon-ok"></i>Zapisz
+					                </button>
+								</div>
+							</div>
+						
+						</fieldset>
+					</form>
+				</div>
+							
 
-                    <div class="row"><label>Opis:</label></div>
-                </div>
-                <article id="editor">
-                    <?= $object->getData('bdl_wskazniki.opis'); ?>
-                </article>
+                              
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-md btn-primary btn-icon" id="bdl_savebtn"><i
-                        class="icon glyphicon glyphicon-ok"></i>Zapisz
-                </button>
-            </div>
+   
         </div>
     </div>
 </div>

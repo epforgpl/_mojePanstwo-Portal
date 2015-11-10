@@ -75,8 +75,10 @@ $accessDict = array(
 			</li>
 
 		</ul>
+
 	</div>
 </header>
+>>>>>>> 3801502045e9ee2094c1f86e73e0652d380738fb
 
 <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">

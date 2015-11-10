@@ -20,7 +20,10 @@ class Kolekcje extends DocDataObject
 
 	public function getUrl()
 	{
-		return '/moje-kolekcje/' . $this->getId();
+		if( $this->getOptions('public') )
+			return $this->getOptions('base_url') . '/kolekcje/' . $this->getId();
+		else
+			return '/moje-kolekcje/' . $this->getId();
 	}
 
 	public function getThumbnailUrl($size = '2')

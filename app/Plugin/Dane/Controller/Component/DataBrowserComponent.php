@@ -1328,7 +1328,15 @@ class DataBrowserComponent extends Component
 
     public function __construct($collection, $settings)
     {
-
+				
+		if (
+            (
+                !isset($settings['objectOptions']) ||
+                (empty($settings['objectOptions']))
+            )
+        )
+            $settings['objectOptions'] = array();
+		
         if (
             (
                 !isset($settings['aggs']) ||
@@ -1482,7 +1490,12 @@ class DataBrowserComponent extends Component
 
 
             $hits = $controller->Paginator->paginate('Dataobject');
-
+            if( $hits && $this->settings['objectOptions'] ) {
+	            foreach( $hits as &$hit ) {
+		            $hit->setOptions($this->settings['objectOptions']);
+	            }	         
+            }
+            
             $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
 
             $dataBrowser = array(
