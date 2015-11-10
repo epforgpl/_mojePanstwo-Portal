@@ -7,7 +7,9 @@ class DataobjectsController extends AppController
         'Dane.Dataobject',
         'Dane.Subscription',
         'Dane.ObjectUsersManagement',
-        'Collections.Collection'
+        'Collections.Collection',
+        'Pisma.Pismo',
+        'Start.LetterResponse',
     );
 
     public $components = array('RequestHandler');
@@ -344,16 +346,28 @@ class DataobjectsController extends AppController
 
         $this->request->params['action'] = 'pisma';
         $this->_prepareView();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'pisma',
-                'pisma.object_id' => $this->object->getGlobalId(),
-            ),
-            'searchTitle' => 'Szukaj w pismach...',
-        ));
 
-        $this->set('title_for_layout', 'Pisma ' . $this->object->getData('nazwa'));
-        $this->render('Dane.KrsPodmioty/pisma');
+        if(isset($this->params['subid'])) {
+            $id = $this->params['subid'];
+            $pismo = $this->Pismo->documents_read($id);
+            if(!$pismo['is_public'] || $pismo['object_id'] != $this->object->getGlobalId())
+                throw new NotFoundException;
+
+            $this->set('responses', $this->LetterResponse->getByLetter($id));
+            $this->set('pismo', $pismo);
+            $this->render('Dane.KrsPodmioty/pismo');
+        } else {
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'pisma',
+                    'pisma.object_id' => $this->object->getGlobalId(),
+                ),
+                'searchTitle' => 'Szukaj w pismach...',
+            ));
+
+            $this->set('title_for_layout', 'Pisma ' . $this->object->getData('nazwa'));
+            $this->render('Dane.KrsPodmioty/pisma');
+        }
     }
 
     public function pismo($id) {
