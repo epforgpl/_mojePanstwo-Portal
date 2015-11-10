@@ -300,51 +300,42 @@ class DataobjectsController extends AppController
         $this->request->params['action'] = 'kolekcje';
 
         $this->_prepareView();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'kolekcje',
-                'kolekcje.object_id' => $this->object->getGlobalId(),
-            ),
-            //'aggsPreset' => 'dzialania_admin',
-            'searchTitle' => 'Szukaj w kolekcjach...',
-            'objectOptions' => array(
-	            'public' => true,
-	            'base_url' => $this->object->getUrl()
-            ),
-        ));
+        if(isset($this->params['subid']) && is_numeric($this->params['subid'])) {
+            $id = (int) $this->params['subid'];
+            $item = $this->Collection->load($id);
+            if(!$item)
+                throw new NotFoundException;
 
-        $this->set('title_for_layout', 'Kolekcje ' . $this->object->getData('nazwa'));
-        $this->render('Dane.KrsPodmioty/kolekcje');
-    }
+            if($item->getData('is_public') != '1' ||
+                $item->getData('object_id') != $this->object->getGlobalId())
+                throw new NotFoundException;
 
-    public function kolekcja() {
-        if(!isset($this->params['subid']) ||
-            !is_numeric($this->params['subid']) ||
-            !$this->objectCollections)
-            throw new NotFoundException;
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'collection_id' => $id,
+                ),
+            ));
 
-        $id = (int) $this->params['subid'];
+            $this->title = $item->getTitle();
+            $this->set('item', $item);
+            $this->render('Dane.KrsPodmioty/kolekcja');
+        } else {
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'kolekcje',
+                    'kolekcje.object_id' => $this->object->getGlobalId(),
+                ),
+                //'aggsPreset' => 'dzialania_admin',
+                'searchTitle' => 'Szukaj w kolekcjach...',
+                'objectOptions' => array(
+                    'public' => true,
+                    'base_url' => $this->object->getUrl()
+                ),
+            ));
 
-        $this->request->params['action'] = 'kolekcje';
-        $this->_prepareView();
-
-        $item = $this->Collection->load($id);
-        if(!$item)
-            throw new NotFoundException;
-
-        if($item->getData('is_public') != '1' ||
-            $item->getData('object_id') != $this->object->getGlobalId())
-            throw new NotFoundException;
-
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'collection_id' => $id,
-            ),
-        ));
-
-        $this->title = $item->getTitle();
-        $this->set('item', $item);
-        $this->render('Dane.KrsPodmioty/kolekcja');
+            $this->set('title_for_layout', 'Kolekcje ' . $this->object->getData('nazwa'));
+            $this->render('Dane.KrsPodmioty/kolekcje');
+        }
     }
 
     public function pisma() {
