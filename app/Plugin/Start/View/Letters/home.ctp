@@ -64,11 +64,10 @@
                 </div>
             <?php }; ?>
 			
-			<? /*
             <div class="radio templates_browser">
                 <a href="#" class="pisma-list-button pisma-list-button-no-jump">Zobacz wszystkie szablony &raquo;</a>
             </div>
-            */ ?>
+
         </div>
       </div>
       <div class="form-group form-row">

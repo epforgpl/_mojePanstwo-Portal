@@ -215,8 +215,7 @@ class LettersController extends StartAppController
 			
             if (isset($this->request->data['edit_from_inputs'])) {
 				
-				debug( $this->request->data ); die();
-                $this->Pismo->edit_from_inputs($id, $this->request->data);
+                $this->Pismo->documents_update($id, $this->request->data);
             
             } elseif (isset($this->request->data['delete'])) {
 

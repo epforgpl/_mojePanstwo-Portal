@@ -22,7 +22,7 @@
                 </a>
             <? } ?>
             <div class="input-group-btn">
-                <button class="btn btn-warning input-md" type="submit">
+                <button class="btn btn-success input-md" type="submit">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>

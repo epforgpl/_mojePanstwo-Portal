@@ -1,29 +1,32 @@
 $(document).ready(function () {
-	var editor = $('#bdl_opis_modal #editor');
-
-	editor.wysihtml5.locale['pl-PL'].emphasis = {
-		bold: "B",
-		italic: "I",
-		underline: "U"
-	};
-
-	editor.wysihtml5({
-        toolbar: {
-            "font-styles": true, //Font styling, e.g. h1, h2, etc.
-            "emphasis": true, //Italics, bold, etc.
-            "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers.
-            "html": false, //Button which allows you to edit the generated HTML.
-            "link": true, //Button to insert a link.
-            "image": false, //Button to insert an image.
-            "color": false, //Button to change color of font
-            "blockquote": false
-        },
-		'locale': 'pl-PL',
-        parser: function (html) {
-            return html;
-        }
-    });
-
+	
+	$('#bdl_opis_form').submit(function(e){
+		
+		e.preventDefault();
+		var form = $('#bdl_opis_form');
+		
+		$.ajax({
+            url: form.attr('action'),
+            method: form.attr('method'),
+            data: form.serialize(),
+            success: function (res) {
+                if (res == false) {
+                    alert("Błąd zapisu");
+                } else {
+                    if (res != null) {
+                        $("#bdl_opis_modal .info").html('Zmieniono opis i nazwę.');
+                    }
+                    $('#bdl_opis_modal .info').removeClass('hidden');
+                }
+            },
+            error: function (xhr) {
+                alert("Wystąpił błąd: " + xhr.status + " " + xhr.statusText);
+            }
+        });		
+		
+	});
+	
+	/*
     function saveData(dane) {
         $.ajax({
             url: decodeURIComponent(($('.appHeader.dataobject').attr('data-url')+'').replace(/\+/g, '%20')) + '.json',
@@ -50,9 +53,11 @@ $(document).ready(function () {
         dane = {
             _action: 'opis',
             tytul: $("#bdl_opis_modal .nazwa").val(),
-            opis: $("#bdl_opis_modal .editor").html()
+            opis: $("#bdl_opis_modal .opis").val()
         };
         saveData(dane);
     });
+    
+    */
 
 });

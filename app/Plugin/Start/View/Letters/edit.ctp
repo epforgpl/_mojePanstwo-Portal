@@ -42,11 +42,14 @@
       </div>
       <? } ?>
       
+      <hr/>
+      
       <? 
 	  if( $szablon['Template'] ) {
 	      if( $inputs = $szablon['Inputs'] ) {
 		      foreach( $inputs as $input ) {
 			      $input = $input['Input'];
+			      $full = true;
 				  
 				  if( $input['type']=='richtext' ) {
 		  ?>  
@@ -54,17 +57,37 @@
 			        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
 					<div class="col-lg-12">
 			          <textarea class="form-control" rows="10" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"></textarea>
-			          <? if( @$input['description'] ) {?><span class="help-block"><?= $input['description'] ?></span><? } ?>
+			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>  
 		  <?		  
-				  } elseif( $input['type']=='input' ) {
+				  } elseif( $input['type']=='text' ) {
 		  ?>		  
 				  <div class="form-group form-row">
-			        <label for="inp<?= $input['id'] ?>" class="col-lg-2 control-label"><?= $input['label'] ?></label>
-					<div class="col-lg-10">
+			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
+					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
 			          <input type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
-			          <? if( @$input['description'] ) {?><span class="help-block"><?= $input['description'] ?></span><? } ?>
+			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
+			        </div>
+			      </div>
+		  <?		  
+				  } elseif( $input['type']=='date' ) {
+		  ?>		  
+				  <div class="form-group form-row">
+			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
+					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
+			          <input style="max-width: 130px;" maxlength="10" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
+			        </div>
+			      </div>
+		  <?		  
+				  } elseif( $input['type']=='email' ) {
+		  ?>		  
+				  <div class="form-group form-row">
+			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
+					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
+			          <input type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>
 		  <?		  
@@ -80,7 +103,6 @@
       
       <div class="form-group form-row">
         <div class="col-lg-10 col-lg-offset-2">
-          <a type="button" href="/moje-pisma/nowe" class="btn btn-default">Anuluj</a>
           <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
             class="icon icon-applications-pisma"></i>Zobacz podgląd pisma
 	      </button>

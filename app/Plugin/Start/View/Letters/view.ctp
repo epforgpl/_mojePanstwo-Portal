@@ -49,18 +49,7 @@ $accessDict = array(
 			
 			
             <ul class="buttons pull-right">
-                <li>
-                    <input type="hidden" name="delete"/>
-                    <button
-                        data-tooltip="true"
-                        data-original-title="Ustawienia prywatności"
-                        data-placement="bottom"
-                        class="btn btn-default btnRemove btn"
-						data-toggle="modal"
-						data-target="#accessOptions">
-                        <i class="glyphicon glyphicon-share" title="Ustawienia prywatności" aria-hidden="true"></i>
-                    </button>
-                </li>
+                
                 <li>
                     <input type="hidden" name="delete"/>
                     <button
@@ -70,6 +59,29 @@ $accessDict = array(
                         class="btn btn-default btnRemove btn"
                         type="submit">
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
+                    </button>
+                </li>
+                <li>
+                    <input type="hidden" name="visibility"/>
+                    <button
+                        data-tooltip="true"
+                        data-original-title="Ustawienia widoczności pisma"
+                        data-placement="bottom"
+                        class="btn btn-default btnRemove btn"
+						data-toggle="modal"
+						data-target="#accessOptions">
+                        <i class="glyphicon glyphicon-share" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
+                    </button>
+                </li>
+                <li>
+                    <button
+                        data-tooltip="true"
+                        data-original-title="Edycja pisma"
+                        data-placement="bottom"
+                        class="btn btn-default btnEdit btn"
+						data-toggle="modal"
+						href="edit">
+                        <i class="glyphicon glyphicon-edit" title="Edytuj pismo" aria-hidden="true"></i>
                     </button>
                 </li>
                 
