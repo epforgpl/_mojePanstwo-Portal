@@ -26,99 +26,96 @@ $accessDict = array(
 <?= $this->element('Start.pageBegin'); ?>
 
 
-<form action="" method="post">
-    <header class="collection-header">
-        
-        <ul class="breadcrumb">
-		  <li><a href="/moje-pisma">Moje Pisma</a></li>
-		  <li class="active">Pismo</li>
-		</ul>
-        
-        <div class="overflow-auto">
+<header class="collection-header">
 
-            <div class="content pull-left">
-                <i class="object-icon icon-applications-pisma"></i>
-                <div class="object-icon-side">
-	                <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
-		                <? /*<a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">*/ ?>
-			                <?= $pismo['nazwa'] ?>
-			            <? /*</a>*/ ?>
-			        </h1>
-                </div>
-            </div>
-			
-			
-            <ul class="buttons pull-right">
-                
-                <li>
-                    <input type="hidden" name="delete"/>
-                    <button
-                        data-tooltip="true"
-                        data-original-title="Usuń kolekcję"
-                        data-placement="bottom"
-                        class="btn btn-default btnRemove btn"
-                        type="submit">
-                        <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
-                    </button>
-                </li>
-                <li>
-                    <input type="hidden" name="visibility"/>
-                    <button
-                        data-tooltip="true"
-                        data-original-title="Ustawienia widoczności pisma"
-                        data-placement="bottom"
-                        class="btn btn-default btnRemove btn"
-						data-toggle="modal"
-						data-target="#accessOptions">
-                        <i class="glyphicon glyphicon-share" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
-                    </button>
-                </li>
-                <li>
-                    <button
-                        data-tooltip="true"
-                        data-original-title="Edycja pisma"
-                        data-placement="bottom"
-                        class="btn btn-default btnEdit btn"
-						data-toggle="modal"
-						href="edit">
-                        <i class="glyphicon glyphicon-edit" title="Edytuj pismo" aria-hidden="true"></i>
-                    </button>
-                </li>
-                
-            </ul>
-        </div>
-    </header>
-</form>
+	<ul class="breadcrumb">
+	  <li><a href="/moje-pisma">Moje Pisma</a></li>
+	  <li class="active">Pismo</li>
+	</ul>
+
+	<div class="overflow-auto">
+
+		<div class="content pull-left">
+			<i class="object-icon icon-applications-pisma"></i>
+			<div class="object-icon-side">
+				<h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+					<? /*<a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">*/ ?>
+						<?= $pismo['nazwa'] ?>
+					<? /*</a>*/ ?>
+				</h1>
+			</div>
+		</div>
+
+
+		<ul class="buttons pull-right">
+			<li>
+				<input type="hidden" name="delete"/>
+				<button
+					data-tooltip="true"
+					data-original-title="Ustawienia prywatności"
+					data-placement="bottom"
+					class="btn btn-default btnRemove btn"
+					data-toggle="modal"
+					data-target="#accessOptions">
+					<i class="glyphicon glyphicon-share" title="Ustawienia prywatności" aria-hidden="true"></i>
+				</button>
+			</li>
+			<li>
+				<form action="" method="post">
+					<input type="hidden" name="delete"/>
+					<button
+						data-tooltip="true"
+						data-original-title="Usuń pismo"
+						data-placement="bottom"
+						class="btn btn-default btnRemove btn"
+						type="submit">
+						<i class="glyphicon glyphicon-trash" title="Usuń pismo" aria-hidden="true"></i>
+					</button>
+				</form>
+			</li>
+
+		</ul>
+
+	</div>
+</header>
+>>>>>>> 3801502045e9ee2094c1f86e73e0652d380738fb
 
 <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
-		<form action="" method="post">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Widoczność pisma</h4>
-				</div>
-				<div class="modal-body">
-					<? foreach($accessDict as $value => $label) { ?>
-						<div class="radio">
-							<input
-								id="access<?= $value ?>"
-								type="radio"
-								name="is_public"
-								value="<?= $value ?>"
-								<?= $value == ((int) $pismo['is_public']) ? 'checked' : '' ?>>
-							<label for="access<?= $value ?>">
-								<?= ucfirst($label) ?>
-							</label>
-						</div>
-					<? } ?>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-					<button type="submit" class="btn btn-primary">Zapisz</button>
+		<div class="modal-content">
+			<div class="well bs-component mp-form margin-top-0 margin-bottom-0">
+				<div class="modal-body padding-bottom-0 margin-bottom-0">
+					<form action="" class="form-horizontal" method="post">
+						<fieldset>
+							<div class="form-group">
+								<div class="col-lg-12">
+									<? foreach($accessDict as $value => $label) { ?>
+										<div class="radio">
+											<input
+												id="access<?= $value ?>"
+												type="radio"
+												name="is_public"
+												value="<?= $value ?>"
+												<?= ((int) $pismo['is_public'] == $value) ? 'checked' : '' ?>>
+											<label for="access<?= $value ?>">
+												<?= ucfirst($label) ?>
+											</label>
+										</div>
+									<? } ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-9">
+									<button type="reset" data-dismiss="modal" class="btn btn-default">Anuluj</button>
+									<button type="submit" name="save" class="btn btn-md btn-primary btn-icon"><i class="icon glyphicon glyphicon-pencil"></i>Zapisz
+									</button>
+								</div>
+							</div>
+						</fieldset>
+					</form>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
 </div>
 

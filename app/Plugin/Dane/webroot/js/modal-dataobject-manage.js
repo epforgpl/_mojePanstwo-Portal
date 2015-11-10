@@ -163,8 +163,6 @@ ObjectUsersManagement.prototype.initialize = function() {
 		});
 	}
 	
-	console.log('this.editables', this.editables);
-	
 	for(var e in this.editables) {
 		if(this.editables.hasOwnProperty(e)) {
 			$('.open_' + this.editables[e] + '_modal').click(function(e) {

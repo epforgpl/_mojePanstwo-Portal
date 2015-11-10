@@ -293,6 +293,10 @@ class DataobjectsController extends AppController
             ),
             //'aggsPreset' => 'dzialania_admin',
             'searchTitle' => 'Szukaj w kolekcjach...',
+            'objectOptions' => array(
+	            'public' => true,
+	            'base_url' => $this->object->getUrl()
+            ),
         ));
 
         $this->set('title_for_layout', 'Kolekcje ' . $this->object->getData('nazwa'));
