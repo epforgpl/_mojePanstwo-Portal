@@ -13,7 +13,7 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
 <div class="hello">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-xs-12 col-md-8 col-lg-6">
                 <hr/>
                 <p>Uchodźca - osoba, która musiała opuścić teren, na którym mieszkała ze względu na zagrożenie życia,
                     zdrowia, bądź wolności. Zagrożenie to jest najczęściej związane z walkami zbrojnymi, klęskami
@@ -26,7 +26,7 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
 <div class="container">
     <div class="objectsPageContent main">
         <div class="firstBlock col-xs-12 nopadding">
-            <div class="linkBox col-xs-12 col-sm-6">
+            <div class="linkBox col-xs-12 col-md-6">
                 <h2>Informacje</h2>
                 <hr/>
                 <ul class="list">
@@ -62,7 +62,7 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
                     </li>
                 </ul>
             </div>
-            <div class="storyBox col-xs-12 col-sm-3">
+            <div class="storyBox col-xs-12 col-sm-6 col-md-3">
                 <a href="#alaa">
                     <img src="/Ngo/img/storybox/alaa.png" alt="Alaa"/>
 
@@ -73,7 +73,7 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
                     </div>
                 </a>
             </div>
-            <div class="pomocBox col-xs-12 col-sm-3">
+            <div class="pomocBox col-xs-12 col-sm-6 col-md-3">
                 <div class="redbox">
                     <h3>Chcesz pomóc?</h3>
                     <ul class="pomoc">
