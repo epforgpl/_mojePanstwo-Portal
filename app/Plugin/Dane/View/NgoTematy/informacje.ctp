@@ -50,7 +50,7 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
 						
 						
 						<div id="_editable_fakty_i_mity" class="mp-editable sections">
-						<? for($i=0; $i<5; $i++) {?>
+						<? for($i=0; $i<3; $i++) {?>
 						<section>
 							<h3>Vestibulum semper metus ac mi condimentum varius</h3>
 							<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet sagittis tellus. Ut sagittis felis non purus tempus, quis faucibus est hendrerit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla a arcu vel dui aliquet sodales. Donec quis elementum diam, tincidunt accumsan nisi.</p>
