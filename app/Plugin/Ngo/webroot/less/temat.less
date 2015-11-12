@@ -99,23 +99,31 @@
     hr {
         border-color: #eb1e22;
         background-color: #eb1e22;
-        height: 2px;
+        height: 4px;
         width: 100px;
-        margin-top: 200px;
+        margin-top: 224px;
+        margin-bottom: 38px;
+    }
+
+    p {
+        font-size: 24px;
+        line-height: 1.2em;
     }
 }
 
 .firstBlock {
-    margin-top: 62px;
+    margin-top: 32px;
 
     .linkBox {
+        padding-left: 0;
+
         h2 {
-            font-size: 42px;
+            font-size: 47px;
             color: #000;
         }
         hr {
-            margin-top: 55px;
-            margin-bottom: 46px;
+            margin-top: 42px;
+            margin-bottom: 38px;
             height: 4px;
             width: 50%;
             max-width: 96px;
@@ -128,6 +136,7 @@
             padding: 0;
 
             li {
+                margin-top: 10px;
                 border-bottom: 1px solid #e5e5e5;
 
                 a {
@@ -136,15 +145,17 @@
                     position: relative;
 
                     &:after {
-                        content: '>';
+                        font-family: "Glyphicons Halflings";
+                        content: "\e080";
+                        color: #000000;
                         position: absolute;
                         top: 50%;
                         right: 0;
-                        -webkit-transform: translate(-50%, 0);
-                        -moz-transform: translate(-50%, 0);
-                        -ms-transform: translate(-50%, 0);
-                        -o-transform: translate(-50%, 0);
-                        transform: translate(-50%, 0);
+                        -webkit-transform: translate(0, -50%);
+                        -moz-transform: translate(0, -50%);
+                        -ms-transform: translate(0, -50%);
+                        -o-transform: translate(0, -50%);
+                        transform: translate(0, -50%);
                     }
 
                     span, small {
@@ -154,9 +165,11 @@
 
                     span {
                         font-size: 24px;
+                        font-weight: bold;
                         color: #000;
                     }
                     small {
+                        margin-top: -5px;
                         font-size: 14px;
                         color: #787878;
                     }
@@ -166,23 +179,44 @@
     }
     .storyBox {
         position: relative;
+        margin-top: 35px;
+
         img {
             width: 100%;
             background-size: cover;
         }
         .info {
             position: absolute;
-            bottom: 0;
-            left: 0;
+            bottom: 10px;
+            left: 35px;
+            color: #ffffff;
+
+            .name {
+                font-size: 24px;
+                font-weight: bold;
+                line-height: 1em;
+            }
+            .country {
+                font-weight: bold;
+            }
+            .story {
+                margin-top: 12px;
+            }
         }
     }
 
     .pomocBox {
         background-color: #ed1d23;
         color: #ffffff;
+        margin-top: 115px;
+
+        h3 {
+            font-size: 25px;
+            color: #ffffff;
+        }
 
         ul.pomoc {
-            padding: 0;
+            padding: 26px 0;
             margin: 0;
             list-style: none;
 
@@ -191,20 +225,26 @@
                 position: relative;
 
                 &:before {
-                    content: '>';
+                    font-family: "Glyphicons Halflings";
+                    content: "\e080";
+                    color: #ffffff;
                     position: absolute;
                     top: 50%;
                     left: 0;
-                    -webkit-transform: translate(-50%, 0);
-                    -moz-transform: translate(-50%, 0);
-                    -ms-transform: translate(-50%, 0);
-                    -o-transform: translate(-50%, 0);
-                    transform: translate(-50%, 0);
+                    -webkit-transform: translate(0, -50%);
+                    -moz-transform: translate(0, -50%);
+                    -ms-transform: translate(0, -50%);
+                    -o-transform: translate(0, -50%);
+                    transform: translate(0, -50%);
                 }
 
                 a {
                     width: 100%;
                     display: block;
+                    font-size: 18px;
+                    color: #ffffff;
+                    padding: 12px 0 12px 34px;
+                    line-height: 1em;
                 }
             }
         }
