@@ -74,17 +74,19 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
                 </a>
             </div>
             <div class="pomocBox col-xs-12 col-sm-3">
-                <h3>Chcesz pomóc?</h3>
-                <ul class="pomoc">
-                    <li><a href="#">Wolontariat</a></li>
-                    <li><a href="#">Wsparcie finansowe</a></li>
-                    <li><a href="#">Pomoc mieszkaniowa</a></li>
-                    <li><a href="#">Pomoc rzeczowa</a></li>
-                    <li><a href="#">Pomoc językowa</a></li>
-                    <li><a href="#">Zbiórki</a></li>
-                    <li><a href="#">Akcja lokalna</a></li>
-                    <li><a href="#">Reagowanie na mowę nienawiści</a></li>
-                </ul>
+                <div class="redbox">
+                    <h3>Chcesz pomóc?</h3>
+                    <ul class="pomoc">
+                        <li><a href="#">Wolontariat</a></li>
+                        <li><a href="#">Wsparcie finansowe</a></li>
+                        <li><a href="#">Pomoc mieszkaniowa</a></li>
+                        <li><a href="#">Pomoc rzeczowa</a></li>
+                        <li><a href="#">Pomoc językowa</a></li>
+                        <li><a href="#">Zbiórki</a></li>
+                        <li><a href="#">Akcja lokalna</a></li>
+                        <li><a href="#">Reagowanie na mowę nienawiści</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
