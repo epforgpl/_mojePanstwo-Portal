@@ -7,22 +7,64 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
 
 ?>
 
-</div></div>
+</div><!-- closing div.objectsPageContent.main -->
+</div><!-- closing div.container -->
 
 <div class="hello">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-6">
-				<hr />
-				<p>Uchodźca - osoba, która musiała opuścić teren, na którym mieszkała ze względu na zagrożenie życia, zdrowia, bądź wolności. Zagrożenie to jest najczęściej związane z walkami zbrojnymi, klęskami żywiołowymi, prześladowaniami religijnymi bądź z powodu rasy lub przekonań politycznych.</p>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <hr/>
+                <p>Uchodźca - osoba, która musiała opuścić teren, na którym mieszkała ze względu na zagrożenie życia,
+                    zdrowia, bądź wolności. Zagrożenie to jest najczęściej związane z walkami zbrojnymi, klęskami
+                    żywiołowymi, prześladowaniami religijnymi bądź z powodu rasy lub przekonań politycznych.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
-	<div class="objectsPageContent main"
-	
-	
+    <div class="objectsPageContent main">
+        <div class="firstBlock col-xs-12">
+            <div class="linkBox col-xs-12 col-sm-6">
+                <h2>Informacje</h2>
+                <hr/>
+                <ul class="list">
+                    <li>
+                        <a href="#"><span>Fakty i mity</span>
+                            <small>Sprawdź co jest prawdą a co tylko powielanym mitem</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><span>Fakty i mity</span>
+                            <small>Sprawdź co jest prawdą a co tylko powielanym mitem</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><span>Fakty i mity</span>
+                            <small>Sprawdź co jest prawdą a co tylko powielanym mitem</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="storyBox col-xs-12 col-sm-3">
+                <a href="#alaa">
+                    <img src="/Ngo/img/storybox/alaa.png" alt="Alaa"/>
 
-<?= $this->Element('dataobject/pageEnd'); ?>
+                    <div class="info">
+                        <div class="name">Alaa</div>
+                        <div class="country">Syria</div>
+                        <div class="story">Poznaj jej historię</div>
+                    </div>
+                </a>
+            </div>
+            <div class="pomocBox col-xs-12 col-sm-3">
+                <h3>Chcesz pomóc?</h3>
+                <ul class="pomoc">
+                    <li><a href="#wolontariat">Wolontariat</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <?= $this->Element('dataobject/pageEnd'); ?>

@@ -19,78 +19,197 @@
 }
 
 .appHeader.dataobject {
-	display: none;
+    display: none;
+}
+
+.appMenu .container ul li:first-child a {
+    padding: 0;
+
+    .glyphicon.glyphicon-home:before {
+        content: ' ';
+        background: url(/Ngo/img/logo_uchodzcy.svg) bottom center no-repeat;
+        width: 115px;
+        height: 44px;
+        display: block;
+    }
 }
 
 .mp-page {
-	margin: 20px 0;
-	h2 {
-		border-bottom: 1px solid #ddd;
-	    color: green;
-	    font-size: 24px;
-	    margin: 60px 0 20px;
-	    padding-bottom: 15px;
-	    
-	    &.first {
-		    margin-top: 20px;
-	    }
-	}
-	
-	.sections {
-		section:first-child {
-			margin-top: 0;
-		}
-	}
-	
-	section {
-		margin: 40px 0;
-		h3 {
-			
-		}
-		.thumb {
-			float: left;
-			margin: 5px 15px 5px 5px;
-		    padding: 0;
-		    width: 115px;
-		    
-		    &.sm {
-			    width: 45px;
-		    }
-		}
-	}
-	
-	.btn-editable {
-		background-color: inherit;
-	    border: medium none;
-	    font-size: 18px;
-	    margin-right: 40px;
-	    margin-top: 25px;
-	    position: absolute;
-	    right: 0;
-	    color: #789;
-	    top: inherit;
-	    margin-top: 6px;
-	    &:hover {
-		    color: #157ab5;
-	    }
-	}
+    margin: 20px 0;
+    h2 {
+        border-bottom: 1px solid #ddd;
+        color: green;
+        font-size: 24px;
+        margin: 60px 0 20px;
+        padding-bottom: 15px;
+
+        &.first {
+            margin-top: 20px;
+        }
+    }
+
+    .sections {
+        section:first-child {
+            margin-top: 0;
+        }
+    }
+
+    section {
+        margin: 40px 0;
+        h3 {
+
+        }
+        .thumb {
+            float: left;
+            margin: 5px 15px 5px 5px;
+            padding: 0;
+            width: 115px;
+
+            &.sm {
+                width: 45px;
+            }
+        }
+    }
+
+    .btn-editable {
+        background-color: inherit;
+        border: medium none;
+        font-size: 18px;
+        margin-right: 40px;
+        margin-top: 25px;
+        position: absolute;
+        right: 0;
+        color: #789;
+        top: inherit;
+        margin-top: 6px;
+        &:hover {
+            color: #157ab5;
+        }
+    }
 }
 
 .hello {
-	background: url(/ngo/img/hello.jpg) no-repeat 0 0;
-	color: #FFF;
-	height: 525px;
-	background-size: cover;
-	margin-top: -6px;
-	font-size: 22px;
-	hr {
-		border-color: #eb1e22;
-		background-color: #eb1e22;
-		height: 2px;
-		width: 100px;
-		margin-top: 200px;
-	}
+    background: url(/ngo/img/hello.jpg) top left no-repeat;
+    color: #FFF;
+    height: 525px;
+    background-size: cover;
+    margin-top: -6px;
+    font-size: 22px;
+
+    hr {
+        border-color: #eb1e22;
+        background-color: #eb1e22;
+        height: 2px;
+        width: 100px;
+        margin-top: 200px;
+    }
 }
 
-            
-            
+.firstBlock {
+    margin-top: 62px;
+
+    .linkBox {
+        h2 {
+            font-size: 42px;
+            color: #000;
+        }
+        hr {
+            margin-top: 55px;
+            margin-bottom: 46px;
+            height: 4px;
+            width: 50%;
+            max-width: 96px;
+            background-color: #ed1d23;
+        }
+
+        .list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                border-bottom: 1px solid #e5e5e5;
+
+                a {
+                    width: 100%;
+                    display: inline-block;
+                    position: relative;
+
+                    &:after {
+                        content: '>';
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        -webkit-transform: translate(-50%, 0);
+                        -moz-transform: translate(-50%, 0);
+                        -ms-transform: translate(-50%, 0);
+                        -o-transform: translate(-50%, 0);
+                        transform: translate(-50%, 0);
+                    }
+
+                    span, small {
+                        width: 100%;
+                        float: left;
+                    }
+
+                    span {
+                        font-size: 24px;
+                        color: #000;
+                    }
+                    small {
+                        font-size: 14px;
+                        color: #787878;
+                    }
+                }
+            }
+        }
+    }
+    .storyBox {
+        position: relative;
+        img {
+            width: 100%;
+            background-size: cover;
+        }
+        .info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
+
+    .pomocBox {
+        background-color: #ed1d23;
+        color: #ffffff;
+
+        ul.pomoc {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li {
+                width: 100%;
+                position: relative;
+
+                &:before {
+                    content: '>';
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    -webkit-transform: translate(-50%, 0);
+                    -moz-transform: translate(-50%, 0);
+                    -ms-transform: translate(-50%, 0);
+                    -o-transform: translate(-50%, 0);
+                    transform: translate(-50%, 0);
+                }
+
+                a {
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+
+
