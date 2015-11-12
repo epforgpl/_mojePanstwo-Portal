@@ -1,68 +1,85 @@
-.appHeader.dataobject.dataobject-cover .statusBar {
-	display: none;
-}
+#_wrapper {
+    #_mPCockpit {
+        &:hover {
+            ._mPBasic {
+                left: 0;
+            }
+        }
+        ._mPBasic {
+            left: -80px;
+            -webkit-transition: 0.5s all ease;
+            -moz-transition: 0.5s all ease;
+            -o-transition: 0.5s all ease;
+            transition: 0.5s all ease;
+        }
+    }
+    #_main {
+        padding-left: 0;
 
-.dataBrowser .dataAggs li.agg .agg-Datasets .nav > li.active a, .dataFeed .dataAggs li.agg .agg-Datasets .nav > li.active a, .dataobjects .dataAggs li.agg .agg-Datasets .nav > li.active a {
-	color: green !important;
-}
+        .appHeader.dataobject.dataobject-cover .statusBar {
+            display: none;
+        }
+        .appMenu ul li.active a {
+            color: green;
+            border-bottom-color: green;
+        }
+        .objectsPageContent {
+            .dataBrowser .dataAggs li.agg .agg-Datasets .nav > li.active a,
+            .dataFeed .dataAggs li.agg .agg-Datasets .nav > li.active a,
+            .dataobjects .dataAggs li.agg .agg-Datasets .nav > li.active a {
+                color: green;
+            }
+        }
 
+        .mp-page {
+            margin: 20px 0;
 
+            h2 {
+                border-bottom: 1px solid #ddd;
+                color: green;
+                font-size: 24px;
+                margin: 60px 0 20px;
+                padding-bottom: 15px;
 
-.appMenu ul li.active a {
-	color: green !important;
-	border-bottom-color: green !important;
-}
+                &.first {
+                    margin-top: 20px;
+                }
+            }
 
-.mp-page {
-	margin: 20px 0;
-	h2 {
-		border-bottom: 1px solid #ddd;
-	    color: green;
-	    font-size: 24px;
-	    margin: 60px 0 20px;
-	    padding-bottom: 15px;
-	    
-	    &.first {
-		    margin-top: 20px;
-	    }
-	}
-	
-	.sections {
-		section:first-child {
-			margin-top: 0;
-		}
-	}
-	
-	section {
-		margin: 40px 0;
-		h3 {
-			
-		}
-		.thumb {
-			float: left;
-			margin: 5px 15px 5px 5px;
-		    padding: 0;
-		    width: 115px;
-		    
-		    &.sm {
-			    width: 45px;
-		    }
-		}
-	}
-	
-	.btn-editable {
-		background-color: inherit;
-	    border: medium none;
-	    font-size: 18px;
-	    margin-right: 40px;
-	    margin-top: 25px;
-	    position: absolute;
-	    right: 0;
-	    color: #789;
-	    top: inherit;
-	    margin-top: 6px;
-	    &:hover {
-		    color: #157ab5;
-	    }
-	}
+            .sections section:first-child {
+                margin-top: 0;
+            }
+
+            section {
+                margin: 40px 0;
+
+                .thumb {
+                    float: left;
+                    margin: 5px 15px 5px 5px;
+                    padding: 0;
+                    width: 115px;
+
+                    &.sm {
+                        width: 45px;
+                    }
+                }
+            }
+
+            .btn-editable {
+                background-color: inherit;
+                border: medium none;
+                font-size: 18px;
+                margin-right: 40px;
+                position: absolute;
+                right: 0;
+                color: #789;
+                top: inherit;
+                margin-top: 6px;
+
+                &:hover {
+                    color: #157ab5;
+                }
+            }
+        }
+    }
 }
