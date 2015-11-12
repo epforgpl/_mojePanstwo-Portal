@@ -441,5 +441,57 @@ class NgoController extends ApplicationsController
         return $output;
 
     }
+    
+    public function page()
+    {
+	    
+	    $options = array(
+            'searchTag' => array(
+	            'href' => '/ngo',
+	            'label' => 'NGO',
+            ),
+            'autocompletion' => array(
+                'dataset' => 'ngo',
+            ),
+            'conditions' => array(
+                'dataset' => 'krs_podmioty',
+                'krs_podmioty.forma_prawna_typ_id' => array('2'),
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Ngo',
+                    'element' => 'page',
+                ),
+                'aggs' => array(
+                ),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => array(
+                            'krs_podmioty' => 'Organizacje',
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->set('_submenu', array_merge($this->submenus['ngo'], array(
+            'selected' => '',
+        )));
+
+        $this->title = 'Organizacje pozarządowe i akcje społeczne';
+
+        $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+	    
+    }
 
 }

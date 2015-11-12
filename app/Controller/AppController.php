@@ -192,6 +192,10 @@ class AppController extends Controller
             ),
         ),
         'ngo' => array(
+	        'ngo_tematy' => array(
+		        'label' => 'Tematy',
+		        'menu_id' => 'tematy',
+	        ),
         ),
         'zamowienia_publiczne' => array(
             'zamowienia_publiczne' => array(

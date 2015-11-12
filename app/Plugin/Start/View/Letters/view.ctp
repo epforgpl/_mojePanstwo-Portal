@@ -11,8 +11,8 @@ $this->Html->css(array('../plugins/bootstrap-datepicker/dist/css/bootstrap-datep
 $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', '../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pl.min'), array('inline' => 'false', 'block' => 'scriptBlock'));
 
 $accessDict = array(
-	'prywatna',
-	'publiczna'
+	'prywatne',
+	'publiczne'
 );
 
 ?>
@@ -52,12 +52,12 @@ $accessDict = array(
 				<input type="hidden" name="delete"/>
 				<button
 					data-tooltip="true"
-					data-original-title="Ustawienia prywatności"
+					data-original-title="Widoczność pisma"
 					data-placement="bottom"
 					class="btn btn-default btnRemove btn"
 					data-toggle="modal"
 					data-target="#accessOptions">
-					<i class="glyphicon glyphicon-share" title="Ustawienia prywatności" aria-hidden="true"></i>
+					<i class="glyphicon glyphicon-share" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
 				</button>
 			</li>
 			<li>
@@ -78,7 +78,6 @@ $accessDict = array(
 
 	</div>
 </header>
->>>>>>> 3801502045e9ee2094c1f86e73e0652d380738fb
 
 <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -382,7 +381,7 @@ $accessDict = array(
                             data-dismiss="modal">Anuluj
                     </button>
                                         
-                    <button name="send" value="Wyślij" type="submit" class="btn btn-warning btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo</button>
+                    <button name="send" value="Wyślij" type="submit" class="btn btn-primary btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo</button>
                     
                 </div>
             </form>
@@ -435,6 +434,7 @@ $accessDict = array(
 	            <? } ?>
             </ul>
             
+            <? if( $pismo['sent'] ) {?>
             <p class="buttons text-center">
                 <button
 					data-action="add_response"
@@ -444,6 +444,7 @@ $accessDict = array(
 					<i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na pismo
 				</button>
             </p>
+            <? } ?>
             
         </div>
     </div>
