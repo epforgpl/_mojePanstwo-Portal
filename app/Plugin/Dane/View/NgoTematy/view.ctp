@@ -7,39 +7,21 @@ $this->Combinator->add_libs('js', 'Ngo.temat');
 
 ?>
 
-    <div class="col-xs-12 col-md-9 objectMain">
-        <div class="object">
+</div></div>
 
-            
-        </div>        
-    </div>   
-
-	<div class="col-xs-12 col-md-3 objectSide">
-	    
-	
-	    <? if (!$object->getData('wykreslony')) {
-	        $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
-	
-	        echo $this->element('tools/krs_odpis', array(
-	            'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-	        ));
-	
-	        $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
-	        $this->Combinator->add_libs('js', 'Pisma.pisma-button');
-	        echo $this->element('tools/pismo', array(
-	            'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-	        ));
-	
-	        $page = $object->getLayer('page');
-	        if (!$page['moderated'])
-	            echo $this->element('tools/admin', array(
-	                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-	            ));
-	
-	    } ?>
-	
-	    
+<div class="hello">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<hr />
+				<p>Uchodźca - osoba, która musiała opuścić teren, na którym mieszkała ze względu na zagrożenie życia, zdrowia, bądź wolności. Zagrożenie to jest najczęściej związane z walkami zbrojnymi, klęskami żywiołowymi, prześladowaniami religijnymi bądź z powodu rasy lub przekonań politycznych.</p>
+			</div>
+		</div>
 	</div>
+</div>
+
+<div class="container">
+	<div class="objectsPageContent main"
 	
 	
 
