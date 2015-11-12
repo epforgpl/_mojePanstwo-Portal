@@ -4,7 +4,7 @@
 <?= $this->element('Start.pageBegin'); ?>
 
 <? if (!$this->Session->read('Auth.User.id')) { ?>
-    <div class="col-xs-12">
+    <div class="col-xs-12 nopadding">
         <div class="alert-identity alert alert-dismissable alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <h4>Uwaga!</h4>

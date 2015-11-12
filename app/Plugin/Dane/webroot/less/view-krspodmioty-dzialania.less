@@ -1,281 +1,259 @@
 .dzialanie {
-  .image-editor {
-    text-align: center;
-    margin-bottom: 80px;
+    .image-editor {
+        text-align: center;
+        margin-bottom: 80px;
 
-    > p {
-      margin: 5px 0 10px;
-    }
-
-    .cropit-image-preview {
-      background-size: cover;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      margin-top: 7px;
-      cursor: move;
-
-      background: #ffffff url(/Dane/img/cropit_dzialanie_nowe_default_image.png) no-repeat center center;
-    }
-
-    .cropit-image-background {
-      opacity: .2;
-      cursor: auto;
-    }
-
-    .image-size-label {
-      margin-top: 10px;
-    }
-
-    .btn-file {
-      position: relative;
-      overflow: hidden;
-
-      input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        min-width: 100%;
-        min-height: 100%;
-        font-size: 100px;
-        text-align: right;
-        filter: alpha(opacity=0);
-        opacity: 0;
-        outline: none;
-        background: white;
-        cursor: inherit;
-        display: block;
-      }
-    }
-  }
-
-  .mailBlock {
-
-    .mailBtn {
-      padding-left: 15px;
-
-      i {
-        margin-right: 5px;
-      }
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
-    .mailElement {
-      display: none;
-    }
-
-  }
-
-  .googleBlock {
-    display: inline-block;
-    width: 100%;
-
-    .googleBtn {
-      display: none;
-      width: auto;
-      float: left;
-
-      &:before {
-        margin-right: 5px;
-      }
-
-      &:focus, &:hover, &:active {
-        text-decoration: none;
-      }
-    }
-
-    .googleMapElement {
-      display: block;
-      position: relative;
-
-      &.loaded {
-        display: none;
-
-        #googleMap {
-          position: relative;
-          top: 0;
-        }
-        #pac-input {
-          display: block;
+        > p {
+            margin: 5px 0 10px;
         }
 
-        #loc {
-          display: block;
-        }
-      }
+        .cropit-image-preview {
+            background-size: cover;
+            border: 1px solid #ccc;
+            cursor: move;
+            height: 347px;
+            margin: 7px auto 0;
+            width: 847px;
 
-      #googleMap {
-        display: block;
-        height: 400px;
+            background: #ffffff url(/Dane/img/cropit_dzialanie_nowe_default_image.png) no-repeat center center;
+
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        .cropit-image-background {
+            opacity: .2;
+            cursor: auto;
+        }
+
+        .image-size-label {
+            margin-top: 10px;
+        }
+
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+
+            input[type=file] {
+                position: absolute;
+                top: 0;
+                right: 0;
+                min-width: 100%;
+                min-height: 100%;
+                font-size: 100px;
+                text-align: right;
+                filter: alpha(opacity=0);
+                opacity: 0;
+                outline: none;
+                background: white;
+                cursor: inherit;
+                display: block;
+            }
+        }
+    }
+
+    .mailBlock {
+        .mailBtn {
+            padding-left: 0;
+            margin-left: 0;
+
+            i {
+                margin-right: 5px;
+            }
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .mailElement {
+            display: none;
+        }
+    }
+
+    .googleBlock {
+        display: inline-block;
         width: 100%;
-        position: absolute;
-        top: -9999px;
-      }
 
-      .controls {
-        margin-top: 16px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      }
+        .googleBtn {
+            display: none;
+            width: auto;
+            float: left;
+            padding-left: 0;
+            margin-left: 0;
 
-      #pac-input {
-        display: none;
-        background-color: #fff;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 30px 0 12px;
-        text-overflow: ellipsis;
-        width: 400px;
-      }
-
-      #pac-input:focus {
-        border-color: #4d90fe;
-      }
-
-      #loc {
-        display: none;
-        position: absolute;
-        left: 434px;
-        top: 17px;
-        z-index: 1;
-      }
-
-      #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0 11px;
-      }
-
-      #type-selector label {
-        font-size: 13px;
-        font-weight: 300;
-      }
-    }
-  }
-
-  .btn {
-    width: auto;
-  }
-  
-  .tinymce {
-	  height: 400px;
-  }
-
-  .tags {
-    margin: 5px 0;
-    ul {
-      cursor: text;
-      &.tagit {
-        padding: 5px 7px 3px;
-        li {
-          &.tagit-choice {
-            background: #007AB9;
-            border-color: #005d8d;
-            span {
-              color: #fff;
-              font-size: 14px;
+            &:before {
+                margin-right: 3px;
             }
 
-            a {
-              color: #fff;
+            &:focus, &:hover, &:active {
+                text-decoration: none;
             }
-          }
         }
-      }
-    }
-  }
 
-  .image-editor {
-    text-align: center;
-    margin-bottom: 105px;
+        .googleMapElement {
+            display: block;
+            position: relative;
 
-    .slider-wrapper {
-      display: block;
-      margin: 10px auto 0;
-      text-align: center;
-      width: auto;
-      overflow: hidden;
+            &.loaded {
+                display: none;
 
-      .cropit-image-zoom-input {
-        margin: 6px 8px 0;
-        float: left;
-        width: 90%;
-      }
+                #googleMap {
+                    position: relative;
+                    top: 0;
+                }
+                #pac-input {
+                    display: block;
+                }
 
-      .icon {
-        float: left;
+                #loc {
+                    display: block;
+                }
+            }
 
-        &.icon-small {
-          font-size: 16px;
-          margin-top: 5px;
+            #googleMap {
+                display: block;
+                height: 400px;
+                width: 100%;
+                position: absolute;
+                top: -9999px;
+            }
+
+            .controls {
+                margin-top: 16px;
+                border: 1px solid transparent;
+                height: 32px;
+                outline: none;
+
+                -webkit-border-radius: 2px 0 0 2px;
+                -moz-border-radius: 2px 0 0 2px;
+                border-radius: 2px 0 0 2px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            #pac-input {
+                display: none;
+                background-color: #fff;
+                font-size: 15px;
+                font-weight: 300;
+                margin-left: 12px;
+                padding: 0 30px 0 12px;
+                text-overflow: ellipsis;
+                width: 400px;
+            }
+
+            #pac-input:focus {
+                border-color: #4d90fe;
+            }
+
+            #loc {
+                display: none;
+                position: absolute;
+                left: 434px;
+                top: 17px;
+                z-index: 1;
+            }
+
+            #type-selector {
+                color: #fff;
+                background-color: #4d90fe;
+                padding: 5px 11px 0 11px;
+            }
+
+            #type-selector label {
+                font-size: 13px;
+                font-weight: 300;
+            }
         }
-        &.icon-large {
-          font-size: 24px;
+    }
+
+    .btn {
+        width: auto;
+    }
+
+    .tinymce {
+        height: 400px;
+    }
+
+    .tags {
+        margin: 5px 0;
+
+        ul {
+            cursor: text;
+            background-color: #ffffff;
+
+            &.tagit {
+                padding: 5px 7px 3px;
+
+                li.tagit-choice {
+                    background: #007AB9;
+                    border-color: #005d8d;
+
+                    span {
+                        color: #fff;
+                        font-size: 14px;
+                    }
+
+                    a {
+                        color: #fff;
+                    }
+                }
+            }
         }
-      }
     }
 
-    > p {
-      margin: 6px 0 10px;
+    .image-editor {
+        text-align: center;
+        margin-bottom: 105px;
+
+        .slider-wrapper {
+            display: block;
+            margin: 10px auto 0;
+            text-align: center;
+            width: 95%;
+            overflow: hidden;
+
+            .cropit-image-zoom-input {
+                margin: 6px 8px 0;
+                float: left;
+                width: 93%;
+            }
+
+            .icon {
+                float: left;
+
+                &.icon-small {
+                    font-size: 16px;
+                    margin-top: 5px;
+                }
+                &.icon-large {
+                    font-size: 24px;
+                }
+            }
+        }
+
+        > p {
+            margin: 6px 0 10px;
+        }
+
+        .alert {
+            padding: 2px 0;
+
+            -webkit-transition: height 0.8s;
+            -moz-transition: height 0.8s;
+            -ms-transition: height 0.8s;
+            -o-transition: height 0.8s;
+            transition: height 0.8s;
+        }
     }
-
-    .cropit-image-preview {
-      background-size: cover;
-      background-color: #ffffff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      margin-top: 7px;
-      cursor: move;
-    }
-
-    .cropit-image-background {
-      opacity: .2;
-      cursor: auto;
-    }
-
-    .image-size-label {
-      margin-top: 10px;
-    }
-
-    .alert {
-      padding: 2px 0;
-
-      -webkit-transition: height 0.8s;
-      -moz-transition: height 0.8s;
-      transition: height 0.8s;
-    }
-  }
-
-  .sticky {
-
-    .form-group {
-
-      .checkbox-label {
-        margin-left: 20px;
-        font-weight: normal;
-        
-        input {margin-right: 3px;}
-      }
-
-      margin-bottom: 5px;
-    }
-
-    .btn-link {
-      padding-left: 0;
-    }
-
-  }
-
 }
 
 .text-normal {
-  font-weight: normal;
+    font-weight: normal;
 }

@@ -1,10 +1,14 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
-<?php $this->Combinator->add_libs('js', 'Start.letters.js') ?>
+<?php
+$this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start')));
+$this->Combinator->add_libs('js', 'Start.letters.js');
 
-<?= $this->element('Start.pageBegin'); ?>
+/* tinymce */
+echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
+
+echo $this->element('Start.pageBegin'); ?>
 
 <? if (!$this->Session->read('Auth.User.id')) { ?>
-    <div class="col-xs-12">
+    <div class="col-xs-12 nopadding">
         <div class="alert-identity alert alert-dismissable alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <h4>Uwaga!</h4>
@@ -25,44 +29,45 @@
 <div class="well bs-component mp-form">
   <form action="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" method="post" class="form-horizontal">
   <input type="hidden" name="edit_from_inputs" value="1" />
-    <fieldset>      
+      <fieldset>
        <legend>Wpisz treść pisma:</legend>
-      
+
       <? if( $szablon['Template'] ) {?>
       <div class="form-group form-row sm">
         <label class="col-lg-2 control-label">Szablon</label>
         <div class="col-lg-10"><p class="form-value"><?= $szablon['Template']['nazwa'] ?></p></div>
       </div>
       <? } ?>
-      
+
       <? if( $pismo['to_name'] ) {?>
       <div class="form-group form-row sm">
         <label for="inputEmail" class="col-lg-2 control-label">Adresat</label>
         <div class="col-lg-10"><p class="form-value"><?= $pismo['to_name'] ?></p></div>
       </div>
       <? } ?>
-      
+
       <hr/>
-      
-      <? 
+
+          <?
 	  if( $szablon['Template'] ) {
 	      if( $inputs = $szablon['Inputs'] ) {
 		      foreach( $inputs as $input ) {
 			      $input = $input['Input'];
 			      $full = true;
-				  
+
 				  if( $input['type']=='richtext' ) {
-		  ?>  
+                      ?>
 			      <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
 					<div class="col-lg-12">
-			          <textarea class="form-control" rows="10" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"></textarea>
+                        <textarea class="form-control tinymceField" rows="10" id="inp<?= $input['id'] ?>"
+                                  name="inp<?= $input['id'] ?>"></textarea>
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
-			      </div>  
-		  <?		  
+                  </div>
+                      <?
 				  } elseif( $input['type']=='text' ) {
-		  ?>		  
+                      ?>
 				  <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
 					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
@@ -70,9 +75,9 @@
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>
-		  <?		  
+                      <?
 				  } elseif( $input['type']=='date' ) {
-		  ?>		  
+                      ?>
 				  <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
 					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
@@ -80,9 +85,9 @@
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>
-		  <?		  
+                      <?
 				  } elseif( $input['type']=='email' ) {
-		  ?>		  
+                      ?>
 				  <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
 					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
@@ -90,19 +95,19 @@
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>
-		  <?		  
+                      <?
 				  }
-			       
-		      }
+
+              }
 		  }
 	  } else {
-		  
-		  
-	  }
-	  ?>      
-      
+
+
+      }
+          ?>
+
       <div class="form-group form-row">
-        <div class="col-lg-10 col-lg-offset-2">
+          <div class="col-lg-10 col-lg-offset-2 text-center">
           <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
             class="icon icon-applications-pisma"></i>Zobacz podgląd pisma
 	      </button>

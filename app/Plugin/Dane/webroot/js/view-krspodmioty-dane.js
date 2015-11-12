@@ -1,7 +1,5 @@
 
 $(document).ready(function () {
-
-
     // http://convertcase.net/
     function sentencecase(a) {
         a = a.toLowerCase();
@@ -20,21 +18,17 @@ $(document).ready(function () {
         return c;
     }
 
-    var objectMain = $('.krsPodmioty'),
-        form = $('section.content form'),
+	var form = $('section.content form'),
         header = $('.appHeader.dataobject').first(),
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
         opis = $('#descriptionTextArea');
 
     tinymce.PluginManager.add('sentencecase', function(editor, url) {
-
         editor.addMenuItem('sentencecase', {
             text: 'Litery jak w zdaniu',
             context: 'format',
             onclick: function() {
-				//console.log(editor.getContent());
-				//console.log(sentencecase(editor.getContent()));
                 editor.setContent(
                     sentencecase(editor.getContent())
                 );
@@ -42,9 +36,8 @@ $(document).ready(function () {
         });
     });
 
-
     tinymce.init({
-        selector: "#descriptionTextArea",
+		selector: ".tinymceField",
         language : 'pl',
         plugins: "media image sentencecase",
         menubar: false,
