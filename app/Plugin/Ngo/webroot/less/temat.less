@@ -19,78 +19,246 @@
 }
 
 .appHeader.dataobject {
-	display: none;
+    display: none;
+}
+
+.appMenu .container ul li:first-child a {
+    padding: 0;
+
+    .glyphicon.glyphicon-home:before {
+        content: ' ';
+        background: url(/Ngo/img/logo_uchodzcy.svg) bottom center no-repeat;
+        width: 115px;
+        height: 44px;
+        display: block;
+    }
 }
 
 .mp-page {
-	margin: 20px 0;
-	h2 {
-		border-bottom: 1px solid #ddd;
-	    color: green;
-	    font-size: 24px;
-	    margin: 60px 0 20px;
-	    padding-bottom: 15px;
-	    
-	    &.first {
-		    margin-top: 20px;
-	    }
-	}
-	
-	.sections {
-		section:first-child {
-			margin-top: 0;
-		}
-	}
-	
-	section {
-		margin: 40px 0;
-		h3 {
-			
-		}
-		.thumb {
-			float: left;
-			margin: 5px 15px 5px 5px;
-		    padding: 0;
-		    width: 115px;
-		    
-		    &.sm {
-			    width: 45px;
-		    }
-		}
-	}
-	
-	.btn-editable {
-		background-color: inherit;
-	    border: medium none;
-	    font-size: 18px;
-	    margin-right: 40px;
-	    margin-top: 25px;
-	    position: absolute;
-	    right: 0;
-	    color: #789;
-	    top: inherit;
-	    margin-top: 6px;
-	    &:hover {
-		    color: #157ab5;
-	    }
-	}
+    margin: 20px 0;
+    h2 {
+        border-bottom: 1px solid #ddd;
+        color: green;
+        font-size: 24px;
+        margin: 60px 0 20px;
+        padding-bottom: 15px;
+
+        &.first {
+            margin-top: 20px;
+        }
+    }
+
+    .sections {
+        section:first-child {
+            margin-top: 0;
+        }
+    }
+
+    section {
+        margin: 40px 0;
+        h3 {
+
+        }
+        .thumb {
+            float: left;
+            margin: 5px 15px 5px 5px;
+            padding: 0;
+            width: 115px;
+
+            &.sm {
+                width: 45px;
+            }
+        }
+    }
+
+    .btn-editable {
+        background-color: inherit;
+        border: medium none;
+        font-size: 18px;
+        margin-right: 40px;
+        margin-top: 25px;
+        position: absolute;
+        right: 0;
+        color: #789;
+        top: inherit;
+        margin-top: 6px;
+        &:hover {
+            color: #157ab5;
+        }
+    }
 }
 
 .hello {
-	background: url(/ngo/img/hello.jpg) no-repeat 0 0;
-	color: #FFF;
-	height: 525px;
-	background-size: cover;
-	margin-top: -6px;
-	font-size: 22px;
-	hr {
-		border-color: #eb1e22;
-		background-color: #eb1e22;
-		height: 2px;
-		width: 100px;
-		margin-top: 200px;
-	}
+    background: url(/ngo/img/hello.jpg) top left no-repeat;
+    color: #FFF;
+    height: 525px;
+    background-size: cover;
+    margin-top: -6px;
+    font-size: 22px;
+
+    hr {
+        border-color: #eb1e22;
+        background-color: #eb1e22;
+        height: 4px;
+        width: 100px;
+        margin-top: 224px;
+        margin-bottom: 38px;
+    }
+
+    p {
+        font-size: 24px;
+        line-height: 1.2em;
+    }
 }
 
-            
-            
+.firstBlock {
+    margin-top: 32px;
+    margin-bottom: 20px;
+
+    .linkBox {
+        padding-left: 0;
+
+        h2 {
+            font-size: 47px;
+            color: #000;
+        }
+        hr {
+            margin-top: 42px;
+            margin-bottom: 38px;
+            height: 4px;
+            width: 50%;
+            max-width: 96px;
+            background-color: #ed1d23;
+        }
+
+        .list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin-top: 10px;
+                border-bottom: 1px solid #e5e5e5;
+
+                a {
+                    width: 100%;
+                    display: inline-block;
+                    position: relative;
+
+                    &:after {
+                        font-family: "Glyphicons Halflings";
+                        content: "\e080";
+                        color: #000000;
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        -webkit-transform: translate(0, -50%);
+                        -moz-transform: translate(0, -50%);
+                        -ms-transform: translate(0, -50%);
+                        -o-transform: translate(0, -50%);
+                        transform: translate(0, -50%);
+                    }
+
+                    span, small {
+                        width: 100%;
+                        float: left;
+                    }
+
+                    span {
+                        font-size: 24px;
+                        font-weight: bold;
+                        color: #000;
+                    }
+                    small {
+                        margin-top: -5px;
+                        font-size: 14px;
+                        color: #787878;
+                    }
+                }
+            }
+        }
+    }
+    .storyBox {
+        position: relative;
+        margin-top: 35px;
+
+        > a {
+            display: block;
+
+            > img {
+                width: 100%;
+                background-size: cover;
+            }
+            .info {
+                position: absolute;
+                bottom: 10px;
+                left: 35px;
+                color: #ffffff;
+
+                .name {
+                    font-size: 24px;
+                    font-weight: bold;
+                    line-height: 1em;
+                }
+                .country {
+                    font-weight: bold;
+                }
+                .story {
+                    margin-top: 12px;
+                }
+            }
+        }
+    }
+
+    .pomocBox {
+        margin-top: 115px;
+
+        .redbox {
+            background-color: #ed1d23;
+            color: #ffffff;
+            padding: 2px 20px;
+
+            h3 {
+                font-size: 25px;
+                color: #ffffff;
+            }
+
+            ul.pomoc {
+                padding: 26px 0;
+                margin: 0;
+                list-style: none;
+
+                li {
+                    width: 100%;
+                    position: relative;
+
+                    &:before {
+                        font-family: "Glyphicons Halflings";
+                        content: "\e080";
+                        color: #ffffff;
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        -webkit-transform: translate(0, -50%);
+                        -moz-transform: translate(0, -50%);
+                        -ms-transform: translate(0, -50%);
+                        -o-transform: translate(0, -50%);
+                        transform: translate(0, -50%);
+                    }
+
+                    a {
+                        width: 100%;
+                        display: block;
+                        font-size: 18px;
+                        color: #ffffff;
+                        padding: 12px 0 12px 34px;
+                        line-height: 1em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
