@@ -76,7 +76,6 @@
 
             .additional {
                 display: inline-block;
-                padding-top: 30px;
                 position: relative;
 
                 .closeAdditional {
@@ -85,12 +84,14 @@
                     position: absolute;
                     right: 0;
                     top: 40px;
+                    z-index: 1;
                     cursor: pointer;
                 }
 
-                > .form-group:first-of-type {
-                    border-top: 1px solid #efefef;
+                > .form-group {
+                    margin-top: 30px;
                     padding-top: 30px;
+                    border-top: 1px solid #efefef;
                 }
             }
         }
@@ -99,18 +100,20 @@
         padding-top: 40px;
         padding-bottom: 40px;
         text-align: center;
+
         .btn {
             width: auto;
+            outline: none;
         }
     }
 
     .progress {
-        @progress-bar-us: #3cbaaa;
-        @progress-bar-us-pracodawca: #fabd5d;
-        @progress-bar-zus: #edabaa;
-        @progress-bar-pit: #337ab7;
-        @progress-bar-vat: #f0ad4e;
-        @progress-bar-akcyza: #d9534f;
+        @progress-bar-us: #337ab7;
+        @progress-bar-us-pracodawca: #5cb85c;
+        @progress-bar-zus: #5bc0de;
+        @progress-bar-pit: #f0ad4e;
+        @progress-bar-vat: #d9534f;
+        @progress-bar-akcyza: #cccccc;
 
         height: 10px;
         margin-top: 100px;

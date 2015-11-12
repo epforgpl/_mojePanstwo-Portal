@@ -329,7 +329,7 @@ $(document).ready(function() {
 	});
 
 	$('.btnRemoveObject').click(function() {
-		if(!confirm('sure?'))
+		if(!confirm('Na pewno chcesz usunąć ten obiekt z kolekcji?'))
 			return false;
 	});
 
