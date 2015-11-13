@@ -17,6 +17,10 @@ $accessDict = array(
 <div class="container">
     <div class="objectsPage">
 
+        <div class="row">
+
+            <div class="col-md-8">
+
         <header class="collection-header">
 
             <ul class="breadcrumb">
@@ -78,6 +82,8 @@ $accessDict = array(
                 )); ?>
             </div>
 
+        </div>
+            </div>
         </div>
     </div>
 </div>

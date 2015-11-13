@@ -363,6 +363,10 @@ class DataobjectsController extends AppController
                     'pisma.object_id' => $this->object->getGlobalId(),
                 ),
                 'searchTitle' => 'Szukaj w pismach...',
+                'objectOptions' => array(
+                    'public' => true,
+                    'base_url' => $this->object->getUrl()
+                ),
             ));
 
             $this->set('title_for_layout', 'Pisma ' . $this->object->getData('nazwa'));

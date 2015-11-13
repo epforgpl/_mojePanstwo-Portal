@@ -19,9 +19,9 @@ class Pisma extends DataObject
 	public function getUrl()
 	{
 		if( $this->getOptions('public') )
-			return $this->getOptions('base_url') . '/kolekcje/' . $this->getId();
+			return $this->getOptions('base_url') . '/pisma/' . $this->getData('alphaid');
 		else
-			return '/moje-kolekcje/' . $this->getId();
+			return '/moje-pisma/' . $this->getId();
 	}
 
 	public function getThumbnailUrl($size = '2')
@@ -34,21 +34,18 @@ class Pisma extends DataObject
 
     public function getDescription()
     {
-	    return $this->getData('podsumowanie');
+	    return null;
     }
 
     public function getMetaDescriptionParts($preset = false)
 	{
-
 		$output = array();
-
-		if( $this->getData('items_count') )
-			$output[] = pl_dopelniacz($this->getData('items_count'), 'dokument', 'dokumenty', 'dokumentów');
+		if( $this->getData('to_label') )
+			$output[] = $this->getData('to_label');
 		else
-			$output[] = 'Kolekcja jest pusta';
+			$output[] = 'Brak odbiorcy';
 
 		return $output;
-
 	}
 
 	public function getDefaultColumnsSizes() {
