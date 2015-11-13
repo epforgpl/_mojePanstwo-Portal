@@ -1,5 +1,6 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters-responses', array('plugin' => 'Start'))); ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane'))); ?>
 <?php
 
 $accessDict = array(
@@ -168,20 +169,6 @@ $accessDict = array(
 
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lettersSend">
-                    <div class="row margin-top-20">
-                        <div class="col-md-12">
-
-                            <p class="text-center">
-                                <button data-action="send" class="btn btn-primary btn-icon auto-width"><i
-                                        class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo...
-                                </button>
-                            </p>
-
                         </div>
                     </div>
                 </div>

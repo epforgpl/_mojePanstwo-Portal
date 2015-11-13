@@ -310,4 +310,8 @@ class StartController extends StartAppController
 
     }
 
+	public function help() {
+
+	}
+
 }
