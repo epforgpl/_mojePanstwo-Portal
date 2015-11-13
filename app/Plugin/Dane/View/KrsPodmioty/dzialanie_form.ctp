@@ -75,6 +75,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 		                        <textarea maxlength="16383" class="form-control tinymce" id="dzialanieOpis" name="opis">
 		                            <? if ($edit) echo $dzialanie->getData('opis'); ?>
 		                        </textarea>
+                        <p class="help-block">Opis może się składać z maksymalnie 16383 znaków (w tym znaki HTML widoczne w Narzędzia - Kod źródłowy)</p>
                     </div>
                     <div class="form-group margin-top-30">
                         <label>Słowa kluczowe:</label>
