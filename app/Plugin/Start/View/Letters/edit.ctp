@@ -53,8 +53,7 @@ echo $this->element('Start.pageBegin'); ?>
 	  if( $pismo['_inputs'] ) {
 	      if( $inputs = $pismo['_inputs'] ) {
 		      foreach( $inputs as $input ) {
-			      
-			      
+			      			      
 			      $full = true;
 				  $v = '';
 				  if( $input['value'] )
@@ -69,7 +68,7 @@ echo $this->element('Start.pageBegin'); ?>
 				  		preg_match('/^\$session\[(.*?)\]$/i', $v, $match)
 				  	) {
 					  	
-					  	$v = $this->Session[ $match[1] ];
+					  	$v = $this->Session->read[ $match[1] ];
 					  	
 				  	}
 				  		
