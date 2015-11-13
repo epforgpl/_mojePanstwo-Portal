@@ -3,25 +3,25 @@
 namespace MP\Lib;
 require_once('DocDataObject.php');
 
-class Dzialania extends DataObject
+class Pisma extends DataObject
 {
 
-	protected $tiny_label = 'Działania';
-
     protected $routes = array(
-        'title' => 'tytul',
-        'shortTitle' => 'tytul',
-        'desc' => false,
+        'title' => 'name',
+        'shortTitle' => 'name',
     );
 
     public function getLabel()
     {
-        return 'Działanie';
+        return 'Kolekcja';
     }
 
 	public function getUrl()
 	{
-		return '/dane/' . $this->getData('dataset') . '/' . $this->getData('object_id') . '/dzialania/' . $this->getId();
+		if( $this->getOptions('public') )
+			return $this->getOptions('base_url') . '/kolekcje/' . $this->getId();
+		else
+			return '/moje-kolekcje/' . $this->getId();
 	}
 
 	public function getThumbnailUrl($size = '2')
@@ -42,8 +42,10 @@ class Dzialania extends DataObject
 
 		$output = array();
 
-		if( $this->getData('data_utworzenia') )
-			$output[] = dataSlownie($this->getData('data_utworzenia'));
+		if( $this->getData('items_count') )
+			$output[] = pl_dopelniacz($this->getData('items_count'), 'dokument', 'dokumenty', 'dokument�w');
+		else
+			$output[] = 'Kolekcja jest pusta';
 
 		return $output;
 

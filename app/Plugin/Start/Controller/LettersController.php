@@ -46,12 +46,12 @@ class LettersController extends StartAppController
         $this->set('responses', $this->LetterResponse->getByLetter($id));
     }
 
-    private function load($id)
+    private function load($id, $params = array())
     {
 
         try {
 
-            $pismo = $this->Pismo->documents_read($id);
+            $pismo = $this->Pismo->documents_read($id, $params);
             $is_owner = false;
 
             if (
@@ -84,18 +84,15 @@ class LettersController extends StartAppController
 
     public function edit($id, $slug = '')
     {
-        if ($pismo = $this->load($id)) {
+        if ($pismo = $this->load($id, array(
+	        'inputs' => true,
+        ))) {
 			
-			if( $pismo['template_id'] ) {
+			// debug($pismo);
 				
-				$szablon = $this->Letter->getTemplate( $pismo['template_id'] );
-				$this->set('szablon', $szablon);
-				
-			}
-			
             if (!$pismo['is_owner'])
                 return $this->redirect($this->referer());
-
+                
         } else {
 
             $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');

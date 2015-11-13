@@ -49,18 +49,6 @@ $accessDict = array(
 
 		<ul class="buttons pull-right">
 			<li>
-				<input type="hidden" name="delete"/>
-				<button
-					data-tooltip="true"
-					data-original-title="Widoczność pisma"
-					data-placement="bottom"
-					class="btn btn-default btnRemove btn"
-					data-toggle="modal"
-					data-target="#accessOptions">
-					<i class="glyphicon glyphicon-share" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
-				</button>
-			</li>
-			<li>
 				<form action="" method="post">
 					<input type="hidden" name="delete"/>
 					<button
@@ -73,6 +61,30 @@ $accessDict = array(
 					</button>
 				</form>
 			</li>
+			<li>
+				<input type="hidden" name="delete"/>
+				<button
+					data-tooltip="true"
+					data-original-title="Widoczność pisma"
+					data-placement="bottom"
+					class="btn btn-default btnRemove btn"
+					data-toggle="modal"
+					data-target="#accessOptions">
+					<i data-icon="&#xe902;" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
+				</button>
+			</li>
+			<li>
+				<a
+					data-tooltip="true"
+					data-original-title="Edytuj pismo"
+					data-placement="bottom"
+					class="btn btn-default btnEdit btn"
+					type="button"
+					href="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/edit">
+					<i class="glyphicon glyphicon-edit" title="Edytuj pismo" aria-hidden="true"></i>
+				</a>
+			</li>
+			
 
 		</ul>
 

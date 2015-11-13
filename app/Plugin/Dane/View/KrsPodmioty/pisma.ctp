@@ -1,18 +1,24 @@
 <?
 
 echo $this->Element('dataobject/pageBegin');
-$params = array();
-
+$params = array(
+	'paginatorPhrases' => array('pismo','pisma','pism'),
+);
 ?>
-
-    <div class="row">
-        <div class="col-sm-10">
-            <? echo $this->Element('Dane.DataBrowser/browser', $params); ?>
-        </div>
-        <div class="col-sm-2">
-
-        </div>
-    </div>
-
+<div class="overflow-auto margin-top-20">
+	<h1 class="pull-left">Pisma napisane przez <?= $object->getTitle() ?></h1>
+	<? /*
+	<div class="pull-right">
+		<a href="<?= $object->getUrl() ?>/dodaj_dzialanie">
+		    <div class="btn btn-primary btn-icon auto-width">
+		        <i class="icon glyphicon glyphicon-plus"></i>
+		        Dodaj nowe pismo
+		    </div>
+		</a>
+	</div>
+	*/ ?>
+</div>
 <?
+echo $this->Element('Dane.DataBrowser/browser', $params);
+
 echo $this->Element('dataobject/pageEnd');

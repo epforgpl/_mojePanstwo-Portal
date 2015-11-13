@@ -1,24 +1,20 @@
 <?
-
 echo $this->Element('dataobject/pageBegin');
-
-$params = array();
-
-if(isset($object_editable) && in_array('logo', $object_editable)) {
-    $params = array(
-        'sideElement' => 'Dane.KrsPodmioty/dodaj_dzialanie'
-    );
-}
 ?>
-
-<div class="row">
-	<div class="col-sm-10">
-		<? echo $this->Element('Dane.DataBrowser/browser', $params); ?>
-	</div><div class="col-sm-2">
-		<? if( $_canEdit ) {?>
-		<a href="<?= $object->getUrl() ?>/dodaj_dzialanie" class="btn btn-primary btn-icon margin-top-15"><i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>Dodaj działanie</a>
-		<? } ?>
+<div class="overflow-auto margin-top-20">
+	<h1 class="pull-left">Działania prowadzone przez <?= $object->getTitle() ?></h1>
+	<div class="pull-right">
+		<a href="<?= $object->getUrl() ?>/dodaj_dzialanie">
+		    <div class="btn btn-primary btn-icon auto-width">
+		        <i class="icon glyphicon glyphicon-plus"></i>
+		        Dodaj nowe działanie
+		    </div>
+		</a>
 	</div>
 </div>
 <?
+echo $this->Element('Dane.DataBrowser/browser', array(
+	'paginatorPhrases' => array('działanie', 'działania', 'działań'),
+));
+
 echo $this->Element('dataobject/pageEnd');

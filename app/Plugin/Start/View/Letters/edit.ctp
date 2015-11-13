@@ -26,16 +26,17 @@ echo $this->element('Start.pageBegin'); ?>
   <li class="active">Tworzenie nowego pisma</li>
 </ul>
 
-<div class="well bs-component mp-form">
+
+<div class="well bs-component mp-form mp-form-letter">
   <form action="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" method="post" class="form-horizontal">
   <input type="hidden" name="edit_from_inputs" value="1" />
       <fieldset>
        <legend>Wpisz treść pisma:</legend>
 
-      <? if( $szablon['Template'] ) {?>
+      <? if( $pismo['template_id'] ) {?>
       <div class="form-group form-row sm">
         <label class="col-lg-2 control-label">Szablon</label>
-        <div class="col-lg-10"><p class="form-value"><?= $szablon['Template']['nazwa'] ?></p></div>
+        <div class="col-lg-10"><p class="form-value"><?= $pismo['template_name'] ?></p></div>
       </div>
       <? } ?>
 
@@ -49,19 +50,38 @@ echo $this->element('Start.pageBegin'); ?>
       <hr/>
 
           <?
-	  if( $szablon['Template'] ) {
-	      if( $inputs = $szablon['Inputs'] ) {
+	  if( $pismo['_inputs'] ) {
+	      if( $inputs = $pismo['_inputs'] ) {
 		      foreach( $inputs as $input ) {
-			      $input = $input['Input'];
+			      
+			      
 			      $full = true;
-
+				  $v = '';
+				  if( $input['value'] )
+				  	$v = $input['value'];
+				  elseif( $input['default_value'] ) {
+					  
+				  	$v = $input['default_value'];
+				  	
+				  	if( 
+				  		$v && 
+				  		( $v[0]=='$' ) && 
+				  		preg_match('/^\$session\[(.*?)\]$/i', $v, $match)
+				  	) {
+					  	
+					  	$v = $this->Session[ $match[1] ];
+					  	
+				  	}
+				  		
+				  }
+				  
 				  if( $input['type']=='richtext' ) {
                       ?>
 			      <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
 					<div class="col-lg-12">
                         <textarea class="form-control tinymceField" rows="10" id="inp<?= $input['id'] ?>"
-                                  name="inp<?= $input['id'] ?>"></textarea>
+                                  name="inp<?= $input['id'] ?>"><?= $v ?></textarea>
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
                   </div>
@@ -71,7 +91,7 @@ echo $this->element('Start.pageBegin'); ?>
 				  <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
 					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
-			          <input type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+			          <input value="<?= $v ?>" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>
@@ -81,7 +101,7 @@ echo $this->element('Start.pageBegin'); ?>
 				  <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
 					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
-			          <input style="max-width: 130px;" maxlength="10" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+			          <input value="<?= $v ?>" style="max-width: 130px;" maxlength="10" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>
@@ -91,7 +111,7 @@ echo $this->element('Start.pageBegin'); ?>
 				  <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
 					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
-			          <input type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+			          <input value="<?= $v ?>" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>
 			      </div>
@@ -107,7 +127,7 @@ echo $this->element('Start.pageBegin'); ?>
           ?>
 
       <div class="form-group form-row">
-          <div class="col-lg-10 col-lg-offset-2 text-center">
+          <div class="col-lg-12 text-center">
           <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
             class="icon icon-applications-pisma"></i>Zobacz podgląd pisma
 	      </button>

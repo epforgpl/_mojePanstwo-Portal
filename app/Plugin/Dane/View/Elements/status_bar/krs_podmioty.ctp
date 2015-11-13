@@ -1,5 +1,9 @@
 <ul class="dataHighlights oneline col-xs-12">
-
+	
+	<li class="dataHighlight col-xs-12">
+        <p class="_value desc"><?= $object->getMetaDescription() ?></p>
+    </li>
+	
     <? if($page = $object->getPage()) { ?>
 
         <div class="krakowRadnyDetail">
@@ -103,7 +107,7 @@
 
     <? } ?>
 
-    <?
+    <? /*
     $krs = $object->getData('krs');
     if (isset($krs) && !empty($krs)) { ?>
         <li class="dataHighlight col-sm-3">
@@ -187,7 +191,7 @@
             <p itemprop="email" class="_value"><?= $sygnatura_akt ?></p>
         </li>
     <? } ?>
-
+	*/ ?>
 
 
 </ul>
