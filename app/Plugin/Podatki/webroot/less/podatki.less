@@ -24,18 +24,19 @@
         }
 
         .form-inline {
+            @additionalMarginBottom: 5px;
+
             text-align: right;
 
             .form-group {
                 position: relative;
-                width: 100%;
 
                 &::after {
                     content: 'zł';
                     font-weight: bold;
                     position: absolute;
                     bottom: 8px;
-                    right: -20px;
+                    right: -2px;
                 }
 
                 label {
@@ -46,15 +47,15 @@
             .info {
                 display: inline-block;
                 float: left;
-                width: 100%;
                 font-size: .8em;
                 color: #2f2f2f;
                 padding: 1px 0;
+                margin-bottom: @additionalMarginBottom;
             }
 
             .checkbox {
-                margin-top: 8px;
-                margin-bottom: 24px;
+                margin-top: 2px;
+                margin-bottom: 14px;
 
                 label {
                     line-height: 17px;
@@ -62,36 +63,30 @@
                 }
             }
 
-            .btn {
-                margin-top: 16px;
+            .btn.btn-icon {
+                width: auto;
+                padding: 8px 24%;
 
-                &.btn-icon {
-                    width: auto;
-
-                    > .icon {
-                        margin-right: 6px;
-                    }
+                > .icon {
+                    margin-right: 6px;
                 }
             }
 
             .additional {
                 display: inline-block;
                 position: relative;
+                width: 100%;
 
                 .closeAdditional {
                     color: #888;
                     font-size: 12px;
-                    position: absolute;
-                    right: 0;
-                    top: 40px;
-                    z-index: 1;
                     cursor: pointer;
+                    padding-top: 10px;
+                    margin-bottom: @additionalMarginBottom;
                 }
 
                 > .form-group {
-                    margin-top: 30px;
-                    padding-top: 30px;
-                    border-top: 1px solid #efefef;
+                    margin-bottom: @additionalMarginBottom;
                 }
             }
         }
@@ -107,7 +102,7 @@
         }
     }
 
-    .progress {
+    /*.progress {
         @progress-bar-us: #337ab7;
         @progress-bar-us-pracodawca: #5cb85c;
         @progress-bar-zus: #5bc0de;
@@ -196,31 +191,48 @@
                 }
             }
         }
-    }
+    }*/
 
     .info_numbers {
-        margin-top: 55px;
+        margin-top: 15px;
 
-        > div {
-            height: 100px;
-            padding-bottom: 20px;
-        }
-
-        .col-newline {
-            clear: left;
-        }
-        small, strong {
+        strong, p, small {
             width: 100%;
             display: inline-block;
         }
 
-        small {
-            font-size: 16px;
-            line-height: 1em;
-        }
         strong {
             font-size: 35px;
             font-weight: normal;
+
+            &.tax {
+                font-size: 28px;
+            }
+        }
+
+        p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        small {
+            line-height: 1em;
+        }
+
+        hr {
+            border-bottom: 1px solid #ededed;
+            float: left;
+            width: 100%;
+        }
+
+        .items .item {
+            height: 110px;
+
+            .inner .details {
+                top: 0;
+                padding-top: 10px;
+                height: 55px;
+            }
         }
     }
 
@@ -234,9 +246,10 @@
 
         .item {
             text-align: center;
+            max-width: 280px;
             height: 212px;
             background-color: #FFFFFF;
-            margin: 15px 0;
+            margin: 15px auto;
             border: 1px solid #DDD;
             padding: 0;
             -webkit-border-radius: 5px;

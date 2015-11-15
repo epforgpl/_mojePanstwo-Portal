@@ -15,6 +15,12 @@ $(document).ready(function () {
 			else
 				el.find('input[type="hidden"]').removeAttr('disabled');
 		});
+		$podatki.find('.closeAdditional:not(".closeEffect")').addClass('closeEffect').on('click', function () {
+			var parent = $(this).parent();
+			$(this).parent().slideUp(function () {
+				parent.remove();
+			})
+		})
 	}
 
 	btnAction();
@@ -27,95 +33,39 @@ $(document).ready(function () {
 				btnType = $btn.attr('data-type'),
 				$parent = $btn.parent(),
 				number = Number($parent.attr('data-number')) + 1,
-				content = $('<div></div>').addClass('additional').css('display', 'none').append(
-					$('<span></span>').addClass("closeAdditional glyphicon glyphicon-remove").attr('aria-hidden', "true").on('click', function () {
-						var parent = $(this).parent();
-						$(this).parent().slideUp(function () {
-							parent.remove();
-						})
-					})
-				);
+				content = $('<div></div>').addClass('additional').css('display', 'none');
 
 			e.preventDefault();
 
-			if (btnType == 'przychody_dzialalnosc_gospodarcza') {
-				content.attr('data-number', number).append(
-					$('<div></div>').addClass('form-group').append(
-						$('<label></label>').attr('for', 'przychody_dzialalnosc_gospodarcza_' + number).text(mPHeart.translation.LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA)
-					).append(
-						$('<input />').addClass('form-control').attr({
-							'type': "number",
-							'patern': "[0-9]+([\.|,][0-9]{2}+)?",
-							'step': '0.01',
-							'name': 'dzialalnosc_gospodarcza[]',
-							'title': mPHeart.translation.LC_PODATKI_INPUT_FLOAT,
-							'id': 'przychody_dzialalnosc_gospodarcza_' + number
-						})
-					)
-				).append(
-					$('<span></span>').addClass('info').text(mPHeart.translation.LC_PODATKI_INFO_FULL)
-				).append(
-					$('<div></div>').addClass('checkbox').append(
-						$('<input/>').attr({
-							'type': 'hidden',
-							'id': 'warunki_preferencyjne_' + number + '_hidden',
-							'name': 'warunki_preferencyjne[]',
-							'value': 'N'
-						})
-					).append(
-						$('<input/>').attr({
-							'type': 'checkbox',
-							'id': 'warunki_preferencyjne_' + number,
-							'name': 'warunki_preferencyjne[]',
-							'value': 'Y'
-						})
-					).append(
-						$('<label></label>').attr('for', 'warunki_preferencyjne_' + number).text(mPHeart.translation.LC_PODATKI_WARUNKI_PREFERENCYJNE)
-					)
-				).append(
-					$('<div></div>').addClass('form-group').append(
-						$('<label></label>').attr('for', 'przychody_dzialalnosc_gospodarcza_koszt_' + number).text(mPHeart.translation.LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA_KOSZT)
-					).append(
-						$('<input />').addClass('form-control').attr({
-							'type': "number",
-							'patern': "[0-9]+([\.|,][0-9]{2}+)?",
-							'step': '0.01',
-							'name': 'dzialalnosc_gospodarcza_koszt[]',
-							'title': mPHeart.translation.LC_PODATKI_INPUT_FLOAT,
-							'id': 'przychody_dzialalnosc_gospodarcza_koszt_' + number
-						})
-					)
-				)
+			var id, name;
+
+			if (btnType == 'przychody_umowa_o_prace') {
+				id = 'przychody_umowa_o_prace_' + number;
+				name = 'umowa_o_prace[]';
+			} else if (btnType == 'przychody_umowa_zlecenie') {
+				id = 'przychody_umowa_zlecenie_' + number;
+				name = 'umowa_zlecenie[]';
 			} else {
-				var id, label, name;
-
-				if (btnType == 'przychody_umowa_zlecenie') {
-					id = 'przychody_umowa_zlecenie_' + number;
-					label = mPHeart.translation.LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE;
-					name = 'umowa_zlecenie[]';
-				} else {
-					id = 'przychody_umowa_o_dzielo_' + number;
-					label = mPHeart.translation.LC_PODATKI_PRZYCHODY_UMOWA_DZIELO;
-					name = 'umowa_o_dzielo[]';
-				}
-
-				content.attr('data-number', number).append(
-					$('<div></div>').addClass('form-group').append(
-						$('<label></label>').attr('for', id).text(label)
-					).append(
-						$('<input />').addClass('form-control').attr({
-							'type': "number",
-							'patern': "[0-9]+([\.|,][0-9]{2}+)?",
-							'step': '0.01',
-							'name': name,
-							'title': mPHeart.translation.LC_PODATKI_INPUT_FLOAT,
-							'id': id
-						})
-					)
-				).append(
-					$('<span></span>').addClass('info').text(mPHeart.translation.LC_PODATKI_INFO_FULL)
-				)
+				id = 'przychody_umowa_o_dzielo_' + number;
+				name = 'umowa_o_dzielo[]';
 			}
+
+			content.attr('data-number', number).append(
+				$('<div></div>').addClass('form-group col-xs-10 col-sm-11').append(
+					$('<input />').addClass('form-control').attr({
+						'type': "number",
+						'patern': "[0-9]+([\.|,][0-9]{2}+)?",
+						'step': '0.01',
+						'name': name,
+						'title': mPHeart.translation.LC_PODATKI_INPUT_FLOAT,
+						'id': id
+					})
+				)
+			);
+
+			content.append(
+				$('<span></span>').addClass("closeAdditional glyphicon glyphicon-remove col-xs-2 col-sm-1").attr('aria-hidden', "true")
+			);
 
 			$parent.attr('data-number', number);
 			$btn.before(content);

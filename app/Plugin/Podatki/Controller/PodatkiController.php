@@ -4,6 +4,7 @@ App::uses('ApplicationsController', 'Controller');
 
 class PodatkiController extends ApplicationsController
 {
+    public $components = array('RequestHandler');
 
     public $_layout = array(
         'header' => array(
@@ -33,6 +34,8 @@ class PodatkiController extends ApplicationsController
                 $this->redirect('/podatki');
             }
         }
+
+        $this->set('post', $this->request->data);
         $this->set('result', $result);
     }
 

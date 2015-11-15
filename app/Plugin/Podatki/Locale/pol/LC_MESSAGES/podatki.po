@@ -41,26 +41,34 @@ msgid "LC_PODATKI_ADD_NEW_UMOWA"
 msgstr "Dodaj kolejną umowę"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_BRUTTO"
-msgstr "Suma twoich przychodów brutto"
+msgstr "W tym miesiącu zarobiłeś/aś"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_BRUTTO_INFO"
+msgstr "Suma pieniędzy, którą Twój pracodawca wydał na Twoją pensję (brutto-brutto)"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_NETTO"
-msgstr "Suma twoich przychodów netto"
+msgstr "Wolnych pieniędzy pozostało"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_US"
-msgstr "Składki na ubezpieczenie społeczne opłacone przez Ciebie"
+msgstr "Ubezpieczenie społeczne płacone przez Ciebie"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_US_PRACODAWCA"
-msgstr "Składki na ubezpieczenie społeczne opłacone przez pracodawcę"
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_US_PRACODAWCY"
+msgstr "Ubezpieczenie społeczne płacone przez Twojego pracodawce"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS"
-msgstr "Składki na ubezpieczenie zdrowotne"
+msgstr "Składka zdrowotne"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PIT"
-msgstr "Podatek dochodowy (PIT)"
+msgstr "Podatek od dochodu (PIT)"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_VAT"
 msgstr "Podatek od towarów i usług (VAT)"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_AKCYZA"
-msgstr "Akcyza"
+msgstr "Akcyzy"
 
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX"
+msgstr "(wartość przybliżona, na podstawie tablic * dla podanych przez Ciebie danych)"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_WYDAWANE_PODATKI"
+msgstr "Na co zostały wydane Twoje podatki?"
