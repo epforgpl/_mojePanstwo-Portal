@@ -14,39 +14,26 @@ $shortTitle = (isset($options['forceTitle'])) ?
 
 $object_content_sizes = $object->getDefaultColumnsSizes();
 
-if( !isset($truncate) )
-	$truncate = 150;
-
-// debug( $object->getData() ); 
+if (!isset($truncate))
+    $truncate = 150;
 
 $this->Dataobject->setObject($object);
 ?>
-<div class="objectRender<? if ($alertsStatus) {
-    echo " unreaded";
-} else {
-    echo " readed";
-} ?><? if ($classes = $object->getClasses()) {
+<div class="objectRender<? echo ($alertsStatus) ? " unreaded" : " readed";
+if ($classes = $object->getClasses()) {
     echo " " . implode(' ', $classes);
-} ?>"
-     oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
+} ?>" oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
     <div class="row">
-
         <div class="data col-xs-12">
-			
-            <? /* if ($sentence = $object->getSentence()) { ?>
-                <p class="sentence"><?= $sentence ?></p>
-            <? } */ ?>
-
             <div>
-
                 <?
                 if ($object->getPosition()) {
                     ?>
                     <div class="content col-md-1">
                         <span class="badge badge-position pull-right"><?= $object->getPosition() ?></span>
                     </div>
-                <?
+                    <?
                 }
                 ?>
 
@@ -73,8 +60,9 @@ $this->Dataobject->setObject($object);
                     <?php } ?>
 
                     </div>
-                                        
-                    <div class="content col-xs-<?= $object_content_sizes[1] - 2 ?> col-sm-<?= $object_content_sizes[1] - 1 ?> col-md-<?= $object_content_sizes[1] ?>">
+
+                    <div
+                        class="content col-xs-<?= $object_content_sizes[1] - 2 ?> col-sm-<?= $object_content_sizes[1] - 1 ?> col-md-<?= $object_content_sizes[1] ?>">
 
                         <? if ($alertsButtons) { ?>
                             <div class="alertsButtons pull-right">
@@ -151,16 +139,19 @@ $this->Dataobject->setObject($object);
                                        value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
                             </div>
                         <? } ?>
-												
+
                         <? if ($object->getIcon()) {
                             echo $object->getIcon();
                         } ?>
-						
-						<? if( $object->getSideLabel() ) { ?>
-						<h3 class="label-glos"><?= $object->getSideLabel() ?></h3>
-						<? } ?>
-						
-                        <div class="<? if ($object->getIcon()) { ?>object-icon-side <? } ?> <? if( $object->getSideLabel() ) { echo 'marginRight'; } ?>">
+
+                        <? if ($object->getSideLabel()) { ?>
+                            <h3 class="label-glos"><?= $object->getSideLabel() ?></h3>
+                        <? } ?>
+
+                        <div
+                            class="<? if ($object->getIcon()) { ?>object-icon-side <? } ?> <? if ($object->getSideLabel()) {
+                                echo 'marginRight';
+                            } ?>">
 
                             <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
                                 <p class="header">

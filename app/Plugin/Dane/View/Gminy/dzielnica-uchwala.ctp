@@ -18,19 +18,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
     ),
 ));
-
-/*
-if ($pagination['total']) {
-    echo $this->Element('Dane.DataobjectsBrowser/view', array(
-        'page' => $page,
-        'pagination' => $pagination,
-        'filters' => $filters,
-        'switchers' => $switchers,
-        'facets' => $facets,
-        'renderFile' => 'krakow_dzielnice_uchwaly-glosy',
-    ));
-}
-*/
 ?>
 
 <div class="prawo row">

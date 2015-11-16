@@ -142,36 +142,6 @@ $baseUrl = $object->getUrl() . ($object->getDataset() == 'krs_podmioty' ? '/medi
         </div>
     <? } ?>
 
-	<? /*
-	<? debug($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts']); ?>
-
-	<? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts']['buckets']) { ?>
-        <div class="block block-simple col-xs-12">
-            <header><?= $object->getTitle() ?> najczęściej retweetował tweety od:</header>
-            <section class="aggs-init">
-                <div class="dataAggs">
-                    <div class="agg agg-ColumnsHorizontal"
-                         data-chart-height="1500"
-                         data-label-width="150"
-                         data-label_field="name"
-                         data-image_field="photo"
-                         data-choose-request="/media?conditions[twitter.twitter_account_id]="
-                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['retweets']['accounts'])) ?>">
-                        <div class="chart">
-                            <div class="spinner grey">
-                                <div class="bounce1"></div>
-                                <div class="bounce2"></div>
-                                <div class="bounce3"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    <? } ?>
-    */ ?>
-
-
     <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['mentions']['accounts']['buckets']) { ?>
         <div class="block block-simple col-xs-12">
             <header>Profil "<?= $object->getTitle() ?>" najczęściej wzmiankował:</header>

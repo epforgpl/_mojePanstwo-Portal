@@ -28,12 +28,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
         'bigTitle' => true,
         'truncate' => 1024,
     ),
-    /*
-    'back' => array(
-        'href' => '/dane/gminy/903,krakow/posiedzenia/' . $debata->getData('krakow_posiedzenia.id'),
-        'title' => 'Wszystkie punkty podczas posiedzenia nr ' . $debata->getData('krakow_posiedzenia.numer') . ', sesja ' . $debata->getData('krakow_sesje.str_numer'),
-    ),
-    */
 ));
 ?>
 

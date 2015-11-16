@@ -1,6 +1,5 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-poslowie', array('plugin' => 'Dane')));
-//$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Dane.view-poslowie.js');
 
@@ -109,84 +108,7 @@ echo $this->Element('dataobject/pageBegin');
                                 </p><? } ?>
                         </div>
                     </li>
-
-                    <? /* ?>
-                    <? if($object->getData('wartosc_refundacja_kwater_pln')) {?>
-                    <li class="dataHighlight">
-                        <p class="_label">Wartość refenduacji w 2013 r.</p>
-
-                        <p class="_value"><?= _currency($object->getData('wartosc_refundacja_kwater_pln')); ?></p>
-                    </li>
-                    <? } ?>
-                    
-                    <? if($object->getData('wartosc_uposazenia_pln')) {?>
-                    <li class="dataHighlight">
-                        <p class="_label">Kwota uposażenia w 2013 r.</p>
-
-                        <p class="_value"><?= _currency($object->getData('wartosc_uposazenia_pln')); ?></p>
-                    </li>
-                    <? } ?>
-                    <? */
-                    ?>
-
                 </ul>
-
-
-
-
-                <? /*
-	
-	            <ul class="dataHighlights side hide">
-	                <? if ($object->getData('forma_prawna_str')) { ?>
-	                    <li class="dataHighlight inl topborder">
-	                        <p class="_label">Forma prawna</p>
-	
-	                        <p class="_value"><?= $object->getData('forma_prawna_str'); ?></p>
-	                    </li>
-	                <? } ?>
-	
-	                <? if ($object->getData('oznaczenie_sadu')) { ?>
-	                    <li class="dataHighlight">
-	                        <p class="_label">Oznaczenie sądu</p>
-	
-	                        <p class="_value"><?= $object->getData('oznaczenie_sadu'); ?></p>
-	                    </li>
-	                <? } ?>
-	
-	                <? if ($object->getData('sygnatura_akt')) { ?>
-	                    <li class="dataHighlight">
-	                        <p class="_label">Sygnatura akt</p>
-	
-	                        <p class="_value"><?= $object->getData('sygnatura_akt'); ?></p>
-	                    </li>
-	                <? } ?>
-	
-	                <? if ($object->getData('wczesniejsza_rejestracja_str')) { ?>
-	                    <li class="dataHighlight inl">
-	                        <p class="_label">Wcześniejsza rejestracja</p>
-	
-	                        <p class="_value"><?= $object->getData('wczesniejsza_rejestracja_str'); ?></p>
-	                    </li>
-	                <? } ?>
-	
-	            </ul>
-	
-	            <p class="text-center showHideSide">
-	                <a class="a-more">Więcej &darr;</a>
-	                <a class="a-less hide">Mniej &uarr;</a>
-	            </p>
-				
-				
-				<? if( !$object->getData('wykreslony') ) {?>
-	            <div class="banner">
-	                <?php echo $this->Html->image('Dane.banners/krspodmioty_banner.png', array('width' => '69', 'alt' => 'Aktualny odpis z KRS za darmo', 'class' => 'pull-right')); ?>
-	                <p>Pobierz aktualny odpis z KRS <strong>za darmo</strong></p>
-	                <a href="/dane/krs_podmioty/<?= $object->getId() ?>/odpis" class="btn btn-primary">Kliknij aby pobrać</a>
-	            </div>
-	            <? }?>
-	            <? */
-                ?>
-
             </div>
         </div>
 
@@ -324,114 +246,10 @@ echo $this->Element('dataobject/pageBegin');
 
                         </div>
                     <? } ?>
-
-
-                    <? /*
-	            	<? if ($wystapienia) { ?>
-                    <div id="wystapienia" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Wystąpienia w Sejmie</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/wystapienia">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($wystapienia, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('data'),
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <? } ?>
-
-                <? if ($interpelacje) { ?>
-                    <div id="interpelacje" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Interpelacje</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/interpelacje">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($interpelacje, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('data_wplywu'),
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <? } ?>
-
-                <? if ($projekty_ustaw) { ?>
-                    <div id="wystapienia" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Podpisane projekty ustaw</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/projekty_ustaw">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($projekty_ustaw, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('data'),
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                <? } ?>
-
-                <? if ($glosowania) { ?>
-                    <div id="glosowania" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Wyniki głosowań</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/glosowania">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($glosowania, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('sejm_glosowania.czas'),
-                                        'file' => 'poslowie_glosy-poslowie',
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <? } ?>
-                <? */
-                    ?>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
-
-
 
 
 <?= $this->Element('dataobject/pageEnd'); ?>

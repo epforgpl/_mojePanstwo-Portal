@@ -57,7 +57,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
                     </li>
                 <? } ?>
             </ul>
-            <? /* debug($radny->getLayer('obietnice')); */ ?>
         </div>
     </div>
 

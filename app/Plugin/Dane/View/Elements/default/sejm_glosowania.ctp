@@ -7,14 +7,6 @@ $this->Combinator->add_libs('js', 'Dane.highcharts-sejm_glosowania');
 <?php $this->Combinator->add_libs('css', $this->Less->css('sejm-wyjatki', array('plugin' => 'Dane'))); ?>
 
 <?
-/*
-$wynikiKlubowe = array();
-$data = $object->loadLayer('wynikiKlubowe');
-foreach ($data as $d) {
-    $wynikiKlubowe[$d['wynik_id']][] = $d;
-}
-*/
-
 $chartData = array(
     array('Za', (int)$object->getData('z')),
     array('Przeciw', (int)$object->getData('p')),
@@ -48,7 +40,6 @@ $chartData = array(
                     $count++;
 
             $width = $count ? round(12 / $count) : 3;
-
 
             foreach ($labels as $key => $value)
                 if ($data = $object->getData('kluby_' . $key))

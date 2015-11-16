@@ -178,13 +178,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         <? } ?></p>
                 </div>
             </div>
-            <? /*
-            <select class="select_wydatki">
-                <option value="czesci">wg. Części</option>
-                <option value="dzialy" selected>wg. Działów</option>
-                <option value="rozdzialy">wg. Rozdziałów</option>
-            </select>
- */ ?>
 
             <div class="compare-details">
                 <? if (count($compareData['wydatki']['dzialy']['wzrost']) !== 0) { ?>
@@ -268,7 +261,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             $i++;
                         } ?>
                     </div>
-                    
+
                     <div class="row">
 	                    <div class="col-sm-4">
 		                    <div class="wydatki_wzrost_on text-right"><span class="btn btn-link btn-sm">Więcej</span></div>
@@ -494,12 +487,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         <? } ?></p>
                 </div>
             </div>
-            <? /*
-            <select class="select_dochody">
-                <option value="czesci">wg. Części</option>
-                <option value="dzialy" selected>wg. Działów</option>
-            </select>
- */ ?>
 
             <div class="compare-details">
                 <? if (count($compareData['dochody']['dzialy']['wzrost']) !== 0) { ?>

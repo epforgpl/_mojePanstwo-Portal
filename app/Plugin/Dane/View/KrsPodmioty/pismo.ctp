@@ -28,11 +28,7 @@ $accessDict = array(
                         <i class="object-icon icon-applications-pisma"></i>
 
                         <div class="object-icon-side">
-                            <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
-                                <? /*<a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">*/ ?>
-                                <?= $pismo['nazwa'] ?>
-                                <? /*</a>*/ ?>
-                            </h1>
+                            <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></h1>
                         </div>
                     </div>
 

@@ -10,17 +10,3 @@
         </div>
     </div>
 <? } ?>
-
-<? /*
-<div class="objectsPage">
-	<?
-		$options = array(
-			'title' => 'Powiadomienia o nowych danych',
-		);
-		if( isset($title) )
-			$options['title'] = $title;
-			
-		echo $this->Element('Dane.DataBrowser/browser', $options);
-	?>
-</div>
-*/ ?>

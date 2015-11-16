@@ -9,7 +9,6 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    // 'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $akt,
     'objectOptions' => array(
         'bigTitle' => true,
@@ -27,22 +26,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="krakow_zarzadzenia row">
         <div class="col-lg-2 objectSide">
             <div class="objectSideInner">
-
-
                 <ul class="dataHighlights side">
-
-
-                    <? /*
-				'krakow_zarzadzenia.liczba_powiazanych' => (int) 0,
-				'krakow_zarzadzenia.liczba_zmienianych' => (int) 0,
-				'krakow_zarzadzenia.liczba_zmieniajacych' => (int) 0,
-				*/ ?>
-
-
-
-
-
-
                     <? if ($akt->getData('data_podpisania') && $akt->getData('data_podpisania') != '0000-00-00') { ?>
                         <li class="dataHighlight">
                             <p class="_label">Data podpisania</p>
@@ -50,7 +34,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
                             <p class="_value"><?= $this->Czas->dataSlownie($akt->getData('data_podpisania')); ?></p>
                         </li>
                     <? } ?>
-
 
                     <? if ($akt->getData('status_str')) { ?>
                         <li class="dataHighlight">
@@ -60,7 +43,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
                         </li>
                     <? } ?>
 
-
                     <? if ($akt->getData('realizacja_str')) { ?>
                         <li class="dataHighlight">
                             <p class="_label">Realizacja</p>
@@ -69,13 +51,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
                         </li>
                     <? } ?>
 
-
-
-
-
-                    <? if ($counters = $object->getLayer('counters')) { ?>
-
-                        <? $i = 0;
+                    <? if ($counters = $object->getLayer('counters')) {
+                        $i = 0;
                         foreach ($counters as $counter) {
                             if (!$counter['count']) continue; ?>
 
@@ -89,14 +66,10 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                                                        href="/dane/prawo/<?= $object->getId() ?>/<?= $counter['slug'] ?>">Zobacz &raquo;</a>
                                     </p>
                                 </div>
-
                             </li>
-
                             <? $i++;
-                        } ?>
-
-                    <? } ?>
-
+                        }
+                    } ?>
 
                     <li class="dataHighlight topborder">
                         <p class="_label">Źródło</p>
@@ -107,19 +80,12 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                target="_blank">BIP Kraków</a>
                         </p>
                     </li>
-
-
                 </ul>
-
-
             </div>
         </div>
 
-
         <div class="col-lg-10 objectMain">
-
-        <?= $this->Document->place($akt->getData('dokument_id')) ?>
-
+            <?= $this->Document->place($akt->getData('dokument_id')) ?>
         </div>
     </div>
 <?

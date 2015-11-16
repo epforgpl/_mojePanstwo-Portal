@@ -31,17 +31,13 @@ $accessDict = array(
 	  <li><a href="/moje-pisma">Moje Pisma</a></li>
 	  <li class="active">Pismo</li>
 	</ul>
-		
+
 	<div class="overflow-auto">
 
 		<div class="content pull-left">
 			<i class="object-icon icon-applications-pisma"></i>
 			<div class="object-icon-side">
-				<h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
-					<? /*<a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">*/ ?>
-						<?= $pismo['nazwa'] ?>
-					<? /*</a>*/ ?>
-				</h1>
+                <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></h1>
 			</div>
 		</div>
 
@@ -84,7 +80,7 @@ $accessDict = array(
 					data-target="#accessOptions">
 					<i data-icon="&#xe902;" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
 				</button>
-			</li>			
+            </li>
 		</ul>
 
 	</div>
@@ -94,10 +90,10 @@ $accessDict = array(
 
 	$share_url = 'https://mojepanstwo.pl/dane/pisma/' . $pismo['numeric_id'];
 	if( $pismo['object_id'] ) {
-		
-		$share_url = 'https://mojepanstwo.pl/dane/' . $pismo['page_dataset'] . '/' . $pismo['page_object_id'] . ',' . $pismo['page_slug'] . '/pisma/' . $pismo['numeric_id'];
-		
-	}
+
+        $share_url = 'https://mojepanstwo.pl/dane/' . $pismo['page_dataset'] . '/' . $pismo['page_object_id'] . ',' . $pismo['page_slug'] . '/pisma/' . $pismo['numeric_id'];
+
+    }
 ?>
 
 <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -149,149 +145,6 @@ $accessDict = array(
 <ul class="collection-meta">
 	<li>Pismo <? if( $pismo['is_public'] ) {?>publiczne<? } else {?>prywatne<? } ?></li>
 </ul>
-
-
-
-<? /*
-	
-	<div class="letter-meta">
-        <p>Autor:
-            <b><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></b>
-        </p>
-        <? if ($pismo['sent']) { ?>
-            <p class="small"><b>pismo zostałe wysłane do
-                    adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?></b></p>
-        <? } else { ?>
-            <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
-        <? } ?>
-    </div>
-         
-         
-         
-    <div class="editor-tooltip">
-	    
-	
-	    <? if ($pismo['is_owner']) {
-	        if (!$this->Session->read('Auth.User.id')) { ?>
-	            <div class="alert alert-dismissable alert-success">
-	                <button type="button" class="close" data-dismiss="alert">×</button>
-	                <h4>Uwaga!</h4>
-	
-	                <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24
-	                    godziny. <a
-	                        class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale
-	                    przechowywać pisma na
-	                    swoim koncie.</p>
-	            </div>
-	        <? } ?>
-	        <ul class="form-buttons">
-	            <? if ($pismo['access'] == 'private') { ?>
-	                <li class="inner-addon col-xs-12">
-	                    <form action="" method="post">
-	                        <input type="hidden" name="access" value="public">
-	
-	                        <p><b>pismo jest prywatne.</b> Tylko Ty masz do niego dostęp.
-	                            <button class="clean" type="submit">Kliknij, aby udostępnić pismo
-	                                publicznie.
-	                            </button>
-	                        </p>
-	                    </form>
-	                </li>
-	            <? } elseif ($pismo['access'] == 'public') { ?>
-	                <li class="inner-addon col-xs-12">
-	                    <form action="" method="post">
-	                        <input type="hidden" name="access" value="private">
-	
-	                        <p>
-	                            <b>pismo jest publiczne.</b>
-	                            <button class="clean" type="submit">Kliknij, aby zmienić jego widoczność
-	                                na prywatną.
-	                            </button>
-	                        </p>
-	                    </form>
-	                </li>
-	                <li class="inner-addon col-xs-12 col-sm-6 col-md-4">
-	                    <div class="form-group clipboard">
-	                        <label for="clipboardCopy">Link do dokumentu</label>
-	
-	                        <div class="input-group">
-	                            <input id="clipboardCopy" type="text" class="form-control"
-	                                   readonly="readonly"
-	                                   value="<?php echo Router::url($this->here, true); ?>"/>
-	                            <span class="input-group-btn">
-	                                <button id="clipboardCopyBtn"
-	                                        class="btn btn-default glyphicon glyphicon-copy"
-	                                        data-clipboard-text="<?php echo Router::url($this->here, true); ?>"
-	                                        type="button"></button>
-	                            </span>
-	                        </div>
-	                    </div>
-	                </li>
-	                <li class="inner-addon col-xs-12 col-sm-6 col-md-4 shareIt">
-	                    <span><strong>Udostępnij</strong></span>
-	
-	                    <div id="fb-root"></div>
-	                    <a class="btn btn-social-icon btn-facebook"
-	                       href="http://www.facebook.com/sharer.php?u=<?php echo Router::url($this->here, true); ?>"
-	                       target="_blank">
-	                        <i class="fa fa-facebook"></i>
-	                    </a>
-	                    <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/share"
-	                       target="_blank"
-	                       data-url="<?php echo Router::url($this->here, true); ?>"
-	                       data-lang="<?php if (Configure::read('Config.language') == 'pol') {
-	                           echo('pl');
-	                       } else {
-	                           echo('en');
-	                       } ?>">
-	                        <i class="fa fa-twitter"></i>
-	                    </a>
-	                    <a class="btn btn-social-icon btn-wykop"
-	                       href="http://www.wykop.pl/dodaj/link/?url=<?php echo Router::url($this->here, true); ?>&title=<?= $pismo['nazwa'] ?>"
-	                       target="_blank">
-	                        <img class="fa" src="/Start/img/wykop_logo.png" alt="wykop.pl"
-	                             onerror="imgFixer(this)"/>
-	                    </a>
-	                </li>
-	            <? } ?>
-	        </ul>
-	    <? } ?>
-	</div>
-	<ul class="buttons pull-right col-xs-12">
-	    <li class="inner-addon">
-	        <form onsubmit="return confirm('Czy na pewno chcesz usunąć pismo?');"
-	              method="post"
-	              action="/moje-pisma/<?= $pismo['alphaid'] ?>,<?= $pismo['slug'] ?>">
-	            <button name="delete" type="submit" class="btn btn-icon btn-danger"><i
-	                    class="icon glyphicon glyphicon-trash"></i>Skasuj
-	            </button>
-	        </form>
-	    </li>
-	    <? if (!$pismo['sent']) { ?>
-	        <li class="inner-addon">
-	            <a href="<?= $href_base . '/edit' ?>" target="_self"
-	               class="btn btn-default btn-icon"><i
-	                    class="icon glyphicon glyphicon-edit"></i>Edytuj</a>
-	        </li>
-	    <? } ?>
-	    <? if ($pismo['to_email']) { ?>
-	        <li class="inner-addon">
-	            <? if (!$pismo['sent']) { ?>
-	                <a title="Możesz wysłać pismo do adresata poprzez e-mail"
-	                   href="#" target="_self"
-	                   class="btn btn-primary sendPismo btn-icon"><i
-	                        class="icon glyphicon glyphicon-send"></i>Wyślij...</a>
-	            <? } ?>
-	        </li>
-	    <? } ?>
-	</ul>     
-         
-         
-         
-         
-                        
-*/ ?>
-
 
 <div class="letter-table">
 	<div class="row">
@@ -408,9 +261,9 @@ $accessDict = array(
                     <button type="button" class="btn btn-default"
                             data-dismiss="modal">Anuluj
                     </button>
-                                        
+
                     <button name="send" value="Wyślij" type="submit" class="btn btn-primary btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo</button>
-                    
+
                 </div>
             </form>
         </div>
@@ -420,11 +273,11 @@ $accessDict = array(
 <div class="lettersSend">
 	<div class="row margin-top-20">
         <div class="col-md-12">
-	        
-	        <p class="text-center">
+
+            <p class="text-center">
                 <button data-action="send" class="btn btn-primary btn-icon auto-width"><i class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo...</button>
             </p>
-	        
+
         </div>
 	</div>
 </div>
@@ -434,7 +287,7 @@ $accessDict = array(
 <div class="lettersResponses">
     <div class="row margin-top-20">
         <div class="col-md-12">
-            
+
             <ul class="responses">
 	            <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
                     <? foreach($responses as $response) { ?>
@@ -461,7 +314,7 @@ $accessDict = array(
                     <? } ?>
 	            <? } ?>
             </ul>
-            
+
             <? if( $pismo['sent'] ) {?>
             <p class="buttons text-center">
                 <button
@@ -473,7 +326,7 @@ $accessDict = array(
 				</button>
             </p>
             <? } ?>
-            
+
         </div>
     </div>
 </div>
