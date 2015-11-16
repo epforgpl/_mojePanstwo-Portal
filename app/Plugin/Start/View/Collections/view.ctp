@@ -35,17 +35,6 @@ $accessDict = array(
         <form action="" method="post">
             <ul class="buttons pull-right">
                 <li>
-                    <a
-                        data-tooltip="true"
-                        data-original-title="Ustawienia prywatności"
-                        data-placement="bottom"
-                        data-toggle="modal"
-                        data-target="#accessOptions"
-                        class="btn btn-default btnAccess btn">
-                        <i class="glyphicon glyphicon-share" title="Ustawienia prywatności" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li>
                     <input type="hidden" name="delete"/>
                     <button
                         data-tooltip="true"
@@ -56,7 +45,17 @@ $accessDict = array(
                         <i class="glyphicon glyphicon-trash" title="Usuń kolekcję" aria-hidden="true"></i>
                     </button>
                 </li>
-
+                <li>
+                    <a
+                        data-tooltip="true"
+                        data-original-title="Widoczność kolekcji"
+                        data-placement="bottom"
+                        class="btn btn-default btnAccess btn"
+                        data-toggle="modal"
+                        data-target="#accessOptions">
+                        <i data-icon="&#xe902;" title="Ustawienia widoczności kolekcji" aria-hidden="true"></i>
+                    </a>
+                </li>
             </ul>
         </form>
     </div>
@@ -73,6 +72,15 @@ $accessDict = array(
         <li>Redakcja: <a href="#">#<?= $item->getData('object_id') ?></a></li>
     <? } ?>
 </ul>
+
+<?
+
+$share_url = 'https://mojepanstwo.pl/dane/kolekcje/' . $item->getData('id');
+if($item->getData('object_id')) {
+    // @todo wyciągnać dataset i id na podstawie object_id (objects.id)
+    $share_url = 'https://mojepanstwo.pl/dane/dataset/' . $item->getData('object_id') . '/kolekcje/' . $item->getData('id');
+}
+?>
 
 <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -98,7 +106,13 @@ $accessDict = array(
                                     <? } ?>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-visibility-display"<? if( !$item->getData('is_public') ) {?> style="display: none;"<? } ?>>
+                                <div class="col-lg-12">
+                                    <p class="_label"><? if( $item->getData('is_public') ) {?>Kolekcja jest dostępna pod adresem:<? } else { ?>Kolekcja będzie dostępna pod adresem:<? } ?></p>
+                                    <div><input class="form-control" type="text" readonly="readonly" value="<?= $share_url ?>" /></div>
+                                </div>
+                            </div>
+                            <div class="form-group margin-top-20">
                                 <div class="col-lg-9">
                                     <button type="reset" data-dismiss="modal" class="btn btn-default">Anuluj</button>
                                     <button type="submit" class="btn btn-md btn-primary btn-icon"><i class="icon glyphicon glyphicon-pencil"></i>Zapisz

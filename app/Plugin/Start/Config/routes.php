@@ -217,7 +217,7 @@ foreach ($pisma_prefixes as $pisma_prefix) {
         'plugin' => 'Start',
         'controller' => 'Letters',
         'action' => 'attachment',
-    ), array('id' => '[A-Za-z0-9]{5}', 'attachment_id' => '[0-9]{1,}', 'pass' => array('id', 'slug', 'attachment_id')));
+    ), array('id' => '[A-Za-z0-9]{5}', 'slug' => '[A-Za-z0-9]{0,}', 'attachment_id' => '[0-9]{1,}', 'pass' => array('id', 'slug', 'attachment_id')));
 
 
     // HTML
