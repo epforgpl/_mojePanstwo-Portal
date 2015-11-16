@@ -22,9 +22,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     <div class="row"
                          data-number="<?= (isset($post['umowa_o_prace'])) ? count($post['umowa_o_prace']) : 1 ?>">
                         <div class="col-md-5 text-right">
-                            <!--TODO: caly napis tooltip z poprzednim small'em)-->
-                            <label
-                                for="przychody_umowa_o_prace_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE'); ?>
+                            <label data-toggle="tooltip" data-placement="top"
+                                   title="<?= __d('podatki', 'LC_PODATKI_INFO_FULL'); ?>"
+                                   for="przychody_umowa_o_prace_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE'); ?>
                                 :</label>
                         </div>
                         <div class="col-md-2 text-center nopadding">
@@ -67,8 +67,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     <div class="row"
                          data-number="<?= (isset($post['umowa_zlecenie'])) ? count($post['umowa_zlecenie']) : 1 ?>">
                         <div class="col-md-5 text-right">
-                            <label
-                                for="przychody_umowa_zlecenie_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE'); ?>
+                            <label data-toggle="tooltip" data-placement="top"
+                                   title="<?= __d('podatki', 'LC_PODATKI_INFO_FULL'); ?>"
+                                   for="przychody_umowa_zlecenie_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE'); ?>
                                 :</label>
                         </div>
                         <div class="col-md-2 text-center nopadding">
@@ -111,8 +112,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     <div class="row"
                          data-number="<?= (isset($post['umowa_o_dzielo'])) ? count($post['umowa_o_dzielo']) : 1 ?>">
                         <div class="col-md-5 text-right">
-                            <label
-                                for="przychody_umowa_o_dzielo_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE'); ?>
+                            <label data-toggle="tooltip" data-placement="top"
+                                   title="<?= __d('podatki', 'LC_PODATKI_INFO_FULL'); ?>"
+                                   for="przychody_umowa_o_dzielo_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE'); ?>
                                 :</label>
                         </div>
                         <div class="col-md-2 text-center nopadding">
@@ -200,8 +202,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
         </button>
     </div>
 
-
-    <div class="stripe scroll<?php if (!isset($result)) { ?>blocked" style="display: none;<? } ?>">
+    <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
         <div class="container">
             <h2><? if (isset($result_sum['netto'])) {
                     echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA') . ' ' . number_format($result_sum['brutto'] - $result_sum['netto'], 2, '.', ' ') . ' zł';
@@ -211,21 +212,23 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 class="row chart_area"<? if (isset($result_sum)) { ?> data-result='<?= json_encode($result_sum) ?>'<? } ?>>
                 <div class="col-md-6 pie"></div>
                 <div class="col-md-6 legend">
-                    <div class="position"><span
-                            style="background-color: <?= $result_sum['us_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_US') ?>
-                    </div>
-                    <div class="position"><span
-                            style="background-color: <?= $result_sum['zus_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
-                    </div>
-                    <div class="position"><span
-                            style="background-color: <?= $result_sum['pit_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?>
-                    </div>
-                    <div class="position"><span
-                            style="background-color: <?= $result_sum['vat_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
-                    </div>
-                    <div class="position"><span
-                            style="background-color: <?= $result_sum['akcyza_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
-                    </div>
+                    <? if (isset($result_sum)) { ?>
+                        <div class="position"><span
+                                style="background-color: <?= $result_sum['us_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_US') ?>
+                        </div>
+                        <div class="position"><span
+                                style="background-color: <?= $result_sum['zus_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
+                        </div>
+                        <div class="position"><span
+                                style="background-color: <?= $result_sum['pit_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?>
+                        </div>
+                        <div class="position"><span
+                                style="background-color: <?= $result_sum['vat_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
+                        </div>
+                        <div class="position"><span
+                                style="background-color: <?= $result_sum['akcyza_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
+                        </div>
+                    <? } ?>
                 </div>
             </div>
 
