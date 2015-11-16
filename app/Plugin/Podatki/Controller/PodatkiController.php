@@ -230,15 +230,19 @@ class PodatkiController extends ApplicationsController
         $AKCYZA = 0.5 * $VAT;
 
         $RESULT_SUM = array(
-            'total' => number_format($SKLADKI1 + $SKLADKI2 + $SKLADKI3 + $PIT + $VAT + $AKCYZA, 2, '.', ''),
             'brutto' => number_format($DOCHODY_BRUTTO, 2, '.', ''),
             'netto' => number_format($DOCHODY_NETTO, 2, '.', ''),
-            'us' => number_format($SKLADKI1, 2, '.', ''),
             'us_pracodawca' => number_format($SKLADKI2, 2, '.', ''),
+            'us' => number_format($SKLADKI1, 2, '.', ''),
+            'us_color' => '#90ED7D',
             'zus' => number_format($SKLADKI3, 2, '.', ''),
+            'zus_color' => '#F7A35C',
             'pit' => number_format($PIT, 2, '.', ''),
+            'pit_color' => '#8085E9',
             'vat' => number_format($VAT, 2, '.', ''),
-            'akcyza' => number_format($AKCYZA, 2, '.', '')
+            'vat_color' => '#2b908f',
+            'akcyza' => number_format($AKCYZA, 2, '.', ''),
+            'akcyza_color' => '#7cb5ec',
         );
 
         return $RESULT_SUM;

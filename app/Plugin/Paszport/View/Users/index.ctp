@@ -43,18 +43,6 @@
                                 )); ?>
                                 <?php echo $this->Form->end(); ?>
                             </li>
-                            <?php /*<li class="lastname">
-                                            <?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'field', 'ext' => 'json'))); ?>
-                                            <div class="viewElement">
-                                                <?php echo $this->Form->input('User.personal_lastname', array('disabled' => 'disabled', 'label' => __d('paszport', 'LC_PASZPORT_LASTNAME', true),'class' => 'form-control')); ?>
-                                            </div>
-                                            <div class="editElement form-group">
-                                                <?php echo $this->Form->input('User.personal_lastname', array('label' => __d('paszport', 'LC_PASZPORT_LASTNAME', true), 'data-validation-required-message' => __d('paszport', "LC_PASZPORT_INSTITUTION_NAME_REQUIRED", true), 'required' => 'required', 'autocomplete' => 'off', 'after' => '<span class="help-block"></span>','class' => 'form-control')); ?>
-                                            </div>
-                                            <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_EDIT'), array('class' => 'btn btn-default edit doubleState', 'data-text' => __d('paszport', 'LC_PASZPORT_SAVE'))); ?>
-                                            <?php echo $this->Form->end(); ?>
-                                        </li>*/
-                            ?>
                         <?php } ?>
                         <?php if ($this->data['User']['group_id'] == '2') { ?>
                             <li class="name">
@@ -321,23 +309,6 @@
                             <?php echo $this->Form->end(); ?>
                         </li>
 
-                        <?php if ($this->data['User']['group_id'] == '1') { ?>
-                            <?php /*<li class="accounts">
-                                            <label><?php echo __d('paszport', "LC_PASZPORT_USER_CONNECT_ACCOUNTS"); ?></label>
-                                            <?php if (!$this->data['User']['facebook_id']) { ?>
-                                                <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_ATTACH_FB_PROFILE', true), array('action' => 'attachprofile', 'facebook'), array('class' => 'btn btn-info facebook')); ?>
-                                            <?php } else { ?>
-                                                <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_DEATTACH_FB_PROFILE', true), array('action' => 'deattachprofile', 'facebook'), array('class' => 'btn facebook')); ?>
-                                            <?php } ?>
-                                            <?php if (!$this->data['User']['twitter_id']) { ?>
-                                                <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_ATTACH_TWITTER_PROFILE', true), array('action' => 'twitterattach'), array('class' => 'btn btn-primary twitter')); ?>
-                                            <?php } else { ?>
-                                                <?php echo $this->Html->link(__d('paszport', 'LC_PASZPORT_DEATTACH_TWITTER_PROFILE', true), array('action' => 'twitterdeattach'), array('class' => 'btn btn-primary twitter active')); ?>
-                                            <?php } ?>
-                                        </li>*/
-                            ?>
-                        <?php } ?>
-
                         <li>
                             <label><?php echo __d('paszport', "LC_PASZPORT_USER_SPECIAL_ACTIONS"); ?></label>
                             <a class="btn btn-default deleteAccount"
@@ -359,21 +330,6 @@
                             ->crop(190, 190)
                             ->imagePath(); ?>
                         <?php echo $this->Html->image($thumb, array('class' => 'img-polaroid')); ?>
-                        <?php /**  if ($this->data['User']['facebook_id']) {
-                         * <div class="btn-group externalPhoto">
-                         * <a class="btn btn-link dropdown-toggle multiphoto" data-toggle="dropdown" href="#">
-                         * <span></span>
-                         * </a>
-                         * <ul class="dropdown-menu">
-                         * <?php if ($this->data['User']['facebook_id']) { ?>
-                         * <li><a
-                         * href="<?php echo $this->Html->url(array('action' => 'externalavatar', 'facebook')); ?>"
-                         * class="dropdown"><?php echo __d('paszport', 'LC_PASZPORT_EXTERNAL_FB_AVATAR'); ?></a>
-                         * </li><?php } ?>
-                         * </ul>
-                         * </div>
-                         * } **/
-                        ?>
                     <?php } ?>
                     <div class="row">
                         <a href="<?php echo $this->Html->url(array(

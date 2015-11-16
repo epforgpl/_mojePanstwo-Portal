@@ -1,20 +1,14 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-prawo', array('plugin' => 'Dane')));
-// //$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
-// $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
-// $this->Combinator->add_libs('js', 'Dane.view-poslowie.js');
 
 echo $this->Element('dataobject/pageBegin');
 ?>
 
     <div class="prawo row">
         <div class="col-md-3 objectSide">
-
             <div class="objectSideInner">
-
                 <div class="block">
                     <ul class="dataHighlights side">
-
                         <? if ($object->getData('isap_status_str')) { ?>
                             <li class="dataHighlight">
                                 <p class="_label">Status</p>
@@ -30,7 +24,6 @@ echo $this->Element('dataobject/pageBegin');
                                 <p class="_value"><?= $object->getData('sygnatura'); ?></p>
                             </li>
                         <? } ?>
-
                     </ul>
                 </div>
 
@@ -60,33 +53,6 @@ echo $this->Element('dataobject/pageBegin');
                                 <p class="_value"><?= $this->Czas->dataSlownie($object->getData('data_wejscia_w_zycie')); ?></p>
                             </li>
                         <? } ?>
-
-
-
-                        <? /* if ($counters = $object->getLayer('counters')) { ?>
-	
-	                        <? $i = 0;
-	                        foreach ($counters as $counter) {
-	                            if (!$counter['count']) continue; ?>
-	
-	                            <li class="dataHighlight big">
-	                                <p class="_label"><?= $counter['nazwa'] ?></p>
-	
-	                                <div>
-	                                    <p class="_value pull-left"><?= $counter['count'] ?></p>
-	
-	                                    <p class="pull-right nopadding"><a class="btn btn-sm btn-default"
-	                                                                       href="/dane/prawo/<?= $object->getId() ?>/<?= $counter['slug'] ?>">Zobacz &raquo;</a>
-	                                    </p>
-	                                </div>
-	
-	                            </li>
-	
-	                            <? $i++;
-	                        } ?>
-	
-	                    <? } */ ?>
-
                     </ul>
                 </div>
 
@@ -106,11 +72,6 @@ echo $this->Element('dataobject/pageBegin');
                         </ul>
                     </div>
                 <? } ?>
-
-
-
-
-
 
                 <div class="block">
                     <ul class="dataHighlights side">

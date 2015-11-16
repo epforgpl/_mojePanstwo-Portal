@@ -40,35 +40,23 @@ msgstr "Wprowadź liczbe z dwoma miejscami po przecinku"
 msgid "LC_PODATKI_ADD_NEW_UMOWA"
 msgstr "Dodaj kolejną umowę"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_BRUTTO"
-msgstr "W tym miesiącu zarobiłeś/aś"
+msgid "LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA"
+msgstr "Miesięcznie odprowadzasz do budżetu państwa"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_BRUTTO_INFO"
-msgstr "Suma pieniędzy, którą Twój pracodawca wydał na Twoją pensję (brutto-brutto)"
+msgid "LC_PODATKI_RESULTS_WYDAWANE_PODATKI"
+msgstr "Twoje podatki zostały wydawane na"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PRZYCHODY_NETTO"
-msgstr "Wolnych pieniędzy pozostało"
+msgid "LC_PODATKI_RESULTS_PIE_US"
+msgstr "Ubezpieczenie społeczne (US)"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_US"
-msgstr "Ubezpieczenie społeczne płacone przez Ciebie"
+msgid "LC_PODATKI_RESULTS_PIE_ZUS"
+msgstr "Składka zdrowotne (ZUS)"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_US_PRACODAWCY"
-msgstr "Ubezpieczenie społeczne płacone przez Twojego pracodawce"
-
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS"
-msgstr "Składka zdrowotne"
-
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_PIT"
+msgid "LC_PODATKI_RESULTS_PIE_PIT"
 msgstr "Podatek od dochodu (PIT)"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_VAT"
+msgid "LC_PODATKI_RESULTS_PIE_VAT"
 msgstr "Podatek od towarów i usług (VAT)"
 
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_AKCYZA"
-msgstr "Akcyzy"
-
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX"
-msgstr "(wartość przybliżona, na podstawie tablic * dla podanych przez Ciebie danych)"
-
-msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_WYDAWANE_PODATKI"
-msgstr "Na co zostały wydane Twoje podatki?"
+msgid "LC_PODATKI_RESULTS_PIE_AKCYZA"
+msgstr "Akcyza"

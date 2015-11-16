@@ -3,8 +3,8 @@
     padding-top: 20px;
     padding-bottom: 20px;
     button {
-	    width: 150px !important;
-	    text-align: center !important;
+        width: 150px !important;
+        text-align: center !important;
     }
 }
 
@@ -12,182 +12,83 @@
     .appBanner.bottom-border {
         margin-bottom: 0;
     }
-    
-    
-    
+
     .section {
         display: block;
         padding: 20px 0;
         border-bottom: 1px solid #e0e0e0;
-		
+
         &:last-child {
             border-bottom: none;
-        }        
-        
+        }
+
         label {
-	        margin-top: 6px;
-	        font-weight: normal;
-        }
-		
-		.info {
-			margin-top: 6px;
-			color: #789;
-		}
-		
-		.button_container {
-			text-align: left;
-			margin-top: 6px;
-			.btn {
-				i {
-					margin-right: 3px;
-				}
-			}
-		}
-		
-		.row.additional {
-			padding-top: 10px;
-		}
-		
-		.closeAdditional {
-			font-size: 12px;
-			color: #D33;
-			padding: 10px 5px 0;
-		}
-        
-    }
-    
-    
-
-    /*.progress {
-        @progress-bar-us: #337ab7;
-        @progress-bar-us-pracodawca: #5cb85c;
-        @progress-bar-zus: #5bc0de;
-        @progress-bar-pit: #f0ad4e;
-        @progress-bar-vat: #d9534f;
-        @progress-bar-akcyza: #cccccc;
-
-        height: 10px;
-        margin-top: 100px;
-
-        .progress-bar {
-            &.progress-bar-us {
-                background-color: @progress-bar-us;
-            }
-            &.progress-bar-us-pracodawca {
-                background-color: @progress-bar-us-pracodawca;
-            }
-            &.progress-bar-zus {
-                background-color: @progress-bar-zus;
-            }
-            &.progress-bar-pit {
-                background-color: @progress-bar-pit;
-            }
-            &.progress-bar-vat {
-                background-color: @progress-bar-vat;
-            }
-            &.progress-bar-akcyza {
-                background-color: @progress-bar-akcyza;
-            }
-        }
-
-        .tooltip {
-            background-color: transparent;
-
-            strong {
-                display: inline-block;
-                width: 100%;
-            }
-
-            &.progress-bar-us {
-                .tooltip-inner {
-                    background-color: @progress-bar-us;
-                }
-                .tooltip-arrow {
-                    border-top-color: @progress-bar-us !important;
-                }
-            }
-            &.progress-bar-us-pracodawca {
-                .tooltip-inner {
-                    background-color: @progress-bar-us-pracodawca;
-                }
-                .tooltip-arrow {
-                    border-top-color: @progress-bar-us-pracodawca !important;
-                }
-            }
-            &.progress-bar-zus {
-                .tooltip-inner {
-                    background-color: @progress-bar-zus;
-                }
-                .tooltip-arrow {
-                    border-top-color: @progress-bar-zus !important;
-                }
-            }
-            &.progress-bar-pit {
-                .tooltip-inner {
-                    background-color: @progress-bar-pit;
-                }
-                .tooltip-arrow {
-                    border-top-color: @progress-bar-pit !important;
-                }
-            }
-            &.progress-bar-vat {
-                .tooltip-inner {
-                    background-color: @progress-bar-vat;
-                }
-                .tooltip-arrow {
-                    border-top-color: @progress-bar-vat !important;
-                }
-            }
-            &.progress-bar-akcyza {
-                .tooltip-inner {
-                    background-color: @progress-bar-akcyza;
-                }
-                .tooltip-arrow {
-                    border-top-color: @progress-bar-akcyza !important;
-                }
-            }
-        }
-    }*/
-
-    .info_numbers {
-        margin-top: 15px;
-
-        strong, p, small {
-            width: 100%;
-            display: inline-block;
-        }
-
-        strong {
-            font-size: 35px;
+            margin-top: 6px;
             font-weight: normal;
+        }
 
-            &.tax {
-                font-size: 28px;
+        .info {
+            margin-top: 6px;
+            color: #789;
+        }
+
+        .button_container {
+            text-align: left;
+            margin-top: 6px;
+            .btn {
+                i {
+                    margin-right: 3px;
+                }
             }
         }
 
-        p {
-            margin: 0;
-            font-size: 18px;
+        .row.additional {
+            padding-top: 10px;
         }
 
-        small {
-            line-height: 1em;
+        .closeAdditional {
+            font-size: 12px;
+            color: #D33;
+            padding: 10px 5px 0;
         }
 
-        hr {
-            border-bottom: 1px solid #ededed;
-            float: left;
-            width: 100%;
+    }
+}
+
+.stripe {
+    background-color: #f8f9fa;
+    margin-bottom: 50px;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    margin-top: 30px;
+
+    .pie {
+        position: relative;
+        z-index: 1;
+        float: left;
+
+        > div {
+            width: 86%;
         }
+    }
+    .legend {
+        margin-top: 3em;
+        text-align: left;
+        float: left;
 
-        .items .item {
-            height: 110px;
+        .position {
+            margin-bottom: 10px;
 
-            .inner .details {
-                top: 0;
-                padding-top: 10px;
-                height: 55px;
+            span {
+                display: block;
+                min-width: 20px;
+                min-height: 10px;
+                width: 2.5em;
+                height: 1.25em;
+                margin-right: 6px;
+                float: left;
             }
         }
     }
@@ -295,24 +196,10 @@
             }
         }
     }
-}
 
-.stripe {
-	background-color: #f8f9fa;
-	margin-bottom: 50px;
-	text-align: center;
-	padding: 20px;
-	border-top: 1px solid #DDD;
-	border-bottom: 1px solid #DDD;
-	margin-top: 30px;
-	button {
-		width: 150px !important;
-		text-align: center !important;
-	}
-	
-	.chart_area {
-		margin-top: 20px;
-		margin-bottom: 50px;
-		min-height: 300px;
-	}
+    .chart_area {
+        margin-top: 20px;
+        margin-bottom: 50px;
+        min-height: 300px;
+    }
 }

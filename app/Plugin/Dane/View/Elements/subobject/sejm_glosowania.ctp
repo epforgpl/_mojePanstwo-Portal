@@ -2,16 +2,6 @@
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.highcharts-sejm_glosowania');
-?>
-
-<?
-/*
-$wynikiKlubowe = array();
-$data = $object->loadLayer('wynikiKlubowe');
-foreach ($data as $d) {
-    $wynikiKlubowe[$d['wynik_id']][] = $d;
-}
-*/
 
 $chartData = array(
     array('Za', (int)$object->getData('z')),

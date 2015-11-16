@@ -1,7 +1,4 @@
 <?
-// echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
-
-
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
@@ -48,43 +45,24 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
                             <p class="_value pull-right"><?= $zmiana->getData('rejestr_nr') ?></p>
                         </li>
-
-                        <? /*
-	                    <li class="dataHighlight">
-	                        <a href="/interpelacje"><span
-	                                class="icon icon-moon">&#xe614;</span>Interpelacje <span
-	                                class="glyphicon glyphicon-chevron-right"></a>
-	                    </li>
-	                    */ ?>
-
                     </ul>
-
                 </div>
 
-
                 <div class="block">
-
                     <ul class="dataHighlights side">
-
                         <li class="dataHighlight">
                             <a target="_blank" href="/dane/msig_dzialy/<?= $zmiana->getData('dzial_id') ?>"><span
                                     class="glyphicon glyphicon-link"></span>MSiG<span
                                     class="glyphicon glyphicon-chevron-right"></a>
                         </li>
-
                     </ul>
-
                 </div>
-
-
             </div>
         </div>
 
         <div class="col-lg-9 nopadding">
             <div class="object">
-
                 <? if ($details = $zmiana->getLayer('details')) { ?>
-
                     <? if ($details['data']) { ?>
                         <div class="block">
                             <div class="block-header">
@@ -95,7 +73,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                     'data' => $details['data'],
                                 )); ?>
                             </div>
-
                         </div>
                     <? } ?>
 
@@ -107,14 +84,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
                             <div class="content">
                                 <?= $details['tresc'] ?>
                             </div>
-
                         </div>
                     <? } ?>
                 <? } ?>
-
             </div>
         </div>
-
     </div>
 
 <? echo $this->Element('dataobject/pageEnd');

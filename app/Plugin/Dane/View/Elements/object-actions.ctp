@@ -7,35 +7,6 @@ if (isset($object_actions)) {
     <ul class="object-actions-ul">
 
         <? foreach ($object_actions as $key => $data) {
-            /*
-            if ($key == 'obserwuj') { ?>
-                <li>
-                    <? if( $object->getSubscribtion() ) { ?>
-                    <form method="post" action="<?= $object->getUrl() ?>/unsubscribe">
-                        <p class="btn_cont">
-                            <button class="btn btn-default btn-icon obserwuj-button" data-objectid="<?= $data['id'] ?>">
-                                <span class="glyphicon icon" data-icon="&#xe61d;" aria-hidden="true"></span> <span class="btn-text">Obserwujesz</span>
-                            </button>
-                        </p>
-                        <p class="desc">
-                            Nowe dane od <?= $data['nazwa'] ?> są umieszczane w Twoim personalnym feedzie.
-                        </p>
-                    </form>
-                    <? } else { ?>
-                    <form method="post" action="<?= $object->getUrl() ?>/subscribe">
-                        <p class="btn_cont">
-                            <button class="btn btn-primary btn-icon obserwuj-button" data-objectid="<?= $data['id'] ?>">
-                                <span class="glyphicon icon" data-icon="&#xe61d;" aria-hidden="true"></span> Obserwuj
-                            </button>
-                        </p>
-                        <p class="desc">
-                            Kliknij, aby nowe dane od <?= $data['nazwa'] ?> były umieszczane w Twoim personalnym feedzie.
-                        </p>
-                    </form>
-                    <? } ?>
-                </li>
-
-            <? } else */
             if ($key == 'pisma') { ?>
                 <li>
                     <p class="btn_cont">
