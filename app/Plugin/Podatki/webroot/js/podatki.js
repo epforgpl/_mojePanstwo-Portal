@@ -32,50 +32,48 @@ $(document).ready(function () {
 		if (typeof res !== typeof undefined && res !== false) {
 			res = $.parseJSON(res);
 
-			$chartArea.find('.pie').append(
-				$('<div></div>').addClass('pull-right').highcharts({
-					credits: false,
-					chart: {
-						plotBackgroundColor: null,
-						plotBorderWidth: null,
-						plotShadow: false,
-						backgroundColor: 'transparent',
-						type: 'pie'
-					},
-					title: {
-						text: ' '
-					},
-					tooltip: {
-						pointFormat: '{series.name}: <b>{point.y}</b>'
-					},
-					plotOptions: {
-						pie: {
-							dataLabels: false
-						}
-					},
-					colors: [res['us_color'], res['zus_color'], res['pit_color'], res['vat_color'], res['akcyza_color']],
-					series: [{
-						name: "Kwota",
-						colorByPoint: true,
-						data: [{
-							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_US,
-							y: Number(res['us'])
-						}, {
-							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
-							y: Number(res['zus'])
-						}, {
-							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
-							y: Number(res['pit'])
-						}, {
-							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
-							y: Number(res['vat'])
-						}, {
-							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
-							y: Number(res['akcyza'])
-						}]
+			$chartArea.find('.pie').highcharts({
+				credits: false,
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					backgroundColor: 'transparent',
+					type: 'pie'
+				},
+				title: {
+					text: ' '
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.y}</b>'
+				},
+				plotOptions: {
+					pie: {
+						dataLabels: false
+					}
+				},
+				colors: [res['us_color'], res['zus_color'], res['pit_color'], res['vat_color'], res['akcyza_color']],
+				series: [{
+					name: "Kwota",
+					colorByPoint: true,
+					data: [{
+						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_US,
+						y: Number(res['us'])
+					}, {
+						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
+						y: Number(res['zus'])
+					}, {
+						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
+						y: Number(res['pit'])
+					}, {
+						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
+						y: Number(res['vat'])
+					}, {
+						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
+						y: Number(res['akcyza'])
 					}]
-				})
-			)
+				}]
+			})
 		}
 	}
 
@@ -106,7 +104,7 @@ $(document).ready(function () {
 			}
 
 			content.append(
-				$('<div></div>').addClass('col-md-2 text-center nopadding col-md-offset-5').append(
+				$('<div></div>').addClass('col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center nopadding').append(
 					$('<input />').addClass('form-control').attr({
 						'type': "number",
 						'patern': "[0-9]+([\.|,][0-9]{2}+)?",
@@ -117,7 +115,7 @@ $(document).ready(function () {
 					})
 				)
 			).append(
-				$('<div></div>').addClass('col-md-3').append(
+				$('<div></div>').addClass('col-xs-12 col-sm-4 col-md-3').append(
 					$('<a></a>').addClass('closeAdditional glyphicon glyphicon-remove').attr({
 						href: '#',
 						'aria-hidden': 'true'

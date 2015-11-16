@@ -21,20 +21,20 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div class="section">
                     <div class="row"
                          data-number="<?= (isset($post['umowa_o_prace'])) ? count($post['umowa_o_prace']) : 1 ?>">
-                        <div class="col-md-5 text-right">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
                             <label data-toggle="tooltip" data-placement="top"
                                    title="<?= __d('podatki', 'LC_PODATKI_INFO_FULL'); ?>"
                                    for="przychody_umowa_o_prace_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE'); ?>
                                 :</label>
                         </div>
-                        <div class="col-md-2 text-center nopadding">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center nopadding">
                             <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
                                    name="umowa_o_prace[]"
                                    title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
                                    id="przychody_umowa_o_prace_1"
                                    value="<?= @$post['umowa_o_prace'][0]; ?>">
                         </div>
-                        <div class="col-md-3 button_container">
+                        <div class="col-xs-12 col-sm-4 col-md-3 button_container">
                             <a href="#" class="btn btn-link btn-xs" data-type="przychody_umowa_o_prace">
                                 <i class="icon glyphicon glyphicon-plus"></i><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
                             </a>
@@ -45,14 +45,15 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             if (!empty($post['umowa_o_prace'][$i])) {
                                 ?>
                                 <div class="additional row" data-number="<?= $i; ?>">
-                                    <div class="col-md-2 col-md-offset-5 text-center nopadding">
+                                    <div
+                                        class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center nopadding">
                                         <input type="number" class="form-control" patern="[0-9]+([.|,][0-9]{2}+)?"
                                                step="0.01" name="umowa_o_prace[]"
                                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                                id="przychody_umowa_o_prace_<?= $i; ?>"
                                                value="<?= @$post['umowa_o_prace'][$i]; ?>">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-xs-12 col-sm-4 col-md-3">
                                         <a class="closeAdditional glyphicon glyphicon-remove" aria-hidden="true"
                                            href="#"></a>
                                     </div>
@@ -66,20 +67,20 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div class="section">
                     <div class="row"
                          data-number="<?= (isset($post['umowa_zlecenie'])) ? count($post['umowa_zlecenie']) : 1 ?>">
-                        <div class="col-md-5 text-right">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
                             <label data-toggle="tooltip" data-placement="top"
                                    title="<?= __d('podatki', 'LC_PODATKI_INFO_FULL'); ?>"
                                    for="przychody_umowa_zlecenie_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE'); ?>
                                 :</label>
                         </div>
-                        <div class="col-md-2 text-center nopadding">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center nopadding">
                             <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
                                    name="umowa_zlecenie[]"
                                    title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
                                    id="przychody_umowa_zlecenie_1"
                                    value="<?= @$post['umowa_zlecenie'][0]; ?>">
                         </div>
-                        <div class="col-md-3 button_container">
+                        <div class="col-xs-12 col-sm-4 col-md-3 button_container">
                             <a href="#" class="btn btn-link btn-xs" data-type="przychody_umowa_zlecenie">
                                 <i class="icon glyphicon glyphicon-plus"></i><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
                             </a>
@@ -90,14 +91,15 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             if (!empty($post['umowa_zlecenie'][$i])) {
                                 ?>
                                 <div class="additional row" data-number="<?= $i; ?>">
-                                    <div class="col-md-2 col-md-offset-5 text-center nopadding">
+                                    <div
+                                        class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center nopadding">
                                         <input type="number" class="form-control" patern="[0-9]+([.|,][0-9]{2}+)?"
                                                step="0.01" name="umowa_zlecenie[]"
                                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                                id="przychody_umowa_zlecenie_<?= $i; ?>"
                                                value="<?= @$post['umowa_zlecenie'][$i]; ?>">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-xs-12 col-sm-4 col-md-3">
                                         <a class="closeAdditional glyphicon glyphicon-remove" aria-hidden="true"
                                            href="#"></a>
                                     </div>
@@ -111,20 +113,20 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div class="section">
                     <div class="row"
                          data-number="<?= (isset($post['umowa_o_dzielo'])) ? count($post['umowa_o_dzielo']) : 1 ?>">
-                        <div class="col-md-5 text-right">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
                             <label data-toggle="tooltip" data-placement="top"
                                    title="<?= __d('podatki', 'LC_PODATKI_INFO_FULL'); ?>"
                                    for="przychody_umowa_o_dzielo_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE'); ?>
                                 :</label>
                         </div>
-                        <div class="col-md-2 text-center nopadding">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center nopadding">
                             <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
                                    name="umowa_o_dzielo[]"
                                    title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
                                    id="przychody_umowa_o_dzielo_1"
                                    value="<?= @$post['umowa_o_dzielo'][0]; ?>">
                         </div>
-                        <div class="col-md-3 button_container">
+                        <div class="col-xs-12 col-sm-4 col-md-3 button_container">
                             <a href="#" class="btn btn-link btn-xs" data-type="przychody_umowa_o_dzielo">
                                 <i class="icon glyphicon glyphicon-plus"></i><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
                             </a>
@@ -135,14 +137,15 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             if (!empty($post['umowa_o_dzielo'][$i])) {
                                 ?>
                                 <div class="additional row" data-number="<?= $i; ?>">
-                                    <div class="col-md-2 col-md-offset-5 text-center nopadding">
+                                    <div
+                                        class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center nopadding">
                                         <input type="number" class="form-control" patern="[0-9]+([.|,][0-9]{2}+)?"
                                                step="0.01" name="umowa_o_dzielo[]"
                                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                                id="przychody_umowa_o_dzielo_<?= $i; ?>"
                                                value="<?= @$post['umowa_o_dzielo'][$i]; ?>">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-xs-12 col-sm-4 col-md-3">
                                         <a class="closeAdditional glyphicon glyphicon-remove" aria-hidden="true"
                                            href="#"></a>
                                     </div>
@@ -160,11 +163,11 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     </p>
 
                     <div class="row"<? if (!$dzialanoscGospExist) { ?> style="display: none"<? } ?>>
-                        <div class="col-md-5 text-right">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
                             <label
                                 for="przychody_dzialalnosc_gospodarcza_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA'); ?></label>
                         </div>
-                        <div class="col-md-2 text-center nopadding">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center nopadding">
                             <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
                                    name="dzialalnosc_gospodarcza[]"
                                    title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
@@ -179,11 +182,11 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <label
                                 for="warunki_preferencyjne_1"><?= __d('podatki', 'LC_PODATKI_WARUNKI_PREFERENCYJNE'); ?></label>
                         </div>
-                        <div class="col-md-5 text-right">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
                             <label
                                 for="przychody_dzialalnosc_gospodarcza_koszt_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA_KOSZT'); ?></label>
                         </div>
-                        <div class="col-md-2 text-center nopadding">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center nopadding">
                             <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
                                    name="dzialalnosc_gospodarcza_koszt[]"
                                    title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
@@ -210,8 +213,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
 
             <div
                 class="row chart_area"<? if (isset($result_sum)) { ?> data-result='<?= json_encode($result_sum) ?>'<? } ?>>
-                <div class="col-md-6 pie"></div>
-                <div class="col-md-6 legend">
+                <div class="col-xs-12 col-md-6 pie"></div>
+                <div class="col-xs-12 col-md-6 legend">
                     <? if (isset($result_sum)) { ?>
                         <div class="position"><span
                                 style="background-color: <?= $result_sum['us_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_US') ?>

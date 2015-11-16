@@ -67,16 +67,10 @@
     .pie {
         position: relative;
         z-index: 1;
-        float: left;
-
-        > div {
-            width: 86%;
-        }
     }
     .legend {
         margin-top: 3em;
         text-align: left;
-        float: left;
 
         .position {
             margin-bottom: 10px;
@@ -201,5 +195,12 @@
         margin-top: 20px;
         margin-bottom: 50px;
         min-height: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .stripe .pie .highcharts-container {
+        width: 95%;
+        float: right;
     }
 }
