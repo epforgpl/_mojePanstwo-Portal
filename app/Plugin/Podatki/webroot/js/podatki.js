@@ -1,7 +1,9 @@
 /*global mPHeart*/
 
 $(document).ready(function () {
-	var $podatki = $('#podatki');
+	var $podatki = $('#podatki'),
+		$stripe = $('.stripe'),
+		$chartArea = $('.chart_area');
 
 	function btnAction() {
 		$podatki.find('input[type="number"]:not(".blurEffect")').addClass('blurEffect').on('blur', function () {
@@ -24,24 +26,71 @@ $(document).ready(function () {
 		})
 	}
 
-	btnAction();
+	function resultPie() {
+		var res = $chartArea.attr('data-result');
+
+		if (typeof res !== typeof undefined && res !== false) {
+			res = $.parseJSON(res);
+
+			$chartArea.find('.pie').append(
+				$('<div></div>').addClass('pull-right').highcharts({
+					credits: false,
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false,
+						backgroundColor: 'transparent',
+						type: 'pie'
+					},
+					title: {
+						text: ' '
+					},
+					tooltip: {
+						pointFormat: '{series.name}: <b>{point.y}</b>'
+					},
+					plotOptions: {
+						pie: {
+							dataLabels: false
+						}
+					},
+					colors: [res['us_color'], res['zus_color'], res['pit_color'], res['vat_color'], res['akcyza_color']],
+					series: [{
+						name: "Kwota",
+						colorByPoint: true,
+						data: [{
+							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_US,
+							y: Number(res['us'])
+						}, {
+							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
+							y: Number(res['zus'])
+						}, {
+							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
+							y: Number(res['pit'])
+						}, {
+							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
+							y: Number(res['vat'])
+						}, {
+							name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
+							y: Number(res['akcyza'])
+						}]
+					}]
+				})
+			)
+		}
+	}
 
 	$podatki.find('.section').each(function () {
 		var sect = $(this);
 
 		sect.find('.btn').click(function (e) {
-			
 			e.preventDefault();
-			
+
 			var $btn = $(this),
 				btnType = $btn.attr('data-type'),
 				row = $btn.closest('.row'),
-				section = $btn.closest('.section');
+				section = $btn.closest('.section'),
 				number = Number(row.attr('data-number')) + 1,
-				content = $('<div></div>').addClass('additional').addClass('row').css('display', 'none'),
-				
-			console.log('row', row);
-			console.log('section', section);
+				content = $('<div></div>').addClass('additional').addClass('row').css('display', 'none');
 
 			var id, name;
 
@@ -56,8 +105,8 @@ $(document).ready(function () {
 				name = 'umowa_o_dzielo[]';
 			}
 
-			content.attr('data-number', number).append(
-				$('<div class="col-xs-2 text-center nopadding col-xs-offset-5"></div>').append(
+			content.append(
+				$('<div></div>').addClass('col-md-2 text-center nopadding col-md-offset-5').append(
 					$('<input />').addClass('form-control').attr({
 						'type': "number",
 						'patern': "[0-9]+([\.|,][0-9]{2}+)?",
@@ -67,16 +116,35 @@ $(document).ready(function () {
 						'id': id
 					})
 				)
+			).append(
+				$('<div></div>').addClass('col-md-3').append(
+					$('<a></a>').addClass('closeAdditional glyphicon glyphicon-remove').attr({
+						href: '#',
+						'aria-hidden': 'true'
+					})
+				)
 			);
-			
-			
-			
-			content.append('<div class="col-xs-3"><a href="#" aria-hidden="true" class="closeAdditional glyphicon glyphicon-remove"></a></button>');
 
-			// $parent.attr('data-number', number);
+			row.attr('data-number', number);
 			section.append(content);
 			content.slideDown();
 			btnAction();
-		})
+		});
 	});
+
+	$('.dzialalnoscGospodarcza a').click(function (e) {
+		e.preventDefault();
+
+		$(this).slideUp();
+		$(this).parents('.dzialalnoscGospodarcza').find('.row').slideDown();
+	});
+
+	if ($stripe.hasClass('scroll')) {
+		$('html, body').animate({
+			scrollTop: $stripe.offset().top
+		}, 600);
+	}
+
+	btnAction();
+	resultPie();
 });
