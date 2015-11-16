@@ -20,12 +20,10 @@ echo $this->element('Start.pageBegin'); ?>
     </div>
 <? } ?>
 
-
 <ul class="breadcrumb">
   <li><a href="/moje-pisma">Moje Pisma</a></li>
   <li class="active">Tworzenie nowego pisma</li>
 </ul>
-
 
 <div class="well bs-component mp-form mp-form-letter">
   <form action="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" method="post" class="form-horizontal">
@@ -36,14 +34,14 @@ echo $this->element('Start.pageBegin'); ?>
       <? if( $pismo['template_id'] ) {?>
       <div class="form-group form-row sm">
         <label class="col-lg-2 control-label">Szablon</label>
-        <div class="col-lg-10"><p class="form-value"><?= $pismo['template_name'] ?></p></div>
+        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['template_name'] ?></p></div>
       </div>
       <? } ?>
 
       <? if( $pismo['to_name'] ) {?>
       <div class="form-group form-row sm">
         <label for="inputEmail" class="col-lg-2 control-label">Adresat</label>
-        <div class="col-lg-10"><p class="form-value"><?= $pismo['to_name'] ?></p></div>
+        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['to_name'] ?></p></div>
       </div>
       <? } ?>
 
@@ -66,11 +64,8 @@ echo $this->element('Start.pageBegin'); ?>
 				  		$v && 
 				  		( $v[0]=='$' ) && 
 				  		preg_match('/^\$session\[(.*?)\]$/i', $v, $match)
-				  	) {
-					  	
-					  	$v = $this->Session->read[ $match[1] ];
-					  	
-				  	}
+				  	) 
+					  	$v = $this->Session->read( $match[1] );					  	
 				  		
 				  }
 				  
@@ -127,9 +122,16 @@ echo $this->element('Start.pageBegin'); ?>
 
       <div class="form-group form-row">
           <div class="col-lg-12 text-center">
-          <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
-            class="icon icon-applications-pisma"></i>Zobacz podgląd pisma
-	      </button>
+	          <? if($pismo['saved']) {?>
+		          <a href="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" class="btn btn-md btn-default">Anuluj</a>
+		          <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+		            class="icon icon-applications-pisma"></i>Zapisz
+			      </button>
+		      <? } else { ?>
+		      	<button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+		            class="icon icon-applications-pisma"></i>Zapisz i zobacz podgląd pisma
+			      </button>
+		      <? } ?>
         </div>
       </div>
     </fieldset>

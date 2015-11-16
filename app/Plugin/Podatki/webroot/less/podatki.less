@@ -1,106 +1,62 @@
+.main_button_container {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    button {
+	    width: 150px !important;
+	    text-align: center !important;
+    }
+}
+
 #podatki {
     .appBanner.bottom-border {
         margin-bottom: 0;
     }
+    
+    
+    
     .section {
-        width: 100%;
         display: block;
-        float: left;
         padding: 20px 0;
         border-bottom: 1px solid #e0e0e0;
-
-        background: #fafafa;
-        background: -moz-linear-gradient(top, #fafafa 0%, #ffffff 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #ffffff));
-        background: -webkit-linear-gradient(top, #fafafa 0%, #ffffff 100%);
-        background: -o-linear-gradient(top, #fafafa 0%, #ffffff 100%);
-        background: -ms-linear-gradient(top, #fafafa 0%, #ffffff 100%);
-        background: linear-gradient(to bottom, #fafafa 0%, #ffffff 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#ffffff', GradientType=0);
-
+		
         &:last-child {
-            padding-bottom: 55px;
             border-bottom: none;
+        }        
+        
+        label {
+	        margin-top: 6px;
+	        font-weight: normal;
         }
-
-        .form-inline {
-            @additionalMarginBottom: 5px;
-
-            text-align: right;
-
-            .form-group {
-                position: relative;
-
-                &::after {
-                    content: 'zł';
-                    font-weight: bold;
-                    position: absolute;
-                    bottom: 8px;
-                    right: -2px;
-                }
-
-                label {
-                    margin-right: 12px;
-                }
-            }
-
-            .info {
-                display: inline-block;
-                float: left;
-                font-size: .8em;
-                color: #2f2f2f;
-                padding: 1px 0;
-                margin-bottom: @additionalMarginBottom;
-            }
-
-            .checkbox {
-                margin-top: 2px;
-                margin-bottom: 14px;
-
-                label {
-                    line-height: 17px;
-                    padding-left: 5px;
-                }
-            }
-
-            .btn.btn-icon {
-                width: auto;
-                padding: 8px 24%;
-
-                > .icon {
-                    margin-right: 6px;
-                }
-            }
-
-            .additional {
-                display: inline-block;
-                position: relative;
-                width: 100%;
-
-                .closeAdditional {
-                    color: #888;
-                    font-size: 12px;
-                    cursor: pointer;
-                    padding-top: 10px;
-                    margin-bottom: @additionalMarginBottom;
-                }
-
-                > .form-group {
-                    margin-bottom: @additionalMarginBottom;
-                }
-            }
-        }
+		
+		.info {
+			margin-top: 6px;
+			color: #789;
+		}
+		
+		.button_container {
+			text-align: left;
+			margin-top: 6px;
+			.btn {
+				i {
+					margin-right: 3px;
+				}
+			}
+		}
+		
+		.row.additional {
+			padding-top: 10px;
+		}
+		
+		.closeAdditional {
+			font-size: 12px;
+			color: #D33;
+			padding: 10px 5px 0;
+		}
+        
     }
-    .action {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        text-align: center;
-
-        .btn {
-            width: auto;
-            outline: none;
-        }
-    }
+    
+    
 
     /*.progress {
         @progress-bar-us: #337ab7;
@@ -341,8 +297,22 @@
     }
 }
 
-@media (min-width: 768px) {
-    #podatki .section .form-control {
-        min-width: 255px;
-    }
+.stripe {
+	background-color: #f8f9fa;
+	margin-bottom: 50px;
+	text-align: center;
+	padding: 20px;
+	border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	margin-top: 30px;
+	button {
+		width: 150px !important;
+		text-align: center !important;
+	}
+	
+	.chart_area {
+		margin-top: 20px;
+		margin-bottom: 50px;
+		min-height: 300px;
+	}
 }

@@ -587,7 +587,17 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => @$this->object_aggs['dzialania']['doc_count'],
             );
         }
-
+		
+		$menu['items'][] = array(
+            'id' => 'pisma',
+            'label' => 'Pisma',
+        );
+		
+		$menu['items'][] = array(
+            'id' => 'kolekcje',
+            'label' => 'Kolekcje',
+        );
+		
         if (@$this->object_aggs['zamowienia']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'zamowienia',
@@ -664,15 +674,7 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        $menu['items'][] = array(
-            'id' => 'kolekcje',
-            'label' => 'Kolekcje',
-        );
-
-        $menu['items'][] = array(
-            'id' => 'pisma',
-            'label' => 'Pisma',
-        );
+        
 
         return $menu;
     }

@@ -406,7 +406,7 @@ $description =
     <div class="objectsPageContent main">
 
         <div class="krsPodmioty">
-            <div class="col-xs-12 col-md-9 objectMain">
+            <div class="col-xs-12 col-md-9 objectMain margin-bottom-20">
                 <div class="object">
 
                     <? if ($dzialalnosci = $object->getLayer('dzialalnosci')) { ?>
@@ -414,7 +414,7 @@ $description =
                             <header>Działalność według PKD</header>
                             <section>
 
-                                <ul>
+                                <ul class="dzialalnosci">
                                     <? foreach ($dzialalnosci as $d) { ?>
                                         <li><?= $d['str'] ?></li>
                                     <? } ?>

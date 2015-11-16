@@ -52,6 +52,7 @@ class LettersController extends StartAppController
         try {
 
             $pismo = $this->Pismo->documents_read($id, $params);
+            
             $is_owner = false;
 
             if (

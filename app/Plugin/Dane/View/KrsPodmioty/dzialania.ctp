@@ -2,7 +2,7 @@
 echo $this->Element('dataobject/pageBegin');
 ?>
 <div class="overflow-auto margin-top-20">
-	<h1 class="pull-left">Działania prowadzone przez <?= $object->getTitle() ?></h1>
+	<h1 class="pull-left">Działania</h1>
 	<div class="pull-right">
 		<a href="<?= $object->getUrl() ?>/dodaj_dzialanie">
 		    <div class="btn btn-primary btn-icon auto-width">

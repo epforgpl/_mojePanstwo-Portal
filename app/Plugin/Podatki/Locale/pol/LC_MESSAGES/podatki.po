@@ -11,13 +11,13 @@ msgid "LC_PODATKI_INFORMATION"
 msgstr "Obliczenie jest anonimowe. Twoje dane nie będą nigdzie przechowywane."
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE"
-msgstr "Przychody z umowy o pracę"
+msgstr "Przychody brutto z umowy o pracę"
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE"
-msgstr "Przychody z umowy o zlecenie"
+msgstr "Przychody brutto z umowy o zlecenie"
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_DZIELO"
-msgstr "Przychody z umowy o dzieło"
+msgstr "Przychody brutto z umowy o dzieło"
 
 msgid "LC_PODATKI_INFO_FULL"
 msgstr "wpisz kwotę brutto, znajdziesz ją na umowie"

@@ -92,14 +92,12 @@ class StartAppController extends ApplicationsController {
                     'href' => '/moje-strony',
                     'icon' => 'icon-datasets-strony',
                 ),
-                /*
                 array(
                     'id' => 'help',
                     'label' => 'Instrukcja Obsługi portalu',
                     'href' => '/pomoc',
                     'icon' => 'icon-applications-kto_tu_rzadz'
                 ),
-                */
             )
         )
     );

@@ -188,4 +188,29 @@ $(document).ready(function () {
 	}
 	*/
 	
+	var fv = $('#form-visibility');	
+	var fvd = fv.find('.form-visibility-display');
+	if( fv.length ) {
+		
+		fv.find('input[name=is_public]').change(function(e){
+			
+			var input = $(e.currentTarget);
+			if( input.val() == '1' ) {
+				
+				fvd.slideDown();
+				
+			} else {
+				
+				fvd.slideUp();
+				
+			}
+			
+		});
+		
+		var radio_inputs_div = $('#visibility_inputs');
+		var radio_value = radio_inputs_div.data('value');
+		radio_inputs_div.find('input').filter('[value=' + radio_value + ']').prop('checked', true);
+		
+	}
+	
 });

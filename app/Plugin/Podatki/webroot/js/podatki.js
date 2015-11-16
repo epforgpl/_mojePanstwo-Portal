@@ -15,8 +15,9 @@ $(document).ready(function () {
 			else
 				el.find('input[type="hidden"]').removeAttr('disabled');
 		});
-		$podatki.find('.closeAdditional:not(".closeEffect")').addClass('closeEffect').on('click', function () {
-			var parent = $(this).parent();
+		$podatki.find('.closeAdditional:not(".closeEffect")').addClass('closeEffect').on('click', function (e) {
+			e.preventDefault();
+			var parent = $(this).closest('.row.additional');
 			$(this).parent().slideUp(function () {
 				parent.remove();
 			})
@@ -28,14 +29,19 @@ $(document).ready(function () {
 	$podatki.find('.section').each(function () {
 		var sect = $(this);
 
-		sect.find('button').click(function (e) {
+		sect.find('.btn').click(function (e) {
+			
+			e.preventDefault();
+			
 			var $btn = $(this),
 				btnType = $btn.attr('data-type'),
-				$parent = $btn.parent(),
-				number = Number($parent.attr('data-number')) + 1,
-				content = $('<div></div>').addClass('additional').css('display', 'none');
-
-			e.preventDefault();
+				row = $btn.closest('.row'),
+				section = $btn.closest('.section');
+				number = Number(row.attr('data-number')) + 1,
+				content = $('<div></div>').addClass('additional').addClass('row').css('display', 'none'),
+				
+			console.log('row', row);
+			console.log('section', section);
 
 			var id, name;
 
@@ -51,7 +57,7 @@ $(document).ready(function () {
 			}
 
 			content.attr('data-number', number).append(
-				$('<div></div>').addClass('form-group col-xs-10 col-sm-11').append(
+				$('<div class="col-xs-2 text-center nopadding col-xs-offset-5"></div>').append(
 					$('<input />').addClass('form-control').attr({
 						'type': "number",
 						'patern': "[0-9]+([\.|,][0-9]{2}+)?",
@@ -62,13 +68,13 @@ $(document).ready(function () {
 					})
 				)
 			);
+			
+			
+			
+			content.append('<div class="col-xs-3"><a href="#" aria-hidden="true" class="closeAdditional glyphicon glyphicon-remove"></a></button>');
 
-			content.append(
-				$('<span></span>').addClass("closeAdditional glyphicon glyphicon-remove col-xs-2 col-sm-1").attr('aria-hidden', "true")
-			);
-
-			$parent.attr('data-number', number);
-			$btn.before(content);
+			// $parent.attr('data-number', number);
+			section.append(content);
 			content.slideDown();
 			btnAction();
 		})

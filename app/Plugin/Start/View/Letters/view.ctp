@@ -25,14 +25,13 @@ $accessDict = array(
 
 <?= $this->element('Start.pageBegin'); ?>
 
-
 <header class="collection-header">
 
 	<ul class="breadcrumb">
 	  <li><a href="/moje-pisma">Moje Pisma</a></li>
 	  <li class="active">Pismo</li>
 	</ul>
-
+		
 	<div class="overflow-auto">
 
 		<div class="content pull-left">
@@ -50,7 +49,7 @@ $accessDict = array(
 		<ul class="buttons pull-right">
 			<li>
 				<form action="" method="post">
-					<input type="hidden" name="delete"/>
+					<input type="hidden" name="delete" />
 					<button
 						data-tooltip="true"
 						data-original-title="Usuń pismo"
@@ -61,18 +60,7 @@ $accessDict = array(
 					</button>
 				</form>
 			</li>
-			<li>
-				<input type="hidden" name="delete"/>
-				<button
-					data-tooltip="true"
-					data-original-title="Widoczność pisma"
-					data-placement="bottom"
-					class="btn btn-default btnRemove btn"
-					data-toggle="modal"
-					data-target="#accessOptions">
-					<i data-icon="&#xe902;" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
-				</button>
-			</li>
+			<? if( $pismo['version']=='2' ) {?>
 			<li>
 				<a
 					data-tooltip="true"
@@ -84,22 +72,43 @@ $accessDict = array(
 					<i class="glyphicon glyphicon-edit" title="Edytuj pismo" aria-hidden="true"></i>
 				</a>
 			</li>
-			
-
+			<? } ?>
+			<li>
+				<input type="hidden" name="visibility" />
+				<button
+					data-tooltip="true"
+					data-original-title="Widoczność pisma"
+					data-placement="bottom"
+					class="btn btn-default btnRemove btn"
+					data-toggle="modal"
+					data-target="#accessOptions">
+					<i data-icon="&#xe902;" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
+				</button>
+			</li>			
 		</ul>
 
 	</div>
 </header>
+
+<? 
+	$share_url = 'https://mojepanstwo.pl/dane/pisma/' . $pismo['numeric_id'];
+	if( $pismo['object_id'] ) {
+		
+		$share_url = 'https://mojepanstwo.pl/dane/' . $pismo['page_dataset'] . '/' . $pismo['page_object_id'] . ',' . $pismo['page_slug'] . '/pisma/' . $pismo['numeric_id'];
+		
+	}
+?>
 
 <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="well bs-component mp-form margin-top-0 margin-bottom-0">
 				<div class="modal-body padding-bottom-0 margin-bottom-0">
-					<form action="" class="form-horizontal" method="post">
+					<form action="" id="form-visibility" class="form-horizontal" method="post">
 						<fieldset>
+							<legend>Widoczność pisma</legend>
 							<div class="form-group">
-								<div class="col-lg-12">
+								<div class="col-lg-12" id="visibility_inputs" data-value="<?= $pismo['is_public'] ? '1' : '0' ?>">
 									<? foreach($accessDict as $value => $label) { ?>
 										<div class="radio">
 											<input
@@ -115,10 +124,16 @@ $accessDict = array(
 									<? } ?>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group form-visibility-display"<? if( !$pismo['is_public'] ) {?> style="display: none;"<? } ?>>
+								<div class="col-lg-12">
+									<p class="_label"><? if( $pismo['is_public'] ) {?>Twoje pismo jest dostępne pod adresem:<? } else { ?>Twoje pismo będzie dostępne pod adresem:<? } ?></p>
+									<div><input class="form-control" type="text" readonly="readonly" value="<?= $share_url ?>" /></div>
+								</div>
+							</div>
+							<div class="form-group margin-top-20">
 								<div class="col-lg-9">
 									<button type="reset" data-dismiss="modal" class="btn btn-default">Anuluj</button>
-									<button type="submit" name="save" class="btn btn-md btn-primary btn-icon"><i class="icon glyphicon glyphicon-pencil"></i>Zapisz
+									<button type="submit" name="save" class="btn btn-md btn-primary btn-icon"><i class="icon glyphicon glyphicon-ok"></i>Zapisz
 									</button>
 								</div>
 							</div>
@@ -131,7 +146,7 @@ $accessDict = array(
 </div>
 
 <ul class="collection-meta">
-	<li>Pismo prywatne</li>
+	<li>Pismo <? if( $pismo['is_public'] ) {?>publiczne<? } else {?>prywatne<? } ?></li>
 </ul>
 
 
@@ -282,7 +297,7 @@ $accessDict = array(
 		<div class="col-sm-2">
 			<p class="_label">Od:</p>
 		</div><div class="col-sm-10">
-			<p><?= $pismo['from_user_name'] ?></p>
+			<p><?= $pismo['page_name'] ? $pismo['page_name'] : $pismo['from_user_name'] ?></p>
 		</div>
 	</div>
 	<div class="row">
