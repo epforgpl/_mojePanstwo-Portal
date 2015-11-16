@@ -324,7 +324,7 @@ $accessDict = array(
 	<? if( $pismo['sent'] ) {?>
 	<div class="row sent">
 		<div class="col-sm-12">
-			<p>Wysłane <?= dataSlownie($pismo['sent_at']) ?>.</p>
+			<p>Wysłano <?= dataSlownie($pismo['sent_at']) ?></p>
 		</div>
 	</div>
 	<? } ?>
