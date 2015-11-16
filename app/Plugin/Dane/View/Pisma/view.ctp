@@ -14,6 +14,15 @@ $accessDict = array(
     <div class="row">
         <div class="col-md-9">
 
+            <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
+                <div>
+                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
+                        <i class="icon glyphicon glyphicon-pencil"></i>
+                        Edytuj
+                    </a>
+                </div>
+            <? } ?>
+
             <div class="letter-table">
                 <div class="row">
                     <div class="col-sm-2">
@@ -42,7 +51,7 @@ $accessDict = array(
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text">
-                            <?= $pismo['text'] ?>
+                            <?= $pismo['content_html'] ?>
                         </div>
                     </div>
                 </div>
