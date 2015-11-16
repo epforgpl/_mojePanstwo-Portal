@@ -79,7 +79,7 @@ $accessDict = array(
 					data-tooltip="true"
 					data-original-title="Widoczność pisma"
 					data-placement="bottom"
-					class="btn btn-default btnRemove btn"
+					class="btn btn-default btn"
 					data-toggle="modal"
 					data-target="#accessOptions">
 					<i data-icon="&#xe902;" title="Ustawienia widoczności pisma" aria-hidden="true"></i>
@@ -90,7 +90,8 @@ $accessDict = array(
 	</div>
 </header>
 
-<? 
+<?
+
 	$share_url = 'https://mojepanstwo.pl/dane/pisma/' . $pismo['numeric_id'];
 	if( $pismo['object_id'] ) {
 		
@@ -324,7 +325,7 @@ $accessDict = array(
 	<? if( $pismo['sent'] ) {?>
 	<div class="row sent">
 		<div class="col-sm-12">
-			<p>Wysłane <?= dataSlownie($pismo['sent_at']) ?>.</p>
+			<p>Wysłano <?= dataSlownie($pismo['sent_at']) ?></p>
 		</div>
 	</div>
 	<? } ?>

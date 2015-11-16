@@ -21,7 +21,7 @@ class Pisma extends DataObject
 		if( $this->getOptions('public') )
 			return $this->getOptions('base_url') . '/pisma/' . $this->getData('alphaid');
 		else
-			return '/moje-pisma/' . $this->getId();
+			return '/dane/pisma/' . $this->getId();
 	}
 
 	public function getThumbnailUrl($size = '2')
@@ -51,5 +51,9 @@ class Pisma extends DataObject
 	public function getDefaultColumnsSizes() {
 	    return array(4, 8);
     }
+
+	public function getSlug() {
+		return '';
+	}
 
 }
