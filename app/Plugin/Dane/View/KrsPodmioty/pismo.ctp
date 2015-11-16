@@ -14,8 +14,7 @@ $accessDict = array(
 
 <?php echo $this->Html->script('/Start/js/zeroclipboard', array('block' => 'scriptBlock')); ?>
 
-<? $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
-
+<? $pismo = $pismo->getData(); $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
 <div class="container">
     <div class="row">
@@ -28,9 +27,9 @@ $accessDict = array(
                         <i class="object-icon icon-applications-pisma"></i>
 
                         <div class="object-icon-side">
-                            <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+                            <h1>
                                 <? /*<a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">*/ ?>
-                                <?= $pismo['nazwa'] ?>
+                                <?= $pismo['name'] ?>
                                 <? /*</a>*/ ?>
                             </h1>
                         </div>
@@ -42,6 +41,15 @@ $accessDict = array(
             <ul class="collection-meta">
                 <li>Pismo <?= $pismo['is_public'] ? 'publiczne' : 'prywatne'; ?></li>
             </ul>
+
+            <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
+                <div>
+                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
+                        <i class="icon glyphicon glyphicon-pencil"></i>
+                        Edytuj
+                    </a>
+                </div>
+            <? } ?>
 
             <div class="letter-table">
                 <div class="row">
@@ -57,7 +65,7 @@ $accessDict = array(
                         <p class="_label">Do:</p>
                     </div>
                     <div class="col-sm-10">
-                        <p><?= $pismo['to_name'] ?></p>
+                        <p><?= $pismo['to_label'] ?></p>
                     </div>
                 </div>
                 <div class="row">
@@ -65,13 +73,13 @@ $accessDict = array(
                         <p class="_label">Temat:</p>
                     </div>
                     <div class="col-sm-10">
-                        <p><?= $pismo['tytul'] ?></p>
+                        <p><?= $pismo['template_name'] ?></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text">
-                            <?= $pismo['content'] ?>
+                            <?= $pismo['content_html'] ?>
                         </div>
                     </div>
                 </div>

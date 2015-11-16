@@ -19,7 +19,7 @@ class Pisma extends DataObject
 	public function getUrl()
 	{
 		if( $this->getOptions('public') )
-			return $this->getOptions('base_url') . '/pisma/' . $this->getData('alphaid');
+			return $this->getOptions('base_url') . '/pisma/' . $this->getId();
 		else
 			return '/dane/pisma/' . $this->getId();
 	}

@@ -349,11 +349,21 @@ class DataobjectsController extends AppController
 
         if(isset($this->params['subid'])) {
             $id = $this->params['subid'];
-            $pismo = $this->Pismo->documents_read($id);
-            if(!$pismo['is_public'] || $pismo['object_id'] != $this->object->getGlobalId())
+            $pismo = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'pisma',
+                        'id' => $id
+                    )
+                )
+            );
+
+            if(!$pismo->getData('is_public') || $pismo->getData('object_id') != $this->object->getGlobalId())
                 throw new NotFoundException;
 
-            $this->set('responses', $this->LetterResponse->getByLetter($id));
+            $this->set('responses', $this->LetterResponse->getByLetter(
+                $pismo->getData('alphaid')
+            ));
+
             $this->set('pismo', $pismo);
             $this->render('Dane.KrsPodmioty/pismo');
         } else {
