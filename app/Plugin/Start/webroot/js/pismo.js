@@ -32,6 +32,7 @@ var PISMO = Class.extend({
 					// @todo error handler
 					console.log(res);
 				});
+				$(this).blur();
 			});
 		});
 
