@@ -1,4 +1,4 @@
-/*global mPHeart*/
+/*global mPHeart, window, document, $*/
 
 $(document).ready(function () {
 	var $podatki = $('#podatki'),
@@ -12,24 +12,25 @@ $(document).ready(function () {
 		});
 		$podatki.find('.checkbox:not(".checkEffect")').addClass('checkEffect').on('click', function () {
 			var el = $(this);
-			if (el.find('input[type="checkbox"]').is(':checked'))
+			if (el.find('input[type="checkbox"]').is(':checked')) {
 				el.find('input[type="hidden"]').attr('disabled', 'disabled');
-			else
+			} else {
 				el.find('input[type="hidden"]').removeAttr('disabled');
+			}
 		});
 		$podatki.find('.closeAdditional:not(".closeEffect")').addClass('closeEffect').on('click', function (e) {
 			e.preventDefault();
 			var parent = $(this).closest('.row.additional');
 			$(this).parent().slideUp(function () {
 				parent.remove();
-			})
-		})
+			});
+		});
 	}
 
 	function resultPie() {
 		var res = $chartArea.attr('data-result');
 
-		if (typeof res !== typeof undefined && res !== false) {
+		if (typeof res !== "undefined" && res !== false) {
 			res = $.parseJSON(res);
 
 			$chartArea.find('.pie').highcharts({
@@ -52,28 +53,28 @@ $(document).ready(function () {
 						dataLabels: false
 					}
 				},
-				colors: [res['us_color'], res['zus_color'], res['pit_color'], res['vat_color'], res['akcyza_color']],
+				colors: [res.us_color, res.zus_color, res.pit_color, res.vat_color, res.akcyza_color],
 				series: [{
 					name: "Kwota",
 					colorByPoint: true,
 					data: [{
 						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_US,
-						y: Number(res['us'])
+						y: Number(res.us)
 					}, {
 						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
-						y: Number(res['zus'])
+						y: Number(res.zus)
 					}, {
 						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
-						y: Number(res['pit'])
+						y: Number(res.pit)
 					}, {
 						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
-						y: Number(res['vat'])
+						y: Number(res.vat)
 					}, {
 						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
-						y: Number(res['akcyza'])
+						y: Number(res.akcyza)
 					}]
 				}]
-			})
+			});
 		}
 	}
 
@@ -92,10 +93,10 @@ $(document).ready(function () {
 
 			var id, name;
 
-			if (btnType == 'przychody_umowa_o_prace') {
+			if (btnType === 'przychody_umowa_o_prace') {
 				id = 'przychody_umowa_o_prace_' + number;
 				name = 'umowa_o_prace[]';
-			} else if (btnType == 'przychody_umowa_zlecenie') {
+			} else if (btnType === 'przychody_umowa_zlecenie') {
 				id = 'przychody_umowa_zlecenie_' + number;
 				name = 'umowa_zlecenie[]';
 			} else {

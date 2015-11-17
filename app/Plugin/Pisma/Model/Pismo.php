@@ -130,4 +130,13 @@ class Pismo extends AppModel
 	    ));
     }
 
+    public function setDocumentName($id, $name) {
+        return $this->getDataSource()->request('pisma/documents/setDocumentName/' . $id, array(
+            'method' => 'POST',
+            'data' => array(
+                'name' => $name
+            ),
+        ));
+    }
+
 }

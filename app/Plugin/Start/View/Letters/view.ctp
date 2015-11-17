@@ -37,7 +37,13 @@ $accessDict = array(
 		<div class="content pull-left">
 			<i class="object-icon icon-applications-pisma"></i>
 			<div class="object-icon-side">
-                <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></h1>
+                <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
+					<? if($pismo['is_owner']) { ?>
+						<input data-url="/start/letters/setDocumentName/<?= $pismo['alphaid'] ?>" class="form-control h1-editable" type="text" name="nazwa" value="<?= $pismo['nazwa'] ?>"/>
+					<? } else { ?>
+						<?= $pismo['nazwa'] ?>
+					<? } ?>
+				</h1>
 			</div>
 		</div>
 
