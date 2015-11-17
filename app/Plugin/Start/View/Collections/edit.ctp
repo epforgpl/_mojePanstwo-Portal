@@ -29,7 +29,8 @@ echo $this->element('Start.pageBegin'); ?>
 
     <div class="form-group margin-top-20">
         <label for="collectionDescription">Notatka:</label>
-        <textarea maxlength="16383" class="form-control tinymce" id="collectionDescription" name="description"><?= $item->getData('notatka') ?></textarea>
+        <textarea maxlength="65535" class="form-control tinymce" id="collectionDescription"
+                  name="description"><?= $item->getData('notatka') ?></textarea>
     </div>
 
 

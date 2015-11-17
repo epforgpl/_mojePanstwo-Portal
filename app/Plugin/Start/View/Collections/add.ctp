@@ -8,14 +8,14 @@ echo $this->element('Start.pageBegin'); ?>
 
 <header class="collection-header">
     <div class="overflow-auto">
-        
-        <div class="content pull-left">       
-            <i class="object-icon icon-datasets-kolekcje"></i>						
+
+        <div class="content pull-left">
+            <i class="object-icon icon-datasets-kolekcje"></i>
             <div class="object-icon-side">
-                <h1>Tworzenie nowej kolekcji</h1>            
+                <h1>Tworzenie nowej kolekcji</h1>
             </div>
         </div>
-        
+
     </div>
 </header>
 
@@ -28,7 +28,8 @@ echo $this->element('Start.pageBegin'); ?>
 
     <div class="form-group margin-top-20">
         <label for="collectionDescription">Opis:</label>
-        <textarea maxlength="16383" class="form-control tinymce" id="collectionDescription" name="description"></textarea>
+        <textarea maxlength="65535" class="form-control tinymce" id="collectionDescription"
+                  name="description"></textarea>
     </div>
 
     <div class="form-group overflow-hidden text-center margin-top-30">

@@ -72,7 +72,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                     </div>
                     <div class="form-group margin-top-30">
                         <label for="dzialanieOpis">Opis działania:</label>
-		                        <textarea maxlength="16383" class="form-control tinymce" id="dzialanieOpis" name="opis">
+		                        <textarea maxlength="65535" class="form-control tinymce" id="dzialanieOpis" name="opis">
 		                            <? if ($edit) echo $dzialanie->getData('opis'); ?>
 		                        </textarea>
                         <p class="help-block">Opis może się składać z maksymalnie 16383 znaków (w tym znaki HTML widoczne w Narzędzia - Kod źródłowy)</p>
@@ -152,7 +152,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                         </div>
                                         <div class="form-group margin-top-10">
                                             <label for="dzialanieOpis">Szablon</label>
-                                                    <textarea style="height: 400px;" maxlength="16383"
+                                                    <textarea style="height: 400px;" maxlength="65535"
                                                               class="form-control tinymce"
                                                               name="mail_template"></textarea>
                                         </div>
