@@ -27,14 +27,8 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
                                          title="<?= $item['nazwa'] ?>" onerror="imgFixer(this)"/>
                                 </div>
 
-                                <div class="details">
-                                    <? if ($item['budzet_plan']) { ?><span class="detail">
+                                <div class="details"><? if ($item['budzet_plan']) { ?><span class="detail">
                                         Budżet: <?= number_format_h($item['budzet_plan'] * 1000) ?></span><? } ?>
-                                    <? /*
-										<? if( $item['budzet_plan'] && $item['childsCount'] ) {?><span class="separator">|</span><?}?>
-										<? if( $item['childsCount'] ) {?><span class="detail">Instytucje podległe: <?= $item['childsCount'] ?></span><?}?>
-										*/
-                                    ?>
                                 </div>
 
 

@@ -145,26 +145,4 @@
             <p class="_value"><?= $typ_nazwa; ?></p>
         </li>
     <?php } ?>
-
-	<? /*
-    <?php
-    $liczba_ludnosci = $object->getData('liczba_ludnosci');
-    if (isset($liczba_ludnosci) && !empty($liczba_ludnosci)) { ?>
-        <li class="dataHighlight col-sm-6 col-sm-3">
-            <p class="_label">Liczba ludności</p>
-
-            <p class="_value"><?= number_format_h($liczba_ludnosci); ?></p>
-        </li>
-    <?php } ?>
-
-    <?php
-    $powierzchnia = $object->getData('powierzchnia');
-    if (isset($powierzchnia) && !empty($powierzchnia)) { ?>
-        <li class="dataHighlight col-sm-6 col-sm-3">
-            <p class="_label">Powierzchnia</p>
-
-            <p class="_value"><?= number_format($powierzchnia, 0); ?> km<sup>2</sup></p>
-        </li>
-    <?php } ?>
-    */ ?>
 </ul>

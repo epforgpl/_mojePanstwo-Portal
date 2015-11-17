@@ -29,15 +29,17 @@ class Bdl_wskazniki extends DataObject
         'title' => 'tytul',
         'shortTitle' => 'tytul',
         'date' => false,
-    );
-    
-    protected $hl_fields = array(
-    	'kategoria_tytul', 'grupa_tytul', 'poziom_str', 'data_aktualizacji'
+        'description' => 'opis',
     );
 
     public function getLabel()
     {
         return 'Wskaźniki Banku Danych Lokalnych';
+    }
+    
+    public function getDescription()
+    {
+	    // debug( $this->getData() );
     }
     
     public function getMetaDescriptionParts($preset = false)

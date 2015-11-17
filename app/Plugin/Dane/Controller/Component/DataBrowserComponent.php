@@ -18,6 +18,7 @@ class DataBrowserComponent extends Component
     private $routes = array();
     public $dataset = false;
     public $searchAction = false;
+    public $type = 'objects';
 
 	private $phrases_presets = array(
 		'krakow_posiedzenia' => array(
@@ -1327,7 +1328,15 @@ class DataBrowserComponent extends Component
 
     public function __construct($collection, $settings)
     {
-
+				
+		if (
+            (
+                !isset($settings['objectOptions']) ||
+                (empty($settings['objectOptions']))
+            )
+        )
+            $settings['objectOptions'] = array();
+		
         if (
             (
                 !isset($settings['aggs']) ||
@@ -1413,7 +1422,10 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['dataset']))
             $this->dataset = $settings['dataset'];
-
+            
+		if (isset($settings['_type']))
+            $this->type = $settings['_type'];
+            
     }
 
     public function beforeRender($controller)
@@ -1478,7 +1490,12 @@ class DataBrowserComponent extends Component
 
 
             $hits = $controller->Paginator->paginate('Dataobject');
-
+            if( $hits && $this->settings['objectOptions'] ) {
+	            foreach( $hits as &$hit ) {
+		            $hit->setOptions($this->settings['objectOptions']);
+	            }	         
+            }
+            
             $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
 
             $dataBrowser = array(
@@ -1676,6 +1693,7 @@ class DataBrowserComponent extends Component
             'aggs' => $this->getSettingsForField('aggs'),
             'order' => $this->getSettingsForField('order'),
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
+            '_type' => $this->type,
         );
 
 		if( isset($this->settings['feed']) )

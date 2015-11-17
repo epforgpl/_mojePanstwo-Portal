@@ -14,10 +14,40 @@ Router::connect('/moje-kolekcje/nowe', array('plugin' => 'Start', 'controller' =
 Router::connect('/moje-kolekcje/:id', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'view'), array(
     'id' => '[0-9]{1,}', 'pass' => array('id'))
 );
+Router::connect('/moje-kolekcje/:collection_id/:object_id', array(
+	'plugin' => 'Start',
+	'controller' => 'Collections',
+	'action' => 'inner_post',
+	'[method]' => 'POST',
+), array(
+    'collection_id' => '([0-9]+)', 
+    'object_id' => '([0-9]+)', 
+    'pass' => array('collection_id', 'object_id')
+));
 
 Router::connect('/moje-kolekcje/:id/edytuj', array('plugin' => 'Start', 'controller' => 'Collections', 'action' => 'edit'), array(
         'id' => '[0-9]{1,}', 'pass' => array('id'))
 );
+
+Router::connect('/moje-kolekcje/:id/publish', array(
+    'plugin' => 'Start',
+    'controller' => 'Collections',
+    'action' => 'publish',
+    '[method]' => 'POST'
+), array(
+    'id' => '[0-9]{1,}',
+    'pass' => array('id')
+));
+
+Router::connect('/moje-kolekcje/:id/unpublish', array(
+    'plugin' => 'Start',
+    'controller' => 'Collections',
+    'action' => 'unpublish',
+    '[method]' => 'POST'
+), array(
+    'id' => '[0-9]{1,}',
+    'pass' => array('id')
+));
 
 
 
@@ -152,6 +182,44 @@ foreach ($pisma_prefixes as $pisma_prefix) {
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
 
+    // RESPONSES
+
+    Router::connect("$pisma_prefix/:id,:slug/responses", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
+
+    Router::connect("$pisma_prefix/:id/responses", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+
+    Router::connect("$pisma_prefix/:id,/responses", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+
+
+    // SINGLE RESPONSE
+
+    Router::connect("$pisma_prefix/:id,:slug/responses/:response_id", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'response',
+    ), array('id' => '[A-Za-z0-9]{5}', 'response_id' => '[0-9]{1,}', 'pass' => array('id', 'slug', 'response_id')));
+
+    // attachment
+
+    Router::connect("$pisma_prefix/:id,:slug/attachment/:attachment_id", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'attachment',
+    ), array('id' => '[A-Za-z0-9]{5}', 'slug' => '[A-Za-z0-9]{0,}', 'attachment_id' => '[0-9]{1,}', 'pass' => array('id', 'slug', 'attachment_id')));
+
+
     // HTML
 
     Router::connect("$pisma_prefix/:id,:slug/html", array(
@@ -221,3 +289,6 @@ Router::connect('/moje-powiadomienia/:action', array('plugin' => 'Start', 'contr
 /* MOJE STRONY ROUTES */
 //Router::connect('/moje-strony', array('plugin' => 'Start', 'controller' => 'Pages', 'action' => 'index'));
 //Router::connect('/moje-strony/:action', array('plugin' => 'Start', 'controller' => 'Pages'));
+
+/* POMOC */
+Router::connect('/pomoc', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'help'));

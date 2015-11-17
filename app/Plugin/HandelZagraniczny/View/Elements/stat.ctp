@@ -1,8 +1,5 @@
 <a href="/dane/poslowie_biura_wydatki/<?= $id ?>,<?= $biura[$id]['slug'] ?>" target="_blank">
     <div class="stat <?= $slug ?>">
-
-        <? /*<span data-toggle="tooltip" data-placement="bottom" title="<?= $biura[$id]['data']['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[$id]['data']['poslowie_biura_wydatki.nazwa'] ?></span>*/ ?>
-
         <span><?= $biura[$id]['data']['poslowie_biura_wydatki.nazwa'] ?></span>
 
         <p class="srednio">

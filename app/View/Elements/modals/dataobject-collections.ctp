@@ -33,10 +33,15 @@ $object_id = $object->getId();
                         <div class="form-cont">
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="collectionName" autocomplete="off" placeholder="Znajdź lub utwórz kolekcję...">
+                                <input type="text" class="form-control" id="collectionName" autocomplete="off" placeholder="Znajdź lub dodaj kolekcję...">
                             </div>
 
                             <div class="list-group"></div>
+
+                            <div class="form-group margin-top-10">
+                                <label for="collectionObjectNote">Notatka</label>
+                                <textarea id="collectionObjectNote" class="form-control" rows="2"></textarea>
+                            </div>
 
                             <div class="ManageAsComponent margin-top-10"></div>
 

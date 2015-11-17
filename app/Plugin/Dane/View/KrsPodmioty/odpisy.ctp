@@ -3,6 +3,7 @@
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-odpisy');
 
+$this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-krspodmioty', array('plugin' => 'Dane')));
 $odpisy = $object->getLayer('odpisy');
 

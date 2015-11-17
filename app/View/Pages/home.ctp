@@ -40,60 +40,6 @@ $this->Combinator->add_libs('js', 'home');
                         } ?>
                     </div>
 
-                    <? /*
-                    <div class="basicOptions">
-                        <div class="col-xs-12 col-sm-6 part">
-                            <div class="observeBrick mainBrick">
-                                <div class="title">Obserwuj</div>
-                                <span class="line"></span>
-
-                                <div class="description">
-                                    Otrzymuj powiadomienia o aktywnościach urzędów, urzędnikow oraz firm, którymi jesteś
-                                    zainteresowany.
-                                </div>
-                                <div class="action">
-                                    <? if ($this->Session->read('Auth.User.id')) { ?>
-                                        <a href="/moje-dane" target="_self" class="btn btn-primary btn-icon">
-                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Moje Dane
-                                        </a>
-                                    <? } else { ?>
-                                        <a href="/moje-dane/jak_to_dziala" target="_self"
-                                           class="btn btn-primary btn-icon">
-                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Zacznij
-                                            obserwować
-                                        </a>
-                                    <? } ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 part">
-                            <div class="shoutBrick mainBrick">
-                                <div class="title">Komunikuj</div>
-                                <span class="line"></span>
-
-                                <div class="description">
-                                    Wysyłaj wnioski o udostępnienie informacji publicznych oraz inne pisma do urzędów i
-                                    dziel się nimi w mediach społecznościowych.
-                                </div>
-                                <div class="action">
-
-                                    <? if ($this->Session->read('Auth.User.id')) { ?>
-                                        <a href="/moje-pisma" target="_self" class="btn btn-primary btn-icon">
-                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Moje Pisma
-                                        </a>
-                                    <? } else { ?>
-                                        <a href="/moje-pisma/nowe" target="_self" class="btn btn-primary btn-icon">
-                                            <img class="icon" src="/MojeDane/icon/powiadomienia.svg" alt=""/>Napisz
-                                            Pismo
-                                        </a>
-                                    <? } ?>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-					*/ ?>
-
                     <div class="appsList">
                         <h2>Raporty</h2>
                         <? foreach ($_applications as $a) {

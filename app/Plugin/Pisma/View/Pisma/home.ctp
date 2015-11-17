@@ -31,7 +31,7 @@
 
                             <fieldset class="final">
                                 <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-1 text-center">
+                                    <div class="col-lg-12 text-center">
                                         <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
                                                 class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
                                         </button>

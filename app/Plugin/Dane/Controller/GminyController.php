@@ -4052,6 +4052,14 @@ class GminyController extends DataobjectsController
                     array(
                         'id' => 'wydatki_na_osobe',
                         'label' => 'Wydatki w przeliczeniu na osobę'
+                    ),
+                    array(
+                        'id' => 'dochody',
+                        'label' => 'Dochody - wartości absolutne',
+                    ),
+                    array(
+                        'id' => 'dochody_na_osobe',
+                        'label' => 'Dochody w przeliczeniu na osobę'
                     )
                 ),
             ),
@@ -4157,6 +4165,7 @@ class GminyController extends DataobjectsController
 
         $data = $options['data']['items'][$options['data']['selected_i']]['id'];
         $field = 'wydatki';
+        $dataset = 'wydatki';
         $histogram_interval = $type['interval'];
 
         if ($data == 'wydatki') {
@@ -4177,6 +4186,26 @@ class GminyController extends DataobjectsController
                 10
             );
 
+        } elseif( $data == 'dochody') {
+
+            $mode = 'absolute';
+            $main_chart['title'] = 'Dochody - wartości absolutne';
+            $field = 'dochody';
+            $dataset = 'dochody';
+
+        } elseif( $data = 'dochody_pp') {
+
+            $mode = 'perperson';
+            $main_chart['title'] = 'Dochody w przeliczeniu na osobę';
+            $field = 'dochody_pp';
+            $dataset = 'dochody';
+            $this->histogramIntervals = array(
+                100,
+                50,
+                20,
+                10
+            );
+
         }
 
 
@@ -4184,7 +4213,7 @@ class GminyController extends DataobjectsController
         foreach ($this->histogramIntervals as $i => $interval) {
             $histogramAggs['histogram_' . $i] = array(
                 'histogram' => array(
-                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                    'field' => 'gminy-'. $dataset . '-dzialy.' . $field,
                     'interval' => $interval,
                 ),
             );
@@ -4356,7 +4385,7 @@ class GminyController extends DataobjectsController
                     */
                     'sumy' => array(
                         'nested' => array(
-                            'path' => 'gminy-wydatki-okresy',
+                            'path' => 'gminy-' . $dataset . '-okresy',
                         ),
                         'aggs' => array(
                             'timerange' => array(
@@ -4365,12 +4394,12 @@ class GminyController extends DataobjectsController
                                         'must' => array(
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-okresy.rok' => $rok,
+                                                    'gminy-' . $dataset . '-okresy.rok' => $rok,
                                                 ),
                                             ),
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-okresy.kwartal' => $kwartal,
+                                                    'gminy-' . $dataset . '-okresy.kwartal' => $kwartal,
                                                 ),
                                             ),
                                         ),
@@ -4379,7 +4408,7 @@ class GminyController extends DataobjectsController
                                 'aggs' => array(
                                     'min' => array(
                                         'terms' => array(
-                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'field' => 'gminy-' . $dataset . '-okresy.' . $field,
                                             'size' => '1',
                                             'order' => array(
                                                 '_term' => 'asc',
@@ -4400,7 +4429,7 @@ class GminyController extends DataobjectsController
                                     ),
                                     'max' => array(
                                         'terms' => array(
-                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'field' => 'gminy-' . $dataset . '-okresy.' . $field,
                                             'size' => '1',
                                             'order' => array(
                                                 '_term' => 'desc',
@@ -4421,18 +4450,18 @@ class GminyController extends DataobjectsController
                                     ),
                                     'percentiles' => array(
                                         'percentiles' => array(
-                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'field' => 'gminy-' . $dataset . '-okresy.' . $field,
                                             'percents' => array(50),
                                         ),
                                     ),
                                     'stats' => array(
                                         'stats' => array(
-                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'field' => 'gminy-' . $dataset . '-okresy.' . $field,
                                         ),
                                     ),
                                     'histogram' => array(
                                         'histogram' => array(
-                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'field' => 'gminy-' . $dataset . '-okresy.' . $field,
                                             'interval' => $histogram_interval,
                                         ),
                                     ),
@@ -4442,7 +4471,7 @@ class GminyController extends DataobjectsController
                     ),
                     'dzialy' => array(
                         'nested' => array(
-                            'path' => 'gminy-wydatki-dzialy',
+                            'path' => 'gminy-' . $dataset . '-dzialy',
                         ),
                         'aggs' => array(
                             'timerange' => array(
@@ -4451,12 +4480,12 @@ class GminyController extends DataobjectsController
                                         'must' => array(
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-dzialy.rok' => $rok,
+                                                    'gminy-' . $dataset . '-dzialy.rok' => $rok,
                                                 ),
                                             ),
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-dzialy.kwartal' => $kwartal,
+                                                    'gminy-' . $dataset . '-dzialy.kwartal' => $kwartal,
                                                 ),
                                             ),
                                         ),
@@ -4465,19 +4494,19 @@ class GminyController extends DataobjectsController
                                 'aggs' => array(
                                     'dzialy' => array(
                                         'terms' => array(
-                                            'field' => 'gminy-wydatki-dzialy.dzial_id',
+                                            'field' => 'gminy-' . $dataset . '-dzialy.dzial_id',
                                             'size' => 100,
                                         ),
                                         'aggs' => array_merge(array(
                                             'label' => array(
                                                 'terms' => array(
-                                                    'field' => 'gminy-wydatki-dzialy.dzial',
+                                                    'field' => 'gminy-' . $dataset . '-dzialy.dzial',
                                                     'size' => 1,
                                                 ),
                                             ),
                                             'min' => array(
                                                 'terms' => array(
-                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'field' => 'gminy-' . $dataset . '-dzialy.' . $field,
                                                     'size' => 1,
                                                     'order' => array(
                                                         '_term' => 'asc',
@@ -4498,7 +4527,7 @@ class GminyController extends DataobjectsController
                                             ),
                                             'max' => array(
                                                 'terms' => array(
-                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'field' => 'gminy-' . $dataset . '-dzialy.' . $field,
                                                     'size' => 1,
                                                     'order' => array(
                                                         '_term' => 'desc',
@@ -4519,13 +4548,13 @@ class GminyController extends DataobjectsController
                                             ),
                                             'percentiles' => array(
                                                 'percentiles' => array(
-                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'field' => 'gminy-' . $dataset . '-dzialy.' . $field,
                                                     'percents' => array(50),
                                                 ),
                                             ),
                                             'stats' => array(
                                                 'stats' => array(
-                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'field' => 'gminy-' . $dataset . '-dzialy.' . $field,
                                                 ),
                                             ),
                                         ),
@@ -4559,7 +4588,7 @@ class GminyController extends DataobjectsController
                 'aggs' => array(
                     'sumy' => array(
                         'nested' => array(
-                            'path' => 'gminy-wydatki-okresy',
+                            'path' => 'gminy-' . $dataset . '-okresy',
                         ),
                         'aggs' => array(
                             'timerange' => array(
@@ -4568,21 +4597,21 @@ class GminyController extends DataobjectsController
                                         'must' => array(
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-okresy.rok' => $rok,
+                                                    'gminy-' . $dataset . '-okresy.rok' => $rok,
                                                 ),
                                             ),
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-okresy.kwartal' => $kwartal,
+                                                    'gminy-' . $dataset . '-okresy.kwartal' => $kwartal,
                                                 ),
                                             ),
                                         ),
                                     ),
                                 ),
                                 'aggs' => array(
-                                    'wydatki' => array(
+                                    $dataset => array(
                                         'sum' => array(
-                                            'field' => 'gminy-wydatki-okresy.' . $field,
+                                            'field' => 'gminy-' . $dataset . '-okresy.' . $field,
                                         ),
                                     ),
                                 ),
@@ -4591,7 +4620,7 @@ class GminyController extends DataobjectsController
                     ),
                     'dzialy' => array(
                         'nested' => array(
-                            'path' => 'gminy-wydatki-dzialy',
+                            'path' => 'gminy-' . $dataset . '-dzialy',
                         ),
                         'aggs' => array(
                             'timerange' => array(
@@ -4600,12 +4629,12 @@ class GminyController extends DataobjectsController
                                         'must' => array(
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-dzialy.rok' => $rok,
+                                                    'gminy-' . $dataset . '-dzialy.rok' => $rok,
                                                 ),
                                             ),
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-dzialy.kwartal' => $kwartal,
+                                                    'gminy-' . $dataset . '-dzialy.kwartal' => $kwartal,
                                                 ),
                                             ),
                                         ),
@@ -4614,22 +4643,22 @@ class GminyController extends DataobjectsController
                                 'aggs' => array(
                                     'dzialy' => array(
                                         'terms' => array(
-                                            'field' => 'gminy-wydatki-dzialy.dzial_id',
+                                            'field' => 'gminy-' . $dataset . '-dzialy.dzial_id',
                                             'size' => 100,
                                             'order' => array(
-                                                'wydatki' => 'desc',
+                                                $dataset => 'desc',
                                             ),
                                         ),
                                         'aggs' => array(
                                             'label' => array(
                                                 'terms' => array(
-                                                    'field' => 'gminy-wydatki-dzialy.dzial',
+                                                    'field' => 'gminy-' . $dataset . '-dzialy.dzial',
                                                     'size' => 1,
                                                 ),
                                             ),
-                                            'wydatki' => array(
+                                            $dataset => array(
                                                 'sum' => array(
-                                                    'field' => 'gminy-wydatki-dzialy.' . $field,
+                                                    'field' => 'gminy-' . $dataset . '-dzialy.' . $field,
                                                 ),
                                             ),
                                         ),
@@ -4640,7 +4669,7 @@ class GminyController extends DataobjectsController
                     ),
                     'rozdzialy' => array(
                         'nested' => array(
-                            'path' => 'gminy-wydatki-rozdzialy',
+                            'path' => 'gminy-' . $dataset . '-rozdzialy',
                         ),
                         'aggs' => array(
                             'timerange' => array(
@@ -4649,12 +4678,12 @@ class GminyController extends DataobjectsController
                                         'must' => array(
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-rozdzialy.rok' => $rok,
+                                                    'gminy-' . $dataset . '-rozdzialy.rok' => $rok,
                                                 ),
                                             ),
                                             array(
                                                 'term' => array(
-                                                    'gminy-wydatki-rozdzialy.kwartal' => $kwartal,
+                                                    'gminy-' . $dataset . '-rozdzialy.kwartal' => $kwartal,
                                                 ),
                                             ),
                                         ),
@@ -4663,28 +4692,28 @@ class GminyController extends DataobjectsController
                                 'aggs' => array(
                                     'dzialy' => array(
                                         'terms' => array(
-                                            'field' => 'gminy-wydatki-rozdzialy.dzial_id',
+                                            'field' => 'gminy-' . $dataset . '-rozdzialy.dzial_id',
                                             'size' => 100,
                                         ),
                                         'aggs' => array(
                                             'rozdzialy' => array(
                                                 'terms' => array(
-                                                    'field' => 'gminy-wydatki-rozdzialy.rozdzial_id',
+                                                    'field' => 'gminy-' . $dataset . '-rozdzialy.rozdzial_id',
                                                     'size' => 100,
                                                     'order' => array(
-                                                        'wydatki' => 'desc',
+                                                        $dataset => 'desc',
                                                     ),
                                                 ),
                                                 'aggs' => array(
                                                     'nazwa' => array(
                                                         'terms' => array(
-                                                            'field' => 'gminy-wydatki-rozdzialy.rozdzial',
+                                                            'field' => 'gminy-' . $dataset . '-rozdzialy.rozdzial',
                                                             'size' => 1,
                                                         ),
                                                     ),
-                                                    'wydatki' => array(
+                                                    $dataset => array(
                                                         'sum' => array(
-                                                            'field' => 'gminy-wydatki-rozdzialy.' . $field,
+                                                            'field' => 'gminy-' . $dataset . '-rozdzialy.' . $field,
                                                         ),
                                                     ),
                                                 ),
@@ -4699,7 +4728,7 @@ class GminyController extends DataobjectsController
             ),
         );
 
-        // debug($aggs); die();
+        //debug($aggs); die();
 
         $options = array(
             'searcher' => false,
@@ -4718,7 +4747,7 @@ class GminyController extends DataobjectsController
         $this->Components->load('Dane.DataBrowser', $options);
 
         $this->request->params['action'] = 'finanse';
-        $this->set('title_for_layout', 'Wydatki w gminie ' . $this->object->getTitle());
+        $this->set('title_for_layout', ucfirst($dataset) . ' w gminie ' . $this->object->getTitle());
         $this->set('main_chart', $main_chart);
         $this->set('mode', $mode);
         $this->set('histogram_interval', $histogram_interval);
@@ -5214,6 +5243,9 @@ class GminyController extends DataobjectsController
                 $aggs = $this->viewVars['dataBrowser']['aggs'];
                 $this->viewVars['dataBrowser']['aggs'] = null;
 
+                $dataset = 'wydatki';
+                if(empty($aggs['gmina']['sumy']['timerange'][$dataset]))
+                    $dataset = 'dochody';
 
                 $global = array(
                     'min' => array(
@@ -5226,7 +5258,7 @@ class GminyController extends DataobjectsController
                         'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
                         'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
                     ),
-                    'cur' => $aggs['gmina']['sumy']['timerange']['wydatki']['value'],
+                    'cur' => $aggs['gmina']['sumy']['timerange'][$dataset]['value'],
                     'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
                     'histogram' => $aggs['gminy']['sumy']['timerange']['histogram']['buckets'],
                 );
@@ -5278,7 +5310,7 @@ class GminyController extends DataobjectsController
                                     'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
                                     'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
                                 ),
-                                'cur' => $b['wydatki']['value'],
+                                'cur' => $b[$dataset]['value'],
                                 'median' => $d['percentiles']['values']['50.0'],
                                 'histogram' => $d['histogram_' . $histogram_i]['buckets'],
                                 'interval' => $this->histogramIntervals[(int)$histogram_i]
@@ -5307,7 +5339,7 @@ class GminyController extends DataobjectsController
                                 $r = array(
                                     'id' => $r['key'],
                                     'label' => $r['nazwa']['buckets'][0]['key'],
-                                    'wydatki' => $r['wydatki']['value'],
+                                    'wydatki' => $r[$dataset]['value'],
                                 );
 
                             }

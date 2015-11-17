@@ -19,7 +19,83 @@ class FinanseController extends ApplicationsController
         1000
     );
 
-    public function view() {
+	public function view() {
+
+		$options = array(
+            'searchTitle' => 'Szukaj w finansach publicznych...',
+            'conditions' => array(
+                'dataset' => 'budzety',
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Finanse',
+                    'element' => 'cover',
+                ),
+                'aggs' => array(
+	                'budzety' => array(
+		                'filter' => array(
+			                'bool' => array(
+				                'must' => array(
+					                array(
+						                'term' => array(
+							                'dataset' => 'budzety',
+						                ),
+					                ),
+					                array(
+						                'range' => array(
+							                'data.budzety.rok' => array(
+								                'gte' => 1989
+							                ),
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+		                'aggs' => array(
+			                'top' => array(
+				                'top_hits' => array(
+					                'size' => 100,
+					                'sort' => array(
+						                'date' => array(
+							                'order' => 'desc',
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
+            ),
+            'apps' => true,
+        );
+
+        if(
+	        isset($this->request->params['p1']) &&
+	        isset($this->request->params['p2'])
+        ) {
+
+	        $p1 = $this->request->params['p1'];
+	        $p2 = $this->request->params['p2'];
+
+        } else {
+
+	        $p1 = '2014';
+	        $p2 = '2015';
+
+        }
+
+        $compareData = $this->Finanse->getCompareData($p1, $p2);
+        $this->set('p1', $p1);
+        $this->set('p2', $p2);
+        $this->set('compareData', $compareData);
+
+		$this->chapter_selected = 'view';
+        $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+
+	}
+
+    public function ___view() {
         App::import("Model", "Finanse.PKB");
         $PKB = new PKB();
 
@@ -762,7 +838,7 @@ class FinanseController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 	}
 
-    public function beforeRender() {
+    public function ___beforeRender() {
 
         parent::beforeRender();
 

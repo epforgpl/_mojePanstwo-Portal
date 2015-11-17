@@ -14,6 +14,7 @@ $columns = isset($columns) ? $columns : array(9, 3);
 	    	'menu' => isset($menu) ? $menu : null,
             'pills' => isset($pills) ? $pills : null,
 	    	'truncate' => isset($truncate) ? $truncate : null,
+	    	'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : null,
 	    )); ?>
 
     </div>

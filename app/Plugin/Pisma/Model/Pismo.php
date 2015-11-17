@@ -24,7 +24,7 @@ class Pismo extends AppModel
             'method' => 'GET',
             'data' => $params,
         ));
-
+        
         $code = (int)$this->getDataSource()->Http->response->code;
         if ($code >= 400) {
 

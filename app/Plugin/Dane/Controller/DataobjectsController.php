@@ -3,7 +3,15 @@
 class DataobjectsController extends AppController
 {
 
-    public $uses = array('Dane.Dataobject', 'Dane.Subscription', 'Dane.ObjectUsersManagement');
+    public $uses = array(
+        'Dane.Dataobject',
+        'Dane.Subscription',
+        'Dane.ObjectUsersManagement',
+        'Collections.Collection',
+        'Pisma.Pismo',
+        'Start.LetterResponse',
+    );
+
     public $components = array('RequestHandler');
 
     public $object = false;
@@ -48,6 +56,19 @@ class DataobjectsController extends AppController
      * @var bool
      */
     public $collectionsOptions = true;
+
+    /**
+     * @desc Czy wyświetlać kolekcje obiektu?
+     * @var bool
+     */
+    public $objectCollections = false;
+
+    /**
+     * @desc Czy wyświetlać publiczne pisma obiektu?
+     * @var bool
+     */
+    public $objectLetters = false;
+
 
     public $_layout = array(
         'header' => array(
@@ -272,6 +293,103 @@ class DataobjectsController extends AppController
             throw new ForbiddenException;
 
         $this->render('Dane.KrsPodmioty/dzialanie_form');
+    }
+
+    public function kolekcje() {
+        if(!$this->objectCollections)
+            throw new NotFoundException;
+
+        $this->request->params['action'] = 'kolekcje';
+
+        $this->_prepareView();
+        if(isset($this->params['subid']) && is_numeric($this->params['subid'])) {
+            $id = (int) $this->params['subid'];
+            $item = $this->Collection->load($id);
+            if(!$item)
+                throw new NotFoundException;
+
+            if($item->getData('is_public') != '1' ||
+                $item->getData('object_id') != $this->object->getGlobalId())
+                throw new NotFoundException;
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'collection_id' => $id,
+                ),
+            ));
+
+            $this->title = $item->getTitle();
+            $this->set('item', $item);
+            $this->render('Dane.KrsPodmioty/kolekcja');
+        } else {
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'kolekcje',
+                    'kolekcje.object_id' => $this->object->getGlobalId(),
+                ),
+                //'aggsPreset' => 'dzialania_admin',
+                'searchTitle' => 'Szukaj w kolekcjach...',
+                'objectOptions' => array(
+                    'public' => true,
+                    'base_url' => $this->object->getUrl()
+                ),
+            ));
+
+            $this->set('title_for_layout', 'Kolekcje ' . $this->object->getData('nazwa'));
+            $this->render('Dane.KrsPodmioty/kolekcje');
+        }
+    }
+
+    public function pisma() {
+        if(!$this->objectLetters)
+            throw new NotFoundException;
+
+        $this->request->params['action'] = 'pisma';
+        $this->_prepareView();
+
+        if(isset($this->params['subid'])) {
+            $id = $this->params['subid'];
+            $pismo = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'pisma',
+                        'id' => $id
+                    )
+                )
+            );
+
+            if(!$pismo->getData('is_public') || $pismo->getData('object_id') != $this->object->getGlobalId())
+                throw new NotFoundException;
+
+            $this->set('responses', $this->LetterResponse->getByLetter(
+                $pismo->getData('alphaid')
+            ));
+
+            $this->set('pismo', $pismo);
+            $this->render('Dane.KrsPodmioty/pismo');
+        } else {
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'pisma',
+                    'pisma.object_id' => $this->object->getGlobalId(),
+                ),
+                'searchTitle' => 'Szukaj w pismach...',
+                'objectOptions' => array(
+                    'public' => true,
+                    'base_url' => $this->object->getUrl()
+                ),
+            ));
+
+            $this->set('title_for_layout', 'Pisma ' . $this->object->getData('nazwa'));
+            $this->render('Dane.KrsPodmioty/pisma');
+        }
+    }
+
+    public function pismo($id) {
+        if(!$this->objectLetters)
+            throw new NotFoundException;
+
+        $this->request->params['action'] = 'pisma';
+
     }
 
     public function dzialania()

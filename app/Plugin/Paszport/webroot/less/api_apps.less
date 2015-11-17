@@ -1,0 +1,177 @@
+.editProfile {
+  .optionsBtn {
+    .btn-default, .btn-primary, .btn-warning, .btn-danger {
+      font-weight: bold;
+      margin-right: 5px;
+      border-color: #E7E7E7;
+
+      &:focus, &:hover {
+        background-color: #eee;
+      }
+    }
+    .btn-primary {
+      background-color: #ffffff;
+      color: #337ab7;
+    }
+    .btn-danger {
+      background-color: #ffffff;
+      color: #d9534f;
+    }
+
+    .listBtn, .editBtn, .cancelBtn, .deleteBtn, .submitBtn {
+      &:before {
+        font-family: 'Glyphicons Halflings';
+        font-size: 0.8em;
+        font-weight: normal;
+        margin-right: 8px;
+      }
+    }
+
+    .listBtn:before {
+      content: "\e012";
+    }
+    .editBtn:before {
+      content: "\270f";
+    }
+    .cancelBtn:before {
+      content: "\e014";
+    }
+    .deleteBtn:before {
+      content: "\e090";
+    }
+    .submitBtn:before {
+      content: "\e013";
+    }
+  }
+
+  .mainBlock {
+    position: relative;
+
+    .addAppBtn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+
+    .apiApps {
+      margin-top: 45px;
+      width: 100%;
+      display: block;
+      float: left;
+
+      .key {
+        padding: 0 0 22px;
+        margin-bottom: 28px;
+
+        .apiLogo {
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .apiInfo {
+          .title {
+            font-size: 16px;
+            color: #014068;
+            font-weight: bold;
+            padding-top: 4px;
+            margin: 0;
+          }
+          .description {
+            width: 100%;
+            display: block;
+            margin-top: 14px;
+            line-height: 1.2em;
+          }
+          .apiGeneratedKey {
+            margin-top: 24px;
+            font-weight: bold;
+          }
+        }
+        .apiActionBtn {
+          padding-right: 0;
+
+          > p {
+            display: inline-block;
+            width: 100%;
+            margin-top: 10px;
+          }
+        }
+      }
+
+      .pagination {
+        margin-top: 0;
+        margin-bottom: 5px;
+      }
+
+      &.add, &.view, &.edit {
+        margin-top: 15px;
+
+        .form-group, .input-group {
+          border-bottom: 0 none;
+          color: #000;
+          margin-bottom: 0;
+          padding-bottom: 8px;
+
+          > .title, > div > label {
+            font-size: 14px;
+            font-weight: normal;
+            color: #666;
+          }
+        }
+        .input-group {
+          padding-top: 8px;
+        }
+        .btn-file {
+          position: relative;
+          overflow: hidden;
+
+          input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+          }
+        }
+        input[readonly] {
+          background-color: white !important;
+          cursor: text !important;
+        }
+        .info-warning, .info-normal {
+          font-size: 12px;
+        }
+        .info-warning {
+          color: #F7B363;
+        }
+        .info-normal {
+          color: #666666;
+        }
+
+        .optionsBtn {
+          padding: 0;
+
+          .btn.pull-right {
+            margin-left: 10px;
+          }
+          .btn.pull-left {
+            margin-right: 10px;
+          }
+        }
+      }
+
+      &.view, &.edit {
+        .optionsBtn {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}

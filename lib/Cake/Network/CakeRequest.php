@@ -1018,7 +1018,9 @@ class CakeRequest implements ArrayAccess {
 		}
 		$allowed = strtoupper( implode( ', ', $methods ) );
 		$e       = new MethodNotAllowedException();
-		$e->responseHeader( 'Allow', $allowed );
+		if (method_exists($e, 'responseHeader')) {
+			$e->responseHeader( 'Allow', $allowed );
+		}
 		throw $e;
 	}
 

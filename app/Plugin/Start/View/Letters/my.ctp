@@ -4,14 +4,16 @@
 
 <?= $this->element('Start.pageBegin'); ?>
 
-<div class="appBanner bottom-border">
-    <h1 class="appTitle">Moje pisma</h1>
-
-    <p class="appSubtitle">Organizuj swoje pisma</p>
+<div class="overflow-auto">
+	<h1 class="pull-left">Moje pisma</h1>
+	<a href="/moje-pisma/nowe" class="btn btn-primary btn-icon submit auto-width pull-right margin-top-20">
+        <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
+        Nowe pismo
+    </a>
 </div>
 
 <? if (!$this->Session->read('Auth.User.id')) { ?>
-    <div class="col-xs-12">
+    <div class="col-xs-12 nopadding">
         <div class="alert-identity alert alert-dismissable alert-success">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <h4>Uwaga!</h4>
@@ -156,13 +158,6 @@
                     </div>
                 <?php } ?>
 
-                <div class="text-center margin-top-20">
-                    <a href="/moje-pisma/nowe" class="btn btn-primary btn-icon submit auto-width">
-                        <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
-                        Nowe pismo
-                    </a>
-                </div>
-
             <? } else {
                 if ($q) {
                     ?>
@@ -174,8 +169,6 @@
                         <div class="col-xs-12 information">
 
                             <h2>Nie stworzyłeś jeszcze żadnych pism</h2>
-                            <br/><br/>
-                            <a target="_self" href="/moje-pisma/nowe" class="btn btn-info">Nowe pismo</a>
                         </div>
                     </div>
                     <?

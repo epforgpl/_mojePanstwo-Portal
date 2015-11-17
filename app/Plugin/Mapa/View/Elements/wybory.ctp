@@ -16,7 +16,6 @@
 
             if (isset($mapParams['elections']['obwody']))
                 $ils = array_column($mapParams['elections']['obwody'], 'key');
-
             ?>
             <li class="accord accord-fullheight wyboryDetail<? if (!isset($widget)) {
                 echo ' closed';

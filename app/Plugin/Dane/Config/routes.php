@@ -206,7 +206,7 @@ foreach ($map as $m) {
     ), array(
         'id' => '([0-9]+)',
         'action' => '([a-zA-Z\_]+)',
-        'subid' => '([0-9]+)',
+        'subid' => '([a-zA-Z0-9]+)',
         'pass' => $pass,
     ));
 

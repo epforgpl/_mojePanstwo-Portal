@@ -35,6 +35,12 @@
                             <a href="<?php echo $this->Html->url(array('plugin' => 'Start', 'controller' => 'Account', 'action' => 'index')); ?>"
                                target="_self"><?php echo __('LC_COCKPITBAR_USER_BASIC_INFO'); ?></a>
                         </li>
+                        <!-- TODO Przywrocic konczac #521
+                        <li>
+                            <a href="<?php echo $this->Html->url(array('plugin' => 'paszport', 'controller' => 'api_apps', 'action' => 'index')); ?>"
+                               target="_self"><?php echo __('LC_COCKPITBAR_USER_BASIC_APPS'); ?></a>
+                        </li>
+                        -->
                         <li>
                             <a href="<?php echo $this->Html->url('/logout'); ?>"
                                target="_self"><?php echo __('LC_COCKPITBAR_LOGOUT'); ?></a>

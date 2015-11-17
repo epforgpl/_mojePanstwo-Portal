@@ -34,9 +34,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
         <div class="container">
             <div class="row dataBrowserContent">
 
-                <div class="col-sm-3 col-xs-12 dataAggsContainer">
+                <div class="col-md-1-5 dataAggsContainer">
                     <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
                 </div>
 
-                <div class="col-sm-9 col-xs-12">
+                <div class="col-md-4-5">
                     <div class="dataWrap margin-top-10">

@@ -6,6 +6,7 @@ Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'users'
 Router::connect('/register', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'register'));
 Router::connect('/forgot', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'forgot'));
 
+Router::mapResources('Paszport.api_apps');
 
 Router::connect('/paszport/klucze', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'keys'));
 Router::connect('/paszport/logi', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'logs'));

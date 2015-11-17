@@ -121,55 +121,8 @@ $this->Combinator->add_libs('js', 'Dane.view-gminy');
     </div>
 
     <div class="col-md-9 objectMain">
-        <? /*<div class="objectSearch">
-            <div class="input-group">
-                <form method="get" action="/dane/gminy/<?= $object->getId() ?>/szukaj">
-                    <input type="text" placeholder="Szukaj w Przejrzystym Krakowie..." autocomplete="off"
-                           class="form-control ui-autocomplete-input" name="q">
-                    <input type="submit" style="display: none;" name="submit" value="search">
-                    <span class="input-group-btn">
-                        <button data-icon="" type="submit" class="btn btn-success btn-lg"></button>
-                    </span>
-                </form>
-            </div>
-        </div>*/ ?>
-
         <div class="object">
             <div class="block-group col-xs-12">
-                <?php /* if (($object->getId() == '903') && ($posiedzenie = $object->getLayer('ostatnie_posiedzenie')) && !empty($posiedzenie['data']) && !empty($posiedzenie['terms'])) { ?>
-    <div id="prawo" class="block">
-        <div class="block-header">
-            <h2 class="pull-left label">Tematy na <a
-                    href="/dane/gminy/903/posiedzenia/<?= $posiedzenie['data']['id'] ?>">ostatnim posiedzeniu Rady
-                    Miasta</a></h2>
-            <a class="btn btn-default btn-sm pull-right"
-               href="<?= Router::url(array('action' => 'posiedzenia', 'id' => $object->getId())) ?>">
-                Wszystkie posiedzenia</a>
-        </div>
-
-        <div class="content">
-            <ul class="objectTagsCloud row">
-                <?
-                $font = array(
-                    'min' => 15,
-                    'max' => 100,
-                );
-                $font['diff'] = $font['max'] - $font['min'];
-                $terms = $posiedzenie['terms'];
-                foreach ($terms as &$term) {
-                    $term['size'] = $font['min'] + $font['diff'] * $term['norm_score'];
-                }
-                shuffle($terms);
-                foreach ($terms as $term) {
-                    $href = '/dane/gminy/903/posiedzenia/' . $posiedzenie['data']['id'] . '/punkty?q=' . addslashes($term['key']);
-                    ?>
-                    <li style="font-size: <?= $term['size'] ?>px;"><a href="<?= $href ?>"><?= $term['key'] ?></a></li>
-                <? } ?>
-            </ul>
-        </div>
-    </div>
-<?php } */ ?>
-
                 <div class="block">
                     <div class="block-header">
                         <h2 class="label">Rada miasta</h2>
@@ -411,129 +364,6 @@ $this->Combinator->add_libs('js', 'Dane.view-gminy');
                     </div>
                 </div>
 
-                <? if ($object->getId() == 903) { ?>
-
-                    <? /*
-			    <div id="rada" class="block">
-			        <div class="block-header">
-			            <h2 class="pull-left label">Posiedzenia rady miasta</h2>
-			            <a class="btn btn-default btn-sm pull-right"
-			               href="<?= Router::url(array('action' => 'posiedzenia', 'id' => $object->getId())) ?>">Zobacz
-			                wszystkie</a>
-			        </div>
-
-			        <div class="content">
-			            <div class="dataobjectsSliderRow row">
-			                <div>
-			                    <?php echo $this->dataobjectsSlider->render($rady_posiedzenia, array(
-			                        'perGroup' => 3,
-			                        'rowNumber' => 1,
-			                        'labelMode' => 'none',
-			                        'file' => 'rady_posiedzenia-gminy',
-			                    )) ?>
-			                </div>
-			            </div>
-			        </div>
-			    </div>
-			    */
-                    ?>
-
-                    <? /*
-    <div id="prawo" class="block">
-        <div class="block-header">
-            <h2 class="pull-left label">Najnowsze uchwały rady miasta</h2>
-            <a class="btn btn-default btn-sm pull-right"
-               href="<?= Router::url(array('action' => 'rada_uchwaly', 'id' => $object->getId())) ?>">Zobacz
-                wszystkie</a>
-        </div>
-
-        <div class="content">
-            <div class="dataobjectsSliderRow row">
-                <div>
-                    <?php echo $this->dataobjectsSlider->render($prawo_lokalne, array(
-                        'perGroup' => 2,
-                        'rowNumber' => 1,
-                        'descriptionMode' => 'none',
-                    )) ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    */ ?>
-
-                    <? /*
-					            <div id="materialy" class="block">
-					                <div class="block-header">
-					                    <h2 class="pull-left label">Materiały na posiedzenia rady miasta</h2>
-					                    <a class="btn btn-default btn-sm pull-right" href="<?= Router::url(array('action' => 'druki', 'id' => $object->getId())) ?>">Zobacz
-					                        wszystkie</a>
-					                </div>
-
-					                <div class="content">
-					                    <div class="dataobjectsSliderRow row">
-					                        <div>
-					                            <?php echo $this->dataobjectsSlider->render($rady_druki, array(
-					                                'perGroup' => 3,
-					                                'rowNumber' => 1,
-					                                'labelMode' => 'none',
-					                                // 'dfFields' => array('data_publikacji'),
-					                            )) ?>
-					                        </div>
-					                    </div>
-					                </div>
-					            </div>
-					            */
-                    ?>
-
-
-                    <? /*
-					            <div class="block">
-					            	<div class="row">
-						            	<div class="col-lg-6">
-
-						            		<div id="rada">
-									            <div class="block-header">
-									                <h2 class="label pull-left"><?php echo __d('dane', 'LC_GMINY_WYNIKI_WYBOROW'); ?></h2>
-									                <a class="btn btn-default btn-sm pull-right" href="<?= Router::url(array('action' => 'radni', 'id' => $object->getId())) ?>">Zobacz wszystkich radnych</a>
-									            </div>
-
-									            <div class="content wynikiWyborow">
-									                <?php foreach ($object->getLayer('rada_komitety') as $rada) { ?>
-									                    <div class="wynik">
-									                        <a href="<?= Router::url(array('action' => 'radni', 'id' => $object->getId(), '?' => array('komitet_id' => $rada['pl_gminy_radni']['komitet_id']))) ?>">
-									                            <?php echo $rada['pkw_komitety']['nazwa']; ?>
-									                        </a>
-									                        <small><?php echo pl_dopelniacz($rada[0]['count'], 'radny', 'radnych', 'radnych'); ?></small>
-
-									                        <div class="progress">
-									                            <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="73.3"
-									                                 aria-valuemin="0" aria-valuemax="100"
-									                                 style="width: <?php echo $rada['percent']; ?>%">
-									                            </div>
-									                        </div>
-									                    </div>
-									                <?php } ?>
-									            </div>
-
-
-
-									        </div>
-
-						            	</div><div class="col-lg-6">
-
-
-
-						            	</div>
-					            	</div>
-
-
-					            </div>
-					            <? */
-                    ?>
-
-                <? } ?>
-
-
                 <? if (!empty($zamowienia_otwarte)) { ?>
                     <div id="zamowienia_publiczne_otwarte" class="block">
                         <div class="block-header">
@@ -579,28 +409,6 @@ $this->Combinator->add_libs('js', 'Dane.view-gminy');
                         </div>
                     </div>
                 <? } ?>
-
-                <? /*
-					        <div id="dotacje_unijne" class="block">
-					            <div class="block-header">
-					                <h2 class="pull-left label">Dotacje unijne</h2>
-					                <a class="btn btn-default btn-sm pull-right" href="<?= Router::url(array('action' => 'dotacje_ue', 'id' => $object->getId())) ?>">Zobacz
-					                    wszystkie</a>
-					            </div>
-
-					            <div class="content">
-					                <div class="dataobjectsSliderRow row">
-					                    <div>
-					                        <?php echo $this->dataobjectsSlider->render($dotacje_ue, array(
-					                            'perGroup' => 2,
-					                            'rowNumber' => 1,
-					                            'labelMode' => 'none',
-					                        )) ?>
-					                    </div>
-					                </div>
-					            </div>
-					        </div>
-					        */ ?>
             </div>
         </div>
     </div>

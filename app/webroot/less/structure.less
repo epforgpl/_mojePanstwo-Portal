@@ -645,6 +645,10 @@ body {
 
         .objectsPage {
             min-height: 400px;
+
+            &.no-min {
+                min-height: 0;
+            }
         }
 
         .fullPageHeight {
@@ -817,12 +821,30 @@ body {
                 font-weight: 300;
                 margin-top: -22px;
             }
+            
         }
 
         .modal-body {
             margin-bottom: 20px;
             margin-top: 0;
-
+			
+			&.full {
+				padding: 0;
+				margin: 0;
+				.mp-form {
+					margin: 0;
+					padding: 20px;
+				}
+			}
+			
+			.manage-list {
+	            list-style: none;
+	            li {
+		            list-style: none;
+		            padding: 3px;
+	            }
+            }
+			
             > p.header {
                 color: #444;
                 font-size: 14px;

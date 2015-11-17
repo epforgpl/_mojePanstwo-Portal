@@ -3,7 +3,7 @@
 namespace MP\Lib;
 require_once('DocDataObject.php');
 
-class Dzialania extends DocDataObject
+class Dzialania extends DataObject
 {
 
 	protected $tiny_label = 'Działania';

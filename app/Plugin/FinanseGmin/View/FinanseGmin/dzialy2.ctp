@@ -10,19 +10,7 @@ $this->Combinator->add_libs('js', 'Finanse.dzialy.js');
 
     <div class="row">
         <div class="col-md-12">
-
             <h1 class="pull-left">Wydatki gmin w Polsce</h1>
-
-            <? /*
-			<div class="range text-center pull-right">
-		        <ul class="pagination">
-		            <li class="active"><a href="?range=24h">Q2 2014</a></li>
-		            <li><a href="?range=3d">Q1 2014</a></li>
-		        </ul>
-		    </div>
-		    */
-            ?>
-
         </div>
     </div>
 
