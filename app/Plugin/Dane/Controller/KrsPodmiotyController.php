@@ -463,9 +463,12 @@ class KrsPodmiotyController extends DataobjectsController
     public function graph()
     {
         if (@$this->request->params['ext'] == 'json') {
-
+						
             $this->addInitLayers('graph');
             $this->_prepareView();
+            
+            // var_export( $this->object->layers ); die();
+            
             $data = $this->object->getLayer('graph');
 
             $this->set('data', $data);
@@ -657,16 +660,34 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => @$this->object_aggs['dzialania']['doc_count'],
             );
         }
+        
+        if(
+        	@$this->object_aggs['pisma']['doc_count']
+        ) {
+            $menu['items'][] = array(
+	            'id' => 'pisma',
+	            'label' => 'Pisma',
+	        );
+        }
+        
+        if(
+        	@$this->object_aggs['kolekcje']['doc_count']
+        ) {
+            $menu['items'][] = array(
+	            'id' => 'kolekcje',
+	            'label' => 'Kolekcje',
+	        );
+        }
 		
-		$menu['items'][] = array(
-            'id' => 'pisma',
-            'label' => 'Pisma',
-        );
+		if($this->object->getData('twitter_account_id')) {
+            $menu['items'][] = array(
+                'id' => 'media',
+                'label' => 'Twitter',
+            );
+        }
 		
-		$menu['items'][] = array(
-            'id' => 'kolekcje',
-            'label' => 'Kolekcje',
-        );
+		
+		
 		
         if (@$this->object_aggs['zamowienia']['doc_count']) {
             $menu['items'][] = array(
@@ -737,12 +758,7 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        if($this->object->getData('twitter_account_id')) {
-            $menu['items'][] = array(
-                'id' => 'media',
-                'label' => 'Media',
-            );
-        }
+        
 
         
 
