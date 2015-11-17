@@ -806,7 +806,6 @@ $(document).ready(function () {
 
 		mapaWarstwy.setLayer(mPCookie.mapa.warstwa, showLayers);
 		explore.find('li[data-layer="' + mPCookie.mapa.warstwa + '"]').addClass('open');
-		explore.css('height', explore.css('max-height'));
 		mapBrowser.resize();
 	}
 
@@ -844,17 +843,21 @@ $(document).ready(function () {
 			mPCookie.mapa.warstwa = c.attr('data-layer');
 			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 
-			explore.animate({
-				height: explore.css('max-height')
-			}, {
-				step: function () {
-					mapBrowser.resize();
-				},
-				complete: function () {
-					c.addClass('open');
-					mapBrowser.resize();
-				}
-			}).css("overflow", "visible");
+			if (c.attr('data-layer') === 'komisje_wyborcze') {
+				explore.animate({
+					height: explore.css('max-height')
+				}, {
+					step: function () {
+						mapBrowser.resize();
+					},
+					complete: function () {
+						c.addClass('open');
+						mapBrowser.resize();
+					}
+				}).css("overflow", "visible");
+			} else {
+				c.addClass('open');
+			}
 		}
 	});
 	explore.find('.showMarkers').change(function (e) {

@@ -499,9 +499,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     echo ' nodetails';
                 } ?>">
                     <ul>
-                        <!--<li data-layer="instytucje">Instytucje publiczne</li>
+                        <li data-layer="instytucje">Instytucje publiczne</li>
                         <li data-layer="biznes">Biznes</li>
-                        <li data-layer="ngo">Organizacje</li>-->
+                        <li data-layer="ngo">Organizacje</li>
                         <? if (@$mapParams['mode'] == 'place') {
                             if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
                                 <li data-layer="komisje_wyborcze">Wybory parlamentarne 2015</li>
