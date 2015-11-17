@@ -15,8 +15,6 @@ $accessDict = array(
 	'publiczne'
 );
 
-debug($pismo);
-
 ?>
 <?php $this->Combinator->add_libs('js', 'Start.pismo.js') ?>
 <?php // $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>

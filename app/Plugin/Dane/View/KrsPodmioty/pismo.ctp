@@ -17,35 +17,29 @@ $accessDict = array(
 <? $pismo = $pismo->getData(); $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <header class="collection-header">
+	
+	<header class="collection-header">
 
-                <div class="overflow-auto margin-top-10">
+        <div class="overflow-auto margin-top-10">
 
-                    <div class="content pull-left">
-                        <i class="object-icon icon-applications-pisma"></i>
+            <div class="content pull-left">
+                <i class="object-icon icon-applications-pisma"></i>
 
-                        <div class="object-icon-side">
-                            <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['name'] ?></h1>
-                        </div>
-                    </div>
-
+                <div class="object-icon-side">
+                    <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['name'] ?></h1>
                 </div>
-            </header>
+            </div>
+
+        </div>
+    </header>
+	
+    <div class="row">
+        <div class="col-sm-9">
+            
 
             <ul class="collection-meta">
                 <li>Pismo <?= $pismo['is_public'] ? 'publiczne' : 'prywatne'; ?></li>
             </ul>
-
-            <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
-                <div>
-                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
-                        <i class="icon glyphicon glyphicon-pencil"></i>
-                        Edytuj
-                    </a>
-                </div>
-            <? } ?>
 
             <div class="letter-table">
                 <div class="row">
@@ -75,7 +69,7 @@ $accessDict = array(
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text">
-                            <?= $pismo['content_html'] ?>
+                            <?= $pismo['content_html'] ? $pismo['content_html'] : $pismo['content'] ?>
                         </div>
                     </div>
                 </div>
@@ -87,97 +81,7 @@ $accessDict = array(
                     </div>
                 <? } ?>
             </div>
-
-
-            <? if (!$pismo['sent']) { ?>
-
-                <div id="sendPismoModal" class="modal fade" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
-                                    <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Wysyłanie pisma</h4>
-                            </div>
-                            <form action="<?= $href_base ?>" method="POST">
-                                <div class="modal-body">
-
-                                    <? if ($this->Session->read('Auth.User.id')) { ?>
-
-                                        <p class="text-center">Twoje pismo zostanie wysłane z adresu <span
-                                                class="email">pisma@mojepanstwo.pl</span> na
-                                            adres:</p>
-
-                                        <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
-
-                                        <div class="additional-desc">
-                                            <p>W polu <b>CC</b> wiadomości zostanie podany Twój
-                                                adres e-mail - otrzymasz więc kopię wysłanego
-                                                pisma.
-                                            </p>
-
-                                            <p>W polu <b>Reply-to</b> wiadomości również
-                                                zostanie podany Twój adres email, aby adresat
-                                                przesłał odpowiedź bezpośrednio na Twój adres.
-                                            </p>
-                                        </div>
-
-                                    <? } else { ?>
-
-                                        <p>Twoje pismo zostanie wysłane z adresu <span
-                                                class="email">pisma@mojepanstwo.pl</span> na
-                                            adres:</p>
-
-                                        <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
-
-                                        <div class="form-group">
-                                            <label for="senderName">Podaj swoje imię i nazwisko bądź nazwę
-                                                instytucji:</label>
-                                            <input name="name" class="form-control" type="text" id="senderName"
-                                                   value="" required="required"/>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="senderEmail">Podaj swój adres e-mail:</label>
-                                            <input name="email" class="form-control" type="email"
-                                                   id="senderEmail" required="required"/>
-                                        </div>
-
-                                        <div class="additional-desc">
-                                            <p>W polu <b>CC</b> wiadomości zostanie podany Twój
-                                                adres e-mail - otrzymasz więc kopię wysłanego
-                                                pisma.
-                                            </p>
-
-                                            <p>W polu <b>Reply-to</b> wiadomości również
-                                                zostanie podany Twój adres email, aby adresat
-                                                przesłał odpowiedź bezpośrednio na Twój adres.
-                                            </p>
-                                        </div>
-
-                                    <? } ?>
-
-                                </div>
-                                <div class="modal-footer">
-
-                                    <button type="button" class="btn btn-default"
-                                            data-dismiss="modal">Anuluj
-                                    </button>
-
-                                    <button name="send" value="Wyślij" type="submit"
-                                            class="btn btn-warning btn-icon auto-width"><i
-                                            class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo
-                                    </button>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            <? } ?>
+            
 
             <div class="lettersResponses">
                 <div class="row margin-top-20">
@@ -216,6 +120,17 @@ $accessDict = array(
                     </div>
                 </div>
             </div>
+        </div><div class="col-sm-3">
+	        
+	        <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
+                <div class="margin-top-50">
+                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
+                        <i class="icon glyphicon glyphicon-pencil"></i>
+                        Zarządzaj pismem
+                    </a>
+                </div>
+            <? } ?>
+	        
         </div>
     </div>
 </div>
