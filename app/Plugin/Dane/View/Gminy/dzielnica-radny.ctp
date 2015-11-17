@@ -14,17 +14,6 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
-/*
-echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => $_submenu,
-    'object' => $dzielnica,
-    'objectOptions' => array(
-        'hlFields' => array(),
-        'bigTitle' => true,
-    )
-));
-*/
-
 echo $this->Element('Dane.dataobject/subobject', array(
     'menu' => false,
     'object' => $radny,

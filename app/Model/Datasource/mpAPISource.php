@@ -24,7 +24,7 @@ class mpAPISource extends DataSource {
     public $config = array(
         'ext' => 'json',
     );
-
+    
 /**
  * If we want to create() or update() we need to specify the fields
  * available. We use the same array keys as we do with CakeSchema, eg.
@@ -47,7 +47,7 @@ class mpAPISource extends DataSource {
             'type' => 'text',
             'null' => true,
         ),
-*/
+*/ 
     );
 
 /**
@@ -100,9 +100,9 @@ class mpAPISource extends DataSource {
  * Implement the R in CRUD. Calls to ``Model::find()`` arrive here.
  */
     public function read(Model $model, $queryData = array(), $recursive = null) {
-
-	   $method = 'GET';
-
+	   	
+	   $method = 'GET';	
+	   	   	         
         /**
          * Here we do the actual count as instructed by our calculate()
          * method above. We could either check the remote source or some
@@ -115,131 +115,129 @@ class mpAPISource extends DataSource {
         /**
          * Now we get, decode and return the remote data.
          */
-
+        
         $this->count = false;
         $this->took = false;
-
+        
         $process_response = false;
-				
+                
         if( isset($queryData['feed']) ) {
-
+        	        	
         	$endpoint_parts = array('dane/' . $queryData['feed']);
-
+        
         } else {
-
+	        
 	        $endpoint_parts = array('dane');
-
+	        
 	    }
-
+                
         if( isset($queryData['feed']) ) {
-
+	        
 	        $endpoint_parts[] = 'feed';
 	        unset( $queryData['feed'] );
-
+	        
         } elseif( $model->findQueryType == 'first' ) {
-
-	        if(
-	        	isset($queryData['conditions']['dataset']) &&
-	        	( $queryData['conditions']['dataset'] == 'zbiory' ) &&
-	        	isset($queryData['conditions']['zbiory.slug'])
+	        	                
+	        if( 
+	        	isset($queryData['conditions']['dataset']) && 
+	        	( $queryData['conditions']['dataset'] == 'zbiory' ) && 
+	        	isset($queryData['conditions']['zbiory.slug']) 
 	        ) {
-
+		        
 		        $process_response = true;
-
+		        
 	        } else {
-
+	        
 		        if( isset($queryData['conditions']['dataset']) ) {
 		        	$endpoint_parts[] = $queryData['conditions']['dataset'];
 		        	unset( $queryData['conditions']['dataset'] );
 		        }
-
+		        	
 		        if( isset($queryData['conditions']['id']) ) {
 		        	$endpoint_parts[] = $queryData['conditions']['id'];
 		        	unset( $queryData['conditions']['id'] );
 		        }
-
+		        
 		        unset( $queryData['limit'] );
 		        unset( $queryData['page'] );
-
+	        
 	        }
-
+	        
 			// $endpoint_parts[] = 'view';
-
+	        	        
         } else {
-
+        	
         	$method = 'POST';
-
+        	
         	if( isset($queryData['conditions']['dataset']) ) {
-
+        	
 	        	if( is_array($queryData['conditions']['dataset']) ) {
-
-
-	        	} else {
-
+		        	
+		        	
+	        	} else {        			        	
+			        	
 		        	$endpoint_parts[] = $queryData['conditions']['dataset'];
 		        	unset( $queryData['conditions']['dataset'] );
-
+		        
 		        }
-
+	        
 	        }
         }
-
+                                
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
-
+		
 		$public_query = $queryData;
 		if( isset($public_query['aggs']) )
 			unset( $public_query['aggs'] );
-
+		
 		$this->public_api_call = $this->config['host'] . '/' . $base_url . '?' . http_build_query($queryData);
-
+				
         $res = $this->request($base_url, array(
 	        'data' => $queryData,
 	        'method' => $method,
         ));
-
-        $this->lastResponseCode = (int) $this->Http->response->code;
-        if($this->lastResponseCode >= 400)
-            return false;
-
+                        
+        $code = (int) $this->Http->response->code;
+        
+        if( $code >= 400 ) {
+	        
+	        if( $code==400 )
+	        	throw new BadRequestException();
+	        elseif( $code==403 )
+	        	throw new ForbiddenException();
+	        elseif( $code==404 )
+	        	throw new NotFoundException();
+	        elseif( $code==405 )
+	        	throw new MethodNotAllowedException();
+	        elseif( $code==500 )
+	        	throw new MethodNotAllowedException();
+        	elseif( $code==501 )
+	        	throw new NotImplementedException();
+	        else
+	        	throw new CakeException();
+	        	
+        }
+                 
         if( isset($res['Count']) )
 	        $this->count = $res['Count'];
-
+	    
 	    if( isset($res['Took']) )
 	        $this->took = $res['Took'];
-
-        if( isset($res['Aggs']) ) {
-
-        	$this->Aggs = array();
-        	$this->Apps = array();
-
-        	foreach( $res['Aggs'] as $key => $value ) {
-
-	        	if( strpos($key, 'app_')===0 ) {
-	        		if(
-		        		isset( $value['doc_count'] ) &&
-		        		$value['doc_count']
-	        		) {
-	        			$this->Apps[ substr($key, 4) ] = $value;
-	        		}
-	        	} else {
-	        		$this->Aggs[ $key ] = $value;
-	        	}
-
-        	}
-
-        }
-
+        
+        if( isset($res['Aggs']) )
+        	$this->Aggs = $res['Aggs']; 
+           
         if( $model->findQueryType == 'first' ) {
-
+	        	        
 	        if( $process_response )
 		        return @isset( $res['Dataobject'] ) ? $res['Dataobject'] : array();
 		    else
 		        return array($res);
-
-        } else {
+        
+        } else {	        
 	        return $res['Dataobject'];
         }
-
+        
     }
 
 /**
@@ -272,7 +270,7 @@ class mpAPISource extends DataSource {
 /**
  * Implement the D in CRUD. Calls to ``Model::delete()`` arrive here.
  */
-/*
+/* 
     public function delete(Model $model, $id = null) {
         $json = $this->Http->get('http://example.com/api/remove.json', array(
             'id' => $id[$model->alias . '.id'],
@@ -286,72 +284,82 @@ class mpAPISource extends DataSource {
         return true;
     }
 */
-
+        
     private function getPath($endpoint) {
-
+	    
 	    $url_parts = parse_url($endpoint);
-
+		
 		if( isset($url_parts['query']) )
 			parse_str($url_parts['query'], $query);
 		else
 			$query = array();
-
+				
 		$query['apiKey'] = $this->config['apiKey'];
-
+		
 		App::uses('CakeSession', 'Model/Datasource');
-
+		
 		if( $user_id = CakeSession::read('Auth.User.id') )
 			$query['user_id'] = $user_id;
 		elseif( $temp_user_id = CakeSession::id() )
         	$query['temp_user_id'] = $temp_user_id;
-
+							    
 	    return $this->config['host'] . '/' . $url_parts['path'] . '?' . http_build_query($query);
     }
-
+        
     private $allowed_methods = array(
 	    'GET', 'POST', 'DELETE', 'PATCH', 'PUT'
     );
-
-    public function request($endpoint, $params = array()) {
-
+    
+    public function request($endpoint, $params = array(), $nastyHackToPassFollowingHttpErrors = array()) {
+	    
 	    $path = $this->getPath($endpoint);
 	    $method = ( isset($params['method']) && in_array($params['method'], $this->allowed_methods) ) ? $params['method'] : 'GET';
 	    $data = isset($params['data']) ? $params['data'] : false;
 	    $request = isset($params['request']) ? $params['request'] : array();
-
+	      
 	    switch( $method ) {
-		    case 'GET': { $json = $this->Http->get($path, $data, $request); break; }
-		    case 'POST': { $json = $this->Http->post($path, $data, $request); break; }
-		    case 'DELETE': { $json = $this->Http->delete($path, $data, $request); break; }
-		    case 'PATCH': { $json = $this->Http->patch($path, $data, $request); break; }
-		    case 'PUT': { $json = $this->Http->put($path, $data, $request); break; }
+		    case 'GET': { $response = $this->Http->get($path, $data, $request); break; }
+		    case 'POST': { $response = $this->Http->post($path, $data, $request); break; }
+		    case 'DELETE': { $response = $this->Http->delete($path, $data, $request); break; }
+		    case 'PATCH': { $response = $this->Http->patch($path, $data, $request); break; }
+		    case 'PUT': { $response = $this->Http->put($path, $data, $request); break; }
+            default: throw new CakeException("Unrecognized method: " . $method);
 	    }
-
+	    
 	    if( $this->config['verbose'] ) {
 		    debug(array(
 		    	'endpoint' => urldecode($this->Http->request['line']),
 		    	'data' => $data,
 		    	'request' => $request,
-		    	'response' => $json,
+		    	'response' => $response,
 		    ));
 	    }
 
-	    $res = json_decode($json, true);
+        if (!$response->isOk() && !in_array($response->code, $nastyHackToPassFollowingHttpErrors)) {
+            // don't hide HTTP errors, they are serious fellas!
+            throw new CakeException("Got HTTP error ". $response->code);
+
+        } else if ($response->isRedirect()) {
+            throw new CakeException("API should not do redirects!");
+        }
+	    	    
+	    $res = json_decode($response, true);
         if (is_null($res)) {
             $error = json_last_error();
             throw new CakeException($error);
         }
-
+                
         return $res;
-
+	    
     }
-
-    public function loadDocument($id, $options = array())
+    
+    public function loadDocument($id, $package = 1)
     {
-
 	    return $this->request('docs/' . $id . '.' . $this->config['ext'], array(
-		    'data' => $options,
-	    ));
+	        'data' => array(
+		        'package' => $package,
+	        ),
+        ));
     }
 
     public function login($email, $password) {
@@ -361,10 +369,11 @@ class mpAPISource extends DataSource {
                 'password' => $password
             ),
             'method' => 'POST'
-        ));
+        ), array(400, 403, 404));
 
         $code = $this->Http->response->code;
 
+        // TODO krzysiek: poniższe stany powinny byc przekazywane jako response['status'] a nie kody http
         if($code == 200) {
 
             $user = $response['User'];
@@ -394,6 +403,6 @@ class mpAPISource extends DataSource {
             'data' => $data,
             'method' => 'POST'
         ));
-    }
+    }    
 
 }

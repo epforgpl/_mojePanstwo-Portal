@@ -13,7 +13,7 @@ var BDLapp = function () {
 			wskazniki.each(function () {
 				var el = $(this);
 
-				el.find('h2>a').click(function (e) {
+				el.find('._open').click(function (e) {
 					var that = $(this),
 						text = that.text().capitalizeFirstLetter(),
 						href = that.attr('href');

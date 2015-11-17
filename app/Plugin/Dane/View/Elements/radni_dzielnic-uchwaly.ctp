@@ -1,13 +1,7 @@
-<div class="objectRender <? if ($alertsStatus) {
-    echo " unreaded";
-} else {
-    echo " readed";
-} ?>" oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
+<div class="objectRender<?= ($alertsStatus) ? " unreaded" : " readed"; ?>" oid="<?php echo $object->getId() ?>"
+     gid="<?php echo $object->getGlobalId() ?>">
 
     <?
-
-    // debug( $object );
-
     $temp = '<span>{day}</span><p>{month} {year}</p>';
     $ts = strtotime($object->getDate());
 
@@ -52,17 +46,4 @@
         </div>
 
     </div>
-
-
-
-    <?php /* if ( $object->hasHighlights() && $object->getHlText() ) { ?>
-		<div class="row">
-			<div class="text-highlights alert alert-info">
-				<?php echo( closetags( $object->getHlText() ) ); ?>
-			</div>
-		</div>
-	<?php } */
-    ?>
-
-
 </div>

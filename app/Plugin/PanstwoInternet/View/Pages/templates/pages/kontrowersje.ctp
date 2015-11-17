@@ -25,18 +25,6 @@
                     <p><?= __d('panstwo_internet', 'LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_2-1') ?></p>
 
                     <p><?= __d('panstwo_internet', 'LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_2-2') ?></p>
-                    <? /*
-
-                    <ul>
-                        <li>Agnieszka Borowa-Malinowska (główny specjalista)</li>
-                        <li>Magdalena Piecuch-Kęska (główny specjalista)</li>
-                        <li>Katarzyna Szaran (specjalista)</li>
-                    </ul>
-                    
-                    <p><?= __d('panstwo_internet', 'LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_2-3') ?></p>
-
-					                    */
-                    ?>
 
                     <p><?= __d('panstwo_internet', 'LC_PANSTWOINTERNET_KONTROWERSJE_TEXT_2-4') ?></p>
 

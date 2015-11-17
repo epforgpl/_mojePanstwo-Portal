@@ -20,7 +20,10 @@ class Kolekcje extends DocDataObject
 
 	public function getUrl()
 	{
-		return '/moje-kolekcje/' . $this->getId();
+		if( $this->getOptions('public') )
+			return $this->getOptions('base_url') . '/kolekcje/' . $this->getId();
+		else
+			return '/dane/kolekcje/' . $this->getId();
 	}
 
 	public function getThumbnailUrl($size = '2')
@@ -42,7 +45,7 @@ class Kolekcje extends DocDataObject
 		$output = array();
 
 		if( $this->getData('items_count') )
-			$output[] = pl_dopelniacz($this->getData('items_count'), 'dokument', 'dokumenty', 'dokumentów');
+			$output[] = pl_dopelniacz($this->getData('items_count'), 'dokument', 'dokumenty', 'dokumentï¿½w');
 		else
 			$output[] = 'Kolekcja jest pusta';
 
@@ -53,5 +56,9 @@ class Kolekcje extends DocDataObject
 	public function getDefaultColumnsSizes() {
 	    return array(4, 8);
     }
+
+	public function getSlug() {
+		return '';
+	}
 
 }

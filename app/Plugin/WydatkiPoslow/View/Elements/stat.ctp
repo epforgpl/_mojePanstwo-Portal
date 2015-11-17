@@ -2,9 +2,6 @@
     echo '#';
 }; ?>" target="_blank">
     <div class="stat <?= $slug ?>">
-
-        <? /*<span data-toggle="tooltip" data-placement="bottom" title="<?= $biura[$id]['data']['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[$id]['data']['poslowie_biura_wydatki.nazwa'] ?></span>*/ ?>
-
         <? if (isset($biura[$id]['data']['poslowie_biura_wydatki.nazwa'])) { ?>
             <span><?= $biura[$id]['data']['poslowie_biura_wydatki.nazwa'] ?></span>
         <? } ?>

@@ -8,6 +8,7 @@ class BdlWskaznikiController extends DataobjectsController
     public $components = array('RequestHandler');
     public $objectOptions = array(
         'bigTitle' => true,
+        'hlFields' => array(),
     );
 
     public $initLayers = array('dimennsions', 'levels');
@@ -129,7 +130,9 @@ class BdlWskaznikiController extends DataobjectsController
         $expand_dimension = isset($this->request->query['i']) ? (int)$this->request->query['i'] : $this->object->getData('i');
         $dims = $this->object->getLayer('dimennsions');
         $expanded_dimension = array();
-
+		
+		// debug($dims); die();
+		
         // building dimmensions array (it will be usefull as a parameter for future API calls
 
         $dimmensions_array = array();
@@ -237,22 +240,15 @@ class BdlWskaznikiController extends DataobjectsController
 
         if ($this->object) {
             $this->addBreadcrumb(array(
-                'href' => '/bdl/kategorie/' . $this->object->getData('bdl_wskazniki.kategoria_id'),
+                'href' => '/bdl#' . $this->object->getData('bdl_wskazniki.kategoria_slug'),
                 'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.kategoria_tytul') . '</span>',
             ));
 
             $this->addBreadcrumb(array(
-                'href' => '/bdl/kategorie/' . $this->object->getData('bdl_wskazniki.kategoria_id') . '#' . $this->object->getData('bdl_wskazniki.grupa_id'),
+                'href' => '/bdl#' . $this->object->getData('bdl_wskazniki.kategoria_slug') . ',' . $this->object->getData('bdl_wskazniki.grupa_slug'),
                 'label' => '<span class="normalizeText">' . $this->object->getData('bdl_wskazniki.grupa_tytul') . '</span>',
             ));
         }
-        $tree = Cache::read('BDL.tree', 'long');
-        if (!$tree) {
-            $this->loadModel('Bdl.BDL');
-            $tree = $this->BDL->getTree();
-            Cache::write('BDL.tree', $tree, 'long');
-        }
-
-        $this->set('tree', $tree);
+        
     }
 }

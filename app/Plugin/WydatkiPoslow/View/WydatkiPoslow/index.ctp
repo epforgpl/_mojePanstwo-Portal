@@ -22,11 +22,6 @@
                         wszystkie dane w formie listy &raquo;</a>
 
                 </div>
-
-                <? /*
-    <a class="wyjazdyBtn" href="/wyjazdy_poslow" target="_self">Dodatkowo<br>sprawdź gdzie<br>i za ile
-        wyjażdzają<br>posłowie<i class="glyphicon glyphicon-chevron-right"></i></a>
-    */ ?>
             </div>
             <div class="scene sejm" data-scene="2">
 
@@ -68,27 +63,6 @@
                     'id' => 1,
                     'slug' => 'pracownikow'
                 )) ?>
-
-                <? /*
-    <div class="stat konserwacje">
-        <span data-toggle="tooltip" data-placement="bottom"
-              title="<?= $biura[13]['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[13]['poslowie_biura_wydatki.nazwa'] ?></span>
-        <strong><?= number_format($biura[13]['poslowie_biura_wydatki.wartosc_koszt_posel'], 0, '.', ' ') ?>
-            <small>PLN</small>
-        </strong>
-
-        <div class="sub">Średni miesięczny koszt poniesiony w 2013 r.</div>
-    </div>
-    <div class="stat naprawy">
-        <span data-toggle="tooltip" data-placement="bottom"
-              title="<?= $biura[14]['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[14]['poslowie_biura_wydatki.nazwa'] ?></span>
-        <strong><?= number_format($biura[14]['poslowie_biura_wydatki.wartosc_koszt_posel'], 0, '.', ' ') ?>
-            <small>PLN</small>
-        </strong>
-
-        <div class="sub">Średni miesięczny koszt poniesiony w 2013 r.</div>
-    </div>
-    */ ?>
                 <div class="marker"></div>
             </div>
             <div class="scene sklep" data-scene="4">
@@ -106,48 +80,6 @@
                 <div class="marker"></div>
             </div>
 
-            <? /*
-<div class="scene szpital" data-scene="5">
-    <div class="stat korespondencja">
-        <span data-toggle="tooltip" data-placement="bottom"
-              title="<?= $biura[8]['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[8]['poslowie_biura_wydatki.nazwa'] ?></span>
-        <strong><?= number_format($biura[8]['poslowie_biura_wydatki.wartosc_koszt_posel'], 0, '.', ' ') ?>
-            <small>PLN</small>
-        </strong>
-
-        <div class="sub">Średni miesięczny koszt poniesiony w 2013 r.</div>
-    </div>
-    <div class="stat badania">
-        <span data-toggle="tooltip" data-placement="bottom"
-              title="<?= $biura[3]['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[3]['poslowie_biura_wydatki.nazwa'] ?></span>
-        <strong><?= number_format($biura[3]['poslowie_biura_wydatki.wartosc_koszt_posel'], 0, '.', ' ') ?>
-            <small>PLN</small>
-        </strong>
-
-        <div class="sub">Średni miesięczny koszt poniesiony w 2013 r.</div>
-    </div>
-    <div class="stat swiadczenia">
-        <span data-toggle="tooltip" data-placement="bottom"
-              title="<?= $biura[19]['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[19]['poslowie_biura_wydatki.nazwa'] ?></span>
-        <strong><?= number_format($biura[19]['poslowie_biura_wydatki.wartosc_koszt_posel'], 0, '.', ' ') ?>
-            <small>PLN</small>
-        </strong>
-
-        <div class="sub">Średni miesięczny koszt poniesiony w 2013 r.</div>
-    </div>
-</div>
-<div class="scene bank" data-scene="6">
-    <div class="stat rachunki">
-        <span data-toggle="tooltip" data-placement="bottom"
-              title="<?= $biura[20]['poslowie_biura_wydatki.nazwa'] ?>"><?= $biura[20]['poslowie_biura_wydatki.nazwa'] ?></span>
-        <strong><?= number_format($biura[20]['poslowie_biura_wydatki.wartosc_koszt_posel'], 0, '.', ' ') ?>
-            <small>PLN</small>
-        </strong>
-
-        <div class="sub">Średni miesięczny koszt poniesiony w 2013 r.</div>
-    </div>
-</div>
-<? */ ?>
             <div class="scene spotkanie" data-scene="7">
                 <div class="name">
                     <p>Spotkanie z posłem</p>

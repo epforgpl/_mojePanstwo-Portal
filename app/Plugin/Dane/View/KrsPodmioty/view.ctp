@@ -37,7 +37,7 @@ $description =
         <div class="object">
 
             <? if ($object->getData('wykreslony')) { ?>
-            <div class="alert alert-dismissable alert-danger">
+            <div class="alert alert-dismissable alert-danger">yn 55y6
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
             </div>
@@ -58,10 +58,10 @@ $description =
                 <header>Działania</header>
                 <section class="content">
                     <? foreach ($object_aggs['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
-                        <div class="col-sm-6">
+                        <div class="col-xs-4">
                             <h4>
                                 <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
-                                    <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 100); ?>
+                                    <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 55); ?>
                                 </a>
                             </h4>
 
@@ -81,6 +81,53 @@ $description =
                 </section>
             </div>
             <? } ?>
+            
+            
+            
+            <? if( $pisma = @$object_aggs['pisma']['top']['hits']['hits'] ) { ?>
+            <div class="block block-simple col-xs-12">
+	            <header>Pisma:</header>
+	            <section class="content margin-sides-10">
+	                
+	                <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects">
+	                        <? foreach ($pisma as $doc) { ?>
+	                            <li class="margin-top-10">
+	                                <?
+	                                echo $this->Dataobject->render($doc, 'default');
+	                                ?>
+	                            </li>
+	                        <? } ?>
+	                    </ul>
+	                </div>
+	                
+	            </section>
+	        </div>
+            <? } ?>
+            
+            <? if( $kolekcje = @$object_aggs['kolekcje']['top']['hits']['hits'] ) { ?>
+            <div class="block block-simple col-xs-12">
+	            <header>Kolekcje:</header>
+	            <section class="content margin-sides-10">
+	                
+	                <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects">
+	                        <? foreach ($kolekcje as $doc) { ?>
+	                            <li class="margin-top-10">
+	                                <?
+	                                echo $this->Dataobject->render($doc, 'default');
+	                                ?>
+	                            </li>
+	                        <? } ?>
+	                    </ul>
+	                </div>
+	                
+	            </section>
+	        </div>
+            <? } ?>
+            
+            
+
 
             <?
             $adres = $object->getData('adres_ulica');
@@ -317,32 +364,6 @@ $description =
 </div>
 
 <div class="col-xs-12 col-md-3 objectSide">
-    <? $subscribers = $object->getLayer('subscribers'); ?>
-    <? if ($subscribers && $subscribers['count'] > 0) { ?>
-        <div class="block block-simple col-xs-12 dodaj_dzialanie" style="margin-top: -2px; margin-bottom: 15px;">
-            <header>
-                <div class="sm">Obserwują (<?= $subscribers['count'] ?>)</div>
-            </header>
-            <section>
-                <ul class="subscribers list col-xs-12">
-                    <? foreach ($subscribers['list'] as $subscriber) { ?>
-                        <?
-                        $src = $subscriber['Users']['photo_small'];
-                        if (!$src)
-                            $src = '/img/users-photo-' . rand(0, 2) . '.jpg';
-
-                        $username = $subscriber['Users']['username'];
-                        ?>
-                        <li class="col-xs-3" <? if ($username != '') { ?> data-toggle="tooltip" data-placement="left" title="<?= $username ?>" <? } ?>>
-                            <div class="subscriber">
-                                <img src="<?= $src ?>"/>
-                            </div>
-                        </li>
-                    <? } ?>
-                </ul>
-            </section>
-        </div>
-    <? } ?>
 
     <? if (!$object->getData('wykreslony')) {
         $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
@@ -406,7 +427,7 @@ $description =
     <div class="objectsPageContent main">
 
         <div class="krsPodmioty">
-            <div class="col-xs-12 col-md-9 objectMain">
+            <div class="col-xs-12 col-md-9 objectMain margin-bottom-20">
                 <div class="object">
 
                     <? if ($dzialalnosci = $object->getLayer('dzialalnosci')) { ?>
@@ -414,7 +435,7 @@ $description =
                             <header>Działalność według PKD</header>
                             <section>
 
-                                <ul>
+                                <ul class="dzialalnosci">
                                     <? foreach ($dzialalnosci as $d) { ?>
                                         <li><?= $d['str'] ?></li>
                                     <? } ?>

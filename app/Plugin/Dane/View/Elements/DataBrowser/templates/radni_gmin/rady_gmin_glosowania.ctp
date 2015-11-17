@@ -15,8 +15,6 @@ $shortTitle = (isset($options['forceTitle'])) ?
 
 $object_content_sizes = array(2, 10);
 
-// debug( $object->getData() ); 
-
 $this->Dataobject->setObject($object);
 ?>
 <div class="objectRender<? if ($alertsStatus) {
@@ -31,11 +29,6 @@ $this->Dataobject->setObject($object);
     <div class="row">
 
         <div class="data col-xs-12">
-			
-            <? /* if ($sentence = $object->getSentence()) { ?>
-                <p class="sentence"><?= $sentence ?></p>
-            <? } */ ?>
-
             <div>
 
                 <?
@@ -111,9 +104,6 @@ $this->Dataobject->setObject($object);
                                 'hlFieldsPush' => $hlFieldsPush,
                                 'defaults' => $defaults,
                             ));
-                        } else {
-
-                            // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                         }
                         ?>
 
@@ -145,33 +135,34 @@ $this->Dataobject->setObject($object);
                                        value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
                             </div>
                         <? } ?>
-												
+
                         <? if ($object->getIcon()) {
                             echo $object->getIcon();
                         } ?>
-						
-			
-				
-				        <?
-				
+
+
+
+                        <?
+
 				        $_map = array(
 				            '1' => array('Za', 'success'),
 				            '2' => array('Przeciw', 'danger'),
 				            '3' => array('Wstrzymanie', 'primary'),
 				            '4' => array('Nieobecność', 'default'),
 				        );
-				
-				        if (array_key_exists($object->getData('glos_id'), $_map)) {
-				
-				            $m = $_map[$object->getData('glos_id')];
-				
-			            ?>
-				
-				                <h3 class="label-glos"><span class="label label-md label-<?= $m[1] ?>"><?= $m[0] ?></span></h3>				                
-				
-				        <? } ?>
-				
-						
+
+                        if (array_key_exists($object->getData('glos_id'), $_map)) {
+
+                            $m = $_map[$object->getData('glos_id')];
+
+                            ?>
+
+                            <h3 class="label-glos"><span class="label label-md label-<?= $m[1] ?>"><?= $m[0] ?></span>
+                            </h3>
+
+                        <? } ?>
+
+
                         <div class="object-icon-side marginRight">
 
                             <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
@@ -199,7 +190,6 @@ $this->Dataobject->setObject($object);
 
                             <?
 
-                            // debug( $object->getData() );
                             if ($file_exists) {
                                 echo $this->element('Dane.' . $theme . '/' . $object->getDataset(), array(
                                     'object' => $object,
@@ -207,8 +197,6 @@ $this->Dataobject->setObject($object);
                                     'hlFieldsPush' => $hlFieldsPush,
                                     'defaults' => $defaults,
                                 ));
-                            } else {
-                                // echo $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults);
                             }
                             ?>
 

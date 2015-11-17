@@ -24,8 +24,8 @@ $(function () {
 		startDate = 1990,
 		premierPlotBandData = {},
 		premierPlotBandData2 = {},
-		premierPlotBandColorO = 'rgba(200,200,200,.2)',
-		premierPlotBandColorE = 'rgba(100,100,100,.2)';
+		premierPlotBandColorO = '#292929',//'#FFF',
+		premierPlotBandColorE = '#222222';//'#f8f9fa';
 
 	var last_year;
 	$.map(data, function (el) {
@@ -64,10 +64,10 @@ $(function () {
 				premierPlotBandData.id = self['budzety.premier_czlowiek_id'];
 				premierPlotBandData.label = {
 					align: 'left',
-					text: '<img src="//resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
+					text: '<img class="test" src="//resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
 					useHTML: true,
-					zIndex: 15,
-					y: +366,
+					zIndex: 115,
+					y: +240
 					//x: -15
 				};
 				premierPlotBandData.from = self['budzety.rok'];
@@ -133,16 +133,21 @@ $(function () {
 
 	dataBlock.highcharts({
 		chart: {
+			spacingTop: 40,
 			spacingBottom: 40,
-			type: 'area',
-			backgroundColor: null
+			type: 'line',
+			backgroundColor: null,
+			height: 300,
+			style: {
+				fontFamily: "'Roboto', sans-serif"
+			}
 		},
 		credits: {
 			enabled: false
 		},
 		legend: {
 			align: 'left',
-			backgroundColor: '#eeeeee',
+			//backgroundColor: '#FFFFFF',
 			enabled: true,
 			floating: true,
 			layout: 'vertical',
@@ -210,6 +215,7 @@ $(function () {
 		},
 		yAxis: {
 			title: ' ',
+			min: 0,
 			labels: {
 				formatter: function () {
 					return this.value / 1000000000 + ' mld';
@@ -227,8 +233,11 @@ $(function () {
 			spacingTop: 0,
 			marginTop: 0,
 			marginBottom: 0,
-			spacingLeft: 70,
-			ignoreHiddenSeries: false
+			spacingLeft: 64,
+			ignoreHiddenSeries: false,
+			style: {
+				fontFamily: "'Roboto', sans-serif"
+			}
 		},
 		credits: {
 			enabled: false
@@ -292,11 +301,14 @@ $(function () {
 		chart: {
 			spacingBottom: 40,
 			type: 'area',
-			height: 200,
+			height: 175,
 			backgroundColor: null,
 			spacingTop: 0,
 			marginTop: 40,
-			spacingLeft: 34
+			spacingLeft: 27,
+			style: {
+				fontFamily: "'Roboto', sans-serif"
+			}
 		},
 		credits: {
 			enabled: false
@@ -356,8 +368,7 @@ $(function () {
 		xAxis: {
 			plotBands: dataPremier2,
 			labels: {
-				step: 2,
-				enabled: true
+				enabled: false
 			},
 			tickInterval: 1,
 			opposite: true
@@ -373,5 +384,84 @@ $(function () {
 			reversed: true
 		}
 	});
+	$('.subdata:not(.primary_row) ').removeClass('hidden').fadeOut(200);
+	$('.wydatki_wzrost_on').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_wzrost_off').removeClass('hidden');
+		$('.wydatki.wzrost').find('.subdata').fadeIn(600);
+	});
+
+	$('.wydatki_wzrost_off').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_wzrost_on').removeClass('hidden');
+		$('.wydatki.wzrost').find('.subdata:not(.primary_row) ').fadeOut(600);
+	});
+	$('.wydatki_spadek_on').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_spadek_off').removeClass('hidden');
+		$('.wydatki.spadek').find('.subdata').fadeIn(600);
+	});
+
+	$('.wydatki_spadek_off').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_spadek_on').removeClass('hidden');
+		$('.wydatki.spadek').find('.subdata:not(.primary_row) ').fadeOut(600);
+	});
+	$('.wydatki_bd_on').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_bd_off').removeClass('hidden');
+		$('.wydatki.bd').find('.subdata').fadeIn(600);
+	});
+
+	$('.wydatki_bd_off').click(function(){
+		$(this).addClass('hidden');
+		$('.wydatki_bd_on').removeClass('hidden');
+		$('.wydatki.bd').find('.subdata:not(.primary_row) ').fadeOut(600);
+	});
+
+	$('.select_wydatki').change(function(){
+		$('.wydatki:not(.'+$(this).val()+')').addClass('hidden');
+		$('.wydatki.'+$(this).val()+'').removeClass('hidden');
+	});
+
+	$('.dochody_wzrost_on').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_wzrost_off').removeClass('hidden');
+		$('.dochody.wzrost').find('.subdata').fadeIn(600);
+	});
+
+	$('.dochody_wzrost_off').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_wzrost_on').removeClass('hidden');
+		$('.dochody.wzrost').find('.subdata:not(.primary_row) ').fadeOut(600);
+	});
+	$('.dochody_spadek_on').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_spadek_off').removeClass('hidden');
+		$('.dochody.spadek').find('.subdata').fadeIn(600);
+	});
+
+	$('.dochody_spadek_off').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_spadek_on').removeClass('hidden');
+		$('.dochody.spadek').find('.subdata:not(.primary_row) ').fadeOut(600);
+	});
+	$('.dochody_bd_on').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_bd_off').removeClass('hidden');
+		$('.dochody.bd').find('.subdata').fadeIn(600);
+	});
+
+	$('.dochody_bd_off').click(function(){
+		$(this).addClass('hidden');
+		$('.dochody_bd_on').removeClass('hidden');
+		$('.dochody.bd').find('.subdata:not(.primary_row) ').fadeOut(600);
+	});
+
+	$('.select_dochody').change(function(){
+		$('.dochody:not(.'+$(this).val()+')').addClass('hidden');
+		$('.dochody.'+$(this).val()+'').removeClass('hidden');
+	});
+
 });
 

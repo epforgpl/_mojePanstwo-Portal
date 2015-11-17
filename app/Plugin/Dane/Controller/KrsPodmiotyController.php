@@ -26,6 +26,8 @@ class KrsPodmiotyController extends DataobjectsController
 
     public $objectActivities = true;
     public $objectData = true;
+    public $objectCollections = true;
+    public $objectLetters = true;
 
     private $twitterAccountType = '0';
     private $twitterTimerange = '1W';
@@ -333,6 +335,76 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
                 'scope' => 'global',
             ),
+            'pisma' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'pisma',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.pisma.page_dataset' => 'krs_podmioty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.pisma.page_object_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3,
+	                        'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
+            'kolekcje' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'kolekcje',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.kolekcje.page_dataset' => 'krs_podmioty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.kolekcje.page_object_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3,
+	                        'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
         ));
 
         parent::_prepareView();
@@ -585,7 +657,17 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => @$this->object_aggs['dzialania']['doc_count'],
             );
         }
-
+		
+		$menu['items'][] = array(
+            'id' => 'pisma',
+            'label' => 'Pisma',
+        );
+		
+		$menu['items'][] = array(
+            'id' => 'kolekcje',
+            'label' => 'Kolekcje',
+        );
+		
         if (@$this->object_aggs['zamowienia']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'zamowienia',
@@ -655,13 +737,14 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        // podmienić na if isset && > 0 twitter_account_id
-        if(false) {
+        if($this->object->getData('twitter_account_id')) {
             $menu['items'][] = array(
                 'id' => 'media',
                 'label' => 'Media',
             );
         }
+
+        
 
         return $menu;
     }
@@ -689,10 +772,6 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function media() {
 
-        throw new NotFoundException;
-
-        $id = 714;
-
         $timerange = false;
         $init = false;
 
@@ -703,6 +782,9 @@ class KrsPodmiotyController extends DataobjectsController
 
         $this->addInitLayers(array('powiazania'));
         $this->load();
+
+        if(false == $id = $this->object->getData('twitter_account_id'))
+            throw new NotFoundException;
 
         if(
             ( $page = $this->object->getLayer('page') ) &&

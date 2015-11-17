@@ -2,17 +2,6 @@
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.highcharts-sejm_glosowania');
-?>
-
-<?
-/*
-$wynikiKlubowe = array();
-$data = $object->loadLayer('wynikiKlubowe');
-foreach ($data as $d) {
-    $wynikiKlubowe[$d['wynik_id']][] = $d;
-}
-*/
-
 
 $chartData = array(
     array('Za', (int)$object->getData('z')),
@@ -39,9 +28,7 @@ $dictionary = array(
     </div>
     <div class="col-md-9">
         <div class="row">
-
             <?
-
             $labels = array(
                 'za' => 'Za',
                 'przeciw' => 'Przeciw',
@@ -50,14 +37,13 @@ $dictionary = array(
             );
 
             $labels_keys = array_keys($labels);
-
             $count = 0;
+
             foreach ($labels_keys as $label_key)
                 if ($object->getData('kluby_' . $label_key))
                     $count++;
 
             $width = $count ? round(12 / $count) : 3;
-
 
             foreach ($labels as $key => $value)
                 if ($data = $object->getData('kluby_' . $key))
@@ -68,10 +54,7 @@ $dictionary = array(
                         'items' => explode("\n", $data),
                         'url' => $object->getUrl(),
                     ));
-
             ?>
-
-
         </div>
     </div>
 </div>

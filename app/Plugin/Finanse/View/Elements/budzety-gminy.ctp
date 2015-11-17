@@ -158,7 +158,7 @@ $options = array(
                                 </div>
 
                                 <div class="subtitle" style="display: none;">
-                                    <h3>Szczegółowe wydatki gminy <? /*= $object->getTitle() */ ?> w tym dziale:</h3>
+                                    <h3>Szczegółowe wydatki gminy w tym dziale:</h3>
                                 </div>
 
 
@@ -197,22 +197,6 @@ $options = array(
                                         </ul>
                                     </div>
                                 </div>
-
-                                <? /*
-                                <table class="rozdzialy" style="display: none">
-
-                                    <? foreach ($dzial['rozdzialy'] as $r) { ?>
-
-                                        <? if (!@$r['id']) continue; ?>
-
-                                        <tr data-id="<?= $r['id'] ?>">
-                                            <td><?= $r['label'] ?></td>
-                                            <td><?= number_format_h($r['wydatki']) ?></td>
-                                        </tr>
-
-                                    <? } ?>
-                                </table> */ ?>
-
                             </a>
                         </div>
                     </div>

@@ -35,11 +35,12 @@ class Dataobject
     public $inner_hits = array();
     public $options = array();
     public $page = array();
+    public $collection = array();
 
 
     public function __construct($params = array(), $options = array())
     {
-	    	    
+	    	        
 		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
@@ -69,6 +70,10 @@ class Dataobject
 
         if (isset($params['inner_hits'])) {
             $this->inner_hits = $params['inner_hits'];
+        }
+        
+        if (isset($params['collection'])) {
+            $this->collection = $params['collection'];
         }
 
         if (@$params['Aggs']['_page']['page']['hits']['hits'][0]['_source']['data']) {
