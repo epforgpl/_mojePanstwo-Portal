@@ -44,14 +44,6 @@ $accessDict = array(
             <div class="letter-table">
                 <div class="row">
                     <div class="col-sm-2">
-                        <p class="_label">Od:</p>
-                    </div>
-                    <div class="col-sm-10">
-                        <p><?= $pismo['from_user_name'] ?></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2">
                         <p class="_label">Do:</p>
                     </div>
                     <div class="col-sm-10">
