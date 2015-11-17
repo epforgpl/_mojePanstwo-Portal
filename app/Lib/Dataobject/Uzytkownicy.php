@@ -28,7 +28,16 @@ class Uzytkownicy extends DataObject {
     }
 
     public function getMetaDescriptionParts($preset = false) {
-        return array();
+        $output = array();
+        return $output;
+    }
+
+    public function getTitleAddon() {
+        if($c = $this->getData('created')) {
+            return 'Dołączył ' . getDiff($c, false);
+        }
+
+        return false;
     }
 
     public function getDefaultColumnsSizes() {
