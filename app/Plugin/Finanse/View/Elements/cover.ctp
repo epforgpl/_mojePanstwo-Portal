@@ -141,13 +141,13 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 </div>
                 <div class="col-sm-3">
 
-                    <img alt="" src="//resources.sejmometr.pl/mowcy/a/1/<?= $rok1['premier_id'] ?>.jpg">
+                    <img alt="" src="http://resources.sejmometr.pl/mowcy/a/1/<?= $rok1['premier_id'] ?>.jpg">
 
                     <p><?= $rok1['premier'] ?></p>
                 </div>
                 <div class="col-sm-3">
 
-                    <img alt="" src="//resources.sejmometr.pl/mowcy/a/1/<?= $rok2['premier_id'] ?>.jpg">
+                    <img alt="" src="http://resources.sejmometr.pl/mowcy/a/1/<?= $rok2['premier_id'] ?>.jpg">
 
                     <p><?= $rok2['premier'] ?></p>
                 </div>

@@ -12,8 +12,6 @@ var PISMO = Class.extend({
 		this.lettersSendButton.click( $.proxy(this.showSendModal, this) );
 		
 		
-		
-		
 		// RESPONSES
 		
 		this.responsesDiv = $('.lettersResponses');
@@ -22,6 +20,21 @@ var PISMO = Class.extend({
 		this.addResponseButton = this.responsesDiv.find('button[data-action=add_response]').first();
 		this.letterAlphaId = this.addResponseButton.data('letter-alphaid');
 		this.letterSlug = this.addResponseButton.data('letter-slug');
+
+		// SET NAME
+		var self = this;
+		$('input.h1-editable').each(function() {
+			$(this).change(function() {
+				$.post($(this).data('url') + '.json', {
+					nazwa: $(this).val(),
+					edit_from_inputs: 1
+				}, function(res) {
+					// @todo error handler
+					console.log(res);
+				});
+				$(this).blur();
+			});
+		});
 
 		this.addResponseButton.click( $.proxy(this.addResponseForm, this) );
 		

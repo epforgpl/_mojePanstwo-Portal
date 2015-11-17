@@ -40,10 +40,16 @@ class Pisma extends DataObject
     public function getMetaDescriptionParts($preset = false)
 	{
 		$output = array();
+				
 		if( $this->getData('to_label') )
-			$output[] = $this->getData('to_label');
+			$o = $this->getData('to_label');
 		else
-			$output[] = 'Brak odbiorcy';
+			$o = '';
+		
+		if( $this->getData('template_label') )
+			$o = $this->getData('template_label') . '<br/>' . $o;
+		
+		$output[] = $o;
 
 		return $output;
 	}

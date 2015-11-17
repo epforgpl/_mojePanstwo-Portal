@@ -50,11 +50,14 @@ class PodatkiController extends ApplicationsController
 
     private function result_sum()
     {
+	    
+	    $warunki_preferencyjne = $this->request->data('warunki_preferencyjne');
+	    
         $ETAT_BRUTTO = array_sum($this->request->data('umowa_o_prace')); /*przychody z umowy o pracę*/
         $ZLECENIE_BRUTTO = array_sum($this->request->data('umowa_zlecenie')); /*przychody z umowy zlecenie*/
         $DZIELO_BRUTTO = array_sum($this->request->data('umowa_o_dzielo')); /*Przychody z umowy o dzieło*/
         $DZIAL_GOSP_BRUTTO = array_sum($this->request->data('dzialalnosc_gospodarcza')); /*przychody z działalności gospodarczej*/
-        $DZIAL_PREF = $this->request->data('warunki_preferencyjne')[0] == 'Y' ? 1 : 0;
+        $DZIAL_PREF = $warunki_preferencyjne[0] == 'Y' ? 1 : 0;
         $DZIAL_KOSZT = array_sum($this->request->data('dzialalnosc_gospodarcza_koszt')); /*koszty z działalności gospodarczej*/
 
         $EMERYT1 = 0.0976; /*składka na ubezpieczenie emerytalne płacona przez podatnika*/

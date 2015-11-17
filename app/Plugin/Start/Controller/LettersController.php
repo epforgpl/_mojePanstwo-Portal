@@ -208,6 +208,13 @@ class LettersController extends StartAppController
 
     }
 
+    public function setDocumentName($id) {
+        $this->set(
+            'status',
+            $this->Pismo->setDocumentName($id, $this->request->data['nazwa'])
+        );
+        $this->set('_serialize', 'status');
+    }
 
     public function post($id = false, $slug = false)
     {
@@ -217,7 +224,7 @@ class LettersController extends StartAppController
             $redirect = 'object';
 			
             if (isset($this->request->data['edit_from_inputs'])) {
-				
+
                 $this->Pismo->documents_update($id, $this->request->data);
             
             } elseif (isset($this->request->data['delete'])) {

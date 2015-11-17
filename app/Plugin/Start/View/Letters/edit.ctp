@@ -115,8 +115,20 @@ echo $this->element('Start.pageBegin'); ?>
               }
 		  }
 	  } else {
-
-
+		  
+		  $full = true;
+		  $v = '';
+		  		  
+	  ?>
+	  	
+	  	  <div class="form-group form-row">
+	        <label for="inp0" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>">Treść pisma</label>
+			<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
+	          <textarea class="form-control tinymceField" rows="10" id="inp0" name="inp0"><?= $v ?></textarea>
+	        </div>
+	      </div>
+	  	
+	  <?
       }
           ?>
 
