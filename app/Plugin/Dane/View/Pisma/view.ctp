@@ -1,6 +1,7 @@
 <? $pismo = $object->getData();
 $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start')));
 $this->Combinator->add_libs('css', $this->Less->css('letters-responses', array('plugin' => 'Start')));
+$this->Combinator->add_libs('css', $this->Less->css('public-letters', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 
 $accessDict = array(
@@ -12,16 +13,7 @@ $accessDict = array(
 
 <div class="container margin-top-20">
     <div class="row">
-        <div class="col-md-9">
-
-            <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
-                <div>
-                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
-                        <i class="icon glyphicon glyphicon-pencil"></i>
-                        Edytuj
-                    </a>
-                </div>
-            <? } ?>
+        <div class="col-sm-9">
 
             <div class="letter-table">
                 <div class="row">
@@ -51,14 +43,14 @@ $accessDict = array(
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text">
-                            <?= $pismo['content_html'] ?>
+                            <?= $pismo['content'] ?>
                         </div>
                     </div>
                 </div>
                 <? if ($pismo['sent']) { ?>
                     <div class="row sent">
                         <div class="col-sm-12">
-                            <p>Wysłane <?= dataSlownie($pismo['sent_at']) ?>.</p>
+                            <p>Wysłano <?= dataSlownie($pismo['sent_at']) ?></p>
                         </div>
                     </div>
                 <? } ?>
@@ -101,6 +93,17 @@ $accessDict = array(
                     </div>
                 </div>
             </div>
+        </div><div class="col-sm-3">
+	        
+	        <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
+                <div class="margin-top-10">
+                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
+                        <i class="icon glyphicon glyphicon-pencil"></i>
+                        Zarządzaj pismem
+                    </a>
+                </div>
+            <? } ?>
+	        
         </div>
     </div>
 </div>

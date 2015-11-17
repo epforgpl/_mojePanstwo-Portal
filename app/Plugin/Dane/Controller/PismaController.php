@@ -22,6 +22,11 @@ class PismaController extends DataobjectsController
         $this->set('responses', $this->LetterResponse->getByLetter(
             $this->object->getData('alphaid')
         ));
+        
+        $this->addBreadcrumb(array(
+            'href' => '/moje-pisma',
+            'label' => 'Pisma',
+        ));
     }
 
     public function attachment() {

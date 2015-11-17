@@ -326,7 +326,77 @@ class KrsPodmiotyController extends DataobjectsController
                     'top' => array(
                         'top_hits' => array(
                             'fielddata_fields' => array('dataset', 'id'),
-	                        'size' => 4,
+	                        'size' => 3,
+	                        'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
+            'pisma' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'pisma',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.pisma.page_dataset' => 'krs_podmioty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.pisma.page_object_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3,
+	                        'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
+            'kolekcje' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'kolekcje',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.kolekcje.page_dataset' => 'krs_podmioty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.kolekcje.page_object_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3,
 	                        'sort' => array(
 		                        'date' => 'desc',
 	                        ),
