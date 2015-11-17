@@ -102,6 +102,9 @@ $description =
 	                </div>
 	                
 	            </section>
+	            <div class="text-center">
+		            <a class="btn btn-primary btn-xs" href="<?= $object->getUrl() . '/pisma' ?>">Więcej &raquo;</a>
+	            </div>
 	        </div>
             <? } ?>
             
