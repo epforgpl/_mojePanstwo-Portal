@@ -79,16 +79,18 @@ $description =
                         </div>
                     <? } ?>
                 </section>
+                <div class="linkmore text-center">
+                    <a href="<?= $object->getUrl() . '/dzialania' ?>" class="btn btn-primary btn-xs"">więcej</a>
+                </div>
             </div>
             <? } ?>
-            
-            
-            
+
+
             <? if( $pisma = @$object_aggs['pisma']['top']['hits']['hits'] ) { ?>
             <div class="block block-simple col-xs-12">
 	            <header>Pisma:</header>
 	            <section class="content margin-sides-10">
-	                
+
 	                <div class="agg agg-Dataobjects">
 	                    <ul class="dataobjects">
 	                        <? foreach ($pisma as $doc) { ?>
@@ -100,17 +102,20 @@ $description =
 	                        <? } ?>
 	                    </ul>
 	                </div>
-	                
+
 	            </section>
+                <div class="linkmore text-center">
+                    <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-primary btn-xs"">więcej</a>
+                </div>
 	        </div>
             <? } ?>
-            
+
             <? if( $kolekcje = @$object_aggs['kolekcje']['top']['hits']['hits'] ) { ?>
             <div class="block block-simple col-xs-12">
 	            <header>Kolekcje:</header>
 	            <section class="content margin-sides-10">
-	                
-	                <div class="agg agg-Dataobjects">
+
+                    <div class="agg agg-Dataobjects">
 	                    <ul class="dataobjects">
 	                        <? foreach ($kolekcje as $doc) { ?>
 	                            <li class="margin-top-10">
@@ -121,12 +126,13 @@ $description =
 	                        <? } ?>
 	                    </ul>
 	                </div>
-	                
-	            </section>
+
+                </section>
+                <div class="linkmore text-center">
+                    <a href="<?= $object->getUrl() . '/kolekcje' ?>" class="btn btn-primary btn-xs"">więcej</a>
+                </div>
 	        </div>
             <? } ?>
-            
-            
 
 
             <?
