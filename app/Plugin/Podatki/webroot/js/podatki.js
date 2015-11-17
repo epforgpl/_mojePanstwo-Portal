@@ -1,4 +1,4 @@
-/*global mPHeart, window, document, $*/
+/*global mPHeart, window, document, $, confirm*/
 
 $(document).ready(function () {
 	var $podatki = $('#podatki'),
@@ -8,7 +8,8 @@ $(document).ready(function () {
 	function btnAction() {
 		$podatki.find('input[type="number"]:not(".blurEffect")').addClass('blurEffect').on('blur', function () {
 			var el = $(this);
-			el.val(Number(el.val()).toFixed(2).replace(',', '.'));
+
+			el.val(Number(el.val()).toFixed(2));
 		});
 		$podatki.find('.checkbox:not(".checkEffect")').addClass('checkEffect').on('click', function () {
 			var el = $(this);
@@ -19,11 +20,24 @@ $(document).ready(function () {
 			}
 		});
 		$podatki.find('.closeAdditional:not(".closeEffect")').addClass('closeEffect').on('click', function (e) {
+			var that = $(this),
+				parent = that.closest('.row.additional');
+
 			e.preventDefault();
-			var parent = $(this).closest('.row.additional');
-			$(this).parent().slideUp(function () {
-				parent.remove();
-			});
+
+			if (that.attr('href') === '#zamknij') {
+				var confirmBtn = confirm('Zamknięcie tego pola spowoduje utratę wpisanych danych. Czy na pewno chcesz to zrobić?');
+				parent = $(this).parents('.dzialalnoscGospodarcza');
+
+				if (confirmBtn === true) {
+					parent.find('> .text-center a').slideDown();
+					parent.find('> .row').slideUp();
+				}
+			} else {
+				parent.slideUp(function () {
+					parent.remove();
+				});
+			}
 		});
 	}
 
@@ -50,19 +64,23 @@ $(document).ready(function () {
 				},
 				plotOptions: {
 					pie: {
-						dataLabels: false
+						dataLabels: {
+							enabled: true,
+							format: '{point.percentage:.1f} %',
+							distance: -50
+						}
 					}
 				},
-				colors: [res.us_color, res.zus_color, res.pit_color, res.vat_color, res.akcyza_color],
+				colors: [res.zus_color, res.zdrow_color, res.pit_color, res.vat_color, res.akcyza_color],
 				series: [{
 					name: "Kwota",
 					colorByPoint: true,
 					data: [{
-						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_US,
-						y: Number(res.us)
-					}, {
 						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
 						y: Number(res.zus)
+					}, {
+						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZDROW,
+						y: Number(res.zdrow)
 					}, {
 						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
 						y: Number(res.pit)
@@ -105,7 +123,7 @@ $(document).ready(function () {
 			}
 
 			content.append(
-				$('<div></div>').addClass('col-xs-12 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center nopadding').append(
+				$('<div></div>').addClass('col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding').append(
 					$('<input />').addClass('form-control').attr({
 						'type': "number",
 						'patern': "[0-9]+([\.|,][0-9]{2}+)?",
@@ -116,9 +134,9 @@ $(document).ready(function () {
 					})
 				)
 			).append(
-				$('<div></div>').addClass('col-xs-12 col-sm-4 col-md-3').append(
+				$('<div></div>').addClass('col-xs-2 col-sm-4 col-md-3').append(
 					$('<a></a>').addClass('closeAdditional glyphicon glyphicon-remove').attr({
-						href: '#',
+						href: '#usuń',
 						'aria-hidden': 'true'
 					})
 				)

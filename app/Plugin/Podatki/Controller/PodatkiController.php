@@ -28,8 +28,17 @@ class PodatkiController extends ApplicationsController
         $result = false;
         if ($this->request->is("POST")) {
             if (!empty($this->request->data)) {
-                $result = true;
-                $this->set('result_sum', $this->result_sum());
+                if (
+                    !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace']))))
+                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie']))))
+                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo']))))
+                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza']))))
+                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza_koszt']))))
+                ) {
+                    $result = $this->result_sum();
+                } else {
+                    $this->redirect('/podatki');
+                }
             } else {
                 $this->redirect('/podatki');
             }
@@ -232,11 +241,11 @@ class PodatkiController extends ApplicationsController
         $RESULT_SUM = array(
             'brutto' => number_format($DOCHODY_BRUTTO, 2, '.', ''),
             'netto' => number_format($DOCHODY_NETTO, 2, '.', ''),
-            'us_pracodawca' => number_format($SKLADKI2, 2, '.', ''),
-            'us' => number_format($SKLADKI1, 2, '.', ''),
-            'us_color' => '#90ED7D',
-            'zus' => number_format($SKLADKI3, 2, '.', ''),
-            'zus_color' => '#F7A35C',
+            'zus_pracodawca' => number_format($SKLADKI2, 2, '.', ''),
+            'zus' => number_format($SKLADKI1, 2, '.', ''),
+            'zus_color' => '#90ED7D',
+            'zdrow' => number_format($SKLADKI3, 2, '.', ''),
+            'zdrow_color' => '#F7A35C',
             'pit' => number_format($PIT, 2, '.', ''),
             'pit_color' => '#8085E9',
             'vat' => number_format($VAT, 2, '.', ''),

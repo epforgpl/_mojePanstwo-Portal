@@ -46,11 +46,11 @@ msgstr "Miesięcznie odprowadzasz do budżetu państwa"
 msgid "LC_PODATKI_RESULTS_WYDAWANE_PODATKI"
 msgstr "Twoje podatki zostały wydawane na"
 
-msgid "LC_PODATKI_RESULTS_PIE_US"
-msgstr "Ubezpieczenie społeczne (US)"
-
 msgid "LC_PODATKI_RESULTS_PIE_ZUS"
-msgstr "Składka zdrowotne (ZUS)"
+msgstr "Ubezpieczenie społeczne (ZUS)"
+
+msgid "LC_PODATKI_RESULTS_PIE_ZDROW"
+msgstr "Składka zdrowotne"
 
 msgid "LC_PODATKI_RESULTS_PIE_PIT"
 msgstr "Podatek od dochodu (PIT)"
@@ -60,3 +60,6 @@ msgstr "Podatek od towarów i usług (VAT)"
 
 msgid "LC_PODATKI_RESULTS_PIE_AKCYZA"
 msgstr "Akcyza"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX"
+msgstr "wartość przybliżona, na podstawie tablic * dla podanych przez Ciebie danych."
