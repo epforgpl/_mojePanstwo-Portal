@@ -495,6 +495,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     echo ' nodetails';
                 } ?>"></div>
 
+                <? /*
                 <div class="explore<? if (!isset($mapParams) && !isset($dataBrowser)) {
                     echo ' nodetails';
                 } ?>">
@@ -596,6 +597,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                         }
                     } ?>
                 </div>
+                */ ?>
             </div>
         </div>
     </div>
