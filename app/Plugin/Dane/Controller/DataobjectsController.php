@@ -778,10 +778,6 @@ class DataobjectsController extends AppController
             $this->request->params['form']['file']
         );
 
-        $this->log(
-            $this->ActivitiesFile->getFiles()
-        );
-
         $this->set('response', $response);
         $this->set('_serialize', array('response'));
     }
