@@ -27,5 +27,10 @@ class Finanse extends AppModel
         $data = $this->getDataSource()->request('finanse/getCommunePopCount/' . $id);
         return $data;
     }
+    
+    public function getSpendings($year) {
+        $data = $this->getDataSource()->request('finanse/getSpendings/' . $year);
+        return $data;
+    }
 
 }

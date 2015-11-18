@@ -51,6 +51,9 @@ class PodatkiController extends ApplicationsController
     private function result_sum()
     {
 	    
+	    $this->loadModel('Finanse.Finanse');
+	    $wydatki = $this->Finanse->getSpendings(2014);
+	    	    
 	    $warunki_preferencyjne = $this->request->data('warunki_preferencyjne');
 	    
         $ETAT_BRUTTO = array_sum($this->request->data('umowa_o_prace')); /*przychody z umowy o pracę*/
