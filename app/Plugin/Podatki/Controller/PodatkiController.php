@@ -29,11 +29,11 @@ class PodatkiController extends ApplicationsController
         if ($this->request->is("POST")) {
             if (!empty($this->request->data)) {
                 if (
-                    !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza_koszt']))))
+                    !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza_koszt']))))
                 ) {
                     $result = $this->result_sum();
 
