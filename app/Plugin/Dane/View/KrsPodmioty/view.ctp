@@ -6,7 +6,7 @@ if (isset($odpis) && $odpis) {
     ), null, array('inline' => false));
 }
 
-if($object->getPage()) {
+if ($object->getPage()) {
     $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
 }
 
@@ -46,9 +46,13 @@ $description =
             <? if ($description) { ?>
             <div class="block block-simple col-xs-12">
                 <header>Misja</header>
-                <section class="content textBlock text-iheight">
-                    <div class="text-iheight-content"><?= $description ?></div>
-                    <p class="text-iheight-toggle"><a href="#">Więcej</a></p>
+                <section class="content textBlock descBlock">
+                    <? $limit = 100; ?>
+                    <div
+                        class="text"><?= $this->Html->truncateHtml($description, $limit, '...') ?><? if (strlen($description) > $limit) { ?>
+                            <div class="text-center col-xs-12"><a class="descMore btn btn-primary btn-xs"
+                                                                  data-desc="<?= $description ?>"
+                                                                  href="#więcej">więcej</a></div><? } ?></div>
                 </section>
             </div>
             <? } ?>
@@ -88,50 +92,50 @@ $description =
 
             <? if( $pisma = @$object_aggs['pisma']['top']['hits']['hits'] ) { ?>
             <div class="block block-simple col-xs-12">
-	            <header>Pisma:</header>
-	            <section class="content margin-sides-10">
+                <header>Pisma:</header>
+                <section class="content margin-sides-10">
 
-	                <div class="agg agg-Dataobjects">
-	                    <ul class="dataobjects">
-	                        <? foreach ($pisma as $doc) { ?>
-	                            <li class="margin-top-10">
-	                                <?
-	                                echo $this->Dataobject->render($doc, 'default');
-	                                ?>
-	                            </li>
-	                        <? } ?>
-	                    </ul>
-	                </div>
+                    <div class="agg agg-Dataobjects">
+                        <ul class="dataobjects">
+                            <? foreach ($pisma as $doc) { ?>
+                                <li class="margin-top-10">
+                                    <?
+                                    echo $this->Dataobject->render($doc, 'default');
+                                    ?>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    </div>
 
-	            </section>
+                </section>
                 <div class="linkmore text-center">
                     <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-primary btn-xs"">więcej</a>
                 </div>
-	        </div>
+            </div>
             <? } ?>
 
             <? if( $kolekcje = @$object_aggs['kolekcje']['top']['hits']['hits'] ) { ?>
             <div class="block block-simple col-xs-12">
-	            <header>Kolekcje:</header>
-	            <section class="content margin-sides-10">
+                <header>Kolekcje:</header>
+                <section class="content margin-sides-10">
 
                     <div class="agg agg-Dataobjects">
-	                    <ul class="dataobjects">
-	                        <? foreach ($kolekcje as $doc) { ?>
-	                            <li class="margin-top-10">
-	                                <?
-	                                echo $this->Dataobject->render($doc, 'default');
-	                                ?>
-	                            </li>
-	                        <? } ?>
-	                    </ul>
-	                </div>
+                        <ul class="dataobjects">
+                            <? foreach ($kolekcje as $doc) { ?>
+                                <li class="margin-top-10">
+                                    <?
+                                    echo $this->Dataobject->render($doc, 'default');
+                                    ?>
+                                </li>
+                            <? } ?>
+                        </ul>
+                    </div>
 
                 </section>
                 <div class="linkmore text-center">
                     <a href="<?= $object->getUrl() . '/kolekcje' ?>" class="btn btn-primary btn-xs"">więcej</a>
                 </div>
-	        </div>
+            </div>
             <? } ?>
 
 
@@ -393,7 +397,7 @@ $description =
     } ?>
 
     <? if ($obszary = $object->getPage('obszary_dzialan')) { ?>
-        <? if(is_array($obszary) && count($obszary)) { ?>
+        <? if (is_array($obszary) && count($obszary)) { ?>
 
             <div class="block block-simple col-xs-12" style="margin-top: -2px; margin-bottom: 15px;">
                 <header>
