@@ -238,53 +238,44 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 </div>
             </div>
 
-            <div class="row items">
-                <h2 class="text-center"><?= __d('podatki', 'LC_PODATKI_RESULTS_WYDAWANE_PODATKI'); ?>:</h2>
-
-                <div class="block col-xs-12 col-sm-6 col-md-3">
-                    <div data-id="5" class="item more">
-                        <a data-title="Oświata i wychowanie" class="inner" href="#5">
-                            <div class="logo">
-                                <i class="icon-dzialy-5"></i>
+            <? if (isset($wydatki)) { ?>
+                <div class="row items">
+                    <h2 class="text-center"><?= __d('podatki', 'LC_PODATKI_RESULTS_WYDAWANE_PODATKI'); ?>:</h2>
+                    <? foreach ($wydatki as $w) { ?>
+                        <div class="block col-xs-12 col-sm-6 col-md-3">
+                            <div data-id="<?= $w['dzial_id']; ?>" class="item more">
+                                <div class="inner">
+                                    <div class="logo">
+                                        <i class="icon-dzialy-<?= $w['dzial_id']; ?>"></i>
+                                    </div>
+                                    <div class="details">
+                                        <span
+                                            class="detail"><?= number_format_h(($result['brutto'] - $result['netto']) * $w['procent']); ?>
+                                            zł</span>
+                                    </div>
+                                    <div class="title">
+                                        <div class="nazwa"><?= $w['tresc']; ?></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="details">
-                                <span class="detail">262&nbsp;mln</span>
-                            </div>
-                            <div class="title">
-                                <div class="nazwa">Oświata i wychowanie</div>
-                            </div>
-                        </a>
-                    </div>
+                        </div>
+                    <? } ?>
                 </div>
-                <div class="block col-xs-12 col-sm-6 col-md-3">
-                    <div data-id="5" class="item more">
-                        <a data-title="Oświata i wychowanie" class="inner" href="#5">
-                            <div class="logo">
-                                <i class="icon-dzialy-5"></i>
-                            </div>
-                            <div class="details">
-                                <span class="detail">262&nbsp;mln</span>
-                            </div>
-                            <div class="title">
-                                <div class="nazwa">Oświata i wychowanie</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <? } ?>
         </div>
+    </div>
+    <?php if ($result != false) { ?>
         <div class="main_button_container text-center">
-            <a class="btn btn-info btn-lg btn-icon" href="/podatki"><i
+            <a class="btn btn-success btn-lg btn-icon" href="/podatki"><i
                     class="icon glyphicon glyphicon-repeat"></i><span>Nowe obliczenia</span>
             </a>
         </div>
+    <? } ?>
+    <div class="footer text-center">
+        <div class="container">
+            <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?></p>
 
-        <div class="footer">
-            <div class="container">
-                <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?></p>
-
-                <p>* - <?= __d('podatki', 'LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX'); ?></p>
-            </div>
+            <p>* - <?= __d('podatki', 'LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX'); ?></p>
         </div>
     </div>
 </form>

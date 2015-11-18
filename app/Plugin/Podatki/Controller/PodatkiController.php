@@ -36,6 +36,9 @@ class PodatkiController extends ApplicationsController
                     || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza_koszt']))))
                 ) {
                     $result = $this->result_sum();
+
+                    $this->loadModel('Finanse.Finanse');
+                    $this->set('wydatki', $this->Finanse->getSpendings(2014));
                 } else {
                     $this->redirect('/podatki');
                 }
@@ -50,10 +53,6 @@ class PodatkiController extends ApplicationsController
 
     private function result_sum()
     {
-	    	    
-	    $this->loadModel('Finanse.Finanse');
-	    $wydatki = $this->Finanse->getSpendings(2014);
-	    	    
 	    $warunki_preferencyjne = $this->request->data('warunki_preferencyjne');
 
         $ETAT_BRUTTO = array_sum($this->request->data('umowa_o_prace')); /*przychody z umowy o pracę*/
