@@ -29,13 +29,16 @@ class PodatkiController extends ApplicationsController
         if ($this->request->is("POST")) {
             if (!empty($this->request->data)) {
                 if (
-                    !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza']))))
-                    || !empty(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza_koszt']))))
+                    !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza']))))
+                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza_koszt']))))
                 ) {
                     $result = $this->result_sum();
+
+                    $this->loadModel('Finanse.Finanse');
+                    $this->set('wydatki', $this->Finanse->getSpendings(2014));
                 } else {
                     $this->redirect('/podatki');
                 }
@@ -50,9 +53,8 @@ class PodatkiController extends ApplicationsController
 
     private function result_sum()
     {
-	    
 	    $warunki_preferencyjne = $this->request->data('warunki_preferencyjne');
-	    
+
         $ETAT_BRUTTO = array_sum($this->request->data('umowa_o_prace')); /*przychody z umowy o pracę*/
         $ZLECENIE_BRUTTO = array_sum($this->request->data('umowa_zlecenie')); /*przychody z umowy zlecenie*/
         $DZIELO_BRUTTO = array_sum($this->request->data('umowa_o_dzielo')); /*Przychody z umowy o dzieło*/
@@ -242,18 +244,18 @@ class PodatkiController extends ApplicationsController
         $AKCYZA = 0.5 * $VAT;
 
         $RESULT_SUM = array(
-            'brutto' => number_format($DOCHODY_BRUTTO, 2, '.', ''),
-            'netto' => number_format($DOCHODY_NETTO, 2, '.', ''),
-            'zus_pracodawca' => number_format($SKLADKI2, 2, '.', ''),
-            'zus' => number_format($SKLADKI1, 2, '.', ''),
+            'brutto' => number_format($DOCHODY_BRUTTO, 2, ',', ''),
+            'netto' => number_format($DOCHODY_NETTO, 2, ',', ''),
+            'zus_pracodawca' => number_format($SKLADKI2, 2, ',', ''),
+            'zus' => number_format($SKLADKI1, 2, ',', ''),
             'zus_color' => '#90ED7D',
-            'zdrow' => number_format($SKLADKI3, 2, '.', ''),
+            'zdrow' => number_format($SKLADKI3, 2, ',', ''),
             'zdrow_color' => '#F7A35C',
-            'pit' => number_format($PIT, 2, '.', ''),
+            'pit' => number_format($PIT, 2, ',', ''),
             'pit_color' => '#8085E9',
-            'vat' => number_format($VAT, 2, '.', ''),
+            'vat' => number_format($VAT, 2, ',', ''),
             'vat_color' => '#2b908f',
-            'akcyza' => number_format($AKCYZA, 2, '.', ''),
+            'akcyza' => number_format($AKCYZA, 2, ',', ''),
             'akcyza_color' => '#7cb5ec',
         );
 

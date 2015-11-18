@@ -31,10 +31,11 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
 					<div class="form-group form-row">
 				        <label for="descriptionTextArea" class="col-lg-12 control-label control-label-full">Misja organizacji:</label>
+				        
+				        
 						<div class="col-lg-12">
                             <textarea class="form-control tinymceField" rows="10" id="inp1" name="description"
-                                      id="descriptionTextArea"></textarea>
-							<span class="help-block">Misja opis</span>
+                                      id="descriptionTextArea"><?= $object->getPage('description') ? $object->getPage('description') : $object->getData('cel_dzialania') ?></textarea>
 						</div>
 					</div>
 

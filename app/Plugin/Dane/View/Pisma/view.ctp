@@ -21,7 +21,11 @@ $accessDict = array(
                         <p class="_label">Od:</p>
                     </div>
                     <div class="col-sm-10">
-                        <p><?= $pismo['from_user_name'] ?></p>
+                        <p>
+                            <a title="Profil użytkownika <?= $pismo['from_user_name'] ?>" href="/dane/uzytkownicy/<?= $pismo['pisma.from_user_id'] ?>">
+                                <?= $pismo['from_user_name'] ?>
+                            </a>
+                        </p>
                     </div>
                 </div>
                 <div class="row">
