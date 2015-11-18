@@ -101,6 +101,20 @@
                     </div>
                 <? } ?>
 
+                <? if ($youtube = $object->getPage('youtube')) { ?>
+                    <div class="option pull-left">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Kanał YouTube" href="<?= $youtube; ?>" target="_blank">
+                            <i class="fa fa-youtube"></i>
+                        </a>
+                    </div>
+                <? } else { ?>
+                    <div class="option pull-left inactive">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Kanał YouTube" href="#" onclick="return false;">
+                            <i class="fa fa-youtube"></i>
+                        </a>
+                    </div>
+                <? } ?>
+
 
             </div>
         </div>
