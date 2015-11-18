@@ -115,6 +115,34 @@
                     </div>
                 <? } ?>
 
+                <? if ($instagram = $object->getPage('instagram')) { ?>
+                    <div class="option pull-left">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Instagram" href="<?= $instagram; ?>" target="_blank">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                <? } else { ?>
+                    <div class="option pull-left inactive">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Instagram" href="#" onclick="return false;">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                <? } ?>
+
+                <? if ($vine = $object->getPage('vine')) { ?>
+                    <div class="option pull-left">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Vine" href="<?= $vine; ?>" target="_blank">
+                            <i class="fa fa-vine"></i>
+                        </a>
+                    </div>
+                <? } else { ?>
+                    <div class="option pull-left inactive">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Vine" href="#" onclick="return false;">
+                            <i class="fa fa-vine"></i>
+                        </a>
+                    </div>
+                <? } ?>
+
 
             </div>
         </div>
