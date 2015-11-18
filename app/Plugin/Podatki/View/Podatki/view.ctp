@@ -27,11 +27,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             :</label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
-                               name="umowa_o_prace[]"
-                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
-                               id="przychody_umowa_o_prace_1"
-                               value="<?= @$post['umowa_o_prace'][0]; ?>">
+                        <input type="text" name="umowa_o_prace[]"
+                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
+                               id="przychody_umowa_o_prace_1" value="<?= @$post['umowa_o_prace'][0]; ?>">
                     </div>
                     <div class="col-xs-10 col-sm-4 col-md-3 button_container">
                         <a href="#<?= str_replace(' ', '_', strtolower(__d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'))); ?>"
@@ -47,8 +45,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <div class="additional row" data-number="<?= $i; ?>">
                                 <div
                                     class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
-                                    <input type="number" class="form-control" patern="[0-9]+([.|,][0-9]{2}+)?"
-                                           step="0.01" name="umowa_o_prace[]"
+                                    <input type="text" class="form-control currency" name="umowa_o_prace[]"
                                            title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                            id="przychody_umowa_o_prace_<?= $i; ?>"
                                            value="<?= @$post['umowa_o_prace'][$i]; ?>">
@@ -74,9 +71,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             :</label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
-                               name="umowa_zlecenie[]"
-                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
+                        <input type="text" name="umowa_zlecenie[]"
+                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_umowa_zlecenie_1"
                                value="<?= @$post['umowa_zlecenie'][0]; ?>">
                     </div>
@@ -94,8 +90,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <div class="additional row" data-number="<?= $i; ?>">
                                 <div
                                     class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
-                                    <input type="number" class="form-control" patern="[0-9]+([.|,][0-9]{2}+)?"
-                                           step="0.01" name="umowa_zlecenie[]"
+                                    <input type="text" class="form-control currency" name="umowa_zlecenie[]"
                                            title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                            id="przychody_umowa_zlecenie_<?= $i; ?>"
                                            value="<?= @$post['umowa_zlecenie'][$i]; ?>">
@@ -121,9 +116,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             :</label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
-                               name="umowa_o_dzielo[]"
-                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
+                        <input type="text" name="umowa_o_dzielo[]"
+                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_umowa_o_dzielo_1"
                                value="<?= @$post['umowa_o_dzielo'][0]; ?>">
                     </div>
@@ -141,8 +135,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <div class="additional row" data-number="<?= $i; ?>">
                                 <div
                                     class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
-                                    <input type="number" class="form-control" patern="[0-9]+([.|,][0-9]{2}+)?"
-                                           step="0.01" name="umowa_o_dzielo[]"
+                                    <input type="text" class="form-control currency" name="umowa_o_dzielo[]"
                                            title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                            id="przychody_umowa_o_dzielo_<?= $i; ?>"
                                            value="<?= @$post['umowa_o_dzielo'][$i]; ?>">
@@ -165,20 +158,19 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 </p>
 
                 <div class="row"<? if (!$dzialanoscGospExist) { ?> style="display: none"<? } ?>>
-                    <div class="col-xs-10 col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-7">
-                        <a class="closeAdditional glyphicon glyphicon-remove show" aria-hidden="true"
-                           href="#zamknij"></a>
-                    </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
                         <label
                             for="przychody_dzialalnosc_gospodarcza_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA'); ?></label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
-                               name="dzialalnosc_gospodarcza[]"
-                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
+                        <input type="text" name="dzialalnosc_gospodarcza[]"
+                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_dzialalnosc_gospodarcza_1"
                                value="<?= @$post['dzialalnosc_gospodarcza'][0] ?>">
+                    </div>
+                    <div class="col-xs-2 col-sm-4 col-md-3">
+                        <a class="closeAdditional glyphicon glyphicon-remove show" aria-hidden="true"
+                           href="#zamknij"></a>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-3 col-md-offset-5 checkbox">
                         <input type="hidden" id="warunki_preferencyjne_1_hidden" value="N"
@@ -193,9 +185,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             for="przychody_dzialalnosc_gospodarcza_koszt_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA_KOSZT'); ?></label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="number" pattern="[0-9]+([\.|,][0-9]{2}+)?" step="0.01"
-                               name="dzialalnosc_gospodarcza_koszt[]"
-                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control"
+                        <input type="text" name="dzialalnosc_gospodarcza_koszt[]"
+                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_dzialalnosc_gospodarcza_koszt_1"
                                value="<?= @$post['dzialalnosc_gospodarcza_koszt'][0] ?>">
                     </div>
@@ -213,35 +204,35 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
     <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
         <div class="container">
             <h2><? if (isset($result['netto'])) {
-                    echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA') . ' ' . number_format($result['brutto'] - $result['netto'], 2, '.', ' ') . ' zł';
+                    echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA') . ' ' . number_format($result['brutto'] - $result['netto'], 2, ',', ' ') . ' zł';
                 } ?></h2>
 
             <div
-                class="row chart_area"<? if (isset($result)) { ?> data-result='<?= json_encode($result) ?>'<? } ?>>
+                class="row chart_area"<? if (isset($result)) { ?> data-result='<?= json_encode(str_replace(',', '.', $result)) ?>'<? } ?>>
                 <div class="col-xs-12 col-md-6 pie"></div>
                 <div class="col-xs-12 col-md-6 legend">
                     <? if (isset($result)) { ?>
                         <div class="position"><span
                                 style="background-color: <?= $result['zus_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
-                            : <strong><?= $result['zus'] ?> zł</strong>
+                            : <strong><?= number_format(floatval($result['zus']), 2, ',', ' ') ?> zł</strong>
                         </div>
                         <div class="position"><span
                                 style="background-color: <?= $result['zdrow_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?>
-                            : <strong><?= $result['zdrow'] ?> zł</strong>
+                            : <strong><?= number_format(floatval($result['zdrow']), 2, ',', ' ') ?> zł</strong>
                         </div>
                         <div class="position"><span
                                 style="background-color: <?= $result['pit_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?>
-                            : <strong><?= $result['pit'] ?> zł</strong>
+                            : <strong><?= number_format(floatval($result['pit']), 2, ',', ' ') ?> zł</strong>
                         </div>
                         <div class="position"><span
                                 style="background-color: <?= $result['vat_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
                             *
-                            : <strong><?= $result['vat'] ?> zł</strong>
+                            : <strong><?= number_format(floatval($result['vat']), 2, ',', ' ') ?> zł</strong>
                         </div>
                         <div class="position"><span
                                 style="background-color: <?= $result['akcyza_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
                             *
-                            : <strong><?= $result['akcyza'] ?> zł</strong>
+                            : <strong><?= number_format(floatval($result['akcyza']), 2, ',', ' ') ?> zł</strong>
                         </div>
                     <? } ?>
                 </div>
