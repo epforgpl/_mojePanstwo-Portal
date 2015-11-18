@@ -5,6 +5,21 @@ echo $this->Element('dataobject/pageBegin');
     <div class="row margin-top-20">
         <div class="col-sm-9">
 
+            <? if($object->getData('user_username')) { ?>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <p class="_label">Dodano przez:</p>
+                    </div>
+                    <div class="col-sm-10">
+                        <p>
+                            <a title="Profil użytkownika <?= $object->getData('user_username') ?>" href="/dane/uzytkownicy/<?= $object->getData('user_id') ?>">
+                                <?= $object->getData('user_username') ?>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            <? } ?>
+
             <? $note = $object->getData('description'); ?>
             <div class="collection-main-note alert alert-info overflow-hidden note-editable<?= $note == '' ? ' empty' : '' ?>">
                 <? if($note == '') { ?>
