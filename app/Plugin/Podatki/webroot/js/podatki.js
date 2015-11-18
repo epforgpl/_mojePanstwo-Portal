@@ -6,10 +6,23 @@ $(document).ready(function () {
 		$chartArea = $('.chart_area');
 
 	function btnAction() {
-		$podatki.find('input[type="number"]:not(".blurEffect")').addClass('blurEffect').on('blur', function () {
+		$podatki.find('input.currency:not(".blurEffect")').addClass('blurEffect').on('keydown', function (e) {
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 188, 190]) !== -1 ||
+				(e.keyCode === 65 && e.ctrlKey === true) ||
+				(e.keyCode === 67 && e.ctrlKey === true) ||
+				(e.keyCode === 88 && e.ctrlKey === true) ||
+				(e.keyCode >= 35 && e.keyCode <= 39)) {
+				return;
+			}
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				e.preventDefault();
+			}
+		}).on('blur', function () {
 			var el = $(this);
 
-			el.val(Number(el.val()).toFixed(2));
+			if (el.val() !== '') {
+				el.val(parseFloat(el.val().replace(',', '.')).toFixed(2).replace('.', ','));
+			}
 		});
 		$podatki.find('.checkbox:not(".checkEffect")').addClass('checkEffect').on('click', function () {
 			var el = $(this);
@@ -26,12 +39,21 @@ $(document).ready(function () {
 			e.preventDefault();
 
 			if (that.attr('href') === '#zamknij') {
-				var confirmBtn = confirm('Zamknięcie tego pola spowoduje utratę wpisanych danych. Czy na pewno chcesz to zrobić?');
+				var confirmBtn;
 				parent = $(this).parents('.dzialalnoscGospodarcza');
+
+				if (parent.find('input.currency').filter(function () {
+						return $(this).val() !== "";
+					}).length > 0) {
+					confirmBtn = confirm('Zamknięcie tego pola spowoduje utratę wpisanych danych. Czy na pewno chcesz to zrobić?');
+				} else {
+					confirmBtn = true;
+				}
 
 				if (confirmBtn === true) {
 					parent.find('> .text-center a').slideDown();
 					parent.find('> .row').slideUp();
+					parent.find('input').val('');
 				}
 			} else {
 				parent.slideUp(function () {
@@ -125,8 +147,8 @@ $(document).ready(function () {
 			content.append(
 				$('<div></div>').addClass('col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding').append(
 					$('<input />').addClass('form-control').attr({
-						'type': "number",
-						'patern': "[0-9]+([\.|,][0-9]{2}+)?",
+						'type': "text",
+						'patern': '^\d+(\.|\,)\d{2}$',
 						'step': '0.01',
 						'name': name,
 						'title': mPHeart.translation.LC_PODATKI_INPUT_FLOAT,
