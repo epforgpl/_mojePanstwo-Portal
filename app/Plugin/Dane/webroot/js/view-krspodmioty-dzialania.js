@@ -387,6 +387,64 @@ $(document).ready(function () {
 
 	$('.sticky').sticky();
 
+	$('.activitiesResponse').each(function() {
+
+		var form = $(this),
+			url = $(this).data('url'),
+			dropzone = form.find('.dropzoneForm').first(),
+			DropZone = {},
+			btn = form.find('.btn-addfile').first();
+
+		DropZone = new Dropzone(dropzone[0], {
+			url: url,
+			init: function() {
+				var self = this;
+				self.on('success', function(file, response) {
+					if(
+						response === true || (
+							typeof response.response !== 'undefined' &&
+							response.response === true
+						)
+					) {
+						$(file.previewElement)
+							.find('.progress-bar')
+							.first()
+							.addClass('progress-bar-success');
+					}
+				});
+
+				self.on('error', function(file, response) {
+					$(file.previewElement)
+						.find('.progress-bar')
+						.first()
+						.addClass('progress-bar-danger');
+				});
+			},
+			clickable: '.btn-addfile',
+			createImageThumbnails: false,
+			acceptedFiles: '.pdf,.docx,.doc,.tif,.html,.jpg,.xml,.xls,.xlsx,.rtf,.png',
+			autoQueue: true,
+			autoProcessQueue: true,
+			previewsContainer: '#preview',
+			previewTemplate: [
+				'<div class="file">',
+				'<div class="title">',
+				'<span class="name" data-dz-name></span>',
+				'<span class="size" data-dz-size></span>',
+				'<span class="error text-danger" data-dz-errormessage></span>',
+				'</div>',
+				'<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">',
+				'<div class="progress-bar" style="width:0%;" data-dz-uploadprogress>',
+				'</div>',
+				'</div>',
+				'<div class="buttons">',
+				'</div>',
+				'</div>'
+			].join('')
+		});
+
+	});
+
 	/*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
 	window.onload = loadScript();
 });

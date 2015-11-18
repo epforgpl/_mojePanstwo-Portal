@@ -292,6 +292,8 @@ class DataobjectsController extends AppController
         if(!$this->_canEdit())
             throw new ForbiddenException;
 
+        $this->ActivitiesFile = $this->Components->load('Dane.ActivitiesFile');
+        $this->ActivitiesFile->delete();
         $this->render('Dane.KrsPodmioty/dzialanie_form');
     }
 
@@ -732,9 +734,11 @@ class DataobjectsController extends AppController
                     $this->_prepareView();
                     $this->request->data['owner_name'] = $this->object->getTitle();
 
+                    $this->ActivitiesFile = $this->Components->load('Dane.ActivitiesFile');
+                    $this->request->data['files'] = $this->ActivitiesFile->getFiles();
+                    $this->ActivitiesFile->clear();
                 }
             }
-
 
 		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
 			    'method' => 'POST',
@@ -759,6 +763,27 @@ class DataobjectsController extends AppController
             );
         }
 
+    }
+
+    public function uploadActivityFile() {
+        if(!$this->objectActivities || !isset($this->request->params['form']['file']))
+            throw new NotFoundException;
+
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
+
+        $this->ActivitiesFile = $this->Components->load('Dane.ActivitiesFile');
+
+        $response = $this->ActivitiesFile->save(
+            $this->request->params['form']['file']
+        );
+
+        $this->log(
+            $this->ActivitiesFile->getFiles()
+        );
+
+        $this->set('response', $response);
+        $this->set('_serialize', array('response'));
     }
 
 }

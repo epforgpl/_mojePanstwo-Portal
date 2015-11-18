@@ -14,6 +14,10 @@ echo $this->Html->script('../plugins/tag-it/js/tag-it.min', array('block' => 'sc
 echo $this->Html->css('../plugins/tag-it/css/jquery.tagit.css');
 echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
 
+// dropzone
+$this->Html->css(array('dropzone'), array('inline' => 'false', 'block' => 'cssBlock'));
+$this->Combinator->add_libs('js', 'dropzone.js') ;
+
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
 
@@ -162,6 +166,21 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         </div>
                     <? } ?>
                 </div>
+
+                <? if (!$edit) { ?>
+
+                    <div class="form-group margin-top-20 activitiesResponse" data-url="<?= $object->getUrl(); ?>/uploadActivityFile.json">
+                        <label>Załączniki</label>
+
+                        <div class="dropzoneForm">
+                            <div class="actions">
+                                <a class="btn btn-sm btn-default btn-addfile">Dodaj załącznik</a>                                 </div>
+                            <div id="preview"></div>
+                        </div>
+
+                    </div>
+
+                <? } ?>
 
                 <div class="section col-xs-12 nopadding">
                     <div class="form-group margin-top-20">

@@ -2,12 +2,12 @@
 
 App::uses('Component', 'Controller');
 
-class DzialaniaFileComponent extends Component {
+class ActivitiesFileComponent extends Component {
 
     public $components = array('S3', 'Auth', 'Session');
 
-    private static $name = 'letters_response_files';
-    private static $path = 'letters/responses/';
+    private static $name = 'activities_files';
+    private static $path = 'activities/files/';
 
     private static $extensions = array('pdf','docx','doc','tif','html','jpg','xml','xls','xlsx','rtf','png');
 
