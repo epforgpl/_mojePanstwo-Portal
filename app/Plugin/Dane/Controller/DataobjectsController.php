@@ -304,7 +304,14 @@ class DataobjectsController extends AppController
         $this->_prepareView();
         if(isset($this->params['subid']) && is_numeric($this->params['subid'])) {
             $id = (int) $this->params['subid'];
-            $item = $this->Collection->load($id);
+            $item = $this->Dataobject->find('first', array(
+                    'conditions' => array(
+                        'dataset' => 'kolekcje',
+                        'id' => $id
+                    )
+                )
+            );
+
             if(!$item)
                 throw new NotFoundException;
 
