@@ -521,12 +521,18 @@ class DataobjectsController extends AppController
 
         } else {
 
+            $conditions = array(
+                'dataset' => 'dzialania',
+                'dzialania.dataset' => $this->object->getDataset(),
+                'dzialania.object_id' => $this->object->getId(),
+            );
+
+            if(!$this->_canEdit()) {
+                $conditions['dzialania.status'] = '1';
+            }
+
             $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'dzialania',
-                    'dzialania.dataset' => $this->object->getDataset(),
-                    'dzialania.object_id' => $this->object->getId(),
-                ),
+                'conditions' => $conditions,
                 'aggsPreset' => 'dzialania_admin',
                 'searchTitle' => 'Szukaj w działaniach...',
             ));
