@@ -202,6 +202,24 @@ foreach ($pisma_prefixes as $pisma_prefix) {
         'action' => 'responses',
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
 
+    Router::connect("$pisma_prefix/:id,:slug/responses/:response_id", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+    ), array('id' => '[A-Za-z0-9]{5}', 'response_id' => '[0-9]{1,}', 'pass' => array('id', 'slug')));
+
+    Router::connect("$pisma_prefix/:id/responses/:response_id", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+    ), array('id' => '[A-Za-z0-9]{5}', 'response_id' => '[0-9]{1,}', 'pass' => array('id')));
+
+    Router::connect("$pisma_prefix/:id,/responses/:response_id", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'responses',
+    ), array('id' => '[A-Za-z0-9]{5}', 'response_id' => '[0-9]{1,}', 'pass' => array('id')));
+
 
     // SINGLE RESPONSE
 
