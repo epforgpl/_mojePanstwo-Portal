@@ -63,11 +63,13 @@
         <? } ?>
 	
 	</ul>
+	
+	<? if (isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) {
+	    $selected = false; ?>
 	<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 	
 	
-        <? if (isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) {
-	    $selected = false; ?>
+        
 	
 	        <?
 	        foreach ($dataBrowser['aggs_visuals_map'] as $name => $map) {
@@ -159,8 +161,12 @@
 	                </a>
 	            </li>
 	        <? } ?>
-	
-		<? } ?>
-	
+		
 	</ul>
+	<? } ?>
+	
+	<div class="dataAggsDropdownList nopadding">
+		<?= $this->element('Dane.DataBrowser/browser-searcher'); ?>
+	</div>
+	
 </div>

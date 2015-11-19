@@ -9,7 +9,7 @@
 	        <ul class="nav nav-pills nav-stacked">
 
 	            <? foreach ($app_chapters['items'] as $item) {
-
+					
 	                $active = false;
 
 	                if(
@@ -27,10 +27,18 @@
 		                )
 	                )
 	                	$active = true;
+	                	
+	                $classes = array();
+	                
+	                if( isset($item['class']) )
+	                	$classes[] = $item['class'];
+	                
+	                if( $active )
+	                	$classes[] = 'active';
 
                 ?>
 
-	                <li<? if($active) { ?> class="active"<?}?>>
+	                <li class="<?= implode(' ', $classes) ?>">
 	                	<a href="<?= $item['href'] ?>">
 		                	<? if(isset($item['icon'])) {?>
 			                	<i class="object-icon <?= $item['icon'] ?>"></i>

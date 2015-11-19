@@ -287,8 +287,8 @@ class ApplicationsController extends AppController
 	public function getChapters() {
 
 		$mode = false;
-
-		$items = array();		
+		$items = array();
+			
 
 		if(
 			isset( $this->request->query['q'] ) &&
@@ -299,6 +299,8 @@ class ApplicationsController extends AppController
 				'id' => '_results',
 				'label' => 'Wyniki wyszukiwania:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+				'icon' => 'glyphicon glyphicon-search',
+				'class' => '_label',
 			);
 
 			if( $this->chapter_selected=='view' )
@@ -359,7 +361,7 @@ class ApplicationsController extends AppController
 			}
 
 		}
-
+		
         foreach($items as $i => $item) {
 
             if(isset($item['submenu'])) {
@@ -367,12 +369,12 @@ class ApplicationsController extends AppController
             }
 
         }
-
+        
 		$output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
-
+				
 		return $output;
 
 	}

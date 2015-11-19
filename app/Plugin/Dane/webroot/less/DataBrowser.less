@@ -225,6 +225,27 @@ a.link-api-call {
                         }
 
                     }
+                    
+                    &._label {
+	                    border-bottom: 1px solid #ddd;
+					    margin-bottom: 5px;
+					    padding-bottom: 10px;
+	                    & > a {
+		                    color: #777;
+		                    .glyphicon {
+			                    font-size: 14px;
+		                    }
+	                    }
+                    } 
+                    
+                    &.active._label {
+	                    & > a {
+		                    color: #777;
+		                    .object-icon {
+		                    }
+	                    }
+                    }        
+                    
                     &.active {
 
                         a {
@@ -278,7 +299,9 @@ a.link-api-call {
 
             .agg-List {
                 padding: 10px 0;
-
+				
+				
+				
                 &.apps {
                     li a {
                         position: relative;

@@ -612,15 +612,6 @@ class MediaController extends ApplicationsController
     {
 
 	    $chapters = parent::getChapters();
-		
-		if( !isset($this->request->query['q']) ) {
-		
-		    $chapters['items'][0]['label'] = 'Analiza kont - Twitter';
-		    $chapters['items'][0]['element'] = array(
-			    'path' => 'Media.start_menu',
-		    );
-	    
-	    }
 
 	    if( $this->isSuperUser() )
 		    $chapters['items'][] = array(

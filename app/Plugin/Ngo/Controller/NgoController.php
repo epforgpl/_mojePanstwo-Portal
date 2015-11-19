@@ -444,6 +444,7 @@ class NgoController extends ApplicationsController
 					'icon' => 'search',
 					'href' => '/' . $this->settings['id'],
 				),
+				'searchTitle' => 'Wyniki wyszukiwania w mediach:',
 			);
 
 			if( $this->chapter_selected=='view' )
@@ -455,6 +456,7 @@ class NgoController extends ApplicationsController
 			$items[] = array(
 				'label' => 'Start',
 				'href' => '/' . $this->settings['id'],
+				'class' => '_label',
 			);
 			
 		}
@@ -565,8 +567,7 @@ class NgoController extends ApplicationsController
 			}
 
 		}
-
-
+		
         foreach($items as $i => $item) {
 
             if(isset($item['submenu'])) {

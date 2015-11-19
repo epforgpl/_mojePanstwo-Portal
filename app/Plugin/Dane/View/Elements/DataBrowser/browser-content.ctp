@@ -59,6 +59,7 @@ if ($dataBrowser['mode'] == 'cover') {
     ?>
 
     <?
+	
     if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters)) {
         $dataWrap = true;
         ?>
@@ -86,13 +87,15 @@ if ($dataBrowser['mode'] == 'cover') {
 
     <div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>">
 
-        <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>margin-top-10">
-
+        <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">
+			
+			<h1 class="smaller">Wyniki wyszukiwania w Banku Danych Lokalnych:</h1>
+			
             <?
             if (isset($dataBrowser['beforeBrowserElement']))
                 echo $this->element($dataBrowser['beforeBrowserElement']);
             ?>
-
+			
             <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
                 'paging' => $params,
                 'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,

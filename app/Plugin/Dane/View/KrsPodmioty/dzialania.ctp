@@ -1,5 +1,6 @@
 <?
 echo $this->Element('dataobject/pageBegin');
+/*
 ?>
 <div class="overflow-auto margin-top-20">
 	<h1 class="pull-left">Działania</h1>
@@ -12,7 +13,7 @@ echo $this->Element('dataobject/pageBegin');
 		</a>
 	</div>
 </div>
-<?
+<? */
 echo $this->Element('Dane.DataBrowser/browser', array(
 	'paginatorPhrases' => array('działanie', 'działania', 'działań'),
 ));
