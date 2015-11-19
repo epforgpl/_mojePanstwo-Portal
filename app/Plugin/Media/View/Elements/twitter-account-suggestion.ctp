@@ -4,11 +4,11 @@ $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin
 $this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion', array('plugin' => 'Media')));
 ?>
 
-<div class="banner odpis block">
+<div class="banner twitter block">
     <?php echo $this->Html->image('Dane.banners/twitter_banner.png', array(
-        'width' => '62',
+        'width' => '32',
         'alt' => 'Twitter',
-        'class' => 'pull-right margin-top-30'
+        'class' => 'pull-left'
     )); ?>
     <p><strong>Pozwól monitorować</strong> swoje tweety!</p>
     <a href="#" data-toggle="modal" data-target="#twitterAccountSuggestionModal" class="btn btn-sm btn-primary">Dodaj konto</a>

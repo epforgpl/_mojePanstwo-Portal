@@ -25,9 +25,20 @@
             }
         }
 
+        &.twitter {
+            > img {
+                margin: 1.4em 0 0 14px;
+            }
+
+            > p {
+                width: auto;
+                padding-left: 54px;
+            }
+        }
+
         &.pismo {
             > img {
-                margin: 14px 0 0 0;
+                margin: 14px 0;
             }
         }
 
@@ -43,7 +54,7 @@
             font-weight: 300;
             letter-spacing: 0.3px;
             line-height: 16px;
-            padding: 20px 0 0 18px;
+            padding: 1.3em 0 0;
             width: 170px;
         }
 
@@ -86,11 +97,18 @@
     }
 }
 
-@media (min-width: 993px) {
-    .theme-default, .theme-wallpaper, .theme-simply {
-        .bannerCol {
-            padding-left: 0;
-            padding-right: 0;
-        }
+@media (min-width: 768px) and (max-width: 991px) {
+    .theme-default, .theme-wallpaper, .theme-simply .banner.twitter > p {
+        width: 100%;
+        padding-left: 14px;
+        padding-right: 14px;
+        display: inline-block;
+    }
+}
+
+@media (min-width: 992px) {
+    .theme-default, .theme-wallpaper, .theme-simply .bannerCol {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
