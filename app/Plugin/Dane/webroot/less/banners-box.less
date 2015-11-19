@@ -1,4 +1,13 @@
 .theme-default, .theme-wallpaper, .theme-simply {
+    .bannerCol {
+        &:nth-child(2n) {
+            padding-left: 0;
+        }
+        &:nth-child(2n+1) {
+            padding-right: 0;
+        }
+    }
+
     .banner {
         width: 100%;
         background-color: #EAEBEF;
@@ -73,6 +82,15 @@
 
         > .btn {
             margin: 6px 0 5px 14px;
+        }
+    }
+}
+
+@media (min-width: 993px) {
+    .theme-default, .theme-wallpaper, .theme-simply {
+        .bannerCol {
+            padding-left: 0;
+            padding-right: 0;
         }
     }
 }

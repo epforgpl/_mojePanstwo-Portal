@@ -271,15 +271,19 @@ $description =
         <? if (!$object->getData('wykreslony')) {
             $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 
+            echo '<div class="bannerCol col-xs-6 col-md-12">';
             echo $this->element('tools/krs_odpis', array(
                 'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
             ));
+            echo '</div>';
 
             $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
             $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+            echo '<div class="bannerCol col-xs-6 col-md-12">';
             echo $this->element('tools/pismo', array(
                 'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
             ));
+            echo '</div>';
 
             $page = $object->getLayer('page');
             if (!$page['moderated'])
