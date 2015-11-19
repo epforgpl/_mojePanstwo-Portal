@@ -56,7 +56,7 @@ class ActivitiesFileComponent extends Component {
 
     public function delete() {
         foreach($this->getFiles() as $file) {
-            $this->S3->deleteObject(S3Component::$bucket, printf(self::$path, $file['filename']));
+            $this->S3->deleteObject(S3Component::$bucket, self::$path . $file['filename']);
         }
 
         $this->clear();
