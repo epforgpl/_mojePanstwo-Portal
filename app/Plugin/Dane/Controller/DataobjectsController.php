@@ -494,6 +494,9 @@ class DataobjectsController extends AppController
 
             $this->set('dzialanie', $dzialanie);
 
+            $this->loadModel('Dane.ActivitiesFiles');
+            $this->set('files', $this->ActivitiesFiles->getByActivity($dzialanie->getId()));
+
             if(@$this->request->params['subaction'] == 'edytuj') {
 
                 if($this->_canEdit()) {
@@ -518,12 +521,18 @@ class DataobjectsController extends AppController
 
         } else {
 
+            $conditions = array(
+                'dataset' => 'dzialania',
+                'dzialania.dataset' => $this->object->getDataset(),
+                'dzialania.object_id' => $this->object->getId(),
+            );
+
+            if(!$this->_canEdit()) {
+                $conditions['dzialania.status'] = '1';
+            }
+
             $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'dzialania',
-                    'dzialania.dataset' => $this->object->getDataset(),
-                    'dzialania.object_id' => $this->object->getId(),
-                ),
+                'conditions' => $conditions,
                 'aggsPreset' => 'dzialania_admin',
                 'searchTitle' => 'Szukaj w działaniach...',
             ));
@@ -531,6 +540,21 @@ class DataobjectsController extends AppController
             $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
             $this->render('Dane.KrsPodmioty/dzialania');
         }
+    }
+
+    public function zalacznik() {
+        if(!$this->objectActivities)
+            throw new NotFoundException;
+
+        if(isset($this->request->params['subid']) && isset($this->request->params['subslug'])) {
+            $this->loadModel('Dane.ActivitiesFiles');
+            $this->redirect(
+                $this->ActivitiesFiles->getFile(
+                    (int) $this->request->params['subid'],
+                    (int) $this->request->params['subslug']
+                )
+            );
+        } else throw new NotFoundException;
     }
 
 	public function addObjectEditable($e)

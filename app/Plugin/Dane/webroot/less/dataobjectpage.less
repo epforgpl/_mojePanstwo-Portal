@@ -26,31 +26,31 @@
         }
 
     }
-    
+
     .static {
-	    padding: 10px;
-	    color: #789;
-	    line-height: 1em;
-	    font-size: 12px;
-	    
-	    ul {
-		    li {
-			    list-style: none;
-			    margin: 0;
-			    padding: 2px 0;
-		    }
-	    }
-	    
-	    .mowca {
-		    overflow: auto;
-		    img {
-			    border: 2px solid #CCC;
-			    float: left;
-		    }
-		    .mowca-content {
-			    margin-left: 45px;
-		    }
-	    }
+        padding: 10px;
+        color: #789;
+        line-height: 1em;
+        font-size: 12px;
+
+        ul {
+            li {
+                list-style: none;
+                margin: 0;
+                padding: 2px 0;
+            }
+        }
+
+        .mowca {
+            overflow: auto;
+            img {
+                border: 2px solid #CCC;
+                float: left;
+            }
+            .mowca-content {
+                margin-left: 45px;
+            }
+        }
     }
 
     .dataBrowser {
@@ -98,13 +98,13 @@
             }
         }
     }
-	
-	.nav {
-		font-size: 13px;
-		.open > a, .open > a:hover, .open > a:focus {
-			background-color: #FFF;
-		}
-	}
+
+    .nav {
+        font-size: 13px;
+        .open > a, .open > a:hover, .open > a:focus {
+            background-color: #FFF;
+        }
+    }
 
     .dropdown-menu > li {
         &.active > a,
@@ -367,6 +367,69 @@
 
     .objectsPageWindow {
         .objectSide {
+            margin-top: 24px;
+
+            .iconsList {
+                @iconColor: #f0f0f0;
+
+                display: inline-block;
+                width: 100%;
+                margin-left: -6px;
+                margin-bottom: -6px;
+
+                .option {
+                    margin-left: 6px;
+                    margin-bottom: 6px;
+                    font-size: 16px;
+
+                    &.inactive {
+                        display: none;
+                    }
+
+                    .tooltip {
+                        margin-top: 7px !important;
+                    }
+
+                    a {
+                        color: #789;
+
+                        i {
+                            border: 1px solid #ddd;
+                            background-color: @iconColor;
+                            width: 34px;
+                            height: 34px;
+                            line-height: 1.5em;
+                            text-align: center;
+                            -webkit-border-radius: 20px;
+                            -moz-border-radius: 20px;
+                            border-radius: 20px;
+                            position: relative;
+
+                            &::before {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                -webkit-transform: translate(-50%, -50%);
+                                -moz-transform: translate(-50%, -50%);
+                                -ms-transform: translate(-50%, -50%);
+                                -o-transform: translate(-50%, -50%);
+                                transform: translate(-50%, -50%);
+                            }
+                        }
+                        .bip {
+                            display: block;
+                            height: 20px;
+                            margin: 7px 0;
+                        }
+                    }
+
+                    &:hover {
+                        a {
+                            color: #157ab5;
+                        }
+                    }
+                }
+            }
             .objectSideInner {
                 padding: 0 0 0 5px;
 
@@ -429,6 +492,47 @@
                     color: #bacbce;
                     margin-right: 0;
                     margin-top: 4px;
+                }
+            }
+
+            .panel {
+                .title {
+                    background-color: #f5f5f5;
+                }
+
+                ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+
+                    &.single li {
+                        padding: 6px 15px;
+                    }
+
+                    li {
+                        width: 100%;
+                        display: block;
+                        border-bottom: 1px solid #ddd;
+
+                        .ceil {
+                            padding: 6px;
+
+                            &:first-child {
+                                padding-left: 15px;
+                            }
+                            &:last-child {
+                                padding-right: 15px;
+                            }
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+                &.panel-body.nopadding ul li {
+                    padding-left: 30px;
+                    padding-right: 30px;
                 }
             }
 
@@ -998,9 +1102,11 @@ h2.light {
     .objectsPage .objectsPageWindow {
         .objectSide {
             padding-right: 0;
+            float: right;
         }
         .objectMain {
             padding-left: 0;
+            float: left;
         }
     }
 }

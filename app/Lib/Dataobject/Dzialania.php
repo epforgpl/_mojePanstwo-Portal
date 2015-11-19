@@ -19,6 +19,14 @@ class Dzialania extends DataObject
         return 'Działanie';
     }
 
+	public function getTitleAddon() {
+		if($this->getData('status') == '0') {
+			return 'Brudnopis';
+		}
+
+		return false;
+	}
+
 	public function getUrl()
 	{
 		return '/dane/' . $this->getData('dataset') . '/' . $this->getData('object_id') . '/dzialania/' . $this->getId();

@@ -227,9 +227,28 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                 <? } ?>
                             <? } ?>
                         <? } ?>
+
+                        <? if(isset($files) && count($files)) { ?>
+
+                            <h4>Załączniki</h4>
+
+                            <div class="files">
+                                <? foreach($files as $file) { ?>
+                                    <div class="file">
+                                        <a target="_blank" href="<?= $object->getUrl() ?>/zalacznik/<?= $dzialanie->getId() ?>,<?= $file['ActivitiesFiles']['id'] ?>">
+                                            <span class="glyphicon glyphicon-download-alt"></span>
+                                            <?= $file['ActivitiesFiles']['src_filename'] != '' ? $file['ActivitiesFiles']['src_filename'] : $file['ActivitiesFiles']['filename'] ?>
+                                        </a>
+                                    </div>
+                                <? } ?>
+                            </div>
+
+                        <? } ?>
+
                     </div>
                 </div>
-            </div><div class="col-md-3">
+            </div>
+            <div class="col-md-3">
 
                 <? if($object_editable) { ?>
                     <div class="margin-top-10">
