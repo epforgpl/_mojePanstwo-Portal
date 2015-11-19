@@ -5,7 +5,7 @@
  * Date: 27/10/15
  * Time: 17:00
  */
-class ZbiorkiPubliczneController extends DataobjectsController
+class ZbiorkiPubliczneController extends AppController
 {
 
     public function view(){

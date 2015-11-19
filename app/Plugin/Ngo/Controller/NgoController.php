@@ -393,6 +393,18 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Fundacje | NGO');
 
     }
+    
+    public function zbiorki()
+    {
+        $this->loadDatasetBrowser('zbiorki_publiczne', array(
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'zbiorki',
+                'base' => '/ngo'
+            ))
+        ));
+        $this->set('title_for_layout', 'Fundacje | NGO');
+
+    }
 
     public function stowarzyszenia()
     {
@@ -456,6 +468,10 @@ class NgoController extends ApplicationsController
 			'pisma' => array(
 				'menu_id' => 'pisma',
 				'label' => 'Pisma',
+			),
+			'zbiorki_publiczne' => array(
+				'menu_id' => 'zbiorki',
+				'label' => 'Zbiórki publiczne',
 				'separator' => 'bottom',
 			),
 			'fundacje' => array(
