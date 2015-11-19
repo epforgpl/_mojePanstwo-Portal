@@ -8,7 +8,7 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-manage');
     data-placement="bottom"
     data-toggle="modal"
     data-target="#manageModal"
-    class="btn optionBtn btn-primary">
+    class="btn optionBtn btn-danger">
     <i class="glyphicon glyphicon-cog" aria-hidden="true"></i>
 </div>
 

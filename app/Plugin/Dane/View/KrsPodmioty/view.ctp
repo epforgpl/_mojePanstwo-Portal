@@ -33,6 +33,263 @@ $description =
 ?>
 
 <div class="krsPodmioty">
+    <div class="col-xs-12 col-md-3 objectSide">
+        <? if ($page = $object->getPage()) { ?>
+            <div class="iconsList">
+                <div class="col-xs-12 nopadding">
+
+                    <? if (($tel = $object->getPage('phone')) && ($tel !== '')) { ?>
+                        <div class="option pull-left" data-toggle="modal" data-target="#iconsListDetailPhone">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
+                               onclick="return false;">
+                                <i class="fa fa-phone"></i>
+                            </a>
+                        </div>
+                        <div class="modal fade" id="iconsListDetailPhone">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title">Telefon kontaktowy</h4>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <p>Numer telefonu:
+                                            <strong><?= $tel ?></strong>
+                                        </p>
+                                        <a class="btn btn-primary btn-social btn-skype" href="skype:<?= $tel; ?>">
+                                            <i class="fa fa-skype"></i> Zadzwoń przez Skype
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
+                               onclick="return false;">
+                                <i class="fa fa-phone"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+
+                    <? if ($fb = $object->getPage('facebook')) { ?>
+                        <div class="option pull-left">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="<?= $fb; ?>"
+                               target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="#"
+                               onclick="return false;">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+
+                    <? if ($twitter = $object->getPage('twitter')) { ?>
+                        <div class="option pull-left">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="<?= $twitter; ?>"
+                               target="_blank">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="#"
+                               onclick="return false;">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+                    <? if ($www = $object->getPage('www')) { ?>
+                        <div class="option pull-left">
+                            <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="<?= $www; ?>"
+                               target="_blank">
+                                <i class="glyphicon glyphicon-link"></i>
+                            </a>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="#"
+                               onclick="return false;">
+                                <i class="glyphicon glyphicon-link"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+
+                    <? if ($email = $object->getPage('email')) { ?>
+                        <div class="option pull-left">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Adres e-mail"
+                               href="mailto:<?= $email; ?>" target="_blank">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                            </a>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Adres e-mail" href="#"
+                               onclick="return false;">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+
+                    <? if ($youtube = $object->getPage('youtube')) { ?>
+                        <div class="option pull-left">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Kanał YouTube"
+                               href="<?= $youtube; ?>"
+                               target="_blank">
+                                <i class="fa fa-youtube"></i>
+                            </a>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Kanał YouTube" href="#"
+                               onclick="return false;">
+                                <i class="fa fa-youtube"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+
+                    <? if ($instagram = $object->getPage('instagram')) { ?>
+                        <div class="option pull-left">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Instagram" href="<?= $instagram; ?>"
+                               target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Instagram" href="#"
+                               onclick="return false;">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+
+                    <? if ($vine = $object->getPage('vine')) { ?>
+                        <div class="option pull-left">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Vine" href="<?= $vine; ?>"
+                               target="_blank">
+                                <i class="fa fa-vine"></i>
+                            </a>
+                        </div>
+                    <? } else { ?>
+                        <div class="option pull-left inactive">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Vine" href="#"
+                               onclick="return false;">
+                                <i class="fa fa-vine"></i>
+                            </a>
+                        </div>
+                    <? } ?>
+
+                </div>
+            </div>
+
+        <? } ?>
+        <ul class="dataHighlights overflow-auto">
+            <?
+            $nip = $object->getData('nip');
+            if (isset($nip) && !empty($nip)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Numer NIP</p>
+
+                    <p itemprop="taxID" class="_value"><?= $nip ?></p>
+                </li>
+            <? } ?>
+
+            <?
+            $regon = $object->getData('regon');
+            if (isset($regon) && !empty($regon)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Numer REGON</p>
+
+                    <p class="_value"><?= $regon ?></p>
+                </li>
+            <? } ?>
+
+            <?
+            $wartosc_kapital_zakladowy = $object->getData('wartosc_kapital_zakladowy');
+            if (isset($wartosc_kapital_zakladowy) && !empty($wartosc_kapital_zakladowy)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Kapitał zakładowy</p>
+
+                    <p class="_value"><?= number_format_h($wartosc_kapital_zakladowy); ?> PLN</p>
+                </li>
+            <? } ?>
+
+            <?
+            $data_rejestracji = $object->getData('data_rejestracji');
+            if (isset($data_rejestracji) && !empty($data_rejestracji)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data rejestracji</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data_rejestracji, array(
+                            'itemprop' => 'foundingDate',
+                        )); ?></p>
+                </li>
+            <? } ?>
+
+            <div class="dataHighlight-hidden">
+                <div class="dataHighlight-content">
+                    <? $sygnatura_akt = $object->getData('sygnatura_akt');
+                    if (isset($sygnatura_akt) && !empty($sygnatura_akt)) { ?>
+                        <li class="dataHighlight col-xs-12">
+                            <p class="_label">Sygnatura akt</p>
+
+                            <p itemprop="email" class="_value"><?= $sygnatura_akt ?></p>
+                        </li>
+                    <? } ?>
+                </div>
+                <div class="dataHighlight-hidden-button text-center">
+                    <button class="dataHighlight-hidden-button-show btn btn-link btn-sm">Więcej</button>
+                    <button class="dataHighlight-hidden-button-hide btn btn-link btn-sm">Mniej</button>
+                </div>
+            </div>
+        </ul>
+        <? if ($obszary = $object->getPage('obszary_dzialan')) { ?>
+            <? if (is_array($obszary) && count($obszary)) { ?>
+                <ul class="dataHighlights overflow-auto">
+                    <li class="dataHighlight col-xs-12">
+                        <p class="_label">Obszary działań</p>
+
+                        <div class="_value">
+                            <ul>
+                                <? foreach ($obszary as $obszar) { ?>
+                                    <li><?= ucfirst($obszar['label']); ?></li>
+                                <? } ?>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            <? } ?>
+        <? } ?>
+        <? if (!$object->getData('wykreslony')) {
+            $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+
+            echo $this->element('tools/krs_odpis', array(
+                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+            ));
+
+            $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+            $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+            echo $this->element('tools/pismo', array(
+                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+            ));
+
+            $page = $object->getLayer('page');
+            if (!$page['moderated'])
+                echo $this->element('tools/admin', array(
+                    'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+                ));
+
+        } ?>
+    </div>
+
     <div class="col-xs-12 col-md-9 objectMain">
         <div class="object">
 
@@ -47,12 +304,8 @@ $description =
             <div class="block block-simple col-xs-12">
                 <header>Misja</header>
                 <section class="content textBlock descBlock">
-                    <? $limit = 100; ?>
-                    <div
-                        class="text"><?= $this->Html->truncateHtml($description, $limit, '...') ?><? if (strlen($description) > $limit) { ?>
-                            <div class="text-center col-xs-12"><a class="descMore btn btn-primary btn-xs"
-                                                                  data-desc="<?= $description ?>"
-                                                                  href="#więcej">więcej</a></div><? } ?></div>
+                    <div class="text"
+                         data-desc="<?= $description ?>"><?= $this->Html->truncateHtml($description, 200, '...<a class="descMore" style="margin-left:5px" href="#więcej">więcej</a>') ?></div>
                 </section>
             </div>
             <? } ?>
@@ -373,51 +626,6 @@ $description =
 </div>
 </div>
 
-<div class="col-xs-12 col-md-3 objectSide">
-
-    <? if (!$object->getData('wykreslony')) {
-        $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
-
-        echo $this->element('tools/krs_odpis', array(
-            'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-        ));
-
-        $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
-        $this->Combinator->add_libs('js', 'Pisma.pisma-button');
-        echo $this->element('tools/pismo', array(
-            'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-        ));
-
-        $page = $object->getLayer('page');
-        if (!$page['moderated'])
-            echo $this->element('tools/admin', array(
-                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-            ));
-
-    } ?>
-
-    <? if ($obszary = $object->getPage('obszary_dzialan')) { ?>
-        <? if (is_array($obszary) && count($obszary)) { ?>
-
-            <div class="block block-simple col-xs-12" style="margin-top: -2px; margin-bottom: 15px;">
-                <header>
-                    <div class="sm">Obszary działań</div>
-                </header>
-                <section>
-                    <ul class="list-group">
-                        <? foreach ($obszary as $obszar) { ?>
-                            <li class="list-group-item">
-                                <?= ucfirst($obszar['label']); ?>
-                            </li>
-                        <? } ?>
-                    </ul>
-                </section>
-            </div>
-
-        <? } ?>
-    <? } ?>
-
-</div>
 </div>
 
 <div class="powiazania block block-simple col-xs-12">
