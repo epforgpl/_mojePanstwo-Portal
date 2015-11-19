@@ -150,8 +150,6 @@ class LettersController extends StartAppController
                 $this->set('_serialize', 'response');
             }
 
-            $this->log($this->request);
-
             /* response form post save */
             if(isset($this->request->data['name'])) {
                 // update already existing response
