@@ -28,7 +28,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
         <div class="banner block">
             <div>
                 <div class="img-cog pull-left">
-                    <span class="glyphicon glyphicon-cog"></span>
+                    <i class="object-icon icon-datasets-strony"></i>
                 </div>
                 <p class="headline margin-top-20"><strong>Zarządzaj profilem</strong> <br/>swojej organizacji!</p>
             </div>

@@ -330,6 +330,15 @@ class NgoController extends ApplicationsController
                     'terms' => array(
                         'field' => 'dataset',
                     ),
+                    'aggs' => array(
+	                    'forma_prawna' => array(
+		                    'terms' => array(
+			                    'field' => 'data.krs_podmioty.forma_prawna_id',
+			                    'size' => 100,
+		                    ),
+	                    ),
+                    ),
+                    /*
                     'visual' => array(
                         'label' => 'Zbiory danych',
                         'skin' => 'datasets',
@@ -339,6 +348,7 @@ class NgoController extends ApplicationsController
                             'krs_podmioty' => 'Organizacje',
                         ),
                     ),
+                    */
                 ),
             ),
         );
@@ -402,7 +412,163 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Stowarzyszenia | NGO');
 
     }
+	
+	public function getChapters() {
 
+		$mode = false;
+
+		$items = array();		
+
+		if(
+			isset( $this->request->query['q'] ) &&
+			$this->request->query['q']
+		) {
+			
+			$items[] = array(
+				'id' => '_results',
+				'label' => 'Wyniki wyszukiwania:',
+				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+				'tool' => array(
+					'icon' => 'search',
+					'href' => '/' . $this->settings['id'],
+				),
+			);
+
+			if( $this->chapter_selected=='view' )
+				$this->chapter_selected = '_results';
+			$mode = 'results';
+
+		} else {
+			
+			$items[] = array(
+				'label' => 'Start',
+				'href' => '/' . $this->settings['id'],
+			);
+			
+		}
+		
+		
+		$map = array(
+			'dzialania' => array(
+				'menu_id' => 'dzialania',
+				'label' => 'Działania',
+			),
+			'pisma' => array(
+				'menu_id' => 'pisma',
+				'label' => 'Pisma',
+				'separator' => 'bottom',
+			),
+			'fundacje' => array(
+				'menu_id' => 'fundacje',
+				'label' => 'Fundacje',
+				'forma_prawna_id' => '1',
+			),
+			'stowarzyszenia' => array(
+				'menu_id' => 'stowarzyszenia',
+				'label' => 'Stowarzyszenia',
+				'forma_prawna_id' => '15',
+			),
+			'zwiazki_zawodowe' => array(
+				'menu_id' => 'zwiazki_zawodowe',
+				'label' => 'Związki zawodowe',
+				'forma_prawna_id' => '18',
+			),
+			'spoldzielnie' => array(
+				'menu_id' => 'spoldzielnie',
+				'label' => 'Spółdzielnie',
+				'forma_prawna_id' => '9',
+			),
+			'pozostale_ngo' => array(
+				'menu_id' => 'pozostale',
+				'label' => 'Pozostałe organizacje',
+				'forma_prawna_id' => '_other',
+			),
+		);
+		
+		
+		
+
+		
+		$others_count = 0;
+		
+		foreach( $map as $key => $value ) {
+			
+			if( !isset($value['menu_id']) )
+				$value['menu_id'] = '';
+						
+			$item = array(
+				'id' => $value['menu_id'],
+				'label' => $value['label'],
+				'href' => '/' . $this->settings['id'] . '/' . $value['menu_id'],
+				'icon' => 'icon-datasets-' . $key,
+
+			);
+
+			if( $mode == 'results' ) {
+
+				$datasets = array();
+				$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+				
+				if( @$value['forma_prawna_id'] ) {
+					foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+												
+						if( $dataset['key']=='krs_podmioty' ) {
+														
+							foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
+								if( $forma['doc_count'] ) {
+																		
+									if( $value['forma_prawna_id']==$forma['key'] ) {
+										
+										$item['count'] = $forma['doc_count'];
+										$items[] = $item;
+											
+									} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
+										
+										$others_count += $forma['doc_count'];
+										
+									}
+																		
+								}
+							}
+							
+							if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+								
+								$item['count'] = $others_count;
+								$items[] = $item;
+								
+							}
+							
+						}
+					}
+				}
+
+			} else {
+
+				$items[] = $item;
+
+			}
+
+		}
+
+
+        foreach($items as $i => $item) {
+
+            if(isset($item['submenu'])) {
+                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
+            }
+
+        }
+
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
+	
+	/*
     public function getChapters()
     {
 
@@ -441,6 +607,7 @@ class NgoController extends ApplicationsController
         return $output;
 
     }
+    */
     
     public function page()
     {
