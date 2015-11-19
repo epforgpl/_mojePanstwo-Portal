@@ -319,7 +319,7 @@ $description =
                 <header>Działania</header>
                 <section class="content">
                     <? foreach ($object_aggs['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
-                        <div class="col-xs-4">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
                             <h4>
                                 <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
                                     <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 55); ?>
@@ -327,14 +327,14 @@ $description =
                             </h4>
 
                             <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
-                                <div class="photo">
+                                <div class="photo col-xs-4 col-sm-12">
                                     <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
                                             alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>"
                                             src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
                                 </div>
                             <? } ?>
 
-                            <div class="desc">
+                            <div class="desc col-xs-8 col-sm-12">
                                 <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
                             </div>
                         </div>

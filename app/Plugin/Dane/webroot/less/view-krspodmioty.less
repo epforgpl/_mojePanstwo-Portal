@@ -245,7 +245,6 @@ ul.chart-blocks {
 
                 .photo {
                     position: relative;
-                    width: 100%;
                     height: 130px;
                     overflow: hidden;
                     border-radius: 5px;
@@ -438,10 +437,16 @@ ul.chart-blocks {
 }
 
 .dzialalnosci {
-	li {
-		margin-bottom: 10px;
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
+    li {
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .objectsPage .objectsPageWindow .krsPodmioty .dzialania .content .desc {
+        padding-left: 0;
+    }
 }
