@@ -167,7 +167,6 @@ $(document).ready(function () {
 		imageEditor = objectMain.find('.image-editor'),
 		imageAlert = imageEditor.find('.alert.alert-danger'),
 		imageChoosed = imageEditor.find('input[name="cover_photo"]'),
-		mailBlock = $('.mailBlock'),
 		googleBtn = $('.googleBtn'),
 		googleLocMeBtn = $('#loc'),
 		googleMapBlock = $('.googleMapElement'),
@@ -331,17 +330,6 @@ $(document).ready(function () {
 	$('.cancelBtn').click(function () {
 		window.location = '/dane/' + dataset + '/' + object_id;
 	});
-
-	if (mailBlock.length) {
-
-		var mailBtn = $('.mailBtn'),
-			mailElement = $('.mailElement');
-
-		mailBtn.click(function () {
-			mailElement.slideToggle();
-		});
-
-	}
 
 	/* Tags autocomplete input */
 	$(function () {

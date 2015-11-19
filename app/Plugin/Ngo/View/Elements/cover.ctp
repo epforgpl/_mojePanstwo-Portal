@@ -17,7 +17,7 @@ switch (Configure::read('Config.language')) {
 echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 
-<div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
+<div class="col-xs-12 col-sm-4 col-md-1-5 noleftpadding dataAggsContainer">
     <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
         <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
         <?
@@ -43,7 +43,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
     </div>
 </div>
 
-<div class="col-xs-12 col-md-9 col-sm-8">
+<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
 
     <div class="dataWrap">
         <div class="appBanner bottom-border">

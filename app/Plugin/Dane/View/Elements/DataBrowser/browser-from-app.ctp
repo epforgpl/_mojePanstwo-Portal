@@ -26,7 +26,7 @@ $columns = isset($columns) ? $columns : array(9, 3);
 		<? } ?>
 
 		<div class="container">
-		    <div class="row dataBrowserContent">
+            <div class="dataBrowserContent">
 
                 <?
 
