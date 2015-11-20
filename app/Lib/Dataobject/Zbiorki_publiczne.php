@@ -20,6 +20,10 @@ class Zbiorki_publiczne extends DocDataObject
 	public function getTitle() {
 		return $this->getShortTitle();
 	}
+
+    public function getTitleAddon() {
+        return $this->getData('stan_zbiorki');
+    }
 	
     public function getLabel() {
         return 'Zbiórki publiczne';
