@@ -124,9 +124,9 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 <div class="col-sm-12">
                                     <label><?= $edit ? 'Zmień' : 'Dodaj'; ?> lokalizację:</label>
 
-                                    <button class="googleRemoveBtn btn btn-link btn-icon btn-sm">
+                                    <div class="googleRemoveBtn btn btn-link btn-icon btn-sm">
                                         <i class="icon glyphicon glyphicon-remove"></i>Usuń lokalizację
-                                    </button>
+                                    </div>
 
                                     <div class="col-xs-12 googleMapElement">
                                         <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">
