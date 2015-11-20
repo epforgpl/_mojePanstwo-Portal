@@ -76,19 +76,12 @@
         display: inline-block;
         width: 100%;
 
-        .googleBtn {
-            display: none;
-            width: auto;
-            float: left;
-            padding-left: 0;
-            margin-left: 0;
+        .googleRemoveBtn {
+            color: #d9534f;
 
-            &:before {
-                margin-right: 3px;
-            }
-
-            &:focus, &:hover, &:active {
-                text-decoration: none;
+            .icon {
+                padding-right: 6px;
+                text-align: right;
             }
         }
 
@@ -97,8 +90,6 @@
             position: relative;
 
             &.loaded {
-                display: none;
-
                 #googleMap {
                     position: relative;
                     top: 0;
@@ -155,8 +146,8 @@
             #loc {
                 display: none;
                 position: absolute;
-                left: 434px;
-                top: 17px;
+                left: 370px;
+                top: 37px;
                 z-index: 1;
             }
 

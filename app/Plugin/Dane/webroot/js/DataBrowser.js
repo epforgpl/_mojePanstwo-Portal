@@ -1,34 +1,9 @@
+/*global $, Class, window, document, mPHeart, Highcharts*/
 var DataBrowser = Class.extend({
-
 	aggsDiv: false,
 
 	init: function (div) {
-
 		this.div = $(div);
-
-		/*this.div.find('.dataBrowserSearchInput[data-autocompletion=true]').autocomplete({
-		 source: function (request, response) {
-
-		 if (this.element.attr('data-autocompletion-dataset'))
-		 var dataset = this.element.attr('data-autocompletion-dataset').split(',');
-		 else
-		 var dataset = false;
-
-		 $.get('/dane/suggest.json', {
-		 q: request['term'],
-		 dataset: dataset
-		 }).done(function (data) {
-
-		 var options = [];
-		 for (var i = 0; i < data.options.length; i++)
-		 options.push(data.options[i]['text']);
-
-		 response(options);
-
-		 });
-
-		 }
-		 });*/
 
 		$('.goto .selectpicker').selectpicker('val', null).on('change', function () {
 			var href = $(this).find("option:selected").attr('href');
@@ -36,19 +11,19 @@ var DataBrowser = Class.extend({
 		});
 
 		this.initAggs();
-
-
 	},
 
 	initAggs: function () {
 		this.aggsDiv = this.div.find('.dataAggsContainer .dataAggs');
 
-		if (this.aggsDiv.length)
+		if (this.aggsDiv.length) {
 			this.aggsDiv.fadeTo('slow', 1);
+		}
 
 		var lis = this.div.find('.dataAggs .agg');
 		for (var i = 0; i < lis.length; i++) {
 			var li = $(lis[i]);
+
 			if (li.hasClass('agg-PieChart')) {
 				this.initAggPieChart(li);
 			} else if (li.hasClass('agg-DateHistogram')) {
@@ -64,7 +39,6 @@ var DataBrowser = Class.extend({
 	},
 
 	initAggGeoPL: function (li) {
-
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
 		var geo_keys = [];
@@ -77,38 +51,38 @@ var DataBrowser = Class.extend({
 			chart_options = false;
 		}
 
-		var geoType = chart_options['unit'];
+		var geoType = chart_options.unit;
 
 		$.getJSON(mPHeart.constant.ajax.api + '/geo/geojson/get?quality=4&types=' + geoType, function (res) {
-
-			var geo = Highcharts.geojson(res, 'map');
-
-			var max = 0, min = 9999999999;
+			var geo = Highcharts.geojson(res, 'map'),
+				max = 0,
+				min = 9999999999;
 			for (var i = 0; i < geo.length; i++) {
 				var found = false;
 				for (var k = 0; k < data.buckets.length; k++) {
-					if (geo[i].properties.id == data.buckets[k].key) {
+					if (geo[i].properties.id === data.buckets[k].key) {
 						geo[i].value = parseInt(data.buckets[k].doc_count);
 						geo[i].id = 'o' + geo[i].properties.id;
 						found = true;
 						break;
 					}
 				}
-				if (!found)
+				if (!found) {
 					geo[i].value = 0;
-
-				if (geo[i].value > max)
+				}
+				if (geo[i].value > max) {
 					max = geo[i].value;
-
-				if (geo[i].value < min)
+				}
+				if (geo[i].value < min) {
 					min = geo[i].value;
-
+				}
 				geo_keys[i] = geo[i].properties.id;
 			}
 
 			var type = 'linear';
-			if (min == 0 && max == 0)
+			if (min === 0 && max === 0) {
 				max = 1;
+			}
 
 			var options = {
 				title: {
@@ -178,13 +152,12 @@ var DataBrowser = Class.extend({
 	},
 
 	initAggPieChart: function (li) {
-
 		li = $(li);
-		var data = $.parseJSON(li.attr('data-chart'));
-		var pie_chart_data = [];
-		var pie_chart_keys = [];
-		var choose_request = li.attr('data-choose-request');
-		var chart_options;
+		var data = $.parseJSON(li.attr('data-chart')),
+			pie_chart_data = [],
+			pie_chart_keys = [],
+			choose_request = li.attr('data-choose-request'),
+			chart_options;
 
 		try {
 			chart_options = $.parseJSON(li.attr('data-chart-options'));
@@ -193,7 +166,6 @@ var DataBrowser = Class.extend({
 		}
 
 		for (var i = 0; i < data.buckets.length; i++) {
-
 			var label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
 
 			pie_chart_data[i] = [
@@ -217,14 +189,10 @@ var DataBrowser = Class.extend({
 							legend = chart.legend;
 
 						for (var i = 0, len = legend.allItems.length; i < len; i++) {
-							(function (i) {
-								var item = legend.allItems[i].legendItem;
-								item.on('mouseover', function (e) {
-									chart.series[0].points[i].onMouseOver();
-								});
-							})(i);
+							legend.allItems[i].legendItem.on('mouseover', function () {
+								chart.series[0].points[i].onMouseOver();
+							});
 						}
-
 					}
 				}
 			},
@@ -260,7 +228,7 @@ var DataBrowser = Class.extend({
 				data: pie_chart_data,
 				point: {
 					events: {
-						click: function (e) {
+						click: function () {
 							window.location.href = choose_request + '' + pie_chart_keys[this.index];
 							return false;
 						}
@@ -269,14 +237,14 @@ var DataBrowser = Class.extend({
 			}]
 		};
 
-		if (chart_options['mode'] == 'init') {
-
+		if (chart_options.mode === 'init') {
 			options.legend = {
 				useHTML: true,
 				labelFormatter: function () {
 					var name = this.name;
-					if (name.length > 32)
+					if (name.length > 32) {
 						name = name.substring(0, 35) + '...';
+					}
 
 					return '<a title="' + this.name + '" href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
 				},
@@ -289,7 +257,6 @@ var DataBrowser = Class.extend({
 				itemStyle: {
 					'font-weight': 'normal'
 				}
-				// itemWidth: 150
 			};
 
 		} else {
@@ -298,8 +265,9 @@ var DataBrowser = Class.extend({
 				useHTML: true,
 				labelFormatter: function () {
 					var name = this.name;
-					if (name.length > 18)
+					if (name.length > 18) {
 						name = name.substring(0, 15) + '...';
+					}
 					return '<a href="' + choose_request + '' + pie_chart_keys[this.index] + '">' + name + '</a>';
 				},
 				itemWidth: 150,
@@ -315,11 +283,12 @@ var DataBrowser = Class.extend({
 	},
 
 	getFormattedDate: function (date) {
-		var year = date.getFullYear();
-		var month = (date.getMonth() + 1).toString();
-		month = month.length == 2 ? month : '0' + month;
-		var day = date.getDate().toString();
-		day = day.length == 2 ? day : '0' + day;
+		var year = date.getFullYear(),
+			month = (date.getMonth() + 1).toString(),
+			day = date.getDate().toString();
+		month = (month.length === 2) ? month : '0' + month;
+		day = (day.length === 2) ? day : '0' + day;
+
 		return year + '-' + month + '-' + day;
 	},
 
@@ -342,10 +311,12 @@ var DataBrowser = Class.extend({
 			var date = data.buckets[i].key_as_string.split("-");
 
 			var utc = Date.UTC(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2]));
-			if (utc < dateRange.min)
+			if (utc < dateRange.min) {
 				dateRange.min = utc;
-			if (utc > dateRange.max)
+			}
+			if (utc > dateRange.max) {
 				dateRange.max = utc;
+			}
 
 			histogram_data[i] = [
 				Date.UTC(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2])),
@@ -354,8 +325,9 @@ var DataBrowser = Class.extend({
 
 			histogram_keys[i] = data.buckets[i].key_as_string;
 
-			if (max < histogram_data[i][1])
+			if (max < histogram_data[i][1]) {
 				max = histogram_data[i][1];
+			}
 		}
 
 		li.find('.chart').highcharts({
@@ -392,7 +364,6 @@ var DataBrowser = Class.extend({
 			},
 			xAxis: {
 				type: 'datetime'
-				//minRange: 365 * 24 * 3600000 // one year
 			},
 			yAxis: {
 				title: {
@@ -429,8 +400,6 @@ var DataBrowser = Class.extend({
 			series: [{
 				type: 'area',
 				name: 'Liczba',
-				//pointInterval: 383 * 24 * 3600000,
-				//pointStart: Date.UTC(1918, 0, 1),
 				point: {
 					events: {
 						click: function (e) {
@@ -460,8 +429,6 @@ var DataBrowser = Class.extend({
 			$.fn.bootstrapDP = datepicker;
 
 			li.find('a.select-date-range').first().click(function () {
-
-				var _modal = $('#selectDateRangeModal');
 				var _datepicker = $('#datepicker');
 				var _start = _datepicker.find('input[name=start]').first();
 				var _end = _datepicker.find('input[name=end]').first();
@@ -574,13 +541,14 @@ var DataBrowser = Class.extend({
 				point: {
 					events: {
 						click: function (e) {
-							var index = e.point.index;
-							var bucket = data.buckets[index];
+							var index = e.point.index,
+								bucket = data.buckets[index],
+								dataArg = ['[', bucket.from];
 
-							var dataArg = ['[', bucket.from];
 							dataArg.push(' TO ');
-							if (bucket.to)
+							if (bucket.to) {
 								dataArg.push(bucket.to);
+							}
 							dataArg.push(']');
 
 							window.location.href = choose_request + dataArg.join('');
@@ -600,24 +568,23 @@ var DataBrowser = Class.extend({
 		var choose_request = li.attr('data-choose-request');
 
 		var labelWidth = 100;
-		if (li.attr('data-label-width'))
+		if (li.attr('data-label-width')) {
 			labelWidth = parseInt(li.attr('data-label-width'));
-
-		var chartHeight = false;
-		if (li.attr('data-chart-height'))
-			chartHeight = parseInt(li.attr('data-chart-height'));
+		}
 
 		var counter_field = li.attr('data-counter_field');
-		if (!counter_field)
+		if (!counter_field) {
 			counter_field = 'doc_count';
+		}
 
 		var label_field = li.attr('data-label_field');
-		if (!label_field)
+		if (!label_field) {
 			label_field = 'label';
+		}
 
 		var image_field = li.attr('data-image_field');
 
-		var escape_html_label = li.attr('data-escape-html') == '1';
+		var escape_html_label = li.attr('data-escape-html') === '1';
 
 		var columns_horizontal_data = [];
 		var columns_horizontal_categories = [];
@@ -626,8 +593,9 @@ var DataBrowser = Class.extend({
 
 		for (var i = 0; i < data.buckets.length; i++) {
 
-			if (data.buckets[i][label_field].buckets.length === 0)
+			if (data.buckets[i][label_field].buckets.length === 0) {
 				continue;
+			}
 
 			columns_horizontal_categories[i] = {
 				name: data.buckets[i][label_field].buckets[0].key,
@@ -641,9 +609,7 @@ var DataBrowser = Class.extend({
 			columns_horizontal_data[i] = (data.buckets[i].label ? data.buckets[i].label.buckets[0][counter_field] : false) || data.buckets[i][counter_field]['value'] || data.buckets[i][counter_field];
 			columns_horizontal_keys[i] = data.buckets[i].key;
 			if (image_field && typeof data.buckets[i][image_field].buckets[0] !== 'undefined') {
-				columns_horizontal_images[
-					columns_horizontal_categories[i]['name']
-					] = data.buckets[i][image_field].buckets[0].key;
+				columns_horizontal_images[columns_horizontal_categories[i].name] = data.buckets[i][image_field].buckets[0].key;
 			}
 		}
 
@@ -675,16 +641,14 @@ var DataBrowser = Class.extend({
 						legend = this.series[0].chart.axes[0].labelGroup.element;
 
 					for (var i = 0, len = legend.childNodes.length; i < len; i++) {
-						(function (i) {
-							var item = legend.childNodes[i];
-							item.onmouseover = function (e) {
-								chart.series[0].points[i].onMouseOver();
-							};
+						var item = legend.childNodes[i];
+						item.onmouseover = function (e) {
+							chart.series[0].points[i].onMouseOver();
+						};
 
-							item.onclick = function (e) {
-								$(chart.series[0].points[i].graphic.element).click();
-							}
-						})(i);
+						item.onclick = function (e) {
+							$(chart.series[0].points[i].graphic.element).click();
+						}
 					}
 
 				}
@@ -709,8 +673,9 @@ var DataBrowser = Class.extend({
 						var el = this.value,
 							v = el.name;
 
-						if (v.length > (((labelWidth / 10) * 2) - 2))
+						if (v.length > (((labelWidth / 10) * 2) - 2)) {
 							v = v.substring(0, ((labelWidth / 10) * 2) - 5) + '...';
+						}
 
 						if (image_field) {
 							return [
@@ -791,15 +756,17 @@ var DataBrowser = Class.extend({
 
 	scienNotationToNum: function (str) {
 		var number = str[0];
-		for (var i = 0; i <= parseInt(str[str.length - 1]); i++)
+		for (var i = 0; i <= parseInt(str[str.length - 1]); i++) {
 			number += '0';
+		}
 		return number;
 	},
 
 	prepareNumeric: function (str) {
 		var number = str[0];
-		if (str.indexOf('E') > -1)
+		if (str.indexOf('E') > -1) {
 			str = this.scienNotationToNum(str);
+		}
 		var zeros = str.split('0').length - 2;
 		var addZeros = 0;
 		var unit = '';
@@ -815,8 +782,9 @@ var DataBrowser = Class.extend({
 			addZeros = zeros - 6;
 		}
 
-		for (var i = 0; i < addZeros; i++)
+		for (var i = 0; i < addZeros; i++) {
 			newStr += '0';
+		}
 
 		newStr += unit;
 
@@ -846,13 +814,28 @@ $(document).ready(function () {
 	}
 
 	$('form.searchForm').submit(function () {
-		var value = $(this).find('input').val();
-		if (value == '')
+		var value = $(this).find('input').val(),
+			data_url = $(this).attr('data-url'),
+			c = data_url.indexOf('?') === -1 ? '?' : '&';
+
+		if (value === '') {
 			return false;
-		var data_url = $(this).attr('data-url');
-		var c = data_url.indexOf('?') === -1 ? '?' : '&';
+		}
 		window.location.href = $(this).attr('data-url') + c + 'q=' + value;
 		return false;
 	});
-
+	var $dropdownToggleManual = $('.dropdown-toggle-manual');
+	if ($dropdownToggleManual.length) {
+		$dropdownToggleManual.each(function () {
+			var dTM = $(this);
+			dTM.click(function () {
+				var sub = dTM.parent().find('.dropdown-menu');
+				if (sub.hasClass('open')) {
+					sub.removeClass('open').hide();
+				} else {
+					sub.addClass('open').show();
+				}
+			});
+		});
+	}
 });

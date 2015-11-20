@@ -1,4 +1,4 @@
-/*global $,JQuery, mPHeart, google*/
+/*global $,JQuery, mPHeart, google, tinymce*/
 var googleMap,
 	geolocalizateMe,
 	markers = [];
@@ -20,8 +20,10 @@ function initialize() {
 	googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
 	google.maps.event.addListenerOnce(googleMap, 'idle', function () {
-		$('.googleBtn').fadeIn();
 		$('.googleMapElement').addClass('loaded');
+		$('#loc').css({
+			left: $('#pac-input').position().left + $('#pac-input').outerWidth() - 10
+		});
 	});
 
 
@@ -45,7 +47,7 @@ function initialize() {
 	google.maps.event.addListener(searchBox, 'places_changed', function () {
 		var places = searchBox.getPlaces();
 
-		if (places.length == 0) {
+		if (places.length === 0) {
 			return;
 		}
 		for (var i = 0, marker; marker = markers[i]; i++) {
@@ -139,6 +141,10 @@ function initialize() {
 			googleMap.setCenter(options.position);
 		}
 	};
+
+	$('.googleRemoveBtn').click(function () {
+		clearMarkers();
+	});
 }
 
 function clearMarkers() {
@@ -161,13 +167,9 @@ function loadScript() {
 }
 
 $(document).ready(function () {
-
 	var objectMain = $('.objectMain'),
 		form = $('form.dzialanie'),
 		imageEditor = objectMain.find('.image-editor'),
-		imageAlert = imageEditor.find('.alert.alert-danger'),
-		imageChoosed = imageEditor.find('input[name="cover_photo"]'),
-		googleBtn = $('.googleBtn'),
 		googleLocMeBtn = $('#loc'),
 		googleMapBlock = $('.googleMapElement'),
 		header = $('.appHeader.dataobject').first(),
@@ -259,15 +261,6 @@ $(document).ready(function () {
 			}
 		});
 	}
-	googleBtn.click(function () {
-		var $pac = $('#pac-input');
-
-		googleMapBlock.slideToggle();
-		$('#loc').css('left', $pac.position().left + $pac.outerWidth() - 8);
-		$('html, body').animate({
-			scrollTop: $('#googleMap').offset().top
-		});
-	});
 
 	googleLocMeBtn.click(function () {
 		geolocalizateMe();
@@ -375,20 +368,19 @@ $(document).ready(function () {
 
 	$('.sticky').sticky();
 
-	$('.activitiesResponse').each(function() {
-
+	$('.activitiesResponse').each(function () {
 		var form = $(this),
 			url = $(this).data('url'),
 			dropzone = form.find('.dropzoneForm').first(),
-			DropZone = {},
+			DropZone,
 			btn = form.find('.btn-addfile').first();
 
 		DropZone = new Dropzone(dropzone[0], {
 			url: url,
-			init: function() {
+			init: function () {
 				var self = this;
-				self.on('success', function(file, response) {
-					if(
+				self.on('success', function (file, response) {
+					if (
 						response === true || (
 							typeof response.response !== 'undefined' &&
 							response.response === true
@@ -401,7 +393,7 @@ $(document).ready(function () {
 					}
 				});
 
-				self.on('error', function(file, response) {
+				self.on('error', function (file, response) {
 					$(file.previewElement)
 						.find('.progress-bar')
 						.first()

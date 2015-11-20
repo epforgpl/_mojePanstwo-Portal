@@ -122,14 +122,17 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         <div class="form-group googleBlock margin-top-30">
                             <div class="row">
                                 <div class="col-sm-12">
-                                            <span class="btn btn-link googleBtn" data-icon="&#xe607;">
-                                                <?= $edit ? 'Zmień' : 'Dodaj'; ?> lokalizację
-                                            </span>
+                                    <label><?= $edit ? 'Zmień' : 'Dodaj'; ?> lokalizację:</label>
+
+                                    <button class="googleRemoveBtn btn btn-link btn-icon btn-sm">
+                                        <i class="icon glyphicon glyphicon-remove"></i>Usuń lokalizację
+                                    </button>
 
                                     <div class="col-xs-12 googleMapElement">
                                         <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">
 
                                         <div id="loc" class="btn btn-sm"><i data-icon="&#xe607;"></i></div>
+                                        <span class="small">Jesli działanie odbywa się w określonej lokalizacji to zaznacz ją na mapie</span>
 
                                         <div id="googleMap"></div>
                                         <input
@@ -173,15 +176,6 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 <input type="radio" name="status" id="widocznosc_brudnopis"
                                        value="0" <? if ($edit && $dzialanie->getData('status') == '0') echo 'checked'; ?>>
                                 <label for="widocznosc_brudnopis" class="checkbox-label">Brudnopis</label>
-                            </div>
-                        </div>
-                        <div class="form-group margin-top-20">
-                            <label>Status</label><br/>
-
-                            <div class="checkbox">
-                                <input type="checkbox" value="1" id="status_zakonczone"
-                                       name="zakonczone" <? if ($edit && $dzialanie->getData('zakonczone') == '1') echo 'checked'; ?>/>
-                                <label for="status_zakonczone" class="text-normal">Zakończone</label>
                             </div>
                         </div>
                         <button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">
