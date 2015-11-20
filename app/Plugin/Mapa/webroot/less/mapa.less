@@ -264,10 +264,9 @@
     .explore {
         width: 100%;
         padding-left: 280px;
-        height: 0;
         max-height: 100px;
         position: absolute;
-        bottom: 0;
+        bottom: 1px;
         right: 0;
         background-color: #F8F9FA;
         border-top: 1px solid #bbbbbb;
@@ -303,41 +302,53 @@
                 }
             }
         }
-        .komisje_wyborcze_content {
-            .komisjeShow {
-                font-size: 12px;
-                margin-left: 12px;
-                margin-bottom: 0;
+
+        .explorerContent {
+            display: inline-block;
+            overflow: hidden;
+            width: 100%;
+            float: left;
+
+            > div, > section {
+                padding: 0 20px;
             }
-            ul.meta {
-                list-style: outside none none;
-                margin: 0 8px;
-                padding: 5px;
 
-                > li {
-                    display: inline-block;
-                    margin: 3px 0;
-                    padding: 1px 15px 1px 0;
-                    text-align: center;
-                    float: left;
-                    clear: both;
+            &.komisje_wyborcze_content {
+                .komisjeShow {
+                    font-size: 12px;
+                    margin-left: 12px;
+                    margin-bottom: 0;
+                }
+                ul.meta {
+                    list-style: outside none none;
+                    margin: 0 8px;
+                    padding: 5px;
 
-                    > label {
-                        color: #789;
+                    > li {
+                        display: inline-block;
+                        margin: 3px 0;
+                        padding: 1px 15px 1px 0;
+                        text-align: center;
                         float: left;
-                        font-size: 9px;
-                        font-weight: 600;
-                        line-height: 0.75em;
-                        margin: 7px 0 0;
-                        padding: 0;
-                        text-transform: uppercase;
-                    }
+                        clear: both;
 
-                    > a {
-                        float: left;
-                        margin: -1px 0 0 4px;
-                        padding: 0;
-                        text-align: left;
+                        > label {
+                            color: #789;
+                            float: left;
+                            font-size: 9px;
+                            font-weight: 600;
+                            line-height: 0.75em;
+                            margin: 7px 0 0;
+                            padding: 0;
+                            text-transform: uppercase;
+                        }
+
+                        > a {
+                            float: left;
+                            margin: -1px 0 0 4px;
+                            padding: 0;
+                            text-align: left;
+                        }
                     }
                 }
             }
