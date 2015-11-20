@@ -389,7 +389,8 @@ $(document).ready(function () {
 						$(file.previewElement)
 							.find('.progress-bar')
 							.first()
-							.addClass('progress-bar-success');
+							.addClass('progress-bar-success')
+							.removeClass('active');
 					}
 				});
 
@@ -397,7 +398,8 @@ $(document).ready(function () {
 					$(file.previewElement)
 						.find('.progress-bar')
 						.first()
-						.addClass('progress-bar-danger');
+						.addClass('progress-bar-danger')
+						.removeClass('active');
 				});
 			},
 			clickable: '.btn-addfile',
