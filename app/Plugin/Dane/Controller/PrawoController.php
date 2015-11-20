@@ -74,6 +74,7 @@ class PrawoController extends DataobjectsController
                 'dataset' => 'prawo',
                 'prawo.' . $id => $this->object->getId(),
             ),
+            'browserTitle' => $title . ':',
         ));
 		
         $this->set('title_for_layout', $title . ': ' . $this->object->getTitle());
@@ -82,67 +83,67 @@ class PrawoController extends DataobjectsController
 	
 	public function podstawa_prawna()
     {
-        return $this->connections_view('podstawa_prawna', 'Podstawa prawna');
+        return $this->connections_view('podstawa_prawna', 'Podstawy prawne do tego aktu');
     }
 	
     public function podstawa_prawna_z_artykulem()
     {
-        return $this->connections_view('podstawa_prawna_z_artykulem', 'Podstawa prawna z artykułem');
+        return $this->connections_view('podstawa_prawna_z_artykulem', 'Podstawy prawne z artykułem do tego aktu');
     }
 
     public function akty_zmienione()
     {
-        return $this->connections_view('akty_zmienione', 'Akty zmienione');
+        return $this->connections_view('akty_zmienione', 'Akty zmienione przez ten akt');
     }
 
     public function akty_wykonawcze()
     {
-        return $this->connections_view('akty_wykonawcze', 'Akty wykonawcze');
+        return $this->connections_view('akty_wykonawcze', 'Akty wykonawcze wydane do tego aktu');
     }
 
     public function akty_uchylone()
     {
-        return $this->connections_view('akty_uchylone', 'Akty uchylone');
+        return $this->connections_view('akty_uchylone', 'Akty uchylone przez ten akt');
     }
 
     public function akty_uznane_za_uchylone()
     {
-        return $this->connections_view('akty_uznane_za_uchylone', 'Akty uznane za uchylone');
+        return $this->connections_view('akty_uznane_za_uchylone', 'Akty uznane za uchylone przez ten akt');
     }
 
     public function orzeczenie_do_aktu()
     {
-        return $this->connections_view('orzeczenie_do_aktu', 'Orzeczenia do aktu');
+        return $this->connections_view('orzeczenie_do_aktu', 'Orzeczenia do tego aktu');
     }
 
     public function tekst_jednolity_do_aktu()
     {
-        return $this->connections_view('tekst_jednolity_do_aktu', 'Tekst jednolity do aktu');
+        return $this->connections_view('tekst_jednolity_do_aktu', 'Teksty jednolite tego aktu');
     }
 
     public function orzeczenia_tk()
     {
-        return $this->connections_view('orzeczenie_tk', 'Orzeczenia TK');
+        return $this->connections_view('orzeczenie_tk', 'Orzeczenia Trybunału Konstytucyjnego do tego aktu');
     }
 
     public function informacja_o_tekscie_jednolitym()
     {
-        return $this->connections_view('informacja_o_tekscie_jednolitym', 'Informacje o tekście jednolitym');
+        return $this->connections_view('informacja_o_tekscie_jednolitym', 'Informacje o tekście jednolitym tego aktu');
     }
 
     public function akty_zmieniajace()
     {
-        return $this->connections_view('akty_zmieniajace', 'Nowelizacje');
+        return $this->connections_view('akty_zmieniajace', 'Nowelizacje tego aktu');
     }
 
     public function akty_uchylajace()
     {
-        return $this->connections_view('akty_uchylajace', 'Akty uchylające');
+        return $this->connections_view('akty_uchylajace', 'Akty uchylające ten akt');
     }
 
     public function uchylenia_wynikajace_z()
     {
-        return $this->connections_view('uchylenia_wynikajace_z', 'Uchylenia wynikające z');
+        return $this->connections_view('uchylenia_wynikajace_z', 'Uchylenia wynikające z tego aktu');
     }
 
     public function dyrektywy_europejskie()
@@ -152,7 +153,7 @@ class PrawoController extends DataobjectsController
 
     public function odeslania()
     {
-        return $this->connections_view('odeslania', 'Odesłania');
+        return $this->connections_view('odeslania', 'Odesłania zawarte w tym akcie');
     }
 
 	public function getMenu()

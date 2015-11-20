@@ -5,13 +5,17 @@
     if (isset($title)) {
         echo '<h2>' . $title . '</h2>';
     }
-
+	
+	
     $_searcher = isset($dataBrowser['searcher']) ? $dataBrowser['searcher'] : true;
     if (isset($searcher))
         $_searcher = $_searcher && $searcher;
+        
+    if( isset($searcher) )
+    	$_searcher = $searcher;
 
     if ($_searcher) {
-
+		
         $value = isset($this->request->query['q']) ? addslashes($this->request->query['q']) : '';
         $autocompletion = (@$dataBrowser['autocompletion']) ? $dataBrowser['autocompletion'] : false;
         $placeholder = (isset($dataBrowser['searchTitle']) && ($dataBrowser['searchTitle'])) ? addslashes($dataBrowser['searchTitle']) : 'Szukaj...';
@@ -25,6 +29,7 @@
 	        'url' => $url,
 	        'searchTag' => isset($dataBrowser['searchTag']) ? $dataBrowser['searchTag'] : false,
 	        'dataBrowser' => isset($dataBrowser) ? $dataBrowser : false,
+	        'size' => isset($size) ? $size : 'sm',
         )) ?>
 
     <? } ?>

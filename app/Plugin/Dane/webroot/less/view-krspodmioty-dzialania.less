@@ -76,19 +76,15 @@
         display: inline-block;
         width: 100%;
 
-        .googleBtn {
-            display: none;
-            width: auto;
-            float: left;
-            padding-left: 0;
-            margin-left: 0;
+        .googleRemoveBtn {
+            color: #d9534f;
+            float: right;
+            padding-top: 4px;
+            padding-bottom: 4px;
 
-            &:before {
-                margin-right: 3px;
-            }
-
-            &:focus, &:hover, &:active {
-                text-decoration: none;
+            .icon {
+                padding-right: 6px;
+                text-align: right;
             }
         }
 
@@ -97,8 +93,6 @@
             position: relative;
 
             &.loaded {
-                display: none;
-
                 #googleMap {
                     position: relative;
                     top: 0;
@@ -155,8 +149,8 @@
             #loc {
                 display: none;
                 position: absolute;
-                left: 434px;
-                top: 17px;
+                left: 370px;
+                top: 37px;
                 z-index: 1;
             }
 
@@ -250,6 +244,19 @@
             -ms-transition: height 0.8s;
             -o-transition: height 0.8s;
             transition: height 0.8s;
+        }
+    }
+
+    .widocznosc {
+        .radioBlock {
+            display: inline-block;
+            margin-bottom: 15px;
+
+            .radio {
+                float: left;
+                margin: 10px 15px 10px 0;
+                width: auto;
+            }
         }
     }
 }

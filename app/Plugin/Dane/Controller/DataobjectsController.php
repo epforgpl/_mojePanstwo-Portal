@@ -292,6 +292,8 @@ class DataobjectsController extends AppController
         if(!$this->_canEdit())
             throw new ForbiddenException;
 
+        $this->ActivitiesFile = $this->Components->load('Dane.ActivitiesFile');
+        $this->ActivitiesFile->delete();
         $this->render('Dane.KrsPodmioty/dzialanie_form');
     }
 
@@ -380,6 +382,7 @@ class DataobjectsController extends AppController
                     'pisma.object_id' => $this->object->getGlobalId(),
                 ),
                 'searchTitle' => 'Szukaj w pismach...',
+                'browserTitle' => 'Pisma:',
                 'objectOptions' => array(
                     'public' => true,
                     'base_url' => $this->object->getUrl()
@@ -492,6 +495,9 @@ class DataobjectsController extends AppController
 
             $this->set('dzialanie', $dzialanie);
 
+            $this->loadModel('Dane.ActivitiesFiles');
+            $this->set('files', $this->ActivitiesFiles->getByActivity($dzialanie->getId()));
+
             if(@$this->request->params['subaction'] == 'edytuj') {
 
                 if($this->_canEdit()) {
@@ -516,19 +522,42 @@ class DataobjectsController extends AppController
 
         } else {
 
+            $conditions = array(
+                'dataset' => 'dzialania',
+                'dzialania.dataset' => $this->object->getDataset(),
+                'dzialania.object_id' => $this->object->getId(),
+            );
+
+            if(!$this->_canEdit()) {
+                $conditions['dzialania.status'] = '1';
+            }
+
             $this->Components->load('Dane.DataBrowser', array(
-                'conditions' => array(
-                    'dataset' => 'dzialania',
-                    'dzialania.dataset' => $this->object->getDataset(),
-                    'dzialania.object_id' => $this->object->getId(),
-                ),
+                'conditions' => $conditions,
                 'aggsPreset' => 'dzialania_admin',
                 'searchTitle' => 'Szukaj w działaniach...',
+                'browserTitle' => 'Działania:',
+                'browserTitleElement' => 'Dane.dodaj_dzialanie',
             ));
 
             $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
             $this->render('Dane.KrsPodmioty/dzialania');
         }
+    }
+
+    public function zalacznik() {
+        if(!$this->objectActivities)
+            throw new NotFoundException;
+
+        if(isset($this->request->params['subid']) && isset($this->request->params['subslug'])) {
+            $this->loadModel('Dane.ActivitiesFiles');
+            $this->redirect(
+                $this->ActivitiesFiles->getFile(
+                    (int) $this->request->params['subid'],
+                    (int) $this->request->params['subslug']
+                )
+            );
+        } else throw new NotFoundException;
     }
 
 	public function addObjectEditable($e)
@@ -732,9 +761,11 @@ class DataobjectsController extends AppController
                     $this->_prepareView();
                     $this->request->data['owner_name'] = $this->object->getTitle();
 
+                    $this->ActivitiesFile = $this->Components->load('Dane.ActivitiesFile');
+                    $this->request->data['files'] = $this->ActivitiesFile->getFiles();
+                    $this->ActivitiesFile->clear();
                 }
             }
-
 
 		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
 			    'method' => 'POST',
@@ -759,6 +790,23 @@ class DataobjectsController extends AppController
             );
         }
 
+    }
+
+    public function uploadActivityFile() {
+        if(!$this->objectActivities || !isset($this->request->params['form']['file']))
+            throw new NotFoundException;
+
+        if(!$this->_canEdit())
+            throw new ForbiddenException;
+
+        $this->ActivitiesFile = $this->Components->load('Dane.ActivitiesFile');
+
+        $response = $this->ActivitiesFile->save(
+            $this->request->params['form']['file']
+        );
+
+        $this->set('response', $response);
+        $this->set('_serialize', array('response'));
     }
 
 }

@@ -2,12 +2,12 @@
 
 App::uses('Component', 'Controller');
 
-class LettersResponseFileComponent extends Component {
+class ActivitiesFileComponent extends Component {
 
     public $components = array('S3', 'Auth', 'Session');
 
-    private $name = 'letters_response_files';
-    private static $path = 'letters/responses/';
+    private static $name = 'activities_files';
+    private static $path = 'activities/files/';
 
     private static $extensions = array('pdf','docx','doc','tif','html','jpg','xml','xls','xlsx','rtf','png');
 
@@ -30,7 +30,7 @@ class LettersResponseFileComponent extends Component {
             in_array($ext, self::$extensions) &&
             $res
         ) {
-            $files = $this->Session->read($this->name);
+            $files = $this->Session->read(self::$name);
             if (!$files)
                 $files = array();
 
@@ -38,7 +38,7 @@ class LettersResponseFileComponent extends Component {
                 'filename' => $name,
                 'src_filename' => $file['name']
             );
-            $this->Session->write($this->name, $files);
+            $this->Session->write(self::$name, $files);
             return true;
         }
 
@@ -46,24 +46,20 @@ class LettersResponseFileComponent extends Component {
     }
 
     public function getFiles() {
-        $files = $this->Session->read($this->name);
+        $files = $this->Session->read(self::$name);
         return $files ? $files : array();
     }
 
     public function clear() {
-        $this->Session->delete($this->name);
+        $this->Session->delete(self::$name);
     }
 
     public function delete() {
         foreach($this->getFiles() as $file) {
-            $this->S3->deleteObject(S3Component::$bucket, $this->name . $file['filename']);
+            $this->S3->deleteObject(S3Component::$bucket, self::$path . $file['filename']);
         }
 
         $this->clear();
-    }
-
-    public function setName($name) {
-        $this->name = $name;
     }
 
 }

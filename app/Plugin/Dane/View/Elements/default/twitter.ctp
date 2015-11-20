@@ -42,7 +42,7 @@
                     class="glyphicon glyphicon-retweet"></span> <?= number_format($object->getData('liczba_retweetow'), 0, '.', ' ') ?></p>
                     
         <p class="_counter" title="Liczba ulubionych"><span
-                    class="glyphicon glyphicon-star"></span> <?= number_format($object->getData('liczba_ulubionych'), 0, '.', ' ') ?></p>
+                    class="glyphicon glyphicon-heart"></span> <?= number_format($object->getData('liczba_ulubionych'), 0, '.', ' ') ?></p>
             
         <p class="_counter" title="Licza odpowiedzi"><span
                     class="glyphicon glyphicon-comment"></span> <?= $object->getData('liczba_odpowiedzi') ?>

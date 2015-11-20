@@ -169,5 +169,9 @@ class BdlController extends ApplicationsController
 		}
 		
     }
+    
+    public function getChapters() {
+	    return array();
+	}
 
 }

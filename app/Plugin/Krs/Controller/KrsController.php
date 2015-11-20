@@ -8,6 +8,7 @@ class KrsController extends ApplicationsController
     public $settings = array(
         'id' => 'krs',
         'title' => 'Krajowy Rejestr Sądowy',
+        'shortTitle' => 'KRS',
         'subtitle' => 'Dane gospodarcze o firmach i osobach',
         'headerImg' => 'krs',
     );

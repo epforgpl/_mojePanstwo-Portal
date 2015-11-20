@@ -43,7 +43,7 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                         </a>
                     </div>
                 <? } ?>
-                <div class="holderBlock col-md-9">
+                <div class="holderBlock col-xs-9">
 
                     <? if( $_breadcrumbs ) { ?>
                         <ul class="breadcrumb">
@@ -70,7 +70,7 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                         </h1>
                     </div>
                 </div>
-                <div class="col-md-3 DataObjectOptions">
+                <div class="DataObjectOptions col-xs-3">
 
                     <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
                         <div class="option"><?= $this->element('modals/dataobject-observe'); ?></div>

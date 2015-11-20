@@ -1,4 +1,4 @@
-/*global $,JQuery, mPHeart, google*/
+/*global $,JQuery, mPHeart, google, tinymce*/
 var googleMap,
 	geolocalizateMe,
 	markers = [];
@@ -20,8 +20,10 @@ function initialize() {
 	googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
 	google.maps.event.addListenerOnce(googleMap, 'idle', function () {
-		$('.googleBtn').fadeIn();
 		$('.googleMapElement').addClass('loaded');
+		$('#loc').css({
+			left: $('#pac-input').position().left + $('#pac-input').outerWidth() - 10
+		});
 	});
 
 
@@ -45,7 +47,7 @@ function initialize() {
 	google.maps.event.addListener(searchBox, 'places_changed', function () {
 		var places = searchBox.getPlaces();
 
-		if (places.length == 0) {
+		if (places.length === 0) {
 			return;
 		}
 		for (var i = 0, marker; marker = markers[i]; i++) {
@@ -139,6 +141,10 @@ function initialize() {
 			googleMap.setCenter(options.position);
 		}
 	};
+
+	$('.googleRemoveBtn').click(function () {
+		clearMarkers();
+	});
 }
 
 function clearMarkers() {
@@ -161,14 +167,9 @@ function loadScript() {
 }
 
 $(document).ready(function () {
-
 	var objectMain = $('.objectMain'),
 		form = $('form.dzialanie'),
 		imageEditor = objectMain.find('.image-editor'),
-		imageAlert = imageEditor.find('.alert.alert-danger'),
-		imageChoosed = imageEditor.find('input[name="cover_photo"]'),
-		mailBlock = $('.mailBlock'),
-		googleBtn = $('.googleBtn'),
 		googleLocMeBtn = $('#loc'),
 		googleMapBlock = $('.googleMapElement'),
 		header = $('.appHeader.dataobject').first(),
@@ -227,7 +228,7 @@ $(document).ready(function () {
 		} else {
 			$('.image-editor:visible').parent('.form-group').prepend(
 				$('<div></div>').addClass('alert alert-danger').text(error.message).slideDown()
-			)
+			);
 		}
 	};
 
@@ -260,15 +261,6 @@ $(document).ready(function () {
 			}
 		});
 	}
-	googleBtn.click(function () {
-		var $pac = $('#pac-input');
-
-		googleMapBlock.slideToggle();
-		$('#loc').css('left', $pac.position().left + $pac.outerWidth() - 8);
-		$('html, body').animate({
-			scrollTop: $('#googleMap').offset().top
-		});
-	});
 
 	googleLocMeBtn.click(function () {
 		geolocalizateMe();
@@ -332,17 +324,6 @@ $(document).ready(function () {
 		window.location = '/dane/' + dataset + '/' + object_id;
 	});
 
-	if (mailBlock.length) {
-
-		var mailBtn = $('.mailBtn'),
-			mailElement = $('.mailElement');
-
-		mailBtn.click(function () {
-			mailElement.slideToggle();
-		});
-
-	}
-
 	/* Tags autocomplete input */
 	$(function () {
 
@@ -386,6 +367,65 @@ $(document).ready(function () {
 	});
 
 	$('.sticky').sticky();
+
+	$('.activitiesResponse').each(function () {
+		var form = $(this),
+			url = $(this).data('url'),
+			dropzone = form.find('.dropzoneForm').first(),
+			DropZone,
+			btn = form.find('.btn-addfile').first();
+
+		DropZone = new Dropzone(dropzone[0], {
+			url: url,
+			init: function () {
+				var self = this;
+				self.on('success', function (file, response) {
+					if (
+						response === true || (
+							typeof response.response !== 'undefined' &&
+							response.response === true
+						)
+					) {
+						$(file.previewElement)
+							.find('.progress-bar')
+							.first()
+							.addClass('progress-bar-success')
+							.removeClass('active');
+					}
+				});
+
+				self.on('error', function (file, response) {
+					$(file.previewElement)
+						.find('.progress-bar')
+						.first()
+						.addClass('progress-bar-danger')
+						.removeClass('active');
+				});
+			},
+			clickable: '.btn-addfile',
+			createImageThumbnails: false,
+			acceptedFiles: '.pdf,.docx,.doc,.tif,.html,.jpg,.xml,.xls,.xlsx,.rtf,.png',
+			autoQueue: true,
+			autoProcessQueue: true,
+			previewsContainer: '#preview',
+			previewTemplate: [
+				'<div class="file">',
+				'<div class="title">',
+				'<span class="name" data-dz-name></span>',
+				'<span class="size" data-dz-size></span>',
+				'<span class="error text-danger" data-dz-errormessage></span>',
+				'</div>',
+				'<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">',
+				'<div class="progress-bar" style="width:0%;" data-dz-uploadprogress>',
+				'</div>',
+				'</div>',
+				'<div class="buttons">',
+				'</div>',
+				'</div>'
+			].join('')
+		});
+
+	});
 
 	/*ASYNCHRONIZE ACTION FOR GOOGLE MAP*/
 	window.onload = loadScript();

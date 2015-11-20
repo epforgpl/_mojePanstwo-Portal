@@ -52,6 +52,17 @@ $(document).ready(function() {
 		},
 
 		getObjects: function(onSuccess) {
+			var editables = $('.appHeader.dataobject').first().data('editables');
+			if(
+				mPHeart.user_id == '' ||
+				(editables instanceof Array) === false ||
+				editables.indexOf('users') == -1
+			) {
+				this.objects = [];
+				onSuccess();
+				return false;
+			}
+
 			var _this = this;
 			if(this.objects != null) {
 				onSuccess();

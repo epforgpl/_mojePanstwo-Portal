@@ -247,11 +247,10 @@ jQuery(document).ready(function () {
     });
 
 	objectMain.find('.descBlock .text .descMore').on('click', function (e) {
-        var that = $(this),
-			main = objectMain.find('.descBlock .text');
+		var main = objectMain.find('.descBlock .text');
 
         e.preventDefault();
 
-		main.html(that.attr('data-desc'));
+		main.html(main.attr('data-desc'));
     });
 });

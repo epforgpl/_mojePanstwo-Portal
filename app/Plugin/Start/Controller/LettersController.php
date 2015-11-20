@@ -132,33 +132,62 @@ class LettersController extends StartAppController
 
             /* single file upload to s3, push file name to session */
             if(isset($this->request->params['form']['file'])) {
-                $this->set(
-                    'response',
-                    $this->LettersResponseFile->save(
+                // upload file to already existing response
+                if(isset($this->request->params['response_id'])) {
+                    $response_id = (int) $this->request->params['response_id'];
+                    $this->LettersResponseFile->setName('letters_response_files_' . $response_id);
+                    $response = $this->LettersResponseFile->save(
                         $this->request->params['form']['file']
-                    )
-                );
+                    );
+                // upload file to new response
+                } else {
+                    $response = $this->LettersResponseFile->save(
+                        $this->request->params['form']['file']
+                    );
+                }
 
+                $this->set('response', $response);
                 $this->set('_serialize', 'response');
             }
 
             /* response form post save */
             if(isset($this->request->data['name'])) {
-                $res = $this->LetterResponse->save(
-                    $id,
-                    array_merge($this->request->data, array(
-                        'files' => $this->LettersResponseFile->getFiles()
-                    ))
-                );
+                // update already existing response
+                if(isset($this->request->params['response_id'])) {
+                    $data = $this->request->data;
+                    $response_id = (int) $this->request->params['response_id'];
 
-                if($res) {
-                    $this->LettersResponseFile->clear();
-                    $this->Session->setFlash('Odpowiedź została poprawnie dodana');
+                    $this->LettersResponseFile->setName('letters_response_files_' . $response_id);
+                    $data['session_files'] = $this->LettersResponseFile->getFiles();
+
+                    $response = $this->LetterResponse->update($id, $response_id, $data);
+                    if($response) {
+                        $this->LettersResponseFile->clear();
+                        $this->Session->setFlash('Odpowiedź została poprawnie zaktualizwana');
+                    } else {
+                        $this->Session->setFlash('Wystąpił błąd podczas aktualizacji odpowiedzi');
+                    }
+
+                    $this->set('response', $response);
+                    $this->set('_serialize', 'response');
+                // create new response
                 } else {
-                    $this->Session->setFlash('Wystąpił błąd podczas dodawania odpowiedzi');
-                }
+                    $res = $this->LetterResponse->save(
+                        $id,
+                        array_merge($this->request->data, array(
+                            'files' => $this->LettersResponseFile->getFiles()
+                        ))
+                    );
 
-                $this->redirect($this->referer());
+                    if ($res) {
+                        $this->LettersResponseFile->clear();
+                        $this->Session->setFlash('Odpowiedź została poprawnie dodana');
+                    } else {
+                        $this->Session->setFlash('Wystąpił błąd podczas dodawania odpowiedzi');
+                    }
+
+                    $this->redirect($this->referer());
+                }
             }
 
             $this->title = $this->title . ' - Odpowiedzi';

@@ -11,6 +11,8 @@ class DataBrowserComponent extends Component
     private $cover = false;
     private $chapters = array();
     private $searchTitle = false;
+    private $browserTitle = false;
+    private $browserTitleElement = false;
     private $searchTag = false;
     private $autocompletion = false;
     private $aggsMode = false;
@@ -1328,7 +1330,7 @@ class DataBrowserComponent extends Component
 
     public function __construct($collection, $settings)
     {
-				
+		
 		if (
             (
                 !isset($settings['objectOptions']) ||
@@ -1381,7 +1383,13 @@ class DataBrowserComponent extends Component
 
         if( isset($settings['aggs']) )
         	$settings['aggs'] = $this->processAggs( $settings['aggs'] );
-
+        	
+        if( isset($settings['browserTitle']) )
+        	$settings['browserTitle'] = $settings['browserTitle'];
+        	
+        if( isset($settings['browserTitleElement']) )
+        	$settings['browserTitleElement'] = $settings['browserTitleElement'];
+				
         if(
 	        isset($settings['cover']) &&
 	        isset($settings['cover']['aggs'])
@@ -1401,7 +1409,13 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searchTitle']))
             $this->searchTitle = $settings['searchTitle'];
-
+            
+        if (isset($settings['browserTitle']))
+            $this->browserTitle = $settings['browserTitle'];
+		
+		if (isset($settings['browserTitleElement']))
+            $this->browserTitleElement = $settings['browserTitleElement'];
+			
         if (isset($settings['searchTag']))
             $this->searchTag = $settings['searchTag'];
 
@@ -1507,6 +1521,8 @@ class DataBrowserComponent extends Component
                 'cover' => $this->cover,
                 'chapters' => $this->chapters,
                 'searchTitle' => $this->searchTitle,
+                'browserTitle' => $this->browserTitle,
+                'browserTitleElement' => $this->browserTitleElement,
                 'searchTag' => $this->searchTag,
                 'searchAction' => $this->searchAction,
                 'searcher' => $this->searcher,
@@ -1635,6 +1651,8 @@ class DataBrowserComponent extends Component
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
                     'searchTitle' => $this->searchTitle,
+                    'browserTitle' => $this->browserTitle,
+	                'browserTitleElement' => $this->browserTitleElement,
                     'searchTag' => $this->searchTag,
                     'searchAction' => $this->searchAction,
                     'searcher' => $this->searcher,
@@ -1672,7 +1690,7 @@ class DataBrowserComponent extends Component
 
         if( @$controller->request->params['ext']=='json' ) {
 
-	        foreach( array('cancel_url', 'api_call', 'renderFile', 'cover', 'chapters', 'searchTitle', 'searchTag', 'searchAction', 'searcher', 'autocompletion', 'mode', 'aggs_visuals_map', 'apps') as $var )
+	        foreach( array('cancel_url', 'api_call', 'renderFile', 'cover', 'chapters', 'browserTitle', 'browserTitleElement', 'searchTitle', 'searchTag', 'searchAction', 'searcher', 'autocompletion', 'mode', 'aggs_visuals_map', 'apps') as $var )
 	        	if( isset($controller->viewVars['dataBrowser'][ $var ]) )
 			        unset( $controller->viewVars['dataBrowser'][ $var ] );
 

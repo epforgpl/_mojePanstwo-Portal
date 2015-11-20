@@ -59,44 +59,62 @@ if ($dataBrowser['mode'] == 'cover') {
     ?>
 
     <?
+	
     if (($displayAggs && !empty($dataBrowser['aggs'])) || (isset($app_chapters) && $app_chapters)) {
         $dataWrap = true;
         ?>
 
+		<div class="col-xs-12 col-sm-4 col-md-1-5 nopadding dataAggsContainer">
+		    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+		
+			    <? if (isset($sideElement)) echo $this->Element($sideElement) ?>
 
-        <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
+	            <? if (isset($app_chapters)) {
+	
+	                echo $this->Element('Dane.DataBrowser/app_chapters');
+	
+	            } elseif (isset($menu) && isset($menu['items'])) {
+	
+	                echo $this->Element('Dane.DataBrowser/browser-menu', array(
+	                    'menu' => $menu,
+	                    'pills' => isset($pills) ? $pills : null
+	                ));
+	
+	            } ?>
+		
+		    </div>
+		</div>
 
-            <? if (isset($sideElement)) echo $this->Element($sideElement) ?>
-
-            <? if (isset($app_chapters)) {
-
-                echo $this->Element('Dane.DataBrowser/app_chapters');
-
-            } elseif (isset($menu) && isset($menu['items'])) {
-
-                echo $this->Element('Dane.DataBrowser/browser-menu', array(
-                    'menu' => $menu,
-                    'pills' => isset($pills) ? $pills : null
-                ));
-
-            } ?>
-
-        </div>
+    <? } ?>
+    
+    <? if( @$forceHideAggs ) { ?>
+    
+    	<div class="col-xs-12">
+    	
+    <? } else { ?>
+    
+    	<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+    
     <? } ?>
 
-    <div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>">
-
-        <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>margin-top-10">
-
+        <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">
+						
+			<? if( isset($dataBrowser['browserTitleElement']) && $dataBrowser['browserTitleElement'] ) { ?>
+				<?= $this->element($dataBrowser['browserTitleElement']) ?>
+			<? } elseif( isset($dataBrowser['browserTitle']) ) { ?>
+				<h1 class="smaller"><?= $dataBrowser['browserTitle'] ?></h1>
+			<? } ?>
+			
             <?
             if (isset($dataBrowser['beforeBrowserElement']))
                 echo $this->element($dataBrowser['beforeBrowserElement']);
             ?>
-
+			
             <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
                 'paging' => $params,
                 'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
-                'nopaging' => isset($nopaging) ? (boolean) $nopaging :false,
+                'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
+                'searcher' => isset($searcher) ? (boolean) $searcher : true,
             )) ?>
 
             <div class="dataObjects">

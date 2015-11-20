@@ -6,7 +6,8 @@ class Bdl_wskazniki_kategorie extends DataObject
 {
 	
 	protected $tiny_label = 'Wskaźniki';
-	
+    public $force_hl_fields = true;
+
     protected $routes = array(
         'title' => 'tytul',
         'shortTitle' => 'tytul',
@@ -14,7 +15,7 @@ class Bdl_wskazniki_kategorie extends DataObject
 
     public function getLabel()
     {
-        return 'Kategoria wskaźników Banku Danych Lokalnych';
+        return 'Kategoria wskaźników';
     }
 
 }
