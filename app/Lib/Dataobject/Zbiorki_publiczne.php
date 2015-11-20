@@ -6,7 +6,7 @@ require_once('DocDataObject.php');
 class Zbiorki_publiczne extends DocDataObject
 {
 	
-	protected $tiny_label = 'Budżet';
+	protected $tiny_label = 'Zbiórki publiczne';
 	
     protected $routes = array(
         'title' => 'prawo.tytul',
@@ -21,9 +21,8 @@ class Zbiorki_publiczne extends DocDataObject
 		return $this->getShortTitle();
 	}
 	
-    public function getLabel()
-    {
-        return 'Budżet';
+    public function getLabel() {
+        return 'Zbiórki publiczne';
     }
 		
 }
