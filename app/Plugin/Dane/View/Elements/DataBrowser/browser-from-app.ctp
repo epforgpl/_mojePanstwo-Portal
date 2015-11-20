@@ -7,7 +7,9 @@ $columns = isset($columns) ? $columns : array(9, 3);
 
 		<div class="searcher-app">
 			<div class="container">
-			    <?= $this->element('Dane.DataBrowser/browser-searcher'); ?>
+			    <?= $this->element('Dane.DataBrowser/browser-searcher', array(
+			    	'size' => 'md',
+			    )); ?>
 			</div>
 		</div>
 

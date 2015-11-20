@@ -87,13 +87,23 @@ if ($dataBrowser['mode'] == 'cover') {
 
     <? } ?>
     
-    <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
-
-    <? /*<div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>"> */ ?>
+    <? if( @$forceHideAggs ) { ?>
+    
+    	<div class="col-xs-12">
+    	
+    <? } else { ?>
+    
+    	<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+    
+    <? } ?>
 
         <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">
-			
-			<h1 class="smaller">Wyniki wyszukiwania:</h1>
+						
+			<? if( isset($dataBrowser['browserTitleElement']) && $dataBrowser['browserTitleElement'] ) { ?>
+				<?= $this->element($dataBrowser['browserTitleElement']) ?>
+			<? } elseif( isset($dataBrowser['browserTitle']) ) { ?>
+				<h1 class="smaller"><?= $dataBrowser['browserTitle'] ?></h1>
+			<? } ?>
 			
             <?
             if (isset($dataBrowser['beforeBrowserElement']))
@@ -103,8 +113,8 @@ if ($dataBrowser['mode'] == 'cover') {
             <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
                 'paging' => $params,
                 'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
-                'nopaging' => isset($nopaging) ? (boolean) $nopaging :false,
-                'searcher' => isset($searcher) ? (boolean) $searcher :false,
+                'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
+                'searcher' => isset($searcher) ? (boolean) $searcher : true,
             )) ?>
 
             <div class="dataObjects">

@@ -29,6 +29,7 @@
 	        'url' => $url,
 	        'searchTag' => isset($dataBrowser['searchTag']) ? $dataBrowser['searchTag'] : false,
 	        'dataBrowser' => isset($dataBrowser) ? $dataBrowser : false,
+	        'size' => isset($size) ? $size : 'sm',
         )) ?>
 
     <? } ?>

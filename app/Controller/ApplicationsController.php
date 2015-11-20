@@ -288,7 +288,7 @@ class ApplicationsController extends AppController
 
 		$mode = false;
 		$items = array();
-			
+		$app = $this->getApplication( $this->settings['id'] );
 
 		if(
 			isset( $this->request->query['q'] ) &&
@@ -297,9 +297,10 @@ class ApplicationsController extends AppController
 						
 			$items[] = array(
 				'id' => '_results',
-				'label' => isset($this->settings['shortTitle']) ? 'Szukaj w ' . $this->settings['shortTitle'] : 'Szukaj:',
+				'label' => isset($this->settings['shortTitle']) ? 'Szukaj w ' . $this->settings['shortTitle'] . ':' : 'Szukaj:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
-				'icon' => 'glyphicon glyphicon-search',
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
 				'class' => '_label',
 			);
 
@@ -309,11 +310,13 @@ class ApplicationsController extends AppController
 
 		} else {
 			
+			
 			$items[] = array(
 				'label' => isset($this->settings['shortTitle']) ? $this->settings['shortTitle'] : $this->settings['title'],
 				'href' => '/' . $this->settings['id'],
 				'class' => '_label',
-				'icon' => 'glyphicon glyphicon-search',
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
 			);
 			
 		}

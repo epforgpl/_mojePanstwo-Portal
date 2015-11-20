@@ -10,7 +10,7 @@ class MediaController extends ApplicationsController
     public $settings = array(
         'id' => 'media',
         'title' => 'Państwo w mediach społecznościowych',
-        'shortTitle' => 'Media społecznościowe',
+        'shortTitle' => 'Media',
         'subtitle' => 'Polityka w mediach społecznościowych',
         'headerImg' => 'media',
     );
@@ -619,6 +619,7 @@ class MediaController extends ApplicationsController
 			    'id' => 'propozycje_kont',
 			    'href' => 'propozycje_kont',
 			    'label' => 'Propozycje nowych kont',
+			    'icon' => 'icon-datasets-twitter_accounts',
 		    );
 
 	    return $chapters;

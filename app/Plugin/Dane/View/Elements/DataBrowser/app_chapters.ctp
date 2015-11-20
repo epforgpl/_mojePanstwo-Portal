@@ -33,21 +33,21 @@
 	                if( isset($item['class']) )
 	                	$classes[] = $item['class'];
 	                
-	                if( $active )
+	                if( isset($item['href']) && $active )
 	                	$classes[] = 'active';
 
                 ?>
 
 	                <li class="<?= implode(' ', $classes) ?>">
-	                	<a href="<?= $item['href'] ?>">
+	                	<? if(isset($item['href'])) {?><a href="<?= $item['href'] ?>"><? } else { ?><span><? } ?>
 		                	<? if(isset($item['icon'])) {?>
-			                	<i class="object-icon <?= $item['icon'] ?>"></i>
+			                	<i class="object-icon <?= $item['icon'] ?>"<? if( isset($item['appIcon']) ) {?> data-icon-applications="<?= $item['appIcon'] ?>"<?}?>></i>
 		                	<? } ?>
                             <div<? if (isset($item['icon'])) { ?> class="object-icon-side"<? } ?>><? if (isset($item['count'])) { ?>
                                     <span
                                         class="counter pull-right"><?= number_format_h($item['count']) ?></span><? } ?><?= $item['label'] ?>
                             </div>
-	                    </a>
+	                    <? if(isset($item['href'])) {?></a><? } else { ?></span><? } ?>
 
 	                    <? if( isset($item['element']) ) echo $this->element($item['element']['path']); ?>
 

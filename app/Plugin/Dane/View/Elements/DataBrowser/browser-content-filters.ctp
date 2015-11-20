@@ -10,6 +10,7 @@
 		
 ?>
 
+<? if( (!isset($nopaging) || !$nopaging) ) {?>
 <div class="dataAggsDropdownListContainer">
 	<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 	
@@ -23,7 +24,7 @@
 	
 	        
 	
-        <? if (isset($dataBrowser['sort']) && $dataBrowser['sort']) { ?>
+        <? if (isset($dataBrowser['sort']) && $dataBrowser['sort'] && $dataBrowser['hits'] && (!isset($nopaging) || !$nopaging)) { ?>
             <li role="presentation" class="dropdown dataAggsDropdown splitDropdownMenu pull-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Sortowanie <span class="caret"></span></a>
@@ -64,7 +65,23 @@
 	
 	</ul>
 	
-	<? if (isset($dataBrowser['aggs_visuals_map']) && count($dataBrowser['aggs_visuals_map']) > 0) {
+	
+	
+	<? 
+		$searcher = isset($searcher) ? $searcher : true;
+		if( $searcher && (!isset($nopaging) || !$nopaging) ) {
+	?>
+	<div class="dataAggsDropdownList nopadding search">
+		<?= $this->element('Dane.DataBrowser/browser-searcher', array(
+			'searcher' => true,
+		)); ?>
+	</div>
+	<? } ?>
+	
+	
+	
+	
+	<? if (isset($dataBrowser['aggs_visuals_map']) && (count($dataBrowser['aggs_visuals_map']) > 0)) {
 	    $selected = false; ?>
 	<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 	
@@ -166,15 +183,7 @@
 	<? } ?>
 	
 	
-	<? 
-		$searcher = isset($searcher) ? $searcher : true;
-		if( $searcher ) {
-	?>
-	<div class="dataAggsDropdownList nopadding">
-		<?= $this->element('Dane.DataBrowser/browser-searcher', array(
-			'searcher' => true,
-		)); ?>
-	</div>
-	<? } ?>
+	
 	
 </div>
+<? } ?>

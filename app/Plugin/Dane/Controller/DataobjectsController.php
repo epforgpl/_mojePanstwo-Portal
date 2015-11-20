@@ -382,6 +382,7 @@ class DataobjectsController extends AppController
                     'pisma.object_id' => $this->object->getGlobalId(),
                 ),
                 'searchTitle' => 'Szukaj w pismach...',
+                'browserTitle' => 'Pisma:',
                 'objectOptions' => array(
                     'public' => true,
                     'base_url' => $this->object->getUrl()
@@ -535,6 +536,8 @@ class DataobjectsController extends AppController
                 'conditions' => $conditions,
                 'aggsPreset' => 'dzialania_admin',
                 'searchTitle' => 'Szukaj w działaniach...',
+                'browserTitle' => 'Działania:',
+                'browserTitleElement' => 'Dane.dodaj_dzialanie',
             ));
 
             $this->set('title_for_layout', 'Działania ' . $this->object->getData('nazwa'));
