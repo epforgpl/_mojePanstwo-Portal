@@ -1,4 +1,4 @@
-<div class="overflow-auto">
+<div class="overflow-auto" style="margin-bottom: -10px;">
 	<div class="pull-left">
 		<h1 class="smaller">Działania</h1>
 	</div><div class="pull-right">
