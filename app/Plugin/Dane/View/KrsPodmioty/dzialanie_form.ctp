@@ -190,6 +190,9 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 Usuń działanie
                             </div>
                         <? } ?>
+                        <a class="btn btn-link" href="<?= $object->getUrl() . '/dzialania' ?>">
+                            Anuluj
+                        </a>
                     </div>
                 </div>
             </div>
