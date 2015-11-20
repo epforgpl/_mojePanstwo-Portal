@@ -15,6 +15,8 @@ $accessDict = array(
 	'publiczne'
 );
 
+$this->Combinator->add_libs('js', 'Start.letters-responses-editor.js');
+
 ?>
 <?php $this->Combinator->add_libs('js', 'Start.pismo.js') ?>
 <?php // $this->Combinator->add_libs('js', 'Start.letters-social-share.js') ?>
@@ -297,7 +299,34 @@ $accessDict = array(
             <ul class="responses">
 	            <? if(isset($responses) && is_array($responses) && count($responses)) {  ?>
                     <? foreach($responses as $response) { ?>
-                        <li class="response">
+                        <li class="response"
+							data-letter-id="<?= $response['Response']['letter_id'] ?>"
+							data-letter-slug="<?= $pismo['slug'] ?>"
+							data-id="<?= $response['Response']['id'] ?>"
+							data-title="<?= $response['Response']['title'] ?>"
+							data-date="<?= $response['Response']['date'] ?>"
+							data-files="<?= htmlspecialchars(json_encode($response['files'])) ?>"
+							data-content="<?= htmlspecialchars($response['Response']['content']) ?>">
+							<ul class="buttons">
+								<li>
+									<button
+										data-tooltip="true"
+										data-original-title="Edytuj odpowiedź"
+										data-placement="bottom"
+										class="btn btn-default editAction">
+										<i class="glyphicon glyphicon-edit" title="Edytuj odpowiedź" aria-hidden="true"></i>
+									</button>
+								</li>
+								<li>
+									<button
+										data-tooltip="true"
+										data-original-title="Usuń odpowiedź"
+										data-placement="bottom"
+										class="btn btn-default btn">
+										<i class="glyphicon glyphicon-trash" title="Usuń odpowiedź" aria-hidden="true"></i>
+									</button>
+								</li>
+							</ul>
                             <h2>
 								<?= $response['Response']['title'] ?>
 								<span class="date"><?= dataSlownie($response['Response']['date']) ?></span>

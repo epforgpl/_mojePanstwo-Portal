@@ -9,7 +9,8 @@ class MediaController extends ApplicationsController
 {
     public $settings = array(
         'id' => 'media',
-        'title' => 'Media - Polityka w mediach społecznościowych',
+        'title' => 'Państwo w mediach społecznościowych',
+        'shortTitle' => 'Media społecznościowe',
         'subtitle' => 'Polityka w mediach społecznościowych',
         'headerImg' => 'media',
     );

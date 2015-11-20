@@ -26,13 +26,14 @@ $columns = isset($columns) ? $columns : array(9, 3);
 		<? } ?>
 
 		<div class="container">
-		    <div class="row dataBrowserContent">
+            <div class="dataBrowserContent">
 
                 <?
 
                     $options = array(
                         'displayAggs' => $displayAggs,
                         'columns' => $columns,
+                        'searcher' => false,
                     );
 
                     if(isset($menu)) {

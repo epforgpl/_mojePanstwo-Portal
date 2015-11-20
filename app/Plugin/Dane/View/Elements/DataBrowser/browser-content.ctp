@@ -64,32 +64,36 @@ if ($dataBrowser['mode'] == 'cover') {
         $dataWrap = true;
         ?>
 
+		<div class="col-xs-12 col-sm-4 col-md-1-5 nopadding dataAggsContainer">
+		    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+		
+			    <? if (isset($sideElement)) echo $this->Element($sideElement) ?>
 
-        <div class="col-md-<?= $columns[1] ?> col-xs-12 dataAggsContainer">
+	            <? if (isset($app_chapters)) {
+	
+	                echo $this->Element('Dane.DataBrowser/app_chapters');
+	
+	            } elseif (isset($menu) && isset($menu['items'])) {
+	
+	                echo $this->Element('Dane.DataBrowser/browser-menu', array(
+	                    'menu' => $menu,
+	                    'pills' => isset($pills) ? $pills : null
+	                ));
+	
+	            } ?>
+		
+		    </div>
+		</div>
 
-            <? if (isset($sideElement)) echo $this->Element($sideElement) ?>
-
-            <? if (isset($app_chapters)) {
-
-                echo $this->Element('Dane.DataBrowser/app_chapters');
-
-            } elseif (isset($menu) && isset($menu['items'])) {
-
-                echo $this->Element('Dane.DataBrowser/browser-menu', array(
-                    'menu' => $menu,
-                    'pills' => isset($pills) ? $pills : null
-                ));
-
-            } ?>
-
-        </div>
     <? } ?>
+    
+    <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
 
-    <div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>">
+    <? /*<div class="col-xs-12 col-sm-<?= isset($forceHideAggs) ? 12 : ($displayAggs ? $columns[0] : 9) ?>"> */ ?>
 
         <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">
 			
-			<h1 class="smaller">Wyniki wyszukiwania w Banku Danych Lokalnych:</h1>
+			<h1 class="smaller">Wyniki wyszukiwania:</h1>
 			
             <?
             if (isset($dataBrowser['beforeBrowserElement']))
@@ -100,6 +104,7 @@ if ($dataBrowser['mode'] == 'cover') {
                 'paging' => $params,
                 'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
                 'nopaging' => isset($nopaging) ? (boolean) $nopaging :false,
+                'searcher' => isset($searcher) ? (boolean) $searcher :false,
             )) ?>
 
             <div class="dataObjects">

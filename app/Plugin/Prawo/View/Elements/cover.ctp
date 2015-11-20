@@ -6,13 +6,13 @@
 	$konstytucja = @$dataBrowser['aggs']['konstytucja']['top']['hits']['hits'];
 ?>
 
-<div class="col-xs-12 col-md-3 col-sm-4 dataAggsContainer">
+<div class="col-xs-12 col-sm-4 col-md-1-5 noleftpadding dataAggsContainer">
 	<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 	    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
 	</div>
 </div>
 
-<div id="bdl_div" class="col-xs-12 col-md-9 col-sm-8">
+<div id="bdl_div" class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
 
 	<div class="dataWrap">
 
@@ -20,12 +20,12 @@
 			<h1 class="appTitle">Prawo</h1>
 			<p class="appSubtitle">Przeglądaj teksty aktów prawnych</p>
 		</div>
-		
-		
-		<div class="block block-simple col-sm-12">
+
+
+        <div class="block block-simple col-sm-12">
             <header class="nopadding">Aktualności:</header>
             <section class="content margin-top-10">
-                
+
                 <div class="agg agg-Dataobjects">
                     <ul class="dataobjects">
                         <? foreach ($news as $doc) { ?>
@@ -40,15 +40,15 @@
                         <a href="/prawo/aktualnosci" class="btn btn-primary btn-xs">Więcej aktualności &raquo;</a>
                     </div>
                 </div>
-                
+
             </section>
         </div>
-        
+
         <? if( $konstytucja ) {?>
         <div class="block block-simple col-sm-12 konstytucja">
             <header class="nopadding">Konstytucja:</header>
             <section class="content margin-top-10">
-                
+
                 <div class="agg agg-Dataobjects">
                     <ul class="dataobjects">
                         <? foreach ($konstytucja as $doc) { ?>
@@ -60,16 +60,16 @@
                         <? } ?>
                     </ul>
                 </div>
-                
+
             </section>
         </div>
         <? } ?>
-        
+
         <? if( $kodeksy ) {?>
         <div class="block block-simple col-sm-12 kodeksy">
             <header class="nopadding">Kodeksy:</header>
             <section class="content margin-top-10">
-                
+
                 <div class="agg agg-Dataobjects">
                     <ul class="dataobjects">
                         <? foreach ($kodeksy as $doc) { ?>
@@ -81,12 +81,12 @@
                         <? } ?>
                     </ul>
                 </div>
-                
+
             </section>
         </div>
         <? } ?>
-		
 
-	</div>
+
+    </div>
 
 </div>

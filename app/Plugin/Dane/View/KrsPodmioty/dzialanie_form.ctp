@@ -16,7 +16,7 @@ echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
 
 // dropzone
 $this->Html->css(array('dropzone'), array('inline' => 'false', 'block' => 'cssBlock'));
-$this->Combinator->add_libs('js', 'dropzone.js') ;
+$this->Combinator->add_libs('js', 'dropzone.js');
 
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dzialania');
@@ -32,14 +32,15 @@ echo $this->Element('dataobject/pageBegin'); ?>
         <div class="row">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
                 <? if ($edit) { ?>
-                    <header><h1><a href="<?= $dzialanie->getUrl() ?>"><?= $dzialanie->getData('tytul'); ?></a></h1></header>
+                    <header><h1><a href="<?= $dzialanie->getUrl() ?>"><?= $dzialanie->getData('tytul'); ?></a></h1>
+                    </header>
                     <input type="hidden" name="id" value="<?= $dzialanie->getId() ?>"/>
                 <? } ?>
                 <div class="row sub-header">
                     <div class="col-sm-6">
                         <? if ($edit) { ?>
                             <span class="date">
-                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                                 <?= $this->Czas->dataSlownie(
                                     $dzialanie->getData('data_utworzenia')
                                 ); ?>
@@ -77,10 +78,13 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         </div>
                         <div class="form-group margin-top-30">
                             <label for="dzialanieOpis">Opis działania:</label>
-                                    <textarea maxlength="65535" class="form-control tinymce" id="dzialanieOpis" name="opis">
+                                    <textarea maxlength="65535" class="form-control tinymce" id="dzialanieOpis"
+                                              name="opis">
                                         <? if ($edit) echo $dzialanie->getData('opis'); ?>
                                     </textarea>
-                            <p class="help-block">Opis może się składać z maksymalnie 16383 znaków (w tym znaki HTML widoczne w Narzędzia - Kod źródłowy)</p>
+
+                            <p class="help-block">Opis może się składać z maksymalnie 16383 znaków (w tym znaki HTML
+                                widoczne w Narzędzia - Kod źródłowy)</p>
                         </div>
                         <div class="form-group margin-top-30">
                             <label>Słowa kluczowe:</label>
@@ -138,44 +142,17 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 </div>
                             </div>
                         </div>
-
-                        <? if (!$edit) { ?>
-                            <div class="form-group mailBlock">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="btn btn-link btn-icon btn-auto-width mailBtn">
-                                            <i class="icon glyphicon glyphicon-envelope"></i>
-                                            Dodaj mailing
-                                        </div>
-                                        <div class="col-xs-12 mailElement">
-                                            <div class="form-group margin-top-10">
-                                                <label for="target">Do</label>
-                                                <select id="target" name="mailing_target" class="form-control">
-                                                    <option>Posłowie</option>
-                                                    <option>Senatorowie</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group margin-top-10">
-                                                <label for="dzialanieOpis">Szablon</label>
-                                                        <textarea style="height: 400px;" maxlength="65535"
-                                                                  class="form-control tinymce"
-                                                                  name="mail_template"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <? } ?>
                     </div>
 
                     <? if (!$edit) { ?>
 
-                        <div class="form-group margin-top-20 activitiesResponse" data-url="<?= $object->getUrl(); ?>/uploadActivityFile.json">
+                        <div class="form-group margin-top-20 activitiesResponse"
+                             data-url="<?= $object->getUrl(); ?>/uploadActivityFile.json">
                             <label>Załączniki</label>
 
                             <div class="dropzoneForm">
                                 <div class="actions">
-                                    <a class="btn btn-sm btn-default btn-addfile">Dodaj załącznik</a>                                 </div>
+                                    <a class="btn btn-sm btn-default btn-addfile">Dodaj załącznik</a></div>
                                 <div id="preview"></div>
                             </div>
 

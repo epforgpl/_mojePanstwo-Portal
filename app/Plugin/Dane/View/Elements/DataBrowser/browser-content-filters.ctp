@@ -165,8 +165,16 @@
 	</ul>
 	<? } ?>
 	
+	
+	<? 
+		$searcher = isset($searcher) ? $searcher : true;
+		if( $searcher ) {
+	?>
 	<div class="dataAggsDropdownList nopadding">
-		<?= $this->element('Dane.DataBrowser/browser-searcher'); ?>
+		<?= $this->element('Dane.DataBrowser/browser-searcher', array(
+			'searcher' => true,
+		)); ?>
 	</div>
+	<? } ?>
 	
 </div>

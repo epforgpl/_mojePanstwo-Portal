@@ -294,10 +294,10 @@ class ApplicationsController extends AppController
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
 		) {
-			
+						
 			$items[] = array(
 				'id' => '_results',
-				'label' => 'Wyniki wyszukiwania:',
+				'label' => isset($this->settings['shortTitle']) ? 'Szukaj w ' . $this->settings['shortTitle'] : 'Szukaj:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 				'icon' => 'glyphicon glyphicon-search',
 				'class' => '_label',
@@ -310,8 +310,10 @@ class ApplicationsController extends AppController
 		} else {
 			
 			$items[] = array(
-				'label' => 'Start',
+				'label' => isset($this->settings['shortTitle']) ? $this->settings['shortTitle'] : $this->settings['title'],
 				'href' => '/' . $this->settings['id'],
+				'class' => '_label',
+				'icon' => 'glyphicon glyphicon-search',
 			);
 			
 		}

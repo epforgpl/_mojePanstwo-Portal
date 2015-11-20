@@ -13,6 +13,15 @@ class LetterResponse extends AppModel {
         return $res;
     }
 
+    public function update($letter_id, $response_id, $data) {
+        $res = $this->getDataSource()->request('pisma/' . $letter_id . '/responses/' . $response_id, array(
+            'method' => 'POST',
+            'data' => $data,
+        ));
+
+        return $res;
+    }
+
     public function getByLetter($letter_id) {
         $res = $this->getDataSource()->request('pisma/' . $letter_id . '/responses', array(
             'method' => 'GET'
