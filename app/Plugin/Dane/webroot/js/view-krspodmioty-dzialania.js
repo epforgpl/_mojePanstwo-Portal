@@ -228,7 +228,7 @@ $(document).ready(function () {
 		} else {
 			$('.image-editor:visible').parent('.form-group').prepend(
 				$('<div></div>').addClass('alert alert-danger').text(error.message).slideDown()
-			)
+			);
 		}
 	};
 

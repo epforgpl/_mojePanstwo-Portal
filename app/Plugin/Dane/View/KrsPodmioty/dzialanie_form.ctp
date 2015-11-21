@@ -124,9 +124,9 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 <div class="col-sm-12">
                                     <label><?= $edit ? 'Zmień' : 'Dodaj'; ?> lokalizację:</label>
 
-                                    <button class="googleRemoveBtn btn btn-link btn-icon btn-sm">
+                                    <div class="googleRemoveBtn btn btn-link btn-icon btn-sm">
                                         <i class="icon glyphicon glyphicon-remove"></i>Usuń lokalizację
-                                    </button>
+                                    </div>
 
                                     <div class="col-xs-12 googleMapElement">
                                         <input id="pac-input" class="controls" type="text" placeholder="Szukaj...">
@@ -151,11 +151,11 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
                         <div class="form-group margin-top-20 activitiesResponse"
                              data-url="<?= $object->getUrl(); ?>/uploadActivityFile.json">
-                            <label>Załączniki</label>
+                            <label>Załączniki:</label>
 
                             <div class="dropzoneForm">
                                 <div class="actions">
-                                    <a class="btn btn-sm btn-default btn-addfile">Dodaj załącznik</a></div>
+                                    <a class="btn btn-sm btn-success btn-addfile">Dodaj załącznik</a></div>
                                 <div id="preview"></div>
                             </div>
 
@@ -163,19 +163,21 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
                     <? } ?>
 
-                    <div class="section col-xs-12 nopadding">
+                    <div class="widocznosc section col-xs-12 nopadding">
                         <div class="form-group margin-top-20">
-                            <label>Widoczność</label>
+                            <label>Widoczność:</label>
 
-                            <div class="radio">
-                                <input type="radio" name="status" id="widocznosc_opublikowane"
-                                       value="1" <? if (!$edit || ($edit && $dzialanie->getData('status') == '1')) echo 'checked'; ?>>
-                                <label for="widocznosc_opublikowane" class="checkbox-label">Opublikowane</label>
-                            </div>
-                            <div class="radio">
-                                <input type="radio" name="status" id="widocznosc_brudnopis"
-                                       value="0" <? if ($edit && $dzialanie->getData('status') == '0') echo 'checked'; ?>>
-                                <label for="widocznosc_brudnopis" class="checkbox-label">Brudnopis</label>
+                            <div class="radioBlock col-xs-12">
+                                <div class="radio">
+                                    <input type="radio" name="status" id="widocznosc_opublikowane"
+                                           value="1" <? if (!$edit || ($edit && $dzialanie->getData('status') == '1')) echo 'checked'; ?>>
+                                    <label for="widocznosc_opublikowane" class="checkbox-label">Opublikowane</label>
+                                </div>
+                                <div class="radio">
+                                    <input type="radio" name="status" id="widocznosc_brudnopis"
+                                           value="0" <? if ($edit && $dzialanie->getData('status') == '0') echo 'checked'; ?>>
+                                    <label for="widocznosc_brudnopis" class="checkbox-label">Brudnopis</label>
+                                </div>
                             </div>
                         </div>
                         <button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">
@@ -188,6 +190,9 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 Usuń działanie
                             </div>
                         <? } ?>
+                        <a class="btn btn-link" href="<?= $object->getUrl() . '/dzialania' ?>">
+                            Anuluj
+                        </a>
                     </div>
                 </div>
             </div>
