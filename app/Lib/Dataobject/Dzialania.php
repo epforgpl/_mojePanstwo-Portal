@@ -18,7 +18,11 @@ class Dzialania extends DataObject
     {
         return 'Działanie';
     }
-
+	
+	public function getShortTitle() {
+		return $this->getData('tytul') ? $this->getData('tytul') : 'Działanie';
+	}
+	
 	public function getTitleAddon() {
 		if($this->getData('status') == '0') {
 			return 'Brudnopis';
