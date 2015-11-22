@@ -22,27 +22,7 @@
 		</div>
 
 
-        <div class="block block-simple col-sm-12">
-            <header class="nopadding">Aktualności:</header>
-            <section class="content margin-top-10">
-
-                <div class="agg agg-Dataobjects">
-                    <ul class="dataobjects">
-                        <? foreach ($news as $doc) { ?>
-                            <li class="margin-top-10">
-                                <?
-                                echo $this->Dataobject->render($doc, 'default');
-                                ?>
-                            </li>
-                        <? } ?>
-                    </ul>
-                    <div class="buttons text-center margin-top-10">
-                        <a href="/prawo/aktualnosci" class="btn btn-primary btn-xs">Więcej aktualności &raquo;</a>
-                    </div>
-                </div>
-
-            </section>
-        </div>
+        
 
         <? if( $konstytucja ) {?>
         <div class="block block-simple col-sm-12 konstytucja">
@@ -85,6 +65,28 @@
             </section>
         </div>
         <? } ?>
+        
+        <div class="block block-simple col-sm-12">
+            <header class="nopadding">Aktualności:</header>
+            <section class="content margin-top-10">
+
+                <div class="agg agg-Dataobjects">
+                    <ul class="dataobjects">
+                        <? foreach ($news as $doc) { ?>
+                            <li class="margin-top-10">
+                                <?
+                                echo $this->Dataobject->render($doc, 'default');
+                                ?>
+                            </li>
+                        <? } ?>
+                    </ul>
+                    <div class="buttons text-center margin-top-10">
+                        <a href="/prawo/aktualnosci" class="btn btn-primary btn-xs">Więcej aktualności &raquo;</a>
+                    </div>
+                </div>
+
+            </section>
+        </div>
 
 
     </div>

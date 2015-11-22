@@ -201,6 +201,7 @@ class PrawoController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
     
+    /*
     public function getChapters() {
 				
 		$mode = false;
@@ -251,6 +252,7 @@ class PrawoController extends ApplicationsController
 		return $output;
 		
 	}
+	*/
 	
 	public function aktualnosci()
     {
@@ -311,6 +313,229 @@ class PrawoController extends ApplicationsController
             'phrasesPreset' => 'ustawy',
         ));
     }
+    
+    public function getChapters() {
+
+		$mode = false;
+		$items = array();
+		$app = $this->getApplication( $this->settings['id'] );		
+
+		if(
+			isset( $this->request->query['q'] ) &&
+			$this->request->query['q']
+		) {
+			
+			$items[] = array(
+				'id' => '_results',
+				'label' => 'Szukaj w prawie:',
+				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+				'tool' => array(
+					'icon' => 'search',
+					'href' => '/' . $this->settings['id'],
+				),
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+				'class' => '_label',
+			);
+
+			if( $this->chapter_selected=='view' )
+				$this->chapter_selected = '_results';
+			$mode = 'results';
+
+		} else {
+			
+			$items[] = array(
+				'label' => 'Prawo',
+				'href' => '/' . $this->settings['id'],
+				'class' => '_label',
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+			);
+			
+		}
+		
+		
+		$map = array(
+			'dzialania' => array(
+				'menu_id' => 'aktualnosci',
+				'label' => 'Aktualności',
+				'icon' => 'sejm_komunikaty',
+			),
+			'slowa' => array(
+				'menu_id' => 'aktualnosci',
+				'label' => 'Słowa kluczowe',
+				'icon' => 'sejm_komunikaty',
+			),
+			/*
+			'pisma' => array(
+				'menu_id' => 'pisma',
+				'label' => 'Pisma',
+				'icon' => 'pisma',
+			),
+			'zbiorki_publiczne' => array(
+				'menu_id' => 'zbiorki',
+				'label' => 'Zbiórki publiczne',
+				'separator' => 'bottom',
+			),
+			*/
+			'organizacje' => array(
+				'label' => 'Przeglądaj według typów:',
+				'class' => '__label',
+				'icon' => 'prawo',
+			),
+			'fundacje' => array(
+				'menu_id' => 'fundacje',
+				'label' => 'Ustawy',
+				'forma_prawna_id' => '1',
+				'icon' => 'dot',
+			),
+			'stowarzyszenia' => array(
+				'menu_id' => 'stowarzyszenia',
+				'label' => 'Rozporządzenia',
+				'forma_prawna_id' => '15',
+				'icon' => 'dot',
+			),
+			'zwiazki_zawodowe' => array(
+				'menu_id' => 'zwiazki_zawodowe',
+				'label' => 'Umowy międzynarodowe',
+				'forma_prawna_id' => '18',
+				'icon' => 'dot',
+			),
+			'pozostale_ngo' => array(
+				'menu_id' => 'pozostale',
+				'label' => 'Pozostałe',
+				'forma_prawna_id' => '_other',
+				'icon' => 'dot',
+			),
+			'publikatory' => array(
+				'label' => 'Przeglądaj według publikatora:',
+				'class' => '__label',
+				'icon' => 'prawo',
+			),
+			'dziennik_ustaw' => array(
+				'menu_id' => 'fundacje',
+				'label' => 'Dziennik Ustaw',
+				'forma_prawna_id' => '1',
+				'icon' => 'dot',
+			),
+			'monitor_polski' => array(
+				'menu_id' => 'stowarzyszenia',
+				'label' => 'Monitor Polski',
+				'forma_prawna_id' => '15',
+				'icon' => 'dot',
+			),
+			'dzienniki_wojewodzkie' => array(
+				'menu_id' => 'zwiazki_zawodowe',
+				'label' => 'Dzienniki wojewódzkie',
+				'forma_prawna_id' => '18',
+				'icon' => 'dot',
+			),
+			'dzienniki_urzedowe' => array(
+				'menu_id' => 'zwiazki_zawodowe',
+				'label' => 'Dzienniki urzędowe',
+				'forma_prawna_id' => '18',
+				'icon' => 'dot',
+			),
+		);
+		
+		
+		
+
+		
+		$others_count = 0;
+		
+		foreach( $map as $key => $value ) {
+						
+			if( !isset($value['menu_id']) )
+				$value['menu_id'] = '';
+						
+			$item = array(
+				'id' => $value['menu_id'],
+				'label' => $value['label'],
+			);
+			
+			if( $value['menu_id'] )
+				$item['href'] = '/' . $this->settings['id'] . '/' . $value['menu_id'];
+			
+			if( isset($value['icon']) )
+				$item['icon'] = 'icon-datasets-' . $value['icon'];
+				
+			if( isset($value['class']) )
+				$item['class'] = $value['class'];
+
+			if( $mode == 'results' ) {
+			
+				
+				$datasets = array();
+				
+				if( isset($item['href']) )
+					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+				
+				if( @$value['forma_prawna_id'] ) {
+					
+					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+													
+							if( $dataset['key']=='krs_podmioty' ) {
+															
+								foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
+									if( $forma['doc_count'] ) {
+																			
+										if( $value['forma_prawna_id']==$forma['key'] ) {
+											
+											$item['count'] = $forma['doc_count'];
+											$items[] = $item;
+												
+										} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
+											
+											$others_count += $forma['doc_count'];
+											
+										}
+																			
+									}
+								}
+								
+								if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+									
+									$item['count'] = $others_count;
+									$items[] = $item;
+									
+								}
+								
+							}
+						}
+					} else {
+						
+						$items[] = $item;
+						
+					}
+					
+				}
+
+			} else {
+
+				$items[] = $item;
+
+			}
+
+		}
+		
+        foreach($items as $i => $item) {
+
+            if(isset($item['submenu'])) {
+                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
+            }
+
+        }
+
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
     
     private function getChaptersAggs() {
 	    

@@ -320,8 +320,11 @@ class NgoController extends ApplicationsController
                 'dataset' => 'ngo',
             ),
             'conditions' => array(
-                'dataset' => 'krs_podmioty',
-                'krs_podmioty.forma_prawna_typ_id' => array('2'),
+	            'dataset' => array(
+		            'dzialania', 
+		            'pisma', 
+		            'krs_podmioty{krs_podmioty.forma_prawna_typ_id:2}',
+	            ),	            
             ),
             'cover' => array(
                 'view' => array(
@@ -518,10 +521,11 @@ class NgoController extends ApplicationsController
 				'separator' => 'bottom',
 			),
 			*/
-			'organizacje' => array(
+			'krs_podmioty' => array(
 				'label' => 'Organizacje:',
 				'class' => '__label',
 				'icon' => 'krs_podmioty',
+				'forma_prawna_id' => '_all',
 			),
 			'fundacje' => array(
 				'menu_id' => 'fundacje',
@@ -594,37 +598,55 @@ class NgoController extends ApplicationsController
 						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
 													
 							if( $dataset['key']=='krs_podmioty' ) {
-															
-								foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
-									if( $forma['doc_count'] ) {
-																			
-										if( $value['forma_prawna_id']==$forma['key'] ) {
-											
-											$item['count'] = $forma['doc_count'];
-											$items[] = $item;
-												
-										} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
-											
-											$others_count += $forma['doc_count'];
-											
-										}
-																			
-									}
-								}
 								
-								if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+								if( $value['forma_prawna_id']=='_all' ) {
 									
-									$item['count'] = $others_count;
-									$items[] = $item;
+									if( $dataset['doc_count'] );
+										$items[] = $item;
 									
+								} else {
+											
+									foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
+										if( $forma['doc_count'] ) {
+																				
+											if( $value['forma_prawna_id']==$forma['key'] ) {
+												
+												$item['count'] = $forma['doc_count'];
+												$items[] = $item;
+													
+											} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
+												
+												$others_count += $forma['doc_count'];
+												
+											}
+																				
+										}
+									}
+									
+									if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+										
+										$item['count'] = $others_count;
+										$items[] = $item;
+										
+									}
+								
 								}
 								
 							}
 						}
-					} else {
-						
-						$items[] = $item;
-						
+					}
+					
+				} else {
+					
+					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+							if( ($dataset['key'] == $key) && $dataset['doc_count'] ) {
+									
+								$item['count'] = $dataset['doc_count'];
+								$items[] = $item;
+								
+							}
+						}
 					}
 					
 				}

@@ -3,8 +3,26 @@ $this->Combinator->add_libs('css', $this->Less->css('administracja', array('plug
 $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 ?>
 
-<div id="administracja">
-    <div class="container">
+<div class="col-xs-12 col-sm-4 col-md-1-5 noleftpadding dataAggsContainer">
+	<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+	    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+	</div>
+</div>
+
+<div id="bdl_div" class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+
+	<div class="dataWrap">
+
+		<div class="appBanner bottom-border">
+			<h1 class="appTitle">Kto tu rządzi?</h1>
+			<p class="appSubtitle">Informacje o urzędach i urzędnikach publicznych.</p>
+		</div>
+	
+	</div>
+
+
+    <div id="administracja">
+
         <div class="content col-xs-12 row">
             <div class="row items">
                 <? foreach ($data['files'] as $item) { ?>
@@ -48,4 +66,8 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
             </div>
         </div>
     </div>
+
+
+
 </div>
+
