@@ -8,7 +8,7 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-manage');
     data-placement="bottom"
     data-toggle="modal"
     data-target="#manageModal"
-    class="btn optionBtn btn-primary">
+    class="btn optionBtn btn-danger">
     <i class="glyphicon glyphicon-cog" aria-hidden="true"></i>
 </div>
 
@@ -19,11 +19,11 @@ $this->Combinator->add_libs('js', 'Dane.modal-dataobject-manage');
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="manageModalLabel">Zarządzaj</h4>
+                <h4 class="modal-title" id="manageModalLabel">Zarządzaj tą stroną</h4>
             </div>
             <div class="modal-body">
                 <? if(isset($_manageOptionsModals) && count($_manageOptionsModals)) { ?>
-                    <ul>
+                    <ul class="manage-list">
                         <? foreach($_manageOptionsModals as $name) { ?>
                             <li>
                                 <a href="#<?= $name ?>" data-name="<?= $name ?>" class="open_<?= $name ?>_modal">

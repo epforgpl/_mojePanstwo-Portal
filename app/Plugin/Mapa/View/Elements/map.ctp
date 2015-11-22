@@ -80,19 +80,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                  <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-data="<?= htmlspecialchars(json_encode($mapParams['data'])) ?>"<? } ?>>
 
-                <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) { ?> nodetails<? } ?>"></div>
-
                 <? if (isset($dataBrowser) && isset($this->request->query['q'])) { ?>
-
                     <div class="details">
                         <div class="title">
-
                             <h1><?= isset($this->request->query['q']) ? $this->request->query['q'] : 'Mapa' ?></h1>
-
                         </div>
-
                         <ul class="main">
-
                             <? if (@$dataBrowser['hits']) { ?>
                                 <li class="accord">
                                     <header>
@@ -112,13 +105,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </section>
                                 </li>
                             <? } ?>
-
                         </ul>
-
                     </div>
-
                 <? } elseif (isset($mapParams)) { ?>
-
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
                             <? if (@$mapParams['mode'] == 'place') { ?>
@@ -146,9 +135,11 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
 
                             <h1><?= $mapParams['title'] ?></h1>
-							<? if( @$mapParams['data']['typ_id']==3 ) {?>
-								<p class="info-more"><a href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej informacji o gminie &raquo;</a></p>
-							<? } ?>
+                            <? if (@$mapParams['data']['typ_id'] == 3) { ?>
+                                <p class="info-more"><a
+                                        href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej
+                                        informacji o gminie &raquo;</a></p>
+                            <? } ?>
 
                             <?
                             if (@$mapParams['mode'] == 'place') {
@@ -489,48 +480,6 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                     </section>
                                 </li>
                             <? } ?>
-                            <? if (!isset($widget)) {
-                                echo $this->element('Mapa.wybory', array("widget" => null, "mapParams" => $mapParams));
-                            } ?>
-                            <li class="accord warstwy closed">
-                                <header>
-                                    <span class="arrow"></span>
-
-                                    <h2>Warstwy:</h2>
-
-                                    <div class="mapSpinner spinner grey hide">
-                                        <div class="bounce1"></div>
-                                        <div class="bounce2"></div>
-                                        <div class="bounce3"></div>
-                                    </div>
-                                </header>
-                                <section class="dcontent">
-                                    <ul class="scrollZone">
-                                        <li data-id="instytucje">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="instytucje"> Instytucje
-                                                publiczne
-                                            </label>
-                                        </li>
-                                        <li data-id="biznes">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="biznes"> Biznes
-                                            </label>
-                                        </li>
-                                        <li data-id="ngo">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="ngo"> Ngo
-                                            </label>
-                                        </li>
-                                        <li data-id="komisje">
-                                            <label class="checkbox-label">
-                                                <input type="radio" name="layers" value="komisje_wyborcze"> Komisje
-                                                Wyborcze
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </section>
-                            </li>
                         </ul>
                     </div>
                     <? if (isset($widget)) { ?>
@@ -541,6 +490,123 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                         </ul>
                     <? } ?>
                 <? } ?>
+
+                <div class="map<? if (!isset($mapParams) && !isset($dataBrowser)) {
+                    echo ' nodetails';
+                } ?>"></div>
+
+
+                <div class="explore<? if (!isset($mapParams) && !isset($dataBrowser)) {
+                    echo ' nodetails';
+                } ?>">
+                    <ul>
+                        <? /*
+                        <li data-layer="instytucje">Instytucje publiczne</li>
+                        <li data-layer="biznes">Biznes</li>
+                        <li data-layer="ngo">Organizacje</li>
+
+                        <? if (@$mapParams['mode'] == 'place') {
+                            if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
+                        */ ?>
+                        <li data-layer="komisje_wyborcze" class="open">Wybory parlamentarne 2015</li>
+                        <? /*
+                            <? }
+                        } ?>
+                        */ ?>
+                    </ul>
+                    <? /*
+                    if (@$mapParams['mode'] == 'place') {
+                        if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) {
+                    */
+                    $counters = array(
+                        'sejm' => count(@$mapParams['elections']['sejm']),
+                        'senat' => count(@$mapParams['elections']['senat']),
+                        'obwody' => count(@$mapParams['elections']['obwody']),
+                    );
+
+                    if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) {
+                        $ils = array();
+                        $array_column_sejm = array_column($mapParams['elections']['sejm'], 'key');
+                        $array_column_senat = array_column($mapParams['elections']['senat'], 'key');
+
+                        $array_column_sejm = (count($array_column_sejm) == 1) ? $array_column_sejm[0] : '0';
+                        $array_column_senat = (count($array_column_senat) == 1) ? $array_column_senat[0] : '0';
+
+                        if (isset($mapParams['elections']['obwody']))
+                            $ils = array_column($mapParams['elections']['obwody'], 'key');
+                        ?>
+                        <div class="explorerContent komisje_wyborcze_content wyboryDetail<? if (isset($widget)) {
+                            echo ' widget';
+                        } ?>"
+                             data-obwody="<?= @implode(',', $ils) ?>"
+                             data-sejm="<?= $array_column_sejm ?>"
+                             data-senat="<?= $array_column_senat ?>"
+                             data-miejsce="<?= $mapParams['data']['miejsca.id'] ?>"
+                             data-redirect="<?= (isset($_GET["redirect"])) ? true : false; ?>">
+                            <section class="dcontent">
+                                <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { ?>
+                                    <ul class="wybory meta">
+                                        <? if ($counters['sejm'] > 0) { ?>
+                                            <li class="sejm">
+                                                <label>Okręg do Sejmu:</label>
+                                                <?
+                                                if (gettype($mapParams['elections']['sejm']) == "string") { ?>
+                                                    <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'] ?>"
+                                                       target="_parent"><?= $mapParams['elections']['sejm'] ?></a>
+                                                <? } else {
+                                                    foreach ($mapParams['elections']['sejm'] as $obwod_sejm) { ?>
+                                                        <? if ($obwod_sejm !== $mapParams['elections']['sejm'][0]) echo '<span class="pull-left">, </span>' ?>
+                                                        <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $obwod_sejm['key'] ?>"
+                                                           target="_parent"><?= $obwod_sejm['key'] ?></a>
+                                                    <? }
+                                                } ?>
+                                            </li>
+                                        <? }
+                                        if ($counters['senat'] > 0) { ?>
+                                            <li class="senat">
+                                                <label>Okręg do Senatu:</label>
+                                                <?
+                                                if (gettype($mapParams['elections']['senat']) == "string") { ?>
+                                                    <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['senat'] ?>"
+                                                       target="_parent"><?= $mapParams['elections']['senat'] ?></a>
+                                                <? } else {
+                                                    foreach ($mapParams['elections']['senat'] as $obwod_senat) { ?>
+                                                        <? if ($obwod_senat !== $mapParams['elections']['senat'][0]) echo '<span class="pull-left">, </span>' ?>
+                                                        <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $obwod_senat['key'] ?>"
+                                                           target="_parent"><?= $obwod_senat['key'] ?></a>
+                                                    <? }
+                                                } ?>
+                                            </li>
+                                        <? }
+                                        if ($counters['obwody'] === 1) { ?>
+                                            <li class="obwod">
+                                                <button
+                                                    data-target="<?= $mapParams['elections']['obwody'][0]['key'] ?>"
+                                                    disabled="disabled"
+                                                    class="btn-obwod btn btn-warning btn-sm margin-top-10">
+                                                    Pokaż lokal wyborczy
+                                                </button>
+                                            </li>
+                                        <? } ?>
+                                    </ul>
+                                <? } else { ?>
+                                    <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
+                                        właściwe okręgi wyborcze.</p>
+                                <? } ?>
+                            </section>
+                        </div>
+                        <? /* }
+                    }*/
+                    } else {
+                        ?>
+                        <div class="explorerContent komisje_wyborcze_content wyboryDetail<? if (isset($widget)) {
+                            echo ' widget';
+                        } ?>">
+                            <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
+                                właściwe okręgi wyborcze.</p>
+                        </div>
+                    <? } ?>
+                </div>
             </div>
         </div>
     </div>

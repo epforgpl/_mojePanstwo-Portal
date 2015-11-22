@@ -17,6 +17,11 @@ class CollectionsController extends AppController {
             throw new ForbiddenException;
     }
 
+    public function edit($id) {
+        $this->set('response', $this->Collection->edit($id, $this->request->data));
+        $this->set('_serialize', array('response'));
+    }
+
     public function get($id) {
         $this->set('response', $this->Collection->get($id));
         $this->set('_serialize', array('response'));
@@ -29,6 +34,15 @@ class CollectionsController extends AppController {
 
     public function addObject($id, $object_id) {
         $this->set('response', $this->Collection->addObject($id, $object_id));
+        $this->set('_serialize', array('response'));
+    }
+
+    /**
+     * To samo co addObject z tym, że tu wysyłamy w POST wszyskie dane tj.
+     * id (collections.id), object_id (objects.id), note (str)
+     */
+    public function addObjectData() {
+        $this->set('response', $this->Collection->addObjectData($this->request->data));
         $this->set('_serialize', array('response'));
     }
 

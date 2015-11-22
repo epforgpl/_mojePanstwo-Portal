@@ -2,6 +2,7 @@
 
 // APP::uses('MP\Lib\Dataobject', 'Lib');
 require_once(APPLIBS . 'Dataobject.php');
+require_once(APPLIBS . 'Collection.php');
 
 class Dataobject extends AppModel
 {
@@ -21,19 +22,26 @@ class Dataobject extends AppModel
 
     public function afterFind($results = array(), $primary = false)
     {
-				
+						
         for ($i = 0; $i < count($results); $i++) {
 			
+			if( !isset($results[$i]['_type']) || ($results[$i]['_type']=='objects') ) {
 			
-            $class = ucfirst($results[$i]['dataset']);
-            $file = APPLIBS . 'Dataobject/' . $class . '.php';
-
-            if (file_exists($file)) {
-                require_once($file);
-                $class = 'MP\\Lib\\' . $class;
-                $obj = new $class($results[$i]);
-            } else
-                $obj = new MP\Lib\Dataobject($results[$i]);
+	            $class = ucfirst($results[$i]['dataset']);
+	            $file = APPLIBS . 'Dataobject/' . $class . '.php';
+	
+	            if (file_exists($file)) {
+	                require_once($file);
+	                $class = 'MP\\Lib\\' . $class;
+	                $obj = new $class($results[$i]);
+	            } else
+	                $obj = new MP\Lib\Dataobject($results[$i]);
+                
+            } elseif( $results[$i]['_type']=='collections' ) {
+	            
+	            $obj = new MP\Lib\Collection($results[$i]);
+	            
+            }
 						
             $results[$i] = $obj;
 

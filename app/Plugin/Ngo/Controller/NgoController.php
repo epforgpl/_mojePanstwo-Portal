@@ -8,9 +8,97 @@ class NgoController extends ApplicationsController
     public $settings = array(
         'id' => 'ngo',
         'title' => 'NGO',
+        'shortTitle' => 'NGO',
         'subtitle' => 'Organizacje pozarządowe w Polsce',
         'headerImg' => 'ngo',
     );
+    
+    public $_aggs = array(
+	    'dzialania' => array(
+	        'scope' => 'global',
+	        'filter' => array(
+	            'bool' => array(
+	                'must' => array(
+	                    array(
+	                        'term' => array(
+	                            'dataset' => 'dzialania',
+	                        ),
+	                    ),
+	                    array(
+	                        'term' => array(
+	                            'data.dzialania.status' => '1',
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        ),
+	        'aggs' => array(
+	            'top' => array(
+	                'top_hits' => array(
+	                    'size' => 3,
+	                    'fielddata_fields' => array('dataset', 'id'),
+	                    'sort' => array(
+	                        'date' => array(
+	                            'order' => 'desc',
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        ),
+	    ),
+	    'fundacje' => array(
+	        'filter' => array(
+	            'bool' => array(
+	                'must' => array(
+	                    array(
+	                        'term' => array(
+	                            'data.krs_podmioty.forma_prawna_id' => '1',
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        ),
+	        'aggs' => array(
+	            'top' => array(
+	                'top_hits' => array(
+	                    'size' => 5,
+	                    'fielddata_fields' => array('dataset', 'id'),
+	                    'sort' => array(
+	                        'date' => array(
+	                            'order' => 'desc',
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        ),
+	    ),
+	    'stowarzyszenia' => array(
+	        'filter' => array(
+	            'bool' => array(
+	                'must' => array(
+	                    array(
+	                        'term' => array(
+	                            'data.krs_podmioty.forma_prawna_id' => '15',
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        ),
+	        'aggs' => array(
+	            'top' => array(
+	                'top_hits' => array(
+	                    'size' => 5,
+	                    'fielddata_fields' => array('dataset', 'id'),
+	                    'sort' => array(
+	                        'date' => array(
+	                            'order' => 'desc',
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        ),
+	    ),
+	);
 
     public $components = array('RequestHandler');
 
@@ -185,6 +273,8 @@ class NgoController extends ApplicationsController
     {
 
         parent::beforeRender();
+       
+        // debug( $this->viewVars['dataBrowser']['aggs']['dataset'] ); die();
 
         if ($this->request->params['action'] == 'map') {
 
@@ -217,7 +307,7 @@ class NgoController extends ApplicationsController
         }
 
     }
-
+	
     public function view()
     {
 
@@ -230,114 +320,31 @@ class NgoController extends ApplicationsController
                 'dataset' => 'ngo',
             ),
             'conditions' => array(
-                'dataset' => 'krs_podmioty',
-                'krs_podmioty.forma_prawna_typ_id' => array('2'),
+	            'dataset' => array(
+		            'dzialania', 
+		            'pisma', 
+		            'krs_podmioty{krs_podmioty.forma_prawna_typ_id:2}',
+	            ),	            
             ),
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Ngo',
                     'element' => 'cover',
                 ),
-                'aggs' => array(
-                    'dzialania' => array(
-                        'scope' => 'global',
-                        'filter' => array(
-                            'bool' => array(
-	                            'must' => array(
-		                            array(
-			                            'term' => array(
-			                                'dataset' => 'dzialania',
-			                            ),
-		                            ),
-		                            array(
-			                            'term' => array(
-				                            'data.dzialania.status' => '1',
-			                            ),
-		                            ),
-	                            ),
-                            ),
-                        ),
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 3,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    'sort' => array(
-                                        'date' => array(
-                                            'order' => 'desc',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'fundacje' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'data.krs_podmioty.forma_prawna_id' => '1',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 5,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    'sort' => array(
-                                        'date' => array(
-                                            'order' => 'desc',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'stowarzyszenia' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'data.krs_podmioty.forma_prawna_id' => '15',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 5,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    'sort' => array(
-                                        'date' => array(
-                                            'order' => 'desc',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
+                'aggs' => $this->_aggs,
             ),
             'aggs' => array(
                 'dataset' => array(
                     'terms' => array(
                         'field' => 'dataset',
                     ),
-                    'visual' => array(
-                        'label' => 'Zbiory danych',
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => array(
-                            'krs_podmioty' => 'Organizacje',
-                        ),
+                    'aggs' => array(
+	                    'forma_prawna' => array(
+		                    'terms' => array(
+			                    'field' => 'data.krs_podmioty.forma_prawna_id',
+			                    'size' => 100,
+		                    ),
+	                    ),
                     ),
                 ),
             ),
@@ -355,6 +362,7 @@ class NgoController extends ApplicationsController
 
     public function dzialania()
     {
+	    $this->title = 'Działania organizacji społecznych';
         $this->loadDatasetBrowser('dzialania', array(
             'conditions' => array(
                 'dataset' => 'dzialania',
@@ -365,18 +373,69 @@ class NgoController extends ApplicationsController
                 'base' => '/ngo'
             ))
         ));
-        $this->set('title_for_layout', 'Działania organizacji społecznych');
-
     }
 
     public function fundacje()
     {
+	    $this->title = 'Fundacje | NGO';
         $this->loadDatasetBrowser('krs_podmioty', array(
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '1',
             ),
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'fundacje',
+                'base' => '/ngo'
+            )),
+        ));
+    }
+    
+    public function zwiazki_zawodowe()
+    {
+	    $this->title = 'Związki zawodowe | NGO';
+        $this->loadDatasetBrowser('krs_podmioty', array(
+            'conditions' => array(
+                'krs_podmioty.forma_prawna_id' => '18',
+            ),
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'zwiazki_zawodowe',
+                'base' => '/ngo'
+            )),
+        ));
+    }
+    
+    public function spoldzielnie()
+    {
+        $this->title = 'Spółdzielnie | NGO';
+        $this->loadDatasetBrowser('krs_podmioty', array(
+            'conditions' => array(
+                'krs_podmioty.forma_prawna_id' => '9',
+            ),
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'spoldzielnie',
+                'base' => '/ngo'
+            )),
+        ));
+    }
+    
+    public function pozostale()
+    {
+        $this->title = 'Pozostałe organizacje | NGO';
+        $this->loadDatasetBrowser('krs_podmioty', array(
+            'conditions' => array(
+                'krs_podmioty.forma_prawna_id' => array('2', '3', '4', '5', '8', '16', '17', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '33', '34', '35', '36', '37', '40', '41', '43', '45'),
+            ),
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'pozostale',
+                'base' => '/ngo'
+            )),
+        ));
+    }
+    
+    public function zbiorki()
+    {
+        $this->loadDatasetBrowser('zbiorki_publiczne', array(
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'zbiorki',
                 'base' => '/ngo'
             ))
         ));
@@ -402,7 +461,222 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Stowarzyszenia | NGO');
 
     }
+	
+	public function getChapters() {
 
+		$mode = false;
+		$items = array();
+		$app = $this->getApplication( $this->settings['id'] );		
+
+		if(
+			isset( $this->request->query['q'] ) &&
+			$this->request->query['q']
+		) {
+			
+			$items[] = array(
+				'id' => '_results',
+				'label' => 'Szukaj w NGO:',
+				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+				'tool' => array(
+					'icon' => 'search',
+					'href' => '/' . $this->settings['id'],
+				),
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+				'class' => '_label',
+			);
+
+			if( $this->chapter_selected=='view' )
+				$this->chapter_selected = '_results';
+			$mode = 'results';
+
+		} else {
+			
+			$items[] = array(
+				'label' => 'NGO',
+				'href' => '/' . $this->settings['id'],
+				'class' => '_label',
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+			);
+			
+		}
+		
+		
+		$map = array(
+			'dzialania' => array(
+				'menu_id' => 'dzialania',
+				'label' => 'Działania',
+				'icon' => 'dzialania',
+			),
+			/*
+			'pisma' => array(
+				'menu_id' => 'pisma',
+				'label' => 'Pisma',
+				'icon' => 'pisma',
+			),
+			'zbiorki_publiczne' => array(
+				'menu_id' => 'zbiorki',
+				'label' => 'Zbiórki publiczne',
+				'separator' => 'bottom',
+			),
+			*/
+			'krs_podmioty' => array(
+				'label' => 'Organizacje:',
+				'class' => '__label',
+				'icon' => 'krs_podmioty',
+				'forma_prawna_id' => '_all',
+			),
+			'fundacje' => array(
+				'menu_id' => 'fundacje',
+				'label' => 'Fundacje',
+				'forma_prawna_id' => '1',
+				'icon' => 'dot',
+			),
+			'stowarzyszenia' => array(
+				'menu_id' => 'stowarzyszenia',
+				'label' => 'Stowarzyszenia',
+				'forma_prawna_id' => '15',
+				'icon' => 'dot',
+			),
+			'zwiazki_zawodowe' => array(
+				'menu_id' => 'zwiazki_zawodowe',
+				'label' => 'Związki zawodowe',
+				'forma_prawna_id' => '18',
+				'icon' => 'dot',
+			),
+			'spoldzielnie' => array(
+				'menu_id' => 'spoldzielnie',
+				'label' => 'Spółdzielnie',
+				'forma_prawna_id' => '9',
+				'icon' => 'dot',
+			),
+			'pozostale_ngo' => array(
+				'menu_id' => 'pozostale',
+				'label' => 'Pozostałe organizacje',
+				'forma_prawna_id' => '_other',
+				'icon' => 'dot',
+			),
+		);
+		
+		
+		
+
+		
+		$others_count = 0;
+		
+		foreach( $map as $key => $value ) {
+						
+			if( !isset($value['menu_id']) )
+				$value['menu_id'] = '';
+						
+			$item = array(
+				'id' => $value['menu_id'],
+				'label' => $value['label'],
+			);
+			
+			if( $value['menu_id'] )
+				$item['href'] = '/' . $this->settings['id'] . '/' . $value['menu_id'];
+			
+			if( isset($value['icon']) )
+				$item['icon'] = 'icon-datasets-' . $value['icon'];
+				
+			if( isset($value['class']) )
+				$item['class'] = $value['class'];
+
+			if( $mode == 'results' ) {
+			
+				
+				$datasets = array();
+				
+				if( isset($item['href']) )
+					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+				
+				if( @$value['forma_prawna_id'] ) {
+					
+					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+													
+							if( $dataset['key']=='krs_podmioty' ) {
+								
+								if( $value['forma_prawna_id']=='_all' ) {
+									
+									if( $dataset['doc_count'] );
+										$items[] = $item;
+									
+								} else {
+											
+									foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
+										if( $forma['doc_count'] ) {
+																				
+											if( $value['forma_prawna_id']==$forma['key'] ) {
+												
+												$item['count'] = $forma['doc_count'];
+												$items[] = $item;
+													
+											} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
+												
+												$others_count += $forma['doc_count'];
+												
+											}
+																				
+										}
+									}
+									
+									if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+										
+										$item['count'] = $others_count;
+										$items[] = $item;
+										
+									}
+								
+								}
+								
+							}
+						}
+					}
+					
+				} else {
+					
+					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+							if( ($dataset['key'] == $key) && $dataset['doc_count'] ) {
+									
+								$item['count'] = $dataset['doc_count'];
+								$items[] = $item;
+								
+							}
+						}
+					}
+					
+				}
+
+			} else {
+
+				$items[] = $item;
+
+			}
+
+		}
+		
+        foreach($items as $i => $item) {
+
+            if(isset($item['submenu'])) {
+                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
+            }
+
+        }
+
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
+	
+	/*
     public function getChapters()
     {
 
@@ -440,6 +714,59 @@ class NgoController extends ApplicationsController
 
         return $output;
 
+    }
+    */
+    
+    public function page()
+    {
+	    
+	    $options = array(
+            'searchTag' => array(
+	            'href' => '/ngo',
+	            'label' => 'NGO',
+            ),
+            'autocompletion' => array(
+                'dataset' => 'ngo',
+            ),
+            'conditions' => array(
+                'dataset' => 'krs_podmioty',
+                'krs_podmioty.forma_prawna_typ_id' => array('2'),
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Ngo',
+                    'element' => 'page',
+                ),
+                'aggs' => array(
+                ),
+            ),
+            'aggs' => array(
+                'dataset' => array(
+                    'terms' => array(
+                        'field' => 'dataset',
+                    ),
+                    'visual' => array(
+                        'label' => 'Zbiory danych',
+                        'skin' => 'datasets',
+                        'class' => 'special',
+                        'field' => 'dataset',
+                        'dictionary' => array(
+                            'krs_podmioty' => 'Organizacje',
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->set('_submenu', array_merge($this->submenus['ngo'], array(
+            'selected' => '',
+        )));
+
+        $this->title = 'Organizacje pozarządowe i akcje społeczne';
+
+        $this->Components->load('Dane.DataBrowser', $options);
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
+	    
     }
 
 }

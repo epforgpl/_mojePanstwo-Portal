@@ -3,7 +3,14 @@
 (function ($) {
     "use strict";
 
-    var appHeader = $('.appHeader');
+	var appHeader = $('.appHeader'),
+		dataHighlightHidden = $('.dataHighlight-hidden');
+
+	if (dataHighlightHidden.length) {
+		dataHighlightHidden.find('.dataHighlight-hidden-button > .btn').click(function () {
+			dataHighlightHidden.toggleClass('visible')
+		})
+	}
 
     if (window.screen.width > 768) {
         var statusBar = appHeader.find('.status'),

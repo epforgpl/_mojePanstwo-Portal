@@ -14,7 +14,72 @@ a.link-api-call {
 
 .dataBrowser, .dataFeed, .dataobjects {
 
-	.dataAggsDropdownList {
+	.dataAggsDropdownListContainer {
+		background-color: #f8f9fa;
+		color: #789;
+		border: 1px solid #eee;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		-o-border-radius: 5px;
+		margin-top: 25px;
+		margin-bottom: 15px;
+
+        .dataAggsDropdownList {
+
+            margin: 0 10px;
+			border-bottom: 1px solid #EEE;
+
+            &:last-child {
+				border-bottom: none;
+			}
+			
+			&.search {
+				padding: 8px 2px 2px !important;
+			}
+
+            .dataCounter > span {
+				font-size: 12px !important;
+				color: #789;
+				padding: 7px 15px;
+			}
+
+            .dataAggsDropdown a {
+				font-size: 12px !important;
+				color: #789;
+				&:hover {
+					color: #157ab5;
+				}
+			}
+
+            .cancel {
+				float: right;
+				a {
+					font-size: 12px !important;
+					color: #789;
+					background: inherit;
+					&:hover {
+						background: inherit;
+						color: #157ab5;
+					}
+				}
+			}
+
+        }
+
+        .nav > li > a {
+			padding: 2px 7px;
+			margin: 6px 8px;
+		}
+
+        li.dataAggsDropdown.active > a {
+			background-color: #789 !important;
+			color: #FFF !important;
+		}
+
+    }
+
+    .dataAggsDropdownList {
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
@@ -164,6 +229,53 @@ a.link-api-call {
                         }
 
                     }
+                    
+                    &.__label {
+	                    margin-top: 20px;
+	                    margin-bottom: 5px;
+	                    span {
+		                    color: #555;
+						    font-size: 10px;
+						    font-weight: bold;
+						    text-transform: uppercase;
+						    display: block;
+						    padding-left: 5px;
+						    i {
+							    position: relative;
+							    top: -4px;
+						    }
+	                    }
+                    }
+                    
+                    &._label {
+	                    border-bottom: 1px solid #ddd;
+					    margin-bottom: 7px;
+					    padding-bottom: 10px;
+	                    & > a {
+		                    color: #777;
+		                    font-weight: bold;
+		                    .glyphicon {
+			                    font-size: 14px;
+		                    }
+		                    .appIcon {
+			                    font-size: 18px;
+			                    &::before {
+				                    position: relative;
+				                    top: 1px;
+			                    }
+		                    }
+	                    }
+	                    
+                    } 
+                    
+                    &.active._label {
+	                    & > a {
+		                    color: #777;
+		                    .object-icon {
+		                    }
+	                    }
+                    }        
+                    
                     &.active {
 
                         a {
@@ -200,7 +312,6 @@ a.link-api-call {
                             }
 
                             &.active {
-
                                 a {
                                     color: #fff;
                                     background: #337AB7;
@@ -217,7 +328,9 @@ a.link-api-call {
 
             .agg-List {
                 padding: 10px 0;
-
+				
+				
+				
                 &.apps {
                     li a {
                         position: relative;
@@ -364,13 +477,12 @@ a.link-api-call {
             ul {
                 li.active, li:hover {
                     a {
-                        color: #fff;
+                        color: #789;
                     }
                 }
             }
 
             &.active > a {
-                font-weight: bold;
                 background: none;
                 color: #DC4A38;
             }
@@ -531,7 +643,7 @@ a.link-api-call {
             width: 100%;
             min-height: 95vh;
 
-            > div.col-xs-12 {
+            > div.col-xs-12, > div.col-md-1-5 {
                 flex-direction: column;
 
                 &.dataAggsContainer {

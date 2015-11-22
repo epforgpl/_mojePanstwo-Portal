@@ -26,6 +26,8 @@ class KrsPodmiotyController extends DataobjectsController
 
     public $objectActivities = true;
     public $objectData = true;
+    public $objectCollections = true;
+    public $objectLetters = true;
 
     private $twitterAccountType = '0';
     private $twitterTimerange = '1W';
@@ -333,6 +335,76 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
                 'scope' => 'global',
             ),
+            'pisma' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'pisma',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.pisma.page_dataset' => 'krs_podmioty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.pisma.page_object_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3,
+	                        'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
+            'kolekcje' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'kolekcje',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.kolekcje.page_dataset' => 'krs_podmioty',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.kolekcje.page_object_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3,
+	                        'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
         ));
 
         parent::_prepareView();
@@ -391,9 +463,12 @@ class KrsPodmiotyController extends DataobjectsController
     public function graph()
     {
         if (@$this->request->params['ext'] == 'json') {
-
+						
             $this->addInitLayers('graph');
             $this->_prepareView();
+            
+            // var_export( $this->object->layers ); die();
+            
             $data = $this->object->getLayer('graph');
 
             $this->set('data', $data);
@@ -585,7 +660,35 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => @$this->object_aggs['dzialania']['doc_count'],
             );
         }
-
+        
+        if(
+        	@$this->object_aggs['pisma']['doc_count']
+        ) {
+            $menu['items'][] = array(
+	            'id' => 'pisma',
+	            'label' => 'Pisma',
+	        );
+        }
+        
+        if(
+        	@$this->object_aggs['kolekcje']['doc_count']
+        ) {
+            $menu['items'][] = array(
+	            'id' => 'kolekcje',
+	            'label' => 'Kolekcje',
+	        );
+        }
+		
+		if($this->object->getData('twitter_account_id')) {
+            $menu['items'][] = array(
+                'id' => 'media',
+                'label' => 'Twitter',
+            );
+        }
+		
+		
+		
+		
         if (@$this->object_aggs['zamowienia']['doc_count']) {
             $menu['items'][] = array(
                 'id' => 'zamowienia',
@@ -655,12 +758,9 @@ class KrsPodmiotyController extends DataobjectsController
             );
         }
 
-        if($this->object->getData('twitter_account_id')) {
-            $menu['items'][] = array(
-                'id' => 'media',
-                'label' => 'Media',
-            );
-        }
+        
+
+        
 
         return $menu;
     }

@@ -25,4 +25,9 @@ Router::connect('/finanse/samorzad', array('plugin' => 'FinanseGmin', 'controlle
 Router::connect('/finanse/samorzad/:action', array('plugin' => 'FinanseGmin', 'controller' => 'FinanseGmin'));
 
 Router::connect('/finanse', array('plugin' => 'Finanse', 'controller' => 'Finanse', 'action' => 'view'));
+Router::connect('/finanse/:p1-:p2', array('plugin' => 'Finanse', 'controller' => 'Finanse', 'action' => 'view'), array(
+	'p1' => '([0-9]+)',
+	'p2' => '([0-9]+)',
+	'pass' => array('p1', 'p2'),
+));
 Router::connect('/finanse/:action', array('plugin' => 'Finanse', 'controller' => 'Finanse'));

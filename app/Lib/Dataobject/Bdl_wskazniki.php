@@ -6,7 +6,8 @@ class Bdl_wskazniki extends DataObject
 {
 	
 	protected $tiny_label = 'Wskaźniki';
-	
+    public $force_hl_fields = true;
+
 	protected $schema = array(
 		array('kategoria_tytul', 'Kategoria', 'string', array(
 			'link' => array(
@@ -29,27 +30,37 @@ class Bdl_wskazniki extends DataObject
         'title' => 'tytul',
         'shortTitle' => 'tytul',
         'date' => false,
-    );
-    
-    protected $hl_fields = array(
-    	'kategoria_tytul', 'grupa_tytul', 'poziom_str', 'data_aktualizacji'
+        'description' => 'opis',
     );
 
     public function getLabel()
     {
-        return 'Wskaźniki Banku Danych Lokalnych';
+        return 'Wskaźnik';
+    }
+    
+    public function getDescription()
+    {
+	    // debug( $this->getData() );
     }
     
     public function getMetaDescriptionParts($preset = false)
 	{
-		
+				
 		$output = array();
 						
-		if( $this->getData('data_aktualizacji') )
-			$output[] = 'Aktualizacja: ' . dataSlownie($this->getData('data_aktualizacji'));
+		if( $this->getData('liczba_ostatni_rok') )
+			$output[] = 'Ostatnia wartość z ' . $this->getData('liczba_ostatni_rok') . ' r.';
 		
+		if( $this->getData('poziom_str') )
+			$output[] = $this->getData('poziom_str');
+				
 		return $output;
 		
 	}
+	
+	public function hasHighlights()
+    {
+        return false;
+    }
 
 }

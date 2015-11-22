@@ -27,23 +27,6 @@ $options = array(
 <div class="col-md-9">
 
     <div class="blocks">
-
-        <? /*
-	    if ( $doc = @$dataBrowser['aggs']['sejm_posiedzenia']['top']['hits']['hits'][0]['fields']['source'][0] ) {
-        ?>
-            <div class="block block-simple block-size-sm col-xs-12">
-
-                <header><a href="/dane/instytucje/3214/posiedzenia/<?= $doc['data']['sejm_posiedzenia.id'] ?>"><?= $doc['data']['sejm_posiedzenia.tytul'] ?></a> <small><?= $doc['data']['sejm_posiedzenia.str_data'] ?></small></header>
-
-                <?= $this->element('Dane.sejm_posiedzenia/stats', array(
-                	'data' => $doc['data'],
-                	'buttons' => true,
-                )) ?>
-
-            </div>
-        <? } */ ?>
-
-
         <? if (@$dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits']) { ?>
             <div class="block block-simple block-size-sm col-xs-12">
                 <header>Najnowsze projekty aktów prawnych skierowane do Sejmu:</header>

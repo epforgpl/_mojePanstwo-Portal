@@ -287,18 +287,21 @@ class ApplicationsController extends AppController
 	public function getChapters() {
 
 		$mode = false;
-
-		$items = array();		
+		$items = array();
+		$app = $this->getApplication( $this->settings['id'] );
 
 		if(
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
 		) {
-			
+						
 			$items[] = array(
 				'id' => '_results',
-				'label' => 'Wyniki wyszukiwania:',
+				'label' => isset($this->settings['shortTitle']) ? 'Szukaj w ' . $this->settings['shortTitle'] . ':' : 'Szukaj:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+				'class' => '_label',
 			);
 
 			if( $this->chapter_selected=='view' )
@@ -307,9 +310,13 @@ class ApplicationsController extends AppController
 
 		} else {
 			
+			
 			$items[] = array(
-				'label' => 'Start',
+				'label' => isset($this->settings['shortTitle']) ? $this->settings['shortTitle'] : $this->settings['title'],
 				'href' => '/' . $this->settings['id'],
+				'class' => '_label',
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
 			);
 			
 		}
@@ -359,7 +366,7 @@ class ApplicationsController extends AppController
 			}
 
 		}
-
+		
         foreach($items as $i => $item) {
 
             if(isset($item['submenu'])) {
@@ -367,12 +374,12 @@ class ApplicationsController extends AppController
             }
 
         }
-
+        
 		$output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
-
+				
 		return $output;
 
 	}

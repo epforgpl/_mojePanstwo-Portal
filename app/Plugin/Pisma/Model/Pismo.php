@@ -24,7 +24,7 @@ class Pismo extends AppModel
             'method' => 'GET',
             'data' => $params,
         ));
-
+        
         $code = (int)$this->getDataSource()->Http->response->code;
         if ($code >= 400) {
 
@@ -128,6 +128,15 @@ class Pismo extends AppModel
 	    return $this->getDataSource()->request('pisma/templates', array(
 		    'data' => $params,
 	    ));
+    }
+
+    public function setDocumentName($id, $name) {
+        return $this->getDataSource()->request('pisma/documents/setDocumentName/' . $id, array(
+            'method' => 'POST',
+            'data' => array(
+                'name' => $name
+            ),
+        ));
     }
 
 }

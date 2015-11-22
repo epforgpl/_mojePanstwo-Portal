@@ -1,8 +1,5 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-poslowie', array('plugin' => 'Dane')));
-// //$this->Combinator->add_libs('css', $this->Less->css('dataobjectslider', array('plugin' => 'Dane')));
-// $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
-// $this->Combinator->add_libs('js', 'Dane.view-poslowie.js');
 
 echo $this->Element('dataobject/pageBegin');
 ?>
@@ -137,26 +134,6 @@ echo $this->Element('dataobject/pageBegin');
                                     </p><? } ?>
                             </div>
                         </li>
-
-                        <? /* ?>
-	                    <? if($object->getData('wartosc_refundacja_kwater_pln')) {?>
-	                    <li class="dataHighlight">
-	                        <p class="_label">Wartość refenduacji w 2013 r.</p>
-	
-	                        <p class="_value"><?= _currency($object->getData('wartosc_refundacja_kwater_pln')); ?></p>
-	                    </li>
-	                    <? } ?>
-	                    
-	                    <? if($object->getData('wartosc_uposazenia_pln')) {?>
-	                    <li class="dataHighlight">
-	                        <p class="_label">Kwota uposażenia w 2013 r.</p>
-	
-	                        <p class="_value"><?= _currency($object->getData('wartosc_uposazenia_pln')); ?></p>
-	                    </li>
-	                    <? } ?>
-	                    <? */
-                        ?>
-
                     </ul>
                 </div>
 

@@ -6,15 +6,20 @@ class LettersController extends StartAppController
 {
 
     public $chapter_selected = 'letters';
-
+	
     public $settings = array(
         'id' => 'pisma',
         'title' => 'Pisma',
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
     );
     public $helpers = array('Form');
-    public $uses = array('Pisma.Pismo', 'Sejmometr.Sejmometr');
-    public $components = array('RequestHandler');
+    public $uses = array(
+        'Pisma.Pismo',
+        'Sejmometr.Sejmometr',
+        'Start.LetterResponse',
+        'Start.Letter',
+        'Dane.ObjectUsersManagement');
+    public $components = array('RequestHandler', 'S3', 'Start.LettersResponseFile');
     public $appSelected = 'pisma';
     private $aggs_dict = array(
         'access' => array(
@@ -38,14 +43,16 @@ class LettersController extends StartAppController
     public function view($id, $slug = '')
     {
         $pismo = $this->load($id);
+        $this->set('responses', $this->LetterResponse->getByLetter($id));
     }
 
-    private function load($id)
+    private function load($id, $params = array())
     {
 
         try {
 
-            $pismo = $this->Pismo->documents_read($id);
+            $pismo = $this->Pismo->documents_read($id, $params);
+            
             $is_owner = false;
 
             if (
@@ -78,14 +85,114 @@ class LettersController extends StartAppController
 
     public function edit($id, $slug = '')
     {
-
-        if ($pismo = $this->load($id)) {
-
+        if ($pismo = $this->load($id, array(
+	        'inputs' => true,
+        ))) {
+			
+			// debug($pismo);
+				
             if (!$pismo['is_owner'])
                 return $this->redirect($this->referer());
-
+                
         } else {
 
+            $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
+            $this->render('not_found');
+        }
+    }
+
+    public function response($letter_id, $slug, $response_id) {
+        if($pismo = $this->load($letter_id)) {
+            if($response = $this->LetterResponse->get($letter_id, $response_id)) {
+                $this->set('response', $response);
+                $this->title = 'Odpowiedź ' . $response['Response']['title'];
+            } else {
+                throw new NotFoundException;
+            }
+
+        } else {
+            $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
+            $this->render('not_found');
+        }
+    }
+
+    public function responses($id, $slug = '')
+    {
+        if($pismo = $this->load($id))
+        {
+            if(!$pismo['is_owner']) {
+                $this->redirect($this->referer());
+                return;
+            }
+
+            /* delete unsaved files from s3 */
+            if(!isset($this->request->params['form']['file']) && !isset($this->request->data['name'])) {
+                $this->LettersResponseFile->delete();
+            }
+
+            /* single file upload to s3, push file name to session */
+            if(isset($this->request->params['form']['file'])) {
+                // upload file to already existing response
+                if(isset($this->request->params['response_id'])) {
+                    $response_id = (int) $this->request->params['response_id'];
+                    $this->LettersResponseFile->setName('letters_response_files_' . $response_id);
+                    $response = $this->LettersResponseFile->save(
+                        $this->request->params['form']['file']
+                    );
+                // upload file to new response
+                } else {
+                    $response = $this->LettersResponseFile->save(
+                        $this->request->params['form']['file']
+                    );
+                }
+
+                $this->set('response', $response);
+                $this->set('_serialize', 'response');
+            }
+
+            /* response form post save */
+            if(isset($this->request->data['name'])) {
+                // update already existing response
+                if(isset($this->request->params['response_id'])) {
+                    $data = $this->request->data;
+                    $response_id = (int) $this->request->params['response_id'];
+
+                    $this->LettersResponseFile->setName('letters_response_files_' . $response_id);
+                    $data['session_files'] = $this->LettersResponseFile->getFiles();
+
+                    $response = $this->LetterResponse->update($id, $response_id, $data);
+                    if($response) {
+                        $this->LettersResponseFile->clear();
+                        $this->Session->setFlash('Odpowiedź została poprawnie zaktualizwana');
+                    } else {
+                        $this->Session->setFlash('Wystąpił błąd podczas aktualizacji odpowiedzi');
+                    }
+
+                    $this->set('response', $response);
+                    $this->set('_serialize', 'response');
+                // create new response
+                } else {
+                    $res = $this->LetterResponse->save(
+                        $id,
+                        array_merge($this->request->data, array(
+                            'files' => $this->LettersResponseFile->getFiles()
+                        ))
+                    );
+
+                    if ($res) {
+                        $this->LettersResponseFile->clear();
+                        $this->Session->setFlash('Odpowiedź została poprawnie dodana');
+                    } else {
+                        $this->Session->setFlash('Wystąpił błąd podczas dodawania odpowiedzi');
+                    }
+
+                    $this->redirect($this->referer());
+                }
+            }
+
+            $this->title = $this->title . ' - Odpowiedzi';
+
+        } else {
             $this->set('title_for_layout', 'Pismo nie istnieje lub nie masz do niego dostępu');
             $this->render('not_found');
         }
@@ -130,6 +237,13 @@ class LettersController extends StartAppController
 
     }
 
+    public function setDocumentName($id) {
+        $this->set(
+            'status',
+            $this->Pismo->setDocumentName($id, $this->request->data['nazwa'])
+        );
+        $this->set('_serialize', 'status');
+    }
 
     public function post($id = false, $slug = false)
     {
@@ -137,8 +251,12 @@ class LettersController extends StartAppController
         if ($id) {
 
             $redirect = 'object';
+			
+            if (isset($this->request->data['edit_from_inputs'])) {
 
-            if (isset($this->request->data['delete'])) {
+                $this->Pismo->documents_update($id, $this->request->data);
+            
+            } elseif (isset($this->request->data['delete'])) {
 
                 $this->Pismo->documents_delete($id);
                 $redirect = 'my';
@@ -190,14 +308,11 @@ class LettersController extends StartAppController
 
     public function create()
     {
-
+        $map = array('adresat_id', 'szablon_id', 'object_id');
         $pismo = array();
-
-        if (isset($this->request->data['adresat_id']))
-            $pismo['adresat_id'] = $this->request->data['adresat_id'];
-
-        if (isset($this->request->data['szablon_id']))
-            $pismo['szablon_id'] = $this->request->data['szablon_id'];
+        foreach($map as $field)
+            if(isset($this->request->data[$field]))
+                $pismo[$field] = $this->request->data[$field];
 
         if (!$this->Auth->user())
             $this->Session->write('Pisma.transfer_anonymous', true);
@@ -207,7 +322,7 @@ class LettersController extends StartAppController
         if (isset($status['error']) && $status['error']) {
 
         } else {
-            return $this->redirect($status['url'] . '/edit');
+            $this->redirect($status['url'] . '/edit');
         }
 
     }
@@ -221,9 +336,11 @@ class LettersController extends StartAppController
             'adresat_id' => isset($query['adresat_id']) ? $query['adresat_id'] : false,
         );
 
+        if($this->Auth->user())
+            $this->set('objects', $this->ObjectUsersManagement->getUserObjects());
+
         $this->set('pismo_init', $pismo);
         $this->title = 'Nowe pismo';
-
     }
 
     public function my()
@@ -330,6 +447,18 @@ class LettersController extends StartAppController
     {
         $this->set('output', $this->Pismo->templates_index($this->request->query));
         $this->set('_serialize', 'output');
+    }
+
+    public function attachment($letter_id, $slug = '', $attachment_id) {
+        $url = $this->LetterResponse->getAttachmentURL(
+            $attachment_id
+        );
+
+        if(!$url)
+            throw new NotFoundException;
+
+        $this->redirect($url);
+        return 0;
     }
 
 }

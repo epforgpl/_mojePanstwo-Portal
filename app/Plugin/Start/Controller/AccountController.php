@@ -12,6 +12,7 @@ class AccountController extends StartAppController
         $this->set('user', $user);
         $user = new User();
         $this->set('canCreatePassword', $user->canCreatePassword());
+        $this->title = 'Ustawienia konta';
     }
 
 }

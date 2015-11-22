@@ -3,7 +3,7 @@
 namespace MP\Lib;
 require_once('DocDataObject.php');
 
-class Dzialania extends DocDataObject
+class Dzialania extends DataObject
 {
 
 	protected $tiny_label = 'Działania';
@@ -18,6 +18,18 @@ class Dzialania extends DocDataObject
     {
         return 'Działanie';
     }
+	
+	public function getShortTitle() {
+		return $this->getData('tytul') ? $this->getData('tytul') : 'Działanie';
+	}
+	
+	public function getTitleAddon() {
+		if($this->getData('status') == '0') {
+			return 'Brudnopis';
+		}
+
+		return false;
+	}
 
 	public function getUrl()
 	{

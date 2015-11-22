@@ -1,8 +1,216 @@
-/*global map, infowindow*/
-var warstwyCacheAjax = {},
-	infowindow = infowindow || null;
+/*global mPHeart, document, window, $, google, Geohash*/
 
-function CustomMarker(latlng, map, args) {
+function MapaWarstwy(map) {
+	this.markers = {
+		instytucje: {},
+		biznes: {},
+		ngo: {},
+		komisje_wyborcze: {}
+	};
+	//this.warstwyMarkers = [];
+
+	this.pendingArea = {tl: false, br: false, zoom: false};
+	this.lastArea = {tl: false, br: false, zoom: false};
+	this.mapUpdateTimer = null;
+	this.xhr = null;
+	this.layer = null;
+	this.map = map;
+	this.cacheAjax = {};
+	this.infowindow = null;
+}
+
+MapaWarstwy.prototype.setLayer = function (layer, showMarkers) {
+	var self = this;
+
+	self.layer = layer;
+	self.showMarkers = (typeof showMarkers !== "undefined") ? showMarkers : true;
+
+	google.maps.event.clearListeners(self.map, 'idle');
+	if (self.layer !== false) {
+		google.maps.event.addDomListener(self.map, 'idle', function () {
+			self.mapUpdate(self.layer);
+		});
+		self.mapUpdate(self.layer);
+	} else {
+		$('.accord.warstwy').attr('data-layer', self.layer);
+		self.mapUpdateClear();
+	}
+};
+
+MapaWarstwy.prototype.showPlaces = function (data) {
+	var icon = {
+			path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
+			fillColor: 'red',
+			strokeColor: 'red',
+			fillOpacity: 1
+		},
+		self = this;
+
+	for (var i = 0; i < data.grid.buckets.length; i++) {
+		var cell = data.grid.buckets[i],
+			center = Geohash.decode(cell.key),
+			f = 0.5,
+			term = 'marker-' + center.lat + '-' + center.lon;
+
+		if (!(term in self.markers[self.layer])) {
+			if (cell.doc_count === 1) {
+				var marker = new google.maps.Marker({
+					position: new google.maps.LatLng(cell.location.lat, cell.location.lon),
+					icon: icon,
+					map: self.map,
+					data: cell.data
+				});
+
+				self.markers[self.layer][term] = marker;
+
+				marker.addListener('click', (function (marker) {
+					return function () {
+						if (self.infowindow) {
+							self.infowindow.close();
+						}
+						self.infowindow = new google.maps.InfoWindow();
+
+						self.infowindow.setContent('<div class="infoWindowNgo">' +
+							'<div class="ngoPlace">' +
+							'<div class="title">' +
+							'<a href="/dane/krs_podmioty/' + marker.data['krs_podmioty.id'] + '">' +
+							'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
+							'<div class="titleName">' + marker.data['krs_podmioty.nazwa'] + '</div>' +
+							'</a>' +
+							'</div>' +
+							'</div>' +
+							'</div>');
+
+						self.infowindow.open(self.map, marker);
+						self.map.setCenter(marker.latlng);
+					};
+				})(marker, content, self.infowindow));
+			} else {
+				var inner_center = Geohash.decode(cell.inner_key),
+					centerLat = center.lat + (inner_center.lat - center.lat) * f,
+					centerLng = center.lon + (inner_center.lon - center.lon) * f;
+
+				this.markers[self.layer][term] = new CustomMarker(self, new google.maps.LatLng(centerLat, centerLng), self.map, {
+					title: cell.doc_count,
+					data: cell
+				});
+			}
+		}
+	}
+};
+
+
+MapaWarstwy.prototype.getArea = function () {
+	var self = this,
+		bounds = self.map.getBounds(),
+		precision = self.map.getZoom(),
+		ne_lat = bounds.getNorthEast().lat(),
+		sw_lng = bounds.getSouthWest().lng(),
+		sw_lat = bounds.getSouthWest().lat(),
+		ne_lng = bounds.getNorthEast().lng(),
+		f = 0.1,
+		ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
+		ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
+		sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),
+		sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
+
+	return {
+		tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
+		br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision),
+		zoom: self.map.getZoom()
+	};
+};
+
+MapaWarstwy.prototype.mapUpdateClear = function () {
+	var self = this;
+
+	$.each(self.markers, function (k, v) {
+		$.each(v, function (key, value) {
+			value.setMap(null);
+		});
+	});
+
+	self.lastArea = {tl: false, br: false, zoom: false};
+	self.markers = {
+		instytucje: {},
+		biznes: {},
+		ngo: {},
+		komisje_wyborcze: {}
+	};
+};
+
+MapaWarstwy.prototype.mapUpdateResults = function (data, area) {
+	var self = this,
+		accordWarstwy = $('.accord.warstwy');
+
+	if (accordWarstwy.attr('data-layer') !== self.layer || !self.showMarkers) {
+		accordWarstwy.attr('data-layer', self.layer);
+		self.mapUpdateClear();
+	} else if (area.zoom !== self.lastArea.zoom) {
+		self.mapUpdateClear();
+
+		if (self.infowindow) {
+			self.infowindow.close();
+		}
+	}
+
+	self.lastArea = area;
+
+	if (self.layer && self.showMarkers) {
+		self.showPlaces(data);
+	}
+
+	self.complete();
+};
+
+MapaWarstwy.prototype.mapUpdate = function (layer) {
+	var self = this;
+
+	self.loading();
+
+	if (self.map.getBounds()) {
+		self.pendingArea = self.getArea();
+	}
+
+	window.clearTimeout(self.mapUpdateTimer);
+
+	self.mapUpdateTimer = window.setTimeout(function () {
+		var area = self.getArea();
+
+		if ((area.tl === self.pendingArea.tl) && (area.br === self.pendingArea.br)) {
+			var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
+
+			if (areaParms in self.cacheAjax) {
+				self.mapUpdateResults(self.cacheAjax[areaParms], area);
+			} else {
+				if (self.xhr && self.xhr.readystate !== 4) {
+					self.xhr.abort();
+				}
+
+				self.xhr = $.get('/mapa/grid.json', {
+					area: area.tl + ',' + area.br,
+					layer: layer
+				}, function (data) {
+					self.cacheAjax[areaParms] = data;
+					self.mapUpdateResults(data, area);
+				}, 'json');
+			}
+		}
+	}, 400);
+
+};
+
+MapaWarstwy.prototype.loading = function () {
+
+};
+
+MapaWarstwy.prototype.complete = function () {
+
+};
+
+
+function CustomMarker(mapaWarstwy, latlng, map, args) {
+	this.mapaWarstwy = mapaWarstwy;
 	this.latlng = latlng;
 	this.args = args;
 	this.setMap(map);
@@ -25,7 +233,7 @@ CustomMarker.prototype.draw = function () {
 		}
 
 		google.maps.event.addDomListener(div, "click", function () {
-			if (self.map.getZoom() == self.maxZoom) {
+			if (self.map.getZoom() === self.maxZoom) {
 				var infoWindowBlock,
 					ngoPlaceBlock = '';
 
@@ -44,12 +252,12 @@ CustomMarker.prototype.draw = function () {
 					});
 					infoWindowBlock = '<div class="infoWindowNgo">' + ngoPlaceBlock + '</div>';
 
-					infowindow.setContent(infoWindowBlock)
+					self.mapaWarstwy.infowindow.setContent(infoWindowBlock);
 				});
-				if (infowindow)
-					infowindow.close();
-
-				infowindow = new google.maps.InfoWindow({
+				if (self.mapaWarstwy.infowindow) {
+					self.mapaWarstwy.infowindow.close();
+				}
+				self.mapaWarstwy.infowindow = new google.maps.InfoWindow({
 					position: self.latlng,
 					content: '<div class="spinner grey">' +
 					'<div class="bounce1"></div>' +
@@ -57,8 +265,11 @@ CustomMarker.prototype.draw = function () {
 					'<div class="bounce3"></div>' +
 					'</li>'
 				});
-				infowindow.open(self.map);
+				self.mapaWarstwy.infowindow.open(self.map);
 				self.map.setCenter(self.latlng);
+				google.maps.event.addListener(self.mapaWarstwy.infowindow, 'domready', function () {
+					self.mapaWarstwy.map.setCenter(self.mapaWarstwy.infowindow.getPosition());
+				});
 			} else {
 				self.map.setCenter(self.latlng);
 				self.map.setZoom(self.map.getZoom() + 2);
@@ -86,196 +297,4 @@ CustomMarker.prototype.remove = function () {
 
 CustomMarker.prototype.getPosition = function () {
 	return this.latlng;
-};
-
-
-function mapaWarstwy(map) {
-	this.basemarkers = {
-		instytucje: {},
-		biznes: {},
-		ngo: {},
-		komisje_wyborcze: {}
-	};
-	this.markers = this.basemarkers;
-
-	this.baseArea = {tl: false, br: false, zoom: false};
-	this.pendingArea = this.baseArea;
-	this.lastArea = this.baseArea;
-	this.mapUpdateTimer = null;
-	this.xhr = null;
-	this.layer = null;
-	this.map = map;
-}
-
-mapaWarstwy.prototype.setLayer = function (layer) {
-	var self = this;
-
-	self.layer = layer;
-	google.maps.event.clearListeners(self.map, 'idle');
-	self.mapUpdateClear();
-
-	if (self.layer !== false) {
-		google.maps.event.addDomListener(self.map, 'idle', function () {
-			self.mapUpdate(self.layer)
-		});
-		self.mapUpdate(self.layer)
-	}
-};
-
-mapaWarstwy.prototype.showPlaces = function (data) {
-	var ngoIcon = {
-			path: 'M-8,0a8,8 0 1,0 16,0a8,8 0 1,0 -16,0',
-			fillColor: 'red',
-			strokeColor: 'red',
-			fillOpacity: 1
-		},
-		self = this;
-	for (var i = 0; i < data.grid.buckets.length; i++) {
-		var cell = data.grid.buckets[i],
-			center = Geohash.decode(cell.key),
-			f = .5,
-			term = 'marker-' + center.lat + '-' + center.lon;
-
-		if (!(term in self.markers[self.layer])) {
-			if (cell.doc_count == 1) {
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(cell.location.lat, cell.location.lon),
-					icon: ngoIcon,
-					map: self.map,
-					data: cell.data
-				});
-
-				self.markers[self.layer][term] = marker;
-
-				marker.addListener('click', (function (marker) {
-					var self = this;
-					return function () {
-						if (infowindow)
-							infowindow.close();
-
-						infowindow = new google.maps.InfoWindow();
-
-						infowindow.setContent('<div class="infoWindowNgo">' +
-							'<div class="ngoPlace">' +
-							'<div class="title">' +
-							'<a href="/dane/krs_podmioty/' + marker.data['krs_podmioty.id'] + '">' +
-							'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
-							'<div class="titleName">' + marker.data['krs_podmioty.nazwa'] + '</div>' +
-							'</a>' +
-							'</div>' +
-							'</div>' +
-							'</div>');
-						infowindow.open(self.map, marker);
-						self.map.setCenter(marker.latlng);
-					};
-				})(marker, content, infowindow));
-			} else {
-				var inner_center = Geohash.decode(cell.inner_key),
-					centerLat = center.lat + (inner_center.lat - center.lat) * f,
-					centerLng = center.lon + (inner_center.lon - center.lon) * f;
-
-				this.markers[self.layer][term] = new CustomMarker(new google.maps.LatLng(centerLat, centerLng), self.map, {
-					title: cell.doc_count,
-					data: cell
-				});
-			}
-		}
-	}
-};
-
-
-mapaWarstwy.prototype.getArea = function () {
-	var self = this,
-		bounds = self.map.getBounds(),
-		precision = self.map.getZoom(),
-		ne_lat = bounds.getNorthEast().lat(),
-		sw_lng = bounds.getSouthWest().lng(),
-		sw_lat = bounds.getSouthWest().lat(),
-		ne_lng = bounds.getNorthEast().lng(),
-		f = .1,
-		ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
-		ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
-		sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),
-		sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
-
-	return {
-		tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
-		br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision),
-		zoom: self.map.getZoom()
-	};
-};
-
-mapaWarstwy.prototype.mapUpdateClear = function () {
-	var self = this;
-
-	$.each(self.markers, function (k, v) {
-		$.each(v, function (key, value) {
-			value.setMap(null);
-		});
-	});
-
-	self.markers = self.basemarkers;
-	self.lastArea = self.baseArea;
-};
-
-mapaWarstwy.prototype.mapUpdateResults = function (data, area) {
-	var self = this;
-
-	if (area.zoom !== self.lastArea.zoom) {
-		self.mapUpdateClear()
-	}
-	self.lastArea = area;
-	if (self.layer)
-		self.showPlaces(data);
-
-	self.complete();
-};
-
-mapaWarstwy.prototype.mapUpdate = function (layer) {
-	var self = this;
-
-	if (infowindow)
-		infowindow.close();
-
-	self.loading();
-
-	if (self.map.getBounds())
-		self.pendingArea = self.getArea();
-
-	window.clearTimeout(self.mapUpdateTimer);
-
-	self.mapUpdateTimer = window.setTimeout(function () {
-		var area = self.getArea();
-
-		if ((area.tl == self.pendingArea.tl) && (area.br == self.pendingArea.br)) {
-			if ((area.tl != self.lastArea.tl) || (area.br != self.lastArea.br)) {
-				var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
-
-				if (areaParms in warstwyCacheAjax) {
-					self.mapUpdateResults(warstwyCacheAjax[areaParms], area);
-				} else {
-					if (self.xhr && self.xhr.readystate != 4) {
-						self.xhr.abort();
-					}
-
-					self.xhr = $.get('/mapa/grid.json', {
-						area: area.tl + ',' + area.br,
-						layer: layer
-					}, function (data) {
-						warstwyCacheAjax[areaParms] = data;
-						self.mapUpdateResults(data, area);
-					}, 'json');
-				}
-			}
-		}
-	}, 400);
-
-};
-
-mapaWarstwy.prototype.loading = function () {
-
-};
-
-mapaWarstwy.prototype.complete = function () {
-
 };

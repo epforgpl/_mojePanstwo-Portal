@@ -6,6 +6,7 @@ class Bdl_wskazniki_grupy extends DataObject
 {
 	
 	protected $tiny_label = 'Wskaźniki';
+    public $force_hl_fields = true;
 	
 	protected $schema = array(
 		array('kategoria_tytul', 'Kategoria', 'string', array(
@@ -27,14 +28,7 @@ class Bdl_wskazniki_grupy extends DataObject
 
     public function getLabel()
     {
-        return '<strong>Grupa wskaźników</strong> Banku Danych Lokalnych';
+        return 'Grupa wskaźników';
     }
-    
-    /*
-    public function getDescription()
-    {
-	    return 'W kategorii: <a href="/dane/bdl_wskazniki_kategorie/' . $this->getData('bdl_wskazniki_grupy.kategoria_id') . '">' . $this->getData('bdl_wskazniki_grupy.kategoria_tytul') . '</a>';
-    }
-    */
 
 }

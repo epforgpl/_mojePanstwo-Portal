@@ -355,3 +355,60 @@ function __months($lang = 'pl') {
 		'Grudzień',
 	);
 }
+
+/*
+    * PHP port of Ruby on Rails famous distance_of_time_in_words method.
+    *  See http://api.rubyonrails.com/classes/ActionV...DateHelper.html for more details.
+    *
+    * Reports the approximate distance in time between two timestamps. Set include_seconds
+    * to true if you want more detailed approximations.
+    *
+ 	* Źródło:  http://pl2.php.net/manual/pl/function.time.php
+*/
+
+function getDiff($from_time, $include_seconds = true) {
+	$from_time = strtotime($from_time);
+	$to_time = time();
+
+	$distance_in_minutes = round(abs($to_time - $from_time) / 60);
+	$distance_in_seconds = round(abs($to_time - $from_time));
+
+	if ($distance_in_minutes >= 0 and $distance_in_minutes <= 1) {
+		if (!$include_seconds) {
+			return ($distance_in_minutes == 0) ? 'mniej niż minutę temu' : 'minutę temu';
+		} else {
+			if ($distance_in_seconds >= 0 and $distance_in_seconds <= 4) {
+				return 'mniej niż 5 sekund temu';
+			} elseif ($distance_in_seconds >= 5 and $distance_in_seconds <= 9) {
+				return 'mniej niż 10 sekund temu';
+			} elseif ($distance_in_seconds >= 10 and $distance_in_seconds <= 19) {
+				return 'mniej niż 20 sekund temu';
+			} elseif ($distance_in_seconds >= 20 and $distance_in_seconds <= 39) {
+				return 'pół minuty temu';
+			} elseif ($distance_in_seconds >= 40 and $distance_in_seconds <= 59) {
+				return 'mniej niż minutę temu';
+			} else {
+				return 'minutę temu';
+			}
+		}
+	} elseif ($distance_in_minutes >= 2 and $distance_in_minutes <= 44) {
+		return $distance_in_minutes . ' min temu';
+	} elseif ($distance_in_minutes >= 45 and $distance_in_minutes <= 89) {
+		return 'godzinę temu';
+	} elseif ($distance_in_minutes >= 90 and $distance_in_minutes <= 1439) {
+		return round(floatval($distance_in_minutes) / 60.0) . ' godzin temu';
+	} elseif ($distance_in_minutes >= 1440 and $distance_in_minutes <= 2879) {
+		return 'wczoraj';
+	} elseif ($distance_in_minutes >= 2880 and $distance_in_minutes <= 43199) {
+		return round(floatval($distance_in_minutes) / 1440) . ' dni temu';
+	} elseif ($distance_in_minutes >= 43200 and $distance_in_minutes <= 86399) {
+		return 'miesiąc temu';
+	} elseif ($distance_in_minutes >= 86400 and $distance_in_minutes <= 525599) {
+		return round(floatval($distance_in_minutes) / 43200) . ' miesięcy temu';
+	} elseif ($distance_in_minutes >= 525600 and $distance_in_minutes <= 1051199) {
+		return 'rok temu';
+	} else {
+		return 'ponad ' . round(floatval($distance_in_minutes) / 525600) . ' lat temu';
+	}
+}
+

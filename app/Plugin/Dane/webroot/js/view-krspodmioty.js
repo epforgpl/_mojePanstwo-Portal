@@ -246,18 +246,11 @@ jQuery(document).ready(function () {
         }
     });
 
-    objectMain.find('.text-iheight-toggle > a').on('click', function (e) {
-        var that = $(this),
-            main = objectMain.find('.text-iheight');
+	objectMain.find('.descBlock .text .descMore').on('click', function (e) {
+		var main = objectMain.find('.descBlock .text');
 
         e.preventDefault();
 
-        if (main.hasClass('show_all')) {
-            main.removeClass('show_all');
-            that.text('Więcej')
-        } else {
-            main.addClass('show_all');
-            that.text('Mniej')
-        }
+		main.html(main.attr('data-desc'));
     });
 });

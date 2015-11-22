@@ -428,11 +428,11 @@
                 }
 
                 .counter {
-					color: #789;
-					font-size: 12px;
-					margin-left: 3px;
-					display: none;
-				}
+                    color: #789;
+                    font-size: 12px;
+                    margin-left: 3px;
+                    display: none;
+                }
 
             }
 
@@ -547,6 +547,38 @@
                 }
             }
 
+            &.desc .sep {
+                margin: 0 5px;
+            }
+
+            > ul {
+                list-style: outside none none;
+                padding: 0;
+                display: inline-block;
+                float: left;
+                margin-top: 2px;
+
+                > li {
+                    margin-top: 2px;
+
+                    &::before {
+                        font-size: 0.75em;
+                        margin-right: 5px;
+                        content: "\e258";
+                        position: relative;
+                        top: 0;
+                        display: inline-block;
+                        font-family: 'Glyphicons Halflings';
+                        font-style: normal;
+                        font-weight: normal;
+                        line-height: 1;
+
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                    }
+                }
+            }
+
         }
 
         .__autorzy_html_ul {
@@ -556,6 +588,45 @@
 
         .label {
             font-size: 85%;
+        }
+    }
+
+    .dataHighlight-hidden {
+        display: block;
+        float: left;
+        width: 100%;
+
+        &.visible {
+            .dataHighlight-content {
+                display: block;
+            }
+            .dataHighlight-hidden-button {
+                .dataHighlight-hidden-button-show {
+                    display: none;
+                }
+                .dataHighlight-hidden-button-hide {
+                    display: block;
+                }
+            }
+        }
+        .dataHighlight-content {
+            display: none;
+        }
+        .dataHighlight-hidden-button {
+            display: inline-block;
+            width: 100%;
+
+            .dataHighlight-hidden-button-show,
+            .dataHighlight-hidden-button-hide {
+                margin: 0 auto;
+            }
+
+            .dataHighlight-hidden-button-show {
+                display: block;
+            }
+            .dataHighlight-hidden-button-hide {
+                display: none;
+            }
         }
     }
 }

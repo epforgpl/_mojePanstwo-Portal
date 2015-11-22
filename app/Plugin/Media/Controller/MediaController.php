@@ -9,7 +9,8 @@ class MediaController extends ApplicationsController
 {
     public $settings = array(
         'id' => 'media',
-        'title' => 'Media - Polityka w mediach społecznościowych',
+        'title' => 'Państwo w mediach społecznościowych',
+        'shortTitle' => 'Media',
         'subtitle' => 'Polityka w mediach społecznościowych',
         'headerImg' => 'media',
     );
@@ -612,21 +613,13 @@ class MediaController extends ApplicationsController
     {
 
 	    $chapters = parent::getChapters();
-		
-		if( !isset($this->request->query['q']) ) {
-		
-		    $chapters['items'][0]['label'] = 'Analiza kont - Twitter';
-		    $chapters['items'][0]['element'] = array(
-			    'path' => 'Media.start_menu',
-		    );
-	    
-	    }
 
 	    if( $this->isSuperUser() )
 		    $chapters['items'][] = array(
 			    'id' => 'propozycje_kont',
 			    'href' => 'propozycje_kont',
 			    'label' => 'Propozycje nowych kont',
+			    'icon' => 'icon-datasets-twitter_accounts',
 		    );
 
 	    return $chapters;

@@ -44,28 +44,6 @@
             </div>
         </div>
     </div>
-    <? /*
-    <div class="form-group widocznosc">
-        <label for="widocznoscSelect" class="col-lg-2 control-label">Widoczność</label>
-
-        <div class="col-lg-10">
-            <div class="radio">
-                <input id="widocznoscPrivate" name="access" value="public" type="radio"/>
-                <label for="widocznoscPrivate">Pismo prywatne
-                    <small>(Twoje pismo będzie widoczne tylko dla Ciebie)</small>
-                </label>
-            </div>
-            <div class="radio">
-                <input id="widocznoscPublic" name="access" value="private" type="radio" checked="checked">
-                <label for="widocznoscPublic">Pismo publiczne
-                    <small>(Twoje pismo widoczne dla wszystkich i będziesz mógł je udostępniać. Przed zapisaniem
-                        będziesz mógł ukryć dane wrażliwe.)
-                    </small>
-                </label>
-            </div>
-        </div>
-    </div>
-    */ ?>
 </fieldset>
 
 <fieldset>

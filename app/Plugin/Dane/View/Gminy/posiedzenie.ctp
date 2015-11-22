@@ -188,109 +188,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
                         </div>
                     <? } ?>
-
-
-
-                    <? /*
-	            	<? if ($wystapienia) { ?>
-                    <div id="wystapienia" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Wystąpienia w Sejmie</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/wystapienia">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($wystapienia, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('data'),
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <? } ?>
-
-                <? if ($interpelacje) { ?>
-                    <div id="interpelacje" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Interpelacje</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/interpelacje">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($interpelacje, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('data_wplywu'),
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <? } ?>
-
-                <? if ($projekty_ustaw) { ?>
-                    <div id="wystapienia" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Podpisane projekty ustaw</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/projekty_ustaw">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($projekty_ustaw, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('data'),
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                <? } ?>
-
-                <? if ($glosowania) { ?>
-                    <div id="glosowania" class="block">
-                        <div class="block-header">
-                            <h2 class="label pull-left">Wyniki głosowań</h2>
-                            <a class="btn btn-default btn-sm pull-right"
-                               href="/dane/poslowie/<?= $object->getId() ?>/glosowania">Zobacz wszystkie</a>
-                        </div>
-
-                        <div class="content">
-                            <div class="dataobjectsSliderRow row">
-                                <div>
-                                    <?php echo $this->dataobjectsSlider->render($glosowania, array(
-                                        'perGroup' => 3,
-                                        'rowNumber' => 1,
-                                        'labelMode' => 'none',
-                                        'dfFields' => array('sejm_glosowania.czas'),
-                                        'file' => 'poslowie_glosy-poslowie',
-                                    )) ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <? } ?>
-                <? */
-                    ?>
-
                 </div>
-
-
             </div>
             <div class="objectSearch">
                 <div class="input-group">
@@ -305,7 +203,6 @@ echo $this->Element('Dane.dataobject/subobject', array(
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 

@@ -1,73 +1,142 @@
 .dzialanie {
-  
-  h1 {
-	  font-size: 22px;
-	  padding: 0;
-	  margin: 0 0 3px;
-  }
-  
-  .headline {
-	  font-size: 16px;
-	  font-weight: bold;
-	  margin: 5px 0;
-  }
-  
-  header {
-    font-size: 18px !important;
-    border-bottom: 1px solid #DDD !important;
-    padding: 10px 0 !important;
-  }
-
-  .sub-header {
-    .date {
-      margin: 10px 5px;
-      display: inline-block;
-      .glyphicon {
-        margin-right: 5px;
-      }
+    .mp-form {
+        display: inline-block;
     }
-  }
-
-  .photo {
-    position: relative;
-    width: 100%;
-    height: 347px;
-    overflow: hidden;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    margin-top: 10px;
-    img {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      height: 100%;
-      width: auto;
-      -webkit-transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
-      transform: translate(-50%,-50%);
+    h1 {
+        font-size: 22px;
+        padding: 0;
+        margin: 0 0 3px;
     }
-  }
-  
-  .meta {
-	  margin: 10px 0;
-  }
-  
-  .opis {
-      margin-top: 15px;
-      font-size: 15px;
-      ul {
-	      margin: 0 0 0 30px;
-	      padding: 0;
-	      li {
-		      margin: 0;
-		      padding: 0;
-	      }
-      }
-  }
 
-  .btn-auto-width {
-    width: auto;
-  }
+    .headline {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 5px 0;
+    }
 
+    header {
+        font-size: 18px !important;
+        border-bottom: 1px solid #DDD !important;
+        padding: 10px 0 !important;
+    }
+
+    .sub-header {
+        .date {
+            margin: 10px 5px;
+            display: inline-block;
+            .glyphicon {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .photo {
+        position: relative;
+        width: 100%;
+        height: 347px;
+        overflow: hidden;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        margin-top: 10px;
+        img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 100%;
+            width: auto;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .meta {
+        margin: 10px 0;
+    }
+
+    .opis {
+        margin-top: 15px;
+        font-size: 15px;
+        ul {
+            margin: 0 0 0 30px;
+            padding: 0;
+            li {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+
+    .btn-auto-width {
+        width: auto;
+    }
+}
+
+.dropzoneForm {
+    border-radius: 3px;
+    padding: 5px;
+
+    #preview {
+        margin-top: 6px;
+
+        .file {
+            background: #FFF;
+            overflow: hidden;
+            padding: 6px 10px;
+            width: 100%;
+            border-right: 1px solid #cccccc;
+            border-left: 1px solid #cccccc;
+
+            &:first-child {
+                border-top: 1px solid #cccccc;
+
+                -webkit-border-top-right-radius: 10px;
+                -webkit-border-top-left-radius: 10px;
+                -moz-border-radius-topright: 10px;
+                -moz-border-radius-topleft: 10px;
+                border-top-right-radius: 10px;
+                border-top-left-radius: 10px;
+            }
+
+            &:last-child {
+                border-bottom: 1px solid #cccccc;
+
+                -webkit-border-bottom-right-radius: 10px;
+                -webkit-border-bottom-left-radius: 10px;
+                -moz-border-radius-bottomright: 10px;
+                -moz-border-radius-bottomleft: 10px;
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+
+            .title {
+                width: 60%;
+                float: left;
+                margin-top: 2px;
+
+                span {
+                    color: #666;
+                    margin-right: 5px;
+                }
+            }
+
+            .progress {
+                width: 34%;
+                float: left;
+                margin: 4px 0 0;
+            }
+
+            .buttons {
+                width: 6%;
+                float: left;
+                text-align: right;
+
+                button {
+                    margin-left: 3px;
+                }
+
+            }
+        }
+    }
 }

@@ -16,110 +16,24 @@ class BdlController extends ApplicationsController
 
 	public function kategorie()
 	{
-
-		$datasets = $this->getDatasets('bdl');
-
-        $options = array(
-            'searchTag' => array(
-	            'href' => '/bdl',
-	            'label' => 'Bank Danych Lokalnych',
-            ),
-            'searchAction' => '/bdl',
-            'autocompletion' => array(
-                'dataset' => 'bdl_wskazniki',
-            ),
-            'conditions' => array(
-                'dataset' => 'bdl_wskazniki',
-                'bdl_wskazniki.kategoria_id'  => $this->request->params['id'],
-            ),
-            'cover' => array(
-                'view' => array(
-                    'plugin' => 'Bdl',
-                    'element' => 'kategoria',
-                ),
-                'aggs' => array(
-	                'kategorie' => array(
-		                'filter' => array(
-			                'term' => array(
-				                'dataset' => 'bdl_wskazniki_kategorie',
-			                ),
-		                ),
-		                'scope' => 'global',
-		                'aggs' => array(
-			                'id' => array(
-				                'terms'=> array(
-					                'field' => 'title.raw',
-					                'size' => 100,
-					                'order' => array(
-					                	'_term' => 'asc',
-					                ),
-				                ),
-				                'aggs' => array(
-					                'id' => array(
-						                'terms' => array(
-							                'field' => 'id',
-							                'size' => 1,
-						                ),
-					                ),
-				                ),
-			                ),
-		                ),
-		                'visual' => array(
-	                        'skin' => 'chapters',
-	                        'field' => 'kategoria',
-	                        'target' => 'menu',
-	                    ),
-	                ),
-	                'grupy' => array(
-		                'terms' => array(
-			                'field' => 'bdl_wskazniki.grupa_id',
-			                'size' => 100,
-		                ),
-		                'aggs' => array(
-			                'label' => array(
-				                'terms' => array(
-					                'field' => 'bdl_wskazniki.grupa_tytul_raw',
-					                'size' => 1,
-				                ),
-			                ),
-			                'top' => array(
-				                'top_hits' => array(
-					                'size' => 100,
-					                'fielddata_fields' => array('dataset', 'id'),
-				                ),
-			                ),
-		                ),
-	                ),
-                ),
-            ),
-            'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'visual' => array(
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => $datasets,
-                        'target' => false,
-                    ),
-                ),
-            ),
-            'apps' => true,
-            'routes' => array(
-	            'kategorie/kategoria_id' => 'kategorie',
-	            'kategorie/grupa_id' => 'grupy',
-            ),
-        );
-
-		$this->chapter_selected = $this->request->params['id'];
-
-        $this->Components->load('Dane.DataBrowser', $options);
-        $this->title = 'Bank Danych Lokalnych';
-        $this->set('kategoria_id', $this->request->params['id']);
-        $this->render('Dane.Elements/DataBrowser/browser-from-app');
-
+		
+		$this->loadModel('Dane.Dataobject');
+		
+		if( $object = $this->Dataobject->find('first', array(
+			'conditions' => array(
+				'dataset' => 'bdl_wskazniki_kategorie',
+				'id' => $this->request->params['id'],
+			),
+		)) ) {
+			
+			return $this->redirect('/bdl#' . $object->getSlug());
+			
+		} else {
+			
+			return $this->redirect('/bdl');
+			
+		}
+				
 	}
 
     public function view()
@@ -143,26 +57,39 @@ class BdlController extends ApplicationsController
                     'element' => 'cover',
                 ),
                 'aggs' => array(
-	                'kategorie' => array(
+	                'wskazniki' => array(
+		                'scope' => 'global',
 		                'filter' => array(
-			                'term' => array(
-				                'dataset' => 'bdl_wskazniki_kategorie',
+			                'bool' => array(
+				                'must' => array(
+					                array(
+						                'term' => array(
+							                'dataset' => 'bdl_wskazniki',
+						                ),
+					                ),
+					                array(
+						                'range' => array(
+							                'data.bdl_wskazniki.liczba_ostatni_rok' => array(
+								                'gte' => date('Y')-3
+							                ),
+						                ),
+					                ),
+				                ),
 			                ),
 		                ),
 		                'aggs' => array(
-			                'id' => array(
-				                'terms'=> array(
-					                'field' => 'title.raw',
-					                'size' => 100,
-					                'order' => array(
-					                	'_term' => 'asc',
-					                ),
-				                ),
-				                'aggs' => array(
-					                'id' => array(
-						                'terms' => array(
-							                'field' => 'id',
-							                'size' => 1,
+			                'top' => array(
+				                'top_hits' => array(
+					                'size' => 1000,
+					                'sort' => array(
+						                'bdl_wskazniki.kategoria_tytul_raw' => array(
+							                'order' => 'asc',
+						                ),
+						                'bdl_wskazniki.grupa_tytul_raw' => array(
+							                'order' => 'asc',
+						                ),
+						                'title.raw' => array(
+							                'order' => 'asc',
 						                ),
 					                ),
 				                ),
@@ -209,89 +136,42 @@ class BdlController extends ApplicationsController
     public function beforeRender() {
 
         parent::beforeRender();
-
-        if (
-            @$this->request->params['id'] &&
-	    	( $items = @$this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'] )
-	    ) {
-	    	foreach( $items as $item ) {
-	    		if( $item['key'] == $this->request->params['id'] ) {
-
-                    $this->set('title_for_layout', $item['label']['buckets'][0]['key'] . ' - Bank Danych Lokalnych');
-		    		break;
-
-                }
-	    	}
-	    }
-
-    }
-
-    public function getChapters() {
-
-        $mode = false;
-        $items = array();
-
-		if(
-            isset($this->request->query['q']) &&
-			$this->request->query['q']
-		) {
-
-            $items[] = array(
-				'id' => '_results',
-				'label' => 'Wyniki wyszukiwania:',
-				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
-			);
-
-            if( $this->chapter_selected=='view' )
-				$this->chapter_selected = '_results';
-			$mode = 'results';
-
-        } else {
-
-            $items[] = array(
-				'label' => 'Start',
-				'href' => '/' . $this->settings['id'],
-			);
-		}
-
-        if( isset($this->viewVars['dataBrowser']['aggs']['kategorie']['id']) )
-			$buckets = $this->viewVars['dataBrowser']['aggs']['kategorie']['id']['buckets'];
-		else
-			$buckets = $this->viewVars['dataBrowser']['aggs']['kategorie']['buckets'];
-
-
-        if( $buckets ) {
-			foreach( $buckets as $b ) {
-
-
-                $item = array(
-					'label' => $b['key'],
-					'id' => $b['id']['buckets'][0]['key'],
-					'href' => '/' . $this->settings['id'] . '/kategorie/' . $b['id']['buckets'][0]['key'],
-					'icon' => 'icon-datasets-bdl_wskazniki_kategorie',
+		
+		if( $hits = @$this->viewVars['dataBrowser']['aggs']['wskazniki']['top']['hits']['hits'] ) {
+			
+			// debug($hits); die();
+			
+			$tree = array();
+			foreach( $hits as $h ) {
+								
+				$h = $h['fields']['source'][0]['data'];
+				
+				$tree[ $h['bdl_wskazniki.kategoria_id'] ]['kategoria'] = array(
+					'id' => $h['bdl_wskazniki.kategoria_id'],
+					'nazwa' => $h['bdl_wskazniki.kategoria_tytul'],
+					'slug' => @$h['bdl_wskazniki.kategoria_slug'],
 				);
-
-                if( $mode == 'results' ) {
-
-                    $item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
-
-                } else {
-
-                    $items[] = $item;
-
-                }
-
-
-            }
+				$tree[ $h['bdl_wskazniki.kategoria_id'] ]['grupy'][ $h['bdl_wskazniki.grupa_id'] ]['grupa'] = array(
+					'id' => $h['bdl_wskazniki.grupa_id'],
+					'nazwa' => $h['bdl_wskazniki.grupa_tytul'],
+					'slug' => @$h['bdl_wskazniki.grupa_slug'],
+				);
+				$tree[ $h['bdl_wskazniki.kategoria_id'] ]['grupy'][ $h['bdl_wskazniki.grupa_id'] ]['wskazniki'][] = $h;
+				
+			}
+			
+			unset( $this->viewVars['dataBrowser']['aggs']['wskazniki'] );
+			$tree = array_values( $tree );
+			
+			
+			$this->set('tree', $tree);
+			
 		}
-
-        $output = array(
-			'items' => $items,
-			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
-		);
-
-        return $output;
-
+		
     }
+    
+    public function getChapters() {
+	    return array();
+	}
 
 }

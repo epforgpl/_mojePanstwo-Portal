@@ -8,7 +8,7 @@ class PagesController extends StartAppController {
 
     public function index() {
 
-        $this->title = 'Moje Kolekcje';
+        $this->title = 'Strony, którymi zarządzam';
 
         $options = array(
             'conditions' => array(
