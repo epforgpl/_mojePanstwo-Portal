@@ -1,4 +1,4 @@
-/*global $, window, document, Class, mPHeart, localizer, google, infowindow, Cookies, MapaWarstwy*/
+/*global $, window, document, Class, mPHeart, google, infowindow, Cookies, MapaWarstwy*/
 
 var Localizer = Class.extend({
 	init: function () {
@@ -314,9 +314,9 @@ var MapBrowser = Class.extend({
 			var hash = window.location.hash.substr(1),
 				result;
 
-			for (var i = 0, len = self.points.length; i < len; i++) {
-				if (self.points[i].id === hash) {
-					result = self.points[i];
+			for (var j = 0, len = self.points.length; j < len; j++) {
+				if (self.points[j].id === hash) {
+					result = self.points[j];
 				}
 			}
 
@@ -384,7 +384,7 @@ var MapBrowser = Class.extend({
 
 						komisjeInfo += '</div>';
 
-						var komisjeInfo = new google.maps.Marker({
+						var komisjeInfoMarker = new google.maps.Marker({
 							id: komisjeId,
 							position: komisjePosition,
 							icon: self.setKomisjeIcon(),
@@ -392,10 +392,10 @@ var MapBrowser = Class.extend({
 							data: komisjeInfo
 						});
 
-						self.komisjePoints.push(komisjeInfo);
+						self.komisjePoints.push(komisjeInfoMarker);
 						self.fitBounds.extend(komisjePosition);
 
-						komisjeInfo.addListener('click', function () {
+						komisjeInfoMarker.addListener('click', function () {
 							self.pointWindowOpener(this);
 						});
 					}
@@ -456,7 +456,7 @@ var MapBrowser = Class.extend({
 							}
 						}
 					).append(
-						$('<p class="przystosowanie ' + detail['przystosowanie'] + '"></p>').html((detail['przystosowanie'] === 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
+						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html((detail.przystosowanie === 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
 					).append(
 						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail.location.lat + ',' + detail.location.lon + '"></iframe>')
 					).append(
@@ -663,8 +663,9 @@ var MapBrowser = Class.extend({
 		google.maps.event.addListener(infowindow, 'domready', function () {
 			$('.btn-obwod.disabled').removeClass('disabled').click(function (event) {
 				var tid = $(event.target).attr('data-target');
-				if (tid)
+				if (tid) {
 					var m = self.komisjePointsData[tid];
+				}
 				if (typeof m !== 'undefined' && m) {
 					var marker;
 
@@ -770,8 +771,9 @@ $(document).ready(function () {
 		var self = $(this);
 
 		if (!self.hasClass('loading')) {
-			if (self.hasClass('btn-primary'))
+			if (self.hasClass('btn-primary')) {
 				self.addClass('loading disabled');
+			}
 			localizer.request_position();
 		}
 	});
@@ -897,5 +899,11 @@ $(document).ready(function () {
 			mPCookie.mapa.showMarkers = e.target.checked;
 			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 		}
+	});
+
+	$('.wyboryCheckbox input[name="wyboryShow"]').bootstrapSwitch({
+		size: 'mini',
+		onText: 'Wł.',
+		offText: 'Wył.'
 	});
 });

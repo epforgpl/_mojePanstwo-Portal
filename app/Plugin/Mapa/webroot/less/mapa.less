@@ -313,16 +313,36 @@
                 padding: 0 20px;
             }
 
+            ._msg {
+                font-size: 13px;
+                color: #666;
+                margin-top: 15px;
+            }
+
             &.komisje_wyborcze_content {
-                .komisjeShow {
-                    font-size: 12px;
-                    margin-left: 12px;
-                    margin-bottom: 0;
+                .wyboryCheckbox {
+                    margin-top: 5px;
+
+                    .label {
+                        display: inline-block;
+                        font-size: 9px;
+                        color: #789;
+                        float: left;
+                        font-weight: 600;
+                        line-height: 0.75em;
+                        margin: 8px 15px 8px 0;
+                        padding: 0;
+                        text-transform: uppercase;
+                        text-align: left;
+                    }
+
+                    .checkbox, .bootstrap-switch {
+                        display: inline-block
+                    }
                 }
+
                 ul.meta {
                     list-style: outside none none;
-                    margin: 0 8px;
-                    padding: 5px;
 
                     > li {
                         display: inline-block;
@@ -463,12 +483,6 @@
                         font-size: 14px;
                         margin: 10px 0 15px;
                         padding: 0;
-                    }
-
-                    p._msg {
-                        font-size: 13px;
-                        color: #666;
-                        margin-top: 15px;
                     }
                 }
             }

@@ -501,24 +501,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     echo ' nodetails';
                 } ?>">
                     <ul>
-                        <? /*
-                        <li data-layer="instytucje">Instytucje publiczne</li>
-                        <li data-layer="biznes">Biznes</li>
-                        <li data-layer="ngo">Organizacje</li>
-
-                        <? if (@$mapParams['mode'] == 'place') {
-                            if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
-                        */ ?>
                         <li data-layer="komisje_wyborcze" class="open">Wybory parlamentarne 2015</li>
-                        <? /*
-                            <? }
-                        } ?>
-                        */ ?>
                     </ul>
-                    <? /*
-                    if (@$mapParams['mode'] == 'place') {
-                        if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) {
-                    */
+                    <?
                     $counters = array(
                         'sejm' => count(@$mapParams['elections']['sejm']),
                         'senat' => count(@$mapParams['elections']['senat']),
@@ -546,7 +531,11 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                              data-redirect="<?= (isset($_GET["redirect"])) ? true : false; ?>">
                             <section class="dcontent">
                                 <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { ?>
-                                    <ul class="wybory meta">
+                                    <div class="wyboryCheckbox col-xs-12">
+                                        <span class="label">Pokazuj obwodowe komisje wyborcze</span>
+                                        <input type="checkbox" name="wyboryShow" checked/>
+                                    </div>
+                                    <ul class="wybory meta col-xs-12">
                                         <? if ($counters['sejm'] > 0) { ?>
                                             <li class="sejm">
                                                 <label>Okręg do Sejmu:</label>
@@ -596,15 +585,16 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                 <? } ?>
                             </section>
                         </div>
-                        <? /* }
-                    }*/
+                        <?
                     } else {
                         ?>
                         <div class="explorerContent komisje_wyborcze_content wyboryDetail<? if (isset($widget)) {
                             echo ' widget';
                         } ?>">
-                            <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
-                                właściwe okręgi wyborcze.</p>
+                            <section class="dcontent">
+                                <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
+                                    właściwe okręgi wyborcze.</p>
+                            </section>
                         </div>
                     <? } ?>
                 </div>
