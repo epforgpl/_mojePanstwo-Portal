@@ -1,5 +1,10 @@
 /*global $, window, document, Class, mPHeart, google, infowindow, Cookies, MapaWarstwy*/
 
+function blendColors(c0, c1, p) {
+	var f = parseInt(c0.slice(1), 16), t = parseInt(c1.slice(1), 16), R1 = f >> 16, G1 = f >> 8 & 0x00FF, B1 = f & 0x0000FF, R2 = t >> 16, G2 = t >> 8 & 0x00FF, B2 = t & 0x0000FF;
+	return "#" + (0x1000000 + (Math.round((R2 - R1) * p) + R1) * 0x10000 + (Math.round((G2 - G1) * p) + G1) * 0x100 + (Math.round((B2 - B1) * p) + B1)).toString(16).slice(1);
+}
+
 var Localizer = Class.extend({
 	init: function () {
 		this.nav = window.navigator;
@@ -116,6 +121,7 @@ var MapBrowser = Class.extend({
 	},
 	komisjePoints: [],
 	komisjePointsData: {},
+	mapaPolygon: {},
 	mapOptions: {
 		zoom: 6,
 		maxZoom: 18,
@@ -306,6 +312,62 @@ var MapBrowser = Class.extend({
 							}
 						});
 					}, 300);
+				});
+			}
+
+			var polygons = that.find('li.polygons');
+			if (polygons.length) {
+				var colorStart = '#337ab7',
+					colorEnd = '#d9534f',
+					p = 0;
+
+				$.each(polygons, function () {
+					var that = $(this),
+						pol = $.parseJSON(that.attr('data-polygon')),
+						id = that.attr('data-id'),
+						color = blendColors(colorStart, colorEnd, p),
+						polygonArray = [];
+
+					for (var k = 0, len = pol.length; k < len; k++) {
+						polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
+					}
+
+					var polygon = new google.maps.Polygon({
+						paths: polygonArray,
+						strokeColor: color,
+						strokeOpacity: 0.8,
+						strokeWeight: 2,
+						fillColor: color,
+						fillOpacity: 0.35,
+						data: {
+							id: id,
+							color: color
+						}
+					});
+
+					self.mapaPolygon[id] = polygon;
+
+					polygon.setMap(self.map);
+
+					google.maps.event.addListener(polygon, "mouseover", function () {
+						this.setOptions({fillOpacity: 1});
+						self.detail_div_main_accords.find('li[data-id="' + this.data.id + '"]').addClass('active');
+					});
+					google.maps.event.addListener(polygon, "mouseout", function () {
+						this.setOptions({fillOpacity: 0.35});
+						self.detail_div_main_accords.find('li[data-id="' + this.data.id + '"]').removeClass('active');
+					});
+
+					self.detail_div_main_accords.find('li[data-id="' + id + '"]').on('mouseover', function () {
+						self.mapaPolygon[id].setOptions({fillOpacity: 1});
+						$(this).addClass('active');
+					}).on('mouseout', function () {
+						self.mapaPolygon[id].setOptions({fillOpacity: 0.35});
+						$(this).removeClass('active');
+					});
+
+					p += 0.05;
+
 				});
 			}
 		});
