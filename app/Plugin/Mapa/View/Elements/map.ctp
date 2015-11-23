@@ -265,7 +265,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? } ?>
 
                                         <ul class="scrollZone">
-                                            <? foreach ($mapParams['children']['wojewodztwa'] as $item) { ?>
+                                            <? foreach ($mapParams['children']['wojewodztwa'] as $item) { debug($item); ?>
                                                 <li>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.wojewodztwo'] ?></a>

@@ -12,14 +12,12 @@ $options = array(
 
 <div class="col-md-9">
 	
-	<?= $this->Element('searcher', array(
-        'q' => isset($this->request->query['q']) ? $this->request->query['q'] : '',
-        'autocompletion' => false,
-        'placeholder' => 'Szukaj w danych publicznych gminy ' . $object->getTitle() . '...',
-        // 'url' => $url,
-        // 'dataBrowser' => isset($dataBrowser) ? $dataBrowser : false,
-        'searchTag' => false,
-        'size' => 'md',
+	<?= $this->element('Dane.DataBrowser/browser-content-filters', array(
+        // 'paging' => $params,
+        // 'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
+        // 'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
+        'searcher' => true,
+        'class' => 'margin-top-0',
     )) ?>
 	
     <? /* if (isset($_submenu) && !empty($_submenu)) { ?>

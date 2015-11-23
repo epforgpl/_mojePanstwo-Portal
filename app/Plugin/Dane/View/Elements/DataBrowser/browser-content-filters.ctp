@@ -6,10 +6,11 @@ if (@isset($dataBrowser['phrases']['paginator']) && $dataBrowser['phrases']['pag
 
 if (isset($paginatorPhrases) && $paginatorPhrases)
     $phrases = $paginatorPhrases;
+    
 ?>
 
 <? if( (!isset($nopaging) || !$nopaging) ) {?>
-<div class="dataAggsDropdownListContainer">
+<div class="dataAggsDropdownListContainer<? if( isset($class) ) echo ' ' . $class; ?>">
 	<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 	
 	    <? if (isset($paging['count']) && $paging['count'] && (!isset($nopaging) || !$nopaging)) { ?>
