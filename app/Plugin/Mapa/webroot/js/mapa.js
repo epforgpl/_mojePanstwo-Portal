@@ -338,24 +338,22 @@ var MapBrowser = Class.extend({
 						strokeOpacity: 0.8,
 						strokeWeight: 2,
 						fillColor: color,
-						fillOpacity: 0.35,
-						data: {
-							id: id,
-							color: color
-						}
+						fillOpacity: 0.35
 					});
 
 					self.mapaPolygon[id] = polygon;
-
 					polygon.setMap(self.map);
 
 					google.maps.event.addListener(polygon, "mouseover", function () {
 						this.setOptions({fillOpacity: 1});
-						self.detail_div_main_accords.find('li[data-id="' + this.data.id + '"]').addClass('active');
+						self.detail_div_main_accords.find('li[data-id="' + id + '"]').addClass('active');
+					});
+					google.maps.event.addListener(polygon, "click", function () {
+						location.href = self.detail_div_main_accords.find('li[data-id="' + id + '"] a').attr('href');
 					});
 					google.maps.event.addListener(polygon, "mouseout", function () {
 						this.setOptions({fillOpacity: 0.35});
-						self.detail_div_main_accords.find('li[data-id="' + this.data.id + '"]').removeClass('active');
+						self.detail_div_main_accords.find('li[data-id="' + id + '"]').removeClass('active');
 					});
 
 					self.detail_div_main_accords.find('li[data-id="' + id + '"]').on('mouseover', function () {
@@ -367,7 +365,6 @@ var MapBrowser = Class.extend({
 					});
 
 					p += 0.05;
-
 				});
 			}
 		});
