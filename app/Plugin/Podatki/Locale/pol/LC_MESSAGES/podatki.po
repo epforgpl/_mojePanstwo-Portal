@@ -44,16 +44,19 @@ msgid "LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA"
 msgstr "Miesięcznie odprowadzasz do budżetu państwa"
 
 msgid "LC_PODATKI_RESULTS_WYDAWANE_PODATKI"
-msgstr "Twoje podatki zostały wydawane na"
+msgstr "Twoje podatki zostały wydane na"
 
 msgid "LC_PODATKI_RESULTS_PIE_ZUS"
 msgstr "Ubezpieczenie społeczne (ZUS)"
 
+msgid "LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA"
+msgstr "Ubezpieczenie społeczne (ZUS) płacone przez pracodawce"
+
 msgid "LC_PODATKI_RESULTS_PIE_ZDROW"
-msgstr "Składka zdrowotne"
+msgstr "Składka zdrowotna"
 
 msgid "LC_PODATKI_RESULTS_PIE_PIT"
-msgstr "Podatek od dochodu (PIT)"
+msgstr "Podatek dochodowy (PIT)"
 
 msgid "LC_PODATKI_RESULTS_PIE_VAT"
 msgstr "Podatek od towarów i usług (VAT)"
