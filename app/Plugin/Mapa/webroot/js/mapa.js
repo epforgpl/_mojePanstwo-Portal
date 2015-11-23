@@ -1,4 +1,9 @@
-/*global $, window, document, Class, mPHeart, localizer, google, infowindow, Cookies, MapaWarstwy*/
+/*global $, window, document, Class, mPHeart, google, infowindow, Cookies, MapaWarstwy*/
+
+function blendColors(c0, c1, p) {
+	var f = parseInt(c0.slice(1), 16), t = parseInt(c1.slice(1), 16), R1 = f >> 16, G1 = f >> 8 & 0x00FF, B1 = f & 0x0000FF, R2 = t >> 16, G2 = t >> 8 & 0x00FF, B2 = t & 0x0000FF;
+	return "#" + (0x1000000 + (Math.round((R2 - R1) * p) + R1) * 0x10000 + (Math.round((G2 - G1) * p) + G1) * 0x100 + (Math.round((B2 - B1) * p) + B1)).toString(16).slice(1);
+}
 
 var Localizer = Class.extend({
 	init: function () {
@@ -116,6 +121,7 @@ var MapBrowser = Class.extend({
 	},
 	komisjePoints: [],
 	komisjePointsData: {},
+	mapaPolygon: {},
 	mapOptions: {
 		zoom: 6,
 		maxZoom: 18,
@@ -204,11 +210,7 @@ var MapBrowser = Class.extend({
 
 		var viewport = self.div.data('viewport');
 
-		if (
-			( typeof(viewport) === 'object' ) &&
-			( typeof(viewport.top_left) === 'object' ) &&
-			( typeof(viewport.bottom_right) === 'object' )
-		) {
+		if ((typeof viewport === 'object') && (typeof viewport.top_left === 'object') && (typeof viewport.bottom_right === 'object')) {
 			self.fitBounds = new google.maps.LatLngBounds(new google.maps.LatLng(viewport.bottom_right.lat, viewport.top_left.lon), new google.maps.LatLng(viewport.top_left.lat, viewport.bottom_right.lon));
 			self.mapOptions.center = self.fitBounds.getCenter();
 		} else {
@@ -308,15 +310,68 @@ var MapBrowser = Class.extend({
 					}, 300);
 				});
 			}
+
+			var polygons = that.find('li.polygons');
+			if (polygons.length) {
+				var colorStart = '#337ab7',
+					colorEnd = '#d9534f',
+					p = 0;
+
+				$.each(polygons, function () {
+					var that = $(this),
+						pol = $.parseJSON(that.attr('data-polygon')),
+						id = that.attr('data-id'),
+						color = blendColors(colorStart, colorEnd, p),
+						polygonArray = [];
+
+					for (var k = 0, len = pol.length; k < len; k++) {
+						polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
+					}
+
+					var polygon = new google.maps.Polygon({
+						paths: polygonArray,
+						strokeColor: color,
+						strokeOpacity: 0.8,
+						strokeWeight: 2,
+						fillColor: color,
+						fillOpacity: 0.35
+					});
+
+					self.mapaPolygon[id] = polygon;
+					polygon.setMap(self.map);
+
+					google.maps.event.addListener(polygon, "mouseover", function () {
+						this.setOptions({fillOpacity: 1});
+						self.detail_div_main_accords.find('li[data-id="' + id + '"]').addClass('active');
+					});
+					google.maps.event.addListener(polygon, "click", function () {
+						location.href = self.detail_div_main_accords.find('li[data-id="' + id + '"] a').attr('href');
+					});
+					google.maps.event.addListener(polygon, "mouseout", function () {
+						this.setOptions({fillOpacity: 0.35});
+						self.detail_div_main_accords.find('li[data-id="' + id + '"]').removeClass('active');
+					});
+
+					self.detail_div_main_accords.find('li[data-id="' + id + '"]').on('mouseover', function () {
+						self.mapaPolygon[id].setOptions({fillOpacity: 1});
+						$(this).addClass('active');
+					}).on('mouseout', function () {
+						self.mapaPolygon[id].setOptions({fillOpacity: 0.35});
+						$(this).removeClass('active');
+					});
+
+					p += 0.05;
+				});
+			}
 		});
 
 		if (window.location.hash.length > 0) {
 			var hash = window.location.hash.substr(1),
 				result;
 
-			for (var i = 0, len = self.points.length; i < len; i++) {
-				if (self.points[i].id === hash) {
-					result = self.points[i];
+			for (var j = 0, len = self.points.length; j < len; j++) {
+				if (self.points[j].id === hash) {
+					result = self.points[j];
 				}
 			}
 
@@ -328,7 +383,7 @@ var MapBrowser = Class.extend({
 			obwody = obwodyBlock.attr('data-obwody'),
 			widget = obwodyBlock.hasClass('widget');
 		if (obwody && widget) {
-			var self = this;
+			var that = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
 				for (var i = 0, len = data.length; i < len; i++) {
 					var k = data[i];
@@ -337,19 +392,19 @@ var MapBrowser = Class.extend({
 						var komisjeInfo = '<div class="komisjaInfoWindow">',
 							komisjeId = [],
 							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon),
-							komisjeBtn = self.detail_div_main.find('.btn-obwod');
+							komisjeBtn = that.detail_div_main.find('.btn-obwod');
 
 						$.each(k.komisje, function (i, d) {
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_sejm'], self.komisjeOkreg.sejm_id) === -1) {
-								self.komisjeOkreg.sejm_id.push(d['wybory_parl_obwody.numer_okreg_sejm']);
+							if ($.inArray(d['wybory_parl_obwody.numer_okreg_sejm'], that.komisjeOkreg.sejm_id) === -1) {
+								that.komisjeOkreg.sejm_id.push(d['wybory_parl_obwody.numer_okreg_sejm']);
 							}
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_senat'], self.komisjeOkreg.senat_id) === -1) {
-								self.komisjeOkreg.senat_id.push(d['wybory_parl_obwody.numer_okreg_senat']);
+							if ($.inArray(d['wybory_parl_obwody.numer_okreg_senat'], that.komisjeOkreg.senat_id) === -1) {
+								that.komisjeOkreg.senat_id.push(d['wybory_parl_obwody.numer_okreg_senat']);
 							}
 
 							komisjeInfo += '<a class="komisja" href="#' + d['wybory_parl_obwody.id'] + '" data-id="' + d['wybory_parl_obwody.id'] + '">Komisja nr ' + d['wybory_parl_obwody.numer'] + '</a>';
 
-							self.komisjePointsData[d['wybory_parl_obwody.id']] = {
+							that.komisjePointsData[d['wybory_parl_obwody.id']] = {
 								'numer': d['wybory_parl_obwody.numer'],
 								'typ': d['wybory_parl_obwody.typ'],
 								'adres': d['wybory_parl_obwody.adres'],
@@ -364,19 +419,16 @@ var MapBrowser = Class.extend({
 								komisjeBtn.attr('disabled', null).click(function (event) {
 									var tid = $(event.target).attr('data-target');
 									if (tid) {
-										var m = self.komisjePointsData[tid];
-									}
-									if (typeof m !== 'undefined' && m) {
 										var marker;
 
-										for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
-											if ($.inArray(tid, self.komisjePoints[i].id) > -1) {
-												marker = self.komisjePoints[i];
+										for (var i = 0, len = that.komisjePoints.length; i < len; i++) {
+											if ($.inArray(tid, that.komisjePoints[i].id) > -1) {
+												marker = that.komisjePoints[i];
 											}
 										}
 
-										self.pointWindowOpener(marker);
-										self.komisjaDetail(tid);
+										that.pointWindowOpener(marker);
+										that.komisjaDetail(tid);
 									}
 								});
 							}
@@ -384,23 +436,23 @@ var MapBrowser = Class.extend({
 
 						komisjeInfo += '</div>';
 
-						var komisjeInfo = new google.maps.Marker({
+						var komisjeInfoMarker = new google.maps.Marker({
 							id: komisjeId,
 							position: komisjePosition,
-							icon: self.setKomisjeIcon(),
-							map: self.map,
+							icon: that.setKomisjeIcon(),
+							map: that.map,
 							data: komisjeInfo
 						});
 
-						self.komisjePoints.push(komisjeInfo);
-						self.fitBounds.extend(komisjePosition);
+						that.komisjePoints.push(komisjeInfoMarker);
+						that.fitBounds.extend(komisjePosition);
 
-						komisjeInfo.addListener('click', function () {
-							self.pointWindowOpener(this);
+						komisjeInfoMarker.addListener('click', function () {
+							that.pointWindowOpener(this);
 						});
 					}
 				}
-				self.map.fitBounds(self.fitBounds);
+				that.map.fitBounds(that.fitBounds);
 			});
 		}
 	},
@@ -456,7 +508,7 @@ var MapBrowser = Class.extend({
 							}
 						}
 					).append(
-						$('<p class="przystosowanie ' + detail['przystosowanie'] + '"></p>').html((detail['przystosowanie'] === 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
+						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html((detail.przystosowanie === 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
 					).append(
 						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail.location.lat + ',' + detail.location.lon + '"></iframe>')
 					).append(
@@ -663,9 +715,7 @@ var MapBrowser = Class.extend({
 		google.maps.event.addListener(infowindow, 'domready', function () {
 			$('.btn-obwod.disabled').removeClass('disabled').click(function (event) {
 				var tid = $(event.target).attr('data-target');
-				if (tid)
-					var m = self.komisjePointsData[tid];
-				if (typeof m !== 'undefined' && m) {
+				if (tid) {
 					var marker;
 
 					for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
@@ -770,8 +820,9 @@ $(document).ready(function () {
 		var self = $(this);
 
 		if (!self.hasClass('loading')) {
-			if (self.hasClass('btn-primary'))
+			if (self.hasClass('btn-primary')) {
 				self.addClass('loading disabled');
+			}
 			localizer.request_position();
 		}
 	});
@@ -897,5 +948,11 @@ $(document).ready(function () {
 			mPCookie.mapa.showMarkers = e.target.checked;
 			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 		}
+	});
+
+	$('.wyboryCheckbox input[name="wyboryShow"]').bootstrapSwitch({
+		size: 'mini',
+		onText: 'Wł.',
+		offText: 'Wył.'
 	});
 });
