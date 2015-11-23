@@ -99,7 +99,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
                         <? } ?>
                     </ul>
                     <div class="buttons text-center margin-top-10">
-                        <a href="/prawo/aktualnosci" class="btn btn-primary btn-xs">Więcej aktualności &raquo;</a>
+                        <a href="/ngo/pisma" class="btn btn-primary btn-xs">Zobacz więcej &raquo;</a>
                     </div>
                 </div>
 

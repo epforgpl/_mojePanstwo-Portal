@@ -666,14 +666,22 @@ class NgoController extends ApplicationsController
 			}
 
 		}
-		
+				
         foreach($items as $i => $item) {
 
             if(isset($item['submenu'])) {
                 $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
             }
+                                
+            if(
+            	$i && 
+            	( @strpos($item['class'], 'border-top')!==false ) && 
+            	( @strpos($items[$i-1]['class'], '_label')!==false )
+            )
+	            $items[$i]['class'] = str_replace('border-top', '', $item['class']);
 
         }
+        
 		
 		$output = array(
 			'items' => $items,

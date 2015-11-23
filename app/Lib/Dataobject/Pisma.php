@@ -9,6 +9,7 @@ class Pisma extends DataObject
     protected $routes = array(
         'title' => 'name',
         'shortTitle' => 'name',
+        'date' => 'date',
     );
 
     public function getLabel()
@@ -39,7 +40,11 @@ class Pisma extends DataObject
 
     public function getMetaDescriptionParts($preset = false)
 	{
+				
 		$output = array();
+		
+		if( $this->getDate() )
+			$output[] = dataSlownie( $this->getDate() );
 				
 		
 		if( $this->getData('template_label') )
