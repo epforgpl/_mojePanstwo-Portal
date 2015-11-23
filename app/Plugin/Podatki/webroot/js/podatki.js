@@ -67,7 +67,53 @@ $(document).ready(function () {
 		var res = $chartArea.attr('data-result');
 
 		if (typeof res !== "undefined" && res !== false) {
+			var data = [],
+				colors = [];
+
 			res = $.parseJSON(res);
+
+			if (res.zus > 0) {
+				data.push({
+					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
+					y: Number(res.zus)
+				});
+				colors.push(res.zus_color);
+			}
+			if (res.zus_pracodawca > 0) {
+				data.push({
+					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA,
+					y: Number(res.zus_pracodawca)
+				});
+				colors.push(res.zus_pracodawca_color);
+			}
+			if (res.zdrow > 0) {
+				data.push({
+					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZDROW,
+					y: Number(res.zdrow)
+				});
+				colors.push(res.zdrow_color);
+			}
+			if (res.pit > 0) {
+				data.push({
+					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
+					y: Number(res.pit)
+				});
+				colors.push(res.pit_color);
+			}
+			if (res.vat > 0) {
+				data.push({
+					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
+					y: Number(res.vat)
+				});
+				colors.push(res.vat_color);
+			}
+			if (res.akcyza > 0) {
+				data.push({
+					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
+					y: Number(res.akcyza)
+				});
+				colors.push(res.akcyza_color);
+			}
 
 			$chartArea.find('.pie').highcharts({
 				credits: false,
@@ -93,26 +139,11 @@ $(document).ready(function () {
 						}
 					}
 				},
-				colors: [res.zus_color, res.zdrow_color, res.pit_color, res.vat_color, res.akcyza_color],
+				colors: colors,
 				series: [{
 					name: "Kwota",
 					colorByPoint: true,
-					data: [{
-						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
-						y: Number(res.zus)
-					}, {
-						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZDROW,
-						y: Number(res.zdrow)
-					}, {
-						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
-						y: Number(res.pit)
-					}, {
-						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
-						y: Number(res.vat)
-					}, {
-						name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
-						y: Number(res.akcyza)
-					}]
+					data: data
 				}]
 			});
 		}
