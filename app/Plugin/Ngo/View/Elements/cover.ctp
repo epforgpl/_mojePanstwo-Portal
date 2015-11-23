@@ -82,7 +82,31 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
                 </div>
             </section>
         </div>
+		
+		<? if( $docs = @$dataBrowser['aggs']['pisma']['top']['hits']['hits'] ) {?>
+		<div class="block block-simple col-sm-12">
+            <header class="nopadding">Pisma:</header>
+            <section class="content margin-top-10">
 
+                <div class="agg agg-Dataobjects">
+                    <ul class="dataobjects">
+                        <? foreach ($docs as $doc) { ?>
+                            <li class="margin-top-10">
+                                <?
+                                echo $this->Dataobject->render($doc, 'default');
+                                ?>
+                            </li>
+                        <? } ?>
+                    </ul>
+                    <div class="buttons text-center margin-top-10">
+                        <a href="/prawo/aktualnosci" class="btn btn-primary btn-xs">Więcej aktualności &raquo;</a>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+        <? } ?>
+		
         <div class="block block-simple col-sm-12">
             <header class="nopadding">Mapa organizacji pozarządowych:</header>
             <section class="content margin-top-10">

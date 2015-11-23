@@ -1074,7 +1074,7 @@
                     margin-left: 0;
                     line-height: 1.1em;
                 }
-
+                
                 .title {
                     margin-top: 0;
                 }
@@ -1114,6 +1114,35 @@
             list-style-type: none;
             padding: 0;
         }
+        
+        .custom-par {
+            font-size: 13px;
+            padding: 0;
+            margin: 0 8px 3px;
+            color: #555;
+            
+            &:first-child {
+	            margin-top: 5px;
+	            padding-top: 5px;
+            }
+            
+            &:last-child {
+	            margin-bottom: 7px;
+	            padding-bottom: 7px;
+            }
+            
+            ._label {
+	            width: 35px;
+	            display: block;
+	            float: left;
+	            font-weight: bold;
+            }
+            ._value {
+	            margin-left: 35px;
+	            display: block;
+	            text-transform: capitalize;
+            }
+        } 
 
         .formatDate {
             min-height: 55px;
@@ -1203,7 +1232,7 @@
             &.marginRight {
                 margin-right: 50px;
             }
-
+            
         }
 
         .label-glos {
@@ -1530,7 +1559,7 @@
 	        padding-left: 0 !important;
 	        padding-right: 0 !important;
 	    }
-
+		
 	    .meta.meta-date {
 	        position: absolute;
 	        right: 0;

@@ -10,7 +10,7 @@ class MediaController extends ApplicationsController
     public $settings = array(
         'id' => 'media',
         'title' => 'Państwo w mediach społecznościowych',
-        'shortTitle' => 'Media',
+        'shortTitle' => 'mediach',
         'subtitle' => 'Polityka w mediach społecznościowych',
         'headerImg' => 'media',
     );
@@ -20,7 +20,16 @@ class MediaController extends ApplicationsController
     public $mainMenuLabel = 'Analiza';
     private $twitterAccountType = '0';
     private $twitterTimerange = '1D';
-
+	
+	private $accounts_map = array(
+		'politycy' => array(7, 'Politycy na Twitterze'),
+		'ngo' => array(9, 'Organizacje pozarządowe na Twitterze'),
+		'komentatorzy' => array(2, 'Komentatorzy na Twitterze'),
+		'urzedy' => array(3, 'Urzędy na Twitterze'),
+		'miasta' => array(10, 'Miasta na Twitterze'),
+		'media' => array(6, 'Media na Twitterze'),
+	);
+	
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -73,7 +82,22 @@ class MediaController extends ApplicationsController
 		        ),
 	        ),
         );
-
+		
+		if( isset($this->request->query['a']) )
+	        foreach( $this->accounts_map as $k => $v )
+		        if( $v[0] == $this->request->query['a'] )
+			        return $this->redirect('/media/' . $k);
+		
+		if(
+			@$this->request->params['id'] && 
+			array_key_exists($this->request->params['id'], $this->accounts_map)
+		) {
+			$item = $this->accounts_map[ $this->request->params['id'] ];
+			$this->request->query['a'] = $item[0];
+			$this->chapter_selected = $this->request->params['id'];
+			$this->title = $item[1];
+		}
+		
         if(
         	isset($this->request->query['a']) &&
         	array_key_exists($this->request->query['a'], $this->Twitter->twitterAccountTypes) &&
@@ -612,17 +636,155 @@ class MediaController extends ApplicationsController
     public function getChapters()
     {
 
-	    $chapters = parent::getChapters();
+	    $mode = false;
+		$items = array();
+		$app = $this->getApplication( $this->settings['id'] );
+
+		if(
+			isset( $this->request->query['q'] ) &&
+			$this->request->query['q']
+		) {
+						
+			$items[] = array(
+				'id' => '_results',
+				'label' => 'Szukaj na Twitterze:',
+				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+				'class' => '_label',
+			);
+
+			if( $this->chapter_selected=='view' )
+				$this->chapter_selected = '_results';
+			$mode = 'results';
+
+		} else {
+			
+			
+			$items[] = array(
+				'label' => 'Państwo na Twitterze',
+				'href' => '/' . $this->settings['id'],
+				'class' => '_label no-border-bottom',
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+			);
+			
+			$items[] = array(
+				'id' => 'politycy',
+				'label' => 'Politycy',
+				'href' => '/media/politycy',
+				'icon' => 'icon-datasets-dot',
+			);
+			
+			$items[] = array(
+				'id' => 'urzedy',
+				'label' => 'Urzędy',
+				'href' => '/media/urzedy',
+				'icon' => 'icon-datasets-dot',
+			);
+			
+			$items[] = array(
+				'id' => 'miasta',
+				'label' => 'Miasta',
+				'href' => '/media/miasta',
+				'icon' => 'icon-datasets-dot',
+			);
+			
+			$items[] = array(
+				'id' => 'komentatorzy',
+				'label' => 'Komentatorzy polityczni',
+				'href' => '/media/komentatorzy',
+				'icon' => 'icon-datasets-dot',
+			);
+			
+			$items[] = array(
+				'id' => 'ngo',
+				'label' => 'NGO',
+				'href' => '/media/ngo',
+				'icon' => 'icon-datasets-dot',
+			);
+			
+			$items[] = array(
+				'id' => 'partie',
+				'label' => 'Partie polityczne',
+				'href' => '/media/media',
+				'icon' => 'icon-datasets-dot',
+				'class' => 'border-bottom',
+			);
+			
+			
+			
+		}
+
+		if(
+			( $map = @$this->viewVars['dataBrowser']['aggs_visuals_map']['dataset']['dictionary'] ) &&
+			( $datasets = @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] )
+		) {
+
+			foreach( $map as $key => $value ) {
+
+				if( !isset($value['menu_id']) )
+					$value['menu_id'] = '';
+								
+				$item = array(
+					'id' => $value['menu_id'],
+					'label' => $value['label'],
+					'href' => '/' . $this->settings['id'] . '/' . $value['menu_id'],
+					'icon' => 'icon-datasets-' . $key,
+
+				);
+
+				if( $mode == 'results' ) {
+
+					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+
+					foreach( $datasets as $d ) {
+
+						if( $d['key']==$key ) {
+
+							if( $d['doc_count'] ) {
+								$item['count'] = $d['doc_count'];
+								$items[] = $item;
+							}
+
+							break;
+
+						}
+					}
+
+				} else {
+
+					$items[] = $item;
+
+				}
+
+			}
+
+		}
+		
+        foreach($items as $i => $item) {
+
+            if(isset($item['submenu'])) {
+                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
+            }
+
+        }
+        
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+				
 
 	    if( $this->isSuperUser() )
-		    $chapters['items'][] = array(
+		    $output['items'][] = array(
 			    'id' => 'propozycje_kont',
 			    'href' => 'propozycje_kont',
 			    'label' => 'Propozycje nowych kont',
 			    'icon' => 'icon-datasets-twitter_accounts',
 		    );
 
-	    return $chapters;
+	    return $output;
 
     }
 }

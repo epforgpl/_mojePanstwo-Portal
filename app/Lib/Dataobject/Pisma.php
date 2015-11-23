@@ -41,13 +41,9 @@ class Pisma extends DataObject
 	{
 		$output = array();
 				
-		if( $this->getData('to_label') )
-			$o = $this->getData('to_label');
-		else
-			$o = '';
 		
 		if( $this->getData('template_label') )
-			$o = $this->getData('template_label') . '<br/>' . $o;
+			$o = $this->getData('template_label');
 		
 		$output[] = $o;
 

@@ -13,54 +13,147 @@ class PrawoController extends ApplicationsController
     );
     public $mainMenuLabel = 'Przeglądaj';
 	
-	public $submenus = array(
-        'prawo' => array(
-            'items' => array(
-                array(
-					'id' => 'aktualnosci',
-					'label' => 'Aktualności',
-					'href' => '/prawo/aktualnosci',
-					'icon' => 'icon-datasets-sejm_komunikaty',
-				),
-				array(
-					'id' => 'ustawy',
-					'label' => 'Ustawy',
-					'href' => '/prawo/ustawy',
-					'icon' => 'icon-datasets-prawo ustawy',
-				),
-				array(
-					'id' => 'rozporzadzenia',
-					'label' => 'Rozporządzenia',
-					'href' => '/prawo/rozporzadzenia',
-					'icon' => 'icon-datasets-prawo rozporzadzenia',
-				),
-				array(
-					'id' => 'umowy',
-					'label' => 'Umowy międzynarodowe',
-					'href' => '/prawo/umowy',
-					'icon' => 'icon-datasets-prawo umowy',
-				),
-				array(
-					'id' => 'inne',
-					'label' => 'Inne akty prawne',
-					'href' => '/prawo/inne',
-					'icon' => 'icon-datasets-prawo inne',
-				),
-				array(
-					'id' => 'lokalne',
-					'label' => 'Prawo lokalne',
-					'href' => '/prawo/lokalne',
-					'icon' => 'icon-datasets-prawo lokalne',
-				),
-				array(
-					'id' => 'urzedowe',
-					'label' => 'Prawo urzędowe',
-					'href' => '/prawo/urzedowe',
-					'icon' => 'icon-datasets-prawo urzedowe',
-				),
-            )
-        )
+	public $menu = array(
+		'sejm_komunikaty' => array(
+			'menu_id' => 'aktualnosci',
+			'label' => 'Aktualności',
+			'icon' => 'sejm_komunikaty',
+		),
+		'prawo_hasla' => array(
+			'menu_id' => 'tematy',
+			'label' => 'Tematy',
+			'icon' => 'prawo_hasla',
+		),
+		/*
+		'pisma' => array(
+			'menu_id' => 'pisma',
+			'label' => 'Pisma',
+			'icon' => 'pisma',
+		),
+		'zbiorki_publiczne' => array(
+			'menu_id' => 'zbiorki',
+			'label' => 'Zbiórki publiczne',
+			'separator' => 'bottom',
+		),
+		*/
+		'_typy' => array(
+			'label' => 'Przeglądaj według typów:',
+			'class' => '__label border-top',
+			'icon' => 'prawo',
+			'typ_id' => '_all',
+		),
+		'ustawy' => array(
+			'menu_id' => 'ustawy',
+			'label' => 'Ustawy',
+			'typ_id' => '1',
+			'icon' => 'dot',
+			'typ_id' => '1',
+		),
+		'rozporzadzenia' => array(
+			'menu_id' => 'rozporzadzenia',
+			'label' => 'Rozporządzenia',
+			'typ_id' => '2',
+			'icon' => 'dot',
+			'typ_id' => '3',
+		),
+		'umowy' => array(
+			'menu_id' => 'umowy',
+			'label' => 'Umowy międzynarodowe',
+			'typ_id' => '18',
+			'icon' => 'dot',
+			'typ_id' => array('6', '7', '8', '10', '11', '12'),
+		),
+		'inne' => array(
+			'menu_id' => 'inne',
+			'label' => 'Pozostałe',
+			'icon' => 'dot',
+			'typ_id' => '_other',
+		),
+		'_publikatory' => array(
+			'label' => 'Przeglądaj według publikatora:',
+			'class' => '__label border-top',
+			'icon' => 'prawo',
+			'tag' => 'publikatory',
+		),
+		'dziennik_ustaw' => array(
+			'menu_id' => 'dziennik_ustaw',
+			'label' => 'Dziennik Ustaw',
+			'icon' => 'dot',
+			'publikator_id' => 'DzU',
+		),
+		'monitor_polski' => array(
+			'menu_id' => 'monitor_polski',
+			'label' => 'Monitor Polski',
+			'icon' => 'dot',
+			'publikator_id' => 'MP',
+		),
+		'prawo_wojewodztwa' => array(
+			'menu_id' => 'lokalne',
+			'label' => 'Dzienniki wojewódzkie',
+			'icon' => 'dot',
+		),
+		'prawo_urzedowe' => array(
+			'menu_id' => 'urzedowe',
+			'label' => 'Dzienniki urzędowe',
+			'icon' => 'dot',
+		),
+	);
+	
+	public $_aggs = array(
+        'dataset' => array(
+            'terms' => array(
+                'field' => 'dataset',
+            ),
+            'aggs' => array(
+                'typ' => array(
+                    'terms' => array(
+	                    'field' => 'data.prawo.typ_id',
+	                    'size' => 100,
+                    ),
+                ),
+                'publikator' => array(
+	                'terms' => array(
+		                'field' => 'data.prawo.zrodlo',
+		                'size' => 100,
+	                ),
+                ),
+            ),
+        ),
     );
+	
+	private function getSubAggs() {
+	    return array(
+	        '_query' => array(
+	            'filter' => array(
+		            'or' => array(
+			            array(
+				            'terms' => array(
+					            'dataset' => array('prawo', 'prawo_hasla', 'prawo_wojewodztwa', 'prawo_urzedowe'),
+				            ),
+			            ),
+			            array(
+				            'bool' => array(
+					            'must' => array(
+						            array(
+							            'term' => array(
+								            'dataset' => 'sejm_komunikaty',
+							            ),
+						            ),
+						            array(
+							            'term' => array(
+								            'data.sejm_komunikaty.typ_id' => '0',
+							            ),
+						            ),
+					            ),
+				            ),
+			            ),
+		            ),
+	            ),
+	            'scope' => 'query',
+	            'aggs' => $this->_aggs,
+	        ),
+	    );
+    }
 	
     public function prepareMetaTags()
     {
@@ -83,9 +176,15 @@ class PrawoController extends ApplicationsController
                 'dataset' => 'prawo,prawo_hasla',
             ),
             'conditions' => array(
-                'dataset' => $_datasets,
+                'dataset' => array(
+	                'prawo',
+	                'prawo_hasla',
+	                'prawo_wojewodztwa',
+	                'prawo_urzedowe',
+	                'sejm_komunikaty{sejm_komunikaty.typ_id:0}'
+                ),
             ),
-            'aggs' => array_merge(array(), $this->getChaptersAggs()),
+            'aggs' => $this->_aggs,
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Prawo',
@@ -262,7 +361,7 @@ class PrawoController extends ApplicationsController
                 'dataset' => 'sejm_komunikaty',
                 'sejm_komunikaty.typ_id' => '0',
             ),
-            'aggs' => array_merge(array(), $this->getChaptersAggs()),
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -270,7 +369,7 @@ class PrawoController extends ApplicationsController
     {
 	    $this->title = 'Prawo lokalne';
         $this->loadDatasetBrowser('prawo_wojewodztwa', array(
-	        'aggs' => array_merge(array(), $this->getChaptersAggs()),
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -278,7 +377,15 @@ class PrawoController extends ApplicationsController
     {
 	    $this->title = 'Prawo urzędowe';
         $this->loadDatasetBrowser('prawo_urzedowe', array(
-	        'aggs' => array_merge(array(), $this->getChaptersAggs()),
+            'aggs' => $this->getSubAggs(),
+        ));
+    }
+    
+    public function tematy()
+    {
+	    $this->title = 'Prawo urzędowe';
+        $this->loadDatasetBrowser('prawo_hasla', array(
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -289,28 +396,35 @@ class PrawoController extends ApplicationsController
             'conditions' => array(
                 'prawo.typ_id' => '1',
             ),
-            'menu' => array_merge($this->submenus['prawo'], array(
-                'selected' => 'ustawy',
-                'base' => '/prawo'
-            )),
-            'aggsPreset' => null,
-            'aggs' => array_merge(array(
-	            'date' => array(
-	                'date_histogram' => array(
-	                    'field' => 'date',
-	                    'interval' => 'year',
-	                    'format' => 'yyyy-MM-dd',
-	                ),
-	                'visual' => array(
-	                    'label' => 'Liczba aktów prawnych w czasie',
-	                    'all' => 'Wydane kiedykolwiek',
-	                    'skin' => 'date_histogram',
-	                    'field' => 'date'
-	                ),
-	            ),
-            ), $this->getChaptersAggs()),
+            'aggs' => $this->getSubAggs(),
             'sortPreset' => 'prawo',
             'phrasesPreset' => 'ustawy',
+        ));
+    }
+    
+    public function dziennik_ustaw()
+    {
+        $this->title = 'Dziennik Ustaw';
+        $this->loadDatasetBrowser('prawo', array(
+            'conditions' => array(
+                'prawo.zrodlo' => 'DzU',
+            ),
+            'aggs' => $this->getSubAggs(),
+            'sortPreset' => 'prawo',
+            'phrasesPreset' => 'akty_prawne',
+        ));
+    }
+    
+    public function monitor_polski()
+    {
+        $this->title = 'Monitor Polski';
+        $this->loadDatasetBrowser('prawo', array(
+            'conditions' => array(
+                'prawo.zrodlo' => 'MP',
+            ),
+            'aggs' => $this->getSubAggs(),
+            'sortPreset' => 'prawo',
+            'phrasesPreset' => 'akty_prawne',
         ));
     }
     
@@ -319,7 +433,10 @@ class PrawoController extends ApplicationsController
 		$mode = false;
 		$items = array();
 		$app = $this->getApplication( $this->settings['id'] );		
-
+		
+		if( @$this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'] )
+			$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] = $this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'];
+					
 		if(
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
@@ -355,96 +472,12 @@ class PrawoController extends ApplicationsController
 		}
 		
 		
-		$map = array(
-			'dzialania' => array(
-				'menu_id' => 'aktualnosci',
-				'label' => 'Aktualności',
-				'icon' => 'sejm_komunikaty',
-			),
-			'slowa' => array(
-				'menu_id' => 'aktualnosci',
-				'label' => 'Słowa kluczowe',
-				'icon' => 'sejm_komunikaty',
-			),
-			/*
-			'pisma' => array(
-				'menu_id' => 'pisma',
-				'label' => 'Pisma',
-				'icon' => 'pisma',
-			),
-			'zbiorki_publiczne' => array(
-				'menu_id' => 'zbiorki',
-				'label' => 'Zbiórki publiczne',
-				'separator' => 'bottom',
-			),
-			*/
-			'organizacje' => array(
-				'label' => 'Przeglądaj według typów:',
-				'class' => '__label',
-				'icon' => 'prawo',
-			),
-			'fundacje' => array(
-				'menu_id' => 'fundacje',
-				'label' => 'Ustawy',
-				'forma_prawna_id' => '1',
-				'icon' => 'dot',
-			),
-			'stowarzyszenia' => array(
-				'menu_id' => 'stowarzyszenia',
-				'label' => 'Rozporządzenia',
-				'forma_prawna_id' => '15',
-				'icon' => 'dot',
-			),
-			'zwiazki_zawodowe' => array(
-				'menu_id' => 'zwiazki_zawodowe',
-				'label' => 'Umowy międzynarodowe',
-				'forma_prawna_id' => '18',
-				'icon' => 'dot',
-			),
-			'pozostale_ngo' => array(
-				'menu_id' => 'pozostale',
-				'label' => 'Pozostałe',
-				'forma_prawna_id' => '_other',
-				'icon' => 'dot',
-			),
-			'publikatory' => array(
-				'label' => 'Przeglądaj według publikatora:',
-				'class' => '__label',
-				'icon' => 'prawo',
-			),
-			'dziennik_ustaw' => array(
-				'menu_id' => 'fundacje',
-				'label' => 'Dziennik Ustaw',
-				'forma_prawna_id' => '1',
-				'icon' => 'dot',
-			),
-			'monitor_polski' => array(
-				'menu_id' => 'stowarzyszenia',
-				'label' => 'Monitor Polski',
-				'forma_prawna_id' => '15',
-				'icon' => 'dot',
-			),
-			'dzienniki_wojewodzkie' => array(
-				'menu_id' => 'zwiazki_zawodowe',
-				'label' => 'Dzienniki wojewódzkie',
-				'forma_prawna_id' => '18',
-				'icon' => 'dot',
-			),
-			'dzienniki_urzedowe' => array(
-				'menu_id' => 'zwiazki_zawodowe',
-				'label' => 'Dzienniki urzędowe',
-				'forma_prawna_id' => '18',
-				'icon' => 'dot',
-			),
-		);
-		
-		
-		
 
-		
 		$others_count = 0;
+		$_typy = 0;
+		$_publikatory = 0;
 		
-		foreach( $map as $key => $value ) {
+		foreach( $this->menu as $key => $value ) {
 						
 			if( !isset($value['menu_id']) )
 				$value['menu_id'] = '';
@@ -471,43 +504,103 @@ class PrawoController extends ApplicationsController
 				if( isset($item['href']) )
 					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
 				
-				if( @$value['forma_prawna_id'] ) {
+				if( @$value['typ_id'] ) {
 					
 					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
 						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
 													
-							if( $dataset['key']=='krs_podmioty' ) {
-															
-								foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
-									if( $forma['doc_count'] ) {
-																			
-										if( $value['forma_prawna_id']==$forma['key'] ) {
-											
-											$item['count'] = $forma['doc_count'];
-											$items[] = $item;
-												
-										} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
-											
-											$others_count += $forma['doc_count'];
-											
-										}
-																			
-									}
-								}
+							if( $dataset['key']=='prawo' ) {
 								
-								if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+								if( $value['typ_id']=='_all' ) {
 									
-									$item['count'] = $others_count;
-									$items[] = $item;
+									if( $dataset['doc_count'] );
+										$items[] = $item;
 									
+								} else {
+																		
+									foreach( $dataset['typ']['buckets'] as $forma ) {
+										if( $forma['doc_count'] ) {
+											
+											if( is_array($value['typ_id']) && in_array($forma['key'], $value['typ_id']) ) {
+												
+												if( !$_typy ) {
+													
+													$item['tag'] = 'typ';
+													$items[] = $item;
+													
+												}
+												
+												$_typy += $forma['doc_count'];
+																														
+											} elseif( $value['typ_id'] == $forma['key'] ) {
+												
+												$item['count'] = $forma['doc_count'];
+												$items[] = $item;
+													
+											} elseif( ($value['typ_id']=='_other') && !in_array($forma['key'], array('1', '3', '6', '7', '8', '10', '11', '12')) ) {
+												
+												$others_count += $forma['doc_count'];
+												
+											}
+																				
+										}
+									}
+																		
+									if( ($value['typ_id']=='_other') && $others_count ) {
+										
+										$item['count'] = $others_count;
+										$items[] = $item;
+										
+									}
+								
 								}
 								
 							}
+							
 						}
-					} else {
+					}
+					
+				} elseif( @$value['publikator_id'] ) {
+										
+					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+													
+							if( ($dataset['key']=='prawo') && ($ps = @$dataset['publikator']['buckets']) ) {
+								
+								foreach( $ps as $p ) {
+									if( $p['key'] == $value['publikator_id'] ) {
+										
+										$item['count'] = $p['doc_count'];
+										$items[] = $item;
+										
+										$_publikatory += $p['doc_count'];
+										
+									}
+								}			
+								
+							}
+							
+						}
+					}
+					
+				} else {
+													
+					if( $key == '_publikatory' ) {
 						
 						$items[] = $item;
 						
+					} elseif( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+							if( ($dataset['key'] == $key) && $dataset['doc_count'] ) {
+									
+								$item['count'] = $dataset['doc_count'];
+								$items[] = $item;
+								
+								if( in_array($key, array('prawo_wojewodztwa', 'prawo_urzedowe', 'prawo')) )
+									$_publikatory += $dataset['doc_count'];
+								
+							} 
+						}
 					}
 					
 				}
@@ -517,17 +610,24 @@ class PrawoController extends ApplicationsController
 				$items[] = $item;
 
 			}
-
+			
 		}
 		
+		
+		
         foreach($items as $i => $item) {
-
-            if(isset($item['submenu'])) {
+			
+			if( @$item['tag']=='typ' )
+				$items[$i]['count'] = $_typy;
+				
+			if( @$item['tag']=='publikatory' )
+				$items[$i]['count'] = $_publikatory;
+			
+            if(isset($item['submenu']))
                 $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
-            }
 
         }
-
+                		
 		$output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
@@ -667,48 +767,8 @@ class PrawoController extends ApplicationsController
             'conditions' => array(
                 'prawo.typ_id' => '3',
             ),
-            'menu' => array_merge($this->submenus['prawo'], array(
-                'selected' => 'rozporzadzenia',
-                'base' => '/prawo'
-            )),
-            'aggsPreset' => null,
             'phrasesPreset' => 'rozporzadzenia',
-            'aggs' => array_merge(array(
-	            'date' => array(
-	                'date_histogram' => array(
-	                    'field' => 'date',
-	                    'interval' => 'year',
-	                    'format' => 'yyyy-MM-dd',
-	                ),
-	                'visual' => array(
-	                    'label' => 'Liczba aktów prawnych w czasie',
-	                    'all' => 'Wydane kiedykolwiek',
-	                    'skin' => 'date_histogram',
-	                    'field' => 'date'
-	                ),
-	            ),
-	            'autor_id' => array(
-	                'terms' => array(
-	                    'field' => 'prawo.autor_id',
-	                    'exclude' => array(
-	                        'pattern' => '0'
-	                    ),
-	                ),
-	                'aggs' => array(
-	                    'label' => array(
-	                        'terms' => array(
-	                            'field' => 'data.prawo.autor_nazwa',
-	                        ),
-	                    ),
-	                ),
-	                'visual' => array(
-	                    'label' => 'Autorzy aktów prawnych',
-	                    'all' => 'Wszyscy autorzy',
-	                    'skin' => 'columns_horizontal',
-	                    'field' => 'prawo.autor_id'
-	                ),
-	            ),
-            ), $this->getChaptersAggs()),
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -719,27 +779,8 @@ class PrawoController extends ApplicationsController
             'conditions' => array(
                 'prawo.typ_id' => array('6', '7', '8', '10', '11', '12'),
             ),
-            'menu' => array_merge($this->submenus['prawo'], array(
-                'selected' => 'umowy',
-                'base' => '/prawo'
-            )),
-            'aggsPreset' => null,
             'phrasesPreset' => 'umowy_miedzynarodowe',
-            'aggs' => array_merge(array(
-	            'date' => array(
-	                'date_histogram' => array(
-	                    'field' => 'date',
-	                    'interval' => 'year',
-	                    'format' => 'yyyy-MM-dd',
-	                ),
-	                'visual' => array(
-	                    'label' => 'Liczba aktów prawnych w czasie',
-	                    'all' => 'Wydane kiedykolwiek',
-	                    'skin' => 'date_histogram',
-	                    'field' => 'date'
-	                ),
-	            ),
-            ), $this->getChaptersAggs()),
+            'aggs' => $this->getSubAggs(),
         ));
     }
 	
@@ -750,48 +791,8 @@ class PrawoController extends ApplicationsController
             'conditions' => array(
                 'prawo.typ_id' => array('0', '2', '4', '5', '9', '13', '14', '15'),
             ),
-            'menu' => array_merge($this->submenus['prawo'], array(
-                'selected' => 'inne',
-                'base' => '/prawo'
-            )),
-            'aggsPreset' => null,
             'phrasesPreset' => 'akty_prawne',
-            'aggs' => array_merge(array(
-	            'date' => array(
-	                'date_histogram' => array(
-	                    'field' => 'date',
-	                    'interval' => 'year',
-	                    'format' => 'yyyy-MM-dd',
-	                ),
-	                'visual' => array(
-	                    'label' => 'Liczba aktów prawnych w czasie',
-	                    'all' => 'Wydane kiedykolwiek',
-	                    'skin' => 'date_histogram',
-	                    'field' => 'date'
-	                ),
-	            ),
-	            'autor_id' => array(
-	                'terms' => array(
-	                    'field' => 'prawo.autor_id',
-	                    'exclude' => array(
-	                        'pattern' => '0'
-	                    ),
-	                ),
-	                'aggs' => array(
-	                    'label' => array(
-	                        'terms' => array(
-	                            'field' => 'data.prawo.autor_nazwa',
-	                        ),
-	                    ),
-	                ),
-	                'visual' => array(
-	                    'label' => 'Autorzy aktów prawnych',
-	                    'all' => 'Wszyscy autorzy',
-	                    'skin' => 'columns_horizontal',
-	                    'field' => 'prawo.autor_id'
-	                ),
-	            ),
-            ), $this->getChaptersAggs()),
+	        'aggs' => $this->getSubAggs(),
         ));
     }
     

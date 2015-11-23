@@ -13,92 +13,111 @@ class NgoController extends ApplicationsController
         'headerImg' => 'ngo',
     );
     
-    public $_aggs = array(
-	    'dzialania' => array(
-	        'scope' => 'global',
-	        'filter' => array(
-	            'bool' => array(
-	                'must' => array(
-	                    array(
-	                        'term' => array(
-	                            'dataset' => 'dzialania',
-	                        ),
-	                    ),
-	                    array(
-	                        'term' => array(
-	                            'data.dzialania.status' => '1',
-	                        ),
-	                    ),
-	                ),
-	            ),
-	        ),
-	        'aggs' => array(
-	            'top' => array(
-	                'top_hits' => array(
-	                    'size' => 3,
-	                    'fielddata_fields' => array('dataset', 'id'),
-	                    'sort' => array(
-	                        'date' => array(
-	                            'order' => 'desc',
-	                        ),
-	                    ),
-	                ),
-	            ),
-	        ),
-	    ),
-	    'fundacje' => array(
-	        'filter' => array(
-	            'bool' => array(
-	                'must' => array(
-	                    array(
-	                        'term' => array(
-	                            'data.krs_podmioty.forma_prawna_id' => '1',
-	                        ),
-	                    ),
-	                ),
-	            ),
-	        ),
-	        'aggs' => array(
-	            'top' => array(
-	                'top_hits' => array(
-	                    'size' => 5,
-	                    'fielddata_fields' => array('dataset', 'id'),
-	                    'sort' => array(
-	                        'date' => array(
-	                            'order' => 'desc',
-	                        ),
-	                    ),
-	                ),
-	            ),
-	        ),
-	    ),
-	    'stowarzyszenia' => array(
-	        'filter' => array(
-	            'bool' => array(
-	                'must' => array(
-	                    array(
-	                        'term' => array(
-	                            'data.krs_podmioty.forma_prawna_id' => '15',
-	                        ),
-	                    ),
-	                ),
-	            ),
-	        ),
-	        'aggs' => array(
-	            'top' => array(
-	                'top_hits' => array(
-	                    'size' => 5,
-	                    'fielddata_fields' => array('dataset', 'id'),
-	                    'sort' => array(
-	                        'date' => array(
-	                            'order' => 'desc',
-	                        ),
-	                    ),
-	                ),
-	            ),
-	        ),
-	    ),
+    public $menu = array(
+		'dzialania' => array(
+			'menu_id' => 'dzialania',
+			'label' => 'Działania',
+			'icon' => 'dzialania',
+		),
+		'pisma' => array(
+			'menu_id' => 'pisma',
+			'label' => 'Pisma',
+			'icon' => 'pisma',
+		),
+		/*
+		'zbiorki_publiczne' => array(
+			'menu_id' => 'zbiorki',
+			'label' => 'Zbiórki publiczne',
+			'separator' => 'bottom',
+		),
+		*/
+		'krs_podmioty' => array(
+			'label' => 'Organizacje:',
+			'class' => '__label border-top',
+			'icon' => 'krs_podmioty',
+			'forma_prawna_id' => '_all',
+		),
+		'fundacje' => array(
+			'menu_id' => 'fundacje',
+			'label' => 'Fundacje',
+			'forma_prawna_id' => '1',
+			'icon' => 'dot',
+		),
+		'stowarzyszenia' => array(
+			'menu_id' => 'stowarzyszenia',
+			'label' => 'Stowarzyszenia',
+			'forma_prawna_id' => '15',
+			'icon' => 'dot',
+		),
+		'zwiazki_zawodowe' => array(
+			'menu_id' => 'zwiazki_zawodowe',
+			'label' => 'Związki zawodowe',
+			'forma_prawna_id' => '18',
+			'icon' => 'dot',
+		),
+		'spoldzielnie' => array(
+			'menu_id' => 'spoldzielnie',
+			'label' => 'Spółdzielnie',
+			'forma_prawna_id' => '9',
+			'icon' => 'dot',
+		),
+		'pozostale_ngo' => array(
+			'menu_id' => 'pozostale',
+			'label' => 'Pozostałe organizacje',
+			'forma_prawna_id' => '_other',
+			'icon' => 'dot',
+		),
 	);
+    
+    public $_aggs = array(
+        'dataset' => array(
+            'terms' => array(
+                'field' => 'dataset',
+            ),
+            'aggs' => array(
+                'forma_prawna' => array(
+                    'terms' => array(
+	                    'field' => 'data.krs_podmioty.forma_prawna_id',
+	                    'size' => 100,
+                    ),
+                ),
+            ),
+        ),
+    );
+        
+    private function getSubAggs() {
+	    return array(
+	        '_query' => array(
+	            'filter' => array(
+		            'or' => array(
+			            array(
+				            'terms' => array(
+					            'dataset' => array('dzialania', 'pisma'),
+				            ),
+			            ),
+			            array(
+				            'bool' => array(
+					            'must' => array(
+						            array(
+							            'term' => array(
+								            'dataset' => 'krs_podmioty',
+							            ),
+						            ),
+						            array(
+							            'term' => array(
+								            'data.krs_podmioty.forma_prawna_typ_id' => '2',
+							            ),
+						            ),
+					            ),
+				            ),
+			            ),
+		            ),
+	            ),
+	            'scope' => 'query',
+	            'aggs' => $this->_aggs,
+	        ),
+	    );
+    }
 
     public $components = array('RequestHandler');
 
@@ -274,7 +293,7 @@ class NgoController extends ApplicationsController
 
         parent::beforeRender();
        
-        // debug( $this->viewVars['dataBrowser']['aggs']['dataset'] ); die();
+        // debug( $this->viewVars['dataBrowser']['aggs'] ); die();
 
         if ($this->request->params['action'] == 'map') {
 
@@ -331,23 +350,69 @@ class NgoController extends ApplicationsController
                     'plugin' => 'Ngo',
                     'element' => 'cover',
                 ),
-                'aggs' => $this->_aggs,
+                'aggs' => array(
+				    'dzialania' => array(
+				        'scope' => 'global',
+				        'filter' => array(
+				            'bool' => array(
+				                'must' => array(
+				                    array(
+				                        'term' => array(
+				                            'dataset' => 'dzialania',
+				                        ),
+				                    ),
+				                    array(
+				                        'term' => array(
+				                            'data.dzialania.status' => '1',
+				                        ),
+				                    ),
+				                ),
+				            ),
+				        ),
+				        'aggs' => array(
+				            'top' => array(
+				                'top_hits' => array(
+				                    'size' => 3,
+				                    'fielddata_fields' => array('dataset', 'id'),
+				                    'sort' => array(
+				                        'date' => array(
+				                            'order' => 'desc',
+				                        ),
+				                    ),
+				                ),
+				            ),
+				        ),
+				    ),
+				    'pisma' => array(
+				        'scope' => 'global',
+				        'filter' => array(
+				            'bool' => array(
+				                'must' => array(
+				                    array(
+				                        'term' => array(
+				                            'dataset' => 'pisma',
+				                        ),
+				                    ),
+				                ),
+				            ),
+				        ),
+				        'aggs' => array(
+				            'top' => array(
+				                'top_hits' => array(
+				                    'size' => 3,
+				                    'fielddata_fields' => array('dataset', 'id'),
+				                    'sort' => array(
+				                        'date' => array(
+				                            'order' => 'desc',
+				                        ),
+				                    ),
+				                ),
+				            ),
+				        ),
+				    ),
+				),
             ),
-            'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'aggs' => array(
-	                    'forma_prawna' => array(
-		                    'terms' => array(
-			                    'field' => 'data.krs_podmioty.forma_prawna_id',
-			                    'size' => 100,
-		                    ),
-	                    ),
-                    ),
-                ),
-            ),
+            'aggs' => $this->_aggs,
         );
 
         $this->set('_submenu', array_merge($this->submenus['ngo'], array(
@@ -368,13 +433,18 @@ class NgoController extends ApplicationsController
                 'dataset' => 'dzialania',
                 'dzialania.status' => '1',
             ),
-            'menu' => array_merge($this->submenus['ngo'], array(
-                'selected' => 'dzialania',
-                'base' => '/ngo'
-            ))
+            'aggs' => $this->getSubAggs(),
         ));
     }
 
+    public function pisma()
+    {
+	    $this->title = 'Pisma | NGO';
+        $this->loadDatasetBrowser('pisma', array(
+            'aggs' => $this->getSubAggs(),
+        ));
+    }
+    
     public function fundacje()
     {
 	    $this->title = 'Fundacje | NGO';
@@ -386,6 +456,7 @@ class NgoController extends ApplicationsController
                 'selected' => 'fundacje',
                 'base' => '/ngo'
             )),
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -396,10 +467,7 @@ class NgoController extends ApplicationsController
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '18',
             ),
-            'menu' => array_merge($this->submenus['ngo'], array(
-                'selected' => 'zwiazki_zawodowe',
-                'base' => '/ngo'
-            )),
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -410,10 +478,7 @@ class NgoController extends ApplicationsController
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '9',
             ),
-            'menu' => array_merge($this->submenus['ngo'], array(
-                'selected' => 'spoldzielnie',
-                'base' => '/ngo'
-            )),
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -424,10 +489,7 @@ class NgoController extends ApplicationsController
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => array('2', '3', '4', '5', '8', '16', '17', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '33', '34', '35', '36', '37', '40', '41', '43', '45'),
             ),
-            'menu' => array_merge($this->submenus['ngo'], array(
-                'selected' => 'pozostale',
-                'base' => '/ngo'
-            )),
+            'aggs' => $this->getSubAggs(),
         ));
     }
     
@@ -453,6 +515,7 @@ class NgoController extends ApplicationsController
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '15',
             ),
+            'aggs' => $this->getSubAggs(),
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'stowarzyszenia',
                 'base' => '/ngo'
@@ -467,7 +530,10 @@ class NgoController extends ApplicationsController
 		$mode = false;
 		$items = array();
 		$app = $this->getApplication( $this->settings['id'] );		
-
+		
+		if( @$this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'] )
+			$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] = $this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'];
+		
 		if(
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
@@ -503,69 +569,11 @@ class NgoController extends ApplicationsController
 		}
 		
 		
-		$map = array(
-			'dzialania' => array(
-				'menu_id' => 'dzialania',
-				'label' => 'Działania',
-				'icon' => 'dzialania',
-			),
-			/*
-			'pisma' => array(
-				'menu_id' => 'pisma',
-				'label' => 'Pisma',
-				'icon' => 'pisma',
-			),
-			'zbiorki_publiczne' => array(
-				'menu_id' => 'zbiorki',
-				'label' => 'Zbiórki publiczne',
-				'separator' => 'bottom',
-			),
-			*/
-			'krs_podmioty' => array(
-				'label' => 'Organizacje:',
-				'class' => '__label',
-				'icon' => 'krs_podmioty',
-				'forma_prawna_id' => '_all',
-			),
-			'fundacje' => array(
-				'menu_id' => 'fundacje',
-				'label' => 'Fundacje',
-				'forma_prawna_id' => '1',
-				'icon' => 'dot',
-			),
-			'stowarzyszenia' => array(
-				'menu_id' => 'stowarzyszenia',
-				'label' => 'Stowarzyszenia',
-				'forma_prawna_id' => '15',
-				'icon' => 'dot',
-			),
-			'zwiazki_zawodowe' => array(
-				'menu_id' => 'zwiazki_zawodowe',
-				'label' => 'Związki zawodowe',
-				'forma_prawna_id' => '18',
-				'icon' => 'dot',
-			),
-			'spoldzielnie' => array(
-				'menu_id' => 'spoldzielnie',
-				'label' => 'Spółdzielnie',
-				'forma_prawna_id' => '9',
-				'icon' => 'dot',
-			),
-			'pozostale_ngo' => array(
-				'menu_id' => 'pozostale',
-				'label' => 'Pozostałe organizacje',
-				'forma_prawna_id' => '_other',
-				'icon' => 'dot',
-			),
-		);
-		
-		
-		
 
 		
 		$others_count = 0;
 		
-		foreach( $map as $key => $value ) {
+		foreach( $this->menu as $key => $value ) {
 						
 			if( !isset($value['menu_id']) )
 				$value['menu_id'] = '';
@@ -666,7 +674,7 @@ class NgoController extends ApplicationsController
             }
 
         }
-
+		
 		$output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
@@ -676,47 +684,6 @@ class NgoController extends ApplicationsController
 
 	}
 	
-	/*
-    public function getChapters()
-    {
-
-        $mode = false;
-
-        $items = array(
-            array(
-                'label' => 'Start',
-                'href' => '/' . $this->settings['id'],
-            ),
-        );
-
-        $items[] = array(
-            'id' => 'dzialania',
-            'label' => 'Działania społeczne',
-            'href' => '/ngo/dzialania',
-        );
-
-        $items[] = array(
-            'id' => 'fundacje',
-            'label' => 'Fundacje',
-            'href' => '/ngo/fundacje',
-        );
-
-        $items[] = array(
-            'id' => 'stowarzyszenia',
-            'label' => 'Stowarzyszenia',
-            'href' => '/ngo/stowarzyszenia',
-        );
-
-        $output = array(
-            'items' => $items,
-            'selected' => ($this->chapter_selected == 'view') ? false : $this->chapter_selected,
-        );
-
-        return $output;
-
-    }
-    */
-    
     public function page()
     {
 	    
@@ -730,7 +697,7 @@ class NgoController extends ApplicationsController
             ),
             'conditions' => array(
                 'dataset' => 'krs_podmioty',
-                'krs_podmioty.forma_prawna_typ_id' => array('2'),
+                'krs_podmioty.forma_prawna_typ_id' => '2',
             ),
             'cover' => array(
                 'view' => array(
