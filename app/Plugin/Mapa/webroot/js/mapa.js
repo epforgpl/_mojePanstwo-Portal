@@ -210,11 +210,7 @@ var MapBrowser = Class.extend({
 
 		var viewport = self.div.data('viewport');
 
-		if (
-			( typeof(viewport) === 'object' ) &&
-			( typeof(viewport.top_left) === 'object' ) &&
-			( typeof(viewport.bottom_right) === 'object' )
-		) {
+		if ((typeof viewport === 'object') && (typeof viewport.top_left === 'object') && (typeof viewport.bottom_right === 'object')) {
 			self.fitBounds = new google.maps.LatLngBounds(new google.maps.LatLng(viewport.bottom_right.lat, viewport.top_left.lon), new google.maps.LatLng(viewport.top_left.lat, viewport.bottom_right.lon));
 			self.mapOptions.center = self.fitBounds.getCenter();
 		} else {
@@ -387,7 +383,7 @@ var MapBrowser = Class.extend({
 			obwody = obwodyBlock.attr('data-obwody'),
 			widget = obwodyBlock.hasClass('widget');
 		if (obwody && widget) {
-			var self = this;
+			var that = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
 				for (var i = 0, len = data.length; i < len; i++) {
 					var k = data[i];
@@ -396,19 +392,19 @@ var MapBrowser = Class.extend({
 						var komisjeInfo = '<div class="komisjaInfoWindow">',
 							komisjeId = [],
 							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon),
-							komisjeBtn = self.detail_div_main.find('.btn-obwod');
+							komisjeBtn = that.detail_div_main.find('.btn-obwod');
 
 						$.each(k.komisje, function (i, d) {
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_sejm'], self.komisjeOkreg.sejm_id) === -1) {
-								self.komisjeOkreg.sejm_id.push(d['wybory_parl_obwody.numer_okreg_sejm']);
+							if ($.inArray(d['wybory_parl_obwody.numer_okreg_sejm'], that.komisjeOkreg.sejm_id) === -1) {
+								that.komisjeOkreg.sejm_id.push(d['wybory_parl_obwody.numer_okreg_sejm']);
 							}
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_senat'], self.komisjeOkreg.senat_id) === -1) {
-								self.komisjeOkreg.senat_id.push(d['wybory_parl_obwody.numer_okreg_senat']);
+							if ($.inArray(d['wybory_parl_obwody.numer_okreg_senat'], that.komisjeOkreg.senat_id) === -1) {
+								that.komisjeOkreg.senat_id.push(d['wybory_parl_obwody.numer_okreg_senat']);
 							}
 
 							komisjeInfo += '<a class="komisja" href="#' + d['wybory_parl_obwody.id'] + '" data-id="' + d['wybory_parl_obwody.id'] + '">Komisja nr ' + d['wybory_parl_obwody.numer'] + '</a>';
 
-							self.komisjePointsData[d['wybory_parl_obwody.id']] = {
+							that.komisjePointsData[d['wybory_parl_obwody.id']] = {
 								'numer': d['wybory_parl_obwody.numer'],
 								'typ': d['wybory_parl_obwody.typ'],
 								'adres': d['wybory_parl_obwody.adres'],
@@ -423,19 +419,16 @@ var MapBrowser = Class.extend({
 								komisjeBtn.attr('disabled', null).click(function (event) {
 									var tid = $(event.target).attr('data-target');
 									if (tid) {
-										var m = self.komisjePointsData[tid];
-									}
-									if (typeof m !== 'undefined' && m) {
 										var marker;
 
-										for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
-											if ($.inArray(tid, self.komisjePoints[i].id) > -1) {
-												marker = self.komisjePoints[i];
+										for (var i = 0, len = that.komisjePoints.length; i < len; i++) {
+											if ($.inArray(tid, that.komisjePoints[i].id) > -1) {
+												marker = that.komisjePoints[i];
 											}
 										}
 
-										self.pointWindowOpener(marker);
-										self.komisjaDetail(tid);
+										that.pointWindowOpener(marker);
+										that.komisjaDetail(tid);
 									}
 								});
 							}
@@ -446,20 +439,20 @@ var MapBrowser = Class.extend({
 						var komisjeInfoMarker = new google.maps.Marker({
 							id: komisjeId,
 							position: komisjePosition,
-							icon: self.setKomisjeIcon(),
-							map: self.map,
+							icon: that.setKomisjeIcon(),
+							map: that.map,
 							data: komisjeInfo
 						});
 
-						self.komisjePoints.push(komisjeInfoMarker);
-						self.fitBounds.extend(komisjePosition);
+						that.komisjePoints.push(komisjeInfoMarker);
+						that.fitBounds.extend(komisjePosition);
 
 						komisjeInfoMarker.addListener('click', function () {
-							self.pointWindowOpener(this);
+							that.pointWindowOpener(this);
 						});
 					}
 				}
-				self.map.fitBounds(self.fitBounds);
+				that.map.fitBounds(that.fitBounds);
 			});
 		}
 	},
@@ -723,9 +716,6 @@ var MapBrowser = Class.extend({
 			$('.btn-obwod.disabled').removeClass('disabled').click(function (event) {
 				var tid = $(event.target).attr('data-target');
 				if (tid) {
-					var m = self.komisjePointsData[tid];
-				}
-				if (typeof m !== 'undefined' && m) {
 					var marker;
 
 					for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
