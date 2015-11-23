@@ -198,7 +198,7 @@ class PlacesController extends ApplicationsController
 
                     $field = $this->fields[ $t['key'] ];
 					foreach( $t['top']['hits']['hits'] as $h )
-						$children[ $field ][] = $h['fields']['source'][0]['data'];
+						$children[ $field ][] = array_merge($h['fields']['source'][0]['data'], $h['fields']['source'][0]['static']);
 
                 }
 			}

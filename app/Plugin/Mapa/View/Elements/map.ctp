@@ -41,6 +41,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         'label' => 'Mapa',
                                     )
                                 ),
+                                'size' => 'md',
                             );
                             echo $this->element('Dane.DataBrowser/browser-searcher', $_params);
                             ?>

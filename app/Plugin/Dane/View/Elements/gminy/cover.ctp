@@ -11,7 +11,18 @@ $options = array(
 ?>
 
 <div class="col-md-9">
-    <? if (isset($_submenu) && !empty($_submenu)) { ?>
+	
+	<?= $this->Element('searcher', array(
+        'q' => isset($this->request->query['q']) ? $this->request->query['q'] : '',
+        'autocompletion' => false,
+        'placeholder' => 'Szukaj w danych publicznych gminy ' . $object->getTitle() . '...',
+        // 'url' => $url,
+        // 'dataBrowser' => isset($dataBrowser) ? $dataBrowser : false,
+        'searchTag' => false,
+        'size' => 'md',
+    )) ?>
+	
+    <? /* if (isset($_submenu) && !empty($_submenu)) { ?>
         <div class="menuTabsCont col-xs-8">
             <?
             if (!isset($_submenu['base']))
@@ -21,9 +32,9 @@ $options = array(
             ));
             ?>
         </div>
-    <? } ?>
+    <? } */ ?>
     <? if ($object->getId() == 903) { ?>
-
+		
         <div class="block block-simple block-size-sm col-xs-12">
             <header>Najnowsze projekty legislacyjne pod obrady rady</header>
 
@@ -242,8 +253,10 @@ $options = array(
     $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
     $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
     $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+    
     echo $this->element('tools/pismo', array(
 	    'label' => '<strong>Wyślij pismo</strong> do urzędu tej gminy',
+	    'class' => 'margin-top-0',
     ));
 
 if( $object->getId()!=903 ) {
