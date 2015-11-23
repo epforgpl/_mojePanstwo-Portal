@@ -6,7 +6,8 @@ class Prawo_hasla extends DataObject
 {
 	
 	protected $tiny_label = 'Temat w prawie';
-	
+    public $force_hl_fields = true;
+
 	protected $schema = array(
 		array('liczba_aktow', 'Liczba aktów'),
 	);
@@ -21,7 +22,7 @@ class Prawo_hasla extends DataObject
 
     public function getLabel()
     {
-        return 'Hasło w aktach prawnych';
+        return 'Temat w prawie';
     }
     
     public function hasHighlights()

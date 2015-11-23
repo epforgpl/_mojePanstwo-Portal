@@ -34,7 +34,7 @@ class Prawo extends DocDataObject
     
     public function getMetaDescriptionParts($preset = false)
 	{
-				
+					
 		$output = array();
 		
 		if( $this->getData('sygnatura') )
