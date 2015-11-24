@@ -25,7 +25,7 @@ echo $this->Element('dataobject/pageBegin', array(
                 <div class="alert alert-info" role="alert">
                     Nie zakończyłeś/aś jeszcze głosować.
                     Potrzebujemy co najmniej 10 głosów.
-                    <a class="alert-link" href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/druki/' . $next : '/druki/' . $next) ?>">
+                    <a class="alert-link" href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/rada_uchwaly/' . $next : '/rada_uchwaly/' . $next) ?>">
                         Przejdź do następnego projektu
                     </a>
                     aby kontynuować lub <a class="alert-link" href="?reset">rozpocznij od nowa</a>.
