@@ -1984,6 +1984,17 @@ class GminyController extends DataobjectsController
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
+            if($this->Session->check(self::$voteSessionName) && $this->object->getId() == '903') {
+                $header_vote = $this->Session->read(self::$voteSessionName);
+                $header_vote_progress = 0;
+                foreach($header_vote as $vote) {
+                    if($vote['vote'] !== false)
+                        $header_vote_progress += 10;
+                }
+                $this->set('header_vote_progress', $header_vote_progress);
+                $this->set('header_vote', $header_vote);
+            }
+
             $uchwala = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => 'krakow_rada_uchwaly',
@@ -2143,17 +2154,6 @@ class GminyController extends DataobjectsController
         $this->request->params['action'] = 'rada';
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
-
-            if($this->Session->check(self::$voteSessionName) && $this->object->getId() == '903') {
-                $header_vote = $this->Session->read(self::$voteSessionName);
-                $header_vote_progress = 0;
-                foreach($header_vote as $vote) {
-                    if($vote['vote'] !== false)
-                        $header_vote_progress += 10;
-                }
-                $this->set('header_vote_progress', $header_vote_progress);
-                $this->set('header_vote', $header_vote);
-            }
 
             $druk = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -4964,7 +4964,7 @@ class GminyController extends DataobjectsController
 
             $druki = $this->Dataobject->find('all', array(
                 'conditions' => array(
-                    'dataset' => 'rady_druki',
+                    'dataset' => 'krakow_rada_uchwaly',
                 ),
                 'aggs' => array(
 
@@ -4972,7 +4972,7 @@ class GminyController extends DataobjectsController
                 'limit' => 10
             ));
 
-            $fields = array('id', 'nazwa', 'opis', 'data');
+            $fields = array('id', 'tytul', 'opis', 'data');
             $_druki = array();
             foreach($druki as $druk) {
                 $data = $druk->getData();
@@ -4988,8 +4988,8 @@ class GminyController extends DataobjectsController
 
             $this->redirect(
                 (isset($this->domainMode) && $this->domainMode == 'MP' ?
-                    '/dane/gminy/903,krakow/druki/' . $_druki[0]['id']
-                    : '/radni/' . $_druki[0]['id']
+                    '/dane/gminy/903,krakow/rada_uchwaly/' . $_druki[0]['id']
+                    : '/rada_uchwaly/' . $_druki[0]['id']
                 )
             );
 
@@ -5039,8 +5039,8 @@ class GminyController extends DataobjectsController
             if ($completed === false && $next !== false) {
                 $this->redirect(
                     (isset($this->domainMode) && $this->domainMode == 'MP' ?
-                        '/dane/gminy/903,krakow/druki/' . $next
-                        : '/radni/' . $next
+                        '/dane/gminy/903,krakow/rada_uchwaly/' . $next
+                        : '/rada_uchwaly/' . $next
                     )
                 );
             }
