@@ -11,6 +11,7 @@ var DataAggsDropdown = function(li) {
 	this.isSelected = this.li.data('is-selected') == '1';
 	this.selected = this.li.data('selected');
 	this.allLabel = this.li.data('all-label');
+	this.desc = this.li.data('desc');
 	this.counterField = this.li.data('counter-field') ? this.li.data('counter-field') : 'doc_count';
 	this.labelField = this.li.data('label-field') ? this.li.data('label-field') : 'label';
 	this.create();
@@ -19,6 +20,11 @@ var DataAggsDropdown = function(li) {
 DataAggsDropdown.prototype.create = function() {
 	if(this.isCreated)
 		return false;
+
+	var dropdownMenu = this.li.find('ul.dropdown-menu');
+	if(this.desc != '') {
+		dropdownMenu.append('<li class="desc">' + this.desc + '</li>');
+	}
 
 	switch(this.skin) {
 		case 'list':

@@ -738,6 +738,7 @@ class DataBrowserComponent extends Component
                     'skin' => 'columns_horizontal',
                     'field' => 'krakow_darczyncy.komitet_id',
                     'counter_field' => 'sum',
+                    'desc' => 'Liczba wpłat, sumujących się na kwotę powyżej minimalnego wynagrodzenia za pracę.',
                 ),
             ),
         ),
@@ -1536,6 +1537,9 @@ class DataBrowserComponent extends Component
 
             if( isset($this->settings['beforeBrowserElement']) )
             	$dataBrowser['beforeBrowserElement'] = $this->settings['beforeBrowserElement'];
+            	
+            if( isset($this->settings['beforeBrowserElements']) )
+            	$dataBrowser['beforeBrowserElements'] = $this->settings['beforeBrowserElements'];
 
             if( isset($this->settings['afterBrowserElement']) )
             	$dataBrowser['afterBrowserElement'] = $this->settings['afterBrowserElement'];

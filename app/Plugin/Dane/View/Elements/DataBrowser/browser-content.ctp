@@ -116,7 +116,12 @@ if ($dataBrowser['mode'] == 'cover') {
                 'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
                 'searcher' => isset($searcher) ? (boolean) $searcher : true,
             )) ?>
-
+			
+			<?
+            if (isset($dataBrowser['beforeBrowserElements']))
+                echo $this->element($dataBrowser['beforeBrowserElements']);
+            ?>
+			
             <div class="dataObjects">
 
                 <div class="innerContainer update-objects">
