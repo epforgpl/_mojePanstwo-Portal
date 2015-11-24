@@ -22,7 +22,7 @@ foreach( $dataBrowser['aggs'] as $k => $v )
 ?>
 
 <div class="col-md-9 grouped-search-results">
-	
+		
 	<?= $this->element('Dane.DataBrowser/browser-content-filters', array(
         'paging' => array(
 	        'count' => $total_count,

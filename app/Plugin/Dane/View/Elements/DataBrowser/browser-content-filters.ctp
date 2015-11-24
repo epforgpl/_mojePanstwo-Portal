@@ -20,14 +20,12 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 	            </div>
 	        </li>
 	    <? } ?>
-	
-	        
-	
-        <? if (isset($dataBrowser['sort']) && $dataBrowser['sort'] && $dataBrowser['hits'] && (!isset($nopaging) || !$nopaging)) { ?>
+		
+        <? if (isset($dataBrowser['sort']) && $dataBrowser['sort'] && (!isset($nopaging) || !$nopaging)) { ?>
             <li role="presentation" class="dropdown dataAggsDropdown splitDropdownMenu pull-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Sortowanie <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu modal-sort">
                     <?php
                     $order_key = false;
                     $order_value = false;
@@ -35,6 +33,9 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
                         $order_query_parts = explode(' ', $this->request->query('order'));
                         $order_key = $order_query_parts[0];
                         $order_value = $order_query_parts[1];
+                    } else {
+						$order_key = 'score';
+						$order_value = 'desc';
                     }
 
                     foreach ($dataBrowser['sort'] as $sortKey => $sortValue) {
@@ -43,9 +44,16 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
                         $sort .= '<ul>';
 
                         foreach ($sortValue['options'] as $sortOptionsKey => $sortOptionsValue) {
-                            $query = array_merge($this->request->query, array(
-                                'order' => $sortKey . ' ' . $sortOptionsKey,
-                            ));
+                            
+                            if( $sortKey=='score' )
+	                            $query = array_merge($this->request->query, array(
+	                                'order' => null,
+	                            ));
+	                        else
+	                        	$query = array_merge($this->request->query, array(
+	                                'order' => $sortKey . ' ' . $sortOptionsKey,
+	                            ));
+
 
                             $sort .= '<li' . (($order_key == $sortKey && $order_value == $sortOptionsKey) ? ' class="active"' : '') . '><a href="/' . $this->request->url . '?' . http_build_query($query) . '">' . $sortOptionsValue . '</a></li>';
                         }
@@ -87,7 +95,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 	
 	        <?
 	        foreach ($dataBrowser['aggs_visuals_map'] as $name => $map) {
-	            ?>
+            ?>
 	
 	            <?
 	            if (($name != 'dataset') && isset($map['target']) && ($map['target'] == 'filters')) {

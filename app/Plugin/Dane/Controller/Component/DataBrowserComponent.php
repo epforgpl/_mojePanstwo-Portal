@@ -1315,14 +1315,14 @@ class DataBrowserComponent extends Component
 	private function prepareSort($sort = array(), $query = array())
     {
         if(isset($query['q'])) {
-            $sort = array(
+            $sort = $sort + array(
                 'score' => array(
                     'label' => 'Trafność',
                     'options' => array(
-                        'desc' => 'Najtrafniejsze'
+                        'desc' => 'najtrafniejsze'
                     )
                 )
-            ) + $sort;
+            ) ;
         }
 
 		return $sort;
@@ -1354,7 +1354,7 @@ class DataBrowserComponent extends Component
             )
         )
             $settings['sort'] = array();
-
+            
         if (
             (
                 !isset($settings['phrases']) ||
@@ -1374,7 +1374,7 @@ class DataBrowserComponent extends Component
             array_key_exists($settings['sortPreset'], $this->sort_presets)
         )
         	$settings['sort'] = array_merge($this->sort_presets[$settings['sortPreset']], $settings['sort']);
-
+        	
         if(
 	        isset($settings['phrasesPreset']) &&
             array_key_exists($settings['phrasesPreset'], $this->phrases_presets)
@@ -1498,7 +1498,7 @@ class DataBrowserComponent extends Component
 
 			if( isset($this->settings['default_order']) )
             	$controller->Paginator->settings['order'] = $this->settings['default_order'];
-
+            	
             if( isset($this->settings['default_conditions']) )
             	$controller->Paginator->settings['conditions'] = array_merge($controller->Paginator->settings['conditions'], $this->settings['default_conditions']);
 
@@ -1511,7 +1511,7 @@ class DataBrowserComponent extends Component
             }
             
             $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
-
+            
             $dataBrowser = array(
                 'hits' => $hits,
                 'took' => $controller->Dataobject->getPerformance(),
@@ -1628,12 +1628,14 @@ class DataBrowserComponent extends Component
             if ($this->cover) {
 
                 $settings = $this->getSettings();
+                                
                 $params = array(
                     'limit' => 0,
                     'conditions' => $settings['conditions'],
+                    'order' => $settings['order'],
                     'aggs' => array(),
                 );
-
+                
 				if (isset($settings['aggs']))
                     $params['aggs'] = array_merge($params['aggs'], $settings['aggs']);
 
@@ -1644,9 +1646,11 @@ class DataBrowserComponent extends Component
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
 
                 $controller->Dataobject->find('all', $params);
-
+	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
+	            	            
 				$dataBrowser = array(
                     'aggs' => $controller->Dataobject->getAggs(),
+	                'sort' => $this->settings['sort'],
                     'cover' => $this->cover,
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
@@ -1744,16 +1748,16 @@ class DataBrowserComponent extends Component
 
     private function getSettingsForField($field)
     {
-
+		
         $params = isset($this->queryData[$field]) ? $this->queryData[$field] : array();
-
+		
         if (isset($this->settings[$field])) {
             if (is_array($this->settings[$field]))
                 $params = array_merge($params, $this->settings[$field]);
             else
                 $params = $this->settings[$field];
         }
-
+		
         return $params;
 
     }

@@ -40,7 +40,7 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 
 <?
 if ($dataBrowser['mode'] == 'cover') {
-
+	
     echo $this->element($dataBrowser['cover']['view']['plugin'] . '.' . $dataBrowser['cover']['view']['element']);
 
 } else {

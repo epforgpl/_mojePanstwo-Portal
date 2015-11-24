@@ -82,6 +82,32 @@ a.link-api-call {
     .dataAggsDropdownList {
 		margin-top: 10px;
 		margin-bottom: 10px;
+		
+		.dropdown-menu {
+			margin-top: 0;
+			
+			&.modal-sort {
+				font-size: 13px;
+				padding: 0;
+				
+				> li {
+					padding: 15px 10px;
+					border-bottom: 1px dashed #d6d6d6;
+					
+					&:last-child {
+						border-bottom: none;
+					}
+					
+					a {
+						color: #157ab5 !important;
+					}
+				}
+				
+			}
+			
+			
+		}
+		
 	}
 
     h2 {
@@ -598,22 +624,6 @@ a.link-api-call {
         li.splitDropdownMenu ul.dropdown-menu {
             width: 300px;
 
-            > li {
-                &:after {
-                    border-top: 1px dotted #d6d6d6;
-                    content: "";
-                    display: block;
-                    height: 1px;
-                    margin: 5px 0 0;
-                    padding: 5px 0 0;
-                    width: 100%;
-                }
-
-                &:last-child:after {
-                    border-top: 0;
-                }
-            }
-
             li {
                 line-height: 20px;
 
@@ -643,7 +653,6 @@ a.link-api-call {
                     }
 
                     a {
-                        color: #23527C !important;
                         display: block;
                         white-space: nowrap;
                     }
