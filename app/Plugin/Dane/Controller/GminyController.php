@@ -48,7 +48,7 @@ class GminyController extends DataobjectsController
                 ),
                 array(
                     'id' => 'darczyncy',
-                    'label' => 'Darczyńcy komitetów wyborczychrowser',
+                    'label' => 'Darczyńcy komitetów wyborczych',
                 ),
                 array(
                     'id' => 'okregi',
@@ -1621,7 +1621,7 @@ class GminyController extends DataobjectsController
                 'dataset' => 'krakow_darczyncy',
             ),
             'aggsPreset' => 'krakow_darczyncy',
-            // 'beforeBrowserElements' => 'gminy/darczyncy_msg',
+            'beforeBrowserElements' => 'gminy/darczyncy_msg',
         ));
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(

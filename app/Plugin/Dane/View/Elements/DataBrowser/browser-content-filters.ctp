@@ -113,6 +113,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 	                    data-label-dictionary='<?= json_encode(isset($map['dictionary']) ? $map['dictionary'] : array()) ?>'
 	                    data-choose-request="<?= $map['chooseRequest'] ?>"
 	                    data-all-label="<?= $map['all'] ?>"
+						data-desc="<?= isset($map['desc']) ? $map['desc'] : '' ?>"
 	                    data-label="<?= @$map['label'] ?>"
 	                    data-is-selected="<?= $isSelected ?>"
 	                    data-selected="<?= @$this->request->query['conditions'][$map['field']] ?>">

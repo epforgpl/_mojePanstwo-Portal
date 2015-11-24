@@ -198,15 +198,21 @@ $options = array(
 
 				if(count($pie_chart_data)) { ?>
 
-					<h2>Popracie radnych</h2>
+					<h2>Popracie dla radnych:</h2>
 
-					<div class="poparcieRadnychPieChart" data-aggs="<?= htmlspecialchars(json_encode($pie_chart_data)) ?>"></div>
+					<div style="margin-top:-30px;" class="poparcieRadnychPieChart" data-aggs="<?= htmlspecialchars(json_encode($pie_chart_data)) ?>"></div>
 
 				<? } ?>
 
 				<? if(count($open_data)) { ?>
 
-					<h2 class="margin-top-20 margin-bottom-0">Otwartość</h2>
+					<h2 class="margin-top-20">
+						Dostępność radnych
+					</h2>
+
+					<p class="help-block">
+						Dane kontaktowe udostępniane przez radnych określające ich dostępność do mieszkańców
+					</p>
 
 					<ul class="dataHighlights show overflow-auto margin-top-5">
 						<? foreach($open_data as $od) { if(!isset($od['count'])) continue; ?>
