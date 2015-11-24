@@ -5,6 +5,7 @@ $this->Combinator->add_libs('css', $this->Less->css('view-gminy-dzielnica', arra
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('js', 'Dane.view-gminy-dzielnica.js');
 
 $options = array(
     'mode' => 'init',
@@ -136,6 +137,88 @@ $options = array(
 		            <p class="_value"><a target="_blank" href="<?= $info['url_wiki'] ?>">Link</a></p>
 		        </li>
 			</ul>
+			<? } ?>
+
+			<? if(isset($dataBrowser['aggs']['radni']['top']['hits']['hits'])) {
+
+				$radni = $dataBrowser['aggs']['radni']['top']['hits']['hits'];
+				$pie_chart_data = array();
+				foreach($radni as $radny) {
+					if(isset($radny['fields']['source'][0]['data']['radni_dzielnic.partia_wspierany_przez'])) {
+						$key = $radny['fields']['source'][0]['data']['radni_dzielnic.partia_wspierany_przez'];
+						if(isset($pie_chart_data[$key])) {
+							$pie_chart_data[$key]++;
+						} else
+							$pie_chart_data[$key] = 1;
+					}
+				}
+
+				if(isset($pie_chart_data[''])) {
+					$pie_chart_data['Brak'] = $pie_chart_data[''];
+					unset($pie_chart_data['']);
+				}
+
+				if(isset($pie_chart_data['-'])) {
+					if(isset($pie_chart_data['Brak'])) {
+						$pie_chart_data['Brak'] += $pie_chart_data['-'];
+					} else
+						$pie_chart_data['Brak'] = $pie_chart_data['-'];
+					unset($pie_chart_data['-']);
+				}
+
+				$open_data = array(
+					array(
+						'field' => 'radni_dzielnic.email',
+						'label' => 'Adres e-mail',
+						'count' => 0
+					),
+					array(
+						'field' => 'radni_dzielnic.tel',
+						'label' => 'Telefon',
+						'count' => 0
+					),
+					array(
+						'field' => 'radni_dzielnic.www',
+						'label' => 'Strona www',
+						'count' => 0
+					),
+					'max' => count($radni)
+				);
+
+
+				foreach($open_data as $o => $od) {
+					if(!isset($od['count'])) continue;
+					foreach($radni as $radny) {
+						$f = $radny['fields']['source'][0]['data'][$od['field']];
+						if($f != '' && $f != '-') {
+							$open_data[$o]['count']++;
+						}
+					}
+				}
+
+				if(count($pie_chart_data)) { ?>
+
+					<h2>Popracie radnych</h2>
+
+					<div class="poparcieRadnychPieChart" data-aggs="<?= htmlspecialchars(json_encode($pie_chart_data)) ?>"></div>
+
+				<? } ?>
+
+				<? if(count($open_data)) { ?>
+
+					<h2 class="margin-top-20 margin-bottom-0">Otwartość</h2>
+
+					<ul class="dataHighlights show overflow-auto margin-top-5">
+						<? foreach($open_data as $od) { if(!isset($od['count'])) continue; ?>
+							<li class="dataHighlight col-xs-12">
+								<p class="_label"><?= $od['label'] ?>:</p>
+								<p class="_value"><?= $od['count'] ?>/<?= $open_data['max'] ?></p>
+							</li>
+						<? } ?>
+					</ul>
+
+				<? } ?>
+
 			<? } ?>
 
 	        <?
