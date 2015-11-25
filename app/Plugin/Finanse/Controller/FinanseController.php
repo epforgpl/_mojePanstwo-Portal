@@ -928,7 +928,7 @@ class FinanseController extends ApplicationsController
                     }
                 }
 
-                /*foreach( $aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c ) {
+                foreach( $aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c ) {
                     if( $c['key']==$dzial['id'] ) {
 
                         $rozdzialy = $c['rozdzialy']['buckets'];
@@ -951,7 +951,7 @@ class FinanseController extends ApplicationsController
                         break;
 
                     }
-                }*/
+                }
 
                 $dzialy[] = $dzial;
 
