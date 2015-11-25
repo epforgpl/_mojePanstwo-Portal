@@ -19,11 +19,10 @@ function MapaWarstwy(map) {
 	this.infowindow = null;
 }
 
-MapaWarstwy.prototype.setLayer = function (layer, showMarkers) {
+MapaWarstwy.prototype.setLayer = function (layer) {
 	var self = this;
 
 	self.layer = layer;
-	self.showMarkers = (typeof showMarkers !== "undefined") ? showMarkers : true;
 
 	google.maps.event.clearListeners(self.map, 'idle');
 	if (self.layer !== false) {
@@ -143,7 +142,7 @@ MapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 	var self = this,
 		accordWarstwy = $('.accord.warstwy');
 
-	if (accordWarstwy.attr('data-layer') !== self.layer || !self.showMarkers) {
+	if (accordWarstwy.attr('data-layer') !== self.layer) {
 		accordWarstwy.attr('data-layer', self.layer);
 		self.mapUpdateClear();
 	} else if (area.zoom !== self.lastArea.zoom) {
@@ -156,7 +155,7 @@ MapaWarstwy.prototype.mapUpdateResults = function (data, area) {
 
 	self.lastArea = area;
 
-	if (self.layer && self.showMarkers) {
+	if (self.layer) {
 		self.showPlaces(data);
 	}
 

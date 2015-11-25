@@ -55,33 +55,32 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
 <div class="col-xs-12 col-sm-2 noleftpadding dataAggsContainer">
     <div class="mp-sticky mp-sticky-disable-sm-3" data-widthFromWrapper="false">
         <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
-        
     </div>
 </div>
 
 <div class="col-xs-12 col-sm-10 norightpadding">
-	
-	<div class="dataWrap">
-	
-	    <div class="appBanner">
-	        <h1 class="appTitle">Finanse publiczne</h1>
-	
-	        <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
-	    </div>
-	
-	</div>
-	
-	<div class="finanseBlock">
 
-	    <div class="chart"
+	<div class="dataWrap">
+
+        <div class="appBanner">
+	        <h1 class="appTitle">Finanse publiczne</h1>
+
+            <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
+	    </div>
+
+    </div>
+
+    <div class="finanseBlock">
+
+        <div class="chart"
 	         data-json='<?php echo json_encode($dane); ?>'></div>
-	
-	    <div class="mid-chart"></div>
+
+        <div class="mid-chart"></div>
 	    <div class="chart2"></div>
-	
-	</div>
-	
-	<div class="row dataBrowserContent">
+
+    </div>
+
+    <div class="row dataBrowserContent">
 
         <div id="compare" class="col-xs-12">
 
@@ -90,7 +89,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
             </div>
 
 
-            <div class="row head mp-sticky">
+            <div class="row head mp-sticky stickyDate">
                 <div class="col-sm-4">
                     <span class="previous_year pull-right">
                         <? if ($p1 != 1990 && $p2 != 1990) { ?>
@@ -913,8 +912,8 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 </div>
             </div>
         </div>
-	
-	</div>
+
+    </div>
 
 </div>
 
