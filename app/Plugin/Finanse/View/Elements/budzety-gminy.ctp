@@ -92,7 +92,7 @@ $options = array(
                              data-histogram='<?= json_encode($global['histogram']) ?>'>
                         </div>
                     </div>
-                    <div class="gradient_cont">
+                    <div class="gradient_cont" style="top: -35px;">
                         <span class="gradient"></span>
                         <ul class="addons">
                             <li class="min">
@@ -197,6 +197,19 @@ $options = array(
                                         </ul>
                                     </div>
                                 </div>
+
+                                <table class="rozdzialy" style="display: none">
+                                    <? foreach($dzial['rozdzialy'] as $r) {?>
+
+                                        <? if( !@$r['id'] ) continue; ?>
+
+                                        <tr data-id="<?= $r['id'] ?>">
+                                            <td><?= $r['label'] ?></td>
+                                            <td><?= number_format_h($r['wydatki']) ?></td>
+                                        </tr>
+
+                                    <? } ?>
+                                </table>
                             </a>
                         </div>
                     </div>
