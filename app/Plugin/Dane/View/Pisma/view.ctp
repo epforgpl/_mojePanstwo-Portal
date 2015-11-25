@@ -58,6 +58,32 @@ $accessDict = array(
                         </div>
                     </div>
                 <? } ?>
+                <? if ($pismo['is_public']) { ?>
+                    <div class="shareList">
+                        <?
+                        $share_url = 'https://mojepanstwo.pl/dane/pisma/' . $pismo['id'];
+
+                        if ($pismo['object_id']) {
+                            $share_url = 'https://mojepanstwo.pl/dane/' . $pismo['page_dataset'] . '/' . $pismo['page_object_id'] . ',' . $pismo['page_slug'] . '/pisma/' . $pismo['id'];
+                        }
+                        ?>
+                        <ul class="share share-right">
+                            <li><a href="http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>"
+                                   onclick="window.open('http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>', 'mywin',
+                                       'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                                   class="btn btn-social-icon btn-sm btn-wykop"></a></li>
+                            <li><a href="https://twitter.com/home?status=<?= $share_url ?>"
+                                   onclick="window.open('https://twitter.com/home?status=<?= $share_url ?>', 'mywin',
+                                       'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                                   class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>"
+                                   onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>', 'mywin',
+                                       'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                                   class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                <? } ?>
             </div>
 
             <div class="lettersResponses">
@@ -98,8 +124,8 @@ $accessDict = array(
                 </div>
             </div>
         </div><div class="col-sm-3">
-	        
-	        <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
+
+            <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
                 <div class="margin-top-10">
                     <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
                         <i class="icon glyphicon glyphicon-pencil"></i>
@@ -107,7 +133,7 @@ $accessDict = array(
                     </a>
                 </div>
             <? } ?>
-	        
+
         </div>
     </div>
 </div>
