@@ -1,6 +1,9 @@
 /*global window, document, $, Cookies, mPCookie, mPHeart*/
 
 $(window).load(function () {
+	
+	return false;
+	
 	var mPCookie = mPCookie || {},
 		surveyAnkieta2 = $('#surveyAnkieta2'),
 		ankieta2Interval,

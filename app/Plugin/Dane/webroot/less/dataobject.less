@@ -134,6 +134,11 @@
                             font-weight: bold;
                             border-bottom-color: #dc4a38;
                         }
+                        
+                        .glyphicon {
+	                        position: relative;
+	                        top: 2px;
+                        }
                     }
                 }
             }
@@ -158,7 +163,7 @@
             margin-right: 3px;
 
             .dataObjects .innerContainer .objectRender {
-                border-bottom: 1px solid #DDD;
+                border-bottom: 1px solid #E3E3E3;
                 &:last-child {
                     border-bottom: none;
                 }
@@ -687,7 +692,7 @@
                 .objectRender {
                     padding: 10px;
                     margin: 7px 0;
-                    border-bottom: 1px solid #DDD;
+                    border-bottom: 1px solid #E6E6E6;
 
                     &:last-child {
                         border-bottom: none;
@@ -1545,7 +1550,14 @@
         }
 
     }
-
+	
+	.objectRender.poslowie .attachment .thumb_cont {
+		border: 1px solid #E6E6E6;
+		img {
+			margin-top: -10px;
+		}
+	}
+	
 	.objectRender.twitter {
 
 	    .media {

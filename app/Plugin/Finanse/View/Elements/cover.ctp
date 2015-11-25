@@ -2,7 +2,6 @@
 $this->Combinator->add_libs('css', $this->Less->css('finanse', array('plugin' => 'Finanse')));
 
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/js/themes/dark-unica');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Finanse.budzety');
 // $this->Combinator->add_libs('js', 'Finanse.budzety-tiles');
@@ -53,26 +52,36 @@ $zmiana_wydatki = $rok1['wydatki'] / $rok2['wydatki'];
 $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
 ?>
 
-<div class="col-xs-12">
-    <div class="appBanner">
-        <h1 class="appTitle">Finanse publiczne</h1>
-
-        <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
+<div class="col-xs-12 col-sm-2 noleftpadding dataAggsContainer">
+    <div class="mp-sticky mp-sticky-disable-sm-3" data-widthFromWrapper="false">
+        <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+        
     </div>
 </div>
-</div>
-</div>
-<div class="col-xs-12 finanseBlock">
 
-    <div class="chart"
-         data-json='<?php echo json_encode($dane); ?>'></div>
+<div class="col-xs-12 col-sm-10 norightpadding">
+	
+	<div class="dataWrap">
+	
+	    <div class="appBanner">
+	        <h1 class="appTitle">Finanse publiczne</h1>
+	
+	        <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
+	    </div>
+	
+	</div>
+	
+	<div class="finanseBlock">
 
-    <div class="mid-chart"></div>
-    <div class="chart2"></div>
-
-</div>
-<div class="container">
-    <div class="row dataBrowserContent">
+	    <div class="chart"
+	         data-json='<?php echo json_encode($dane); ?>'></div>
+	
+	    <div class="mid-chart"></div>
+	    <div class="chart2"></div>
+	
+	</div>
+	
+	<div class="row dataBrowserContent">
 
         <div id="compare" class="col-xs-12">
 
@@ -81,7 +90,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
             </div>
 
 
-            <div class="row head">
+            <div class="row head mp-sticky">
                 <div class="col-sm-4">
                     <span class="previous_year pull-right">
                         <? if ($p1 != 1990 && $p2 != 1990) { ?>
@@ -183,7 +192,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 <? if (count($compareData['wydatki']['dzialy']['wzrost']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4 class="factor u">Wzrosły wydatki na:</h4>
+                            <h4 class="factor u"><span class="label label-success">Wzrosły wydatki na:</span></h4>
                         </div>
                     </div>
                     <div class="czesci wydatki wzrost hidden">
@@ -274,7 +283,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 if (count($compareData['wydatki']['dzialy']['spadek']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4 class="factor d">Spadły wydatki na:</h4>
+                            <h4 class="factor d"><span class="label label-danger">Spadły wydatki na:</span></h4>
                         </div>
                     </div>
                     <div class="czesci wydatki spadek hidden">
@@ -503,7 +512,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 <? if (count($compareData['dochody']['dzialy']['wzrost']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4 class="factor u">Wzrost wpływów z:</h4>
+                            <h4 class="factor u"><span class="label label-success">Wzrost wpływów z:</span></h4>
                         </div>
                     </div>
                     <div class="czesci dochody wzrost hidden">
@@ -570,7 +579,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 <? if (count($compareData['dochody']['dzialy']['spadek']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
-                            <h4 class="factor d">Spadek wpływów z:</h4>
+                            <h4 class="factor d"><span class="label label-danger">Spadek wpływów z:</span></h4>
                         </div>
                     </div>
 
@@ -904,6 +913,8 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                 </div>
             </div>
         </div>
+	
+	</div>
 
-
+</div>
 

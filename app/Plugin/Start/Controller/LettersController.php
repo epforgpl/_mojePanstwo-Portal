@@ -45,6 +45,11 @@ class LettersController extends StartAppController
         $pismo = $this->load($id);
         $this->set('responses', $this->LetterResponse->getByLetter($id));
     }
+    
+    public function anonymize($id, $slug = '')
+    {
+        $pismo = $this->load($id);
+    }
 
     private function load($id, $params = array())
     {

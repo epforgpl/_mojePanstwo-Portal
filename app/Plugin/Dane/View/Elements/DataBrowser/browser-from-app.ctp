@@ -12,14 +12,14 @@ $columns = isset($columns) ? $columns : array(9, 3);
 			    )); ?>
 			</div>
 		</div>
-
+				
 		<? if( @isset($app_menu) ) {?>
 		<div class="apps-menu">
 			<div class="container">
 			    <ul>
 				    <? foreach($app_menu[0] as $a) { ?>
 				    <li>
-				    	<a<? if( isset($a['active']) && $a['active'] ){?> class="active"<? } ?> href="<?= $a['href'] ?>"><?= $a['title'] ?></a>
+				    	<a<? if( isset($a['tooltip']) ) {?> data-toggle="tooltip" data-placement="bottom" title="<?= htmlspecialchars( $a['tooltip'] ) ?>"<? } ?> <? if( isset($a['active']) && $a['active'] ){?> class="active"<? } ?> href="<?= $a['href'] ?>"><? if( isset($a['glyphicon']) ) {?><span class="glyphicon glyphicon-<?= $a['glyphicon'] ?>"></span> <? } ?><?= $a['title'] ?></a>
 				    </li>
 				    <? } ?>
 			    </ul>

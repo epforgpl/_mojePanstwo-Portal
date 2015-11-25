@@ -149,7 +149,7 @@
         <?php
         if ($domainMode == 'PK')
             echo $this->Element('PrzejrzystyKrakow.pkrk-header');
-
+				
         if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
         } ?>

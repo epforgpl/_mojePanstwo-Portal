@@ -180,6 +180,32 @@ foreach ($pisma_prefixes as $pisma_prefix) {
         'action' => 'edit',
         '[method]' => 'GET'
     ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+    
+    
+    
+    // EDIT
+
+    Router::connect("$pisma_prefix/:id,:slug/anonymize", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'anonymize',
+        '[method]' => 'GET'
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id', 'slug')));
+
+    Router::connect("$pisma_prefix/:id/anonymize", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'anonymize',
+        '[method]' => 'GET'
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+
+    Router::connect("$pisma_prefix/:id,/anonymize", array(
+        'plugin' => 'Start',
+        'controller' => 'Letters',
+        'action' => 'anonymize',
+        '[method]' => 'GET'
+    ), array('id' => '[A-Za-z0-9]{5}', 'pass' => array('id')));
+    
 
 
     // RESPONSES

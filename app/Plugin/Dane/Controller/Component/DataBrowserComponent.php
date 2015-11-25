@@ -593,7 +593,7 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Rok',
                     'all' => 'Wszystkie lata',
-                    'skin' => 'list',
+                    ' g' => 'list',
                     'field' => 'krakow_pomoc_publiczna.rok'
                 ),
             ),
@@ -1447,7 +1447,7 @@ class DataBrowserComponent extends Component
     {
 
 		if( isset($this->settings['apps']) && $this->settings['apps'] ) {
-
+			
 			$apps = $controller->getDatasets();
 	        $aggs = array();
 	        foreach ($apps as $app_id => $datasets) {
@@ -1465,7 +1465,7 @@ class DataBrowserComponent extends Component
 		        $this->settings['aggs'] = array_merge($this->settings['aggs'], $aggs);
 		    else
 		    	$this->settings['aggs'] = $aggs;
-
+				
 	        $this->aggsMode = 'apps';
 
 		}
@@ -1546,9 +1546,31 @@ class DataBrowserComponent extends Component
 
 
 			$app_menu = array();
-            $dataBrowser['aggs'] = $controller->Dataobject->getAggs();
-            $dataBrowser['apps'] = $controller->Dataobject->getApps();
-
+			$app_menu_counters = array();
+			$dataBrowser['aggs'] = $controller->Dataobject->getAggs();
+            
+            if( $dataBrowser['aggs'] ) {
+	            foreach( $dataBrowser['aggs'] as $k => $v ) {
+		            if( 
+		            	( strpos($k, 'app_')===0 ) && 
+		            	( $v['doc_count'] ) && 
+		            	( $app_id = substr($k, 4) ) && 
+		            	( $app = $controller->getApplication($app_id) ) 
+	            	) {
+												
+		                $app_menu[] = array(
+		                    'id' => $app['id'],
+		                    'href' => $app['href'],
+		                    'title' => $app['name'],
+		                );
+		                
+		                $app_menu_counters[] = $v['doc_count'];
+			            
+		            }
+	            }
+            }
+            
+            
 
             foreach( $this->routes as $key => $value ) {
 
@@ -1569,21 +1591,18 @@ class DataBrowserComponent extends Component
 	            }
 
             }
-
-
-            foreach ($dataBrowser['apps'] as $app_id => $app_data) {
-
-                $app = $controller->getApplication($app_id);
-                $app_menu[] = array(
-                    'id' => $app['id'],
-                    'href' => $app['href'],
-                    'title' => $app['name'],
-                );
-
+            
+            if( $app_menu ) {
+	            
+	            $_app_menu = array();
+	            arsort( $app_menu_counters );
+	            foreach( $app_menu_counters as $k => $v )
+	            	$_app_menu[] = $app_menu[ $k ];
+	            
+	            unset( $app_menu );
+            	$controller->app_menu[0] = $_app_menu;
+            	
             }
-
-            if( $app_menu )
-            	$controller->app_menu[0] = $app_menu;
 
 
 			/*
