@@ -82,20 +82,21 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
                             $share_url = 'https://mojepanstwo.pl/dane/' . $pismo['page_dataset'] . '/' . $pismo['page_object_id'] . ',' . $pismo['page_slug'] . '/pisma/' . $pismo['id'];
                         }
                         ?>
-                        <ul class="share share-right">
-                            <li><a href="http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>"
-                                   onclick="window.open('http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>', 'mywin',
-                                       'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                                   class="btn btn-social-icon btn-sm btn-wykop"></a></li>
-                            <li><a href="https://twitter.com/home?status=<?= $share_url ?>"
-                                   onclick="window.open('https://twitter.com/home?status=<?= $share_url ?>', 'mywin',
-                                       'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                                   class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter"></i></a></li>
+                        <p>Podziel się pismem:</p>
+                        <ul class="share share-center">
                             <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>"
                                    onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>', 'mywin',
                                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
                                    class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook"></i></a>
                             </li>
+                            <li><a href="https://twitter.com/home?status=<?= $share_url ?>"
+                                   onclick="window.open('https://twitter.com/home?status=<?= $share_url ?>', 'mywin',
+                                       'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                                   class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>"
+                                   onclick="window.open('http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>', 'mywin',
+                                       'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+                                   class="btn btn-social-icon btn-sm btn-wykop"></a></li>
                         </ul>
                     </div>
                 <? } ?>
