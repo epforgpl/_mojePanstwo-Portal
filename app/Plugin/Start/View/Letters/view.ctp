@@ -127,7 +127,7 @@ if ($pismo['object_id']) {
                                         </div>
                                     <? } ?>
                                 </div>
-                                
+
                             </div>
                             <div
                                 class="form-group form-visibility-display"<? if (!$pismo['is_public']) { ?> style="display: none;"<? } ?>>
@@ -136,11 +136,11 @@ if ($pismo['object_id']) {
 
                                     <div><input class="form-control" type="text" readonly="readonly"
                                                 value="<?= $share_url ?>"/></div>
-                                                
+
                                     <a class="anonymize col-xs-12 margin-top-10"
-                                   href="<?= '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'] . '/anonymize'; ?>"
-                                   target="_self"><? if ($pismo['is_public']) { ?>Anonimizuj to pismo<? } else { ?>Chcesz zanonimizować to pismo przed opublikowaniem?<? } ?></a>
-                                    
+                                       href="<?= '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'] . '/anonymize'; ?>"
+                                       target="_self"><? if ($pismo['is_public']) { ?>Anonimizuj to pismo<? } else { ?>Chcesz zanonimizować to pismo przed opublikowaniem?<? } ?></a>
+
                                 </div>
                             </div>
                             <div class="form-group margin-top-20">
@@ -162,7 +162,7 @@ if ($pismo['object_id']) {
 <ul class="collection-meta">
     <li>Pismo <? if ($pismo['is_public']) { ?>publiczne<? } else { ?>prywatne<? } ?></li>
     <? if ($pismo['sent']) { ?>
-    	<li>Wysłano <?= dataSlownie($pismo['sent_at']) ?></li>
+        <li>Wysłano <?= dataSlownie($pismo['sent_at']) ?></li>
     <? } ?>
 </ul>
 
@@ -386,7 +386,7 @@ if ($pismo['object_id']) {
 <? if ($pismo['is_public']) { ?>
     <div class="shareList">
         <p>Podziel się pismem:</p>
-        <ul class="share share-right">
+        <ul class="share share-center">
             <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>"
                    onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>', 'mywin',
                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
