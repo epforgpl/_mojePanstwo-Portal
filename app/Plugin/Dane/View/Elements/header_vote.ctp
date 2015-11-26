@@ -3,7 +3,6 @@
 <? if (isset($uchwala) && isset($header_vote)) {
 
     $vote_dict = array(
-
         '-1' => array(
             'Przeciw',
             'danger'
@@ -11,7 +10,7 @@
 
         '0' => array(
             'Wstrzymałeś/aś się',
-            'default'
+            'primary'
         ),
 
         '1' => array(
@@ -104,11 +103,7 @@
                             Zakończyłeś głosowanie.
                             <a class="alert-link"
                                href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj' : '/glosuj') ?>">Sprawdź
-                                wyniki</a>
-                            lub
-                            <a class="alert-link"
-                               href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij
-                                proces głosowania od nowa</a>.
+                                wyniki</a>.
                         </div>
 
                     <? } else { ?>
@@ -117,11 +112,7 @@
                             Już głosowałeś/aś na ten projekt.
                             <a class="alert-link"
                                href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/rada_uchwaly/' . $next : '/rada_uchwaly/' . $next) ?>">Przejdź
-                                do kolejnej uchwały</a>
-                            lub
-                            <a class="alert-link"
-                               href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij
-                                proces głosowania od nowa</a>.
+                                do kolejnej uchwały</a>.
                         </div>
 
                     <? } ?>
@@ -144,11 +135,7 @@
                         Zakończyłeś głosowanie.
                         <a class="alert-link"
                            href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj' : '/glosuj') ?>">Sprawdź
-                            wyniki</a>
-                        lub
-                        <a class="alert-link"
-                           href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij
-                            proces głosowania od nowa</a>.
+                            wyniki</a>.
                     </div>
 
                 <? } else { ?>
@@ -157,11 +144,7 @@
                         Nie możesz zagłosować na tę uchwałe.
                         <a class="alert-link"
                            href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/rada_uchwaly/' . $next : '/rada_uchwaly/' . $next) ?>">Przejdź
-                            do kolejnej uchwały</a>
-                        lub
-                        <a class="alert-link"
-                           href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj?reset' : '/glosuj?reset') ?>">rozpocznij
-                            proces głosowania od nowa</a>.
+                            do kolejnej uchwały</a>.
                     </div>
 
                 <? } ?>

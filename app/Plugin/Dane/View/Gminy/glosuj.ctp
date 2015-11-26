@@ -119,20 +119,20 @@ echo $this->Element('dataobject/pageBegin', array(
                                         </div>
                                     </div>
                                     <? switch ($v['vote']) {
+                                        case -1:
+                                            $btnClass = 'btn-danger';
+                                            $btnIcon = 'glyphicon glyphicon-remove';
+                                            $btnText = 'Przeciw';
+                                            break;
                                         case 0:
                                             $btnClass = 'btn-primary';
                                             $btnIcon = 'glyphicon glyphicon-minus';
-                                            $btnText = 'Wstrzymuje się';
+                                            $btnText = 'Wstrzymałeś/aś się';
                                             break;
                                         case 1:
                                             $btnClass = 'btn-success';
                                             $btnIcon = 'glyphicon glyphicon-ok';
                                             $btnText = 'Za';
-                                            break;
-                                        case 2:
-                                            $btnClass = 'btn-danger';
-                                            $btnIcon = 'glyphicon glyphicon-remove';
-                                            $btnText = 'Przeciw';
                                             break;
                                     } ?>
                                     <div class="votedFor pull-right btn btn-icon auto-width <?= $btnClass; ?>"><i
