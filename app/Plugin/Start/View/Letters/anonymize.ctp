@@ -50,7 +50,7 @@ $this->Combinator->add_libs('js', 'Start.letters-anonymize.js');
     </div>
 </header>
 
-<div class="alert alert-info margin-top-15">
+<div class="alert alert-success margin-top-15">
     <h4>Anonimizacja</h4>
 
     <p>Zaznacz fragmenty pisma, których nie chcesz ujawnić publicznie. Gdy będziesz gotowy, naciśnij przycisk "Opublikuj
@@ -92,12 +92,16 @@ $this->Combinator->add_libs('js', 'Start.letters-anonymize.js');
 
 </div>
 
-
+<form id="anonimizePublicForm" method="post" action="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
 <div class="text-center">
     <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>" class="btn btn-default">Anuluj</a>
-    <button type="submit" data-ajax="<?= $href_base ?>" class="btn btn-primary anonimizePublicBtn">Anonimizuj i publikuj
-        pismo
+    <input type="hidden" name="is_public" value="1" />
+    <input type="hidden" name="save" value="1" />
+    <input type="hidden" name="public_content" id="public_content_input" value="" />
+    <button type="button" name="save" class="btn btn-md btn-primary btn-icon anonimizePublicBtn"><i
+            class="icon glyphicon glyphicon-ok"></i>Anonimizuj i publikuj pismo
     </button>
 </div>
+</form>
 
 <?= $this->element('Start.pageEnd'); ?>

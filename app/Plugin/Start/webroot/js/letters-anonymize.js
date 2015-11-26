@@ -68,31 +68,48 @@ window.onload = function () {
 	anonymizeBlock.on('mouseup', function () {
 		highlightSelectedText();
 	});
+	
 
+	$('.anonimizePublicBtn').click(function(e){
+		
+		var that = $(this);
+		e.preventDefault();
+		
+		console.log('anonymizeBlock', anonymizeBlock);
+		
+		var content = $.trim(anonymizeBlock.html()),
+			public_content = anonymizeBlock.clone(),
+			anonimBlock = public_content.find('.anonim'),
+			data = {
+				'content': content,
+				'public_content': content
+			};
+
+		if (anonimBlock.length > 0) {
+			$.each(anonimBlock, function () {
+				var txt = $(this).text();
+
+				for (var j = 0; j < txt.length; j++) {
+					txt = txt.setCharAt(j);
+				}
+				$(this).text(txt);
+			});
+			data.public_content = $.trim(public_content.html());
+		}
+		
+		$('#public_content_input').val(data.public_content);
+		$('#anonimizePublicForm').submit();
+		
+	});
+	
+	/*
 	$('.anonimizePublicBtn').click(function (e) {
 		var that = $(this);
 
 		e.preventDefault();
 
 		if (!that.hasClass('loading')) {
-			var content = $.trim(anonymizeBlock.html()),
-				public_content = anonymizeBlock.clone(),
-				anonimBlock = public_content.find('.anonim'),
-				data = {
-					'content': content
-				};
-
-			if (anonimBlock.length > 0) {
-				$.each(anonimBlock, function () {
-					var txt = $(this).text();
-
-					for (var j = 0; j < txt.length; j++) {
-						txt = txt.setCharAt(j);
-					}
-					$(this).text(txt);
-				});
-				data.public_content = $.trim(public_content.html());
-			}
+			
 
 			that.addClass('disabled');
 
@@ -100,10 +117,12 @@ window.onload = function () {
 				url: that.attr('data-ajax'),
 				data: data,
 				dataType: 'json',
+				async: false,
 				success: function () {
 					window.location.href = that.attr('data-ajax');
 				}
 			});
 		}
 	});
+	*/
 };

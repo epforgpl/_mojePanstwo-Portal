@@ -305,15 +305,20 @@ var MapBrowser = Class.extend({
 					}, 300);
 				});
 			}
-
+			
+			/*
 			var polygonsParent = that.find('ul.scrollZone').attr('data-polygon'),
 				polygons = that.find('li.polygons'),
 				opacity = 0.1,
 				opacityHover = 0.3;
-
-			if (polygonsParent !== "null") {
+				
+			
+			if ( (polygonsParent !== "null") && (typeof(polygonsParent) !== "undefined")) {
+				
+				console.log(1);
 				var pol = $.parseJSON(polygonsParent),
 					polygonArray = [];
+				console.log(2);
 
 				for (var k = 0, len = pol.length; k < len; k++) {
 					polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
@@ -376,6 +381,7 @@ var MapBrowser = Class.extend({
 					p += 0.05;
 				});
 			}
+			*/
 		});
 
 		if (window.location.hash.length > 0) {
@@ -394,6 +400,9 @@ var MapBrowser = Class.extend({
 
 		var obwodyBlock = $('.wyboryDetail'),
 			obwody = obwodyBlock.attr('data-obwody');
+			
+		console.log('obwody', obwody);
+		
 		if (obwody) {
 			var that = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {

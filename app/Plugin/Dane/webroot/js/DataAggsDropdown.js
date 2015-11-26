@@ -22,9 +22,7 @@ DataAggsDropdown.prototype.create = function() {
 		return false;
 
 	var dropdownMenu = this.li.find('ul.dropdown-menu');
-	if(this.desc != '') {
-		dropdownMenu.append('<li class="desc">' + this.desc + '</li>');
-	}
+
 
 	switch(this.skin) {
 		case 'list':

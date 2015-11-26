@@ -72,6 +72,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                 </div>
             <? }
         } ?>
+        
+        <? $widget = true; ?>
 
         <div class="container">
             <div id="mapBrowser"
@@ -496,7 +498,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     echo ' nodetails';
                 } ?>"></div>
 
-
+				<? /*
                 <div class="explore hide<? if (!isset($mapParams) && !isset($dataBrowser)) {
                     echo ' nodetails';
                 } ?>">
@@ -530,12 +532,13 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                              data-miejsce="<?= $mapParams['data']['miejsca.id'] ?>"
                              data-redirect="<?= (isset($_GET["redirect"])) ? true : false; ?>">
                             <section class="dcontent">
-                                <div class="wyboryCheckbox col-xs-4">
+	                            <div class="row">
+                                <div class="wyboryCheckbox col-xs-5">
                                     <span class="label">Pokazuj lokalizacje obwodowych komisji wyborczych</span>
                                     <input type="checkbox" name="wyboryShow" checked/>
                                 </div>
                                 <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { ?>
-                                    <ul class="wybory meta col-xs-8 row">
+                                    <ul class="wybory meta col-xs-7 row">
                                         <? if ($counters['sejm'] > 0) { ?>
                                             <li class="sejm col-xs-6">
                                                 <div class="pull-right">
@@ -582,6 +585,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? } ?>
                                     </ul>
                                 <? } ?>
+	                            </div>
                             </section>
                         </div>
                         <?
@@ -591,14 +595,17 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             echo ' widget';
                         } ?>">
                             <section class="dcontent">
-                                <div class="wyboryCheckbox col-xs-4">
+                                <div class="row">
+                                <div class="wyboryCheckbox col-xs-5">
                                     <span class="label">Pokazuj lokalizacje obwodowych komisji wyborczych</span>
                                     <input type="checkbox" name="wyboryShow" checked/>
+                                </div>
                                 </div>
                             </section>
                         </div>
                     <? } ?>
                 </div>
+                */ ?>
             </div>
         </div>
     </div>

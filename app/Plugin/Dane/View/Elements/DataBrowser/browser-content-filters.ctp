@@ -20,7 +20,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 	            </div>
 	        </li>
 	    <? } ?>
-		
+				
         <? if (isset($dataBrowser['sort']) && $dataBrowser['sort'] && (!isset($nopaging) || !$nopaging)) { ?>
             <li role="presentation" class="dropdown dataAggsDropdown splitDropdownMenu pull-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -39,6 +39,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
                     }
 
                     foreach ($dataBrowser['sort'] as $sortKey => $sortValue) {
+                                                
                         $sort = '<li>';
                         $sort .= '<span>' . $sortValue['label'] . '</span>';
                         $sort .= '<ul>';
@@ -60,7 +61,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 
                         $sort .= '</ul>';
                         $sort .= '</li>';
-
+												
                         echo $sort;
                     }
                     ?>

@@ -252,7 +252,7 @@ class PlacesController extends ApplicationsController
             $this->layout = 'blank';
             $this->set('widget', true);
         }
-
+				
         $parentPlace = $place->getStatic();
 
         $this->set('_place', $parentPlace['polygons']);
