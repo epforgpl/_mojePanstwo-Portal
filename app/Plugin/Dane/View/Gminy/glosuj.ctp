@@ -102,7 +102,6 @@ echo $this->Element('dataobject/pageBegin', array(
                             ?>
                             <li>
                                 <div class="objectRender readed objclass">
-                                    <div class="row">
                                         <div class="data col-xs-8 col-sm-10">
                                             <div>
                                                 <div class="content">
@@ -137,7 +136,6 @@ echo $this->Element('dataobject/pageBegin', array(
                                                 break;
                                         } ?>
                                         <div class="votedFor pull-right btn btn-icon auto-width <?= $btnClass; ?>"><i class="icon <?= $btnIcon; ?>"></i><?= $btnText; ?></div>
-                                    </div>
                                 </div>
                             </li>
                             <?

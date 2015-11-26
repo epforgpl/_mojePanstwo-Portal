@@ -330,62 +330,86 @@
     .objectsPageContent .pkGlosowanie {
         text-align: center;
 
-        h1.subheader {
-            font-size: 30px;
-            margin-bottom: 30px;
-            margin-top: 68px;
-            color: #092a5e;
-        }
+        .glosowanieSlice {
+            margin-bottom: 35px;
 
-        .text {
-            p {
-                font-size: 18px;
-                line-height: 1.3em;
-                color: #424242;
+            h1.subheader {
+                color: #092a5e;
+                font-size: 30px;
+                margin-bottom: 20px;
+                margin-top: 35px;
             }
-            form {
-                margin-top: 46px;
-                margin-bottom: 46px;
-            }
-        }
-        .btn-icon {
-            min-width: 106px;
-            text-align: center;
-        }
-        .poslowieResults {
-            width: 100%;
-            display: block;
-            float: left;
-            margin-bottom: 50px;
 
-            h3 {
-                color: #424242;
-                font-weight: normal;
+            .text {
+                p {
+                    font-size: 18px;
+                    line-height: 1.3em;
+                    color: #424242;
+                }
+                form {
+                    margin-top: 46px;
+                    margin-bottom: 46px;
+                }
             }
-            ul {
+            .btn-icon {
+                min-width: 106px;
+                text-align: center;
+            }
+            .poslowieResults {
+                width: 100%;
+                display: block;
+                float: left;
+
+                h3 {
+                    color: #424242;
+                    font-weight: normal;
+                }
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+
+                    li {
+                        &.first > div {
+                            margin: 0 auto;
+                            float: none;
+                        }
+                        .objectRender {
+                            text-align: left;
+
+                            .attachment .thumb_cont {
+                                max-height: 130px;
+                            }
+                        }
+                        .meta.zgodnosc {
+                            margin: 3px 0 8px 8px;
+                            font-size: 16px;
+
+                            strong {
+                                font-size: 28px;
+                            }
+                        }
+                    }
+                }
+            }
+            .glosowanieList {
                 list-style: none;
                 padding: 0;
                 margin: 0;
+                text-align: left;
 
-                li {
-                    &.first > div {
-                        margin: 0 auto;
-                        float: none;
-                    }
-                    .objectRender {
-                        text-align: left;
+                .objectRender .row {
+                    position: relative;
 
-                        .attachment .thumb_cont {
-                            max-height: 130px;
-                        }
-                    }
-                    .meta.zgodnosc {
-                        margin: 3px 0 8px 8px;
-                        font-size: 16px;
-
-                        strong {
-                            font-size: 28px;
-                        }
+                    .votedFor {
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        -webkit-transform: translate(0, -50%);
+                        -moz-transform: translate(0, -50%);
+                        -ms-transform: translate(0, -50%);
+                        -o-transform: translate(0, -50%);
+                        transform: translate(0, -50%);
                     }
                 }
             }
@@ -401,27 +425,6 @@
             color: #424242;
             font-size: 18px;
             margin-bottom: 20px;
-        }
-    }
-    .glosowanieList {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        text-align: left;
-
-        .objectRender .row {
-            position: relative;
-
-            .votedFor {
-                position: absolute;
-                top: 50%;
-                right: 0;
-                -webkit-transform: translate(0, -50%);
-                -moz-transform: translate(0, -50%);
-                -ms-transform: translate(0, -50%);
-                -o-transform: translate(0, -50%);
-                transform: translate(0, -50%);
-            }
         }
     }
 }
