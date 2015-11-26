@@ -41,6 +41,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         'label' => 'Mapa',
                                     )
                                 ),
+                                'size' => 'md',
                             );
                             echo $this->element('Dane.DataBrowser/browser-searcher', $_params);
                             ?>
@@ -71,6 +72,8 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                 </div>
             <? }
         } ?>
+        
+        <? $widget = true; ?>
 
         <div class="container">
             <div id="mapBrowser"
@@ -263,9 +266,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                    class="form-control hasclear input-sm searcher"/>
                                         <? } ?>
 
-                                        <ul class="scrollZone">
+                                        <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['wojewodztwa'] as $item) { ?>
-                                                <li>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="wojewodztwa<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.wojewodztwo'] ?></a>
                                                 </li>
@@ -288,9 +291,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                    class="form-control hasclear input-sm searcher"/>
                                         <? } ?>
 
-                                        <ul class="scrollZone">
+                                        <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['powiaty'] as $item) { ?>
-                                                <li>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="powiaty<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.powiat'] ?></a>
                                                 </li>
@@ -313,9 +316,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                    class="form-control hasclear input-sm searcher"/>
                                         <? } ?>
 
-                                        <ul class="scrollZone">
+                                        <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['gminy'] as $item) { ?>
-                                                <li>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="gminy<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.gmina'] ?></a>
                                                 </li>
@@ -338,9 +341,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                    class="form-control hasclear input-sm searcher"/>
                                         <? } ?>
 
-                                        <ul class="scrollZone">
+                                        <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['miejscowosci'] as $item) { ?>
-                                                <li>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="miejscowosci<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.miejscowosc'] ?></a>
                                                 </li>
@@ -363,9 +366,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                    class="form-control hasclear input-sm searcher"/>
                                         <? } ?>
 
-                                        <ul class="scrollZone">
+                                        <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['miejsca'] as $item) { ?>
-                                                <li>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="miejsca<?= $item['id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
                                                     <a href="/mapa/miejsce/<?= $item['id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['nazwa'] ?></a>
 
@@ -437,9 +440,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                                    class="form-control hasclear input-sm searcher"/>
                                         <? } ?>
 
-                                        <ul class="scrollZone">
+                                        <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['ulice'] as $item) { ?>
-                                                <li>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="ulice<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
                                                     <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
                                                     if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.ulica'] ?></a>
                                                 </li>
@@ -495,29 +498,14 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     echo ' nodetails';
                 } ?>"></div>
 
-
-                <div class="explore<? if (!isset($mapParams) && !isset($dataBrowser)) {
+				<? /*
+                <div class="explore hide<? if (!isset($mapParams) && !isset($dataBrowser)) {
                     echo ' nodetails';
                 } ?>">
                     <ul>
-                        <? /*
-                        <li data-layer="instytucje">Instytucje publiczne</li>
-                        <li data-layer="biznes">Biznes</li>
-                        <li data-layer="ngo">Organizacje</li>
-
-                        <? if (@$mapParams['mode'] == 'place') {
-                            if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) { ?>
-                        */ ?>
                         <li data-layer="komisje_wyborcze" class="open">Wybory parlamentarne 2015</li>
-                        <? /*
-                            <? }
-                        } ?>
-                        */ ?>
                     </ul>
-                    <? /*
-                    if (@$mapParams['mode'] == 'place') {
-                        if (@$mapParams['data'] && $mapParams['data']['miejsca.typ_id'] >= 2) {
-                    */
+                    <?
                     $counters = array(
                         'sejm' => count(@$mapParams['elections']['sejm']),
                         'senat' => count(@$mapParams['elections']['senat']),
@@ -544,36 +532,43 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                              data-miejsce="<?= $mapParams['data']['miejsca.id'] ?>"
                              data-redirect="<?= (isset($_GET["redirect"])) ? true : false; ?>">
                             <section class="dcontent">
+	                            <div class="row">
+                                <div class="wyboryCheckbox col-xs-5">
+                                    <span class="label">Pokazuj lokalizacje obwodowych komisji wyborczych</span>
+                                    <input type="checkbox" name="wyboryShow" checked/>
+                                </div>
                                 <? if ($counters['sejm'] || $counters['senat'] || $counters['obwody']) { ?>
-                                    <ul class="wybory meta">
+                                    <ul class="wybory meta col-xs-7 row">
                                         <? if ($counters['sejm'] > 0) { ?>
-                                            <li class="sejm">
-                                                <label>Okręg do Sejmu:</label>
-                                                <?
-                                                if (gettype($mapParams['elections']['sejm']) == "string") { ?>
-                                                    <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'] ?>"
-                                                       target="_parent"><?= $mapParams['elections']['sejm'] ?></a>
-                                                <? } else {
-                                                    foreach ($mapParams['elections']['sejm'] as $obwod_sejm) { ?>
-                                                        <? if ($obwod_sejm !== $mapParams['elections']['sejm'][0]) echo '<span class="pull-left">, </span>' ?>
-                                                        <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $obwod_sejm['key'] ?>"
-                                                           target="_parent"><?= $obwod_sejm['key'] ?></a>
-                                                    <? }
-                                                } ?>
+                                            <li class="sejm col-xs-6">
+                                                <div class="pull-right">
+                                                    <label>Okręg do Sejmu:</label>
+                                                    <?
+                                                    if (gettype($mapParams['elections']['sejm']) == "string") { ?>
+                                                        <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['sejm'] ?>"
+                                                           target="_blank"><?= $mapParams['elections']['sejm'] ?></a>
+                                                    <? } else {
+                                                        foreach ($mapParams['elections']['sejm'] as $obwod_sejm) { ?>
+                                                            <? if ($obwod_sejm !== $mapParams['elections']['sejm'][0]) echo '<span class="pull-left">, </span>' ?>
+                                                            <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $obwod_sejm['key'] ?>"
+                                                               target="_blank"><?= $obwod_sejm['key'] ?></a>
+                                                        <? }
+                                                    } ?>
+                                                </div>
                                             </li>
                                         <? }
                                         if ($counters['senat'] > 0) { ?>
-                                            <li class="senat">
+                                            <li class="senat col-xs-6">
                                                 <label>Okręg do Senatu:</label>
                                                 <?
                                                 if (gettype($mapParams['elections']['senat']) == "string") { ?>
                                                     <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/sejm/<?= $mapParams['elections']['senat'] ?>"
-                                                       target="_parent"><?= $mapParams['elections']['senat'] ?></a>
+                                                       target="_blank"><?= $mapParams['elections']['senat'] ?></a>
                                                 <? } else {
                                                     foreach ($mapParams['elections']['senat'] as $obwod_senat) { ?>
                                                         <? if ($obwod_senat !== $mapParams['elections']['senat'][0]) echo '<span class="pull-left">, </span>' ?>
                                                         <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/<?= $obwod_senat['key'] ?>"
-                                                           target="_parent"><?= $obwod_senat['key'] ?></a>
+                                                           target="_blank"><?= $obwod_senat['key'] ?></a>
                                                     <? }
                                                 } ?>
                                             </li>
@@ -589,24 +584,28 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                             </li>
                                         <? } ?>
                                     </ul>
-                                <? } else { ?>
-                                    <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
-                                        właściwe okręgi wyborcze.</p>
                                 <? } ?>
+	                            </div>
                             </section>
                         </div>
-                        <? /* }
-                    }*/
+                        <?
                     } else {
                         ?>
                         <div class="explorerContent komisje_wyborcze_content wyboryDetail<? if (isset($widget)) {
                             echo ' widget';
                         } ?>">
-                            <p class="_msg">Użyj dokładniejszej lokalizacji, aby odnaleźć
-                                właściwe okręgi wyborcze.</p>
+                            <section class="dcontent">
+                                <div class="row">
+                                <div class="wyboryCheckbox col-xs-5">
+                                    <span class="label">Pokazuj lokalizacje obwodowych komisji wyborczych</span>
+                                    <input type="checkbox" name="wyboryShow" checked/>
+                                </div>
+                                </div>
+                            </section>
                         </div>
                     <? } ?>
                 </div>
+                */ ?>
             </div>
         </div>
     </div>

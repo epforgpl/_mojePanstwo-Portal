@@ -8,14 +8,6 @@
 }
 
 .finanseBlock {
-    background: #2a2a2b;
-    background: -moz-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #2a2a2b), color-stop(100%, #3d3d3f));
-    background: -webkit-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
-    background: -o-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
-    background: -ms-linear-gradient(-45deg, #2a2a2b 0%, #3d3d3f 100%);
-    background: linear-gradient(135deg, #2a2a2b 0%, #3d3d3f 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2a2a2b', endColorstr='#3d3d3f', GradientType=1);
     min-height: 455px;
 
     #mp-sections {
@@ -69,14 +61,7 @@
             margin-bottom: -23px;
 
             .gradient {
-                background: #2746f7; /* Old browsers */
-                background: -moz-linear-gradient(left, blue 0%, red 100%); /* FF3.6+ */
-                background: -webkit-gradient(linear, left top, right top, color-stop(0%, #2746f7), color-stop(100%, #cc1c1c)); /* Chrome,Safari4+ */
-                background: -webkit-linear-gradient(left, blue 0%, red 100%); /* Chrome10+,Safari5.1+ */
-                background: -o-linear-gradient(left, blue 0%, red 100%); /* Opera 11.10+ */
-                background: -ms-linear-gradient(left, blue 0%, red 100%); /* IE10+ */
-                background: linear-gradient(to right, blue 0%, red 100%); /* W3C */
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2746f7', endColorstr='#cc1c1c', GradientType=1); /* IE6-9 */
+
                 width: 100%;
                 height: 5px;
                 display: block;
@@ -211,7 +196,6 @@
 }
 
 #compare {
-
     margin-bottom: 50px;
 
     .head {
@@ -235,19 +219,19 @@
 
     }
 
-    .grey{
+    .grey {
         background-color: #FAFAFA;
     }
 
     .data {
         text-align: center;
         border-top: 1px solid #DDD;
-        background: rgba(0, 0, 0, 0) linear-gradient(#f3f3f3, #fff) repeat scroll 0 0;
+        background: rgba(0, 0, 0, 0) linear-gradient(#f3f3f3, transparent) repeat scroll 0 0;
 
         &.internal {
             border-top: none;
-            padding-bottom: 20px;
-            background: #FFF;
+            padding-bottom: 15px;
+            background: transparent;
         }
 
         ._label {
@@ -256,7 +240,7 @@
         h3 {
             font-size: 14px;
             font-weight: bold;
-            margin: 15px 0;
+            margin: 15px 0 15px 15px;
         }
         h4 {
             font-size: 14px;
@@ -298,7 +282,6 @@
 
         }
     }
-
 }
 
 .factor {
@@ -312,28 +295,52 @@
         padding-right: 2px;
     }
 }
-.dropdown .dropdown-menu{
+
+.dropdown .dropdown-menu {
     left: 50%;
-    transform: translate(-50%,0);
-    -o-transform: translate(-50%,0);
-    -ms-transform: translate(-50%,0);
-    -moz-transform: translate(-50%,0);
-    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-.previous_year{
+.previous_year {
     margin-top: 15px;
     font-size: 28px;
     z-index: 15;
 }
-.past_year{
+
+.past_year {
     margin-top: 15px;
     font-size: 28px;
     z-index: 15;
 }
-.hide{
+
+.hide {
     display: none;
+}
+
+.sticky-wrapper {
+    width: 105%;
+
+    .stickyDate {
+        padding-right: 30px;
+        padding-left: 15px;
+    }
+
+    &.is-sticky .stickyDate {
+        background-color: #ffffff;
+        margin-right: 0;
+        padding-left: 15px;
+        padding-right: 0;
+        z-index: 1;
+
+        -moz-box-shadow: inset 8px 2px 6px #f2f2f2, -3px 2px 6px #f2f2f2;
+        -webkit-box-shadow: inset 8px 2px 6px #f2f2f2, -3px 2px 6px #f2f2f2;
+        box-shadow: inset 8px 2px 6px #f2f2f2, -3px 2px 6px #f2f2f2;
+    }
 }

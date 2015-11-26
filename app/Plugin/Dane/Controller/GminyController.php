@@ -48,7 +48,7 @@ class GminyController extends DataobjectsController
                 ),
                 array(
                     'id' => 'darczyncy',
-                    'label' => 'Darczyńcy',
+                    'label' => 'Darczyńcy komitetów wyborczych',
                 ),
                 array(
                     'id' => 'okregi',
@@ -597,7 +597,22 @@ class GminyController extends DataobjectsController
                     ),
                 ),
             );
-
+				
+			if(
+            	@$this->request->query['order'] && 
+            	( $parts = explode(' ', $this->request->query['order']) ) && 
+            	( count($parts)>1 )
+        	) {
+	        	
+	        	foreach(array('osoby', 'organizacje', 'pomoc_publiczna', 'radni_gminy', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'darczyncy', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'zamowienia_publiczne', 'urzad_zamowienia') as $a)
+	        		$aggs[$a]['aggs']['top']['top_hits']['sort'] = array(
+		        		$parts[0] => array(
+			        		'order' => $parts[1],
+		        		),
+	        		);	        	
+	        	
+        	}
+			
             $options = array(
                 'searchTitle' => 'Szukaj powiązań w Krakowie...',
                 'conditions' => array(
@@ -611,7 +626,6 @@ class GminyController extends DataobjectsController
                     'force' => true,
                     'aggs' => $aggs,
                 ),
-                'order' => array('_date desc'),
                 'aggs' => array(
                     'dataset' => array(
                         'terms' => array(
@@ -629,8 +643,23 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                 ),
+                'sort' => array(
+	                'date' => array(
+						'label' => 'Data',
+						'options' => array(
+							'desc' => 'od najnowszych',
+							'asc' => 'od najstarszych'
+						)
+					),
+					'score' => array(
+						'label' => 'Trafność',
+						'options' => array(
+							'desc' => 'najtrafniejsze'
+						)
+					),
+                ),
             );
-
+            
             $this->set('aggs_dictionary', array(
                 'osoby' => array(
                     'title' => 'Osoby w Krajowym Rejestrze Sądowym dla Krakowa',
@@ -1422,6 +1451,7 @@ class GminyController extends DataobjectsController
                 'aggs' => $global_aggs,
             ),
             'aggsPreset' => 'radni_gmin',
+            'browserTitle' => 'Radni Miasta Krakowa',
         );
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
@@ -1591,6 +1621,7 @@ class GminyController extends DataobjectsController
                 'dataset' => 'krakow_darczyncy',
             ),
             'aggsPreset' => 'krakow_darczyncy',
+            'beforeBrowserElements' => 'gminy/darczyncy_msg',
         ));
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
@@ -1775,7 +1806,6 @@ class GminyController extends DataobjectsController
                 'selected' => 'posiedzenia',
             )));
 
-            $this->set('DataBrowserTitle', 'Posiedzenia rady miasta');
             $this->set('title_for_layout', 'Posiedzenia rady miasta ' . $this->object->getData('nazwa'));
 
         }

@@ -14,7 +14,7 @@
 		
 ?>
 
-<div class="banner pismo block">
+<div class="banner pismo block<? if( isset($class) ) echo " " . $class; ?>">
     <?php echo $this->Html->image('Dane.banners/pisma.svg', array('width' => '92', 'alt' => 'Stwórz pismo do organizacji', 'class' => 'pull-right')); ?>
     <p><?= isset($label) ? $label : '<strong>Wyślij pismo</strong> do tej organizacji'; ?></p>
     <a onclick="return false;" href="/pisma/nowe" class="btn btn-sm btn-primary pisma-list-button" data-adresatid="<?= $adresat_id ?>">Napisz

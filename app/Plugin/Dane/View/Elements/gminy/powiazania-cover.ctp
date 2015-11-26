@@ -13,21 +13,25 @@ foreach( $dataBrowser['aggs'] as $agg_id => $agg_data )
 		$map[ $agg_id ] = $agg_data['top']['hits']['max_score'];
 
 arsort($map);
+
+$total_count = 0;
+foreach( $dataBrowser['aggs'] as $k => $v )
+	if( @$v['doc_count'] )
+		$total_count += $v['doc_count'];
+
 ?>
 
 <div class="col-md-9 grouped-search-results">
-	
-	<?
-		$order = (
-			isset( $this->request->query['order'] ) && 
-			( $this->request->query['order'] == 'date' )
-		);
-	?>
-	
-	<ul class="pagination">
-		<li<? if(!$order){?> class="active"<? } ?>><a href="?q=<?= urlencode( $this->request->query['q'] ) ?>">Sortuj według trafności</a></li>
-		<li<? if($order){?> class="active"<? } ?>><a href="?q=<?= urlencode( $this->request->query['q'] ) ?>&order=date">Sortuj według dat</a></li>
-	</ul>
+		
+	<?= $this->element('Dane.DataBrowser/browser-content-filters', array(
+        'paging' => array(
+	        'count' => $total_count,
+        ),
+        // 'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
+        // 'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
+        'searcher' => true,
+        'class' => 'margin-top-0',
+    )) ?>
 	
 	<? 
 		foreach( array_keys($map) as $agg_id ) {

@@ -389,14 +389,12 @@ class AppController extends Controller
             'tag' => 2,
             'icon' => '&#xe60e;',
         ),
-        /*
-        'finanse_gmin' => array(
-            'name' => 'Finanse gmin',
-            'href' => '/finanse_gmin',
-            'tag' => 2,
+        'finanse' => array(
+            'name' => 'Finanse publiczne',
+            'href' => '/finanse',
+            'tag' => 1,
             'icon' => '&#xe602;',
         ),
-        */
         'zamowienia_publiczne' => array(
             'name' => 'Zamówienia publiczne',
             'href' => '/zamowienia_publiczne',

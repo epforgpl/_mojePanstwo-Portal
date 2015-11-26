@@ -293,7 +293,7 @@ class MapaController extends ApplicationsController
             $this->viewVars['dataBrowser'] = $data;
 
         } else {
-		
+						
 			if( 
 				( @$this->viewVars['dataBrowser']['mode'] == 'cover' ) && 
 				( $hits = @$this->viewVars['dataBrowser']['aggs']['miejsca']['top']['hits']['hits'] )
@@ -301,7 +301,7 @@ class MapaController extends ApplicationsController
 							
 				$wojewodztwa = array();
 				foreach( $hits as $h )
-					$wojewodztwa[] = $h['fields']['source'][0]['data'];
+					$wojewodztwa[] = array_merge($h['fields']['source'][0]['data'], $h['fields']['source'][0]['static']);
 							
 				$this->set('mapParams', array(
 					'mode' => 'start',

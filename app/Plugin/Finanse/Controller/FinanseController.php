@@ -7,7 +7,7 @@ class FinanseController extends ApplicationsController
 
     public $settings = array(
         'id' => 'finanse',
-        'title' => 'Finanse',
+        'title' => 'Finanse publiczne',
         'subtitle' => 'Przeglądaj informacje o finansach Polski',
     );
 
@@ -18,7 +18,16 @@ class FinanseController extends ApplicationsController
         100000,                     // 100 tys.
         1000
     );
-
+	
+	public $menu = array(
+	    'gminy' => array(
+		    'menu_id' => 'gminy',
+		    'label' => 'Budżety gmin',
+			'icon' => 'pisma',
+	    ),
+    );
+    
+	
 	public function view() {
 
 		$options = array(
@@ -95,16 +104,7 @@ class FinanseController extends ApplicationsController
 
 	}
 
-    public function ___view() {
-        App::import("Model", "Finanse.PKB");
-        $PKB = new PKB();
-
-        $dane=$PKB->getPKB();
-
-        $this->set('pkb', $dane);
-        $this->set('_serialize', 'pkb');
-
-
+    public function gminy() {
         $compare = array(
             'items' => array(
                 array(
@@ -341,7 +341,7 @@ class FinanseController extends ApplicationsController
                 ),
             );
 
-            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z miastami na prawach powiatu';
+            $main_chart['subtitle'] = 'Porównuje z miastami na prawach powiatu';
 
 
         } elseif( $compare=='wojewodzkie' ) {
@@ -394,7 +394,7 @@ class FinanseController extends ApplicationsController
                 ),
             );
 
-            $main_chart['subtitle'] = 'Porównuje ' . $this->object->getTitle() . ' z gminami miejsko-wiejskimi';
+            $main_chart['subtitle'] = 'Porównuje z gminami miejsko-wiejskimi';
 
         } elseif( $compare=='wiejskie' ) {
 
@@ -791,7 +791,7 @@ class FinanseController extends ApplicationsController
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Finanse',
-                    'element' => 'budzety-cover',
+                    'element' => 'budzety-gminy',
                 ),
                 'aggs' => array(
                     'gminy' => $aggs['gminy'],
@@ -838,146 +838,298 @@ class FinanseController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 	}
 
-    public function ___beforeRender() {
+    public function beforeRender() {
 
         parent::beforeRender();
 
-        $aggs = $this->viewVars['dataBrowser']['aggs'];
-        $this->viewVars['dataBrowser']['aggs']['gminy'] = null;
-        $this->viewVars['dataBrowser']['aggs']['gmina'] = null;
+        if($this->request->params['action'] == 'gminy') {
 
-        $global = array(
-            'min' => array(
-                'value' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['key'],
-                'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-            ),
-            'max' => array(
-                'value' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['key'],
-                'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-            ),
-            //'cur' => $aggs['gmina']['sumy']['timerange']['wydatki']['value'],
-            'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
-            'histogram' => $aggs['gminy']['sumy']['timerange']['histogram']['buckets'],
-        );
+            $aggs = $this->viewVars['dataBrowser']['aggs'];
+            $this->viewVars['dataBrowser']['aggs']['gminy'] = null;
+            $this->viewVars['dataBrowser']['aggs']['gmina'] = null;
 
-        $global = array_merge($global, array(
-            //'left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['cur'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
-            'median_left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['median'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
-        ));
-
-
-        $dzialy = array();
-
-        foreach( $aggs['gmina']['dzialy']['timerange']['dzialy']['buckets'] as $b ) {
-
-            $dzial = array(
-                'id' => $b['key'],
-                'label' => @$b['label']['buckets'][0]['key'],
+            $global = array(
+                'min' => array(
+                    'value' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['key'],
+                    'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                    'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                ),
+                'max' => array(
+                    'value' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['key'],
+                    'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                    'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                ),
+                //'cur' => $aggs['gmina']['sumy']['timerange']['wydatki']['value'],
+                'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
+                'histogram' => $aggs['gminy']['sumy']['timerange']['histogram']['buckets'],
             );
 
-            foreach( $aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d ) {
-                if( $d['key'] == $b['key'] ) {
+            $global = array_merge($global, array(
+                //'left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ( $global['cur'] - $global['min']['value'] ) / ( $global['max']['value'] - $global['min']['value'] ),
+                'median_left' => ($global['min']['value'] == $global['max']['value']) ? 0 : 100 * ($global['median'] - $global['min']['value']) / ($global['max']['value'] - $global['min']['value']),
+            ));
 
-                    $min = (int) $d['min']['buckets'][0]['key'];
-                    $max = (int) $d['max']['buckets'][0]['key'];
-                    $range = $max - $min;
 
-                    $histogram_i = (string) (count($this->histogramIntervals) - 1);
+            $dzialy = array();
 
-                    foreach($this->histogramIntervals as $i => $interval) {
-                        $buckets = ceil($range / $interval);
-                        if($buckets > 8 && $buckets < 100) {
-                            $histogram_i = $i;
-                            break;
+            foreach ($aggs['gmina']['dzialy']['timerange']['dzialy']['buckets'] as $b) {
+
+                $dzial = array(
+                    'id' => $b['key'],
+                    'label' => @$b['label']['buckets'][0]['key'],
+                );
+
+                foreach ($aggs['gminy']['dzialy']['timerange']['dzialy']['buckets'] as $d) {
+                    if ($d['key'] == $b['key']) {
+
+                        $min = (int)$d['min']['buckets'][0]['key'];
+                        $max = (int)$d['max']['buckets'][0]['key'];
+                        $range = $max - $min;
+
+                        $histogram_i = (string)(count($this->histogramIntervals) - 1);
+
+                        foreach ($this->histogramIntervals as $i => $interval) {
+                            $buckets = ceil($range / $interval);
+                            if ($buckets > 8 && $buckets < 100) {
+                                $histogram_i = $i;
+                                break;
+                            }
                         }
-                    }
 
-                    if($range > 300000 && $histogram_i == (count($this->histogramIntervals) - 1)) {
-                        $histogram_i = (string) (count($this->histogramIntervals) - 2);
-                    }
+                        if ($range > 300000 && $histogram_i == (count($this->histogramIntervals) - 1)) {
+                            $histogram_i = (string)(count($this->histogramIntervals) - 2);
+                        }
 
-                    $dzial['global'] = array(
-                        'min' => array(
-                            'value' => $d['min']['buckets'][0]['key'],
-                            'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                            'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-                        ),
-                        'max' => array(
-                            'value' => $d['max']['buckets'][0]['key'],
-                            'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                            'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
-                        ),
-                        'cur' => $b['wydatki']['value'],
-                        'median' => $d['percentiles']['values']['50.0'],
-                        'histogram' => $d['histogram_' . $histogram_i]['buckets'],
-                        'interval' => $this->histogramIntervals[(int) $histogram_i]
-                    );
-
-                    $dzial['global'] = array_merge($dzial['global'], array(
-                        'left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['cur'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
-                        'median_left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ( $dzial['global']['median'] - $dzial['global']['min']['value'] ) / ( $dzial['global']['max']['value'] - $dzial['global']['min']['value'] ),
-                        'class' => ($dzial['global']['cur'] > $dzial['global']['median']) ? 'more' : 'less',
-                    ));
-
-                    break;
-
-                }
-            }
-
-            /*foreach( $aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c ) {
-                if( $c['key']==$dzial['id'] ) {
-
-                    $rozdzialy = $c['rozdzialy']['buckets'];
-                    foreach( $rozdzialy as &$r ) {
-
-                        if( !$r['key'] )
-                            continue;
-
-                        $r = array(
-                            'id' => $r['key'],
-                            'label' => $r['nazwa']['buckets'][0]['key'],
-                            'wydatki' => $r['wydatki']['value'],
+                        $dzial['global'] = array(
+                            'min' => array(
+                                'value' => $d['min']['buckets'][0]['key'],
+                                'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                                'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                            ),
+                            'max' => array(
+                                'value' => $d['max']['buckets'][0]['key'],
+                                'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
+                                'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                            ),
+                            'cur' => $b['wydatki']['value'],
+                            'median' => $d['percentiles']['values']['50.0'],
+                            'histogram' => $d['histogram_' . $histogram_i]['buckets'],
+                            'interval' => $this->histogramIntervals[(int)$histogram_i]
                         );
 
+                        $dzial['global'] = array_merge($dzial['global'], array(
+                            'left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ($dzial['global']['cur'] - $dzial['global']['min']['value']) / ($dzial['global']['max']['value'] - $dzial['global']['min']['value']),
+                            'median_left' => ($dzial['global']['min']['value'] == $dzial['global']['max']['value']) ? 0 : 100 * ($dzial['global']['median'] - $dzial['global']['min']['value']) / ($dzial['global']['max']['value'] - $dzial['global']['min']['value']),
+                            'class' => ($dzial['global']['cur'] > $dzial['global']['median']) ? 'more' : 'less',
+                        ));
+
+                        break;
+
                     }
-
-                    $dzial['rozdzialy'] = $rozdzialy;
-
-                    unset($c);
-                    break;
-
                 }
-            }*/
 
-            $dzialy[] = $dzial;
+                foreach( $aggs['gmina']['rozdzialy']['timerange']['dzialy']['buckets'] as &$c ) {
+                    if( $c['key']==$dzial['id'] ) {
 
+                        $rozdzialy = $c['rozdzialy']['buckets'];
+                        foreach( $rozdzialy as &$r ) {
+
+                            if( !$r['key'] )
+                                continue;
+
+                            $r = array(
+                                'id' => $r['key'],
+                                'label' => $r['nazwa']['buckets'][0]['key'],
+                                'wydatki' => $r['wydatki']['value'],
+                            );
+
+                        }
+
+                        $dzial['rozdzialy'] = $rozdzialy;
+
+                        unset($c);
+                        break;
+
+                    }
+                }
+
+                $dzialy[] = $dzial;
+
+            }
+
+            // debug( $dzialy ); die();
+
+            $this->set('global', $global);
+            $this->set('dzialy', $dzialy);
         }
 
-        // debug( $dzialy ); die();
-
-        $this->set('global', $global);
-        $this->set('dzialy', $dzialy);
-
     }
+	
+	public function getChapters() {
 
-    public function getChapters() {
+		$mode = false;
+		$items = array();
+		$app = $this->getApplication( $this->settings['id'] );		
+		
+		if( @$this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'] )
+			$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] = $this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'];
+		
+		if(
+			isset( $this->request->query['q'] ) &&
+			$this->request->query['q']
+		) {
+			
+			$items[] = array(
+				'id' => '_results',
+				'label' => 'Szukaj w finansach publicznych:',
+				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
+				'tool' => array(
+					'icon' => 'search',
+					'href' => '/' . $this->settings['id'],
+				),
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+				'class' => '_label',
+			);
 
-	    return array(
-		    'items' => array(
-			    array(
-				    'href' => '/finanse',
-				    'label' => 'Budżety krajowe',
-			    ),
-			    array(
-				    'id' => 'samorzad',
-				    'href' => '/finanse/samorzad',
-				    'label' => 'Budżety samorządu terytorialnego',
-			    ),
-		    ),
-	    );
+			if( $this->chapter_selected=='view' )
+				$this->chapter_selected = '_results';
+			$mode = 'results';
 
-    }
+		} else {
+			
+			$items[] = array(
+				'label' => 'Finanse publiczne',
+				'href' => '/' . $this->settings['id'],
+				'class' => '_label',
+				'icon' => 'appIcon',
+				'appIcon' => $app['icon'],
+			);
+			
+		}
+		
+		
+
+		
+		$others_count = 0;
+		
+		foreach( $this->menu as $key => $value ) {
+						
+			if( !isset($value['menu_id']) )
+				$value['menu_id'] = '';
+						
+			$item = array(
+				'id' => $value['menu_id'],
+				'label' => $value['label'],
+			);
+			
+			if( $value['menu_id'] )
+				$item['href'] = '/' . $this->settings['id'] . '/' . $value['menu_id'];
+			
+			if( isset($value['icon']) )
+				$item['icon'] = 'icon-datasets-' . $value['icon'];
+				
+			if( isset($value['class']) )
+				$item['class'] = $value['class'];
+
+			if( $mode == 'results' ) {
+			
+				
+				$datasets = array();
+				
+				if( isset($item['href']) )
+					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+				
+				if( @$value['forma_prawna_id'] ) {
+					
+					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+													
+							if( $dataset['key']=='krs_podmioty' ) {
+								
+								if( $value['forma_prawna_id']=='_all' ) {
+									
+									if( $dataset['doc_count'] );
+										$items[] = $item;
+									
+								} else {
+											
+									foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
+										if( $forma['doc_count'] ) {
+																				
+											if( $value['forma_prawna_id']==$forma['key'] ) {
+												
+												$item['count'] = $forma['doc_count'];
+												$items[] = $item;
+													
+											} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
+												
+												$others_count += $forma['doc_count'];
+												
+											}
+																				
+										}
+									}
+									
+									if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+										
+										$item['count'] = $others_count;
+										$items[] = $item;
+										
+									}
+								
+								}
+								
+							}
+						}
+					}
+					
+				} else {
+					
+					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
+							if( ($dataset['key'] == $key) && $dataset['doc_count'] ) {
+									
+								$item['count'] = $dataset['doc_count'];
+								$items[] = $item;
+								
+							}
+						}
+					}
+					
+				}
+
+			} else {
+
+				$items[] = $item;
+
+			}
+
+		}
+				
+        foreach($items as $i => $item) {
+
+            if(isset($item['submenu'])) {
+                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
+            }
+                                
+            if(
+            	$i && 
+            	( @strpos($item['class'], 'border-top')!==false ) && 
+            	( @strpos($items[$i-1]['class'], '_label')!==false )
+            )
+	            $items[$i]['class'] = str_replace('border-top', '', $item['class']);
+
+        }
+        
+		
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
 
 }

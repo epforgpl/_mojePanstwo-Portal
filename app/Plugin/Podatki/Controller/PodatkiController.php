@@ -247,6 +247,7 @@ class PodatkiController extends ApplicationsController
             'brutto' => number_format($DOCHODY_BRUTTO, 2, ',', ''),
             'netto' => number_format($DOCHODY_NETTO, 2, ',', ''),
             'zus_pracodawca' => number_format($SKLADKI2, 2, ',', ''),
+            'zus_pracodawca_color' => '#91e8e1',
             'zus' => number_format($SKLADKI1, 2, ',', ''),
             'zus_color' => '#90ED7D',
             'zdrow' => number_format($SKLADKI3, 2, ',', ''),

@@ -1,3 +1,5 @@
+/*global $, window, document*/
+
 $(function () {
 	var dataBlock = $('.chart'),
 		dataBlock2 = $('.chart2'),
@@ -24,8 +26,8 @@ $(function () {
 		startDate = 1990,
 		premierPlotBandData = {},
 		premierPlotBandData2 = {},
-		premierPlotBandColorO = '#292929',//'#FFF',
-		premierPlotBandColorE = '#222222';//'#f8f9fa';
+		premierPlotBandColorO = '#F3F3F3',//'#FFF',
+		premierPlotBandColorE = '#FFFFFF';//'#f8f9fa';
 
 	var last_year;
 	$.map(data, function (el) {
@@ -119,7 +121,7 @@ $(function () {
 		data: def,
 		lineWidth: 0,
 		fillOpacity: 0.0,
-		visible: false,
+		visible: false
 	}];
 
 	var dataSeries2 = [
@@ -147,7 +149,6 @@ $(function () {
 		},
 		legend: {
 			align: 'left',
-			//backgroundColor: '#FFFFFF',
 			enabled: true,
 			floating: true,
 			layout: 'vertical',
@@ -164,8 +165,7 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				shadow: true,
-				pointPlacement: 'between',
+				pointPlacement: 'on',
 				pointRange: 1
 			},
 			area: {
@@ -210,7 +210,7 @@ $(function () {
 			tickInterval: 1,
 			labels: {
 				autoRotation: 0,
-				step:2
+				step: 2
 			}
 		},
 		yAxis: {
@@ -253,7 +253,6 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				shadow: true,
 				pointPlacement: 'between',
 				pointRange: 1
 			},
@@ -274,8 +273,7 @@ $(function () {
 		title: {
 			text: null
 		},
-		series: dataSeriesMid
-		,
+		series: dataSeriesMid,
 		xAxis: {
 			plotBands: dataPremier2,
 			labels: {
@@ -314,7 +312,14 @@ $(function () {
 			enabled: false
 		},
 		legend: {
-			enabled: false
+			enabled: true,
+			floating: true,
+			layout: 'vertical',
+			shadow: true,
+			verticalAlign: 'top',
+			labelFormat: 'Deficyt jako % dochodów',
+			x: 0,
+			y: +105
 		},
 		plotOptions: {
 			series: {
@@ -324,7 +329,6 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				shadow: true,
 				pointPlacement: 'between',
 				pointRange: 1
 			},
@@ -385,83 +389,84 @@ $(function () {
 		}
 	});
 	$('.subdata:not(.primary_row) ').removeClass('hidden').fadeOut(200);
-	$('.wydatki_wzrost_on').click(function(){
+	$('.wydatki_wzrost_on').click(function () {
 		$(this).addClass('hidden');
 		$('.wydatki_wzrost_off').removeClass('hidden');
 		$('.wydatki.wzrost').find('.subdata').fadeIn(600);
 	});
 
-	$('.wydatki_wzrost_off').click(function(){
+	$('.wydatki_wzrost_off').click(function () {
 		$(this).addClass('hidden');
 		$('.wydatki_wzrost_on').removeClass('hidden');
 		$('.wydatki.wzrost').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
-	$('.wydatki_spadek_on').click(function(){
+	$('.wydatki_spadek_on').click(function () {
 		$(this).addClass('hidden');
 		$('.wydatki_spadek_off').removeClass('hidden');
 		$('.wydatki.spadek').find('.subdata').fadeIn(600);
 	});
 
-	$('.wydatki_spadek_off').click(function(){
+	$('.wydatki_spadek_off').click(function () {
 		$(this).addClass('hidden');
 		$('.wydatki_spadek_on').removeClass('hidden');
 		$('.wydatki.spadek').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
-	$('.wydatki_bd_on').click(function(){
+	$('.wydatki_bd_on').click(function () {
 		$(this).addClass('hidden');
 		$('.wydatki_bd_off').removeClass('hidden');
 		$('.wydatki.bd').find('.subdata').fadeIn(600);
 	});
 
-	$('.wydatki_bd_off').click(function(){
+	$('.wydatki_bd_off').click(function () {
 		$(this).addClass('hidden');
 		$('.wydatki_bd_on').removeClass('hidden');
 		$('.wydatki.bd').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 
-	$('.select_wydatki').change(function(){
-		$('.wydatki:not(.'+$(this).val()+')').addClass('hidden');
-		$('.wydatki.'+$(this).val()+'').removeClass('hidden');
+	$('.select_wydatki').change(function () {
+		$('.wydatki:not(.' + $(this).val() + ')').addClass('hidden');
+		$('.wydatki.' + $(this).val()).removeClass('hidden');
 	});
 
-	$('.dochody_wzrost_on').click(function(){
+	$('.dochody_wzrost_on').click(function () {
 		$(this).addClass('hidden');
 		$('.dochody_wzrost_off').removeClass('hidden');
 		$('.dochody.wzrost').find('.subdata').fadeIn(600);
 	});
 
-	$('.dochody_wzrost_off').click(function(){
+	$('.dochody_wzrost_off').click(function () {
 		$(this).addClass('hidden');
 		$('.dochody_wzrost_on').removeClass('hidden');
 		$('.dochody.wzrost').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
-	$('.dochody_spadek_on').click(function(){
+	$('.dochody_spadek_on').click(function () {
 		$(this).addClass('hidden');
 		$('.dochody_spadek_off').removeClass('hidden');
 		$('.dochody.spadek').find('.subdata').fadeIn(600);
 	});
 
-	$('.dochody_spadek_off').click(function(){
+	$('.dochody_spadek_off').click(function () {
 		$(this).addClass('hidden');
 		$('.dochody_spadek_on').removeClass('hidden');
 		$('.dochody.spadek').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
-	$('.dochody_bd_on').click(function(){
+	$('.dochody_bd_on').click(function () {
 		$(this).addClass('hidden');
 		$('.dochody_bd_off').removeClass('hidden');
 		$('.dochody.bd').find('.subdata').fadeIn(600);
 	});
 
-	$('.dochody_bd_off').click(function(){
+	$('.dochody_bd_off').click(function () {
 		$(this).addClass('hidden');
 		$('.dochody_bd_on').removeClass('hidden');
 		$('.dochody.bd').find('.subdata:not(.primary_row) ').fadeOut(600);
 	});
 
-	$('.select_dochody').change(function(){
-		$('.dochody:not(.'+$(this).val()+')').addClass('hidden');
-		$('.dochody.'+$(this).val()+'').removeClass('hidden');
+	$('.select_dochody').change(function () {
+		$('.dochody:not(.' + $(this).val() + ')').addClass('hidden');
+		$('.dochody.' + $(this).val()).removeClass('hidden');
 	});
 
+	var stickyDate = $('.stickyDate');
+	stickyDate.parent().css('width', stickyDate.outerWidth(), 'px !important');
 });
-

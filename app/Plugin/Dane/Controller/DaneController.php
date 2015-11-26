@@ -37,6 +37,7 @@ class DaneController extends ApplicationsController
 	                ),
 	            ),
 	            'apps' => true,
+	            'browserTitle' => 'Wyniki wyszukiwania:',
 	        );
 			
             $this->_layout['header'] = false;

@@ -40,7 +40,7 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 
 <?
 if ($dataBrowser['mode'] == 'cover') {
-
+	
     echo $this->element($dataBrowser['cover']['view']['plugin'] . '.' . $dataBrowser['cover']['view']['element']);
 
 } else {
@@ -116,7 +116,12 @@ if ($dataBrowser['mode'] == 'cover') {
                 'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
                 'searcher' => isset($searcher) ? (boolean) $searcher : true,
             )) ?>
-
+			
+			<?
+            if (isset($dataBrowser['beforeBrowserElements']))
+                echo $this->element($dataBrowser['beforeBrowserElements']);
+            ?>
+			
             <div class="dataObjects">
 
                 <div class="innerContainer update-objects">

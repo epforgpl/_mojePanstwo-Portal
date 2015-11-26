@@ -8,6 +8,9 @@
             <li role="presentation" <? if($status == $_status) echo 'class="active"'; ?>>
                 <a href="/admin/moderate_requests/index/<?= $_status; ?>">
                     <?= $label; ?>
+                    <span class="badge">
+                        <?= $statuses_count[$_status]; ?>
+                    </span>
                 </a>
             </li>
         <? } ?>

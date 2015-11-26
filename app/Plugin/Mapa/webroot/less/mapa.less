@@ -264,7 +264,7 @@
     .explore {
         width: 100%;
         padding-left: 280px;
-        max-height: 100px;
+        max-height: 38px;
         position: absolute;
         bottom: 1px;
         right: 0;
@@ -310,29 +310,47 @@
             float: left;
 
             > div, > section {
-                padding: 0 20px;
+                padding: 10px 20px;
+            }
+
+            ._msg {
+                font-size: 13px;
+                color: #666;
+                margin-top: 15px;
             }
 
             &.komisje_wyborcze_content {
-                .komisjeShow {
-                    font-size: 12px;
-                    margin-left: 12px;
-                    margin-bottom: 0;
+                .wyboryCheckbox {
+                    margin-top: 5px;
+
+                    .label {
+                        display: inline-block;
+                        font-size: 9px;
+                        color: #789;
+                        float: left;
+                        font-weight: 600;
+                        line-height: 0.75em;
+                        margin: 8px 15px 8px 0;
+                        padding: 0;
+                        text-transform: uppercase;
+                        text-align: left;
+                    }
+
+                    .checkbox, .bootstrap-switch {
+                        display: inline-block
+                    }
                 }
+
                 ul.meta {
                     list-style: outside none none;
-                    margin: 0 8px;
-                    padding: 5px;
 
                     > li {
                         display: inline-block;
                         margin: 3px 0;
-                        padding: 1px 15px 1px 0;
-                        text-align: center;
-                        float: left;
-                        clear: both;
+                        padding-top: 1px;
+                        padding-bottom: 1px;
 
-                        > label {
+                        label {
                             color: #789;
                             float: left;
                             font-size: 9px;
@@ -343,7 +361,7 @@
                             text-transform: uppercase;
                         }
 
-                        > a {
+                        a {
                             float: left;
                             margin: -1px 0 0 4px;
                             padding: 0;
@@ -464,12 +482,6 @@
                         margin: 10px 0 15px;
                         padding: 0;
                     }
-
-                    p._msg {
-                        font-size: 13px;
-                        color: #666;
-                        margin-top: 15px;
-                    }
                 }
             }
         }
@@ -561,8 +573,7 @@
 
                         > li {
                             &.active > a {
-                                color: #121212;
-                                font-weight: bold;
+                                color: #d9534f;
                             }
 
                             > a {

@@ -71,7 +71,7 @@ class ApplicationsController extends AppController
 
 
         $this->set('appSettings', $this->settings);
-		
+				
 		if( empty($this->app_menu[0]) )
 			foreach( $this->applications as $id => $a )
 				if( $a['tag']==1 )
@@ -93,8 +93,10 @@ class ApplicationsController extends AppController
 			$temp[] = array(
 				'id' => '',
 				'href' => '/dane?q=' . urlencode( $this->request->query['q'] ),
-				'title' => 'Wszystkie wyniki wyszukiwania',
+				'tooltip' => 'Wszystkie wyniki wyszukiwania',
+				'title' => '',
 				'active' => ( $app && ($app['id']=='dane') ),
+				'glyphicon' => 'search',
 			);
 			
 		}

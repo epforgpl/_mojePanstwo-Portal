@@ -204,7 +204,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
     <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
         <div class="container">
             <h2><? if (isset($result['netto'])) {
-                    echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA') . ' ' . number_format($result['brutto'] - $result['netto'], 2, ',', ' ') . ' zł';
+                    echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA') . ' ' . number_format($result['zus'] + $result['zus_pracodawca'] + $result['zdrow'] + $result['pit'] + $result['vat'] + $result['akcyza'], 2, ',', ' ') . ' zł';
                 } ?></h2>
 
             <div
@@ -212,28 +212,45 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div class="col-xs-12 col-md-6 pie"></div>
                 <div class="col-xs-12 col-md-6 legend">
                     <? if (isset($result)) { ?>
-                        <div class="position"><span
-                                style="background-color: <?= $result['zus_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
-                            : <strong><?= number_format(floatval($result['zus']), 2, ',', ' ') ?> zł</strong>
-                        </div>
-                        <div class="position"><span
-                                style="background-color: <?= $result['zdrow_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?>
-                            : <strong><?= number_format(floatval($result['zdrow']), 2, ',', ' ') ?> zł</strong>
-                        </div>
-                        <div class="position"><span
-                                style="background-color: <?= $result['pit_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?>
-                            : <strong><?= number_format(floatval($result['pit']), 2, ',', ' ') ?> zł</strong>
-                        </div>
-                        <div class="position"><span
-                                style="background-color: <?= $result['vat_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
-                            *
-                            : <strong><?= number_format(floatval($result['vat']), 2, ',', ' ') ?> zł</strong>
-                        </div>
-                        <div class="position"><span
-                                style="background-color: <?= $result['akcyza_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
-                            *
-                            : <strong><?= number_format(floatval($result['akcyza']), 2, ',', ' ') ?> zł</strong>
-                        </div>
+                        <? if ($result['zus'] > 0) { ?>
+                            <div class="position"><span
+                                    style="background-color: <?= $result['zus_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
+                                : <strong><?= number_format(floatval($result['zus']), 2, ',', ' ') ?> zł</strong>
+                            </div>
+                        <? } ?>
+                        <? if ($result['zus_pracodawca'] > 0) { ?>
+                            <div class="position"><span
+                                    style="background-color: <?= $result['zus_pracodawca_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA') ?>
+                                : <strong><?= number_format(floatval($result['zus_pracodawca']), 2, ',', ' ') ?>
+                                    zł</strong>
+                            </div>
+                        <? } ?>
+                        <? if ($result['zdrow'] > 0) { ?>
+                            <div class="position"><span
+                                    style="background-color: <?= $result['zdrow_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?>
+                                : <strong><?= number_format(floatval($result['zdrow']), 2, ',', ' ') ?> zł</strong>
+                            </div>
+                        <? } ?>
+                        <? if ($result['pit'] > 0) { ?>
+                            <div class="position"><span
+                                    style="background-color: <?= $result['pit_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?>
+                                : <strong><?= number_format(floatval($result['pit']), 2, ',', ' ') ?> zł</strong>
+                            </div>
+                        <? } ?>
+                        <? if ($result['vat'] > 0) { ?>
+                            <div class="position"><span
+                                    style="background-color: <?= $result['vat_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
+                                *
+                                : <strong><?= number_format(floatval($result['vat']), 2, ',', ' ') ?> zł</strong>
+                            </div>
+                        <? } ?>
+                        <? if ($result['akcyza'] > 0) { ?>
+                            <div class="position"><span
+                                    style="background-color: <?= $result['akcyza_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
+                                *
+                                : <strong><?= number_format(floatval($result['akcyza']), 2, ',', ' ') ?> zł</strong>
+                            </div>
+                        <? } ?>
                     <? } ?>
                 </div>
             </div>

@@ -8,7 +8,7 @@
 	<? if( isset($widget) ) {?><input type="hidden" name="widget" value="true" /><? } ?>
     <div class="searcher form-group has-feedback">
         <div class="col-md-12">
-            <div class="input-group">
+            <div class="input-group size-<?=$size?>">
                 <input class="form-control hasclear input-<?= $size ?><? if (isset($url) && !empty($q)) {
                     echo ' clearer-on';
                 } ?>"

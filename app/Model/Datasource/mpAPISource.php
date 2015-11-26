@@ -223,7 +223,7 @@ class mpAPISource extends DataSource {
 	    
 	    if( isset($res['Took']) )
 	        $this->took = $res['Took'];
-        
+                
         if( isset($res['Aggs']) )
         	$this->Aggs = $res['Aggs']; 
            
