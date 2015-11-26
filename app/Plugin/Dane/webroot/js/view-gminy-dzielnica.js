@@ -31,7 +31,7 @@ $(document).ready(function() {
             title: null,
             subtitle: null,
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b> ({point.y})'
             },
             legend: {
                 align: 'left'
