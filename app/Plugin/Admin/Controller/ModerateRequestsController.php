@@ -23,10 +23,10 @@ class ModerateRequestsController extends AdminAppController {
             throw new NotFoundException;
 
         $statuses_count = array();
-        foreach($this->statuses as $status => $name) {
-            $statuses_count[$status] = $this->PageRequest->find('count', array(
+        foreach($this->statuses as $_status => $name) {
+            $statuses_count[$_status] = $this->PageRequest->find('count', array(
                 'conditions' => array(
-                    'PageRequest.status' => $status
+                    'PageRequest.status' => $_status
                 )
             ));
         }
