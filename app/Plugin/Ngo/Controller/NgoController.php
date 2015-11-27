@@ -458,7 +458,7 @@ class NgoController extends ApplicationsController
                                         'filter' => array(
                                             'range' => array(
                                                 'date' => array(
-                                                    'gte' => 'now-1d'
+                                                    'gte' => 'now-1w'
                                                 ),
                                             ),
                                         ),
