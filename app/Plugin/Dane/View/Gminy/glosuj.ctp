@@ -34,9 +34,10 @@ echo $this->Element('dataobject/pageBegin', array(
         <div class="glosowanieSlice col-xs-12 nopadding">
             <h1 class="subheader"><? if (isset($vote) && isset($completed) && $completed === true) { ?>Dziękujemy za głosowanie<? } else { ?> Głosuj<?
                 } ?></h1>
-            <? if ((isset($vote) && isset($completed) && $completed === true)) { ?>
+            <? if (isset($vote) && isset($completed) && $completed === true && isset($radni)) { ?>
                 <div class="poslowieResults">
                     <h3>Najbliżej Twoim głosom głosowali</h3>
+                    <? pr($radni); ?>
                     <ul>
                         <li class="first col-xs-12 nopadding">
                             <div class="col-xs-12 col-xs-6 col-md-3"><?= $poselTest ?></div>

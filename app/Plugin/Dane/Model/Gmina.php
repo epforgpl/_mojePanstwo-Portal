@@ -2,6 +2,8 @@
 
 class Gmina extends AppModel {
 
+    public $useDbConfig = 'mpAPI';
+
     private $populationRanges = array(
         array(0, 20000),
         array(20000, 50000),
@@ -24,6 +26,13 @@ class Gmina extends AppModel {
             'min' => $min,
             'max' => $max
         );
+    }
+
+    public function getRadniByUserVotes($data) {
+        return $this->getDataSource()->request('krakow/glosy/getRadniByUserVotes', array(
+            'method' => 'POST',
+            'data' => $data,
+        ));
     }
 
 }
