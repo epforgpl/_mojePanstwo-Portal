@@ -9,27 +9,32 @@ $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-aktywnosci');
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
-)); ?>
-<? $poselTest = implode("", array('<div class="objectRender readed objclass radni_gmin">',
+));
+
+function getPoselTemplate($pos) {
+    return implode("", array('<div class="objectRender readed objclass radni_gmin">',
     '<div class="row">',
     '<div class="data col-xs-12">',
     '<div>',
     '<div class="attachment col-md-4 nopadding text-center">',
-    '<a href="/dane/gminy/903/radni/39270" class="thumb_cont">',
-    '<img onerror="imgFixer(this)" alt="Bogusław Kośmider" src="http://resources.sejmometr.pl/avatars/5/21.jpg" class="thumb pull-right">',
+    '<a href="/dane/gminy/903/radni/'. $pos->getId() .'" class="thumb_cont">',
+    '<img onerror="imgFixer(this)" alt="Bogusław Kośmider" src="'. $pos->getThumbnailUrl() .'" class="thumb pull-right">',
     '</a>',
     '</div>',
     '<div class="content col-md-8">',
     '<p class="title">',
-    '<a title="Bogusław Kośmider" href="/dane/gminy/903/radni/39270">Bogusław Kośmider</a>',
+    '<a title="'.$pos->getTitle().'" href="/dane/gminy/903/radni/'. $pos->getId() .'">'.$pos->getTitle().'</a>',
     '</p>',
-    '<p class="meta meta-desc">Klub Radnych Platformy Obywatelskiej</p>',
-    '<p class="meta zgodnosc"><strong>87%</strong> zgodności</p>',
+    '<p class="meta meta-desc">'. $pos->getData('komitet') .'</p>',
+    '<p class="meta zgodnosc"><strong>'. ($pos->data['fit'] * 10) .'%</strong> zgodności</p>',
     '</div>',
     '</div>',
     '</div>',
     '</div>',
-    '</div>')) ?>
+    '</div>'));
+}
+
+ ?>
     <div class="pkGlosowanie">
         <div class="glosowanieSlice col-xs-12 nopadding">
             <h1 class="subheader"><? if (isset($vote) && isset($completed) && $completed === true) { ?>Dziękujemy za głosowanie<? } else { ?> Głosuj<?
@@ -37,22 +42,21 @@ echo $this->Element('dataobject/pageBegin', array(
             <? if (isset($vote) && isset($completed) && $completed === true && isset($radni)) { ?>
                 <div class="poslowieResults">
                     <h3>Najbliżej Twoim głosom głosowali</h3>
-                    <? pr($radni); ?>
                     <ul>
                         <li class="first col-xs-12 nopadding">
-                            <div class="col-xs-12 col-xs-6 col-md-3"><?= $poselTest ?></div>
+                            <div class="col-xs-12 col-xs-6 col-md-3"><?= getPoselTemplate($radni[0]) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= $poselTest ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[1]) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= $poselTest ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[2]) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= $poselTest ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[3]) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= $poselTest ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[4]) ?></div>
                         </li>
                     </ul>
                 </div>
@@ -67,10 +71,10 @@ echo $this->Element('dataobject/pageBegin', array(
                 <div class="container">
                     <div class="glosowanieSlice col-xs-12 nopadding">
                         <? if (isset($completed) && $completed === true) { ?>
-                            <p>Chcesz mieć dokładniejsze wyniki</p>
+                            <p>Spróbuj jeszcze raz</p>
                             <a class="btn btn-primary btn-lg"
-                               href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/rada_uchwaly/' . $next : '/rada_uchwaly/' . $next) ?>">Głosuj
-                                dalej</a>
+                               href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj/?reset' : '/glosuj/?reset') ?>">
+                               Rozpocznij od nowa</a>
                         <? } else { ?>
                             <p>Nie zakończyłeś/aś jeszcze głosować. Potrzebujemy co najmniej 10 głosów.</p>
                             <a class="btn btn-primary btn-lg"
