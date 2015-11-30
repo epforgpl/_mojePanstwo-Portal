@@ -264,7 +264,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <div class="item more">
                                 <div class="inner">
                                     <div class="logo">
-                                        <i class="icon-dzialy-<?= $dzial['id']; ?>"></i>
+                                        <span class="icon-dzialy-<?= $dzial['id']; ?>"></span>
                                     </div>
                                     <div class="details">
                                         <span
