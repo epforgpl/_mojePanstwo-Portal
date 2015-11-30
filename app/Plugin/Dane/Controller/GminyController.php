@@ -5083,9 +5083,28 @@ class GminyController extends DataobjectsController
                 }
                 $this->loadModel('Dane.Gmina');
                 $results = $this->Gmina->getRadniByUserVotes($userVotes);
-                arsort($results);
+
+                $radni = $this->Dataobject->find('all', array(
+                    'conditions' => array(
+                        'dataset' => 'radni_gmin',
+                        'id' => array_keys($results),
+                    ),
+                ));
+
+                foreach($radni as $r => $radny) {
+                    foreach($results as $id => $fit) {
+                        if($radny->getId() == $id) {
+                            $radni[$r]->data['fit'] = $fit;
+                        }
+                    }
+                }
+
+                usort($radni, function($a, $b) {
+                    return $a->data['fit'] < $b->data['fit'];
+                });
+
                 $this->set('completed', $completed);
-                $this->set('radni', $results);
+                $this->set('radni', $radni);
             }
 
             $this->set('next', $next);
