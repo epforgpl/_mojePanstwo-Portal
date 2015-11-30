@@ -1,67 +1,43 @@
-
 .headerVote {
+    background: #f5f5f5;
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 
-  background: #fff;
-  padding: 10px 0;
+    h3 {
+        font-size: 15px;
+        margin-top: 0;
+        margin-bottom: 8px;
 
-  h3 {
+        .glyphicon {
+            margin-right: 10px;
 
-    margin-top: 5px;
-
-    .glyphicon {
-      margin-right: 10px;
-
-      &:hover {
-        cursor: pointer;
-        color: #111;
-      }
-
+            &:hover {
+                cursor: pointer;
+                color: #111;
+            }
+        }
     }
 
-  }
+    .progress {
+        margin-bottom: 0;
+        margin-top: 7px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
 
-  .progress {
-
-    margin-bottom: 0;
-    margin-top: 7px;
-
-    .progress-bar {
-      min-width: 3em;
+        .progress-bar {
+            min-width: 3em;
+        }
     }
 
-  }
-
-  .alert {
-    margin-bottom: 0;
-  }
-
-  .voteOptions {
-
-    .btn {
-
-      i {
-        margin-right: 5px;
-      }
-
-      &.btn-link-success {
-        color: #48940B;
-      }
-
-      &.btn-link-default {
-        color: #5e5e5e;
-      }
-
-      &.btn-link-danger {
-        color: #e50606;
-      }
-
-      &:hover {
-        text-decoration: none;
-        background: #fff;
-      }
-
+    .alert {
+        margin-bottom: 0;
     }
-
-  }
-
+    .voteOptions .btn {
+        margin-left: 2px;
+    }
 }

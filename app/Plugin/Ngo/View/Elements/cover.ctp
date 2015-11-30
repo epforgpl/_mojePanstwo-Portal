@@ -123,7 +123,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
             $docs = $hits;
             ?>
             <div class="block col-xs-12">
-                <header>Najbardziej angażujące tweety:<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
+                <header>Najbardziej angażujące tweety NGO z ostatnich 7 dni:<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
                                                          data-placement="right"
                                                          title="Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy."></i>
                 </header>
@@ -148,7 +148,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
 
         <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) { ?>
             <div class="block col-xs-12">
-                <header>Najbardziej angażujące profile:
+                <header>Najbardziej angażujące profile NGO z ostatnich 7 dni:
                     <i class="glyphicon glyphicon-question-sign"
                         data-toggle="tooltip"
                         data-placement="right"

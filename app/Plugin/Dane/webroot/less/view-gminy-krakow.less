@@ -98,7 +98,6 @@
     }
 }
 
-
 .special.banner {
     display: block;
     margin: 0 4px -3px;
@@ -232,14 +231,14 @@
 }
 
 .radni_cover {
-	> li {
-		min-height: 160px;
-		padding-left: 0;
-		padding-right: 0;
-		.label {
-			margin-left: 5px;
-		}
-	}
+    > li {
+        min-height: 160px;
+        padding-left: 0;
+        padding-right: 0;
+        .label {
+            margin-left: 5px;
+        }
+    }
 }
 
 .radni_cover .objectRender .attachment img {
@@ -323,6 +322,109 @@
     .radniList .radni_gmin {
         .data, .content {
             padding-right: 0;
+        }
+    }
+}
+
+.objectsPage .objectsPageWindow {
+    .objectsPageContent .pkGlosowanie {
+        text-align: center;
+
+        .glosowanieSlice {
+            margin-bottom: 35px;
+
+            h1.subheader {
+                color: #092a5e;
+                font-size: 30px;
+                margin-bottom: 20px;
+                margin-top: 35px;
+            }
+
+            .text {
+                p {
+                    font-size: 18px;
+                    line-height: 1.3em;
+                    color: #424242;
+                }
+                form {
+                    margin-top: 46px;
+                    margin-bottom: 46px;
+                }
+            }
+            .btn-icon {
+                min-width: 106px;
+                text-align: center;
+            }
+            .poslowieResults {
+                width: 100%;
+                display: block;
+                float: left;
+
+                h3 {
+                    color: #424242;
+                    font-weight: normal;
+                }
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+
+                    li {
+                        &.first > div {
+                            margin: 0 auto;
+                            float: none;
+                        }
+                        .objectRender {
+                            text-align: left;
+
+                            .attachment .thumb_cont {
+                                max-height: 130px;
+                            }
+                        }
+                        .meta.zgodnosc {
+                            margin: 3px 0 8px 8px;
+                            font-size: 16px;
+
+                            strong {
+                                font-size: 28px;
+                            }
+                        }
+                    }
+                }
+            }
+            .glosowanieList {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                text-align: left;
+
+                .objectRender .row {
+                    position: relative;
+
+                    .votedFor {
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        -webkit-transform: translate(0, -50%);
+                        -moz-transform: translate(0, -50%);
+                        -ms-transform: translate(0, -50%);
+                        -o-transform: translate(0, -50%);
+                        transform: translate(0, -50%);
+                    }
+                }
+            }
+        }
+    }
+    .grayBar {
+        background-color: #f5f5f5;
+        text-align: center;
+        padding-bottom: 30px;
+        padding-top: 30px;
+
+        p {
+            color: #424242;
+            font-size: 18px;
+            margin-bottom: 20px;
         }
     }
 }
