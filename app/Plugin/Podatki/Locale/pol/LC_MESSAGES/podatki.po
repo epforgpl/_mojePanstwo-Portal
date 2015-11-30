@@ -20,7 +20,7 @@ msgid "LC_PODATKI_PRZYCHODY_UMOWA_DZIELO"
 msgstr "Przychody brutto z umowy o dzieło"
 
 msgid "LC_PODATKI_INFO_FULL"
-msgstr "wpisz kwotę brutto, znajdziesz ją na umowie"
+msgstr "wpisz przychód brutto miesięcznie"
 
 msgid "LC_PODATKI_WARUNKI_PREFERENCYJNE"
 msgstr "Warunki preferencyjne"
