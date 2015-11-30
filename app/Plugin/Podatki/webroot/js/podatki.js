@@ -135,7 +135,7 @@ $(document).ready(function () {
 						dataLabels: {
 							enabled: true,
 							format: '{point.percentage:.1f} %',
-							distance: -50
+							distance: -25
 						}
 					}
 				},
@@ -213,6 +213,14 @@ $(document).ready(function () {
 		$('html, body').animate({
 			scrollTop: $stripe.offset().top
 		}, 600);
+	}
+
+	if ($stripe.find('.btnSzczegoly').length) {
+		$stripe.find('.btnSzczegoly').click(function (e) {
+			var that = $(this).parent();
+			e.preventDefault();
+			console.log(that);
+		});
 	}
 
 	btnAction();

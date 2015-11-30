@@ -71,8 +71,7 @@
         .pie {
             position: relative;
             z-index: 1;
-            height: 220px;
-            margin-top: 20px;
+            height: 260px;
         }
         .legend {
             margin-top: 3em;
@@ -191,6 +190,38 @@
                             strong {
                                 font-weight: 600;
                             }
+                        }
+                    }
+                    .btnSzczegoly {
+                        @margin: 6px;
+
+                        margin-bottom: @margin;
+                        margin-top: -@margin;
+                    }
+
+                    .subItem {
+                        text-align: left;
+
+                        .table {
+                            ._label, ._value {
+                                line-height: 1.1em;
+                                padding-top: 10px;
+                                padding-bottom: 10px;
+                            }
+                            ._label {
+                                font-size: 0.9em;
+
+                            }
+                            ._value {
+                                font-weight: bold;
+                                white-space: nowrap;
+                                vertical-align: middle;
+                            }
+                        }
+                        .modal-footer {
+                            font-size: 1.2em;
+                            font-weight: bold;
+                            padding: 8px 0 0;
                         }
                     }
                 }

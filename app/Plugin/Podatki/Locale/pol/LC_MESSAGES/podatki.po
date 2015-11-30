@@ -66,3 +66,9 @@ msgstr "Akcyza"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX"
 msgstr "wartość przybliżona, na podstawie tablic * dla podanych przez Ciebie danych."
+
+msgid "LC_PODATKI_MODAL_BTN"
+msgstr "szczegóły"
+
+msgid "LC_PODATKI_MODAL_LACZNA_KWOTA"
+msgstr "Łączna kwota"
