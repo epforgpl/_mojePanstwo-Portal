@@ -165,11 +165,11 @@ class GminyController extends DataobjectsController
         'wpf' => array(
 	        'items' => array(
 		        array(
-			        'id' => '',
+			        'id' => 'wpf',
 			        'label' => 'Wieloletni Plan Inwestycyjny',
 		        ),
 		        array(
-			        'id' => 'wpf-finanse',
+			        'id' => 'wpf_finanse',
 			        'label' => 'Wieloletni Plan Finansowy',
 		        ),
 	        ),
@@ -4008,9 +4008,9 @@ class GminyController extends DataobjectsController
             $this->render('Dane.Gminy/wpf_program');
         } else {
             
-            $this->set('title_for_layout', 'Programy wieloletniej prognozy finansowej miasta Kraków');
+            $this->set('title_for_layout', 'Wieloletni Program Inwestycyjny dla Krakowa');
             $this->set('_submenu', array_merge($this->submenus['wpf'], array(
-	            'selected' => '',
+	            'selected' => 'wpf',
 	        )));
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
@@ -4021,6 +4021,18 @@ class GminyController extends DataobjectsController
             
             
         }
+    }
+
+    public function wpf_finanse() {
+        $this->addInitLayers(array(
+            'wpf'
+        ));
+        $this->_prepareView();
+        $this->request->params['action'] = 'wpf';
+        $this->set('title_for_layout', 'Wieloletni Plan Finansowy dla Krakowa');
+        $this->set('_submenu', array_merge($this->submenus['wpf'], array(
+            'selected' => 'wpf_finanse',
+        )));
     }
 
     private $histogramIntervals = array(
@@ -5121,7 +5133,7 @@ class GminyController extends DataobjectsController
                         'conditions' => array(
                             'dataset' => 'krakow_rada_uchwaly',
                             'krakow_rada_uchwaly.druki' => 'true',
-                            'krakow_rada_uchwaly.id!=' => array_column($votes, 'id'),
+                            'id!=' => array_column($votes, 'id'),
                         ),
                         'limit' => 10
                     ));

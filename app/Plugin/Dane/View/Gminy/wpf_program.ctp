@@ -29,6 +29,13 @@ $this->Combinator->add_libs('js', '../plugins/highstock/locals');
                 <p class="text-muted">
                     <?= $p['kategoria_nazwa'] ?> <?= $p['podkategoria_nazwa'] ?>
                 </p>
+
+                <? if(isset($p['opis']) && strlen($p['opis']) > 10) { ?>
+                    <p class="text-muted">
+                        <?= ucfirst($p['opis']) ?>
+                    </p>
+                <? } ?>
+
                 <ul class="dataHighlights oneline col-xs-12">
                     <? foreach(array(
                         array(
