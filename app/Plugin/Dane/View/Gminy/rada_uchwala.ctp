@@ -18,7 +18,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 
 $docs = $uchwala->getLayer('docs');
-$druki = @$uchwala->getLayers('druki');
+$druki = @$uchwala->getLayer('druki');
 
 ?>
     <div class="prawo margin-sides-10">
@@ -36,7 +36,7 @@ $druki = @$uchwala->getLayers('druki');
                 <?if (@$druki[0]) {
                     ?>
                     <p class="margin-sides-5 margin-top-20">
-                        <a href="dane/gminy/903,krakow/druki/<?= $druki[0] ?>"><span
+                        <a href="/dane/gminy/903,krakow/druki/<?= $druki[0] ?>"><span
                                 class="glyphicon glyphicon-link"></span> Zobacz proces legislacyjny</a>
                     </p>
                 <?

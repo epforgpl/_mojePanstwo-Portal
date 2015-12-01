@@ -919,9 +919,7 @@ class DataBrowserComponent extends Component
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'prawo.typ_id',
-                    'exclude' => array(
-                        'pattern' => '0'
-                    ),
+                    'exclude' => array(0),
                 ),
                 'aggs' => array(
                     'label' => array(
