@@ -11,7 +11,7 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
-function getPoselTemplate($pos) {
+function getPoselTemplate($pos, $vote) {
     return implode("", array('<div class="objectRender readed objclass radni_gmin">',
     '<div class="row">',
     '<div class="data col-xs-12">',
@@ -26,7 +26,7 @@ function getPoselTemplate($pos) {
     '<a title="'.$pos->getTitle().'" href="/dane/gminy/903/radni/'. $pos->getId() .'">'.$pos->getTitle().'</a>',
     '</p>',
     '<p class="meta meta-desc">'. $pos->getData('komitet') .'</p>',
-    '<p class="meta zgodnosc"><strong>'. ($pos->data['fit'] * 10) .'%</strong> zgodności</p>',
+    '<p class="meta zgodnosc"><strong>'. round(($pos->data['fit'] * 100) / count($vote), 2) .'%</strong> zgodności</p>',
     '</div>',
     '</div>',
     '</div>',
@@ -44,19 +44,19 @@ function getPoselTemplate($pos) {
                     <h3>Najbliżej Twoim głosom głosowali</h3>
                     <ul>
                         <li class="first col-xs-12 nopadding">
-                            <div class="col-xs-12 col-xs-6 col-md-3"><?= getPoselTemplate($radni[0]) ?></div>
+                            <div class="col-xs-12 col-xs-6 col-md-3"><?= getPoselTemplate($radni[0], $vote) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= getPoselTemplate($radni[1]) ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[1], $vote) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= getPoselTemplate($radni[2]) ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[2], $vote) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= getPoselTemplate($radni[3]) ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[3], $vote) ?></div>
                         </li>
                         <li class="col-xs-12 col-xs-6 col-md-3 nopadding">
-                            <div class="col-xs-12"><?= getPoselTemplate($radni[4]) ?></div>
+                            <div class="col-xs-12"><?= getPoselTemplate($radni[4], $vote) ?></div>
                         </li>
                     </ul>
                 </div>
@@ -71,12 +71,16 @@ function getPoselTemplate($pos) {
                 <div class="container">
                     <div class="glosowanieSlice col-xs-12 nopadding">
                         <? if (isset($completed) && $completed === true) { ?>
-                            <p>Spróbuj jeszcze raz</p>
+                            <p>Chcesz mieć dokładniejsze wyniki?</p>
                             <a class="btn btn-primary btn-lg"
+                               href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj/?more' : '/glosuj/?more') ?>">
+                               Głosuj dalej</a>
+                            <p class="margin-top-10">lub</p>
+                            <a class="btn btn-default btn-lg"
                                href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj/?reset' : '/glosuj/?reset') ?>">
                                Rozpocznij od nowa</a>
                         <? } else { ?>
-                            <p>Nie zakończyłeś/aś jeszcze głosować. Potrzebujemy co najmniej 10 głosów.</p>
+                            <p>Nie zakończyłeś/aś jeszcze głosować.</p>
                             <a class="btn btn-primary btn-lg"
                                href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/rada_uchwaly/' . $next : '/rada_uchwaly/' . $next) ?>">Głosuj
                                 dalej</a>

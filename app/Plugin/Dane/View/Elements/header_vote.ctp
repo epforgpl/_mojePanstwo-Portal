@@ -33,7 +33,7 @@
             </h3>
 
             <div class="collapse" id="headerVoteDetails">
-                <div class="list-group">
+                <div class="list-group" style="overflow-y: scroll;max-height: 300px;">
                     <?php foreach ($header_vote as $vote) { ?>
                         <a
                             href="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/rada_uchwaly/' . $vote['id'] : '/rada_uchwaly/' . $vote['id']) ?>"
@@ -61,7 +61,7 @@
                                 <div class="progress-bar progress-bar-info" role="progressbar"
                                      aria-valuenow="<?= $header_vote_progress; ?>" aria-valuemin="0" aria-valuemax="100"
                                      style="width: <?= $header_vote_progress; ?>%">
-                                    <?= $header_vote_progress; ?>%
+                                    <?= round($header_vote_progress, 2); ?>%
                                 </div>
                             </div>
                         </div>
