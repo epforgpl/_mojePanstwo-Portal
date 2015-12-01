@@ -118,5 +118,64 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
                 </div>
             </section>
         </div>
+
+        <? if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
+            $docs = $hits;
+            ?>
+            <div class="block col-xs-12">
+                <header>Najbardziej angażujące tweety NGO z ostatnich 7 dni:<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
+                                                         data-placement="right"
+                                                         title="Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy."></i>
+                </header>
+                <section class="aggs-init">
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <ul class="dataobjects">
+                                <? foreach ($docs as $doc) { ?>
+                                    <li>
+                                        <?= $this->Dataobject->render($doc, 'default') ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="text-center margin-top-20">
+                        <a class="btn btn-xs btn-primary" href="/media/ngo">Zobacz więcej &raquo;</a>
+                    </div>
+                </section>
+            </div>
+        <? } ?>
+
+        <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) { ?>
+            <div class="block col-xs-12">
+                <header>Najbardziej angażujące profile NGO z ostatnich 7 dni:
+                    <i class="glyphicon glyphicon-question-sign"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy."></i>
+                </header>
+                <section class="aggs-init">
+                    <div class="dataAggs">
+                        <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
+                             data-image_field="image_url" data-label_field="name"
+                             data-counter_field="engagement_count"
+                             data-choose-request="/dane/twitter_accounts/"
+                             data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
+                            <div class="chart">
+                                <div class="spinner grey">
+                                    <div class="bounce1"></div>
+                                    <div class="bounce2"></div>
+                                    <div class="bounce3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center margin-top-20">
+                        <a class="btn btn-xs btn-primary" href="/media/ngo">Zobacz więcej &raquo;</a>
+                    </div>
+                </section>
+            </div>
+        <? } ?>
+
     </div>
 </div>

@@ -4966,9 +4966,7 @@ class GminyController extends DataobjectsController
             $druki = $this->Dataobject->find('all', array(
                 'conditions' => array(
                     'dataset' => 'krakow_rada_uchwaly',
-                ),
-                'aggs' => array(
-
+                    'krakow_rada_uchwaly.druki' => 'true',
                 ),
                 'limit' => 10
             ));
@@ -4982,6 +4980,7 @@ class GminyController extends DataobjectsController
                 );
                 foreach($fields as $f)
                     $row[$f] = $data[$f];
+                $row['tytul'] = 'Uchwała ' . $data['tytul_skrocony'];
                 $_druki[] = $row;
             }
 
@@ -5046,8 +5045,14 @@ class GminyController extends DataobjectsController
                 );
             }
 
-            if ($completed === true)
-                $this->set('completed', $completed);
+            if($completed === true) {
+                $this->redirect(
+                    (isset($this->domainMode) && $this->domainMode == 'MP' ?
+                        '/dane/gminy/903,krakow/glosuj/'
+                        : '/glosuj'
+                    )
+                );
+            }
 
 
         } elseif(
@@ -5068,8 +5073,39 @@ class GminyController extends DataobjectsController
                 }
             }
 
-            if ($completed === true)
+            if ($completed === true) {
+                $userVotes = array();
+                foreach($votes as $vote) {
+                    $userVotes[] = array(
+                        'uchwala_id' => $vote['id'],
+                        'vote' => $vote['vote']
+                    );
+                }
+                $this->loadModel('Dane.Gmina');
+                $results = $this->Gmina->getRadniByUserVotes($userVotes);
+
+                $radni = $this->Dataobject->find('all', array(
+                    'conditions' => array(
+                        'dataset' => 'radni_gmin',
+                        'id' => array_keys($results),
+                    ),
+                ));
+
+                foreach($radni as $r => $radny) {
+                    foreach($results as $id => $fit) {
+                        if($radny->getId() == $id) {
+                            $radni[$r]->data['fit'] = $fit;
+                        }
+                    }
+                }
+
+                usort($radni, function($a, $b) {
+                    return $a->data['fit'] < $b->data['fit'];
+                });
+
                 $this->set('completed', $completed);
+                $this->set('radni', $radni);
+            }
 
             $this->set('next', $next);
 
