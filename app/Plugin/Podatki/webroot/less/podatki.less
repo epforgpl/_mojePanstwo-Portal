@@ -1,3 +1,28 @@
+@font-face {
+    font-family: 'bdl';
+    src: url('/bdl/fonts/bdl.eot?4t5flb');
+    src: url('/bdl/fonts/bdl.eot?4t5flb#iefix') format('embedded-opentype'),
+    url('/bdl/fonts/bdl.ttf?4t5flb') format('truetype'),
+    url('/bdl/fonts/bdl.woff?4t5flb') format('woff'),
+    url('/bdlfonts/bdl.svg?4t5flb#bdl') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-dzialy-"], [class*=" icon-dzialy-"] {
+    font-family: 'bdl';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 #podatki {
     .appBanner.bottom-border {
         margin-bottom: 0;
@@ -71,6 +96,7 @@
         .pie {
             position: relative;
             z-index: 1;
+            height: 260px;
         }
         .legend {
             margin-top: 3em;
@@ -118,8 +144,7 @@
                     outline: none;
 
                     .logo {
-                        height: 130px;
-                        overflow: hidden;
+                        min-height: 135px;
 
                         img {
                             max-width: 100%;
@@ -133,6 +158,53 @@
                             -ms-transform: translateY(-100%);
                             -o-transform: translateY(-100%);
                             transform: translateY(-100%);
+                        }
+
+                        > span {
+                            color: #789;
+                            font-size: 80px;
+                            position: relative;
+                            top: 30px;
+                        }
+
+                        .icon-dzialy-100:before {
+                            //Ubezpieczenia społeczne   https://www.iconfinder.com/icons/501429/grandfather_grandpa_old_man_old_person_icon#size=128
+                        }
+                        .icon-dzialy-101:before {
+                            content: "\e918";
+                        }
+                        .icon-dzialy-102:before {
+                            content: "\e90a";
+                        }
+                        .icon-dzialy-103:before {
+                            content: "\e919";
+                        }
+                        .icon-dzialy-104:before {
+                            content: "\e901";
+                        }
+                        .icon-dzialy-105::before {
+                            //Bezpieczeństwo i porządek publiczny   https://www.iconfinder.com/icons/757688/car_fire_fire_truck_fireman_vehicle_icon#size=128
+                        }
+                        .icon-dzialy-106:before {
+                            //Pomoc społeczna   https://www.iconfinder.com/icons/241669/giving_hand_hands_home_house_real_estate_security_icon#size=128
+                        }
+                        .icon-dzialy-107:before {
+                            content: "\e911";
+                        }
+                        .icon-dzialy-108:before {
+                            //Administracja publiczna   https://www.iconfinder.com/icons/474981/bag_briefcase_business_portfolio_icon#size=128
+                        }
+                        .icon-dzialy-109:before {
+                            content: "\e902";
+                        }
+                        .icon-dzialy-110:before {
+                            //Składka do Unii Europejskiej (same gwiazdki)https://www.iconfinder.com/icons/753890/book_books_education_library_study_icon#size=128  https://www.iconfinder.com/icons/494552/business_eu_zone_euro_europe_european_union_star_circle_stars_icon#size=128
+                        }
+                        .icon-dzialy-111:before {
+                            //Kultura i sport   https://www.iconfinder.com/icons/753890/book_books_education_library_study_icon#size=128
+                        }
+                        .icon-dzialy-112:before {
+                            content: "…"
                         }
                     }
 
@@ -191,6 +263,38 @@
                             }
                         }
                     }
+                    .btnSzczegoly {
+                        @margin: 6px;
+
+                        margin-bottom: @margin;
+                        margin-top: -@margin;
+                    }
+
+                    .subItem {
+                        text-align: left;
+
+                        .table {
+                            ._label, ._value {
+                                line-height: 1.1em;
+                                padding-top: 10px;
+                                padding-bottom: 10px;
+                            }
+                            ._label {
+                                font-size: 0.9em;
+
+                            }
+                            ._value {
+                                font-weight: bold;
+                                white-space: nowrap;
+                                vertical-align: middle;
+                            }
+                        }
+                        .modal-footer {
+                            font-size: 1.2em;
+                            font-weight: bold;
+                            padding: 8px 0 0;
+                        }
+                    }
                 }
             }
         }
@@ -220,7 +324,7 @@
 
 @media (min-width: 992px) {
     #podatki .stripe .pie .highcharts-container {
-        width: 95%;
+        width: 80% !important;
         float: right;
     }
 }

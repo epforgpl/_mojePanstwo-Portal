@@ -135,7 +135,7 @@ $(document).ready(function () {
 						dataLabels: {
 							enabled: true,
 							format: '{point.percentage:.1f} %',
-							distance: -50
+							distance: -25
 						}
 					}
 				},
@@ -177,7 +177,7 @@ $(document).ready(function () {
 
 			content.append(
 				$('<div></div>').addClass('col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding').append(
-					$('<input />').addClass('form-control').attr({
+					$('<input />').addClass('form-control currency').attr({
 						'type': "text",
 						'patern': '^\d+(\.|\,)\d{2}$',
 						'step': '0.01',
@@ -213,6 +213,14 @@ $(document).ready(function () {
 		$('html, body').animate({
 			scrollTop: $stripe.offset().top
 		}, 600);
+	}
+
+	if ($stripe.find('.btnSzczegoly').length) {
+		$stripe.find('.btnSzczegoly').click(function (e) {
+			var that = $(this).parent();
+			e.preventDefault();
+			console.log(that);
+		});
 	}
 
 	btnAction();

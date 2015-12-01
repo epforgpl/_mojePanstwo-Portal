@@ -204,7 +204,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
     <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
         <div class="container">
             <h2><? if (isset($result['netto'])) {
-                    echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA') . ' ' . number_format($result['zus'] + $result['zus_pracodawca'] + $result['zdrow'] + $result['pit'] + $result['vat'] + $result['akcyza'], 2, ',', ' ') . ' zł';
+                    $kwota_podatku = floatval($result['zus'] + $result['zus_pracodawca'] + $result['zdrow'] + $result['pit'] + $result['vat'] + $result['akcyza']);
+                    echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA') . ' ' . number_format($kwota_podatku, 2, ',', ' ') . ' zł';
                 } ?></h2>
 
             <div
@@ -215,40 +216,40 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                         <? if ($result['zus'] > 0) { ?>
                             <div class="position"><span
                                     style="background-color: <?= $result['zus_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
-                                : <strong><?= number_format(floatval($result['zus']), 2, ',', ' ') ?> zł</strong>
+                                : <strong><?= number_format(floatval($result['zus']), 0, ',', ' ') ?> zł</strong>
                             </div>
                         <? } ?>
                         <? if ($result['zus_pracodawca'] > 0) { ?>
                             <div class="position"><span
                                     style="background-color: <?= $result['zus_pracodawca_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA') ?>
-                                : <strong><?= number_format(floatval($result['zus_pracodawca']), 2, ',', ' ') ?>
+                                : <strong><?= number_format(floatval($result['zus_pracodawca']), 0, ',', ' ') ?>
                                     zł</strong>
                             </div>
                         <? } ?>
                         <? if ($result['zdrow'] > 0) { ?>
                             <div class="position"><span
                                     style="background-color: <?= $result['zdrow_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?>
-                                : <strong><?= number_format(floatval($result['zdrow']), 2, ',', ' ') ?> zł</strong>
+                                : <strong><?= number_format(floatval($result['zdrow']), 0, ',', ' ') ?> zł</strong>
                             </div>
                         <? } ?>
                         <? if ($result['pit'] > 0) { ?>
                             <div class="position"><span
                                     style="background-color: <?= $result['pit_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?>
-                                : <strong><?= number_format(floatval($result['pit']), 2, ',', ' ') ?> zł</strong>
+                                : <strong><?= number_format(floatval($result['pit']), 0, ',', ' ') ?> zł</strong>
                             </div>
                         <? } ?>
                         <? if ($result['vat'] > 0) { ?>
                             <div class="position"><span
                                     style="background-color: <?= $result['vat_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
                                 *
-                                : <strong><?= number_format(floatval($result['vat']), 2, ',', ' ') ?> zł</strong>
+                                : <strong><?= number_format(floatval($result['vat']), 0, ',', ' ') ?> zł</strong>
                             </div>
                         <? } ?>
                         <? if ($result['akcyza'] > 0) { ?>
                             <div class="position"><span
                                     style="background-color: <?= $result['akcyza_color'] ?>"></span><?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
                                 *
-                                : <strong><?= number_format(floatval($result['akcyza']), 2, ',', ' ') ?> zł</strong>
+                                : <strong><?= number_format(floatval($result['akcyza']), 0, ',', ' ') ?> zł</strong>
                             </div>
                         <? } ?>
                     <? } ?>
@@ -258,21 +259,66 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
             <? if (isset($wydatki)) { ?>
                 <div class="row items">
                     <h2 class="text-center"><?= __d('podatki', 'LC_PODATKI_RESULTS_WYDAWANE_PODATKI'); ?>:</h2>
-                    <? foreach ($wydatki as $w) { ?>
+                    <? foreach ($wydatki['dzialy'] as $dzial) { ?>
                         <div class="block col-xs-12 col-sm-6 col-md-3">
-                            <div data-id="<?= $w['dzial_id']; ?>" class="item more">
+                            <div class="item more">
                                 <div class="inner">
                                     <div class="logo">
-                                        <i class="icon-dzialy-<?= $w['dzial_id']; ?>"></i>
+                                        <span class="icon-dzialy-<?= $dzial['id']; ?>"></span>
                                     </div>
                                     <div class="details">
                                         <span
-                                            class="detail"><?= number_format_h(($result['brutto'] - $result['netto']) * $w['procent']); ?>
+                                            class="detail"><?= number_format_h(($dzial['kwota'] / $wydatki['suma']) * $kwota_podatku); ?>
                                             zł</span>
                                     </div>
                                     <div class="title">
-                                        <div class="nazwa"><?= $w['tresc']; ?></div>
+                                        <div class="nazwa"><?= $dzial['nazwa']; ?></div>
                                     </div>
+                                    <? if (isset($dzial['subdzialy'])) { ?>
+                                        <a href="#modal<?= preg_replace('/[^0-9a-zA-Z_]/', "", $dzial['nazwa']); ?>"
+                                           data-toggle="modal"
+                                           data-target="#modal<?= preg_replace('/[^0-9a-zA-Z_]/', "", $dzial['nazwa']); ?>"
+                                           class="btn btn-link btn-sm btnSzczegoly"><?= __d('podatki', 'LC_PODATKI_MODAL_BTN'); ?></a>
+                                        <div class="modal fade subItem"
+                                             id="modal<?= preg_replace('/[^0-9a-zA-Z_]/', "", $dzial['nazwa']); ?>"
+                                             tabindex="-1" role="dialog"
+                                             aria-labelledby="modalLabel<?= preg_replace('/[^0-9a-zA-Z_]/', "", $dzial['nazwa']); ?>">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title"
+                                                            id="modalLabel<?= preg_replace('/[^0-9a-zA-Z_]/', "", $dzial['nazwa']); ?>"><?= $dzial['nazwa']; ?></h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-condensed">
+                                                                <tbody>
+                                                                <? foreach ($dzial['subdzialy'] as $subdzial) { ?>
+                                                                    <tr>
+                                                                        <td
+                                                                            class="_label"><?= $subdzial['nazwa'] ?></td>
+                                                                        <td
+                                                                            class="_value"><?= number_format_h(($subdzial['kwota'] / $wydatki['suma']) * $kwota_podatku); ?>
+                                                                            zł
+                                                                        </td>
+                                                                    </tr>
+                                                                <? } ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <p><?= __d('podatki', 'LC_PODATKI_MODAL_LACZNA_KWOTA'); ?>
+                                                            : <?= number_format_h(($dzial['kwota'] / $wydatki['suma']) * $kwota_podatku); ?>
+                                                            zł</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <? } ?>
                                 </div>
                             </div>
                         </div>

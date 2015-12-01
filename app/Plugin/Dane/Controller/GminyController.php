@@ -2003,7 +2003,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('neighbours', 'druki', 'docs'),
             ));
-
+            
             $this->set('file',
                 isset($this->request->query['file']) ?
                     (int)$this->request->query['file'] : $uchwala->getData('dokument_id')

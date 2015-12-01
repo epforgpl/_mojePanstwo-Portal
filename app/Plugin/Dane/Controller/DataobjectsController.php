@@ -134,7 +134,6 @@ class DataobjectsController extends AppController
 
             if ($this->observeOptions) {
                 $layers[] = 'channels';
-                $layers[] = 'subscribers';
             }
 
             $layers[] = 'dataset';
@@ -148,7 +147,7 @@ class DataobjectsController extends AppController
                 'layers' => $layers,
                 'aggs' => $this->initAggs,
             ));
-
+            
             $code = (int)$this->Dataobject->getDataSource()->getLastResponseCode();
 
             if ($code >= 400) {

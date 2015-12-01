@@ -394,7 +394,7 @@ class PrawoController extends ApplicationsController
         $this->title = 'Ustawy';
         $this->loadDatasetBrowser('prawo', array(
             'conditions' => array(
-                'prawo.typ_id' => '1',
+                'prawo.typ_id' => 1,
             ),
             'aggs' => $this->getSubAggs(),
             'sortPreset' => 'prawo',
