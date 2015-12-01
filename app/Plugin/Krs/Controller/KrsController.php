@@ -52,7 +52,7 @@ class KrsController extends ApplicationsController
                         'aggs' => array(
                             'typ_id' => array(
                                 'terms' => array(
-                                    'field' => 'krs_podmioty.forma_prawna_id',
+                                    'field' => 'data.krs_podmioty.forma_prawna_id',
                                     'exclude' => array(
                                         'pattern' => '0'
                                     ),
@@ -68,7 +68,7 @@ class KrsController extends ApplicationsController
                             ),
                             'kapitalizacja' => array(
                                 'range' => array(
-                                    'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
+                                    'field' => 'data.krs_podmioty.wartosc_kapital_zakladowy',
                                     'ranges' => array(
                                         array('from' => 1, 'to' => 5000),
                                         array('from' => 5000, 'to' => 10000),

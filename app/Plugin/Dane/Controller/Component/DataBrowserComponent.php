@@ -1443,8 +1443,8 @@ class DataBrowserComponent extends Component
 
     public function beforeRender($controller)
     {
-
-		if( isset($this->settings['apps']) && $this->settings['apps'] ) {
+				
+		if( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['apps']) && $this->settings['apps'] ) {
 			
 			$apps = $controller->getDatasets();
 	        $aggs = array();
