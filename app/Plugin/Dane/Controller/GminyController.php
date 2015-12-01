@@ -1988,9 +1988,11 @@ class GminyController extends DataobjectsController
             if($this->Session->check(self::$voteSessionName) && $this->object->getId() == '903') {
                 $header_vote = $this->Session->read(self::$voteSessionName);
                 $header_vote_progress = 0;
+                $votes_cout = count($header_vote);
+                $progress = 100 / $votes_cout;
                 foreach($header_vote as $vote) {
                     if($vote['vote'] !== false)
-                        $header_vote_progress += 10;
+                        $header_vote_progress += $progress;
                 }
                 $this->set('header_vote_progress', $header_vote_progress);
                 $this->set('header_vote', $header_vote);
@@ -5091,6 +5093,47 @@ class GminyController extends DataobjectsController
             }
 
             if ($completed === true) {
+
+                /* Głosuj dalej */
+                if(isset($this->request->query['more'])) {
+                    $votes = $this->Session->read(self::$voteSessionName);
+
+                    $druki = $this->Dataobject->find('all', array(
+                        'conditions' => array(
+                            'dataset' => 'krakow_rada_uchwaly',
+                            'krakow_rada_uchwaly.druki' => 'true',
+                            'krakow_rada_uchwaly.id!=' => array_column($votes, 'id'),
+                        ),
+                        'limit' => 10
+                    ));
+
+                    $fields = array('id', 'tytul', 'opis', 'data');
+                    $_druki = array();
+                    foreach($druki as $druk) {
+                        $data = $druk->getData();
+                        $row = array(
+                            'vote' => false
+                        );
+                        foreach($fields as $f)
+                            $row[$f] = $data[$f];
+                        $row['tytul'] = 'Uchwała ' . $data['tytul_skrocony'];
+                        $_druki[] = $row;
+                    }
+
+                    foreach($votes as $vote) {
+                        $_druki[] = $vote;
+                    }
+
+                    $this->Session->write(self::$voteSessionName, $_druki);
+
+                    $this->redirect(
+                        (isset($this->domainMode) && $this->domainMode == 'MP' ?
+                            '/dane/gminy/903,krakow/rada_uchwaly/' . $_druki[0]['id']
+                            : '/rada_uchwaly/' . $_druki[0]['id']
+                        )
+                    );
+                }
+
                 $userVotes = array();
                 foreach($votes as $vote) {
                     $userVotes[] = array(
