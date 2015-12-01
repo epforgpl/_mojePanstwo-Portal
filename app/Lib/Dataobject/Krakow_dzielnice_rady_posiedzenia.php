@@ -5,24 +5,24 @@ require_once('DocDataObject.php');
 
 class Krakow_dzielnice_rady_posiedzenia extends DataObject
 {
-	
+
 	protected $tiny_label = 'Samorząd';
-		
+
 	protected $schema = array(
 		array('numer', 'Numer posiedzenia'),
 	);
-	
+
     protected $routes = array(
         'date' => 'data',
     );
-    
+
     /*
     protected $hl_fields = array(
     	'gminy.rada_nazwa', 'numer', 'liczba_debat',
     );
     */
-	
-	public function __construct($params = array())
+
+    public function __construct($params = array())
     {
 
         parent::__construct($params);
@@ -30,7 +30,7 @@ class Krakow_dzielnice_rady_posiedzenia extends DataObject
         $this->data['fullTitle'] = 'Sesja <strong>' . $this->getData('krakow_sesje.str_numer') . '</strong> - Posiedzenie <strong>#' . $this->getData('numer') . '</strong>';
 
     }
-	
+
     public function getLabel()
     {
         return 'Posiedzenie Rady Miasta Kraków';
@@ -41,48 +41,48 @@ class Krakow_dzielnice_rady_posiedzenia extends DataObject
     	if( $this->getData('yt_video_id') )
 	        return 'http://img.youtube.com/vi/' . $this->getData('yt_video_id') . '/mqdefault.jpg';
 	    else
-	        return '/dane/pk/posiedzenie.jpg';
+            return '/dane/img/customObject/krakow/posiedzenie.jpg';
     }
-    
+
     public function getUrl()
     {
 	    return '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnica_id') . '/rada_posiedzenia/' . $this->getId();
     }
-    
+
     public function getShortTitle() {
-	    
-	    return dataSlownie( $this->data['data'] );
-	    
+
+        return dataSlownie( $this->data['data'] );
+
     }
-    
+
     public function getTitle() {
-	    
-	    return $this->getData('dzielnice.nazwa') . ' | ' . dataSlownie($this->getDate()) . ' | Posiedzenie rady dzielnicy';
-	    
+
+        return $this->getData('dzielnice.nazwa') . ' | ' . dataSlownie($this->getDate()) . ' | Posiedzenie rady dzielnicy';
+
     }
-    
+
     public function getShortLabel() {
-	    
-	    return 'Posiedzenie rady dzielnicy';
-	    
+
+        return 'Posiedzenie rady dzielnicy';
+
     }
-    
+
     public function getMetaDescriptionParts($preset = false)
 	{
-				
-		$output = array(
+
+        $output = array(
 			$this->getData('dzielnice.nazwa'),
 		);
-		
-		
-		return $output;
-		
-	}
-	
-	public function getBreadcrumbs()
+
+
+        return $output;
+
+    }
+
+    public function getBreadcrumbs()
 	{
-				
-		return array(
+
+        return array(
 			array(
 				'id' => '/dane/gminy/903,krakow/dzielnice/' . $this->getData('dzielnice.id'),
 				'label' => $this->getData('dzielnice.nazwa'),
@@ -92,7 +92,7 @@ class Krakow_dzielnice_rady_posiedzenia extends DataObject
 				'label' => 'Posiedzenia Rady Dzielnicy',
 			),
 		);
-				
-	}
+
+    }
 
 }

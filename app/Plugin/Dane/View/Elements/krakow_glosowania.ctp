@@ -1,7 +1,7 @@
 <?
 
-$this->Combinator->add_libs('js', 'Dane.Krakow_glosowania_votings.js');
-$this->Combinator->add_libs('css', $this->Less->css('krakow_glosowania_votings', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.krakow-glosowania-votings.js');
+$this->Combinator->add_libs('css', $this->Less->css('krakow-glosowania-votings', array('plugin' => 'Dane')));
 
 $objectRenderOptions = array(
     'forceLabel' => (isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel'])) ? (boolean)$dataBrowserObjectRender['forceLabel'] : false,
@@ -18,7 +18,7 @@ $shortTitle = (isset($options['forceTitle'])) ?
 
 $object_content_sizes = array(2, 10);
 
-// debug( $object->getData() ); 
+// debug( $object->getData() );
 
 $this->Dataobject->setObject($object);
 ?>
