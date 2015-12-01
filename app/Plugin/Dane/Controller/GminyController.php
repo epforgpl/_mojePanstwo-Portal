@@ -3978,11 +3978,28 @@ class GminyController extends DataobjectsController
     {
         $this->_prepareView();
         $this->request->params['action'] = 'wpf';
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'krakow_wpf_programy',
-            )
-        ));
+        if (isset($this->request->params['subid'])) {
+            $program = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_wpf_programy',
+                    'id' => $this->request->params['subid'],
+                ),
+                'layers' => array(
+                    'przedsiewziecia'
+                )
+            ));
+
+            $this->set('program', $program);
+            $this->set('title_for_layout', $program->getShortTitle());
+            $this->render('Dane.Gminy/wpf_program');
+        } else {
+            $this->set('title_for_layout', 'Programy wieloletniej prognozy finansowej miasta Kraków');
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_wpf_programy',
+                )
+            ));
+        }
     }
 
     private $histogramIntervals = array(

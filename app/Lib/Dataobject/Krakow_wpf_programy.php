@@ -9,6 +9,11 @@ class Krakow_wpf_programy extends DataObject
         return 'Program';
     }
 
+    public function getUrl() {
+        return '/dane/gminy/903,krakow/wpf/' . $this->getId() . ',' . $this->getSlug();
+    }
+
+
     public function getShortTitle() {
         return $this->getData('nazwa');
     }
