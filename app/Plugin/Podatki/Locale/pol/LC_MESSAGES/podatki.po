@@ -11,25 +11,22 @@ msgid "LC_PODATKI_INFORMATION"
 msgstr "Obliczenie jest anonimowe. Twoje dane nie będą nigdzie przechowywane."
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE"
-msgstr "Przychody brutto z umowy o pracę"
+msgstr "Miesięczne przychody brutto z umowy o pracę"
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE"
-msgstr "Przychody brutto z umowy o zlecenie"
+msgstr "Miesięczne przychody brutto z umowy o zlecenie"
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_DZIELO"
-msgstr "Przychody brutto z umowy o dzieło"
-
-msgid "LC_PODATKI_INFO_FULL"
-msgstr "wpisz przychód brutto miesięcznie"
+msgstr "Miesięczne przychody brutto z umowy o dzieło"
 
 msgid "LC_PODATKI_WARUNKI_PREFERENCYJNE"
 msgstr "Warunki preferencyjne"
 
 msgid "LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA"
-msgstr "Przychody z działalności gospodarczej"
+msgstr "Miesięczne przychody z działalności gospodarczej"
 
 msgid "LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA_KOSZT"
-msgstr "Koszt uzyskania przychodu"
+msgstr "Miesięczny koszt uzyskania przychodu"
 
 msgid "LC_PODATKI_INFO"
 msgstr "wpisz kwotę brutto"

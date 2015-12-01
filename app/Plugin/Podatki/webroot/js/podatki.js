@@ -1,25 +1,17 @@
-/*global mPHeart, window, document, $, confirm*/
+/*global mPHeart, window, document, $, confirm, bdlClick*/
 
 $(document).ready(function () {
 	var $podatki = $('#podatki'),
 		$stripe = $('.stripe'),
-		$chartArea = $('.chart_area');
+		$chartArea = $('.chart_area'),
+		$bdl = $('.bdlClickEngine');
 
 	function btnAction() {
 		$podatki.find('input.currency:not(".blurEffect")').addClass('blurEffect').on('keydown', function (e) {
-			
-			/*
-				OSX:
-				shift 16
-				ctrl 17
-				alt 18
-				cmd 224
-			*/
-			
 			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 188, 190]) !== -1 ||
-				(e.keyCode === 65 && e.ctrlKey === true) ||
-				(e.keyCode === 67 && e.ctrlKey === true) ||
-				(e.keyCode === 88 && e.ctrlKey === true) ||
+				(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+				(e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+				(e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode >= 35 && e.keyCode <= 39)) {
 				return;
 			}
@@ -142,9 +134,7 @@ $(document).ready(function () {
 				plotOptions: {
 					pie: {
 						dataLabels: {
-							enabled: true,
-							format: '{point.percentage:.1f} %',
-							distance: -25
+							enabled: false
 						}
 					}
 				},
@@ -224,13 +214,9 @@ $(document).ready(function () {
 		}, 600);
 	}
 
-	if ($stripe.find('.btnSzczegoly').length) {
-		$stripe.find('.btnSzczegoly').click(function (e) {
-			var that = $(this).parent();
-			e.preventDefault();
-			console.log(that);
-		});
-	}
+	$bdl.find('.item .inner.clickable').click(function (e) {
+		bdlClick($(e.target).parents('.block')[0]);
+	});
 
 	btnAction();
 	resultPie();

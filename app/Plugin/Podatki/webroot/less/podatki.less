@@ -1,16 +1,16 @@
 @font-face {
-    font-family: 'bdl';
-    src: url('/bdl/fonts/bdl.eot?4t5flb');
-    src: url('/bdl/fonts/bdl.eot?4t5flb#iefix') format('embedded-opentype'),
-    url('/bdl/fonts/bdl.ttf?4t5flb') format('truetype'),
-    url('/bdl/fonts/bdl.woff?4t5flb') format('woff'),
-    url('/bdlfonts/bdl.svg?4t5flb#bdl') format('svg');
+    font-family: 'podatki';
+    src: url('/Podatki/fonts/podatki.eot?4t5flb');
+    src: url('/Podatki/fonts/podatki.eot?4t5flb#iefix') format('embedded-opentype'),
+    url('/Podatki/fonts/podatki.ttf?4t5flb') format('truetype'),
+    url('/Podatki/fonts/podatki.woff?4t5flb') format('woff'),
+    url('/Podatki/fonts/podatki.svg?4t5flb#bdl') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 [class^="icon-dzialy-"], [class*=" icon-dzialy-"] {
-    font-family: 'bdl';
+    font-family: 'podatki';
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -143,6 +143,14 @@
                     display: block;
                     outline: none;
 
+                    &.clickable {
+                        cursor: pointer;
+
+                        .title {
+                            background-color: #12669f;
+                        }
+                    }
+
                     .logo {
                         min-height: 135px;
 
@@ -168,7 +176,7 @@
                         }
 
                         .icon-dzialy-100:before {
-                            //Ubezpieczenia społeczne   https://www.iconfinder.com/icons/501429/grandfather_grandpa_old_man_old_person_icon#size=128
+                            content: "\e900";
                         }
                         .icon-dzialy-101:before {
                             content: "\e918";
@@ -183,28 +191,40 @@
                             content: "\e901";
                         }
                         .icon-dzialy-105::before {
-                            //Bezpieczeństwo i porządek publiczny   https://www.iconfinder.com/icons/757688/car_fire_fire_truck_fireman_vehicle_icon#size=128
+                            content: "\e903";
                         }
                         .icon-dzialy-106:before {
-                            //Pomoc społeczna   https://www.iconfinder.com/icons/241669/giving_hand_hands_home_house_real_estate_security_icon#size=128
+                            content: "\e904";
                         }
                         .icon-dzialy-107:before {
                             content: "\e911";
                         }
                         .icon-dzialy-108:before {
-                            //Administracja publiczna   https://www.iconfinder.com/icons/474981/bag_briefcase_business_portfolio_icon#size=128
+                            content: "\e905";
                         }
                         .icon-dzialy-109:before {
                             content: "\e902";
                         }
                         .icon-dzialy-110:before {
-                            //Składka do Unii Europejskiej (same gwiazdki)https://www.iconfinder.com/icons/753890/book_books_education_library_study_icon#size=128  https://www.iconfinder.com/icons/494552/business_eu_zone_euro_europe_european_union_star_circle_stars_icon#size=128
+                            content: "\e907";
                         }
                         .icon-dzialy-111:before {
-                            //Kultura i sport   https://www.iconfinder.com/icons/753890/book_books_education_library_study_icon#size=128
+                            content: "\e906";
                         }
                         .icon-dzialy-112:before {
-                            content: "…"
+                            content: "\e234";
+
+                            position: relative;
+                            top: 1px;
+                            left: -3px;
+                            display: inline-block;
+                            font-family: 'Glyphicons Halflings';
+                            font-style: normal;
+                            font-weight: normal;
+                            line-height: 1;
+
+                            -webkit-font-smoothing: antialiased;
+                            -moz-osx-font-smoothing: grayscale;
                         }
                     }
 
@@ -220,7 +240,7 @@
                     .title {
                         width: 100%;
                         height: 50px;
-                        background-color: #12669f;
+                        background-color: #789;
                         padding: 0;
                         color: #FFFFFF;
                         position: relative;
@@ -263,37 +283,9 @@
                             }
                         }
                     }
-                    .btnSzczegoly {
-                        @margin: 6px;
 
-                        margin-bottom: @margin;
-                        margin-top: -@margin;
-                    }
-
-                    .subItem {
-                        text-align: left;
-
-                        .table {
-                            ._label, ._value {
-                                line-height: 1.1em;
-                                padding-top: 10px;
-                                padding-bottom: 10px;
-                            }
-                            ._label {
-                                font-size: 0.9em;
-
-                            }
-                            ._value {
-                                font-weight: bold;
-                                white-space: nowrap;
-                                vertical-align: middle;
-                            }
-                        }
-                        .modal-footer {
-                            font-size: 1.2em;
-                            font-weight: bold;
-                            padding: 8px 0 0;
-                        }
+                    .text {
+                        display: none;
                     }
                 }
             }
@@ -311,6 +303,87 @@
 
         p {
             font-size: 85%;
+        }
+    }
+
+    .infoBlock {
+        display: block;
+        float: left;
+        position: relative;
+        text-align: left;
+
+        -webkit-transition: height 0.5s;
+        -moz-transition: height 0.5s;
+        -ms-transition: height 0.5s;
+        -o-transition: height 0.5s;
+        transition: height 0.5s;
+
+        &.active .arrow {
+            @size: 10px;
+            @borderSize: 1px;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+            border: @borderSize solid #999;
+
+            &:after, &:before {
+                bottom: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            &:after {
+                border: @size solid rgba(255, 255, 255, 0);
+                border-bottom: @size solid #ffffff;
+                margin-left: -@size;
+            }
+            &:before {
+                border: @size+@borderSize solid rgba(211, 211, 211, 0);
+                border-bottom: @size+@borderSize solid #999999;
+                margin-left: -(@size+@borderSize);
+            }
+        }
+
+        .content {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            background-color: #FFF;
+            color: #333;
+            border: 1px solid #BBB;
+            -webkit-border-radius: 7px;
+            -moz-border-radius: 7px;
+            -ms-border-radius: 7px;
+            -o-border-radius: 7px;
+            border-radius: 7px;
+
+            .container {
+                padding: 30px 10px;
+
+                .wskazniki {
+                    list-style: none;
+                    margin: 0 100px 50px 0;
+
+                    li {
+                        border-bottom: 1px solid #ddd;
+                        list-style: outside none none;
+                        margin: 0;
+                        padding: 7px;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+
+            }
         }
     }
 }
