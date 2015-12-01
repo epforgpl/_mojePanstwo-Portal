@@ -3976,13 +3976,13 @@ class GminyController extends DataobjectsController
 
     public function wpf()
     {
-        $this->addInitLayers(array(
-            'wpf'
-        ));
         $this->_prepareView();
         $this->request->params['action'] = 'wpf';
-        $this->set('title_for_layout', 'Wieloletnia prognoza finansowa Miasta Krakowa');
-
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'krakow_wpf_programy',
+            )
+        ));
     }
 
     private $histogramIntervals = array(
