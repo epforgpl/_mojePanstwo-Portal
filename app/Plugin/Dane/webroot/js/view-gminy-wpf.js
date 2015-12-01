@@ -37,9 +37,9 @@ $(document).ready(function() {
         if(years.length > 1)
             $(this).highcharts({
                 chart: {
-                    type: 'area',
+                    type: 'line',
                     backgroundColor: null,
-                    height: 200
+                    height: 120
                 },
                 title: {
                     text: ''
@@ -54,6 +54,10 @@ $(document).ready(function() {
                     },
                     labels: {
                         rotation: -45
+                    },
+                    gridLineColor: "#EEEEEE",
+                    labels: {
+	                    style: {"color":"#778899"}
                     }
                 },
                 yAxis: {
@@ -63,6 +67,10 @@ $(document).ready(function() {
                     },
                     labels: {
                         overflow: 'justify'
+                    },
+                    gridLineColor: "#EEEEEE",
+                    labels: {
+	                    style: {"color":"#778899"}
                     }
                 },
                 tooltip: {
@@ -83,7 +91,8 @@ $(document).ready(function() {
                 },
                 series: [{
                     name: 'Kwota w zł',
-                    data: years
+                    data: years,
+                    color: '#3CB371'
                 }]
             });
 

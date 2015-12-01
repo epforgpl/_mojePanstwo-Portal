@@ -13,6 +13,7 @@ $columns = isset($columns) ? $columns : array(9, 3);
             'pills' => isset($pills) ? $pills : null,
 	    	'truncate' => isset($truncate) ? $truncate : null,
 	    	'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : null,
+	    	'afterMenuElement' => isset($afterMenuElement) ? $afterMenuElement : false,
 	    )); ?>
 
     </div>

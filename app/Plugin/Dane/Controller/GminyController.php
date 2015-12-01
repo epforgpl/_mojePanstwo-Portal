@@ -162,6 +162,18 @@ class GminyController extends DataobjectsController
                 */
             ),
         ),
+        'wpf' => array(
+	        'items' => array(
+		        array(
+			        'id' => '',
+			        'label' => 'Wieloletni Plan Inwestycyjny',
+		        ),
+		        array(
+			        'id' => 'wpf-finanse',
+			        'label' => 'Wieloletni Plan Finansowy',
+		        ),
+	        ),
+        ),
     );
 
     public $loadChannels = true;
@@ -3993,12 +4005,19 @@ class GminyController extends DataobjectsController
             $this->set('title_for_layout', $program->getShortTitle());
             $this->render('Dane.Gminy/wpf_program');
         } else {
+            
             $this->set('title_for_layout', 'Programy wieloletniej prognozy finansowej miasta Kraków');
+            $this->set('_submenu', array_merge($this->submenus['wpf'], array(
+	            'selected' => '',
+	        )));
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
                     'dataset' => 'krakow_wpf_programy',
-                )
+                ),
+                'browserTitle' => 'Wieloletni Program Inwestycyjny dla Krakowa',
             ));
+            
+            
         }
     }
 
@@ -5282,6 +5301,15 @@ class GminyController extends DataobjectsController
             'id' => 'finanse',
             'label' => 'Finanse',
         );
+        
+        if ($object->getId() == '903') {
+	    	
+	    	$menu['items'][] = array(
+	            'id' => 'wpf',
+	            'label' => 'WPF',
+	        );
+	    	   
+        }
 
         return $menu;
 

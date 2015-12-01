@@ -22,9 +22,8 @@ $this->Combinator->add_libs('js', 'Dane.view-gminy');
 }
 
 echo $this->Element('dataobject/pageBegin');
-?>
 
-<?
+
 if (!isset($_submenu['base']))
     $_submenu['base'] = $object->getUrl();
 
