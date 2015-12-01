@@ -7,6 +7,15 @@ $(document).ready(function () {
 
 	function btnAction() {
 		$podatki.find('input.currency:not(".blurEffect")').addClass('blurEffect').on('keydown', function (e) {
+			
+			/*
+				OSX:
+				shift 16
+				ctrl 17
+				alt 18
+				cmd 224
+			*/
+			
 			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 188, 190]) !== -1 ||
 				(e.keyCode === 65 && e.ctrlKey === true) ||
 				(e.keyCode === 67 && e.ctrlKey === true) ||
