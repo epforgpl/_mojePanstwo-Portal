@@ -5,6 +5,10 @@ Router::connect('/start', array('plugin' => 'Start', 'controller' => 'Start', 'a
 /* KONTO ROUTES */
 Router::connect('/konto', array('plugin' => 'Start', 'controller' => 'Account', 'action' => 'index'));
 
+Router::connect('/klucze-api', array('plugin' => 'Start', 'controller' => 'ApiApps', 'action' => 'index'));
+Router::connect('/klucze-api/:action', array('plugin' => 'Start', 'controller' => 'ApiApps'));
+Router::connect('/klucze-api/:action/*', array('plugin' => 'Start', 'controller' => 'ApiApps'));
+
 Router::connect('/moje-strony', array('plugin' => 'Start', 'controller' => 'Pages', 'action' => 'index'));
 
 

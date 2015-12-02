@@ -1,12 +1,11 @@
 <?php
-App::uses('PaszportAppModel', 'Paszport.Model');
 
 /**
  * ApiApp Model
  *
  */
 class ApiApp extends AppModel {
-    public $name = 'Paszport.ApiApp';
+    public $name = 'Start.ApiApp';
     public $useTable = 'api_apps';
 
 

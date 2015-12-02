@@ -1,11 +1,13 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('api_apps', array('plugin' => 'Paszport'))) ?>
-<? $this->Combinator->add_libs('js', 'Paszport.paszport-profile.js'); ?>
 <? $this->Combinator->add_libs('js', 'Paszport.api_apps.js'); ?>
 
-<div class="editProfile container">
-    <div class="mainBlock col-xs-12 col-md-6">
-        <h3>Dodaj aplikację</h3>
+<?= $this->element('Start.pageBegin'); ?>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <h1>Dodaj aplikację</h1>
 
         <div class="apiApps add">
             <fieldset>
@@ -49,13 +51,12 @@
             <span class="info-normal col-xs-12 row">Dodając aplikację zgadasz się na wykorzystanie podanych informacji w działaniach promocyjnych serwisu Moje Państwo.</span>
 
             <div class="optionsBtn col-xs-12">
-                <?php echo $this->Form->button('Submit', array('class' => 'btn btn-primary pull-right submitBtn')); ?>
-                <?php echo $this->Form->button('Cancel', array(
-                    'class' => 'btn btn-default pull-right cancelBtn',
-                    'type' => 'button',
-                    'onclick' => 'location.href=\'/users\'')); ?>
+                <?php echo $this->Html->link('Anuluj', array('action' => 'index'), array('class' => 'btn btn-default pull-left listBtn')); ?>
+                <?php echo $this->Form->button('Dodaj', array('class' => 'btn btn-primary pull-right submitBtn')); ?>
             </div>
             <?php echo $this->Form->end(); ?>
         </div>
     </div>
 </div>
+
+<?= $this->element('Start.pageEnd'); ?>

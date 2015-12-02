@@ -1,10 +1,12 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('api_apps', array('plugin' => 'Paszport'))) ?>
-<? $this->Combinator->add_libs('js', 'Paszport.paszport-profile.js'); ?>
+<?= $this->element('Start.pageBegin'); ?>
 
-<div class="editProfile container">
-    <div class="mainBlock col-md-9">
-        <h3>Twoje aplikacje korzystające z API</h3>
+<div class="row">
+    <div class="col-md-12">
+
+        <h1>Twoje aplikacje korzystające z API</h1>
+
         <?php echo $this->Html->link('Nowa aplikacja', array('action' => 'add'), array('class' => 'addAppBtn btn btn-primary btn-sm pull-right')); ?>
         <div class="apiApps">
             <?php foreach ($apiApps as $apiApp): ?>
@@ -22,6 +24,7 @@
                         <div class="description"><?php echo h($apiApp['ApiApp']['description']); ?></div>
 
                         <div class="apiGeneratedKey">
+                            Klucz API:
                             <span class="apiKeyValue" data-key="<?php echo h($apiApp['ApiApp']['api_key']); ?>">***</span>
                             <a class="btn btn-link btn-sm" onclick="javascript: var th=$(this).siblings('.apiKeyValue'); th.text(th.data('key')); setTimeout(function(){th.text('***');}, 4000);">Pokaż</a>
                             <?php echo $this->Form->postLink('Zresetuj', array('action' => 'reset_api_key', $apiApp['ApiApp']['id']), array('class' => 'btn btn-link btn-sm'), 'Czy na pewno chcesz zresetować klucz API? Konieczne będzie jego podmienienie we wszystkich klientach, które z niego korzystają.'); ?>
@@ -30,7 +33,7 @@
                     <div class="col-xs-3 apiActionBtn optionsBtn">
                         <div class="pull-left">
                             <?php echo $this->Html->link('Edytuj', array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-primary editBtn')); ?>
-                            <?php echo $this->Form->postLink('Skasuj', array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger deleteBtn'), __('Are you sure you want to delete # %s?', $apiApp['ApiApp']['id'])); ?>
+                            <?php echo $this->Form->postLink('Skasuj', array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger deleteBtn'), __('Czy na pewno chcesz skasować aplikację "%s"?', $apiApp['ApiApp']['name'])); ?>
                         </div>
                         <? if (isset($apiApp['User'])) {
                             // ustawione jeżeli ogląda to admin
@@ -61,5 +64,8 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
+<?= $this->element('Start.pageEnd'); ?>
