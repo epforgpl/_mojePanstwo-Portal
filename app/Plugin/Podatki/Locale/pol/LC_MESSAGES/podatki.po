@@ -47,7 +47,7 @@ msgid "LC_PODATKI_RESULTS_PIE_ZUS"
 msgstr "Ubezpieczenie społeczne (ZUS)"
 
 msgid "LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA"
-msgstr "Ubezpieczenie społeczne (ZUS) płacone przez pracodawce"
+msgstr "Ubezpieczenie społeczne (ZUS) płacone przez pracodawcę"
 
 msgid "LC_PODATKI_RESULTS_PIE_ZDROW"
 msgstr "Składka zdrowotna"
