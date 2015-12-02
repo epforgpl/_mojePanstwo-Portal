@@ -11,11 +11,11 @@ echo $this->Element('dataobject/pageBegin');
 
 if (!isset($_submenu['base']))
     $_submenu['base'] = $object->getUrl();
-    
+
 echo $this->Element('Dane.DataBrowser/browser', array(
     'menu' => $_submenu,
     'class' => 'margin-top--5',
-    // 'afterMenuElement' => 'Dane.krakow/wpf/mapy',
+    'afterMenuElement' => 'Dane.krakow/wpf/mapy',
 ));
 
 echo $this->Element('dataobject/pageEnd');

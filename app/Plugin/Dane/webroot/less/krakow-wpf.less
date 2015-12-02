@@ -1,14 +1,21 @@
 #wpfBigImageModal {
     .modal-body {
-        height: 80vh;
+        text-align: center;
 
         .wpf-zoom {
-            width: 100%;
+            min-width: 300px;
+            width: 60%;
             display: block;
+            margin: 0 auto 400px;
 
             > img {
                 width: 100%;
             }
         }
     }
+}
+
+.wpf-zoom-mask {
+    z-index: 1050;
+    margin-top: 400px;
 }

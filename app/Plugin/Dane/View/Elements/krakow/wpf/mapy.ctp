@@ -1,7 +1,8 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('krakow-wpf', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('js', 'Dane.krakow-jquery-big-image');
+//$this->Combinator->add_libs('js', 'Dane.krakow-jquery-big-image');
+echo $this->Html->script('Dane.krakow-jquery-big-image', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', 'Dane.krakow-wpf');
 ?>
 <div class="col-xs-12">
@@ -22,8 +23,6 @@ $this->Combinator->add_libs('js', 'Dane.krakow-wpf');
                     <a class="wpf-zoom" href="/dane/img/customObject/krakow/wpf/126000_0.jpg">
                         <img src="/dane/img/customObject/krakow/wpf/126000_0_small.jpg" alt="Mapa #1"/>
                     </a>
-
-                    <div class="wpf-zoom-mask"></div>
                 </div>
             </div>
         </div>

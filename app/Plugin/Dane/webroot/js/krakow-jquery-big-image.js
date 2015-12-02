@@ -3,7 +3,7 @@
 (function ($) {
 	var COMMANDS = {
 		'init': function (argumentsArray) {
-			return typeof argumentsArray[0] === 'undefined' || $.isPlainObject(argumentsArray[0]);
+			return argumentsArray[0] === 'init' && $.isPlainObject(argumentsArray[1]);
 		},
 		'changeImage': function (argumentsArray) {
 			return argumentsArray[0] === 'changeImage' && $.isPlainObject(argumentsArray[1]);
@@ -358,8 +358,7 @@
 				setupAnchor($anchor, settings);
 			}
 
-			var id = $anchor.data('bigImageId'),
-				$smallImg = getSmallImage($anchor),
+			var $smallImg = getSmallImage($anchor),
 				$largeImg = getLargeImage($anchor);
 
 			$largeImg.attr('src', largeImageUrl);
@@ -435,8 +434,8 @@
 				throwBigImageError('plugin not initialized');
 			}
 
-			var $lens = getLens($anchor);
-			id = $anchor.data('bigImageId');
+			var $lens = getLens($anchor),
+				id = $anchor.data('bigImageId');
 
 			$lens.remove();
 			getZoomMask($anchor).remove();
@@ -460,9 +459,9 @@
 	var isWindowLoaded = false;
 
 	$.fn.bigImage = function () {
-		$(window).load(function () {
+		//$(window).load(function () {
 			isWindowLoaded = true;
-		});
+		//});
 
 		var argumentsArray = $.makeArray(arguments),
 			command = null,
@@ -485,17 +484,16 @@
 		}
 
 		var links = this;
-		isWindowLoaded ? runCommand(links) : $(window).load(function () {
+		if (isWindowLoaded) {
 			runCommand(links);
-		});
+		} else {
+			$(window).load(function () {
+				runCommand(links);
+			});
+		}
 		return links;
 	};
 
-
-	/*
-	 * Public Event Binding
-	 *
-	 */
 
 	$(document).bind('destroy.bigImage', function () {
 		$.each($.bigImage.anchors, function (i, el) {
