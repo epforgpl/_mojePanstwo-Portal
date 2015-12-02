@@ -278,6 +278,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                         <? } ?>
                     <? } ?>
                 </div>
+                <div class="col-xs-12 footer text-center">
+                    <p>* - <?= __d('podatki', 'LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX'); ?></p>
+                </div>
             </div>
 
             <? if (isset($wydatki)) { ?>
@@ -335,8 +338,6 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
     <div class="footer text-center">
         <div class="container">
             <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?></p>
-
-            <p>* - <?= __d('podatki', 'LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX'); ?></p>
         </div>
     </div>
 </form>
