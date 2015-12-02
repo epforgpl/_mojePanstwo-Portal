@@ -72,7 +72,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                 </div>
             <? }
         } ?>
-        
+
         <? $widget = true; ?>
 
         <div class="container">
@@ -485,7 +485,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <? } ?>
                         </ul>
                     </div>
-                    <? if (isset($widget)) { ?>
+                    <? if (isset($widget) && false) { ?>
                         <ul class="legend">
                             <li><strong>Legenda</strong></li>
                             <li><img src="/mapa/img/marker-blur@2x.png" alt=""/>Punkty adresowe</li>
