@@ -218,6 +218,17 @@ $(document).ready(function () {
 		bdlClick($(e.target).parents('.block')[0]);
 	});
 
+	$podatki.find('button[type="submit"]').click(function () {
+		var state = $podatki.serializeArray().filter(function (e) {
+			var val = parseFloat(e.value.replace(',', '.'));
+			if (val > 0) {
+				return val;
+			}
+		}).length;
+
+		return (state > 0);
+	});
+
 	btnAction();
 	resultPie();
 });
