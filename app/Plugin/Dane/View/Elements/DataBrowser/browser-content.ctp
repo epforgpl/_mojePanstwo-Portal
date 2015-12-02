@@ -82,7 +82,7 @@ if ($dataBrowser['mode'] == 'cover') {
 	
 	            } ?>
 	            
-	            <? if( isset($afterMenuElement) ) echo $this->element($afterMenuElement); ?>
+	            <? if( isset($afterMenuElement) && $afterMenuElement ) echo $this->element($afterMenuElement); ?>
 		
 		    </div>
 		</div>
