@@ -1,13 +1,22 @@
-/*global $, document*/
+/*global $, document, window*/
 
 $(document).ready(function () {
-	$('#wpfBigImageModal').on('show.bs.modal', function () {
-		$('#wpfBigImageModal .wpf-zoom').bigImage({
+	var $wpfModal = $('#wpfBigImageModal'),
+		el = $wpfModal.find('.wpf-zoom');
+
+	$wpfModal.on('shown.bs.modal', function () {
+		var modalW = $wpfModal.find('.modal-body').width(),
+			w = el.width();
+
+		el.bigImage('init', {
 			zoom: {
-				width: 600,
-				height: 400,
+				width: modalW,
+				height: el.height() * (modalW / w),
 				maskElement: function () {
-					return $('<div/>', {'class': 'wpf-zoom-mask'});
+					return $('<div/>', {
+						'class': 'wpf-zoom-mask',
+						'style': 'margin-left: -' + (w + ((modalW - w) / 2)) + 'px; margin-top: ' + el.height() + 'px;'
+					});
 				}
 			}
 		});
