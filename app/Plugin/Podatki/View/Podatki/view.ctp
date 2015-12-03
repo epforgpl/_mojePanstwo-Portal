@@ -337,6 +337,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                         </div>
                     <? } ?>
                 </div>
+                <div class="pie_chart" data-suma="<?= $wydatki['suma'] ?>" data-podatek="<?= $kwota_podatku ?>"
+                     data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
             <? } ?>
         </div>
     </div>
@@ -350,6 +352,25 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
     <div class="footer text-center">
         <div class="container">
             <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?></p>
+        </div>
+        <div class="customObject krakow903 col-xs-12" id="fundatorzy">
+            <div class="part">
+                <div class="logotypy">
+                    <a title="EEA Grants" href="http://www.eeagrants.org/" target="_blank">
+                        <img src="/img/partnerzy/eea_grants.png" class="image">
+                    </a>
+                    <a title="Fundacja im. Stefana Batorego" href="http://www.batory.org.pl/" target="_blank">
+                        <img src="/img/partnerzy/fundacja_batorego.png" class="image">
+                    </a>
+                    <a title="Polska Fundacja Dzieci i Młodzieży" href="http://www.pcyf.org.pl/" target="_blank">
+                        <img src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png" class="image">
+                    </a>
+                    <a title="Fundacja Naukowa Instytut Badań Strukturalnych" href="http://www.ibs.org.pl/"
+                       target="_blank">
+                        <img src="/Dane/img/customObject/krakow/wpf/logotyp_ibs.jpg" class="image">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </form>

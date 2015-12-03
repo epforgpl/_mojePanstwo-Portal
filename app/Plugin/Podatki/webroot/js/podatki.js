@@ -3,7 +3,7 @@
 $(document).ready(function () {
 	var $podatki = $('#podatki'),
 		$stripe = $('.stripe'),
-		$chartArea = $('.chart_area'),
+		$chartArea = $('.pie_chart'),
 		$bdl = $('.bdlClickEngine');
 
 	function btnAction() {
@@ -65,58 +65,41 @@ $(document).ready(function () {
 	}
 
 	function resultPie() {
-		var res = $chartArea.attr('data-result');
+		var res = $chartArea.attr('data-series');
 
 		if (typeof res !== "undefined" && res !== false) {
-			var data = [],
-				colors = [];
-
 			res = $.parseJSON(res);
 
-			if (res.zus > 0) {
+			var suma = $chartArea.attr('data-suma'),
+				podatek = $chartArea.attr('data-podatek'),
+				categories = [],
+				data = [],
+				i, bLen,
+				seriesData,
+				series = [],
+				j, vLen;
+
+			for (i = 0, bLen = res.length; i < bLen; i++) {
+				categories.push(res[i].nazwa);
 				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
-					y: Number(res.zus)
+					name: res[i].nazwa,
+					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(2)),
+					drilldown: (typeof res[i].subdzialy !== "undefined") ? res[i].nazwa : null
 				});
-				colors.push(res.zus_color);
-			}
-			if (res.zus_pracodawca > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA,
-					y: Number(res.zus_pracodawca)
-				});
-				colors.push(res.zus_pracodawca_color);
-			}
-			if (res.zdrow > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZDROW,
-					y: Number(res.zdrow)
-				});
-				colors.push(res.zdrow_color);
-			}
-			if (res.pit > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
-					y: Number(res.pit)
-				});
-				colors.push(res.pit_color);
-			}
-			if (res.vat > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
-					y: Number(res.vat)
-				});
-				colors.push(res.vat_color);
-			}
-			if (res.akcyza > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
-					y: Number(res.akcyza)
-				});
-				colors.push(res.akcyza_color);
+				if (typeof res[i].subdzialy !== "undefined") {
+					seriesData = [];
+					for (j = 0, vLen = res[i].subdzialy.length; j < vLen; j++) {
+						seriesData.push([res[i].subdzialy[j].nazwa, parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(2))]);
+					}
+					series.push({
+						name: res[i].nazwa,
+						id: res[i].nazwa,
+						data: seriesData
+					});
+				}
 			}
 
-			$chartArea.find('.pie').highcharts({
+			$chartArea.highcharts({
 				credits: false,
 				chart: {
 					plotBackgroundColor: null,
@@ -128,22 +111,27 @@ $(document).ready(function () {
 				title: {
 					text: ' '
 				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.y}</b>'
-				},
 				plotOptions: {
-					pie: {
+					series: {
 						dataLabels: {
-							enabled: false
+							enabled: true,
+							format: '{point.name}: {point.y} zł'
 						}
 					}
 				},
-				colors: colors,
+
+				tooltip: {
+					headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+					pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> zł<br/>'
+				},
 				series: [{
-					name: "Kwota",
+					name: 'Dział',
 					colorByPoint: true,
 					data: data
-				}]
+				}],
+				drilldown: {
+					series: series
+				}
 			});
 		}
 	}
