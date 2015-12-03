@@ -1610,13 +1610,13 @@ class GminyController extends DataobjectsController
                 'sortPreset' => 'rady_gmin_interpelacje',
                 'phrasesPreset' => 'rady_gmin_interpelacje',
                 'searchTitle' => 'Szukaj w interpelacjach...',
+                'browserTitle' => 'Interpelacje Radnych Miasta Krakowa',
             ));
 
-            $this->set('DataBrowserTitle', 'Interpelacje radnych miasta');
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'interpelacje',
             )));
-            $this->set('title_for_layout', 'Interpelacje radnych Miasta ' . $this->object->getData('nazwa'));
+            $this->set('title_for_layout', 'Interpelacje Radnych Miasta ' . $this->object->getData('nazwa'));
 
         }
 
@@ -1634,12 +1634,12 @@ class GminyController extends DataobjectsController
             ),
             'aggsPreset' => 'krakow_darczyncy',
             'beforeBrowserElements' => 'gminy/darczyncy_msg',
+            'browserTitle' => 'Darczyńcy komitetów wyborczych w Krakowie',
         ));
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'darczyncy',
         )));
-        $this->set('DataBrowserTitle', 'Darczyńcy komitetów wyborczych w Krakowie');
         $this->set('title_for_layout', 'Darczyńcy komitetów wyborczych w Krakowie');
 
 
@@ -2039,10 +2039,10 @@ class GminyController extends DataobjectsController
                 'sortPreset' => 'krakow_rada_uchwaly',
                 'phrasesPreset' => 'krakow_rada_uchwaly',
                 'searchTitle' => 'Szukaj w uchwałach Rady Miasta Kraków...',
+                'browserTitle' => 'Uchwały podjęte przez Radę Miasta ' . $this->object->getData('nazwa'),
             ));
 
-            $this->set('DataBrowserTitle', 'Uchwały');
-            $this->set('title_for_layout', 'Uchwały podjęte przez radę gminy ' . $this->object->getData('nazwa'));
+            $this->set('title_for_layout', 'Uchwały podjęte przez Radę Miasta ' . $this->object->getData('nazwa'));
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'rada_uchwaly',
             )));
@@ -2230,9 +2230,9 @@ class GminyController extends DataobjectsController
                 'sortPreset' => 'rady_durki',
                 'phrasesPreset' => 'rady_druki',
                 'searchTitle' => 'Szukaj w projektach legislacyjnych...',
+                'browserTitle' => 'Projekty legislacyjne rozpatrywane przez Radę Miasta Kraków',
             ));
 
-            $this->set('DataBrowserTitle', 'Projekty legislacyjne');
             $this->set('title_for_layout', 'Proces legislacyjny Rady Miasta Krakowa');
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'druki',
@@ -2598,7 +2598,7 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_komisje_posiedzenia',
                 'sortPreset' => 'krakow_komisje_posiedzenia',
                 'renderFile' => 'gminy/krakow_komisje_posiedzenia',
-
+				'browserTitle' => 'Posiedzenia komisji Rady Miasta ' . $this->object->getData('nazwa'),
             ));
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
@@ -2619,7 +2619,7 @@ class GminyController extends DataobjectsController
         $this->_prepareView();
         $this->request->params['action'] = 'rada';
 
-        $this->set('title_for_layout', 'Powiązania radnych gminy  ' . $this->object->getData('nazwa') . ' z organizacjami w Krajowym Rejestrze Sądowym');
+        $this->set('title_for_layout', 'Powiązania Radnych Miasta  ' . $this->object->getData('nazwa') . ' z organizacjami w Krajowym Rejestrze Sądowym');
 
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'radni_powiazania',
@@ -3341,7 +3341,8 @@ class GminyController extends DataobjectsController
                 'conditions' => array(
                     'dataset' => 'krakow_komisje',
                 ),
-                'aggsPreset' => 'krakow_komisje'
+                'aggsPreset' => 'krakow_komisje',
+                'browserTitle' => 'Komisje Rady Miasta Krakowa',
             ));
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(

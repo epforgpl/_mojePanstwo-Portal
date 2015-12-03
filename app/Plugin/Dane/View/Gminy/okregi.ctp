@@ -21,12 +21,10 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 )); ?>
 
-    <h1 class="subheader">Rada Miasta Kraków</h1>
-
-    <div class="dataBrowser">
+    <div class="dataBrowser margin-top--5">
         <div class="row">
             <div class="dataBrowserContent">
-                <div class="col-md-3 col-xs-12 dataAggsContainer">
+                <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
 
                     <? if (isset($_submenu) && isset($_submenu['items'])) {
 
@@ -40,10 +38,12 @@ echo $this->Element('dataobject/pageBegin', array(
                     } ?>
 
                 </div>
-                <div class="col-xs-12 col-md-9">
-
+                <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+					
+					<h1 class="smaller margin-top-15">Okręgi wyborcze w Krakowie</h1>
+					
                     <? if (isset($okregi)) { ?>
-
+						
                         <div id="kto_tu_rzadzi" class="object"></div>
                         <div data-name="okregi" data-content='<?= json_encode($okregi) ?>'></div>
 

@@ -64,7 +64,7 @@ if ($dataBrowser['mode'] == 'cover') {
         $dataWrap = true;
         ?>
 
-		<div class="col-xs-12 col-sm-4 col-md-1-5 nopadding dataAggsContainer">
+		<div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
 		    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 		
 			    <? if (isset($sideElement)) echo $this->Element($sideElement) ?>

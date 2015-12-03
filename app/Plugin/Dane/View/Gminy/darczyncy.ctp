@@ -5,14 +5,12 @@ if ($object->getId() == '903') {
 }
 
 echo $this->Element('dataobject/pageBegin');
-?>
 
-    <h1 class="subheader">Rada Miasta Kraków</h1>
-<?
 if (!isset($_submenu['base']))
     $_submenu['base'] = $object->getUrl();
 
 echo $this->Element('Dane.DataBrowser/browser', array(
     'menu' => $_submenu,
+    'class' => 'margin-top--5',
 ));
 echo $this->Element('dataobject/pageEnd');
