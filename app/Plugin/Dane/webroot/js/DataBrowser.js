@@ -562,12 +562,11 @@ var DataBrowser = Class.extend({
 	},
 
 	initAggColumnsHorizontal: function (li) {
-
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
 		var choose_request = li.attr('data-choose-request');
+		var labelWidth = 150;
 
-		var labelWidth = 100;
 		if (li.attr('data-label-width')) {
 			labelWidth = parseInt(li.attr('data-label-width'));
 		}
