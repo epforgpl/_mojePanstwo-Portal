@@ -2079,6 +2079,7 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_zarzadzenia',
                 'sortPreset' => 'krakow_zarzadzenia',
                 'searchTitle' => 'Szukaj w zarządzeniach Prezydenta Krakowa...',
+                'browserTitle' => 'Zarządzenia Prezydenta Krakowa',
             ));
 
             $this->set('title_for_layout', 'Zarządzenia Prezydenta Krakowa');
@@ -2116,6 +2117,7 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_pomoc_publiczna',
                 'searchTitle' => 'Szukaj w pomocy publicznej...',
                 'order' => 'krakow_pomoc_publiczna.rok desc',
+                'browserTitle' => 'Pomoc publiczna w Krakowie',
             ));
 
             $this->set('title_for_layout', 'Pomoc publiczna w Krakowie');
@@ -2153,6 +2155,7 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_zamowienia_publiczne',
                 'searchTitle' => 'Szukaj w zamówieniach publicznych...',
                 'order' => 'krakow_zamowienia_publiczne.rok desc',
+                'browserTitle' => 'Zamówienia publiczne Urzędu Miasta w Krakowie',
             ));
 
             $this->set('title_for_layout', 'Zamówienia publiczne Urzędu Miasta w Krakowie');
@@ -3428,7 +3431,7 @@ class GminyController extends DataobjectsController
 
         $this->Components->load('Dane.DataBrowser', $options);
 
-        $this->set('title_for_layout', 'Umowy zawierane przez Urząd Gminy Kraków');
+        $this->set('title_for_layout', 'Umowy zawierane przez Urząd Miasta Kraków');
         $this->set('_submenu', array_merge($this->submenus['urzad'], array(
             'selected' => 'umowy',
         )));
@@ -3594,6 +3597,7 @@ class GminyController extends DataobjectsController
                 'krs_podmioty.gmina_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'krs_podmioty',
+            'browserTitle' => 'Organizacje w gminie ' . $this->object->getData('nazwa'),
         ));
 
         $this->set('title_for_layout', 'Organizacje w gminie ' . $this->object->getData('nazwa'));
@@ -3614,6 +3618,7 @@ class GminyController extends DataobjectsController
                 'krs_osoby.gmina_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'krs_osoby',
+			'browserTitle' => 'Osoby występujące w Krajowym Rejestrze Sądowym w gminie ' . $this->object->getData('nazwa')
         ));
 
         $this->set('title_for_layout', 'Osoby w gminie ' . $this->object->getData('nazwa'));
@@ -3635,6 +3640,7 @@ class GminyController extends DataobjectsController
                 'krs_podmioty.forma_prawna_typ_id' => '1',
             ),
             'aggsPreset' => 'krs_podmioty',
+            'browserTitle' => 'Organizacje biznesowe w gminie ' . $this->object->getData('nazwa'),
         ));
 
         $this->set('title_for_layout', 'Organizacje biznesowe w gminie ' . $this->object->getData('nazwa'));
@@ -3698,6 +3704,7 @@ class GminyController extends DataobjectsController
                     'krs_podmioty.forma_prawna_typ_id' => '2',
                 ),
                 'aggsPreset' => 'krs_podmioty',
+                'browserTitle' => 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'),
             ));
 
             $this->set('title_for_layout', 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'));
@@ -3719,6 +3726,7 @@ class GminyController extends DataobjectsController
                 'krs_podmioty.forma_prawna_typ_id' => '3',
             ),
             'aggsPreset' => 'krs_podmioty',
+            'browserTitle' => 'Samodzielne Publiczne Zakłady Opieki Zdrowotnej w gminie ' . $this->object->getData('nazwa'),
         ));
 
         $this->set('title_for_layout', 'Samodzielne Publiczne Zakłady Opieki Zdrowotnej w gminie ' . $this->object->getData('nazwa'));
@@ -3853,6 +3861,7 @@ class GminyController extends DataobjectsController
                     'krakow_urzednicy.jednostka_id!=' => '17',
                 ),
                 'aggsPreset' => 'krakow_urzednicy',
+                'browserTitle' => 'Urzędnicy Urzędu Miasta',
             ));
 
             $this->set('title_for_layout', 'Urzędnicy Urzędu Miasta');
@@ -3898,9 +3907,10 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_jednostki',
                 ),
                 'aggsPreset' => 'krakow_jednostki',
+                'browserTitle' => 'Jednostki administracyjne Urzędu Miasta',
             ));
 
-            $this->set('title_for_layout', 'Jednostki administracyjne urzędu miasta ' . $this->object->getData('nazwa'));
+            $this->set('title_for_layout', 'Jednostki administracyjne Urzędu Miasta ' . $this->object->getData('nazwa'));
             $this->set('_submenu', array_merge($this->submenus['urzad'], array(
                 'selected' => 'jednostki',
             )));

@@ -20,7 +20,8 @@ $powiazania = $object->getLayer('radni_powiazania');
     <div class="row">
         <div class="dataBrowserContent">
             <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
-
+				<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+					
                 <? if (isset($_submenu) && isset($_submenu['items'])) {
 
                     if (!isset($_submenu['base']))
@@ -31,7 +32,8 @@ $powiazania = $object->getLayer('radni_powiazania');
                     ));
 
                 } ?>
-
+                
+				</div>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
 	            
