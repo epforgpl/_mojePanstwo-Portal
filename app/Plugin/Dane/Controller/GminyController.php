@@ -1812,13 +1812,14 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_posiedzenia',
                 'sortPreset' => 'krakow_posiedzenia',
                 'phrasesPreset' => 'krakow_posiedzenia',
+                'browserTitle' => 'Posiedzenia Rady Miasta Kraków',
             ));
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'posiedzenia',
             )));
 
-            $this->set('title_for_layout', 'Posiedzenia rady miasta ' . $this->object->getData('nazwa'));
+            $this->set('title_for_layout', 'Posiedzenia Rady Miasta ' . $this->object->getData('nazwa'));
 
         }
 
