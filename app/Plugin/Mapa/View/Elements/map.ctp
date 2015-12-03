@@ -73,14 +73,12 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
             <? }
         } ?>
 
-        <? $widget = true; ?>
-
         <div class="container">
             <div id="mapBrowser"
                  class="row dataBrowserContent"
                  <? if (@$mapParams['viewport']) { ?>data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"<? } ?>
-                 <? if (@$mapParams['data']) { ?>data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"<? } ?>
-                 <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca.object_id'] ?>"<? } ?>
+                 <? if (@$mapParams['data']) { ?>data-typ_id="<?= $mapParams['data']['miejsca']['typ_id'] ?>"<? } ?>
+                 <? if (@$mapParams['data']) { ?>data-object_id="<?= $mapParams['data']['miejsca']['object_id'] ?>"<? } ?>
                  <? if (@$mapParams['data']) { ?>data-data="<?= htmlspecialchars(json_encode($mapParams['data'])) ?>"<? } ?>>
 
                 <? if (isset($dataBrowser) && isset($this->request->query['q'])) { ?>
@@ -114,23 +112,23 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                     <div class="details" itemscope itemtype="http://schema.org/Place">
                         <div class="title">
                             <? if (@$mapParams['mode'] == 'place') { ?>
-                                <? if (($mapParams['data']['typ_id'] == '4') && isset($mapParams['data']['miejsca.miejscowosc_typ'])) { ?>
-                                    <p class="_label"><?= $mapParams['data']['miejsca.miejscowosc_typ'] ?></p>
-                                <? } elseif (($mapParams['data']['typ_id'] == '3') && isset($mapParams['data']['miejsca.gmina_typ_id'])) { ?>
+                                <? if (($mapParams['data']['typ_id'] == '4') && isset($mapParams['data']['miejsca']['miejscowosc_typ'])) { ?>
+                                    <p class="_label"><?= $mapParams['data']['miejsca']['miejscowosc_typ'] ?></p>
+                                <? } elseif (($mapParams['data']['typ_id'] == '3') && isset($mapParams['data']['miejsca']['gmina_typ_id'])) { ?>
                                     <p class="_label">
                                         <?
-                                        if ($mapParams['data']['miejsca.gmina_typ_id'] == '1')
+                                        if ($mapParams['data']['miejsca']['gmina_typ_id'] == '1')
                                             echo "Gmina miejska";
-                                        elseif ($mapParams['data']['miejsca.gmina_typ_id'] == '2')
+                                        elseif ($mapParams['data']['miejsca']['gmina_typ_id'] == '2')
                                             echo "Gmina wiejska";
-                                        elseif ($mapParams['data']['miejsca.gmina_typ_id'] == '3')
+                                        elseif ($mapParams['data']['miejsca']['gmina_typ_id'] == '3')
                                             echo "Gmina miejsko-wiejska";
-                                        elseif ($mapParams['data']['miejsca.gmina_typ_id'] == '4')
+                                        elseif ($mapParams['data']['miejsca']['gmina_typ_id'] == '4')
                                             echo "Miasto stołeczne";
                                         ?>
                                     </p>
                                 <? } elseif (($mapParams['data']['typ_id'] == '5')) { ?>
-                                    <p class="_label"><?= $mapParams['data']['miejsca.ulica_cecha'] ?></p>
+                                    <p class="_label"><?= $mapParams['data']['miejsca']['ulica_cecha'] ?></p>
                                 <? } ?>
                             <? } elseif (@$mapParams['mode'] == 'code') { ?>
                                 <p class="_label">Kod pocztowy</p>
@@ -140,7 +138,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                             <h1><?= $mapParams['title'] ?></h1>
                             <? if (@$mapParams['data']['typ_id'] == 3) { ?>
                                 <p class="info-more"><a
-                                        href="/dane/gminy/<?= $mapParams['data']['miejsca.gmina_id'] ?>">Więcej
+                                        href="/dane/gminy/<?= $mapParams['data']['miejsca']['gmina_id'] ?>">Więcej
                                         informacji o gminie &raquo;</a></p>
                             <? } ?>
 
@@ -152,7 +150,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 4) { ?>
                                             <li>
                                                 <label>Miejscowość:</label>
-                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.miejscowosc_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
+                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca']['miejscowosc_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['data']['miejscowosc']) ?></a>
                                             </li>
                                         <? } ?>
@@ -160,7 +158,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if (($typ_id > 3)) { ?>
                                             <li>
                                                 <label>Gmina:</label>
-                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
+                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca']['gmina_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['data']['gmina']) ?></a>
                                             </li>
                                         <? } ?>
@@ -168,7 +166,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 2) { ?>
                                             <li>
                                                 <label>Powiat:</label>
-                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.powiat_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
+                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca']['powiat_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= ($mapParams['data']['powiat']) ?></a>
                                             </li>
                                         <? } ?>
@@ -176,7 +174,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                                         <? if ($typ_id > 1) { ?>
                                             <li>
                                                 <label>Województwo:</label>
-                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca.wojewodztwo_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
+                                                <a href="/mapa/miejsce/<?= $mapParams['data']['miejsca']['wojewodztwo_miejsce_id'] ?><? if (isset($widget)) echo '?widget';
                                                 if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= strtolower($mapParams['data']['wojewodztwo']) ?></a>
                                             </li>
                                         <? } ?>
@@ -268,9 +266,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['wojewodztwa'] as $item) { ?>
-                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="wojewodztwa<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
-                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.wojewodztwo'] ?></a>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="wojewodztwa<?= $item['miejsca']['id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca']['id'] ?><? if (isset($widget)) echo '?widget';
+                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca']['wojewodztwo'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -293,9 +291,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['powiaty'] as $item) { ?>
-                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="powiaty<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
-                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.powiat'] ?></a>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="powiaty<?= $item['miejsca']['id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca']['id'] ?><? if (isset($widget)) echo '?widget';
+                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca']['powiat'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -318,9 +316,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['gminy'] as $item) { ?>
-                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="gminy<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
-                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.gmina'] ?></a>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="gminy<?= $item['miejsca']['id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca']['id'] ?><? if (isset($widget)) echo '?widget';
+                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca']['gmina'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -343,9 +341,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['miejscowosci'] as $item) { ?>
-                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="miejscowosci<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
-                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.miejscowosc'] ?></a>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="miejscowosci<?= $item['miejsca']['id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca']['id'] ?><? if (isset($widget)) echo '?widget';
+                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca']['miejscowosc'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -442,9 +440,9 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 
                                         <ul class="scrollZone" data-polygon='<?= @json_encode($_place) ?>'>
                                             <? foreach ($mapParams['children']['ulice'] as $item) { ?>
-                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="ulice<?= $item['miejsca.id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
-                                                    <a href="/mapa/miejsce/<?= $item['miejsca.id'] ?><? if (isset($widget)) echo '?widget';
-                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca.ulica'] ?></a>
+                                                <li<? if (isset($item['polygons'])) { ?> class="polygons" data-id="ulice<?= $item['miejsca']['id'] ?>" data-polygon='<?= json_encode($item['polygons']) ?>'<? } ?>>
+                                                    <a href="/mapa/miejsce/<?= $item['miejsca']['id'] ?><? if (isset($widget)) echo '?widget';
+                                                    if (isset($_GET["redirect"])) echo '&redirect'; ?>"><?= $item['miejsca']['ulica'] ?></a>
                                                 </li>
                                             <? } ?>
                                         </ul>
@@ -529,7 +527,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                              data-obwody="<?= @implode(',', $ils) ?>"
                              data-sejm="<?= $array_column_sejm ?>"
                              data-senat="<?= $array_column_senat ?>"
-                             data-miejsce="<?= $mapParams['data']['miejsca.id'] ?>"
+                             data-miejsce="<?= $mapParams['data']['miejsca']['id'] ?>"
                              data-redirect="<?= (isset($_GET["redirect"])) ? true : false; ?>">
                             <section class="dcontent">
 	                            <div class="row">

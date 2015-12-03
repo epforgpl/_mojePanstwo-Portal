@@ -71,7 +71,7 @@ class MapaController extends ApplicationsController
 							    'top_hits' => array(
 								    'size' => 20,
 								    'sort' => array(
-									    'title.raw' => array(
+									    'title.raw_pl' => array(
 										    'order' => 'asc',
 									    ),
 								    ),
@@ -270,8 +270,7 @@ class MapaController extends ApplicationsController
             foreach ($data['grid']['buckets'] as &$b) {
 
                 if ($b['doc_count'] === 1) {
-
-                    $b['data'] = $b['top']['hits']['hits'][0]['fields']['source'][0]['data'];
+										
 					$b['location'] = array(
 						'lat' => $b['top']['hits']['hits'][0]['fields']['position.lat'][0],
 						'lon' => $b['top']['hits']['hits'][0]['fields']['position.lon'][0],
@@ -300,8 +299,9 @@ class MapaController extends ApplicationsController
 			) {
 							
 				$wojewodztwa = array();
+								
 				foreach( $hits as $h )
-					$wojewodztwa[] = array_merge($h['fields']['source'][0]['data'], $h['fields']['source'][0]['static']);
+					$wojewodztwa[] = array_merge($h['_source']['data'], $h['_source']['static']);
 							
 				$this->set('mapParams', array(
 					'mode' => 'start',
