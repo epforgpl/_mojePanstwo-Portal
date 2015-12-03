@@ -3597,6 +3597,7 @@ class GminyController extends DataobjectsController
                 'krs_podmioty.gmina_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'krs_podmioty',
+            'browserTitle' => 'Organizacje w gminie ' . $this->object->getData('nazwa'),
         ));
 
         $this->set('title_for_layout', 'Organizacje w gminie ' . $this->object->getData('nazwa'));
@@ -3617,6 +3618,7 @@ class GminyController extends DataobjectsController
                 'krs_osoby.gmina_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'krs_osoby',
+			'browserTitle' => 'Osoby występujące w Krajowym Rejestrze Sądowym w gminie ' . $this->object->getData('nazwa')
         ));
 
         $this->set('title_for_layout', 'Osoby w gminie ' . $this->object->getData('nazwa'));
@@ -3638,6 +3640,7 @@ class GminyController extends DataobjectsController
                 'krs_podmioty.forma_prawna_typ_id' => '1',
             ),
             'aggsPreset' => 'krs_podmioty',
+            'browserTitle' => 'Organizacje biznesowe w gminie ' . $this->object->getData('nazwa'),
         ));
 
         $this->set('title_for_layout', 'Organizacje biznesowe w gminie ' . $this->object->getData('nazwa'));
@@ -3701,6 +3704,7 @@ class GminyController extends DataobjectsController
                     'krs_podmioty.forma_prawna_typ_id' => '2',
                 ),
                 'aggsPreset' => 'krs_podmioty',
+                'browserTitle' => 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'),
             ));
 
             $this->set('title_for_layout', 'Organizacje pozarządowe w gminie ' . $this->object->getData('nazwa'));
@@ -3722,6 +3726,7 @@ class GminyController extends DataobjectsController
                 'krs_podmioty.forma_prawna_typ_id' => '3',
             ),
             'aggsPreset' => 'krs_podmioty',
+            'browserTitle' => 'Samodzielne Publiczne Zakłady Opieki Zdrowotnej w gminie ' . $this->object->getData('nazwa'),
         ));
 
         $this->set('title_for_layout', 'Samodzielne Publiczne Zakłady Opieki Zdrowotnej w gminie ' . $this->object->getData('nazwa'));
