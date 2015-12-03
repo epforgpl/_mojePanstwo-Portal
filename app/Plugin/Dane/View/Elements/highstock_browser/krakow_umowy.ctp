@@ -7,7 +7,7 @@
 			
 			<div class="agg" data-agg_id="stats"></div>
 			
-		</div><div class="col-md-7">
+		</div><div class="col-md-12">
 			
 			<div class="block block-size-sm block-simple col-xs-12">
 				<header>Największe umowy:</header>
@@ -23,7 +23,7 @@
 			
 				        
 			
-		</div><div class="col-md-5">
+		</div><div class="col-md-12">
 			
 			<div class="block block-size-sm block-simple col-xs-12">
 				<header>Główni wykonawcy:</header>

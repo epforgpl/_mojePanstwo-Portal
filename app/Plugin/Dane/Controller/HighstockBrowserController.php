@@ -32,7 +32,7 @@ class HighstockBrowserController extends AppController {
 				'wykonawcy' => array(
 					'terms' => array(
 						'field' => 'krakow_umowy.wykonawca_id',
-						'size' => 3,
+						'size' => 10,
 						'order' => array(
 							'wartosc_brutto' => 'desc',
 						),

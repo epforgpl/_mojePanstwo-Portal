@@ -2079,6 +2079,7 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_zarzadzenia',
                 'sortPreset' => 'krakow_zarzadzenia',
                 'searchTitle' => 'Szukaj w zarządzeniach Prezydenta Krakowa...',
+                'browserTitle' => 'Zarządzenia Prezydenta Krakowa',
             ));
 
             $this->set('title_for_layout', 'Zarządzenia Prezydenta Krakowa');
@@ -3428,7 +3429,7 @@ class GminyController extends DataobjectsController
 
         $this->Components->load('Dane.DataBrowser', $options);
 
-        $this->set('title_for_layout', 'Umowy zawierane przez Urząd Gminy Kraków');
+        $this->set('title_for_layout', 'Umowy zawierane przez Urząd Miasta Kraków');
         $this->set('_submenu', array_merge($this->submenus['urzad'], array(
             'selected' => 'umowy',
         )));
