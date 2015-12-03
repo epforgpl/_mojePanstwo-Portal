@@ -1,7 +1,6 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('krakow-wpf', array('plugin' => 'Dane')));
-//$this->Combinator->add_libs('js', 'Dane.krakow-jquery-big-image');
 echo $this->Html->script('Dane.krakow-jquery-big-image', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', 'Dane.krakow-wpf');
 ?>
