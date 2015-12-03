@@ -21,6 +21,24 @@ $options = array(
         ));
 
     } ?>
+    <?
+        if ($adres = $object->getData('adres')) {
+            $adres = $adres . ', Polska';
+            echo $this->element('Dane.adres', array(
+                'adres' => $adres,
+                'label' => 'Urząd gminy',
+            ));
+        }
+
+
+        $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+        $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+        $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+        echo $this->element('tools/pismo', array(
+            'label' => '<strong>Wyślij pismo</strong> do Urzędu Miasta',
+            'adresat' => 'gminy:903',
+        ));
+    ?>
     
 	</div>
 </div>
