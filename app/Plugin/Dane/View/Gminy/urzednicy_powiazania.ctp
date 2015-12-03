@@ -15,27 +15,31 @@ echo $this->Element('dataobject/pageBegin', array(
 
 $powiazania = $object->getLayer('urzednicy_powiazania');
 ?>
-<h1 class="subheader">Rada Miasta Kraków</h1>
 
-<div class="dataBrowser">
+<div class="dataBrowser margin-top--5">
     <div class="row">
         <div class="dataBrowserContent">
-            <div class="col-sm-3 col-xs-12 dataAggsContainer">
-
-                <? if (isset($_submenu) && isset($_submenu['items'])) {
-
-                    if (!isset($_submenu['base']))
-                        $_submenu['base'] = $object->getUrl();
-
-                    echo $this->Element('Dane.DataBrowser/browser-menu', array(
-                        'menu' => $_submenu,
-                    ));
-
-                } ?>
-
+            <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
+				<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+				
+	                <? if (isset($_submenu) && isset($_submenu['items'])) {
+	
+	                    if (!isset($_submenu['base']))
+	                        $_submenu['base'] = $object->getUrl();
+	
+	                    echo $this->Element('Dane.DataBrowser/browser-menu', array(
+	                        'menu' => $_submenu,
+	                    ));
+	
+	                } ?>
+	                
+				</div>
             </div>
-            <div class="col-xs-12 col-sm-9">
+            <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
                 <div class="dataWrap">
+	                
+	            	<h1 class="smaller margin-top-15">Powiązania urzędników Urzędu Miasta z organizacjami w Krajowym Rejestrze Sądowym</h1>
+	                
 	                <div id="powiazania" class="object">
 	                    <? if ($powiazania) { ?>
 	                        <? foreach ($powiazania as $p) { ?>
@@ -82,7 +86,7 @@ $powiazania = $object->getLayer('urzednicy_powiazania');
 	                                            <li>
 	                                                <a href="/dane/krs_podmioty/<?= $o['id'] ?>"><?= stripslashes($o['nazwa']) ?></a>
 	                                                <span
-	                                                    class="badge"><?= implode('</span> <span class="badge">', $badges) ?></span>
+	                                                    class="_badge"><?= implode('</span> <span class="_badge">', $badges) ?></span>
 	                                            </li>
 	                                        <? } ?>
 	                                    </ul>

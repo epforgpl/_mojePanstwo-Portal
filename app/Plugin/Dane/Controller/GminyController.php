@@ -2117,6 +2117,7 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_pomoc_publiczna',
                 'searchTitle' => 'Szukaj w pomocy publicznej...',
                 'order' => 'krakow_pomoc_publiczna.rok desc',
+                'browserTitle' => 'Pomoc publiczna w Krakowie',
             ));
 
             $this->set('title_for_layout', 'Pomoc publiczna w Krakowie');
@@ -2154,6 +2155,7 @@ class GminyController extends DataobjectsController
                 'aggsPreset' => 'krakow_zamowienia_publiczne',
                 'searchTitle' => 'Szukaj w zamówieniach publicznych...',
                 'order' => 'krakow_zamowienia_publiczne.rok desc',
+                'browserTitle' => 'Zamówienia publiczne Urzędu Miasta w Krakowie',
             ));
 
             $this->set('title_for_layout', 'Zamówienia publiczne Urzędu Miasta w Krakowie');
@@ -3854,6 +3856,7 @@ class GminyController extends DataobjectsController
                     'krakow_urzednicy.jednostka_id!=' => '17',
                 ),
                 'aggsPreset' => 'krakow_urzednicy',
+                'browserTitle' => 'Urzędnicy Urzędu Miasta',
             ));
 
             $this->set('title_for_layout', 'Urzędnicy Urzędu Miasta');
@@ -3899,9 +3902,10 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_jednostki',
                 ),
                 'aggsPreset' => 'krakow_jednostki',
+                'browserTitle' => 'Jednostki administracyjne Urzędu Miasta',
             ));
 
-            $this->set('title_for_layout', 'Jednostki administracyjne urzędu miasta ' . $this->object->getData('nazwa'));
+            $this->set('title_for_layout', 'Jednostki administracyjne Urzędu Miasta ' . $this->object->getData('nazwa'));
             $this->set('_submenu', array_merge($this->submenus['urzad'], array(
                 'selected' => 'jednostki',
             )));
