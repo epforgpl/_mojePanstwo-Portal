@@ -12,10 +12,10 @@ if ($object->getDescription()) { ?>
 
 <div class="krakowRadnyDetail">
     <div class="row col-xs-12">
-        <? if ($bip = $object->getLayers('bip_url')) { ?>
+        <? if ($bip = $object->getLayer('bip_url')) { ?>
             <div class="option pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" title="Biuletyn Informacji Publicznej"
-                   href="<?= $bip; ?>" target="_blank">
+                   href="<?= @$bip; ?>" target="_blank">
                     <img class="bip" src="/Dane/img/customObject/krakow/logo_bip.png"/>
                 </a>
             </div>

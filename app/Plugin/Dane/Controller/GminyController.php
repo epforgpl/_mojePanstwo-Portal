@@ -5348,8 +5348,11 @@ class GminyController extends DataobjectsController
         }
 
         if (
-            @$this->object_aggs['dzialania']['doc_count'] ||
-            $this->_canEdit()
+	        ( $this->object->getId() != '903' ) && 
+	        (
+	            @$this->object_aggs['dzialania']['doc_count'] ||
+	            $this->_canEdit()
+            )
         ) {
             $menu['items'][] = array(
                 'id' => 'dzialania',
@@ -5358,7 +5361,10 @@ class GminyController extends DataobjectsController
             );
         }
 
-        if ($this->_canEdit()) {
+        if (
+	        ( $this->object->getId() != '903' ) && 
+        	$this->_canEdit()
+        ) {
             $menu['items'][] = array(
                 'id' => 'dane',
                 'label' => 'Edycja danych'
