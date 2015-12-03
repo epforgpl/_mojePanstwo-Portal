@@ -1,15 +1,17 @@
 #wpfBigImageModal {
-    .modal-body {
-        text-align: center;
+    .modal-dialog {
+        width: 95vw;
 
-        .wpf-zoom {
-            min-width: 300px;
-            width: 60%;
-            display: block;
-            margin: 0 auto 400px;
+        .modal-body {
+            .wpf-zoom {
+                width: 49%;
+                display: block;
+                margin-bottom: 20px;
+                margin-right: 1%;
 
-            > img {
-                width: 100%;
+                > img {
+                    width: 100%;
+                }
             }
         }
     }
@@ -17,5 +19,22 @@
 
 .wpf-zoom-mask {
     z-index: 1050;
-    margin-top: 400px;
+}
+
+@media (min-width: 768px) {
+    #wpfBigImageModal .modal-dialog {
+        max-width: 668px;
+    }
+}
+
+@media (min-width: 992px) {
+    #wpfBigImageModal .modal-dialog {
+        max-width: 842px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #wpfBigImageModal .modal-dialog {
+        max-width: 1000px;
+    }
 }
