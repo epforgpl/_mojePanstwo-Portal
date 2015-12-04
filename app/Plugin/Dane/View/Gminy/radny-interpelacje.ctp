@@ -12,14 +12,19 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $radny,
     'objectOptions' => array(
-        'hlFields' => array('komitet', 'liczba_glosow'),
+        'hlFields' => array('komitet', 'liczba_glosow', 'procent_glosow_w_okregu'),
         'bigTitle' => true,
     )
 ));
 
-echo $this->Element('Dane.DataBrowser/browser');
+if (!isset($_submenu['base']))
+    $_submenu['base'] = $radny->getUrl();
+
+echo $this->Element('Dane.DataBrowser/browser', array(
+	'menu' => $_submenu,
+	'class' => 'margin-top--5',
+));
 
 echo $this->Element('dataobject/pageEnd');

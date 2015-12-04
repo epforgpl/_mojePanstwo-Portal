@@ -130,6 +130,10 @@ class GminyController extends DataobjectsController
                     'id' => 'posiedzenia',
                     'label' => 'Posiedzenia',
                 ),
+                array(
+                    'id' => 'opinie',
+                    'label' => 'Opinie prawne',
+                ),
             ),
         ),
         'dzielnice' => array(
@@ -2658,6 +2662,7 @@ class GminyController extends DataobjectsController
             $submenu = array(
                 'items' => array(
                     array(
+                        'id' => '',
                         'label' => 'Dane',
                     ),
                     array(
@@ -2943,7 +2948,7 @@ class GminyController extends DataobjectsController
                     $this->Components->load('Dane.DataBrowser', $options);
                     $this->channels = $radny->getLayer('channels');
 
-                    $submenu['selected'] = 'view';
+                    $submenu['selected'] = '';
 
                     break;
                 }
@@ -2972,6 +2977,7 @@ class GminyController extends DataobjectsController
                         ),
                         'aggsPreset' => 'rady_gmin_wystapienia',
                         'renderFile' => 'radni_gmin/rady_gmin_glosowania',
+                        'browserTitle' => 'Wyniki głosowań radnego',
                     ));
 
                     $submenu['selected'] = 'glosowania';
@@ -2987,6 +2993,7 @@ class GminyController extends DataobjectsController
                             'rady_gmin_interpelacje.radny_id' => $radny->getId(),
                         ),
                         'aggsPreset' => 'rady_gmin_interpelacje',
+                        'browserTitle' => 'Interpelacje radnego',
                     ));
 
                     $submenu['selected'] = 'interpelacje';
@@ -3015,12 +3022,12 @@ class GminyController extends DataobjectsController
                             ),
                             'aggsPreset' => 'radni_gmin_oswiadczenia_majatkowe',
                             'order' => 'radni_gmin_oswiadczenia_majatkowe.rok desc',
+	                        'browserTitle' => 'Oświadczenia majątkowe radnego',
                         ));
 
                         $submenu = array_merge($submenu, array(
                             'selected' => 'oswiadczenia',
                         ));
-                        $this->set('DataBrowserTitle', 'Oświadczenia majątkowe');
                         $title_for_layout .= ' - Oświadczenia majątkowe';
 
                     }
@@ -3311,6 +3318,7 @@ class GminyController extends DataobjectsController
                                 'krakow_komisje_posiedzenia.komisja_id' => $komisja->getId(),
                             ),
                             'aggsPreset' => 'krakow_komisje_posiedzenia',
+                            'browserTitle' => 'Posiedzenia komisji',
                         ));
 
 
@@ -3318,6 +3326,108 @@ class GminyController extends DataobjectsController
 
                     $this->set('_submenu', array_merge($this->submenus['komisje'], array(
                         'selected' => 'posiedzenia',
+                    )));
+
+
+                    break;
+
+
+                }
+                case 'opinie': {
+
+                    if (
+                        $subsubid &&
+                        ($posiedzenie = $this->Dataobject->find('first', array(
+                            'conditions' => array(
+                                'dataset' => 'krakow_komisje_posiedzenia',
+                                'id' => $subsubid,
+                            ),
+                            'aggs' => array(
+	                            'dokumenty' => array(
+		                            'scope' => 'global',
+		                            'filter' => array(
+			                            'bool' => array(
+				                            'must' => array(
+					                            array(
+						                            'term' => array(
+							                            'dataset' => 'krakow_komisje_dokumenty',
+						                            ),
+					                            ),
+					                            array(
+						                            'term' => array(
+							                            'data.krakow_komisje_dokumenty.posiedzenie_id' => $subsubid,
+						                            ),
+					                            ),
+				                            ),
+			                            ),
+		                            ),
+		                            'aggs' => array(
+			                            'labels' => array(
+				                            'terms' => array(
+					                            'field' => 'data.krakow_komisje_dokumenty.label',
+					                            'size' => 10000,
+				                            ),
+				                            'aggs' => array(
+					                            'top' => array(
+						                            'top_hits' => array(
+							                            'size' => 10000,
+							                            'fielddata_fields' => array('dataset', 'id'),
+						                            ),
+					                            ),
+				                            ),
+			                            ),
+		                            ),
+	                            ),
+                            ),
+                            'layers' => array('punkty')
+                        )))
+                    ) {
+						
+						
+						$aggs = @$this->Dataobject->getAggs();
+						if( @$aggs['dokumenty']['labels']['buckets'] ) {
+							
+							$wybrany_dokument = false;
+							$this->set('dokumenty', $aggs['dokumenty']['labels']['buckets']);
+							
+							if( isset($this->request->query['d']) ) 
+								foreach( $aggs['dokumenty']['labels']['buckets'] as $b ) 
+									foreach( $b['top']['hits']['hits'] as $h )
+										if( $h['fields']['id'][0]==$this->request->query['d'] )
+											$wybrany_dokument = $h;
+														
+							if( $wybrany_dokument )
+								$this->set('wybrany_dokument', $wybrany_dokument);
+							
+						}
+						
+                        // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
+
+                        $punkty = (array)$posiedzenie->getLayer('punkty');
+                        if (count($punkty) === 0) $punkty = false;
+                        $this->set('punkty', $punkty);
+
+                        $this->set('posiedzenie', $posiedzenie);
+                        $title_for_layout = $posiedzenie->getTitle();
+                        $subaction = 'posiedzenie';
+
+
+                    } else {
+
+                        $this->Components->load('Dane.DataBrowser', array(
+                            'conditions' => array(
+                                'dataset' => 'krakow_komisje_dokumenty',
+                                'krakow_komisje_dokumenty.komisja_id' => $komisja->getId(),
+                            ),
+                            'aggsPreset' => 'krakow_komisje_dokumenty',
+                            'browserTitle' => 'Opinie wydane przez komisję',
+                        ));
+
+
+                    }
+
+                    $this->set('_submenu', array_merge($this->submenus['komisje'], array(
+                        'selected' => 'opinie',
                     )));
 
 
@@ -5270,15 +5380,14 @@ class GminyController extends DataobjectsController
         $menu = array(
             'items' => array(),
             'base' => $this->object->getUrl(),
-        );
-
-
+        );		
+		
         $aggs = array();
         if (isset($this->viewVars['dataBrowser']['aggs']) && !empty($this->viewVars['dataBrowser']['aggs']))
             $aggs = $this->viewVars['dataBrowser']['aggs'];
 
         if (isset($this->object_aggs) && !empty($this->object_aggs))
-            $aggs = $this->object_aggs;
+            $aggs = array_merge($aggs, $this->object_aggs);
 
         $menu['items'][] = array(
             'id' => '',
@@ -5288,6 +5397,7 @@ class GminyController extends DataobjectsController
                 'id' => 'home',
             ),
         );
+		
 
 
         if ($object->getId() == '903') {
@@ -5346,10 +5456,18 @@ class GminyController extends DataobjectsController
             );
 
         }
+        
+        $menu['items'][] = array(
+            'id' => 'finanse',
+            'label' => 'Finanse',
+        );
 
         if (
-            @$this->object_aggs['dzialania']['doc_count'] ||
-            $this->_canEdit()
+	        ( $this->object->getId() != '903' ) && 
+	        (
+	            @$this->object_aggs['dzialania']['doc_count'] ||
+	            $this->_canEdit()
+            )
         ) {
             $menu['items'][] = array(
                 'id' => 'dzialania',
@@ -5358,17 +5476,17 @@ class GminyController extends DataobjectsController
             );
         }
 
-        if ($this->_canEdit()) {
+        if (
+	        ( $this->object->getId() != '903' ) && 
+        	$this->_canEdit()
+        ) {
             $menu['items'][] = array(
                 'id' => 'dane',
                 'label' => 'Edycja danych'
             );
         }
 
-        $menu['items'][] = array(
-            'id' => 'finanse',
-            'label' => 'Finanse',
-        );
+        
         
         if ($object->getId() == '903') {
 	    	
