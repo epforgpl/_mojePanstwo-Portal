@@ -43,6 +43,10 @@ class GminyController extends DataobjectsController
                     'label' => 'Posiedzenia komisji',
                 ),
                 array(
+                    'id' => 'komisje_opinie',
+                    'label' => 'Opinie prawne komisji',
+                ),
+                array(
                     'id' => 'radni_powiazania',
                     'label' => 'Radni w KRS',
                 ),
@@ -1788,8 +1792,8 @@ class GminyController extends DataobjectsController
                             'krakow_posiedzenia_punkty.posiedzenie_id' => $posiedzenie->getId(),
                         ),
                         'order' => 'krakow_posiedzenia_punkty._ord asc',
-                        'aggsPreset' => 'krs_podmioty',
                         'limit' => 1000,
+                        'browserTitle' => 'Punkty porządku dziennego na posiedzeniu',
                     ));
 
                     $this->set('title_for_layout', 'Posiedzenie Rady Miasta Kraków');
@@ -2467,6 +2471,7 @@ class GminyController extends DataobjectsController
                                 'krakow_dzielnice_rady_posiedzenia.dzielnica_id' => $dzielnica->getId(),
                             ),
                             'aggsPreset' => 'krakow_dzielnice_rady_posiedzenia',
+                            'browserTitle' => 'Posiedzenia Rady Dzielnicy',
                         ));
 
                     }
@@ -2515,6 +2520,7 @@ class GminyController extends DataobjectsController
                                 'dataset' => 'krakow_dzielnice_uchwaly',
                                 'krakow_dzielnice_uchwaly.dzielnica_id' => $dzielnica->getId(),
                             ),
+                            'browserTitle' => 'Uchwały Rady Dzielnicy',
                         ));
 
                         $this->set('titleForLayout', 'Uchwały rady dzielnicy ' . $dzielnica->getTitle());
@@ -2610,6 +2616,44 @@ class GminyController extends DataobjectsController
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(
                 'selected' => 'komisje_posiedzenia',
+            )));
+
+            $this->set('title_for_layout', 'Posiedzenia komisji Rady Miasta ' . $this->object->getData('nazwa'));
+
+        }
+    }
+    
+    
+    public function komisje_opinie()
+    {
+        $this->_prepareView();
+        $this->request->params['action'] = 'rada';
+
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            $opinia = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_komisje_dokumenty',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+
+            $this->set('komisja_opinia', $opinia);
+            $this->set('title_for_layout', $opinia->getTitle());
+
+            $this->render('komisja_opinia');
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_komisje_dokumenty',
+                ),
+				'browserTitle' => 'Opinie prawne komisji Rady Miasta ' . $this->object->getData('nazwa'),
+            ));
+
+            $this->set('_submenu', array_merge($this->submenus['rada'], array(
+                'selected' => 'komisje_opinie',
             )));
 
             $this->set('title_for_layout', 'Posiedzenia komisji Rady Miasta ' . $this->object->getData('nazwa'));
@@ -3417,7 +3461,7 @@ class GminyController extends DataobjectsController
                         $this->Components->load('Dane.DataBrowser', array(
                             'conditions' => array(
                                 'dataset' => 'krakow_komisje_dokumenty',
-                                'krakow_komisje_dokumenty.komisja_id' => $komisja->getId(),
+                                'krakow_komisje.id' => $komisja->getId(),
                             ),
                             'aggsPreset' => 'krakow_komisje_dokumenty',
                             'browserTitle' => 'Opinie wydane przez komisję',
@@ -4003,9 +4047,10 @@ class GminyController extends DataobjectsController
                     'dataset' => 'krakow_urzednicy',
                     'krakow_urzednicy.jednostka_id' => $this->request->params['subid'],
                 ),
+                'browserTitle' => 'Urzędnicy zatrudnieni w tej jednostce',
+                'phrases' => array('osoba', 'osoby', 'osób'),
             ));
 
-            $this->set('DataBrowserTitle', 'Urzędnicy zatrudnieniu w tej jednostce:');
             $this->set('jednostka', $jednostka);
             $this->set('title_for_layout', $jednostka->getTitle());
             $this->render('jednostka');
@@ -4037,7 +4082,6 @@ class GminyController extends DataobjectsController
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-
             $oswiadczenie = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => 'krakow_oswiadczenia',
@@ -4048,6 +4092,7 @@ class GminyController extends DataobjectsController
             $this->set('oswiadczenie', $oswiadczenie);
             $this->set('title_for_layout', $oswiadczenie->getTitle());
             $this->render('oswiadczenie');
+            
         } else {
 
             $this->Components->load('Dane.DataBrowser', array(

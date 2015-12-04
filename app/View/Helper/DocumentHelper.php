@@ -36,6 +36,7 @@ class DocumentHelper extends AppHelper
 		
         return $this->_View->element('Document/view', array(
             'document' => $doc,
+            'toolbar' => isset( $options['toolbar'] ) ? $options['toolbar'] : true,
         ));
         
     }

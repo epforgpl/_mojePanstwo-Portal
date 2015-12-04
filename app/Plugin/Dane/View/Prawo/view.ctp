@@ -1,13 +1,13 @@
 <? echo $this->Element('dataobject/pageBegin'); ?>
 
 
-    <div class="row margin-top-15">
+    <div class="row">
 
         <div class="object col-md-9">
             <?= $this->Document->place($object->getData('dokument_id')) ?>
         </div><div class="col-md-3">
 
-            <ul class="dataHighlights overflow-auto">
+            <ul class="dataHighlights overflow-auto margin-top-10">
         	<?
 			    $isap_status_str = $object->getData('isap_status_str');
 			    if (isset($isap_status_str) && !empty($isap_status_str)) { ?>

@@ -2,6 +2,9 @@
 	.objectsPage .objectsPageWindow .objectsPageContent .object .dataHighlights .dataHighlight {
 		width: 100% !important;
 	}
+	.theme-default .block-group, .theme-wallpaper .block-group, .theme-simply .block-group.block-border {
+		padding: 0 20px;
+	}
 </style>
 <?
 echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
@@ -15,7 +18,6 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => false,
     'object' => $radny,
     'objectOptions' => array(
         'hlFields' => array(),

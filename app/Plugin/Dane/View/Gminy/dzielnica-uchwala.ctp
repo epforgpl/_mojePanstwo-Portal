@@ -22,9 +22,9 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 <div class="prawo row">
 
-    <div class="col-md-12">
-        <div class="object">
-            <?= $this->Document->place($uchwala->getData('dokument_id')) ?>
+    <div class="col-md-9">
+        <div class="object margin-top-20">
+            <?= $this->Document->place($uchwala->getData('dokument_id'), array('toolbar' => false)) ?>
         </div>
     </div>
 

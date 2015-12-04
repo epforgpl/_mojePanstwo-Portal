@@ -11,7 +11,6 @@ echo $this->Element('dataobject/pageBegin', array(
 ?>
 
 <? echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $interpelacja,
     'objectOptions' => array(
         'bigTitle' => true,
@@ -25,16 +24,16 @@ echo $this->Element('dataobject/pageBegin', array(
  
 <?
 
-echo $this->Document->place($interpelacja->getData('dokument_id'));
+echo $this->Document->place($interpelacja->getData('dokument_id'), array('toolbar' => false));
 
 if ($interpelacja->getData('odp1_dokument_id')) {
     echo "<h2 class=\"light\">Odpowiedź</h2>";
-    echo $this->Document->place($interpelacja->getData('odp1_dokument_id'));
+    echo $this->Document->place($interpelacja->getData('odp1_dokument_id'), array('toolbar' => false));
 }
 
 if ($interpelacja->getData('odp2_dokument_id')) {
     echo "<h2 class=\"light\">Odpowiedź</h2>";
-    echo $this->Document->place($interpelacja->getData('odp2_dokument_id'));
+    echo $this->Document->place($interpelacja->getData('odp2_dokument_id'), array('toolbar' => false));
 }
 ?>
 

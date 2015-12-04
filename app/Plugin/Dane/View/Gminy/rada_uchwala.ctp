@@ -27,8 +27,9 @@ $druki = @$uchwala->getLayer('druki');
         <div class="row">
 
             <div class="col-md-9">
-
-                <?= $this->Document->place($file) ?>
+				<div class="margin-top-20">
+	                <?= $this->Document->place($file, array('toolbar' => false)) ?>
+				</div>
             </div>
 
             <div class="col-md-3">
@@ -44,7 +45,7 @@ $druki = @$uchwala->getLayer('druki');
 
 
                 <? if (count($docs) > 1) { ?>
-                    <p>Pliki powiązane:</p>
+                    <p class="margin-top-20">Pliki powiązane:</p>
 
                     <ul class="nav nav-pills nav-stacked">
                         <?php foreach ($docs as $i => $doc_id) { ?>

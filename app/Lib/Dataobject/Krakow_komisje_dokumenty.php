@@ -11,7 +11,7 @@ class Krakow_komisje_dokumenty extends DataObject
 
     public function getUrl()
     {
-	    return '/dane/gminy/903,krakow/komisje/' . $this->getData('krakow_komisje_posiedzenia.komisja_id') . '/posiedzenia/' . $this->getData('krakow_komisje_posiedzenia.id') . '?d=' . $this->getId();
+	    return '/dane/gminy/903,krakow/komisje_opinie/' . $this->getId();
     }
 	
 	public function getThumbnailUrl($size = '2')
@@ -37,8 +37,8 @@ class Krakow_komisje_dokumenty extends DataObject
 				'label' => $this->getData('krakow_komisje.nazwa'),
 			),
 			array(
-				'id' => '/dane/gminy/903,krakow/komisje/' . $this->getData('krakow_komisje.id') . '/posiedzenia',
-				'label' => 'Posiedzenia komisji'
+				'id' => '/dane/gminy/903,krakow/komisje/' . $this->getData('krakow_komisje.id') . '/opinie',
+				'label' => 'Opinie prawne'
 			),
 		);
 				
@@ -46,9 +46,12 @@ class Krakow_komisje_dokumenty extends DataObject
 	
 	public function getMetaDescriptionParts($preset = false)
 	{
-				
+
 		$output = array();
 						
+		if( $this->getDate() )
+			$output[] = dataSlownie( $this->getDate() );
+		
 		if( $this->getData('krakow_komisje.nazwa') )
 			$output[] = '<a href="#">' . $this->getData('krakow_komisje.nazwa') . '</a>';
 				

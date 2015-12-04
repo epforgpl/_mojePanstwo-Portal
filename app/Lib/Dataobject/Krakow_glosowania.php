@@ -47,6 +47,9 @@ class Krakow_glosowania extends DataObject
 				'id' => '/dane/gminy/903,krakow/punkty/' . $this->getData('krakow_posiedzenia_punkty.id'),
 				'label' => 'Punkt #' . $this->getData('krakow_posiedzenia_punkty.numer'),
 			),
+			array(
+				'label' => 'Głosowanie',
+			),
 		);
 				
 	}

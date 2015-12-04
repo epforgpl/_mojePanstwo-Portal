@@ -24,7 +24,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 ?>
     <div class="krakow_zarzadzenia row">
-        <div class="col-lg-2 objectSide">
+        <div class="col-md-3 objectSide">
             <div class="objectSideInner">
                 <ul class="dataHighlights side">
                     <? if ($akt->getData('data_podpisania') && $akt->getData('data_podpisania') != '0000-00-00') { ?>
@@ -84,8 +84,10 @@ echo $this->Element('Dane.dataobject/subobject', array(
             </div>
         </div>
 
-        <div class="col-lg-10 objectMain">
-            <?= $this->Document->place($akt->getData('dokument_id')) ?>
+        <div class="col-md-9 objectMain">
+            <div class="margin-top-20">
+	            <?= $this->Document->place($akt->getData('dokument_id'), array('toolbar' => false)) ?>
+            </div>
         </div>
     </div>
 <?
