@@ -12,7 +12,6 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => isset($_submenu) ? $_submenu : false,
     'object' => $radny,
     'objectOptions' => array(
         'hlFields' => array('komitet', 'liczba_glosow'),
@@ -30,8 +29,14 @@ if ($subsubid && $oswiadczenie && $oswiadczenie->getData('dokument_id')) {
     echo $this->Document->place($oswiadczenie->getData('dokument_id'));
 
 } else {
-
-    echo $this->Element('Dane.DataBrowser/browser');
+	
+	if (!isset($_submenu['base']))
+	    $_submenu['base'] = $radny->getUrl();
+	
+    echo $this->Element('Dane.DataBrowser/browser', array(
+	    'menu' => $_submenu,
+		'class' => 'margin-top--5',
+    ));
 
 }
 

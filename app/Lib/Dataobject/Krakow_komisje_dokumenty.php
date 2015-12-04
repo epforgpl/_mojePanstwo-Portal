@@ -6,7 +6,7 @@ class Krakow_komisje_dokumenty extends DataObject
 {
 	
     protected $routes = array(
-        'date' => 'data',
+        'date' => 'krakow_komisje_posiedzenia.data',
     );
 
     public function getUrl()
@@ -43,5 +43,17 @@ class Krakow_komisje_dokumenty extends DataObject
 		);
 				
 	}
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array();
+						
+		if( $this->getData('krakow_komisje.nazwa') )
+			$output[] = '<a href="#">' . $this->getData('krakow_komisje.nazwa') . '</a>';
+				
+        return $output;
+
+    }
 	
 }

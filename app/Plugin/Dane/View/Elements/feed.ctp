@@ -112,6 +112,10 @@ $this->Dataobject->setObject($object);
                                 echo '<small>' . $object->getTitleAddon() . '</small>';
                             } ?>
                             </p>
+                            
+                            <? if ($metaDesc = $object->getMetaDescription()) { ?>
+                                <p class="meta meta-desc"><?= $metaDesc ?></p>
+                            <? } ?>
 
                             <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
@@ -153,6 +157,10 @@ $this->Dataobject->setObject($object);
                                 echo '<small>' . $object->getTitleAddon() . '</small>';
                             } ?>
                             </p>
+                            
+                            <? if ($metaDesc = $object->getMetaDescription()) { ?>
+                                <p class="meta meta-desc"><?= $metaDesc ?></p>
+                            <? } ?>
 
                             <?= $this->Dataobject->highlights($hlFields, $hlFieldsPush, $defaults) ?>
 
