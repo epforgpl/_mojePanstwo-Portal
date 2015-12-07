@@ -118,6 +118,7 @@ class KrsController extends ApplicationsController
                 ),
             ),
             'apps' => true,
+            'browserTitle' => 'Wyniki wyszukiwania w Krajowym Rejestrze Sądowym',
         );
 		
         $this->Components->load('Dane.DataBrowser', $options);

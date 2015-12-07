@@ -830,8 +830,7 @@ class NgoController extends ApplicationsController
 				'label' => 'NGO',
 				'href' => '/' . $this->settings['id'],
 				'class' => '_label',
-				'icon' => 'appIcon',
-				'appIcon' => $app['icon'],
+				'icon' => '_app',
 			);
 			
 		}

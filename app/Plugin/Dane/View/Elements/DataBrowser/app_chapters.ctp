@@ -9,7 +9,7 @@
 	        <ul class="nav nav-pills nav-stacked">
 
 	            <? foreach ($app_chapters['items'] as $item) {
-					
+										
 	                $active = false;
 
 	                if(
@@ -35,13 +35,22 @@
 	                
 	                if( isset($item['href']) && $active )
 	                	$classes[] = 'active';
+	                	
+	                if( isset($item['icon']) && ($item['icon']=='_app') )
+	                	$classes[] = 'appHeader';
 
                 ?>
 
 	                <li class="<?= implode(' ', $classes) ?>">
 	                	<? if(isset($item['href'])) {?><a href="<?= $item['href'] ?>"><? } else { ?><span><? } ?>
 		                	<? if(isset($item['icon'])) {?>
-			                	<i class="object-icon <?= $item['icon'] ?>"<? if( isset($item['appIcon']) ) {?> data-icon-applications="<?= $item['appIcon'] ?>"<?}?>></i>
+			                	
+			                	<? if( $item['icon']=='_app' ) {?>
+			                		<img class="object-icon" src="/icon/app-icons/ngo.svg" />
+			                	<? } else { ?>
+			                		<i class="object-icon <?= $item['icon'] ?>"<? if( isset($item['appIcon']) ) {?> data-icon-applications="<?= $item['appIcon'] ?>"<?}?>></i>
+			                	<? } ?>
+			                	
 		                	<? } ?>
                             <div<? if (isset($item['icon'])) { ?> class="object-icon-side"<? } ?>><? if (isset($item['count'])) { ?>
                                     <span

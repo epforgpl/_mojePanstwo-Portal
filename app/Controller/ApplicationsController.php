@@ -228,6 +228,9 @@ class ApplicationsController extends AppController
 					'filter/dataset' => 'dataset',
 				),
 			);
+						
+			if( isset($data['dataset_name']['browserTitle']) )
+				$params['browserTitle'] = $data['dataset_name']['browserTitle'];
 
 			if( isset($data['dataset_name']['default_order']) )
 				$params['default_order'] = $data['dataset_name']['default_order'];
@@ -317,8 +320,7 @@ class ApplicationsController extends AppController
 				'label' => isset($this->settings['shortTitle']) ? $this->settings['shortTitle'] : $this->settings['title'],
 				'href' => '/' . $this->settings['id'],
 				'class' => '_label',
-				'icon' => 'appIcon',
-				'appIcon' => $app['icon'],
+				'icon' => '_app',
 			);
 			
 		}

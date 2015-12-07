@@ -118,6 +118,7 @@ class AppController extends Controller
         'krs' => array(
             'krs_podmioty' => array(
             	'label' => 'Organizacje',
+				'browserTitle' => 'Organizacje w Krajowym Rejestrze Sądowym',
 				'searchTitle' => 'Szukaj organizacji...',
 				'menu_id' => 'organizacje',
 				'autocompletion' => array(
@@ -126,11 +127,13 @@ class AppController extends Controller
             ),
             'krs_osoby' => array(
             	'label' => 'Osoby',
+				'browserTitle' => 'Osoby w Krajowym Rejestrze Sądowym',
 				'searchTitle' => 'Szukaj osób...',
 				'menu_id' => 'osoby',
             ),
             'msig' => array(
             	'label' => 'Monitor Sądowy i Gospodarczy',
+            	'browserTitle' => 'Wydania Monitora Sądowego i Gospodarczego',
 				'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
 				'menu_id' => 'msig',
             ),

@@ -78,7 +78,7 @@ class Krs_podmioty extends DataObject
 		
 		$output[] = 'KRS ' . $this->getData('krs');
         $output[] = '<span class="normalizeText">' . $this->getData('forma_prawna_str') . '</span>';
-        $output[] = $this->getData('adres_miejscowosc');
+        // $output[] = $this->getData('adres_miejscowosc');
 				
         return $output;
 
