@@ -54,7 +54,7 @@
 		                	<? } ?>
                             <div<? if (isset($item['icon'])) { ?> class="object-icon-side"<? } ?>><? if (isset($item['count'])) { ?>
                                     <span
-                                        class="counter pull-right"><?= number_format_h($item['count']) ?></span><? } ?><?= $item['label'] ?>
+                                        class="counter pull-right"><?= number_format_h($item['count']) ?></span><? } ?><span><?= $item['label'] ?></span>
                             </div>
 	                    <? if(isset($item['href'])) {?></a><? } else { ?></span><? } ?>
 

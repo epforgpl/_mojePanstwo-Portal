@@ -465,8 +465,7 @@ class PrawoController extends ApplicationsController
 				'label' => 'Prawo',
 				'href' => '/' . $this->settings['id'],
 				'class' => '_label',
-				'icon' => 'appIcon',
-				'appIcon' => $app['icon'],
+				'icon' => '_app',
 			);
 			
 		}

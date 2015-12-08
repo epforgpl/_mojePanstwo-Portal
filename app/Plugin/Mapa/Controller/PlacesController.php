@@ -193,10 +193,12 @@ class PlacesController extends ApplicationsController
 
             if ($typy = @$aggs['miejsca']['children']['*']['direct']['reverse']['typy']['buckets']) {
                 foreach ($typy as $t) {
-
+										
                     $field = $this->fields[$t['key']];
-                    foreach ($t['top']['hits']['hits'] as $h)
-                        $children[$field][] = array_merge($h['fields']['source'][0]['data'], $h['fields']['source'][0]['static']);
+                    foreach ($t['top']['hits']['hits'] as $h) {
+	                    	                    
+                        $children[$field][] = array_merge($h['_source']['data'], $h['_source']['static']);
+                    }
 
                 }
             }

@@ -304,8 +304,7 @@ class ApplicationsController extends AppController
 				'id' => '_results',
 				'label' => isset($this->settings['shortTitle']) ? 'Szukaj w ' . $this->settings['shortTitle'] . ':' : 'Szukaj:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
-				'icon' => 'appIcon',
-				'appIcon' => $app['icon'],
+				'icon' => '_app',
 				'class' => '_label',
 			);
 

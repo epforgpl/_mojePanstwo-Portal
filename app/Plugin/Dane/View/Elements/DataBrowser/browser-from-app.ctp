@@ -17,7 +17,7 @@ echo $this->element('headers/main');
                     $options = array(
                         'displayAggs' => $displayAggs,
                         'columns' => $columns,
-                        'searcher' => false,
+                        'searcher' => true,
                     );
 
                     if(isset($menu)) {

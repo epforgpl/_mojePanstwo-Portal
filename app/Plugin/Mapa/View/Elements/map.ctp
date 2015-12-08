@@ -23,7 +23,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
 ?>
 <div class="objectsPage">
     <div class="dataBrowser margin-top-0<? if (isset($class)) echo " " . $class; ?>">
-        <? if (!isset($widget)) { ?>
+        <? if(false && !isset($widget)) { ?>
             <div class="searcher-app">
                 <div class="container">
                     <div class="row">
@@ -57,7 +57,7 @@ echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block
                 </div>
             </div>
 
-            <? if (isset($app_menu)) { ?>
+            <? if (isset($this->request->query['q']) && isset($app_menu)) { ?>
                 <div class="apps-menu">
                     <div class="container">
                         <ul>
