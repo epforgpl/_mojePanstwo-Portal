@@ -84,47 +84,50 @@ $(document).ready(function () {
 				categories.push(res[i].nazwa);
 				data.push({
 					name: res[i].nazwa,
-					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(2)),
-					drilldown: (typeof res[i].subdzialy !== "undefined") ? res[i].nazwa : null
+					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0))
 				});
-				if (typeof res[i].subdzialy !== "undefined") {
-					seriesData = [];
-					for (j = 0, vLen = res[i].subdzialy.length; j < vLen; j++) {
-						seriesData.push([res[i].subdzialy[j].nazwa, parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(2))]);
-					}
-					series.push({
-						name: res[i].nazwa,
-						id: res[i].nazwa,
-						data: seriesData
-					});
-				}
 			}
 
-			$chartArea.css('min-height', ($chartArea.width() * 0.7)).highcharts({
+			$chartArea.css('min-height', ($chartArea.width() * 0.7));
+			var chart = new Highcharts.Chart({
 				credits: false,
 				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: false,
-					backgroundColor: 'transparent',
-					type: 'pie',
-					spacing: [0, 0, 0, 0]
+					renderTo: 'pie_chart',
+					type: 'column',
+					backgroundColor: null,
+					options3d: {
+						enabled: true,
+						alpha: 15,
+						beta: 15,
+						depth: 50,
+						viewDistance: 25
+					}
 				},
 				title: {
 					text: ' '
 				},
 				plotOptions: {
-					series: {
-						dataLabels: {
-							enabled: true,
-							style: {
-								width: '300px'
-							},
-							formatter: function () {
-								return this.point.name.replace(/ *\([^)]*\) */g, "") + ': ' + this.y + ' zł'
-							}
-						}
+					column: {
+						depth: 25
 					}
+				},
+				xAxis: {
+					categories: categories,
+					labels: {
+						rotation: -45,
+						align: 'right'
+					},
+					title: {
+						text: 'Działy'
+					}
+				},
+				yAxis: {
+					title: {
+						text: 'zł'
+					}
+				},
+				legend: {
+					enabled: false
 				},
 				tooltip: {
 					headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
@@ -134,10 +137,7 @@ $(document).ready(function () {
 					name: 'Dział',
 					colorByPoint: true,
 					data: data
-				}],
-				drilldown: {
-					series: series
-				}
+				}]
 			});
 		}
 	}
