@@ -777,7 +777,7 @@ class KrsPodmiotyController extends DataobjectsController
 	        $this->addInitLayers('odpisy');
 	        $this->_prepareView();
 
-	        if(!$this->_canEdit())
+	        if(!$this->Auth->user())
 	            throw new ForbiddenException;
 
 	        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());

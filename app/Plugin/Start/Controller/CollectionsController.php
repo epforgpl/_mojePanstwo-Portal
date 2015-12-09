@@ -160,7 +160,6 @@ class CollectionsController extends StartAppController
 		    } elseif($this->request->data['_action'] == 'delete') {
 
                 $response = $this->Collection->removeObject($this->request->params['collection_id'], $this->request->params['object_id']);
-                $this->log($response);
                 $this->redirect('/moje-kolekcje/' . $this->request->params['collection_id']);
             }
 		    
