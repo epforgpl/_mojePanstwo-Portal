@@ -30,9 +30,8 @@
                      src="http://resources.sejmometr.pl/mowcy/a/3/<?= $biura[$id]['data']['ludzie_poslowie.mowca_id'] ?>.jpg"/>
             <? } ?>
             <? if (isset($biura[$id]['data']['poslowie.nazwa'])) { ?>
-                <span><?= $biura[$id]['data']['poslowie.nazwa'] ?>
-                    (<? if (isset($biura[$id]['data']['sejm_kluby.skrot'])) {
-                        echo '(' . $biura[$id]['data']['sejm_kluby.skrot'] . ')';
+                <span><?= $biura[$id]['data']['poslowie.nazwa'] ?><? if (isset($biura[$id]['data']['sejm_kluby.skrot'])) {
+                        echo ' (' . $biura[$id]['data']['sejm_kluby.skrot'] . ')';
                     } ?></span>
             <? } ?>
         </p>
