@@ -44,7 +44,7 @@ class GminyController extends DataobjectsController
                 ),
                 array(
                     'id' => 'komisje_opinie',
-                    'label' => 'Opinie prawne komisji',
+                    'label' => 'Opinie komisji',
                 ),
                 array(
                     'id' => 'radni_powiazania',
@@ -136,7 +136,7 @@ class GminyController extends DataobjectsController
                 ),
                 array(
                     'id' => 'opinie',
-                    'label' => 'Opinie prawne',
+                    'label' => 'Opinie',
                 ),
             ),
         ),
@@ -2649,7 +2649,7 @@ class GminyController extends DataobjectsController
                 'conditions' => array(
                     'dataset' => 'krakow_komisje_dokumenty',
                 ),
-				'browserTitle' => 'Opinie prawne komisji Rady Miasta ' . $this->object->getData('nazwa'),
+				'browserTitle' => 'Opinie komisji Rady Miasta ' . $this->object->getData('nazwa'),
             ));
 
             $this->set('_submenu', array_merge($this->submenus['rada'], array(

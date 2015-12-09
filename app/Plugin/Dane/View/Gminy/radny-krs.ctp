@@ -28,57 +28,55 @@ echo $this->Element('Dane.dataobject/subobject', array(
     <div class="row">
         <div class="dataBrowserContent">
             <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
-				<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
-					
-                <? if (isset($_submenu) && isset($_submenu['items'])) {
+                <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 
-                    if (!isset($_submenu['base']))
-                        $_submenu['base'] = $radny->getUrl();
+                    <? if (isset($_submenu) && isset($_submenu['items'])) {
 
-                    echo $this->Element('Dane.DataBrowser/browser-menu', array(
-                        'menu' => $_submenu,
-                    ));
+                        if (!isset($_submenu['base']))
+                            $_submenu['base'] = $radny->getUrl();
 
-                } ?>
-                
-				</div>
+                        echo $this->Element('Dane.DataBrowser/browser-menu', array(
+                            'menu' => $_submenu,
+                        ));
+
+                    } ?>
+
+                </div>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
-	            
-	            <div class="dataWrap">
-	            		            	
-	                <? if (isset($osoba) && $osoba) { ?>
 
-	                <h1 class="smaller">Powiązania radnego w <a
-	                        href="/krs">Krajowym Rejestrze Sądowym</a></h1>
-	
-	                <? if (isset($osoba) && $osoba) { ?>
-	                    <div class="margin-top-20">
-		                    <?= $this->Element('Dane.objects/krs_osoby/organizacje', array(
-		                        'organizacje' => $osoba->getLayer('organizacje'),
-		                    ));?>
-	                    </div>
-	                <? } ?>
-	
-	                <div class="powiazania block">
-	                    <div class="block-header"><h2 class="label">Powiązania</h2></div>
-	                    <div id="connectionGraph" class="loading" data-id="<?php echo $osoba->getId() ?>"
-	                         data-url="krs_osoby"></div>
-	                </div>
-	
-		            <? } ?>
-                
-	            </div>
-                
+                <div class="dataWrap">
+
+                    <? if (isset($osoba) && $osoba) { ?>
+
+                    <h1 class="smaller">Powiązania radnego w <a
+                            href="/krs">Krajowym Rejestrze Sądowym</a></h1>
+
+                    <? if (isset($osoba) && $osoba) { ?>
+                        <div class="margin-top-20">
+                            <?= $this->Element('Dane.objects/krs_osoby/organizacje', array(
+                                'organizacje' => $osoba->getLayer('organizacje'),
+                            )); ?>
+                        </div>
+                    <? } ?>
+
+                    <section class="powiazania block block-simple">
+                        <header>
+                            <div class="sm">Powiązania</div>
+                        </header>
+                        <section id="connectionGraph" class="loading col-xs-12 nopadding"
+                                 data-id="<?php echo $osoba->getId() ?>"
+                                 data-url="krs_osoby"></section>
+                </div>
+
+                <? } ?>
+
             </div>
+
+        </div>
         </div>
     </div>
 </div>
-
-
-
-
-
 
 
 <?

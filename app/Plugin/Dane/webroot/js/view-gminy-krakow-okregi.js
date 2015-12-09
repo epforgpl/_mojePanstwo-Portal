@@ -1,3 +1,7 @@
+/*global $, jQuery, google, document, window*/
+
+var zoomChangeBoundsListener;
+
 function parsePolyStrings(ps) {
 	var i, j, lat, lng, tmp, tmpArr, arr = [], m = ps.match(/\([^\(\)]+\)/g);
 	if (m !== null) {
@@ -206,7 +210,6 @@ $(document).ready(function () {
 		var o = new GminyKrakowOkregi('kto_tu_rzadzi');
 		o.initialize();
 	} else if ($('div[data-name="okreg"]').length > 0) {
-
 		var okreg = $('div[data-name="okreg"]').data('content');
 
 		var map = new google.maps.Map(
@@ -240,11 +243,13 @@ $(document).ready(function () {
 		var polygons = [],
 			p = parsePolyStrings(okreg),
 			center = {
-				latMin: p[0][0].H,
-				latMax: p[0][0].H,
-				lngMin: p[0][0].L,
-				lngMax: p[0][0].L
+				latMin: p[0][0].G,
+				latMax: p[0][0].G,
+				lngMin: p[0][0].K,
+				lngMax: p[0][0].K
 			};
+
+		var latlngbounds = new google.maps.LatLngBounds();
 
 		for (var s = 0; s < p.length; s++) {
 			var poly = new google.maps.Polygon({
@@ -254,25 +259,38 @@ $(document).ready(function () {
 				strokeColor: '#0000aa',
 				path: p[s]
 			});
+
 			poly.setMap(map);
 			polygons.push(poly);
 
 			for (var t = 0; t < p[s].length; t++) {
-				if (center.latMin > p[s][t].H)
-					center.latMin = p[s][t].H;
-				if (center.latMax < p[s][t].H)
-					center.latMax = p[s][t].H;
-				if (center.lngMin > p[s][t].L)
-					center.lngMin = p[s][t].L;
-				if (center.lngMax < p[s][t].L)
-					center.lngMax = p[s][t].L;
+				if (center.latMin > p[s][t].G) {
+					center.latMin = p[s][t].G;
+				}
+				if (center.latMax < p[s][t].G) {
+					center.latMax = p[s][t].G;
+				}
+				if (center.lngMin > p[s][t].K) {
+					center.lngMin = p[s][t].K;
+				}
+				if (center.lngMax < p[s][t].K) {
+					center.lngMax = p[s][t].K;
+				}
+				latlngbounds.extend(p[s][t]);
 			}
 		}
 
-		map.setCenter({
-			lat: center.latMin + (center.latMax - center.latMin) / 2,
-			lng: center.lngMin + (center.lngMax - center.lngMin) / 2
-		});
+		map.fitBounds(latlngbounds);
+
+		zoomChangeBoundsListener =
+			google.maps.event.addListenerOnce(map, 'bounds_changed', function (event) {
+				if (this.getZoom()) {
+					this.setZoom(this.getZoom() + 1);
+				}
+			});
+		setTimeout(function () {
+			google.maps.event.removeListener(zoomChangeBoundsListener);
+		}, 1000);
 	}
 
 });

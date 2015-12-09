@@ -11,6 +11,7 @@ $(document).ready(function () {
 			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 188, 190]) !== -1 ||
 				(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+				(e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode >= 35 && e.keyCode <= 39)) {
 				return;
@@ -99,14 +100,15 @@ $(document).ready(function () {
 				}
 			}
 
-			$chartArea.highcharts({
+			$chartArea.css('min-height', ($chartArea.width() * 0.7)).highcharts({
 				credits: false,
 				chart: {
 					plotBackgroundColor: null,
 					plotBorderWidth: null,
 					plotShadow: false,
 					backgroundColor: 'transparent',
-					type: 'pie'
+					type: 'pie',
+					spacing: [0, 0, 0, 0]
 				},
 				title: {
 					text: ' '
@@ -115,11 +117,15 @@ $(document).ready(function () {
 					series: {
 						dataLabels: {
 							enabled: true,
-							format: '{point.name}: {point.y} zł'
+							style: {
+								width: '300px'
+							},
+							formatter: function () {
+								return this.point.name.replace(/ *\([^)]*\) */g, "") + ': ' + this.y + ' zł'
+							}
 						}
 					}
 				},
-
 				tooltip: {
 					headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 					pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> zł<br/>'
@@ -215,6 +221,24 @@ $(document).ready(function () {
 		}).length;
 
 		return (state > 0);
+	});
+
+	$bdl.find('.block').each(function () {
+		$(this).find('.wskazniki li .col-xs-9 .href').each(function () {
+			var textBlock = $(this);
+			if (textBlock.text().indexOf("(") > -1) {
+				var tooltip = $('<span></span>').attr({
+					'title': textBlock.text().match(/\(([^)]+)\)/)[1],
+					'data-placement': 'top',
+					'data-toggle': 'tooltip'
+				}).addClass('tooltipIcon').text('i');
+				textBlock.text(textBlock.text().replace(/ *\([^)]*\) */g, "")).append(tooltip);
+			}
+		});
+	});
+
+	$bdl.find('.block').click(function () {
+		$('[data-toggle="tooltip"]').tooltip();
 	});
 
 	btnAction();
