@@ -701,13 +701,13 @@ class KrsPodmiotyController extends DataobjectsController
             'id' => 'graph',
             'label' => 'Powiązania'
         );
-
+		
+		$menu['items'][] = array(
+            'id' => 'odpisy',
+            'label' => 'Odpisy z KRS'
+        );
+		
         if($this->_canEdit()) {
-
-            $menu['items'][] = array(
-                'id' => 'odpisy',
-                'label' => 'Odpisy'
-            );
 
             $menu['items'][] = array(
                 'id' => 'dane',
