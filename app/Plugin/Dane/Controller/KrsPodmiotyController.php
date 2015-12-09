@@ -701,13 +701,13 @@ class KrsPodmiotyController extends DataobjectsController
             'id' => 'graph',
             'label' => 'Powiązania'
         );
-
+		
+		$menu['items'][] = array(
+            'id' => 'odpisy',
+            'label' => 'Odpisy z KRS'
+        );
+		
         if($this->_canEdit()) {
-
-            $menu['items'][] = array(
-                'id' => 'odpisy',
-                'label' => 'Odpisy'
-            );
 
             $menu['items'][] = array(
                 'id' => 'dane',
@@ -777,7 +777,7 @@ class KrsPodmiotyController extends DataobjectsController
 	        $this->addInitLayers('odpisy');
 	        $this->_prepareView();
 
-	        if(!$this->_canEdit())
+	        if(!$this->Auth->user())
 	            throw new ForbiddenException;
 
 	        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());

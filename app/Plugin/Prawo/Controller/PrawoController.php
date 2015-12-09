@@ -247,10 +247,10 @@ class PrawoController extends ApplicationsController
 	                    'aggs' => array(
 		                    'top' => array(
 			                    'top_hits' => array(
-				                    'size' => 10,
+				                    'size' => 1,
 				                    'fielddata_fields' => array('dataset', 'id'),
 				                    'sort' => array(
-					                    'title.raw' => 'asc',
+					                    'date' => 'desc',
 				                    ),
 			                    ),
 		                    ),
