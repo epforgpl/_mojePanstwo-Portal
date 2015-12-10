@@ -8,7 +8,7 @@ msgid "LC_PODATKI_RESULTS_SUBHEADLINE"
 msgstr "Poniżej znajdziesz podsumowanie, kliknij aby zobaczyć szczegóły."
 
 msgid "LC_PODATKI_INFORMATION"
-msgstr "Obliczenie jest anonimowe. Twoje dane nie będą nigdzie przechowywane."
+msgstr "Obliczenie jest anonimowe."
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE"
 msgstr "Miesięczne dochody  brutto z umowy o pracę"
