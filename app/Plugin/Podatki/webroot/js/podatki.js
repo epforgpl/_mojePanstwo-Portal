@@ -11,6 +11,7 @@ $(document).ready(function () {
 			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 188, 190]) !== -1 ||
 				(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+				(e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode >= 35 && e.keyCode <= 39)) {
 				return;
@@ -83,43 +84,51 @@ $(document).ready(function () {
 				categories.push(res[i].nazwa);
 				data.push({
 					name: res[i].nazwa,
-					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(2)),
-					drilldown: (typeof res[i].subdzialy !== "undefined") ? res[i].nazwa : null
+					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0))
 				});
-				if (typeof res[i].subdzialy !== "undefined") {
-					seriesData = [];
-					for (j = 0, vLen = res[i].subdzialy.length; j < vLen; j++) {
-						seriesData.push([res[i].subdzialy[j].nazwa, parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(2))]);
-					}
-					series.push({
-						name: res[i].nazwa,
-						id: res[i].nazwa,
-						data: seriesData
-					});
-				}
 			}
 
-			$chartArea.highcharts({
+			$chartArea.css('min-height', ($chartArea.width() * 0.7));
+			var chart = new Highcharts.Chart({
 				credits: false,
 				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: false,
-					backgroundColor: 'transparent',
-					type: 'pie'
+					renderTo: 'pie_chart',
+					type: 'column',
+					backgroundColor: null,
+					options3d: {
+						enabled: true,
+						alpha: 15,
+						beta: 15,
+						depth: 50,
+						viewDistance: 25
+					}
 				},
 				title: {
 					text: ' '
 				},
 				plotOptions: {
-					series: {
-						dataLabels: {
-							enabled: true,
-							format: '{point.name}: {point.y} zł'
-						}
+					column: {
+						depth: 25
 					}
 				},
-
+				xAxis: {
+					categories: categories,
+					labels: {
+						rotation: -45,
+						align: 'right'
+					},
+					title: {
+						text: 'Działy'
+					}
+				},
+				yAxis: {
+					title: {
+						text: 'zł'
+					}
+				},
+				legend: {
+					enabled: false
+				},
 				tooltip: {
 					headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 					pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> zł<br/>'
@@ -128,10 +137,7 @@ $(document).ready(function () {
 					name: 'Dział',
 					colorByPoint: true,
 					data: data
-				}],
-				drilldown: {
-					series: series
-				}
+				}]
 			});
 		}
 	}
@@ -215,6 +221,24 @@ $(document).ready(function () {
 		}).length;
 
 		return (state > 0);
+	});
+
+	$bdl.find('.block').each(function () {
+		$(this).find('.wskazniki li .col-xs-9 .href').each(function () {
+			var textBlock = $(this);
+			if (textBlock.text().indexOf("(") > -1) {
+				var tooltip = $('<span></span>').attr({
+					'title': textBlock.text().match(/\(([^)]+)\)/)[1],
+					'data-placement': 'top',
+					'data-toggle': 'tooltip'
+				}).addClass('tooltipIcon').text('i');
+				textBlock.text(textBlock.text().replace(/ *\([^)]*\) */g, "")).append(tooltip);
+			}
+		});
+	});
+
+	$bdl.find('.block').click(function () {
+		$('[data-toggle="tooltip"]').tooltip();
 	});
 
 	btnAction();

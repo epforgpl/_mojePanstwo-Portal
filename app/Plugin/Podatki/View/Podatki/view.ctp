@@ -221,15 +221,15 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
             <div class="row splitTable">
                 <div class="col-xs-12 col-sm-4">
                     <strong>Twój pracodawca płaci <? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) {
-                            echo number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 2, ',', ' ');
+                            echo number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ');
                         } else {
                             echo '0';
                         } ?> zł podatków od wynagrodzenia</strong>
                     <ul>
                         <? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) { ?>
                             <li>
-                                <strong><?= number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 2, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?> *
+                                <strong><?= number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
                             </li>
                         <? } ?>
                     </ul>
@@ -237,22 +237,22 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div class="col-xs-12 col-sm-4">
                     <strong>Ty
                         płacisz <? if ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) > 0) {
-                            echo number_format((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']), 2, ',', ' ');
+                            echo number_format((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']), 0, ',', ' ');
                         } else {
                             echo '0';
                         } ?> zł podatków od wynagrodzenia</strong>
                     <ul>
                         <? if ((float)str_replace(',', '.', $result['zus']) > 0) { ?>
-                            <li><strong><?= number_format((float)str_replace(',', '.', $result['zus']), 2, ',', ' ') ?>
+                            <li><strong><?= number_format((float)str_replace(',', '.', $result['zus']), 0, ',', ' ') ?>
                                     zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?></li>
                         <? } ?>
                         <? if ((float)str_replace(',', '.', $result['zdrow']) > 0) { ?>
                             <li>
-                                <strong><?= number_format((float)str_replace(',', '.', $result['zdrow']), 2, ',', ' ') ?>
+                                <strong><?= number_format((float)str_replace(',', '.', $result['zdrow']), 0, ',', ' ') ?>
                                     zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?></li>
                         <? } ?>
                         <? if ((float)str_replace(',', '.', $result['pit']) > 0) { ?>
-                            <li><strong><?= number_format((float)str_replace(',', '.', $result['pit']), 2, ',', ' ') ?>
+                            <li><strong><?= number_format((float)str_replace(',', '.', $result['pit']), 0, ',', ' ') ?>
                                     zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?></li>
                         <? } ?>
                     </ul>
@@ -260,20 +260,20 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div class="col-xs-12 col-sm-4">
                     <strong>Ty
                         płacisz <? if ((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']) > 0) {
-                            echo number_format((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']), 2, ',', ' ');
+                            echo number_format((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ');
                         } else {
                             echo '0';
                         } ?> zł podatków od konsumpcji</strong>
                     <ul>
                         <? if ((float)str_replace(',', '.', $result['vat']) > 0) { ?>
-                            <li><strong><?= number_format((float)str_replace(',', '.', $result['vat']), 2, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?> **
+                            <li><strong><?= number_format((float)str_replace(',', '.', $result['vat']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
                             </li>
                         <? } ?>
                         <? if ((float)str_replace(',', '.', $result['akcyza']) > 0) { ?>
                             <li>
-                                <strong><?= number_format((float)str_replace(',', '.', $result['akcyza']), 2, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?> **
+                                <strong><?= number_format((float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
                             </li>
                         <? } ?>
                     </ul>
@@ -283,15 +283,13 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     <p>
                         <? if (isset($result['netto'])) {
                             $kwota_podatku = ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zus_pracodawca']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) + (float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']));
-                            echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE %s', number_format($kwota_podatku, 2, ',', ' '));
+                            echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE %s', number_format($kwota_podatku, 0, ',', ' '));
                         } ?>
                     </p>
                 </div>
 
-                <div class="col-xs-12 small">
-                    <p>* - <?= __d('podatki', 'LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS_PRACODAWCA'); ?></p>
-
-                    <p>** - <?= __d('podatki', 'LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX'); ?></p>
+                <div class="col-xs-12 small text-center">
+                    <a href="/podatki/metodologia" target="_self">Zobacz metodologie obliczania podatków</a>
                 </div>
             </div>
 
@@ -307,7 +305,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                     </div>
                                     <div class="details">
                                         <span
-                                            class="detail"><?= number_format(($dzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 2, ',', ' '); ?>
+                                            class="detail"><?= number_format(($dzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 0, ',', ' '); ?>
                                             zł</span>
                                     </div>
                                     <div class="title">
@@ -323,7 +321,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                                                 <span class="href"><?= $subdzial['nazwa'] ?></span>
                                                             </div>
                                                             <div
-                                                                class="col-xs-3"><?= number_format(($subdzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 2, ',', ' '); ?>
+                                                                class="col-xs-3"><?= number_format(($subdzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 0, ',', ' '); ?>
                                                                 zł
                                                             </div>
                                                         </div>
@@ -337,7 +335,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                         </div>
                     <? } ?>
                 </div>
-                <div class="pie_chart" data-suma="<?= $wydatki['suma'] ?>" data-podatek="<?= $kwota_podatku ?>"
+                <div id="pie_chart" class="pie_chart" data-suma="<?= $wydatki['suma'] ?>"
+                     data-podatek="<?= $kwota_podatku ?>"
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
             <? } ?>
         </div>
@@ -367,7 +366,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     </a>
                     <a title="Fundacja Naukowa Instytut Badań Strukturalnych" href="http://www.ibs.org.pl/"
                        target="_blank">
-                        <img src="/Dane/img/customObject/krakow/wpf/logotyp_ibs.jpg" class="image">
+                        <img src="/Podatki/img/logotyp_ibs.jpg" class="image">
                     </a>
                 </div>
             </div>

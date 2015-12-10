@@ -701,7 +701,7 @@ class KrsPodmiotyController extends DataobjectsController
             'id' => 'graph',
             'label' => 'Powiązania'
         );
-
+		
         if($this->Auth->user()) {
             $menu['items'][] = array(
                 'id' => 'odpisy',

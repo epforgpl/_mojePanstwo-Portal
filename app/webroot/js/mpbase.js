@@ -40,9 +40,9 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 
 					// this is useful with css3pie
 					$target = $target.
-						clone().
-						attr('style', style).
-						appendTo('body');
+					clone().
+					attr('style', style).
+					appendTo('body');
 				};
 
 				restore = function () {
@@ -256,7 +256,36 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 				mp_sticky_resize();
 				$(window).resize(mp_sticky_resize);
 			}
+
+			if (el.outerHeight() > window.innerHeight) {
+				if (el.find('.showStickyBottom').length === 0) {
+					el.append(
+						$('<div></div>').addClass('showStickyBottom').css('top', window.innerHeight).append(
+							$('<div></div>').addClass('pull-right btn btn-primary btn-xs').append(
+								$('<i></i>').addClass('glyphicon glyphicon-save')
+							).on('click', function () {
+								$('.showStickyBottom').stop(true, true).animate({
+									'top': el.outerHeight()
+								}, 500);
+								el.stop(true, true).animate({
+									'margin-top': -(el.outerHeight() - window.innerHeight)
+								}, 500, function () {
+									el.mouseleave(function () {
+										$('.showStickyBottom').stop(true, true).animate({
+											'top': window.innerHeight
+										}, 500);
+										el.stop(true, true).animate({
+											'margin-top': 0
+										});
+									});
+								});
+							})
+						)
+					);
+				}
+			} else {
+				el.find('.showStickyBottom').remove();
+			}
 		});
 	}
-})
-(jQuery);
+})(jQuery);

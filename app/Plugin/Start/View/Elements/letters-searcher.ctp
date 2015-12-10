@@ -9,7 +9,7 @@
                    placeholder="<?= isset($placeholder) ? $placeholder : 'Szukaj...'; ?>"
                    type="text"
                    name="q"
-                   value="<?= $q ?>"
+                   value="<?= htmlentities(stripcslashes($q), ENT_QUOTES | ENT_IGNORE, "UTF-8") ?>"
                    data-dataset="<?= isset($dataset) ? $dataset : '*'; ?>"
                    data-url="<?= @$url ?>"
                    data-autocompletion="true"
