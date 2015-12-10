@@ -73,30 +73,24 @@ $(document).ready(function () {
 
 			var suma = $chartArea.attr('data-suma'),
 				podatek = $chartArea.attr('data-podatek'),
+				categories = [],
 				data = [],
-				i, bLen,
-				seriesData,
-				series = [],
-				j, vLen;
+				dataSeries = [],
+				userSeries = [],
+				i, bLen;
 
 			for (i = 0, bLen = res.length; i < bLen; i++) {
-				data.push({
-					name: res[i].nazwa,
-					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)),
-					drilldown: (typeof res[i].subdzialy !== "undefined") ? res[i].nazwa : null
-				});
-				if (typeof res[i].subdzialy !== "undefined") {
-					seriesData = [];
-					for (j = 0, vLen = res[i].subdzialy.length; j < vLen; j++) {
-						seriesData.push([res[i].subdzialy[j].nazwa.replace(/\(.*\)/g, ''), parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(0))]);
-					}
-					series.push({
-						name: res[i].nazwa,
-						id: res[i].nazwa,
-						data: seriesData
-					});
-				}
+				categories.push(res[i].nazwa);
+				dataSeries.push(parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)));
+				userSeries.push(0);
 			}
+			data.push({
+				name: 'Koszt wg. Państwa',
+				data: dataSeries
+			}, {
+				name: 'Koszt sugerowany wg. użytkownika',
+				data: userSeries
+			});
 
 			var chart = new Highcharts.Chart({
 				credits: false,
@@ -105,30 +99,42 @@ $(document).ready(function () {
 					type: 'column',
 					backgroundColor: 'transparent',
 					height: 700,
-					marginTop: 50
+					marginTop: 50,
+					options3d: {
+						enabled: true,
+						alpha: 10,
+						beta: 25,
+						depth: 70
+					}
 				},
 				title: {
 					text: ' '
 				},
 				plotOptions: {
+					column: {
+						depth: 25,
+						dataLabels: {
+							align: 'center',
+							enabled: true
+						}
+					},
 					series: {
 						borderWidth: 0
 					}
 				},
 				xAxis: {
-					type: 'category',
+					categories: categories,
 					labels: {
 						rotation: -45,
-						align: 'right',
-						style: {
-							'white-space': 'normal'
-						}
+						align: 'right'
 					},
 					title: {
 						text: ''
-					}
+					},
+					crosshair: true
 				},
 				yAxis: {
+					min: 0,
 					title: {
 						text: 'zł'
 					}
@@ -138,45 +144,9 @@ $(document).ready(function () {
 				},
 				tooltip: {
 					headerFormat: '',
-					pointFormat: '<span>{point.name}</span>: <b>{point.y}</b> zł<br/>'
+					pointFormat: '<span>{series.name}</span>: <b>{point.y}</b> zł<br/>'
 				},
-				series: [{
-					name: ' ',
-					data: data
-				}],
-				drilldown: {
-					activeAxisLabelStyle: {
-						color: '#606060',
-						fontWeight: 'normal',
-						textDecoration: 'none'
-					},
-					drillUpButton: {
-						relativeTo: 'spacingBox',
-						position: {
-							y: 0,
-							x: 0
-						},
-						theme: {
-							fill: '#007ab9',
-							'stroke-width': 1,
-							stroke: '#007ab9',
-							r: 3,
-							style: {
-								color: '#ffffff',
-								'font-size': '14px',
-								'font-weight': 400,
-								'line-height': '1em',
-								padding: '6px 12px'
-							},
-							states: {
-								hover: {
-									fill: '#006da5'
-								}
-							}
-						}
-					},
-					series: series
-				}
+				series: data
 			});
 		}
 	}
