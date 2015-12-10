@@ -94,14 +94,15 @@ $(document).ready(function () {
 				chart: {
 					renderTo: 'pie_chart',
 					type: 'column',
-					backgroundColor: null,
+					backgroundColor: 'transparent',
 					options3d: {
 						enabled: true,
 						alpha: 15,
 						beta: 15,
 						depth: 50,
 						viewDistance: 25
-					}
+					},
+					height: 700
 				},
 				title: {
 					text: ' '
@@ -118,7 +119,7 @@ $(document).ready(function () {
 						align: 'right'
 					},
 					title: {
-						text: 'Działy'
+						text: ''
 					}
 				},
 				yAxis: {
@@ -130,12 +131,11 @@ $(document).ready(function () {
 					enabled: false
 				},
 				tooltip: {
-					headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-					pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> zł<br/>'
+					headerFormat: '',
+					pointFormat: '<span>{point.name}</span>: <b>{point.y}</b> zł<br/>'
 				},
 				series: [{
 					name: 'Dział',
-					colorByPoint: true,
 					data: data
 				}]
 			});

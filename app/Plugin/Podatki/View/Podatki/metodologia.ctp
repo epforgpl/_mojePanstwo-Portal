@@ -7,7 +7,7 @@ $this->Combinator->add_libs('css', $this->Less->css('podatki', array('plugin' =>
         <div class="appBanner">
             <h1 class="appTitle"><?= __d('podatki', 'LC_PODATKI_METODOLOGIA_HEADLINE'); ?></h1>
 
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 text-justify">
                 <p>
                     Obliczenia podatków i składek odzwierciedlają stan prawny z 2014 roku. Podatek VAT płacony przez
                     konsumentów jest obliczony na podstawie szacunków przeciętnej stawki podatku VAT dla gospodarstw

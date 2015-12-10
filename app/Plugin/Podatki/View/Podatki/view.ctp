@@ -288,9 +288,6 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     </p>
                 </div>
 
-                <div class="col-xs-12 small text-center">
-                    <a href="/podatki/metodologia" target="_self">Zobacz metodologie obliczania podatków</a>
-                </div>
             </div>
 
             <? if (isset($wydatki)) { ?>
@@ -309,7 +306,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                             zł</span>
                                     </div>
                                     <div class="title">
-                                        <div class="nazwa"><?= $dzial['nazwa']; ?></div>
+                                        <div class="nazwa"><?= $dzial['nazwa']; ?><span class="glyphicon glyphicon-chevron-down"></span></div>
                                     </div>
                                     <? if (isset($dzial['subdzialy'])) { ?>
                                         <div class="text">
@@ -335,7 +332,14 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                         </div>
                     <? } ?>
                 </div>
-                <div id="pie_chart" class="pie_chart" data-suma="<?= $wydatki['suma'] ?>"
+                
+                <?
+	                foreach( $wydatki['dzialy'] as &$d )
+	                	if( $d['id']=='109' )
+	                		$d['nazwa'] = 'Gospodarka mieszkaniowa i ochrona środowiska';
+                ?>
+                
+                <div id="pie_chart" class="pie_chart margin-top-30" data-suma="<?= $wydatki['suma'] ?>"
                      data-podatek="<?= $kwota_podatku ?>"
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
             <? } ?>
@@ -348,9 +352,64 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
             </a>
         </div>
     <? } ?>
+    
+    <div class="modal fade" id="metodologia_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Metodologia</h4>
+	      </div>
+	      <div class="modal-body">
+		      <div class="row">
+	        <div class="col-xs-12 text-justify">
+                <p>
+                    Obliczenia podatków i składek odzwierciedlają stan prawny z 2014 roku. Podatek VAT płacony przez
+                    konsumentów jest obliczony na podstawie szacunków przeciętnej stawki podatku VAT dla gospodarstw
+                    domowych o różnych poziomach dochodu przedstawionych w raporcie „VAT w wydatkach gospodarstw
+                    domowych”,
+                    przygotowanym przez Centrum Analiz Ekonomicznych CenEA. Dla obliczenia wysokości akcyzy przyjęto
+                    uproszczenie, zgodnie z którym wysokość płaconej akcyzy stanowi połowę wysokości płaconego podatku
+                    VAT.
+                    Uproszczenie to wynika ze struktury dochodów budżetu państwa. Składki na ubezpieczenie społeczne
+                    płacone
+                    przez pracodawcę obejmują też składki na Fundusz Pracy i Fundusz Gwarantowanych Świadczeń
+                    Pracowniczych.
+                    Przyjęto stawkę wypadkową w wysokości 1,93%.
+                </p>
+
+                <p>Struktura wydatków państwa została opracowana na podstawie
+                    danych za 2013 rok. W tym celu wykorzystano następujące źródła danych: sprawozdanie z wykonania
+                    budżetu
+                    państwa za 2013 rok; raport NIK „Analiza wykonania budżetu państwa i założeń polityki pieniężnej w
+                    2013
+                    roku”; informacje NIK o wynikach kontroli wykonania budżetu państwa w poszczególnych częściach
+                    budżetowych oraz wyników kontroli planów finansowych poszczególnych agencji, funduszy, itp.;
+                    informacje
+                    o wykonaniu planów finansowych Funduszu Ubezpieczeń Społecznych oraz Funduszu Emerytalno-Rentowego
+                    rolników; roczne sprawozdanie z wykonania planu finansowego NFZ; sprawozdanie z wykonania planu
+                    wydatków
+                    budżetowych jednostek samorządu terytorialnego oraz sprawozdanie z wykonania planów finansowych
+                    samorządowych zakładów budżetowych (dane zbiorcze dla wszystkich JST); informacje otrzymane
+                    bezpośrednio
+                    z Ministerstwa Finansów w trybie dostępu do informacji publicznej.
+                </p>
+
+                <p>Wszystkie kwoty zaokrąglono do pełnych złotych.</p>
+            </div>
+		      </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success" data-dismiss="modal">Zamknij</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+    
     <div class="footer text-center">
         <div class="container">
-            <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?></p>
+            <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?> <a href="#" data-toggle="modal" data-target="#metodologia_modal" target="_blank">Zobacz metodologię obliczeń &raquo;</p>
         </div>
         <div class="customObject krakow903 col-xs-12" id="fundatorzy">
             <div class="part">
