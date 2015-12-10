@@ -89,12 +89,12 @@ class PrawoController extends ApplicationsController
 		),
 		'prawo_wojewodztwa' => array(
 			'menu_id' => 'lokalne',
-			'label' => 'Dzienniki wojewódzkie',
+			'label' => 'Prawo lokalne',
 			'icon' => 'dot',
 		),
 		'prawo_urzedowe' => array(
 			'menu_id' => 'urzedowe',
-			'label' => 'Dzienniki urzędowe',
+			'label' => 'Prawo urzędowe',
 			'icon' => 'dot',
 		),
 	);
