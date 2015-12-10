@@ -3,6 +3,8 @@ $this->Combinator->add_libs('css', $this->Less->css('podatki', array('plugin' =>
 
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highcharts-more');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/modules/data');
+$this->Combinator->add_libs('js', '../plugins/highstock/js/modules/drilldown');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $this->Combinator->add_libs('js', 'Bdl.bdl-click.js');
@@ -27,7 +29,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             :</label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="text" name="umowa_o_prace[]"
+                        <input type="text" autocomplete="off" name="umowa_o_prace[]"
                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_umowa_o_prace_1"
                                value="<? if (isset($post['umowa_o_prace'][0]) && (float)str_replace(',', '.', $post['umowa_o_prace'][0]) > 0) {
@@ -48,7 +50,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <div class="additional row" data-number="<?= $i; ?>">
                                 <div
                                     class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
-                                    <input type="text" class="form-control currency" name="umowa_o_prace[]"
+                                    <input type="text" autocomplete="off" class="form-control currency"
+                                           name="umowa_o_prace[]"
                                            title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                            id="przychody_umowa_o_prace_<?= $i; ?>"
                                            value="<? if (isset($post['umowa_o_prace'][$i]) && (float)str_replace(',', '.', $post['umowa_o_prace'][$i]) > 0) {
@@ -75,7 +78,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             :</label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="text" name="umowa_zlecenie[]"
+                        <input type="text" autocomplete="off" name="umowa_zlecenie[]"
                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_umowa_zlecenie_1"
                                value="<? if (isset($post['umowa_zlecenie'][0]) && (float)str_replace(',', '.', $post['umowa_zlecenie'][0]) > 0) {
@@ -96,7 +99,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <div class="additional row" data-number="<?= $i; ?>">
                                 <div
                                     class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
-                                    <input type="text" class="form-control currency" name="umowa_zlecenie[]"
+                                    <input type="text" autocomplete="off" class="form-control currency"
+                                           name="umowa_zlecenie[]"
                                            title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                            id="przychody_umowa_zlecenie_<?= $i; ?>"
                                            value="<? if (isset($post['umowa_zlecenie'][$i]) && (float)str_replace(',', '.', $post['umowa_zlecenie'][$i]) > 0) {
@@ -123,7 +127,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             :</label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="text" name="umowa_o_dzielo[]"
+                        <input type="text" autocomplete="off" name="umowa_o_dzielo[]"
                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_umowa_o_dzielo_1"
                                value="<? if (isset($post['umowa_o_dzielo'][0]) && (float)str_replace(',', '.', $post['umowa_o_dzielo'][0]) > 0) {
@@ -144,7 +148,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <div class="additional row" data-number="<?= $i; ?>">
                                 <div
                                     class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
-                                    <input type="text" class="form-control currency" name="umowa_o_dzielo[]"
+                                    <input type="text" autocomplete="off" class="form-control currency"
+                                           name="umowa_o_dzielo[]"
                                            title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
                                            id="przychody_umowa_o_dzielo_<?= $i; ?>"
                                            value="<? if (isset($post['umowa_o_dzielo'][$i]) && (float)str_replace(',', '.', $post['umowa_o_dzielo'][$i]) > 0) {
@@ -174,7 +179,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             for="przychody_dzialalnosc_gospodarcza_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA'); ?></label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="text" name="dzialalnosc_gospodarcza[]"
+                        <input type="text" autocomplete="off" name="dzialalnosc_gospodarcza[]"
                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_dzialalnosc_gospodarcza_1"
                                value="<? if (isset($post['dzialalnosc_gospodarcza'][0]) && (float)str_replace(',', '.', $post['dzialalnosc_gospodarcza'][0]) > 0) {
@@ -198,7 +203,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             for="przychody_dzialalnosc_gospodarcza_koszt_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA_KOSZT'); ?></label>
                     </div>
                     <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
-                        <input type="text" name="dzialalnosc_gospodarcza_koszt[]"
+                        <input type="text" autocomplete="off" name="dzialalnosc_gospodarcza_koszt[]"
                                title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
                                id="przychody_dzialalnosc_gospodarcza_koszt_1"
                                value="<? if (isset($post['dzialalnosc_gospodarcza_koszt'][0]) && (float)str_replace(',', '.', $post['dzialalnosc_gospodarcza_koszt'][0]) > 0) {

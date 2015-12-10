@@ -80,28 +80,42 @@ $(document).ready(function () {
 				series = [],
 				j, vLen;
 
+			/*for (i = 0, bLen = res.length; i < bLen; i++) {
+			 categories.push(res[i].nazwa);
+			 data.push({
+			 name: res[i].nazwa,
+			 y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0))
+			 });
+			 }*/
+
 			for (i = 0, bLen = res.length; i < bLen; i++) {
 				categories.push(res[i].nazwa);
 				data.push({
 					name: res[i].nazwa,
-					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0))
+					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)),
+					drilldown: (typeof res[i].subdzialy !== "undefined") ? res[i].nazwa : null
 				});
+				if (typeof res[i].subdzialy !== "undefined") {
+					seriesData = [];
+					for (j = 0, vLen = res[i].subdzialy.length; j < vLen; j++) {
+						seriesData.push([res[i].subdzialy[j].nazwa, parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(0))]);
+					}
+					series.push({
+						name: res[i].nazwa,
+						id: res[i].nazwa,
+						data: seriesData
+					});
+				}
 			}
 
 			$chartArea.css('min-height', ($chartArea.width() * 0.7));
 			var chart = new Highcharts.Chart({
 				credits: false,
 				chart: {
-					renderTo: 'pie_chart',
-					type: 'column',
 					backgroundColor: null,
-					options3d: {
-						enabled: true,
-						alpha: 15,
-						beta: 15,
-						depth: 50,
-						viewDistance: 25
-					}
+					marginTop: 100,
+					renderTo: 'pie_chart',
+					type: 'column'
 				},
 				title: {
 					text: ' '
@@ -116,9 +130,6 @@ $(document).ready(function () {
 					labels: {
 						rotation: -45,
 						align: 'right'
-					},
-					title: {
-						text: 'Działy'
 					}
 				},
 				yAxis: {
@@ -134,10 +145,36 @@ $(document).ready(function () {
 					pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> zł<br/>'
 				},
 				series: [{
-					name: 'Dział',
 					colorByPoint: true,
 					data: data
-				}]
+				}],
+				drilldown: {
+					drillUpButton: {
+						relativeTo: 'spacingBox',
+						position: {
+							y: 0,
+							x: 0
+						},
+						theme: {
+							fill: '#007ab9',
+							'stroke-width': 1,
+							stroke: '#007ab9',
+							r: 3,
+							style: {
+								color: '#ffffff',
+								'font-size': '14px',
+								'font-weight': 400,
+								'line-height': '1em'
+							},
+							states: {
+								hover: {
+									fill: '#006da5'
+								}
+							}
+						}
+					},
+					series: series
+				}
 			});
 		}
 	}
