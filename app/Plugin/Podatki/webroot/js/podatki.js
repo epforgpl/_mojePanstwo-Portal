@@ -229,7 +229,7 @@ $(document).ready(function () {
 			if (textBlock.text().indexOf("(") > -1) {
 				var tooltip = $('<span></span>').attr({
 					'title': textBlock.text().match(/\(([^)]+)\)/)[1],
-					'data-placement': 'top',
+					'data-placement': 'bottom',
 					'data-toggle': 'tooltip'
 				}).addClass('tooltipIcon').text('i');
 				textBlock.text(textBlock.text().replace(/ *\([^)]*\) */g, "")).append(tooltip);
