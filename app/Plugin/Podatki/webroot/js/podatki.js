@@ -119,7 +119,10 @@ $(document).ready(function () {
 					type: 'category',
 					labels: {
 						rotation: -45,
-						align: 'right'
+						align: 'right',
+						style: {
+							'white-space': 'normal'
+						}
 					},
 					title: {
 						text: ''

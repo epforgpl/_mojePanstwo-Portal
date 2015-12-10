@@ -29,10 +29,10 @@ class PodatkiController extends ApplicationsController
         if ($this->request->is("POST")) {
             if (!empty($this->request->data)) {
                 if (
-                    !((array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace'])))))
-                    || !((array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie'])))))
-                    || !((array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo'])))))
-                    || !((array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza'])))))
+                    (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace'])))))
+                    || (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie'])))))
+                    || (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo'])))))
+                    || (count(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza'])))))
                 ) {
 
                     $result = $this->result_sum();
