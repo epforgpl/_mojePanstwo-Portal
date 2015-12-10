@@ -320,13 +320,13 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                                     <li>
                                                         <div class="row">
                                                             <div
-                                                                class="col-xs-1 text-right"><?= number_format(($subdzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 0, ',', ' '); ?>
+                                                                class="wskaznikWartosc col-xs-1 text-right"><?= number_format(($subdzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 0, ',', ' '); ?>
                                                                 zł
                                                             </div>
-                                                            <div class="col-xs-11">
+                                                            <div class="wskaznikText col-xs-11">
                                                                 <span class="href"><?= $subdzial['nazwa'] ?></span>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </li>
                                                 <? } ?>
@@ -338,13 +338,13 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                         </div>
                     <? } ?>
                 </div>
-                
+
                 <?
 	                foreach( $wydatki['dzialy'] as &$d )
 	                	if( $d['id']=='109' )
 	                		$d['nazwa'] = 'Gospodarka mieszkaniowa i ochrona środowiska';
                 ?>
-                
+
                 <div id="pie_chart" class="pie_chart margin-top-30" data-suma="<?= $wydatki['suma'] ?>"
                      data-podatek="<?= $kwota_podatku ?>"
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
@@ -358,7 +358,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
             </a>
         </div>
     <? } ?>
-    
+
     <div class="modal fade" id="metodologia_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -411,8 +411,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
 	    </div>
 	  </div>
 	</div>
-    
-    
+
+
     <div class="footer text-center">
         <div class="container">
             <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?> <a href="#" data-toggle="modal" data-target="#metodologia_modal" target="_blank">Zobacz metodologię obliczeń &raquo;</p>

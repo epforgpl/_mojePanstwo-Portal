@@ -264,7 +264,7 @@ $(document).ready(function () {
 	});
 
 	$bdl.find('.block').each(function () {
-		$(this).find('.wskazniki li .col-xs-9 .href').each(function () {
+		$(this).find('.wskazniki li .wskaznikText .href').each(function () {
 			var textBlock = $(this);
 			if (textBlock.text().indexOf("(") > -1) {
 				var tooltip = $('<span></span>').attr({
