@@ -53,7 +53,7 @@ msgid "LC_PODATKI_RESULTS_PIE_ZDROW"
 msgstr "składki zdrowotnej"
 
 msgid "LC_PODATKI_RESULTS_PIE_PIT"
-msgstr "podatku dochodowego (PIT))"
+msgstr "podatku dochodowego (PIT)"
 
 msgid "LC_PODATKI_RESULTS_PIE_VAT"
 msgstr "podatku VAT"
