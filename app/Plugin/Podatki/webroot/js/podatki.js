@@ -156,7 +156,8 @@ $(document).ready(function () {
 								color: '#ffffff',
 								'font-size': '14px',
 								'font-weight': 400,
-								'line-height': '1em'
+								'line-height': '1em',
+								padding: '6px 12px'
 							},
 							states: {
 								hover: {
