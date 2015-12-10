@@ -73,7 +73,6 @@ $(document).ready(function () {
 
 			var suma = $chartArea.attr('data-suma'),
 				podatek = $chartArea.attr('data-podatek'),
-				categories = [],
 				data = [],
 				i, bLen,
 				seriesData,
@@ -81,7 +80,6 @@ $(document).ready(function () {
 				j, vLen;
 
 			for (i = 0, bLen = res.length; i < bLen; i++) {
-				categories.push(res[i].nazwa);
 				data.push({
 					name: res[i].nazwa,
 					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)),
@@ -100,32 +98,25 @@ $(document).ready(function () {
 				}
 			}
 
-			$chartArea.css('min-height', ($chartArea.width() * 0.7));
 			var chart = new Highcharts.Chart({
 				credits: false,
 				chart: {
 					renderTo: 'pie_chart',
 					type: 'column',
 					backgroundColor: 'transparent',
-					options3d: {
-						enabled: true,
-						alpha: 15,
-						beta: 15,
-						depth: 50,
-						viewDistance: 25
-					},
-					height: 700
+					height: 700,
+					marginTop: 50
 				},
 				title: {
 					text: ' '
 				},
 				plotOptions: {
-					column: {
-						depth: 25
+					series: {
+						borderWidth: 0
 					}
 				},
 				xAxis: {
-					categories: categories,
+					type: 'category',
 					labels: {
 						rotation: -45,
 						align: 'right'
@@ -147,10 +138,15 @@ $(document).ready(function () {
 					pointFormat: '<span>{point.name}</span>: <b>{point.y}</b> zł<br/>'
 				},
 				series: [{
-					name: 'Dział',
+					name: ' ',
 					data: data
 				}],
 				drilldown: {
+					activeAxisLabelStyle: {
+						color: '#606060',
+						fontWeight: 'normal',
+						textDecoration: 'none'
+					},
 					drillUpButton: {
 						relativeTo: 'spacingBox',
 						position: {

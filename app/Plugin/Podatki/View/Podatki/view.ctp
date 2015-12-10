@@ -311,7 +311,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                             zł</span>
                                     </div>
                                     <div class="title">
-                                        <div class="nazwa"><?= $dzial['nazwa']; ?><span class="glyphicon glyphicon-chevron-down"></span></div>
+                                        <div class="nazwa"><?= $dzial['nazwa']; ?><span class="glyphicon"></span></div>
                                     </div>
                                     <? if (isset($dzial['subdzialy'])) { ?>
                                         <div class="text">
@@ -326,7 +326,6 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                                             <div class="wskaznikText col-xs-11">
                                                                 <span class="href"><?= $subdzial['nazwa'] ?></span>
                                                             </div>
-
                                                         </div>
                                                     </li>
                                                 <? } ?>

@@ -138,6 +138,10 @@
 
                 &.focus {
                     opacity: 1;
+
+                    .item .inner.clickable .title .nazwa .glyphicon:before {
+                        content: "\e014";
+                    }
                 }
             }
             .block {
@@ -173,6 +177,18 @@
 
                     &.clickable {
                         cursor: pointer;
+
+                        .title .nazwa {
+                            padding-right: 45px;
+
+                            .glyphicon {
+                                display: block;
+
+                                &:before {
+                                    content: "\e114";
+                                }
+                            }
+                        }
                     }
 
                     .logo {
@@ -295,12 +311,12 @@
                             -ms-transform: translate(0, -50%);
                             -o-transform: translate(0, -50%);
                             transform: translate(0, -50%);
-                            padding-right: 45px !important;
 
                             .glyphicon {
-	                            position: absolute;
-	                            right: 15px;
+                                position: absolute;
+                                right: 15px;
                                 top: 50%;
+                                display: none;
 
                                 -webkit-transform: translate(0, -50%);
                                 -moz-transform: translate(0, -50%);
