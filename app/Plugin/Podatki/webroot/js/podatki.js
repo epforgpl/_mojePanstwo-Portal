@@ -1,4 +1,4 @@
-/*global mPHeart, window, document, $, confirm, bdlClick*/
+/*global Highcharts, mPHeart, window, document, $, confirm, bdlClick*/
 
 $(document).ready(function () {
 	var $podatki = $('#podatki'),
@@ -89,7 +89,10 @@ $(document).ready(function () {
 				data: dataSeries
 			}, {
 				name: 'Koszt sugerowany wg. użytkownika',
-				data: userSeries
+				data: userSeries,
+				draggableY: true,
+				dragMinY: 0,
+				cursor: 'ns-resize'
 			});
 
 			var chart = new Highcharts.Chart({
@@ -100,6 +103,7 @@ $(document).ready(function () {
 					backgroundColor: 'transparent',
 					height: 700,
 					marginTop: 50,
+					marginLeft: 0,
 					options3d: {
 						enabled: true,
 						alpha: 10,
@@ -115,11 +119,38 @@ $(document).ready(function () {
 						depth: 25,
 						dataLabels: {
 							align: 'center',
-							enabled: true
+							enabled: true,
+							formatter: function () {
+								return Highcharts.numberFormat(this.y, 0) + ' zł';
+							}
 						}
 					},
 					series: {
-						borderWidth: 0
+						point: {
+							events: {
+								drag: function (e) {
+									var maxSum = 0;
+
+									for (var i = 0; i < userSeries.length; i++) {
+										if (typeof userSeries[i] === "object") {
+											maxSum += userSeries[i].y;
+										} else {
+											maxSum += userSeries[i];
+										}
+
+									}
+
+									if (e.newY < 0) {
+										this.y = 0;
+										return false;
+									} else if (maxSum > podatek) {
+										this.y = this.y - (maxSum - podatek);
+										return false;
+									}
+								}
+							}
+						},
+						stickyTracking: false
 					}
 				},
 				xAxis: {
@@ -139,12 +170,11 @@ $(document).ready(function () {
 						text: 'zł'
 					}
 				},
-				legend: {
+				tooltip: {
 					enabled: false
 				},
-				tooltip: {
-					headerFormat: '',
-					pointFormat: '<span>{series.name}</span>: <b>{point.y}</b> zł<br/>'
+				legend: {
+					enabled: false
 				},
 				series: data
 			});
