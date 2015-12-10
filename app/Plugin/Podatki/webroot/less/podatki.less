@@ -133,11 +133,24 @@
         }
 
         .items {
+            &.focus-control .block {
+                opacity: .25;
+
+                &.focus {
+                    opacity: 1;
+                }
+            }
             .block {
                 padding: 0 15px 0;
                 background-color: inherit;
                 border: none;
                 margin: 0;
+
+                -webkit-transition-duration: 1s;
+                -moz-transition-duration: 1s;
+                -ms-transition-duration: 1s;
+                -o-transition-duration: 1s;
+                transition-duration: 1s;
             }
 
             .item {
@@ -397,11 +410,11 @@
                         &:last-child {
                             border-bottom: none;
                         }
-                        
+
                         .href {
-	                        color: #444;
+                            color: #444;
                         }
-                        
+
                     }
 
                     .tooltipIcon {
