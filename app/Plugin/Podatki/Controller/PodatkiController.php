@@ -660,4 +660,9 @@ class PodatkiController extends ApplicationsController
 
         return $RESULT_SUM;
     }
+
+    public function metodologia()
+    {
+
+    }
 }

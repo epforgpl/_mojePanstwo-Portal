@@ -28,7 +28,8 @@
                         <form class="form-horizontal suggesterBlock" method="get" action="/pisma">
                             <div class="searcher form-group has-feedback">
                                 <div class="input-group">
-                                    <input class="form-control hasclear input-lg" name="q" type="text" value="<?= $q ?>"
+                                    <input class="form-control hasclear input-lg" name="q" type="text"
+                                           value="<?= htmlentities(stripcslashes($q), ENT_QUOTES | ENT_IGNORE, "UTF-8") ?>"
                                            placeholder="Szukaj w moich pismach...">
 
                                     <div class="input-group-btn">
@@ -183,7 +184,7 @@
                 if ($q) {
                     ?>
                     <p class="letters-msg">Brak pism</p>
-                <?
+                    <?
                 } else {
                     ?>
                     <div class="informationBlock missing col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
@@ -194,7 +195,7 @@
                             <a target="_self" href="/pisma/nowe" class="btn btn-info">Nowe pismo</a>
                         </div>
                     </div>
-                <?
+                    <?
                 }
             } ?>
 

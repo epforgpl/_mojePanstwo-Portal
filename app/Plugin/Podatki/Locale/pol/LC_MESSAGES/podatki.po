@@ -72,3 +72,6 @@ msgstr "szczegóły"
 
 msgid "LC_PODATKI_MODAL_LACZNA_KWOTA"
 msgstr "Łączna kwota"
+
+msgid "LC_PODATKI_METODOLOGIA_HEADLINE"
+msgstr "Metodologia"

@@ -1,7 +1,5 @@
 /*global $, jQuery, google, document, window*/
 
-var zoomChangeBoundsListener;
-
 function parsePolyStrings(ps) {
 	var i, j, lat, lng, tmp, tmpArr, arr = [], m = ps.match(/\([^\(\)]+\)/g);
 	if (m !== null) {
@@ -135,7 +133,7 @@ GminyKrakowOkregi.prototype.getAreasListByYear = function (year) {
 	var html = [];
 	if (this.data[year] !== undefined) {
 		for (var i = 0; i < this.data[year].length; i++) {
-			html.push('<li><a href="okregi/' + this.data[year][i][0] + '" data-number="' + this.data[year][i][2] + '">' + this.data[year][i][2] + ' (Dzielnice ' + this.data[year][i][4] + ')</a></li>');
+			html.push('<li><a href="/okregi/' + this.data[year][i][0] + '" data-number="' + this.data[year][i][2] + '">' + this.data[year][i][2] + ' (Dzielnice ' + this.data[year][i][4] + ')</a></li>');
 		}
 	}
 	return html.join('');
@@ -249,8 +247,6 @@ $(document).ready(function () {
 				lngMax: p[0][0].K
 			};
 
-		var latlngbounds = new google.maps.LatLngBounds();
-
 		for (var s = 0; s < p.length; s++) {
 			var poly = new google.maps.Polygon({
 				fillColor: '#0000aa',
@@ -276,21 +272,12 @@ $(document).ready(function () {
 				if (center.lngMax < p[s][t].K) {
 					center.lngMax = p[s][t].K;
 				}
-				latlngbounds.extend(p[s][t]);
 			}
 		}
-
-		map.fitBounds(latlngbounds);
-
-		zoomChangeBoundsListener =
-			google.maps.event.addListenerOnce(map, 'bounds_changed', function (event) {
-				if (this.getZoom()) {
-					this.setZoom(this.getZoom() + 1);
-				}
-			});
-		setTimeout(function () {
-			google.maps.event.removeListener(zoomChangeBoundsListener);
-		}, 1000);
+		map.setCenter({
+			lat: center.latMin + (center.latMax - center.latMin) / 2,
+			lng: center.lngMin + (center.lngMax - center.lngMin) / 2
+		});
 	}
 
 });
