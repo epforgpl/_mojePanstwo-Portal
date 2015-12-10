@@ -80,14 +80,6 @@ $(document).ready(function () {
 				series = [],
 				j, vLen;
 
-			/*for (i = 0, bLen = res.length; i < bLen; i++) {
-			 categories.push(res[i].nazwa);
-			 data.push({
-			 name: res[i].nazwa,
-			 y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0))
-			 });
-			 }*/
-
 			for (i = 0, bLen = res.length; i < bLen; i++) {
 				categories.push(res[i].nazwa);
 				data.push({
@@ -98,7 +90,7 @@ $(document).ready(function () {
 				if (typeof res[i].subdzialy !== "undefined") {
 					seriesData = [];
 					for (j = 0, vLen = res[i].subdzialy.length; j < vLen; j++) {
-						seriesData.push([res[i].subdzialy[j].nazwa, parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(0))]);
+						seriesData.push([res[i].subdzialy[j].nazwa.replace(/\(.*\)/g, ''), parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(0))]);
 					}
 					series.push({
 						name: res[i].nazwa,
@@ -141,10 +133,10 @@ $(document).ready(function () {
 					enabled: false
 				},
 				tooltip: {
-					headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-					pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> zł<br/>'
+					pointFormat: '<span>Koszt</span>: <b>{point.y}</b> zł<br/>'
 				},
 				series: [{
+					name: ' ',
 					colorByPoint: true,
 					data: data
 				}],
