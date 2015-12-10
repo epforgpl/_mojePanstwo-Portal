@@ -239,7 +239,7 @@ class PlacesController extends ApplicationsController
 
 
         $this->title = $place->getTitle();
-        $this->set('mapParams', array(
+        $mapParams = array(
             'mode' => 'place',
             'title' => $place->getTitle(),
             'data' => $place->getData(),
@@ -248,7 +248,9 @@ class PlacesController extends ApplicationsController
             'children' => $children,
             'elections' => $elections,
             'codes' => $codes,
-        ));
+        );
+                
+        $this->set('mapParams', $mapParams);
 
         if (isset($this->request->query['widget'])) {
             $this->layout = 'blank';
