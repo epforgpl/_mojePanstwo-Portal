@@ -89,12 +89,12 @@ class PrawoController extends ApplicationsController
 		),
 		'prawo_wojewodztwa' => array(
 			'menu_id' => 'lokalne',
-			'label' => 'Dzienniki wojewódzkie',
+			'label' => 'Prawo lokalne',
 			'icon' => 'dot',
 		),
 		'prawo_urzedowe' => array(
 			'menu_id' => 'urzedowe',
-			'label' => 'Dzienniki urzędowe',
+			'label' => 'Prawo urzędowe',
 			'icon' => 'dot',
 		),
 	);
@@ -247,10 +247,10 @@ class PrawoController extends ApplicationsController
 	                    'aggs' => array(
 		                    'top' => array(
 			                    'top_hits' => array(
-				                    'size' => 10,
+				                    'size' => 1,
 				                    'fielddata_fields' => array('dataset', 'id'),
 				                    'sort' => array(
-					                    'title.raw' => 'asc',
+					                    'date' => 'desc',
 				                    ),
 			                    ),
 		                    ),
