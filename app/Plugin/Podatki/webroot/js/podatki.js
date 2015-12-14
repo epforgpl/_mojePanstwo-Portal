@@ -122,12 +122,6 @@ $(document).ready(function () {
 						dataLabels: {
 							align: 'center',
 							enabled: true,
-							events: {
-								click: function () {
-									alert('test');
-									console.log('dataLabels', this);
-								}
-							},
 							formatter: function () {
 								return Highcharts.numberFormat(this.y, 0) + ' zł';
 							}
@@ -183,6 +177,9 @@ $(document).ready(function () {
 										y: Math.round(this.y)
 									});
 									chart.redraw();
+								},
+								click: function () {
+									console.log(this)
 								}
 							}
 						},
