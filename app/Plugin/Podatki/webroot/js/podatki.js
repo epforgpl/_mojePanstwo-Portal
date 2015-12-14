@@ -4,7 +4,8 @@ $(document).ready(function () {
 	var $podatki = $('#podatki'),
 		$stripe = $('.stripe'),
 		$chartArea = $('.pie_chart'),
-		$bdl = $('.bdlClickEngine');
+		$bdl = $('.bdlClickEngine'),
+		chart;
 
 	function btnAction() {
 		$podatki.find('input.currency:not(".blurEffect")').addClass('blurEffect').on('keydown', function (e) {
@@ -92,10 +93,11 @@ $(document).ready(function () {
 				data: userSeries,
 				draggableY: true,
 				dragMinY: 0,
+				visible: false,
 				cursor: 'ns-resize'
 			});
 
-			var chart = new Highcharts.Chart({
+			chart = new Highcharts.Chart({
 				credits: false,
 				chart: {
 					renderTo: 'pie_chart',
@@ -120,6 +122,12 @@ $(document).ready(function () {
 						dataLabels: {
 							align: 'center',
 							enabled: true,
+							events: {
+								click: function () {
+									alert('test');
+									console.log('dataLabels', this);
+								}
+							},
 							formatter: function () {
 								return Highcharts.numberFormat(this.y, 0) + ' zł';
 							}
@@ -129,17 +137,6 @@ $(document).ready(function () {
 						point: {
 							events: {
 								drag: function (e) {
-									var maxSum = 0,
-										pod = Math.round(podatek);
-
-									for (var i = 0; i < userSeries.length; i++) {
-										if (typeof userSeries[i] === "object") {
-											maxSum += Math.round(userSeries[i].y);
-										} else {
-											maxSum += Math.round(userSeries[i]);
-										}
-									}
-
 									if (e.y < 0) {
 										this.y = 0;
 										return false;
@@ -317,6 +314,56 @@ $(document).ready(function () {
 
 	$bdl.find('.block').click(function () {
 		$('[data-toggle="tooltip"]').tooltip();
+	});
+
+	var $userChart = $('.userChart'),
+		$userChartBlock = $('.userChartBlock');
+
+	$userChart.click(function () {
+		chart.series[1].show();
+		$userChart.addClass('disabled hide');
+		$userChartBlock.removeClass('hide');
+	});
+
+	$userChartBlock.find('.userChartCancel').click(function () {
+		chart.series[1].hide();
+		$userChart.removeClass('disabled hide');
+		$userChartBlock.addClass('hide');
+	});
+	$userChartBlock.find('.userChartSave').click(function () {
+		var $chartUserSaveData = $('.chartUserSaveData'),
+			sPanstwo = [],
+			sUser = [];
+
+		$.each(chart.series, function () {
+			var serie = this;
+
+			$.each(serie.data, function () {
+				if (serie.name === "Koszt wg. Państwa") {
+					sPanstwo.push(this.y);
+				} else {
+					sUser.push(this.y);
+				}
+			});
+		});
+
+		$chartUserSaveData.find('.modal-body').append(
+			$('<input/>').attr({
+				type: 'hidden',
+				name: 'series_panstwo'
+			}).val(JSON.stringify(sPanstwo))
+		).append(
+			$('<input/>').attr({
+				type: 'hidden',
+				name: 'series_user'
+			}).val(JSON.stringify(sUser))
+		);
+		$chartUserSaveData.find('.modal-footer .btn-primary').click(function (e) {
+			var seriesData = $chartUserSaveData.find(':input').serializeArray();
+			e.preventDefault();
+
+			console.log('userChartSave', seriesData);
+		})
 	});
 
 	btnAction();

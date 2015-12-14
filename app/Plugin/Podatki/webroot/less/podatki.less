@@ -344,10 +344,19 @@
             }
         }
 
-        .chart_area {
-            margin-top: 20px;
+        .pie_chart {
+            margin-top: 30px;
             margin-bottom: 50px;
             min-height: 300px;
+        }
+        .userChart, .userChartBlock {
+            &, .btn {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+            p {
+                margin-top: 10px;
+            }
         }
     }
 
@@ -470,12 +479,5 @@
     #podatki .section .inputpadding {
         padding-left: 0;
         padding-right: 0;
-    }
-}
-
-@media (min-width: 992px) {
-    #podatki .stripe .pie .highcharts-container {
-        width: 80% !important;
-        float: right;
     }
 }
