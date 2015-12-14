@@ -129,22 +129,31 @@ $(document).ready(function () {
 						point: {
 							events: {
 								drag: function (e) {
-									var maxSum = 0;
+									if (e.y < 0) {
+										this.y = 0;
+										return false;
+									}
+								},
+								drop: function () {
+									var maxSum = 0,
+										pod = Math.round(podatek);
+
+									this.y = Math.round(this.y);
 
 									for (var i = 0; i < userSeries.length; i++) {
 										if (typeof userSeries[i] === "object") {
-											maxSum += userSeries[i].y;
+											maxSum += Math.round(userSeries[i].y);
 										} else {
-											maxSum += userSeries[i];
+											maxSum += Math.round(userSeries[i]);
 										}
-
 									}
 
-									if (e.newY < 0) {
+									if (this.y < 0) {
 										this.y = 0;
 										return false;
-									} else if (maxSum > podatek) {
-										this.y = this.y - (maxSum - podatek);
+									} else if (maxSum > pod) {
+										this.y = Math.round(this.y) - (maxSum - pod);
+										chart.redraw();
 										return false;
 									}
 								}
