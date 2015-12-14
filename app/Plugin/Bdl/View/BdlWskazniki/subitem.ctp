@@ -41,7 +41,7 @@
                                         <? foreach ($levels as $level) { ?>
                                             <? if (!isset($level['selected'])) { ?>
                                                 <li>
-                                                    <a href="/dane/bdl_wskazniki/<?= $object->getId() . ',' . $this->request->params['slug'] . '/kombinacje/' . $combination['id'] . '/' . $level['id'] ?>">
+                                                    <a href="/dane/bdl_wskazniki/<?= $object->getId() . '/kombinacje/' . $combination['id'] . '/' . $level['id'] ?>">
                                                         <?= $level["label"] ?>
                                                     </a>
                                                 </li>

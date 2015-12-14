@@ -68,25 +68,27 @@ $colors['diff'] = array(
                                             <? foreach ($kategoria['grupy'] as $id => $grupa) {
                                                 $id = $grupa['grupa']['id'];
                                                 $label = $grupa['grupa']['nazwa']; ?>
-                                                <h3><?= $label ?></h3>
-                                                <ul class="wskazniki">
-                                                    <? foreach ($grupa['wskazniki'] as $wskazowkiId => $wskaznik) { ?>
-                                                        <li>
-                                                            <div class="row">
-                                                                <div class="col-xs-9">
-                                                                    <span class="href"
-                                                                          href="/dane/bdl_wskazniki/<?= $wskaznik['bdl_wskazniki.id'] ?>"><?= $wskaznik['bdl_wskazniki.tytul'] ?></span>
-                                                                </div>
-                                                                <div class="col-xs-1">
-                                                                    <?= @$wskaznik['bdl_wskazniki.liczba_ostatni_rok'] ?>
-                                                                </div>
-                                                                <div class="col-xs-2">
-                                                                    <?= @$wskaznik['bdl_wskazniki.poziom_str'] ?>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    <? } ?>
-                                                </ul>
+                                                <div class="folder">
+	                                                <h3><?= $label ?></h3>
+	                                                <ul class="wskazniki">
+	                                                    <? foreach ($grupa['wskazniki'] as $wskazowkiId => $wskaznik) { ?>
+	                                                        <li>
+	                                                            <div class="row">
+	                                                                <div class="col-xs-8">
+	                                                                    <span class="href"
+	                                                                          href="/dane/bdl_wskazniki/<?= $wskaznik['bdl_wskazniki.id'] ?>"><?= $wskaznik['bdl_wskazniki.tytul'] ?></span>
+	                                                                </div>
+	                                                                <div class="col-xs-2">
+	                                                                    <span class="bdl_value"><?= @$wskaznik['bdl_wskazniki.liczba_ostatni_rok'] ?></span>
+	                                                                </div>
+	                                                                <div class="col-xs-2">
+	                                                                    <span class="bdl_value"><?= @$wskaznik['bdl_wskazniki.poziom_str'] ?></span>
+	                                                                </div>
+	                                                            </div>
+	                                                        </li>
+	                                                    <? } ?>
+	                                                </ul>
+                                                </div>
                                             <? } ?>
                                         </div>
                                     </a>
@@ -100,3 +102,14 @@ $colors['diff'] = array(
         </div>
     </div>
 </div>
+
+<? if( $_edit ) { ?>
+<div class="col-xs-12">
+	
+	<div id="kulturaBanner" class="alert alert-info">
+		<h2>Wskaźniki Żywej Kultury</h2>
+		<p><a href="/bdl/admin">Zarządzaj wskaźnikami &raquo;</a></p>
+	</div>
+	
+</div>
+<? } ?>

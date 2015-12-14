@@ -94,7 +94,8 @@ $(document).ready(function () {
 
 		infoBlock.data('marker', slideMark).find('.container').empty().append(function () {
 			var slug = $(this);
-			var leftCol = $('<div></div>').addClass('leftSide col-xs-12');
+			var leftCol = $('<div><div class="block-nav"><div class="row"><div class="col-xs-8"><span class="nazwa">Nazwa wskaźnika</span></div><div class="col-xs-2">Ostatni rocznik</div><div class="col-xs-2">Poziom agregacji</div></div></div>').addClass('leftSide col-xs-12');
+			
 			var content = block.find('.text').html();
 
 			leftCol.append(content.replace(/span/g, 'a'));

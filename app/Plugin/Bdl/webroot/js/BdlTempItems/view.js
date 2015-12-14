@@ -32,7 +32,7 @@ $(document).ready(function () {
     var dim_id;
 
     var id = $('.wskz_id').val();
-    var url = '/bdl/bdl_temp_items/' + id;
+    var url = '/bdl/admin/' + id;
     getWskz(url);
 
 
@@ -66,7 +66,7 @@ $(document).ready(function () {
 
     function saveData(dane) {
         $.ajax({
-            url: '/bdl/bdl_temp_items/addingredients',
+            url: '/bdl/admin/addingredients',
             method: 'post',
             data: dane,
             success: function (res) {

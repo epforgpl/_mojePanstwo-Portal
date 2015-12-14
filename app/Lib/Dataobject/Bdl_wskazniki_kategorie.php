@@ -17,5 +17,10 @@ class Bdl_wskazniki_kategorie extends DataObject
     {
         return 'Kategoria wskaźników';
     }
+    
+    public function getUrl()
+    {
+	    return '/bdl#' . $this->getData('bdl_wskazniki_kategorie.slug');
+    }
 
 }

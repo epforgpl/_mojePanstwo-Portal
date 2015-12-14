@@ -35,7 +35,7 @@ $(document).ready(function () {
 
     function pullList(on_success) {
         $.ajax({
-            url: '/bdl/bdl_temp_items/listall',
+            url: '/bdl/admin/listall',
             method: 'post',
             success: function (res) {
                 if (res == false) {
@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     function saveData(dane) {
         $.ajax({
-            url: '/bdl/bdl_temp_items/addingredients',
+            url: '/bdl/admin/addingredients',
             method: 'post',
             data: dane,
             success: function (res) {
@@ -140,7 +140,7 @@ $(document).ready(function () {
 
     $(".add_to_item").click(function () {
         pullList(function () {
-            var url = '/bdl/bdl_temp_items/' + wsk_id;
+            var url = '/bdl/admin/' + wsk_id;
             getWskz(url);
             $("#bdl_user_wskaznik_modal").modal('show');
         });
@@ -170,7 +170,7 @@ $(document).ready(function () {
     $("#lista_wskaznikow").change(function () {
 
         var id = $(this).val();
-        var url = '/bdl/bdl_temp_items/' + id;
+        var url = '/bdl/admin/' + id;
         getWskz(url);
 
         $("#bdl_temp_addbtn_m").removeClass('hidden');

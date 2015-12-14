@@ -16,6 +16,7 @@ class BdlTempItemsController extends ApplicationsController
     public function index()
     {
         $BdlTempItems = $this->BdlTempItem->find('all');
+        $this->title = 'Wskaźniki Żywej Kultury';
         $this->set(array(
             'BdlTempItems' => $BdlTempItems,
             '_serialize' => array('BdlTempItems')
@@ -30,14 +31,17 @@ class BdlTempItemsController extends ApplicationsController
             '_serialize' => array('BdlTempItem'),
             'id' => $id
         ));
-
+				
+		$this->title = isset( $BdlTempItem['tytul'] ) ? $BdlTempItem['tytul'] : "[Nowy wskaźnik]";
+		
         if ($BdlTempItem == false) {
-            $this->redirect(array('action' => 'index'));
+            $this->redirect('/bdl/admin');
         }
     }
 
     public function add()
     {
+	    	    
         $this->BdlTempItem->create();
         if ($this->BdlTempItem->save($this->request->data)) {
             $message = 'Saved';
@@ -80,7 +84,7 @@ class BdlTempItemsController extends ApplicationsController
             '_serialize' => array('message')
         ));
 
-        $this->redirect($this->referer());
+        $this->redirect('/bdl/admin');
     }
 
     public function listall()
@@ -109,7 +113,6 @@ class BdlTempItemsController extends ApplicationsController
         $data = array_merge($old, $data);
 
         if ($this->BdlTempItem->save($data)) {
-            debug($data);
             $this->json(true);
         } else {
             $this->json(false);

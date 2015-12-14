@@ -48,7 +48,7 @@ class BdlTempItem extends AppModel
                 $ret2 = array();
                // debug($ret);
                 foreach ($ret as $key => $val) {
-                    $ret2[$key]=$val['tytul'];
+                    $ret2[$key] = isset( $val['tytul'] ) ? $val['tytul'] : '[Nowy wskaźnik]';
                 }
                 return $ret2;
                 break;

@@ -1,9 +1,17 @@
 <?
 
-Router::mapResources('Bdl.BdlTempItems', array(
-	'prefix' => '/bdl/',
-	'plugin' => 'BDL',
-));
+
+Router::connect('/bdl/admin', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', '[method]' => 'GET', 'action' => 'index'));
+Router::connect('/bdl/admin/listall', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', 'action' => 'listall'));
+Router::connect('/bdl/admin/addingredients', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', 'action' => 'addingredients'));
+
+Router::connect('/bdl/admin/:id', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', '[method]' => 'GET', 'action' => 'view'), array('pass' => array('id')));
+Router::connect('/bdl/admin/:id', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', '[method]' => 'POST', 'action' => 'edit'), array('pass' => array('id')));
+Router::connect('/bdl/admin', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', '[method]' => 'POST', 'action' => 'add'));
+Router::connect('/bdl/admin/:id/delete', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', 'action' => 'delete'), array('pass' => array('id')));
+
+
+
 
 Router::connect('/bdl/bdl_temp_items/:item_id/ingredients', array('plugin' => 'Bdl', 'controller' => 'BdlTempItems', 'action' => 'addIngredient'), array(
 	'item_id' => '([0-9]+)',

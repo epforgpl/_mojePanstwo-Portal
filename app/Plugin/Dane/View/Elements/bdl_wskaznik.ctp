@@ -10,7 +10,7 @@
     <h2>
         <? if (in_array('bdl_opis', $object_editable)) { ?>
 	        <a class="pull-left _open" href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
-            <button class="btn btn-sm btn-primary add_to_item pull-right"><span
+            <button class="btn btn-sm add_to_item pull-right"><span
                     class="icon glyphicon glyphicon-plus"></span></button>
         <? } else {?>
             <a href="<?= $url ?>/kombinacje/<?= $data['id'] ?>"><?= trim($title) ?></a>
