@@ -1,4 +1,4 @@
-/*global mPHeart, window, document, $, confirm, bdlClick*/
+/*global Highcharts, mPHeart, window, document, $, confirm, bdlClick*/
 
 $(document).ready(function () {
 	var $podatki = $('#podatki'),
@@ -73,30 +73,27 @@ $(document).ready(function () {
 
 			var suma = $chartArea.attr('data-suma'),
 				podatek = $chartArea.attr('data-podatek'),
+				categories = [],
 				data = [],
-				i, bLen,
-				seriesData,
-				series = [],
-				j, vLen;
+				dataSeries = [],
+				userSeries = [],
+				i, bLen;
 
 			for (i = 0, bLen = res.length; i < bLen; i++) {
-				data.push({
-					name: res[i].nazwa,
-					y: parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)),
-					drilldown: (typeof res[i].subdzialy !== "undefined") ? res[i].nazwa : null
-				});
-				if (typeof res[i].subdzialy !== "undefined") {
-					seriesData = [];
-					for (j = 0, vLen = res[i].subdzialy.length; j < vLen; j++) {
-						seriesData.push([res[i].subdzialy[j].nazwa.replace(/\(.*\)/g, ''), parseFloat(((res[i].subdzialy[j].kwota / suma) * podatek).toFixed(0))]);
-					}
-					series.push({
-						name: res[i].nazwa,
-						id: res[i].nazwa,
-						data: seriesData
-					});
-				}
+				categories.push(res[i].nazwa);
+				dataSeries.push(parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)));
+				userSeries.push(0);
 			}
+			data.push({
+				name: 'Koszt wg. Państwa',
+				data: dataSeries
+			}, {
+				name: 'Koszt sugerowany wg. użytkownika',
+				data: userSeries,
+				draggableY: true,
+				dragMinY: 0,
+				cursor: 'ns-resize'
+			});
 
 			var chart = new Highcharts.Chart({
 				credits: false,
@@ -105,75 +102,81 @@ $(document).ready(function () {
 					type: 'column',
 					backgroundColor: 'transparent',
 					height: 700,
-					marginTop: 50
+					marginTop: 50,
+					marginLeft: 0,
+					options3d: {
+						enabled: true,
+						alpha: 10,
+						beta: 25,
+						depth: 70
+					}
 				},
 				title: {
 					text: ' '
 				},
 				plotOptions: {
+					column: {
+						depth: 25,
+						dataLabels: {
+							align: 'center',
+							enabled: true,
+							formatter: function () {
+								return Highcharts.numberFormat(this.y, 0) + ' zł';
+							}
+						}
+					},
 					series: {
-						borderWidth: 0
+						point: {
+							events: {
+								drag: function (e) {
+									var maxSum = 0;
+
+									for (var i = 0; i < userSeries.length; i++) {
+										if (typeof userSeries[i] === "object") {
+											maxSum += userSeries[i].y;
+										} else {
+											maxSum += userSeries[i];
+										}
+
+									}
+
+									if (e.newY < 0) {
+										this.y = 0;
+										return false;
+									} else if (maxSum > podatek) {
+										this.y = this.y - (maxSum - podatek);
+										return false;
+									}
+								}
+							}
+						},
+						stickyTracking: false
 					}
 				},
 				xAxis: {
-					type: 'category',
+					categories: categories,
 					labels: {
 						rotation: -45,
 						align: 'right'
 					},
 					title: {
 						text: ''
-					}
+					},
+					crosshair: true
 				},
 				yAxis: {
+					min: 0,
 					title: {
 						text: 'zł'
 					}
 				},
+				tooltip: {
+					enabled: false
+				},
 				legend: {
 					enabled: false
 				},
-				tooltip: {
-					headerFormat: '',
-					pointFormat: '<span>{point.name}</span>: <b>{point.y}</b> zł<br/>'
-				},
-				series: [{
-					name: ' ',
-					data: data
-				}],
-				drilldown: {
-					activeAxisLabelStyle: {
-						color: '#606060',
-						fontWeight: 'normal',
-						textDecoration: 'none'
-					},
-					drillUpButton: {
-						relativeTo: 'spacingBox',
-						position: {
-							y: 0,
-							x: 0
-						},
-						theme: {
-							fill: '#007ab9',
-							'stroke-width': 1,
-							stroke: '#007ab9',
-							r: 3,
-							style: {
-								color: '#ffffff',
-								'font-size': '14px',
-								'font-weight': 400,
-								'line-height': '1em',
-								padding: '6px 12px'
-							},
-							states: {
-								hover: {
-									fill: '#006da5'
-								}
-							}
-						}
-					},
-					series: series
-				}
+				series: data
 			});
 		}
 	}
