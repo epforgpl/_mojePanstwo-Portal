@@ -347,7 +347,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div id="pie_chart" class="pie_chart margin-top-30" data-suma="<?= $wydatki['suma'] ?>"
                      data-podatek="<?= $kwota_podatku ?>"
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
-                <div class="btn btn-success userChart">W jaki sposób Ty wydałbyś swoje podatki?</div>
+                <div class="btn btn-default userChart">W jaki sposób Ty wydałbyś swoje podatki?</div>
                 <div class="userChartBlock hide">
                     <button class="btn btn-default userChartCancel">Anuluj</button>
                     <button type="button" class="btn btn-primary userChartSave" data-toggle="modal"
