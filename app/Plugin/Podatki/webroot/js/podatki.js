@@ -136,82 +136,84 @@ $(document).ready(function () {
 						point: {
 							events: {
 								dblclick: function (e) {
-									var index = this.index,
-										x = this.x,
-										y = this.y,
-										$div = $('<div></div>')
-											.dialog({
-												title: ' ',
-												width: 400,
-												height: 200,
-												dialogClass: 'modal-dialog',
-												close: function (event, ui) {
-													$(this).dialog('destroy').remove();
-												}
-											});
-
-									$div.append(
-										$('<div></div>').addClass('form-group').append(
-											$('<label></label>').attr('for', 'newY').text('Podaj nową wartość')
-										).append(
-											$('<input>').attr({
-												type: 'number',
-												class: 'form-control',
-												placeholder: y,
-												id: 'newY'
-											})
-										)
-									).append(
-										$('<div></div>').addClass('modal-footer').append(
-											$('<button></button>').addClass('btn btn-success margin-top-10 pull-right').text('Zapisz').click(function () {
-												var newY = Math.round($('#newY').val()),
-													maxSum = 0,
-													pod = Math.round(podatek);
-
-												for (var i = 0; i < userSeries.length; i++) {
-													if (typeof userSeries[i] === "object") {
-														maxSum += Math.round(userSeries[i].y);
-													} else {
-														maxSum += Math.round(userSeries[i]);
+									if (this.series.index === 1) {
+										var index = this.index,
+											x = this.x,
+											y = this.y,
+											$div = $('<div></div>')
+												.dialog({
+													title: ' ',
+													width: 400,
+													height: 200,
+													dialogClass: 'modal-dialog',
+													close: function (event, ui) {
+														$(this).dialog('destroy').remove();
 													}
-												}
-
-												maxSum = maxSum + (newY - Math.round(y));
-
-												if (newY < 0) {
-													newY = 0;
-													chart.series[1].data[index].update({
-														x: Math.round(x),
-														y: Math.round(newY)
-													});
-													chart.redraw();
-													$div.dialog("close");
-													return;
-												} else if (maxSum > pod) {
-													var correct = Math.round(newY) - (maxSum - pod);
-
-													if (correct < 0) {
-														newY = 0;
-													} else {
-														newY = correct;
-													}
-													chart.series[1].data[index].update({
-														x: Math.round(x),
-														y: Math.round(newY)
-													});
-													chart.redraw();
-													$div.dialog("close");
-													return;
-												}
-												chart.series[1].data[index].update({
-													x: Math.round(x),
-													y: Math.round(newY)
 												});
-												chart.redraw();
-												$div.dialog("close");
-											})
-										)
-									);
+
+										$div.append(
+											$('<div></div>').addClass('form-group').append(
+												$('<label></label>').attr('for', 'newY').text('Podaj nową wartość')
+											).append(
+												$('<input>').attr({
+													type: 'number',
+													class: 'form-control',
+													placeholder: y,
+													id: 'newY'
+												})
+											)
+										).append(
+											$('<div></div>').addClass('modal-footer').append(
+												$('<button></button>').addClass('btn btn-success margin-top-10 pull-right').text('Zapisz').click(function () {
+													var newY = Math.round($('#newY').val()),
+														maxSum = 0,
+														pod = Math.round(podatek);
+
+													for (var i = 0; i < userSeries.length; i++) {
+														if (typeof userSeries[i] === "object") {
+															maxSum += Math.round(userSeries[i].y);
+														} else {
+															maxSum += Math.round(userSeries[i]);
+														}
+													}
+
+													maxSum = maxSum + (newY - Math.round(y));
+
+													if (newY < 0) {
+														newY = 0;
+														chart.series[1].data[index].update({
+															x: Math.round(x),
+															y: Math.round(newY)
+														});
+														chart.redraw();
+														$div.dialog("close");
+														return;
+													} else if (maxSum > pod) {
+														var correct = Math.round(newY) - (maxSum - pod);
+
+														if (correct < 0) {
+															newY = 0;
+														} else {
+															newY = correct;
+														}
+														chart.series[1].data[index].update({
+															x: Math.round(x),
+															y: Math.round(newY)
+														});
+														chart.redraw();
+														$div.dialog("close");
+														return;
+													}
+													chart.series[1].data[index].update({
+														x: Math.round(x),
+														y: Math.round(newY)
+													});
+													chart.redraw();
+													$div.dialog("close");
+												})
+											)
+										);
+									}
 								},
 								drag: function (e) {
 									if (e.y < 0) {
