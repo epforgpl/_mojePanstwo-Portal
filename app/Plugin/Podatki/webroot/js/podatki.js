@@ -405,10 +405,12 @@ $(document).ready(function () {
 	$userChartBlock.find('.userChartCancel').click(function () {
 		if ($(this).hasClass('userOptions')) {
 			chart.series[1].hide();
+			chart.series[1].setData([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 			$userChart.removeClass('disabled hide');
 		} else {
 			chart.series[1].options.cursor = 'default';
 			chart.series[1].options.draggableY = false;
+			$('.userChartTitle').hide();
 		}
 		$userChartBlock.find('.alert').removeClass('alert-error alert-success').addClass('hide').text('');
 		$userChartBlock.addClass('hide');
@@ -439,8 +441,8 @@ $(document).ready(function () {
 				beforeSend: function () {
 					btnParent.find('.btn').addClass('disabled');
 				},
-				success: function (data) {
-					if (data.status === "true") {
+				success: function (res) {
+					if (res.status === "true") {
 						btnParent.find('.alert').removeClass('hide alert-danger').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
 						btnParent.find('.btn.userOptions').remove();
 						btnParent.find('.btn:not(".userOptions")').removeClass('hide');
@@ -452,9 +454,6 @@ $(document).ready(function () {
 					btnParent.find('.btn').removeClass('disabled');
 				}
 			});
-
-			//TODO: Anuluj - zeruje graph usera
-			//TODO: znalezc i zamienic ołówek na brush
 		}
 	});
 

@@ -361,9 +361,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                      data-podatek="<?= $kwota_podatku ?>"
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
 
-                <h3 class="text-center col-xs-12">W jaki sposób Ty wydałbyś swoje podatki?</h3>
+                <h3 class="text-center col-xs-12 userChartTitle">W jaki sposób Ty wydałbyś swoje podatki?</h3>
                 <div class="btn btn-primary userChart btn-icon margin-top-5 auto-width"><i
-                        class="icon glyphicon glyphicon-pencil rożdzka"></i>Zbuduj swój
+                        class="icon glyphicon glyphicon-piggy-bank"></i>Zbuduj swój
                     wykres
                 </div>
                 <div class="userChartBlock hide col-xs-12 col-md-8 col-md-offset-2">
