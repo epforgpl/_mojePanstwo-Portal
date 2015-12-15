@@ -362,10 +362,11 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
 
                 <h3 class="text-center col-xs-12">W jaki sposób Ty wydałbyś swoje podatki?</h3>
-                <div class="btn btn-default userChart btn-icon margin-top-5"><i class="icon rożdzka"></i>Zbuduj swój
+                <div class="btn btn-primary userChart btn-icon margin-top-5 auto-width"><i
+                        class="icon glyphicon glyphicon-pencil rożdzka"></i>Zbuduj swój
                     wykres
                 </div>
-                <div class="userChartBlock hide col-xs-12 col-md-6 col-md-offset-3">
+                <div class="userChartBlock hide col-xs-12 col-md-8 col-md-offset-2">
                     <p>Niebieskie słupki obrazują to jak Twoje pieniądze są wydawane w rzeczywistości. Pomarańczowe
                         słupki to Twoje preferencje. Ustal wysokości pomarańczych słupków, podaj swoje dane w formularzu
                         poniżej i kliknij przycisk "Wyślij"</p>
@@ -374,6 +375,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <label for="inputSex" class="col-sm-4 control-label">Podaj swą płeć</label>
                             <div class="col-sm-6">
                                 <select class="form-control" id="inputSex" name="plec">
+                                    <option value="" selected></option>
                                     <option value="M">Mężczyzna</option>
                                     <option value="K">Kobieta</option>
                                 </select>
@@ -383,7 +385,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             <label for="inputAge" class="col-sm-4 control-label">Podaj swój wiek</label>
                             <div class="col-sm-6">
                                 <input type="number" class="form-control" id="inputAge" name="wiek" min="1"
-                                       max="150" value="21">
+                                       max="150">
                             </div>
                         </div>
                     </div>
