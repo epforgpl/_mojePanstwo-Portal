@@ -1830,6 +1830,7 @@ class InstytucjeController extends DataobjectsController
 		    $this->Components->load('Dane.DataBrowser', array(
 	            'conditions' => array(
 	                'dataset' => 'poslowie',
+	                'poslowie.kadencja' => 8,
 	            ),
 	            'aggsPreset' => 'poslowie',
 	        ));
