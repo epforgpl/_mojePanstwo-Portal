@@ -85,6 +85,7 @@ $(document).ready(function () {
 				dataSeries.push(parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)));
 				userSeries.push(0);
 			}
+
 			data.push({
 				name: 'Koszt wg. Państwa',
 				data: dataSeries
@@ -402,29 +403,59 @@ $(document).ready(function () {
 	});
 
 	$userChartBlock.find('.userChartCancel').click(function () {
-		chart.series[1].hide();
-		$userChart.removeClass('disabled hide');
+		if ($(this).hasClass('userOptions')) {
+			chart.series[1].hide();
+			$userChart.removeClass('disabled hide');
+		} else {
+			chart.series[1].options.cursor = 'default';
+			chart.series[1].options.draggableY = false;
+		}
+		$userChartBlock.find('.alert').removeClass('alert-error alert-success').addClass('hide').text('');
 		$userChartBlock.addClass('hide');
 	});
 	$userChartBlock.find('.userChartSave').click(function () {
-		var sPanstwo = [],
+		var btn = $(this),
+			btnParent = $(this).parent(),
+			sUserSetup = $('.userSetup :input').serializeArray(),
 			sUser = [],
 			sSex = $('#inputSex').val(),
 			sAge = $('#inputAge').val();
 
-		$.each(chart.series, function () {
-			var serie = this;
+		if (!btn.hasClass('disabled')) {
+			$.each(chart.series[1].data, function () {
+				sUser.push(this.y);
+			});
 
-			$.each(serie.data, function () {
-				if (serie.name === "Koszt wg. Państwa") {
-					sPanstwo.push(this.y);
-				} else {
-					sUser.push(this.y);
+			$.ajax({
+				url: "/podatki",
+				method: "POST",
+				data: {
+					'_action': 'send',
+					userSetup: sUserSetup,
+					userGraph: sUser,
+					userSex: sSex,
+					userAge: sAge
+				},
+				beforeSend: function () {
+					btnParent.find('.btn').addClass('disabled');
+				},
+				success: function (data) {
+					if (data.status === "true") {
+						btnParent.find('.alert').removeClass('hide alert-danger').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
+						btnParent.find('.btn.userOptions').remove();
+						btnParent.find('.btn:not(".userOptions")').removeClass('hide');
+					} else {
+						btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-danger').text('Wystąpił błąd podczas zapisywania danych - prosze spróbować ponownie później.');
+					}
+				},
+				complete: function () {
+					btnParent.find('.btn').removeClass('disabled');
 				}
 			});
-		});
 
-		console.log('userChartSave', sPanstwo, sUser, sSex, sAge);
+			//TODO: Anuluj - zeruje graph usera
+			//TODO: znalezc i zamienic ołówek na brush
+		}
 	});
 
 	btnAction();
