@@ -1,6 +1,6 @@
 <?
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/plugin/map');
+$this->Combinator->add_libs('js', '../plugins/highstock/extras/map');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 ?>
 

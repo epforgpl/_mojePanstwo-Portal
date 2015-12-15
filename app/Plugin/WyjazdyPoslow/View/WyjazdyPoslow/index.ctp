@@ -3,7 +3,7 @@ $this->Combinator->add_libs('css', $this->Less->css('wyjazdy_poslow', array('plu
 $this->Combinator->add_libs('css', $this->Less->css('naglosnij', array('plugin' => 'Dane')));
 
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/plugin/map');
+$this->Combinator->add_libs('js', '../plugins/highstock/extras/map');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $this->Combinator->add_libs('js', 'WyjazdyPoslow.wyjazdy_poslow.js');

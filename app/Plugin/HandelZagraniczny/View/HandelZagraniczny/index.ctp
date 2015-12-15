@@ -3,7 +3,7 @@ $this->Combinator->add_libs('css', $this->Less->css('handel_zagraniczny', array(
 $this->Combinator->add_libs('css', $this->Less->css('naglosnij', array('plugin' => 'Dane')));
 
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/plugin/map');
+$this->Combinator->add_libs('js', '../plugins/highstock/extras/map');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $this->Combinator->add_libs('js', 'HandelZagraniczny.handel_zagraniczny.js');

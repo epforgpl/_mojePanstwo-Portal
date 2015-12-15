@@ -122,6 +122,8 @@ $(document).ready(function () {
 						dataLabels: {
 							align: 'center',
 							enabled: true,
+							crop: false,
+							overflow: 'none',
 							formatter: function () {
 								return Highcharts.numberFormat(this.y, 0) + ' zł';
 							}
@@ -130,6 +132,39 @@ $(document).ready(function () {
 					series: {
 						point: {
 							events: {
+								dblclick: function (e) {
+									var index = this.index,
+										x = this.x,
+										y = this.y,
+										$div = $('<div></div>')
+											.dialog({
+												title: ' ',
+												width: 400,
+												height: 150
+											});
+
+									$div.append(
+										$('<div></div>').addClass('form-group').append(
+											$('<label></label>').attr('for', 'newY').text('Podaj nową wartość')
+										).append(
+											$('<input>').attr({
+												type: 'number',
+												class: 'form-control',
+												placeholder: y,
+												id: 'newY'
+											})
+										).append(
+											$('<button></button>').addClass('btn btn-success margin-top-10 pull-right').text('Zapisz').click(function () {
+												chart.series[1].data[index].update({
+													x: Math.round(x),
+													y: Math.round($('#newY').val())
+												});
+												chart.redraw();
+												$div.dialog("close");
+											})
+										)
+									);
+								},
 								drag: function (e) {
 									if (e.y < 0) {
 										this.y = 0;
@@ -177,9 +212,6 @@ $(document).ready(function () {
 										y: Math.round(this.y)
 									});
 									chart.redraw();
-								},
-								click: function () {
-									console.log(this)
 								}
 							}
 						},
