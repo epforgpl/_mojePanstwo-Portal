@@ -362,7 +362,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
 
                 <h3 class="text-center col-xs-12">W jaki sposób Ty wydałbyś swoje podatki?</h3>
-                <div class="btn btn-default userChart">Zbuduj swój wykres</div>
+                <div class="btn btn-default userChart btn-icon margin-top-5"><i class="icon rożdzka"></i>Zbuduj swój
+                    wykres
+                </div>
                 <div class="userChartBlock hide col-xs-12 col-md-6 col-md-offset-3">
                     <p>Niebieskie słupki obrazują to jak Twoje pieniądze są wydawane w rzeczywistości. Pomarańczowe
                         słupki to Twoje preferencje. Ustal wysokości pomarańczych słupków, podaj swoje dane w formularzu
@@ -385,14 +387,14 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 margin-top-5">
+                    <p class="small text-center col-xs-12">Dane są anonimowe i zostaną wykorzystane w ramach
+                        projektu badawczego
+                        "Jak wydawane są moje podatki".</p>
+                    <div class="col-xs-12 margin-top-10">
                         <div class="btn btn-default userChartCancel">Anuluj</div>
                         <div type="button" class="btn btn-primary userChartSave">Wyślij</div>
                     </div>
                 </div>
-                <p class="small text-center col-xs-12 margin-top-15">Dane są anonimowe i zostaną wykorzystane w ramach
-                    projektu badawczego
-                    "Jak wydawane są moje podatki".</p>
             <? } ?>
         </div>
     </div>

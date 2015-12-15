@@ -106,6 +106,7 @@ $(document).ready(function () {
 					backgroundColor: 'transparent',
 					height: 700,
 					marginTop: 50,
+					spacingBottom: 30,
 					marginLeft: 0,
 					options3d: {
 						enabled: true,
