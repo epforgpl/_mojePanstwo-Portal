@@ -221,91 +221,91 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 class="icon glyphicon glyphicon-refresh"></i><span>Oblicz</span>
         </button>
     </div>
-
-    <div class="splitTable">
-        <div class="container">
-            <div class="col-xs-12 col-sm-4">
-                <div class="block">
-                    <span class="text">Twój pracodawca płaci</span>
+    <? if (isset($wydatki)) { ?>
+        <div class="splitTable">
+            <div class="container">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="block">
+                        <span class="text">Twój pracodawca płaci</span>
                     <span class="cost"><? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) {
                             echo number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ');
                         } else {
                             echo '0';
                         } ?> zł</span>
-                    <span class="text">podatków od wynagrodzenia</span>
+                        <span class="text">podatków od wynagrodzenia</span>
+                    </div>
+                    <ul>
+                        <? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) { ?>
+                            <li>
+                                <strong><?= number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
+                            </li>
+                        <? } ?>
+                    </ul>
                 </div>
-                <ul>
-                    <? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) { ?>
-                        <li>
-                            <strong><?= number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ') ?>
-                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
-                        </li>
-                    <? } ?>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-                <div class="block">
-                    <span class="text">Ty płacisz</span>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="block">
+                        <span class="text">Ty płacisz</span>
                     <span
                         class="cost"><? if ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) > 0) {
                             echo number_format((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']), 0, ',', ' ');
                         } else {
                             echo '0';
                         } ?> zł</span>
-                    <span class="text">podatków od wynagrodzenia</span>
+                        <span class="text">podatków od wynagrodzenia</span>
+                    </div>
+                    <ul>
+                        <? if ((float)str_replace(',', '.', $result['zus']) > 0) { ?>
+                            <li><strong><?= number_format((float)str_replace(',', '.', $result['zus']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?></li>
+                        <? } ?>
+                        <? if ((float)str_replace(',', '.', $result['zdrow']) > 0) { ?>
+                            <li>
+                                <strong><?= number_format((float)str_replace(',', '.', $result['zdrow']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?></li>
+                        <? } ?>
+                        <? if ((float)str_replace(',', '.', $result['pit']) > 0) { ?>
+                            <li><strong><?= number_format((float)str_replace(',', '.', $result['pit']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?></li>
+                        <? } ?>
+                    </ul>
                 </div>
-                <ul>
-                    <? if ((float)str_replace(',', '.', $result['zus']) > 0) { ?>
-                        <li><strong><?= number_format((float)str_replace(',', '.', $result['zus']), 0, ',', ' ') ?>
-                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?></li>
-                    <? } ?>
-                    <? if ((float)str_replace(',', '.', $result['zdrow']) > 0) { ?>
-                        <li>
-                            <strong><?= number_format((float)str_replace(',', '.', $result['zdrow']), 0, ',', ' ') ?>
-                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?></li>
-                    <? } ?>
-                    <? if ((float)str_replace(',', '.', $result['pit']) > 0) { ?>
-                        <li><strong><?= number_format((float)str_replace(',', '.', $result['pit']), 0, ',', ' ') ?>
-                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?></li>
-                    <? } ?>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-                <div class="block">
-                    <span class="text">Ty płacisz</span>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="block">
+                        <span class="text">Ty płacisz</span>
                     <span
                         class="cost"><? if ((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']) > 0) {
                             echo number_format((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ');
                         } else {
                             echo '0';
                         } ?> zł</span>
-                    <span class="text">podatków od konsumpcji</span>
+                        <span class="text">podatków od konsumpcji</span>
+                    </div>
+                    <ul>
+                        <? if ((float)str_replace(',', '.', $result['vat']) > 0) { ?>
+                            <li><strong><?= number_format((float)str_replace(',', '.', $result['vat']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
+                            </li>
+                        <? } ?>
+                        <? if ((float)str_replace(',', '.', $result['akcyza']) > 0) { ?>
+                            <li>
+                                <strong><?= number_format((float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ') ?>
+                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
+                            </li>
+                        <? } ?>
+                    </ul>
                 </div>
-                <ul>
-                    <? if ((float)str_replace(',', '.', $result['vat']) > 0) { ?>
-                        <li><strong><?= number_format((float)str_replace(',', '.', $result['vat']), 0, ',', ' ') ?>
-                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
-                        </li>
-                    <? } ?>
-                    <? if ((float)str_replace(',', '.', $result['akcyza']) > 0) { ?>
-                        <li>
-                            <strong><?= number_format((float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ') ?>
-                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
-                        </li>
-                    <? } ?>
-                </ul>
-            </div>
 
-            <div class="col-xs-12 text-center h3">
-                <p><? if (isset($result['netto'])) {
-                        $kwota_podatku = ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zus_pracodawca']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) + (float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']));
-                        echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE %s', number_format($kwota_podatku, 0, ',', ' '));
-                    } ?>
-                </p>
+                <div class="col-xs-12 text-center h3">
+                    <p><? if (isset($result['netto'])) {
+                            $kwota_podatku = ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zus_pracodawca']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) + (float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']));
+                            echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE %s', number_format($kwota_podatku, 0, ',', ' '));
+                        } ?>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-
+    <? } ?>
     <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
         <div class="container">
             <? if (isset($wydatki)) { ?>
