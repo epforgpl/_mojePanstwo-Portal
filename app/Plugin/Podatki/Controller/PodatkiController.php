@@ -27,7 +27,16 @@ class PodatkiController extends ApplicationsController
     {
         $result = false;
         if ($this->request->is("POST")) {
-            if (!empty($this->request->data)) {
+	        
+	        if( isset($this->request->data['_action']) && ($this->request->data['_action']=='send') ) {
+	        	
+	        	// SEND DATA
+	        	
+	        	$this->set('status', true);
+	        	$this->set('_serialize', array('status'));
+	        	return true;
+	        	
+            } elseif (!empty($this->request->data)) {
                 if (
                     (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace'])))))
                     || (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie'])))))
