@@ -222,80 +222,92 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
         </button>
     </div>
 
-    <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
+    <div class="splitTable">
         <div class="container">
-            <div class="row splitTable">
-                <div class="col-xs-12 col-sm-4">
-                    <strong>Twój pracodawca płaci <? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) {
+            <div class="col-xs-12 col-sm-4">
+                <div class="block">
+                    <span class="text">Twój pracodawca płaci</span>
+                    <span class="cost"><? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) {
                             echo number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ');
                         } else {
                             echo '0';
-                        } ?> zł podatków od wynagrodzenia</strong>
-                    <ul>
-                        <? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) { ?>
-                            <li>
-                                <strong><?= number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
-                            </li>
-                        <? } ?>
-                    </ul>
+                        } ?> zł</span>
+                    <span class="text">podatków od wynagrodzenia</span>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                    <strong>Ty
-                        płacisz <? if ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) > 0) {
+                <ul>
+                    <? if ((float)str_replace(',', '.', $result['zus_pracodawca']) > 0) { ?>
+                        <li>
+                            <strong><?= number_format((float)str_replace(',', '.', $result['zus_pracodawca']), 0, ',', ' ') ?>
+                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?>
+                        </li>
+                    <? } ?>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="block">
+                    <span class="text">Ty płacisz</span>
+                    <span
+                        class="cost"><? if ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) > 0) {
                             echo number_format((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']), 0, ',', ' ');
                         } else {
                             echo '0';
-                        } ?> zł podatków od wynagrodzenia</strong>
-                    <ul>
-                        <? if ((float)str_replace(',', '.', $result['zus']) > 0) { ?>
-                            <li><strong><?= number_format((float)str_replace(',', '.', $result['zus']), 0, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?></li>
-                        <? } ?>
-                        <? if ((float)str_replace(',', '.', $result['zdrow']) > 0) { ?>
-                            <li>
-                                <strong><?= number_format((float)str_replace(',', '.', $result['zdrow']), 0, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?></li>
-                        <? } ?>
-                        <? if ((float)str_replace(',', '.', $result['pit']) > 0) { ?>
-                            <li><strong><?= number_format((float)str_replace(',', '.', $result['pit']), 0, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?></li>
-                        <? } ?>
-                    </ul>
+                        } ?> zł</span>
+                    <span class="text">podatków od wynagrodzenia</span>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                    <strong>Ty
-                        płacisz <? if ((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']) > 0) {
+                <ul>
+                    <? if ((float)str_replace(',', '.', $result['zus']) > 0) { ?>
+                        <li><strong><?= number_format((float)str_replace(',', '.', $result['zus']), 0, ',', ' ') ?>
+                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZUS') ?></li>
+                    <? } ?>
+                    <? if ((float)str_replace(',', '.', $result['zdrow']) > 0) { ?>
+                        <li>
+                            <strong><?= number_format((float)str_replace(',', '.', $result['zdrow']), 0, ',', ' ') ?>
+                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_ZDROW') ?></li>
+                    <? } ?>
+                    <? if ((float)str_replace(',', '.', $result['pit']) > 0) { ?>
+                        <li><strong><?= number_format((float)str_replace(',', '.', $result['pit']), 0, ',', ' ') ?>
+                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_PIT') ?></li>
+                    <? } ?>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="block">
+                    <span class="text">Ty płacisz</span>
+                    <span
+                        class="cost"><? if ((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']) > 0) {
                             echo number_format((float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ');
                         } else {
                             echo '0';
-                        } ?> zł podatków od konsumpcji</strong>
-                    <ul>
-                        <? if ((float)str_replace(',', '.', $result['vat']) > 0) { ?>
-                            <li><strong><?= number_format((float)str_replace(',', '.', $result['vat']), 0, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
-                            </li>
-                        <? } ?>
-                        <? if ((float)str_replace(',', '.', $result['akcyza']) > 0) { ?>
-                            <li>
-                                <strong><?= number_format((float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ') ?>
-                                    zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
-                            </li>
-                        <? } ?>
-                    </ul>
+                        } ?> zł</span>
+                    <span class="text">podatków od konsumpcji</span>
                 </div>
-
-                <div class="col-xs-12 text-center h3">
-                    <p>
-                        <? if (isset($result['netto'])) {
-                            $kwota_podatku = ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zus_pracodawca']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) + (float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']));
-                            echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE %s', number_format($kwota_podatku, 0, ',', ' '));
-                        } ?>
-                    </p>
-                </div>
-
+                <ul>
+                    <? if ((float)str_replace(',', '.', $result['vat']) > 0) { ?>
+                        <li><strong><?= number_format((float)str_replace(',', '.', $result['vat']), 0, ',', ' ') ?>
+                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_VAT') ?>
+                        </li>
+                    <? } ?>
+                    <? if ((float)str_replace(',', '.', $result['akcyza']) > 0) { ?>
+                        <li>
+                            <strong><?= number_format((float)str_replace(',', '.', $result['akcyza']), 0, ',', ' ') ?>
+                                zł</strong> <?= __d('podatki', 'LC_PODATKI_RESULTS_PIE_AKCYZA') ?>
+                        </li>
+                    <? } ?>
+                </ul>
             </div>
 
+            <div class="col-xs-12 text-center h3">
+                <p><? if (isset($result['netto'])) {
+                        $kwota_podatku = ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zus_pracodawca']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) + (float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']));
+                        echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE %s', number_format($kwota_podatku, 0, ',', ' '));
+                    } ?>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
+        <div class="container">
             <? if (isset($wydatki)) { ?>
                 <div class="row items bdlClickEngine">
                     <h2 class="text-center"><?= __d('podatki', 'LC_PODATKI_RESULTS_WYDAWANE_PODATKI'); ?>:</h2>
@@ -348,42 +360,31 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div id="pie_chart" class="pie_chart margin-top-30" data-suma="<?= $wydatki['suma'] ?>"
                      data-podatek="<?= $kwota_podatku ?>"
                      data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
-                <div class="btn btn-default userChart">W jaki sposób Ty wydałbyś swoje podatki?</div>
-                <div class="userChartBlock hide">
-                    <button class="btn btn-default userChartCancel">Anuluj</button>
-                    <button type="button" class="btn btn-primary userChartSave" data-toggle="modal"
-                            data-target=".chartUserSaveData">Zapisz
-                    </button>
 
-                    <div class="modal fade chartUserSaveData" tabindex="-1" role="dialog"
-                         aria-labelledby="chartUserSaveDataLabel">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="inputSex">Podaj swą płeć</label>
-                                        <select class="form-control" id="inputSex" name="plec">
-                                            <option value="M">Mężczyzna</option>
-                                            <option value="K">Kobieta</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputAge">Podaj swój wiek</label>
-                                        <input type="number" class="form-control" id="inputAge" name="wiek" min="1"
-                                               max="150" value="21">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Zamknij
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-sm">Wyślij</button>
-                                </div>
-                            </div>
-                        </div>
+                <h3 class="text-center col-xs-12">W jaki sposób Ty wydałbyś swoje podatki?</h3>
+                <div class="btn btn-default userChart">Zbuduj swój wykres</div>
+                <div class="userChartBlock hide col-xs-12 col-md-6 col-md-offset-3">
+                    <p>Niebieskie słupki obrazują to jak Twoje pieniądze są wydawane w reczywistości. Pomarańczowe
+                        słupki to Twoje preferencje. Ustal wysokości pomarańczych słupków, podaj swoje dane w formularzy
+                        poniżej i kliknij przycisk "Wyślij"</p>
+                    <div class="form-group">
+                        <label for="inputSex">Podaj swą płeć</label>
+                        <select class="form-control" id="inputSex" name="plec">
+                            <option value="M">Mężczyzna</option>
+                            <option value="K">Kobieta</option>
+                        </select>
                     </div>
-                    <p class="small text-center">Dane są anonimowe i zostaną wykorzystane w ramach projektu badawczego
-                        "Jak wydawane są moje podatki".</p>
+                    <div class="form-group">
+                        <label for="inputAge">Podaj swój wiek</label>
+                        <input type="number" class="form-control" id="inputAge" name="wiek" min="1"
+                               max="150" value="21">
+                    </div>
+                    <div class="btn btn-default userChartCancel">Anuluj</div>
+                    <div type="button" class="btn btn-primary userChartSave">Wyślij</div>
                 </div>
+                <p class="small text-center col-xs-12 margin-top-15">Dane są anonimowe i zostaną wykorzystane w ramach
+                    projektu badawczego
+                    "Jak wydawane są moje podatki".</p>
             <? } ?>
         </div>
     </div>

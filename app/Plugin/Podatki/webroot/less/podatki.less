@@ -84,6 +84,70 @@
         }
     }
 
+    .splitTable {
+        background-color: #d5eeff;
+        float: left;
+        text-align: left;
+        width: 100%;
+        margin-top: 28px;
+        padding-bottom: 16px;
+        padding-top: 32px;
+
+        .block {
+            line-height: 1em;
+
+            .text, .cost {
+                display: inline-block;
+                text-align: center;
+                width: 100%
+            }
+
+            .text {
+                font-size: 16px;
+            }
+            .cost {
+                font-size: 36px;
+                font-weight: bold;
+                line-height: 1em;
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 0 0 15px;
+            margin: 15px 0 10px;
+            font-size: 0.9em;
+            color: #000000;
+            text-align: center;
+
+            li {
+                padding: 0;
+            }
+        }
+
+        .h3 {
+            margin: 25px 0 20px;
+
+            p {
+                font-size: 24px;
+                margin-top: 28px;
+
+                span {
+                    display: block;
+                    font-size: 50px;
+                }
+            }
+        }
+
+        .small {
+            margin-bottom: 10px;
+
+            p {
+                margin-bottom: 3px;
+            }
+        }
+    }
+
     .stripe {
         background-color: #f8f9fa;
         margin-bottom: 50px;
@@ -92,45 +156,6 @@
         border-top: 1px solid #DDD;
         border-bottom: 1px solid #DDD;
         margin-top: 30px;
-
-        .splitTable {
-            text-align: left;
-
-            > div strong {
-                line-height: 1em;
-            }
-
-            ul {
-                list-style: none;
-                padding: 0 0 0 15px;
-                margin: 15px 0 10px;
-                font-size: 0.9em;
-
-                li {
-                    text-indent: -5px;
-                    padding: 0 0 5px 0;
-
-                    &:before {
-                        content: "- ";
-                        position: relative;
-                        left: -5px;
-                    }
-
-                }
-            }
-
-            .h3 {
-                margin: 25px 0 20px;
-            }
-
-            .small {
-                margin-bottom: 10px;
-
-                p {
-                    margin-bottom: 3px;
-                }
-            }
-        }
 
         .items {
             &.focus-control .block {
@@ -349,14 +374,12 @@
             margin-bottom: 50px;
             min-height: 300px;
         }
-        .userChart, .userChartBlock {
-            &, .btn {
-                margin-left: 5px;
-                margin-right: 5px;
-            }
-            p {
-                margin-top: 10px;
-            }
+        .userChart, .userChartBlock .btn {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .userChartBlock p {
+            margin-top: 10px;
         }
     }
 

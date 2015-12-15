@@ -91,6 +91,7 @@ $(document).ready(function () {
 			}, {
 				name: 'Koszt sugerowany wg. użytkownika',
 				data: userSeries,
+				color: '#f0ad4e',
 				draggableY: true,
 				dragMinY: 0,
 				visible: false,
@@ -402,9 +403,10 @@ $(document).ready(function () {
 		$userChartBlock.addClass('hide');
 	});
 	$userChartBlock.find('.userChartSave').click(function () {
-		var $chartUserSaveData = $('.chartUserSaveData'),
-			sPanstwo = [],
-			sUser = [];
+		var sPanstwo = [],
+			sUser = [],
+			sSex = $('#inputSex').val(),
+			sAge = $('#inputAge').val();
 
 		$.each(chart.series, function () {
 			var serie = this;
@@ -418,23 +420,7 @@ $(document).ready(function () {
 			});
 		});
 
-		$chartUserSaveData.find('.modal-body').append(
-			$('<input/>').attr({
-				type: 'hidden',
-				name: 'series_panstwo'
-			}).val(JSON.stringify(sPanstwo))
-		).append(
-			$('<input/>').attr({
-				type: 'hidden',
-				name: 'series_user'
-			}).val(JSON.stringify(sUser))
-		);
-		$chartUserSaveData.find('.modal-footer .btn-primary').click(function (e) {
-			var seriesData = $chartUserSaveData.find(':input').serializeArray();
-			e.preventDefault();
-
-			console.log('userChartSave', seriesData);
-		});
+		console.log('userChartSave', sPanstwo, sUser, sSex, sAge);
 	});
 
 	btnAction();

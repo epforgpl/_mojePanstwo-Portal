@@ -41,7 +41,7 @@ msgid "LC_PODATKI_ADD_NEW_UMOWA"
 msgstr "Dodaj kolejną umowę"
 
 msgid "LC_PODATKI_RESULTS_MIESIECZNIE %s"
-msgstr "Suma = %s zł miesięcznie"
+msgstr "Suma <span>%s zł/miesięcznie</span>"
 
 msgid "LC_PODATKI_RESULTS_WYDAWANE_PODATKI"
 msgstr "Twoje podatki zostały wydane na"
