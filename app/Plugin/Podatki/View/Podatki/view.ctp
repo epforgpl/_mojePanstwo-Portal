@@ -20,7 +20,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
             <p class="appSubtitle"><?= __d('podatki', 'LC_PODATKI_SUBHEADLINE'); ?></p>
         </div>
 
-        <div class="sections">
+        <div class="sections userSetup">
             <div class="section">
                 <div class="row"
                      data-number="<?= (isset($post['umowa_o_prace'])) ? count($post['umowa_o_prace']) : 1 ?>">
@@ -309,7 +309,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
     <div class="stripe scroll<?php if ($result == false) { ?>blocked" style="display: none;<? } ?>">
         <div class="container">
             <? if (isset($wydatki)) { ?>
-                <div class="row items bdlClickEngine">
+                <div class="row items bdlClickEngine" data-bdllabel="false">
                     <h2 class="text-center"><?= __d('podatki', 'LC_PODATKI_RESULTS_WYDAWANE_PODATKI'); ?>:</h2>
                     <? foreach ($wydatki['dzialy'] as $dzial) { ?>
                         <div class="block col-xs-12 col-sm-6 col-md-3">
@@ -393,8 +393,10 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                         projektu badawczego
                         "Jak wydawane są moje podatki".</p>
                     <div class="col-xs-12 margin-top-10">
-                        <div class="btn btn-default userChartCancel">Anuluj</div>
-                        <div type="button" class="btn btn-primary userChartSave">Wyślij</div>
+                        <div class="btn btn-default userChartCancel userOptions">Anuluj</div>
+                        <div type="button" class="btn btn-primary userChartSave userOptions">Wyślij</div>
+                        <div class="btn btn-default userChartCancel hide">Zamknij</div>
+                        <div class="alert hide"></div>
                     </div>
                 </div>
             <? } ?>
