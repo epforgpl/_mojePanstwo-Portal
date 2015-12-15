@@ -180,6 +180,7 @@ $(document).ready(function () {
 													});
 													chart.redraw();
 													$div.dialog("close");
+													return;
 												} else if (maxSum > pod) {
 													var correct = Math.round(newY) - (maxSum - pod);
 
@@ -194,7 +195,14 @@ $(document).ready(function () {
 													});
 													chart.redraw();
 													$div.dialog("close");
+													return;
 												}
+												chart.series[1].data[index].update({
+													x: Math.round(x),
+													y: Math.round(newY)
+												});
+												chart.redraw();
+												$div.dialog("close");
 											})
 										)
 									);
