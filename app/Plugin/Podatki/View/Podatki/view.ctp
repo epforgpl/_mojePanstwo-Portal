@@ -364,23 +364,31 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <h3 class="text-center col-xs-12">W jaki sposób Ty wydałbyś swoje podatki?</h3>
                 <div class="btn btn-default userChart">Zbuduj swój wykres</div>
                 <div class="userChartBlock hide col-xs-12 col-md-6 col-md-offset-3">
-                    <p>Niebieskie słupki obrazują to jak Twoje pieniądze są wydawane w reczywistości. Pomarańczowe
-                        słupki to Twoje preferencje. Ustal wysokości pomarańczych słupków, podaj swoje dane w formularzy
+                    <p>Niebieskie słupki obrazują to jak Twoje pieniądze są wydawane w rzeczywistości. Pomarańczowe
+                        słupki to Twoje preferencje. Ustal wysokości pomarańczych słupków, podaj swoje dane w formularzu
                         poniżej i kliknij przycisk "Wyślij"</p>
-                    <div class="form-group">
-                        <label for="inputSex">Podaj swą płeć</label>
-                        <select class="form-control" id="inputSex" name="plec">
-                            <option value="M">Mężczyzna</option>
-                            <option value="K">Kobieta</option>
-                        </select>
+                    <div class="form-horizontal">
+                        <div class="form-group col-xs-12">
+                            <label for="inputSex" class="col-sm-4 control-label">Podaj swą płeć</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="inputSex" name="plec">
+                                    <option value="M">Mężczyzna</option>
+                                    <option value="K">Kobieta</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <label for="inputAge" class="col-sm-4 control-label">Podaj swój wiek</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" id="inputAge" name="wiek" min="1"
+                                       max="150" value="21">
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputAge">Podaj swój wiek</label>
-                        <input type="number" class="form-control" id="inputAge" name="wiek" min="1"
-                               max="150" value="21">
+                    <div class="col-xs-12 margin-top-5">
+                        <div class="btn btn-default userChartCancel">Anuluj</div>
+                        <div type="button" class="btn btn-primary userChartSave">Wyślij</div>
                     </div>
-                    <div class="btn btn-default userChartCancel">Anuluj</div>
-                    <div type="button" class="btn btn-primary userChartSave">Wyślij</div>
                 </div>
                 <p class="small text-center col-xs-12 margin-top-15">Dane są anonimowe i zostaną wykorzystane w ramach
                     projektu badawczego
