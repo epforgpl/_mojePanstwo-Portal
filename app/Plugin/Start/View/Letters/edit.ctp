@@ -74,7 +74,7 @@ echo $this->element('Start.pageBegin'); ?>
 			      <div class="form-group form-row">
 			        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
 					<div class="col-lg-12">
-                        <textarea class="form-control tinymceField" rows="10" id="inp<?= $input['id'] ?>"
+                        <textarea class="form-control tinymceField" rows="20" id="inp<?= $input['id'] ?>"
                                   name="inp<?= $input['id'] ?>"><?= $v ?></textarea>
 			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
 			        </div>

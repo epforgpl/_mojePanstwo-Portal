@@ -37,7 +37,7 @@ WybierzPoslaModal.prototype.initialize = function() {
                                     '<img class="img-circle" src="http://resources.sejmometr.pl/mowcy/a/0/' + row.data["ludzie.id"] + '.jpg"/>',
                                 '</div>',
                                 '<div class="col-sm-5">',
-                                    row.data['ludzie.nazwa'],
+                                    row.data['poslowie.nazwa'],
                                 '</div>',
                                 '<div class="col-sm-5">',
                                     row.data['sejm_kluby.nazwa'],
@@ -66,7 +66,7 @@ WybierzPoslaModal.prototype.initialize = function() {
                 var url = '/moje-pisma';
                 var form = $('<form action="' + url + '" method="post">' +
                 '<input type="text" name="adresat_id" value="poslowie:' + row.id + '" />' +
-                '<input type="text" name="szablon_id" value="71" />' +
+                '<input type="text" name="szablon_id" value="83" />' +
                 '</form>');
                 $('body').append(form);
                 form.submit();
