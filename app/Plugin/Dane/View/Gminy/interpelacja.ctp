@@ -1,6 +1,6 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy-interpelacja', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-interpelacja', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 }
@@ -18,11 +18,11 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 ?>
     <h2 class="light">Interpelacja</h2>
- 	
+
  	<div class="row">
-	 	<div class="col-md-9">   
- 
-<?
+        <div class="col-md-9">
+
+            <?
 
 echo $this->Document->place($interpelacja->getData('dokument_id'), array('toolbar' => false));
 

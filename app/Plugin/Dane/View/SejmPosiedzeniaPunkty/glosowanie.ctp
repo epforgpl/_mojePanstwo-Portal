@@ -8,7 +8,7 @@ $this->Combinator->add_libs('js', 'Dane.filters');
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
-echo $this->Combinator->add_libs('js', 'Dane.view-sejmglosowania');
+$this->Combinator->add_libs('js', 'Dane.view-sejmglosowania');
 ?>
 <div class="object">
     <?

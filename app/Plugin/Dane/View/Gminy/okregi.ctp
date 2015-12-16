@@ -2,7 +2,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow-okregi', array('plugin' => 'Dane')));
 
@@ -39,11 +39,11 @@ echo $this->Element('dataobject/pageBegin', array(
 
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
-					
-					<h1 class="smaller margin-top-15">Okręgi wyborcze w Krakowie</h1>
-					
+
+                    <h1 class="smaller margin-top-15">Okręgi wyborcze w Krakowie</h1>
+
                     <? if (isset($okregi)) { ?>
-						
+
                         <div id="kto_tu_rzadzi" class="object"></div>
                         <div data-name="okregi" data-content='<?= json_encode($okregi) ?>'></div>
 

@@ -1,5 +1,5 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 }
@@ -12,7 +12,7 @@ if (!isset($_submenu['base']))
 echo $this->Element('Dane.DataBrowser/browser', array(
     'menu' => $_submenu,
     'truncate' => 10000,
-    'class' => 'margin-top--5',    
+    'class' => 'margin-top--5',
 ));
 echo $this->Element('dataobject/pageEnd');
 
