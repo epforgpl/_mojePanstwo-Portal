@@ -431,7 +431,7 @@ $(document).ready(function () {
 			});
 
 			$.ajax({
-				url: "/podatki",
+				url: "/podatki.json",
 				method: "POST",
 				data: {
 					'_action': 'send',
@@ -444,7 +444,7 @@ $(document).ready(function () {
 					btnParent.find('.btn').addClass('disabled');
 				},
 				success: function (res) {
-					if (res.status === "true") {
+					if (res.status ) {
 						btnParent.find('.alert').removeClass('hide alert-danger').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
 						btnParent.find('.btn.userOptions').remove();
 						btnParent.find('.btn:not(".userOptions")').removeClass('hide');

@@ -32,7 +32,10 @@ class PodatkiController extends ApplicationsController
 	        	
 	        	// SEND DATA
 	        	
-	        	$this->set('status', true);
+	        	// $status = $this->Podatki->sendData( $this->request->data );
+	        	$status = true;
+	        	
+	        	$this->set('status', (boolean) $status);
 	        	$this->set('_serialize', array('status'));
 	        	return true;
 	        	

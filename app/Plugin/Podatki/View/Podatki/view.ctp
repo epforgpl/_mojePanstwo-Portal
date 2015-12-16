@@ -363,7 +363,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
 
                 <h3 class="text-center col-xs-12 userChartTitle">W jaki sposób Ty wydałbyś swoje podatki?</h3>
                 <div class="btn btn-primary userChart btn-icon margin-top-5 auto-width"><i
-                        class="icon glyphicon glyphicon-piggy-bank"></i>Zbuduj swój
+                        class="icon glyphicon glyphicon-cog"></i>Zbuduj swój
                     wykres
                 </div>
                 <div class="userChartBlock hide col-xs-12 col-md-8 col-md-offset-2">
