@@ -11,7 +11,7 @@ echo $this->element('Start.pageBegin'); ?>
 
         <div class="content pull-left">
 	        <a href="/moje-kolekcje/<?= $item->getData('id') ?>">
-	            <i class="object-icon icon-datasets-kolekcje"></i>
+                <span class="object-icon icon-datasets-kolekcje"></span>
 	            <div class="object-icon-side">
 	                <h1><?= $item->getData('nazwa') ?></h1>
 	            </div>
@@ -36,7 +36,7 @@ echo $this->element('Start.pageBegin'); ?>
 
     <div class="form-group overflow-hidden margin-top-30 text-center">
         <button class="btn auto-width btn-primary btn-icon" type="submit">
-            <i class="icon glyphicon glyphicon-ok"></i>
+            <span class="icon glyphicon glyphicon-ok"></span>
             Zapisz
         </button>
     </div>

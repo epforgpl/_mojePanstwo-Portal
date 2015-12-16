@@ -16,8 +16,8 @@ $object_id = $object->getId();
     data-toggle="modal"
     data-target="#observeModal"
     class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'btn-primary'; ?>">
-    <i class="icon"
-       data-icon-applications="&#xe60a;"></i>
+    <span class="icon"
+          data-icon-applications="&#xe60a;"></span>
 </div>
 
 <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
@@ -91,7 +91,7 @@ $object_id = $object->getId();
                 } ?>">
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
                         <a href="#" class="btn btn-primary btn-icon submit">
-                            <i class="icon" data-icon="&#xe604;"></i>Zapisz</a>
+                            <span class="icon" data-icon="&#xe604;"></span>Zapisz</a>
                         <? if (isset($subscription) && !empty($subscription['Subscription']['id'])) { ?>
                             <a href="#" class="btn btn-link unobserve"
                                data-subscription-id="<?= $subscription['Subscription']['id'] ?>">Przestań obserwować</a>

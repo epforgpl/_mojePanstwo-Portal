@@ -9,7 +9,7 @@
 	        <ul class="nav nav-pills nav-stacked">
 
 	            <? foreach ($app_chapters['items'] as $item) {
-					
+
 	                $active = false;
 
 	                if(
@@ -27,13 +27,13 @@
 		                )
 	                )
 	                	$active = true;
-	                	
-	                $classes = array();
-	                
-	                if( isset($item['class']) )
+
+                    $classes = array();
+
+                    if( isset($item['class']) )
 	                	$classes[] = $item['class'];
-	                
-	                if( isset($item['href']) && $active )
+
+                    if( isset($item['href']) && $active )
 	                	$classes[] = 'active';
 
                 ?>
@@ -41,7 +41,8 @@
 	                <li class="<?= implode(' ', $classes) ?>">
 	                	<? if(isset($item['href'])) {?><a href="<?= $item['href'] ?>"><? } else { ?><span><? } ?>
 		                	<? if(isset($item['icon'])) {?>
-			                	<i class="object-icon <?= $item['icon'] ?>"<? if( isset($item['appIcon']) ) {?> data-icon-applications="<?= $item['appIcon'] ?>"<?}?>></i>
+                                <span
+                                    class="object-icon <?= $item['icon'] ?>"<? if (isset($item['appIcon'])) { ?> data-icon-applications="<?= $item['appIcon'] ?>"<? } ?>></span>
 		                	<? } ?>
                             <div<? if (isset($item['icon'])) { ?> class="object-icon-side"<? } ?>><? if (isset($item['count'])) { ?>
                                     <span

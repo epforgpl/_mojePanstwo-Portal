@@ -11,7 +11,7 @@
 
                 <div class="form-user-edit" data-field="username">
                     <a href="#" title="Edytuj">
-                        <b><?= $user['username']; ?></b>
+                        <strong><?= $user['username']; ?></strong>
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 </div>
@@ -21,7 +21,7 @@
 
                 <div class="form-user-edit" data-field="email">
                     <a href="#" title="Edytuj">
-                        <b><?= $user['email']; ?></b>
+                        <strong><?= $user['email']; ?></strong>
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                 </div>

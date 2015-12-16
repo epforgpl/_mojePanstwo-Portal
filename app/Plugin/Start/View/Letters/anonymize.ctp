@@ -31,7 +31,7 @@ $this->Combinator->add_libs('js', 'Start.letters-anonymize.js');
     </ul>
     <div class="overflow-auto">
         <div class="content pull-left">
-            <i class="object-icon icon-applications-pisma"></i>
+            <span class="object-icon icon-applications-pisma"></span>
 
             <div class="object-icon-side">
                 <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">

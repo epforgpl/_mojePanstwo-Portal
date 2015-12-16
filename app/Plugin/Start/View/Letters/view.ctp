@@ -42,7 +42,7 @@ if ($pismo['object_id']) {
     <div class="overflow-auto">
 
         <div class="content pull-left">
-            <i class="object-icon icon-applications-pisma"></i>
+            <span class="object-icon icon-applications-pisma"></span>
 
             <div class="object-icon-side">
                 <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
@@ -374,7 +374,7 @@ if ($pismo['object_id']) {
                         data-letter-alphaid="<?= $pismo['alphaid'] ?>"
                         data-letter-slug="<?= $pismo['slug'] ?>"
                         class="btn btn-success btn-icon auto-width">
-                        <i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na pismo
+                        <span class="icon glyphicon glyphicon-plus-sign"></span>Dodaj odpowiedź na pismo
                     </button>
                 </p>
             <? } ?>

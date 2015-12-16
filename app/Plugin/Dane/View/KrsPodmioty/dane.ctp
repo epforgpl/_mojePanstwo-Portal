@@ -31,9 +31,9 @@ echo $this->Element('dataobject/pageBegin'); ?>
 
 					<div class="form-group form-row">
 				        <label for="descriptionTextArea" class="col-lg-12 control-label control-label-full">Misja organizacji:</label>
-				        
-				        
-						<div class="col-lg-12">
+
+
+                        <div class="col-lg-12">
                             <textarea class="form-control tinymceField" rows="10" id="inp1" name="description"
                                       id="descriptionTextArea"><?= $object->getPage('description') ? $object->getPage('description') : $object->getData('cel_dzialania') ?></textarea>
 						</div>
@@ -108,7 +108,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                            Anuluj
 	                        </a>
 							<button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">
-	                            <i class="icon glyphicon glyphicon-ok"></i>
+                                <span class="icon glyphicon glyphicon-ok"></span>
 	                            Zapisz
 	                        </button>
 						</div>

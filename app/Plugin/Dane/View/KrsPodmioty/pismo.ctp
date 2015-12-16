@@ -24,7 +24,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
         <div class="overflow-auto margin-top-10">
 
             <div class="content pull-left">
-                <i class="object-icon icon-applications-pisma"></i>
+                <span class="object-icon icon-applications-pisma"></span>
 
                 <div class="object-icon-side">
                     <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['name'] ?></h1>

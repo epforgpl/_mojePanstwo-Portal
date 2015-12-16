@@ -1,7 +1,7 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy-dyzury', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('js', 'Dane.view-gminy-dyzury');
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-dyzury', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.view-gminy-dyzury');
 
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
@@ -42,7 +42,7 @@ $dyzury_data = $radny->getLayer('dyzury');
                                     <li style="margin: 15px 0;">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <b><?= $this->Czas->dataSlownie($d['data']) ?></b>
+                                                <strong><?= $this->Czas->dataSlownie($d['data']) ?></strong>
                                             </div>
                                             <div class="col-md-2">
                                                 <?= $d['godz_str'] ?>
@@ -94,7 +94,7 @@ $dyzury_data = $radny->getLayer('dyzury');
                                     <li style="margin: 15px 0;">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <b><?= $this->Czas->dataSlownie($d['data']) ?></b>
+                                                <strong><?= $this->Czas->dataSlownie($d['data']) ?></strong>
                                             </div>
                                             <div class="col-md-2">
                                                 <?= $d['godz_str'] ?>

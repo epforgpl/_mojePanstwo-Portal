@@ -44,12 +44,12 @@
                                                 <p class="email email-big text-center"><?= $pismo['to_email'] ?></p>
 
                                                 <div class="additional-desc">
-                                                    <p>W polu <b>CC</b> wiadomości zostanie podany Twój
+                                                    <p>W polu <strong>CC</strong> wiadomości zostanie podany Twój
                                                         adres e-mail - otrzymasz więc kopię wysłanego
                                                         pisma.
                                                     </p>
 
-                                                    <p>W polu <b>Reply-to</b> wiadomości również
+                                                    <p>W polu <strong>Reply-to</strong> wiadomości również
                                                         zostanie podany Twój adres email, aby adresat
                                                         przesłał odpowiedź bezpośrednio na Twój adres.
                                                     </p>
@@ -77,12 +77,12 @@
                                                 </div>
 
                                                 <div class="additional-desc">
-                                                    <p>W polu <b>CC</b> wiadomości zostanie podany Twój
+                                                    <p>W polu <strong>CC</strong> wiadomości zostanie podany Twój
                                                         adres e-mail - otrzymasz więc kopię wysłanego
                                                         pisma.
                                                     </p>
 
-                                                    <p>W polu <b>Reply-to</b> wiadomości również
+                                                    <p>W polu <strong>Reply-to</strong> wiadomości również
                                                         zostanie podany Twój adres email, aby adresat
                                                         przesłał odpowiedź bezpośrednio na Twój adres.
                                                     </p>
@@ -146,7 +146,7 @@
                                         <form action="" method="post">
                                             <input type="hidden" name="access" value="public">
 
-                                            <p><b>To pismo jest prywatne.</b> Tylko Ty masz do niego dostęp.
+                                            <p><strong>To pismo jest prywatne.</strong> Tylko Ty masz do niego dostęp.
                                                 <button class="clean" type="submit">Kliknij, aby udostępnić to pismo
                                                     publicznie.
                                                 </button>
@@ -159,7 +159,7 @@
                                             <input type="hidden" name="access" value="private">
 
                                             <p>
-                                                <b>To pismo jest publiczne.</b>
+                                                <strong>To pismo jest publiczne.</strong>
                                                 <button class="clean" type="submit">Kliknij, aby zmienić jego widoczność
                                                     na prywatną.
                                                 </button>

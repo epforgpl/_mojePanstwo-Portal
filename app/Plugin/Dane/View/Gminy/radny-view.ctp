@@ -1,5 +1,5 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 }
@@ -28,7 +28,7 @@ $options = array(
 );
 
 if (isset($title))
-    $options['title'] = $title;    
+    $options['title'] = $title;
 
 echo $this->Element('Dane.DataBrowser/browser', $options);
 ?>

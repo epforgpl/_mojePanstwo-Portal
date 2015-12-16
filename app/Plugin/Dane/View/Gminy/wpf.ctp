@@ -1,6 +1,7 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-wpf', array('plugin' => 'Dane')));
+
 $this->Combinator->add_libs('js', 'Dane.view-gminy');
 $this->Combinator->add_libs('js', 'Dane.view-gminy-wpf');
 

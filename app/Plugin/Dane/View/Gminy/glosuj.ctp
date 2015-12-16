@@ -2,7 +2,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
@@ -114,7 +114,7 @@ function getPoselTemplate($pos, $vote) {
                                     <div class="data col-xs-8 col-sm-10">
                                         <div>
                                             <div class="content">
-                                                <i class="object-icon icon-datasets-zamowienia_publiczne_dokumenty"></i>
+                                                <span class="object-icon icon-datasets-zamowienia_publiczne_dokumenty"></span>
 
                                                 <div class="object-icon-side ">
                                                     <p class="title">

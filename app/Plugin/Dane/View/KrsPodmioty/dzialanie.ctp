@@ -77,7 +77,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 
                                 return '<div class="text-center margin-top-10">
                                                 <div class="btn mailingBtn auto-width btn-md btn-primary btn-icon">
-                                                    <i class="icon glyphicon glyphicon-envelope"></i>
+                                                    <span class="icon glyphicon glyphicon-envelope"></span>
                                                     ' . $label . '
                                                 </div>
                                             </div>';
@@ -254,7 +254,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                     <div class="margin-top-10">
                         <a href="<?= $object->getUrl() ?>/dzialania/<?= $dzialanie->getData('id') ?>/edytuj">
                             <button class="btn btn-sm btn-primary btn-icon btn-auto-width">
-                                <i class="icon glyphicon glyphicon-pencil"></i>
+                                <span class="icon glyphicon glyphicon-pencil"></span>
                                 Edytuj
                             </button>
                         </a>

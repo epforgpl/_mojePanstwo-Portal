@@ -162,13 +162,13 @@ ObjectUsersManagement.prototype.initialize = function() {
 			});
 		});
 	}
-	
+
 	for(var e in this.editables) {
 		if(this.editables.hasOwnProperty(e)) {
 			$('.open_' + this.editables[e] + '_modal').click(function(e) {
-				
+
 				e.preventDefault();
-				
+
 				switch($(this).data('name')) {
 
 					case 'users':
@@ -401,7 +401,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'</div>',
 			'<div class="modal-footer">',
 			'<button type="button" class="btn btn-md auto-width btn-primary btn-icon" data-dismiss="modal">',
-			'<i class="icon glyphicon glyphicon-ok"></i>Gotowe',
+			'<span class="icon glyphicon glyphicon-ok"></span>Gotowe',
 			'</button>',
 			'</div>',
 			'</div>',
@@ -434,7 +434,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'</div>',
 			'</div>',
 			'<div class="modal-footer">',
-			'<button type="button" class="btn btn-primary btn-icon export"><i class="icon" data-icon="&#xe604;"></i>Dodaj</button>',
+			'<button type="button" class="btn btn-primary btn-icon export"><span class="icon" data-icon="&#xe604;"></span>Dodaj</button>',
 			(this.header.hasClass('cover-logo') ? '<button type="button" class= "btn btn-link delete" data-type="logo">Usuń logo</button>' : ''),
 			'</div>',
 			'</div>',
@@ -472,7 +472,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'</div>',
 			'</div>',
 			'<div class="modal-footer">',
-			'<button type="button" class="btn btn-primary btn-icon export"><i class="icon" data-icon="&#xe604;"></i>Dodaj</button>',
+			'<button type="button" class="btn btn-primary btn-icon export"><span class="icon" data-icon="&#xe604;"></span>Dodaj</button>',
 			(this.header.hasClass('cover-background') ? '<button type="button" class="btn btn-link delete" data-type="cover">Usuń obrazek tła</button>' : ''),
 			'</div>',
 			'</div>',
@@ -480,7 +480,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'</div>'
 		]);
 	}
-	
+
 	/*
 	if (jQuery.inArray("bdl_opis", this.editables) !== -1) {
 		$.merge(list, [
@@ -511,7 +511,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'</div>',
 			'<div class="modal-footer">',
 			'<button type="button" class="btn btn-md btn-primary btn-icon" data-dismiss="modal">',
-			'<i class="icon glyphicon glyphicon-ok"></i>Gotowe',
+			'<span class="icon glyphicon glyphicon-ok"></span>Gotowe',
 			'</button>',
 			'</div>',
 			'</div>',

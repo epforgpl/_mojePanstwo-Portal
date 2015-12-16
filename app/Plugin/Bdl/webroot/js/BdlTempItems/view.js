@@ -44,7 +44,7 @@ $(document).ready(function () {
 
             if (data.BdlTempItem.ingredients) {
                 $.each(data.BdlTempItem.ingredients, function (key, val) {
-                    remove_btn = '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button>';
+					remove_btn = '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><span class="icon glyphicon glyphicon-remove"></span></button>';
 
                     if (val.is_pos == 1) {
                         znak = '<span class="icon sign glyphicon glyphicon-plus is_pos" is_pos="1"></span>';
