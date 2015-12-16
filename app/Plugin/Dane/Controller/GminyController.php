@@ -5109,6 +5109,11 @@ class GminyController extends DataobjectsController
 							        'data.radni_gmin.gmina_id' => '903',
 						        ),
 					        ),
+					        array(
+                                'term' => array(
+                                    'data.radni_gmin.kadencja_id' => '7',
+                                ),
+                            ),
 				        ),
 			        ),
 		        ),
@@ -5140,6 +5145,11 @@ class GminyController extends DataobjectsController
                                     'data.radni_gmin.gmina_id' => '903',
                                 ),
                             ),
+                            array(
+                                'term' => array(
+                                    'data.radni_gmin.kadencja_id' => '7',
+                                ),
+                            ),
                         ),
                     ),
                 ),
@@ -5158,8 +5168,9 @@ class GminyController extends DataobjectsController
             ),
         ));
         
+		
         $this->_prepareView();
-
+		
         if ($this->object->getId() != '903')
             throw new NotFoundException;
 
@@ -5168,6 +5179,8 @@ class GminyController extends DataobjectsController
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'aktywnosci',
         )));
+        
+		$this->set('title_for_layout', 'Ranking aktywności Rady Miasta Kraków');
     }
 
     public function glosuj() {
