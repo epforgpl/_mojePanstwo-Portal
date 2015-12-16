@@ -25,7 +25,7 @@ $accessDict = array(
     <div class="overflow-auto">
 
         <div class="content pull-left">
-            <i class="object-icon icon-datasets-kolekcje"></i>
+            <span class="object-icon icon-datasets-kolekcje"></span>
             <div class="object-icon-side">
                 <input class="form-control h1-editable" type="text" name="nazwa" value="<?= $item->getData('nazwa') ?>"/>
             </div>
@@ -101,7 +101,8 @@ $accessDict = array(
                             <div class="form-group">
                                 <div class="col-lg-9">
                                     <button type="reset" data-dismiss="modal" class="btn btn-default">Anuluj</button>
-                                    <button type="submit" class="btn btn-md btn-primary btn-icon"><i class="icon glyphicon glyphicon-pencil"></i>Zapisz
+                                    <button type="submit" class="btn btn-md btn-primary btn-icon"><span
+                                            class="icon glyphicon glyphicon-pencil"></span>Zapisz
                                     </button>
                                 </div>
                             </div>
@@ -123,7 +124,7 @@ $accessDict = array(
         <div class="content">
             <?= $note ?>
         </div>
-        
+
         <button
         	type="submit"
             data-tooltip="true"
@@ -132,7 +133,7 @@ $accessDict = array(
             class="btn btn-default btnNoteEdit btn">
             <i class="glyphicon glyphicon-edit" title="Edytuj notatkę" aria-hidden="true"></i>
         </button>
-        
+
     <? } ?>
 </div>
 

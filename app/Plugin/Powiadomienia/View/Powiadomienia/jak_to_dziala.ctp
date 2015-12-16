@@ -25,7 +25,8 @@
                     <h2>Instytucje publiczne</h2>
 
                     <p>Otrzymuj informacje o nowych aktach prawnych, zamówieniach publicznych i&nbsp;innych działaniach
-                        instytucji. Znajdź instytucję, którą chcesz obserwować w aplikacji <b>Kto tu rządzi?</b></p>
+                        instytucji. Znajdź instytucję, którą chcesz obserwować w aplikacji <strong>Kto tu
+                            rządzi?</strong></p>
 
                     <a href="/kto_tu_rzadzi" target="_self" class="btn btn-primary" alt="Przejdź do aplikacji">Przejdź
                         do aplikacji</a>
@@ -40,7 +41,7 @@
                     <p>Otrzymuj informacje o zmianach w skłądach zarządów, rad nadzorczych, ogłoszeniach wymaganych
                         przez prawo gospodarcze, zamówieniach publicznych i&nbsp;dotacjach otrzymywanych przez spółki i&nbsp;organizacje
                         zarejestrowane w Krajowym Rejestrze Sądowym. Znajdź firmę, którą chcesz obserwować w aplikacji
-                        <b>Krajowy Rejestr Sądowy</b>.</p>
+                        <strong>Krajowy Rejestr Sądowy</strong>.</p>
                     <a href="/krs" target="_self" class="btn btn-primary" alt="Przejdź do aplikacji">Przejdź do
                         aplikacji</a>
                 </div>
@@ -52,7 +53,7 @@
                     <h2>Prawo</h2>
 
                     <p>Otrzymuj informacje o nowelizacjach, aktach wykonawczych i&nbsp;innych wydawanych do ustaw.
-                        Znajdź ustawę, którą chcesz obserować w aplikacji <b>Prawo</b>.</p>
+                        Znajdź ustawę, którą chcesz obserować w aplikacji <strong>Prawo</strong>.</p>
                     <a href="/prawo" target="_self" class="btn btn-primary" alt="Przejdź do aplikacji"
                        data-tutorial='{}'>Przejdź do
                         aplikacji</a>

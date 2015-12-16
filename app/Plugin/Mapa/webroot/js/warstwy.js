@@ -73,7 +73,7 @@ MapaWarstwy.prototype.showPlaces = function (data) {
 							'<div class="ngoPlace">' +
 							'<div class="title">' +
 							'<a href="/dane/krs_podmioty/' + marker.data['krs_podmioty.id'] + '">' +
-							'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
+							'<span class="object-icon icon-datasets-krs_podmioty"></span>' +
 							'<div class="titleName">' + marker.data['krs_podmioty.nazwa'] + '</div>' +
 							'</a>' +
 							'</div>' +
@@ -243,7 +243,7 @@ CustomMarker.prototype.draw = function () {
 						ngoPlaceBlock += '<div class="ngoPlace">' +
 							'<div class="title">' +
 							'<a href="/dane/krs_podmioty/' + info.id + ',' + info.slug + '">' +
-							'<i class="object-icon icon-datasets-krs_podmioty"></i>' +
+							'<span class="object-icon icon-datasets-krs_podmioty"></span>' +
 							'<div itemprop="name" class="titleName">' + info.data.nazwa + '</div>' +
 							'</a>' +
 							'</div>' +

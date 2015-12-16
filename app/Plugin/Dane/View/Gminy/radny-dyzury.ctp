@@ -42,7 +42,7 @@ $dyzury_data = $radny->getLayer('dyzury');
                                     <li style="margin: 15px 0;">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <b><?= $this->Czas->dataSlownie($d['data']) ?></b>
+                                                <strong><?= $this->Czas->dataSlownie($d['data']) ?></strong>
                                             </div>
                                             <div class="col-md-2">
                                                 <?= $d['godz_str'] ?>
@@ -94,7 +94,7 @@ $dyzury_data = $radny->getLayer('dyzury');
                                     <li style="margin: 15px 0;">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <b><?= $this->Czas->dataSlownie($d['data']) ?></b>
+                                                <strong><?= $this->Czas->dataSlownie($d['data']) ?></strong>
                                             </div>
                                             <div class="col-md-2">
                                                 <?= $d['godz_str'] ?>

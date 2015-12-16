@@ -341,7 +341,7 @@
                                         <p class="bio profile-field"><a dir="ltr"
                                                                         class="twitter-hashtag pretty-link js-nav"
                                                                         data-query-source="hashtag_click"
-                                                                        href="https://twitter.com/search?q=%23YoSoyVenezolano&amp;src=hash"><s>#</s><b>YoSoyVenezolano</b></a>
+                                                                        href="https://twitter.com/search?q=%23YoSoyVenezolano&amp;src=hash"><s>#</s><strong>YoSoyVenezolano</strong></a>
                                         </p>
                                     </div>
                                     <p class="location-and-url">

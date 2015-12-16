@@ -59,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-icon text-center">
-                            <i class="icon" data-icon="&#xe604;"></i>Wyślij
+                            <span class="icon" data-icon="&#xe604;"></span>Wyślij
                         </button>
                     </div>
                 </form>

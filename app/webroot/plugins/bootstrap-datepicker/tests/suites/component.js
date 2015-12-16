@@ -2,7 +2,7 @@ module('Component', {
     setup: function(){
         this.component = $('<div class="input-append date" id="datepicker">'+
                                 '<input size="16" type="text" value="12-02-2012" readonly>'+
-                                '<span class="add-on"><i class="icon-th"></i></span>'+
+          '<div class="add-on"><span class="icon-th"></span></div>' +
                             '</div>')
                         .appendTo('#qunit-fixture')
                         .datepicker({format: "dd-mm-yyyy"});

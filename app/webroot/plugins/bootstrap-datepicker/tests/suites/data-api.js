@@ -18,7 +18,7 @@ test('DATA-API: data-provide="datepicker" on component', function(){
     var html, comp;
 
     html = '<div class="input-append date" data-provide="datepicker">'+
-                '<input><span class="add-on"><i class="icon-th"></i></span>'+
+      '<input><div class="add-on"><span class="icon-th"></span></div>' +
             '</div>';
 
     comp = $(html).appendTo('#qunit-fixture');
@@ -43,7 +43,7 @@ test('DATA-API: data-provide="datepicker" on component', function(){
 
 
     html = '<div class="input-prepend date" data-provide="datepicker">'+
-                '<span class="add-on"><i class="icon-th"></i></span><input>'+
+      '<div class="add-on"><span class="icon-th"></span></div><input>' +
             '</div>';
 
     comp = $(html).prependTo('#qunit-fixture');

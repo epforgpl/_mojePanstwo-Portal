@@ -42,12 +42,12 @@ $this->Combinator->add_libs('css', $this->Less->css('powiadomienia-subs', array(
                                 $dataset = $sub->getDataset();
                                 ?>
                                 <li data-id="<?= $sub->getId() ?>" data-dataset="<?= $dataset; ?>">
-                                    <i class="icon icon-datasets-<?= $dataset ?>"></i>
+                                    <span class="icon icon-datasets-<?= $dataset ?>"></span>
 
                                     <p class="title">
                                         <a href="<?= $sub->getUrl() ?>"><?= $sub->getTitle() ?></a>
                                     </p>
-                                    <i class="options glyphicon glyphicon-option-vertical"></i>
+                                    <span class="options glyphicon glyphicon-option-vertical"></span>
                                 </li>
                             <? } ?>
                         </ul>

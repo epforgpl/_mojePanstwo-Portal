@@ -17,7 +17,7 @@ if (isset($data['wykreslono']) && !empty($data['wykreslono'])) {
 
             ?>
             <tr>
-                <td><b><?= $zmiana['kod'] ?></b> <?= $zmiana['nazwa'] ?></td>
+                <td><strong><?= $zmiana['kod'] ?></strong> <?= $zmiana['nazwa'] ?></td>
             </tr>
         <? } ?>
         </tbody>

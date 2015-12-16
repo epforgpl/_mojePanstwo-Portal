@@ -26,7 +26,11 @@ $nazwa = array(
 
                         <div class="col-xs-12 col-sm-11 row">
                             <? if ($type == 'wydatki') { ?>
-                                <div><a href="csv"><button class="btn btn-md btn-primary btn-icon" style="width:auto;"><i class="icon glyphicon glyphicon-download"></i>Pobierz dane</button></a></div>
+                                <div><a href="csv">
+                                        <button class="btn btn-md btn-primary btn-icon" style="width:auto;"><span
+                                                class="icon glyphicon glyphicon-download"></span>Pobierz dane
+                                        </button>
+                                    </a></div>
                                 <table class="table table-strict table-condensed">
                                     <thead>
                                     <tr>
@@ -123,7 +127,7 @@ $nazwa = array(
                                                 <td><?= number_format_h($val[0]['srodki_wlasne_ue'] * 1000) ?></td>
                                                 <td><?= number_format_h($val[0]['wspolfinansowanie_ue'] * 1000) ?></td>
                                             </tr>
-                                        <? }?>
+                                        <? } ?>
                                     <? } ?>
                                     </tbody>
                                 </table>

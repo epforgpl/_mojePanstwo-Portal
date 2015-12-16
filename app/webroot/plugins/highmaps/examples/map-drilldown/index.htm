@@ -40,7 +40,7 @@ $(function () {
                             // Handle error, the timeout is cleared on success
                             fail = setTimeout(function () {
                                 if (!Highcharts.maps[mapKey]) {
-                                    chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
+                                    chart.showLoading('<span class="icon-frown"></span> Failed loading ' + e.point.name);
 
                                     fail = setTimeout(function () {
                                         chart.hideLoading();
@@ -49,7 +49,7 @@ $(function () {
                             }, 3000);
 
                         // Show the spinner
-                        chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>'); // Font Awesome spinner
+                        chart.showLoading('<span class="icon-spinner icon-spin icon-3x"></span>'); // Font Awesome spinner
 
                         // Load the drilldown map
                         $.getScript('http://code.highcharts.com/mapdata/' + mapKey + '.js', function () {

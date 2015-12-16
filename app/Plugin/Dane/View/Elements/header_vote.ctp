@@ -73,14 +73,14 @@
 
                                 <div class="voteOptions pull-right">
                                     <button type="submit" name="vote" class="btn btn-success btn-icon auto-width"
-                                            value="Za"><i class="icon glyphicon glyphicon-ok"></i>Za
+                                            value="Za"><span class="icon glyphicon glyphicon-ok"></span>Za
                                     </button>
                                     <button type="submit" name="vote" class="btn btn-primary btn-icon auto-width"
-                                            value="Wstrzymuje się"><i class="icon glyphicon glyphicon-minus"></i>Wstrzymuje
+                                            value="Wstrzymuje się"><span class="icon glyphicon glyphicon-minus"></span>Wstrzymuje
                                         się
                                     </button>
                                     <button type="submit" name="vote" class="btn btn-danger btn-icon auto-width"
-                                            value="Przeciw"><i class="icon glyphicon glyphicon-remove"></i>Przeciw
+                                            value="Przeciw"><span class="icon glyphicon glyphicon-remove"></span>Przeciw
                                     </button>
                                 </div>
                             </form>

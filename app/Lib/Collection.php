@@ -4,28 +4,7 @@ namespace MP\Lib;
 
 class Collection
 {
-	protected $schema = array();
-    protected $_routes = array(
-        'date' => 'data',
-        'title' => 'title',
-        'shortTitle' => 'title',
-        'description' => 'opis',
-        'label' => 'label',
-        'titleAddon' => false,
-        'position' => false,
-    );
-
-    protected $routes = array(
-	    'shortTitle' => 'title',
-	    'title' => 'title',
-	    'position' => false,
-	    'titleAddon' => false,
-	    'description' => 'description',
-    );
-	protected $hl_fields = array();
-	protected $tiny_label = '';
     public $force_hl_fields = false;
-
     public $data;
     public $static;
     public $layers = array();
@@ -41,25 +20,39 @@ class Collection
     public $inner_hits = array();
     public $options = array();
     public $page = array();
-
+	protected $schema = array();
+    protected $_routes = array(
+        'date' => 'data',
+        'title' => 'title',
+        'shortTitle' => 'title',
+        'description' => 'opis',
+        'label' => 'label',
+        'titleAddon' => false,
+        'position' => false,
+    );
+    protected $routes = array(
+	    'shortTitle' => 'title',
+	    'title' => 'title',
+	    'position' => false,
+	    'titleAddon' => false,
+	    'description' => 'description',
+    );
+	protected $hl_fields = array();
+	protected $tiny_label = '';
 
     public function __construct($params = array(), $options = array())
     {
-	   	
-	   	
-		$this->options = $options;
+
+
+        $this->options = $options;
         $this->data = $params['_source'];
         $this->id = $params['_id'];
         // $this->slug = $params['slug'];
-				
+
     }
 
 	public function getSubscribtion() {
 		return (boolean) $this->subscribtion;
-	}
-
-	public function getMetaDescriptionParts($preset = false) {
-		return false;
 	}
 
 	public function getMetaDescription($preset = false) {
@@ -75,6 +68,11 @@ class Collection
 
 	}
 
+    public function getMetaDescriptionParts($preset = false)
+    {
+        return false;
+    }
+
 	public function getMataDate() {
 		return false;
 	}
@@ -86,16 +84,16 @@ class Collection
 			$output[] = $this->getDataset();
 		return $output;
 	}
-	
+
+    public function getDataset()
+    {
+        return @$this->dataset;
+    }
+
 	public function getLayers()
 	{
 		return $this->layers;
 	}
-	
-    public function getLayer($layer)
-    {
-        return array_key_exists($layer, $this->layers) ? $this->layers[$layer] : false;
-    }
 
     public function getScore()
     {
@@ -104,9 +102,9 @@ class Collection
         return 0;
     }
 
-    public function getData($field = '*')
+    public function getLayer($layer)
     {
-        return $field == '*' ? $this->data : @$this->data[$field];
+        return array_key_exists($layer, $this->layers) ? $this->layers[$layer] : false;
     }
 
     public function getPage($field = '*') {
@@ -121,11 +119,6 @@ class Collection
 	    	return false;
     }
 
-    public function getId()
-    {
-        return $this->getData('id');
-    }
-
     public function getGlobalId()
     {
         return $this->global_id;
@@ -136,14 +129,14 @@ class Collection
         return @substr($this->getData($this->routes['date']), 0, 10);
     }
 
+    public function getData($field = '*')
+    {
+        return $field == '*' ? $this->data : @$this->data[$field];
+    }
+
     public function getTime()
     {
         return @$this->getData($this->routes['time']);
-    }
-
-    public function getDataset()
-    {
-        return @$this->dataset;
     }
 
     public function getSlug()
@@ -176,11 +169,6 @@ class Collection
         return $this->getData($this->routes['titleAddon']);
     }
 
-    public function getLabel()
-    {
-        return $this->getData($this->routes['label']);
-    }
-
     public function getSideLabel()
     {
         return false;
@@ -196,6 +184,11 @@ class Collection
         return $this->getLabel();
     }
 
+    public function getLabel()
+    {
+        return $this->getData($this->routes['label']);
+    }
+
     public function getHlText()
     {
         return str_replace("\r", "<br/>", $this->hl);
@@ -203,9 +196,14 @@ class Collection
 
     public function getUrl($options = array())
     {
-        
+
         return '/moje-kolekcje/' . $this->getId();
 
+    }
+
+    public function getId()
+    {
+        return $this->getData('id');
     }
 
     public function getSentence() {
@@ -239,7 +237,7 @@ class Collection
 	public function getIcon()
     {
 	    $class = strtolower(array_pop(explode('\\', get_class($this))));
-        return '<i class="object-icon icon-datasets-' . $class . '"></i>';
+        return '<span class="object-icon icon-datasets-' . $class . '"></span>';
     }
 
     public function getHeaderThumbnailUrl($size = 'default')
@@ -265,25 +263,6 @@ class Collection
     public function getTinyLabel() {
 	    return $this->tiny_label;
     }
-
-	public function getSchemaForFieldname( $fieldname )
-	{
-		$output = false;
-
-		if( $fieldname && !empty($this->schema) )
-		{
-			foreach( $this->schema as $s )
-			{
-				if( $s[0] == $fieldname )
-				{
-					$output = $s;
-					break;
-				}
-			}
-		}
-
-		return $output;
-	}
 
 	public function getHiglightedFields( $fields = false, $fieldsPush = false )
 	{
@@ -311,6 +290,22 @@ class Collection
 						'value' => $this->getData($fieldname),
 						'options' => isset($schema[3]) ? $schema[3] : 'string',
 					);
+
+        return $output;
+    }
+
+    public function getSchemaForFieldname($fieldname)
+    {
+        $output = false;
+
+        if ($fieldname && !empty($this->schema)) {
+            foreach ($this->schema as $s) {
+                if ($s[0] == $fieldname) {
+                    $output = $s;
+                    break;
+                }
+            }
+        }
 
 		return $output;
 	}

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="desc main_desc text-center">
-                    <b>Wybierz zakres analizy:</b>
+                    <strong>Wybierz zakres analizy:</strong>
                     <ul class="pagination">
                         <li<? if ($range == '24h') { ?> class="active" <? } ?>><a href="?range=24h">24 godziny</a></li>
                         <li<? if ($range == '3d') { ?> class="active" <? } ?>><a href="?range=3d">3 dni</a></li>

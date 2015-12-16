@@ -118,7 +118,7 @@ AcceptModerateRequestModal.prototype.getDOM = function() {
                     '</div>',
                     '<div class="modal-footer">',
                         '<button class="btn btn-primary btn-icon auto-width submit">',
-                            '<i class="icon" data-icon="&#xe604;"></i>Zapisz',
+		'<span class="icon" data-icon="&#xe604;"></span>Zapisz',
                         '</button>',
                         '<a href="#" class="btn btn-link" data-dismiss="modal">Anuluj</a>',
                     '</div>',

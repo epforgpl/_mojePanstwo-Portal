@@ -56,10 +56,10 @@
 
                                                             <p class="debata-stats">
                                                                 <? if ($debata->getData('liczba_wystapien')) { ?>Liczba wystąpień:
-                                                                    <b><?= $debata->getData('liczba_wystapien') ?></b><? } ?>
+                                                                    <strong><?= $debata->getData('liczba_wystapien') ?></strong><? } ?>
                                                                 <br/>
                                                                 <? if ($debata->getData('liczba_glosowan')) { ?>Liczba głosowań:
-                                                                    <b><?= $debata->getData('liczba_glosowan') ?></b><? } ?>
+                                                                    <strong><?= $debata->getData('liczba_glosowan') ?></strong><? } ?>
                                                             </p>
                                                         </div>
 

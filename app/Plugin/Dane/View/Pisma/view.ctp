@@ -130,7 +130,7 @@ $accessDict = array(
             <? if($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
                 <div class="margin-top-10">
                     <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width" href="/moje-pisma/<?= $pismo['alphaid'] ?>">
-                        <i class="icon glyphicon glyphicon-pencil"></i>
+                        <span class="icon glyphicon glyphicon-pencil"></span>
                         Zarządzaj pismem
                     </a>
                 </div>

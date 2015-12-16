@@ -43,9 +43,9 @@
                 <div class="content">
                     <div class="">
                         <p>Oferty można składać do
-                            <b><?= $this->Czas->dataSlownie($details['oferty_data_stop']) ?></b>, do
+                            <strong><?= $this->Czas->dataSlownie($details['oferty_data_stop']) ?></strong>, do
                             godziny
-                            <b><?= $details['oferty_godz'] ?></b><? if (@$details['oferty_miejsce']) { ?>, w:<? } ?>
+                            <strong><?= $details['oferty_godz'] ?></strong><? if (@$details['oferty_miejsce']) { ?>, w:<? } ?>
                         </p>
                         <? if (@$details['oferty_miejsce']) { ?><p><?= $details['oferty_miejsce'] ?></p><? } ?>
                     </div>

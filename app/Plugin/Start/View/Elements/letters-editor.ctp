@@ -21,12 +21,12 @@ if (!empty($pismo['adresat_id'])) {
         <header class="collection-header">
             <div class="overflow-auto">
                 <div class="content pull-left">
-                    <i class="object-icon icon-applications-pisma"></i>
+                    <span class="object-icon icon-applications-pisma"></span>
 
                     <div class="object-icon-side titleBlock">
                         <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
                             <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a>
-                            <i class="glyphicon glyphicon-edit"></i>
+                            <span class="glyphicon glyphicon-edit"></span>
                         </h1>
 
                         <div class="input-group hide">

@@ -11,7 +11,7 @@
                 };
                 if (isset($app)) { ?>?app=<?= $app ?><? } ?>">
                     <div class="main_input">
-                        <i class="glyph-addon" data-icon="&#xe600;"></i>
+                        <span class="glyph-addon" data-icon="&#xe600;"></span>
                         <input name="q" value="" type="text" autocomplete="off" class="datasearch form-control input-lg"
                                placeholder="<?= $placeholder ?>" <?php if (isset($app)) echo 'data-app="' . $app . '"'; ?>
                                data-autocompletion="true"/>

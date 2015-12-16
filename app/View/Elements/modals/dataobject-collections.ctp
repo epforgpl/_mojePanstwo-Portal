@@ -57,7 +57,7 @@ $object_id = $object->getId();
                 } ?>">
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
                         <a href="#" class="btn btn-primary btn-icon submit" data-dismiss="modal">
-                            <i class="icon" data-icon="&#xe604;"></i>Gotowe
+                            <span class="icon" data-icon="&#xe604;"></span>Gotowe
                         </a>
                     <?php } else { ?>
                         <a href="/login" class="_specialCaseLoginButton" data-dismiss="modal">Zaloguj się, aby

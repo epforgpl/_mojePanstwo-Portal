@@ -114,7 +114,7 @@ function getPoselTemplate($pos, $vote) {
                                     <div class="data col-xs-8 col-sm-10">
                                         <div>
                                             <div class="content">
-                                                <i class="object-icon icon-datasets-zamowienia_publiczne_dokumenty"></i>
+                                                <span class="object-icon icon-datasets-zamowienia_publiczne_dokumenty"></span>
 
                                                 <div class="object-icon-side ">
                                                     <p class="title">

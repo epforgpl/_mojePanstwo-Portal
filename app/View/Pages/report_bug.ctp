@@ -14,7 +14,7 @@
                     wersją) oraz system operacyjnym, na którym błąd występuje. Dzięki czemu będziemy w stanie łatwiej
                     odtworzyć błąd w celu diagnozy i naprawienia go.</p>
 
-                <?php echo $this->Html->link('<i class="fa fa-github"></i>Powiadom bezpośrednio w serwisie GitHub', 'https://github.com/epforgpl/_mojePanstwo-Portal/issues/new', array(
+                <?php echo $this->Html->link('<span class="fa fa-github"></span>Powiadom bezpośrednio w serwisie GitHub', 'https://github.com/epforgpl/_mojePanstwo-Portal/issues/new', array(
                     'class' => 'btn btn-social btn-github sliceBtn',
                     'target' => '_blank',
                     'escape' => false

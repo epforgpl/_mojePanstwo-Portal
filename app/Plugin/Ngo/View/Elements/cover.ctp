@@ -28,7 +28,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
         <div class="banner block">
             <div>
                 <div class="img-cog pull-left">
-                    <i class="object-icon icon-datasets-strony"></i>
+                    <span class="object-icon icon-datasets-strony"></span>
                 </div>
                 <p class="headline margin-top-20"><strong>Zarządzaj profilem</strong> <br/>swojej organizacji!</p>
             </div>
@@ -82,8 +82,8 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
                 </div>
             </section>
         </div>
-		
-		<? if( $docs = @$dataBrowser['aggs']['pisma']['top']['hits']['hits'] ) {?>
+
+        <? if( $docs = @$dataBrowser['aggs']['pisma']['top']['hits']['hits'] ) {?>
 		<div class="block block-simple col-sm-12">
             <header class="nopadding">Pisma:</header>
             <section class="content margin-top-10">
@@ -106,7 +106,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
             </section>
         </div>
         <? } ?>
-		
+
         <div class="block block-simple col-sm-12">
             <header class="nopadding">Mapa organizacji pozarządowych:</header>
             <section class="content margin-top-10">

@@ -20,7 +20,7 @@
                 <div class="_mPSearchOutside">
                     <form class="suggesterBlock" action="http://przejrzystykrakow.pl/">
                         <div class="main_input">
-                            <i class="glyph-addon" data-icon="&#xe600;"></i>
+                            <span class="glyph-addon" data-icon="&#xe600;"></span>
                             <input name="q" value="" type="text" autocomplete="off"
                                    class="datasearch form-control input-lg"
                                    data-autocompletion="true"
@@ -70,43 +70,43 @@
                 <? /* Wszystkie poyzcje z menu, poza zamowieniami publicznymi i KRS */ ?>
                 <div class="appsList">
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow" target="_self">
-                        <i class="icon" data-icon-pk="&#xe600;"></i>
+                        <span class="icon" data-icon-pk="&#xe600;"></span>
 
                         <p>Aktualności</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/rada"
                        target="_self">
-                        <i class="icon" data-icon-pk="&#xe602;"></i>
+                        <span class="icon" data-icon-pk="&#xe602;"></span>
 
                         <p>Rada miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/urzad"
                        target="_self">
-                        <i class="icon" data-icon-pk="&#xe603;"></i>
+                        <span class="icon" data-icon-pk="&#xe603;"></span>
 
                         <p>Urząd Miasta</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/dzielnice"
                        target="_self">
-                        <i class="icon" data-icon-pk="&#xe601;"></i>
+                        <span class="icon" data-icon-pk="&#xe601;"></span>
 
                         <p>Dzielnice</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/organizacje"
                        target="_self">
-                        <i class="icon" data-icon-pk="&#xe605;"></i>
+                        <span class="icon" data-icon-pk="&#xe605;"></span>
 
                         <p>KRS</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/finanse"
                        target="_self">
-                        <i class="icon" data-icon-pk="&#xe604;"></i>
+                        <span class="icon" data-icon-pk="&#xe604;"></span>
 
                         <p>Finanse</p>
                     </a>
                     <a class="homePageIcon col-xs-6 col-sm-3 col-md-2" href="/dane/gminy/903,krakow/powiazania"
                        target="_self">
-                        <i class="icon" data-icon-pk="&#xe606;"></i>
+                        <span class="icon" data-icon-pk="&#xe606;"></span>
 
                         <p>Powiązania</p>
                     </a>

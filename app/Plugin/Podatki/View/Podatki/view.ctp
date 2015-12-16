@@ -40,7 +40,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     <div class="col-xs-10 col-sm-4 col-md-3 button_container">
                         <a href="#<?= str_replace(' ', '_', strtolower(__d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'))); ?>"
                            class="btn btn-link btn-xs" data-type="przychody_umowa_o_prace">
-                            <i class="icon glyphicon glyphicon-plus"></i><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
+                            <span
+                                class="icon glyphicon glyphicon-plus"></span><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
                         </a>
                     </div>
                 </div>
@@ -89,7 +90,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     <div class="col-xs-10 col-sm-4 col-md-3 button_container">
                         <a href="#<?= str_replace(' ', '_', strtolower(__d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'))); ?>"
                            class="btn btn-link btn-xs" data-type="przychody_umowa_zlecenie">
-                            <i class="icon glyphicon glyphicon-plus"></i><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
+                            <span
+                                class="icon glyphicon glyphicon-plus"></span><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
                         </a>
                     </div>
                 </div>
@@ -138,7 +140,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     <div class="col-xs-10 col-sm-4 col-md-3 button_container">
                         <a href="#<?= str_replace(' ', '_', strtolower(__d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'))); ?>"
                            class="btn btn-link btn-xs" data-type="przychody_umowa_o_dzielo">
-                            <i class="icon glyphicon glyphicon-plus"></i><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
+                            <span
+                                class="icon glyphicon glyphicon-plus"></span><?= __d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'); ?>
                         </a>
                     </div>
                 </div>

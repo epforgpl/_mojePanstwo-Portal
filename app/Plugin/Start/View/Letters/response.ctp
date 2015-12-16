@@ -16,7 +16,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
 
         <div class="content col-xs-12 row pull-left lettersResponses">
 
-            <i class="object-icon icon-applications-pisma"></i>
+            <span class="object-icon icon-applications-pisma"></span>
             <div class="object-icon-side titleBlock">
                 <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
                     <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a>
@@ -27,13 +27,13 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                 <div class="col-md-10">
                     <div class="letter-meta">
                         <p>Autor:
-                            <b><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></b>
+                            <strong><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></strong>
                         </p>
                         <? if ($pismo['sent']) { ?>
-                            <p class="small"><b>To pismo zostałe wysłane do
-                                    adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</b></p>
+                            <p class="small"><strong>To pismo zostałe wysłane do
+                                    adresata <?= $this->Czas->dataSlownie($pismo['sent_at']) ?>.</strong></p>
                         <? } else { ?>
-                            <p class="small"><b>To pismo nie zostało jeszcze wysłane.</b></p>
+                            <p class="small"><strong>To pismo nie zostało jeszcze wysłane.</strong></p>
                         <? } ?>
                     </div>
                 </div>
@@ -41,10 +41,11 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
 
             <div class="row">
                 <div class="col-md-12">
-                    <h1><i class="icon glyphicon glyphicon-comment"></i> <?= $response['Response']['title'] ?></h1>
+                    <h1><span class="icon glyphicon glyphicon-comment"></span> <?= $response['Response']['title'] ?>
+                    </h1>
                     <div class="letter-meta">
                         <p>Data:
-                            <b><?= dataSlownie($response['Response']['date']) ?></b>
+                            <strong><?= dataSlownie($response['Response']['date']) ?></strong>
                         </p>
                     </div>
 
@@ -53,7 +54,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                     </div>
 
                     <div class="margin-top-20">
-                        <h2><i class="icon glyphicon glyphicon-comment"></i> Pliki</h2>
+                        <h2><span class="icon glyphicon glyphicon-comment"></span> Pliki</h2>
                         <? if(count($response['Response']['files'])) { ?>
 
                             <ul class="list-group">

@@ -45,7 +45,7 @@
                 </div>
                 <div class="modal-footer text-center">
                     <button type="submit" class="btn btn-primary btn-icon auto-width">
-                        <i class="icon" data-icon="&#xe604;"></i>Wyślij
+                        <span class="icon" data-icon="&#xe604;"></span>Wyślij
                     </button>
                 </div>
             </form>
