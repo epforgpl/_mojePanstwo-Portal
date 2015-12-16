@@ -129,7 +129,7 @@ $(document).ready(function() {
 				}
 
 				el.html([
-					'<button type="submit" data-tooltip="true" data-original-title="Edytuj" data-placement="bottom" class="btn btn-default btnNoteEdit btn"><i class="glyphicon glyphicon-edit" title="Edytuj notatkę" aria-hidden="true"></i></button>', 
+					'<button type="submit" data-tooltip="true" data-original-title="Edytuj" data-placement="bottom" class="btn btn-default btnNoteEdit btn"><i class="glyphicon glyphicon-edit" title="Edytuj notatkę" aria-hidden="true"></i></button>',
 					'<div class="content">',
 					val,
 					'</div>'

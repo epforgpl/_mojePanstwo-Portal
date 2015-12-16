@@ -47,9 +47,8 @@ if ($pismo['object_id']) {
             <div class="object-icon-side">
                 <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
                     <? if ($pismo['is_owner']) { ?>
-                        <input data-url="/start/letters/setDocumentName/<?= $pismo['alphaid'] ?>"
-                               class="form-control h1-editable" type="text" name="nazwa"
-                               value="<?= $pismo['nazwa'] ?>"/>
+                        <div contenteditable="true" data-url="/start/letters/setDocumentName/<?= $pismo['alphaid'] ?>"
+                             class="form-control h1-editable"><?= $pismo['nazwa'] ?></div>
                     <? } else { ?>
                         <?= $pismo['nazwa'] ?>
                     <? } ?>
@@ -57,8 +56,7 @@ if ($pismo['object_id']) {
             </div>
         </div>
 
-
-        <ul class="buttons pull-right">
+        <ul class="buttons pull-right nopadding">
             <li>
                 <form action="" method="post">
                     <input type="hidden" name="delete"/>

@@ -23,17 +23,29 @@ var PISMO = Class.extend({
 
 		// SET NAME
 		var self = this;
-		$('input.h1-editable').each(function () {
-			$(this).change(function () {
-				$.post($(this).data('url') + '.json', {
-					nazwa: $(this).val(),
-					edit_from_inputs: 1
-				}, function (res) {
-					// @todo error handler
-					console.log(res);
+		$('.h1-editable').each(function () {
+			if ($(this).attr('contenteditable')) {
+				$(this).blur(function () {
+					$.post($(this).data('url') + '.json', {
+						nazwa: $(this).text(),
+						edit_from_inputs: 1
+					}, function (res) {
+						// @todo error handler
+						console.log(res);
+					});
 				});
-				$(this).blur();
-			});
+			} else {
+				$(this).change(function () {
+					$.post($(this).data('url') + '.json', {
+						nazwa: $(this).val(),
+						edit_from_inputs: 1
+					}, function (res) {
+						// @todo error handler
+						console.log(res);
+					});
+					$(this).blur();
+				});
+			}
 		});
 
 		this.addResponseButton.click($.proxy(this.addResponseForm, this));
