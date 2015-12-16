@@ -85,19 +85,22 @@
                                         finansowanego z Funduszy EOG:</p>
 
                                     <div class="logotypy">
-                                        <a target="_blank" href="http://www.eeagrants.org/" title="EEA Grants">
-                                            <img class="image" src="/img/partnerzy/eea_grants.png"/>
+                                        <a target="_blank" href="http://www.eeagrants.org/"
+                                           title="Link do strony EEA Grants">
+                                            <img class="image" src="/img/partnerzy/eea_grants.png"
+                                                 alt="Logo EEA Grants"/>
                                         </a>
                                         <a target="_blank" href="http://www.batory.org.pl/"
-                                           title="Fundacja im. Stefana Batorego">
-                                            <img class="image" src="/img/partnerzy/fundacja_batorego.png"/>
+                                           title="Link do strony Fundacji im. Stefana Batorego">
+                                            <img class="image" src="/img/partnerzy/fundacja_batorego.png"
+                                                 alt="Logo Fundacji Batorego"/>
                                         </a>
                                         <a target="_blank" href="http://www.pcyf.org.pl/"
-                                           title="Polska Fundacja Dzieci i Młodzieży">
+                                           title="Link do strony Polskiej Fundacji Dzieci i Młodzieży">
                                             <img class="image"
-                                                 src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png"/>
+                                                 src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png"
+                                                 alt="Logo Polskiej Fundacji Dzieci i Młodzieży"/>
                                         </a>
-
                                     </div>
                                 </div>
 
@@ -106,18 +109,23 @@
 
                                     <div class="logotypy">
                                         <a target="_blank" href="http://www.soros.org/initiatives/information"
-                                           title="Open Society Foundations (OSF) Information Program">
-                                            <img class="image" src="/img/partnerzy/open_society_institute.png"/>
+                                           title="Link do strony Open Society Foundations (OSF) Information Program">
+                                            <img class="image" src="/img/partnerzy/open_society_institute.png"
+                                                 alt="Logo Open Society Foundations (OSF) Information Program"/>
                                         </a>
-                                        <a target="_blank" href="http://www.mysociety.org/" title="mySociety">
-                                            <img class="image" src="/img/partnerzy/mysociety.png"/>
+                                        <a target="_blank" href="http://www.mysociety.org/"
+                                           title="Link do strony mySociety">
+                                            <img class="image" src="/img/partnerzy/mysociety.png" alt="Logo mySociety"/>
                                         </a>
-                                        <a target="_blank" href="http://www.omidyar.com/" title="Omidyar Network">
-                                            <img class="image" src="/img/partnerzy/omidyar_network.png"/>
+                                        <a target="_blank" href="http://www.omidyar.com/"
+                                           title="Link do strony Omidyar Network">
+                                            <img class="image" src="/img/partnerzy/omidyar_network.png"
+                                                 alt="Logo Omidyar Network"/>
                                         </a>
                                         <a target="_blank" href="http://www.ceetrust.org/"
-                                           title="CEE TRUST - Trust for Civil Society in Central and Eastern Europe">
-                                            <img class="image" src="/img/partnerzy/cee_logo.gif"/>
+                                           title="Link do strony CEE TRUST - Trust for Civil Society in Central and Eastern Europe">
+                                            <img class="image" src="/img/partnerzy/cee_logo.gif"
+                                                 alt="Logo CEE TRUST - Trust for Civil Society in Central and Eastern Europe"/>
                                         </a>
                                     </div>
                                 </div>

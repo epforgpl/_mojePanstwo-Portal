@@ -489,18 +489,22 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
         <div class="customObject krakow903 col-xs-12" id="fundatorzy">
             <div class="part">
                 <div class="logotypy">
-                    <a title="EEA Grants" href="http://www.eeagrants.org/" target="_blank">
-                        <img src="/img/partnerzy/eea_grants.png" class="image">
+                    <a target="_blank" href="http://www.eeagrants.org/" title="Link do strony EEA Grants">
+                        <img class="image" src="/img/partnerzy/eea_grants.png" alt="Logo EEA Grants"/>
                     </a>
-                    <a title="Fundacja im. Stefana Batorego" href="http://www.batory.org.pl/" target="_blank">
-                        <img src="/img/partnerzy/fundacja_batorego.png" class="image">
+                    <a target="_blank" href="http://www.batory.org.pl/"
+                       title="Link do strony Fundacji im. Stefana Batorego">
+                        <img class="image" src="/img/partnerzy/fundacja_batorego.png" alt="Logo Fundacji Batorego"/>
                     </a>
-                    <a title="Polska Fundacja Dzieci i Młodzieży" href="http://www.pcyf.org.pl/" target="_blank">
-                        <img src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png" class="image">
+                    <a target="_blank" href="http://www.pcyf.org.pl/"
+                       title="Link do strony Polskiej Fundacji Dzieci i Młodzieży">
+                        <img class="image" src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png"
+                             alt="Logo Polskiej Fundacji Dzieci i Młodzieży"/>
                     </a>
-                    <a title="Fundacja Naukowa Instytut Badań Strukturalnych" href="http://www.ibs.org.pl/"
-                       target="_blank">
-                        <img src="/Podatki/img/logotyp_ibs.jpg" class="image">
+                    <a target="_blank" href="http://www.ibs.org.pl/"
+                       title="Link do strony Fundacji Naukowej Instytutu Badań Strukturalnych">
+                        <img class="image" src="/Podatki/img/logotyp_ibs.jpg"
+                             alt="Logo Fundacji Naukowej Instytutu Badań Strukturalnych">
                     </a>
                 </div>
             </div>

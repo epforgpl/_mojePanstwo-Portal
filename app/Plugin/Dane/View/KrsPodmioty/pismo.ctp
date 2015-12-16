@@ -87,12 +87,13 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
                             <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>"
                                    onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>', 'mywin',
                                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                                   class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook"></i></a>
+                                   class="btn btn-social-icon btn-sm btn-facebook"><span class="fa fa-facebook"></span></a>
                             </li>
                             <li><a href="https://twitter.com/home?status=<?= $share_url ?>"
                                    onclick="window.open('https://twitter.com/home?status=<?= $share_url ?>', 'mywin',
                                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                                   class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter"></i></a></li>
+                                   class="btn btn-social-icon btn-sm btn-twitter"><span
+                                        class="fa fa-twitter"></span></a></li>
                             <li><a href="http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>"
                                    onclick="window.open('http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>', 'mywin',
                                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
@@ -147,7 +148,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
                 <div class="margin-top-50">
                     <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width"
                        href="/moje-pisma/<?= $pismo['alphaid'] ?>">
-                        <i class="icon glyphicon glyphicon-pencil"></i>
+                        <span class="icon glyphicon glyphicon-pencil"></span>
                         Zarządzaj pismem
                     </a>
                 </div>

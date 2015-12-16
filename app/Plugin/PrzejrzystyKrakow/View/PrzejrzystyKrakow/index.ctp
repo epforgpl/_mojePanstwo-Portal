@@ -8,7 +8,8 @@
             <div class="windowSet">
                 <div class="headerBar">
                     <div class="col-xs-12">
-                        <img class="img-responsive" src="/Dane/img/customObject/krakow/logo_pkrk.png" alt="PKRK"/>
+                        <img class="img-responsive" src="/Dane/img/customObject/krakow/logo_pkrk.png"
+                             alt="Logo Przejrzystego Krakowa"/>
 
                         <h1>Przejrzysty Kraków</h1>
 

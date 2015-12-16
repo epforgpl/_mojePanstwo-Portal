@@ -189,9 +189,7 @@
                                         <div id="fb-root"></div>
                                         <a class="btn btn-social-icon btn-facebook"
                                            href="http://www.facebook.com/sharer.php?u=<?php echo Router::url($this->here, true); ?>"
-                                           target="_blank">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
+                                           target="_blank"><span class="fa fa-facebook"></span></a>
                                         <a class="btn btn-social-icon btn-twitter" href="https://twitter.com/share"
                                            target="_blank"
                                            data-url="<?php echo Router::url($this->here, true); ?>"
@@ -199,9 +197,7 @@
                                                echo('pl');
                                            } else {
                                                echo('en');
-                                           } ?>">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
+                                           } ?>"><span class="fa fa-twitter"></span></a>
                                         <a class="btn btn-social-icon btn-wykop"
                                            href="http://www.wykop.pl/dodaj/link/?url=<?php echo Router::url($this->here, true); ?>&title=<?= $pismo['nazwa'] ?>"
                                            target="_blank">

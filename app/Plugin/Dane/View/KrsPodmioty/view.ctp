@@ -41,9 +41,7 @@ $description =
                     <? if (($tel = $object->getPage('phone')) && ($tel !== '')) { ?>
                         <div class="option pull-left" data-toggle="modal" data-target="#iconsListDetailPhone">
                             <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
-                               onclick="return false;">
-                                <i class="fa fa-phone"></i>
-                            </a>
+                               onclick="return false;"><span class="fa fa-phone"></span></a>
                         </div>
                         <div class="modal fade" id="iconsListDetailPhone">
                             <div class="modal-dialog">
@@ -59,9 +57,8 @@ $description =
                                         <p>Numer telefonu:
                                             <strong><?= $tel ?></strong>
                                         </p>
-                                        <a class="btn btn-primary btn-social btn-skype" href="skype:<?= $tel; ?>">
-                                            <i class="fa fa-skype"></i> Zadzwoń przez Skype
-                                        </a>
+                                        <a class="btn btn-primary btn-social btn-skype" href="skype:<?= $tel; ?>"><span
+                                                class="fa fa-skype"></span> Zadzwoń przez Skype</a>
                                     </div>
                                 </div>
                             </div>
@@ -69,72 +66,55 @@ $description =
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
-                               onclick="return false;">
-                                <i class="fa fa-phone"></i>
-                            </a>
+                               onclick="return false;"><span class="fa fa-phone"></span></a>
                         </div>
                     <? } ?>
 
                     <? if ($fb = $object->getPage('facebook')) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="<?= $fb; ?>"
-                               target="_blank">
-                                <i class="fa fa-facebook"></i>
-                            </a>
+                               target="_blank"><span class="fa fa-facebook"></span></a>
                         </div>
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="#"
-                               onclick="return false;">
-                                <i class="fa fa-facebook"></i>
-                            </a>
+                               onclick="return false;"><span class="fa fa-facebook"></span></a>
                         </div>
                     <? } ?>
 
                     <? if ($twitter = $object->getPage('twitter')) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="<?= $twitter; ?>"
-                               target="_blank">
-                                <i class="fa fa-twitter"></i>
-                            </a>
+                               target="_blank"><span class="fa fa-twitter"></span></a>
                         </div>
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="#"
-                               onclick="return false;">
-                                <i class="fa fa-twitter"></i>
-                            </a>
+                               onclick="return false;"><span class="fa fa-twitter"></span></a>
                         </div>
                     <? } ?>
                     <? if ($www = $object->getPage('www')) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="<?= $www; ?>"
-                               target="_blank">
-                                <i class="glyphicon glyphicon-link"></i>
-                            </a>
+                               target="_blank"><span class="glyphicon glyphicon-link"></span></a>
                         </div>
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="#"
-                               onclick="return false;">
-                                <i class="glyphicon glyphicon-link"></i>
-                            </a>
+                               onclick="return false;"><span class="glyphicon glyphicon-link"></span></a>
                         </div>
                     <? } ?>
 
                     <? if ($email = $object->getPage('email')) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="Adres e-mail"
-                               href="mailto:<?= $email; ?>" target="_blank">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                            </a>
+                               href="mailto:<?= $email; ?>" target="_blank"><span
+                                    class="glyphicon glyphicon-envelope"></span></a>
                         </div>
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="Adres e-mail" href="#"
-                               onclick="return false;">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                            </a>
+                               onclick="return false;"><span class="glyphicon glyphicon-envelope"></span></a>
                         </div>
                     <? } ?>
 
@@ -142,54 +122,40 @@ $description =
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="Kanał YouTube"
                                href="<?= $youtube; ?>"
-                               target="_blank">
-                                <i class="fa fa-youtube"></i>
-                            </a>
+                               target="_blank"><span class="fa fa-youtube"></span></a>
                         </div>
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="Kanał YouTube" href="#"
-                               onclick="return false;">
-                                <i class="fa fa-youtube"></i>
-                            </a>
+                               onclick="return false;"><span class="fa fa-youtube"></span></a>
                         </div>
                     <? } ?>
 
                     <? if ($instagram = $object->getPage('instagram')) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="Instagram" href="<?= $instagram; ?>"
-                               target="_blank">
-                                <i class="fa fa-instagram"></i>
-                            </a>
+                               target="_blank"><span class="fa fa-instagram"></span></a>
                         </div>
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="Instagram" href="#"
-                               onclick="return false;">
-                                <i class="fa fa-instagram"></i>
-                            </a>
+                               onclick="return false;"><span class="fa fa-instagram"></span></a>
                         </div>
                     <? } ?>
 
                     <? if ($vine = $object->getPage('vine')) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="Vine" href="<?= $vine; ?>"
-                               target="_blank">
-                                <i class="fa fa-vine"></i>
-                            </a>
+                               target="_blank"><span class="fa fa-vine"></span></a>
                         </div>
                     <? } else { ?>
                         <div class="option pull-left inactive">
                             <a data-toggle="tooltip" data-placement="bottom" title="Vine" href="#"
-                               onclick="return false;">
-                                <i class="fa fa-vine"></i>
-                            </a>
+                               onclick="return false;"><span class="fa fa-vine"></span></a>
                         </div>
                     <? } ?>
-
                 </div>
             </div>
-
         <? } ?>
         <ul class="dataHighlights overflow-auto">
             <?

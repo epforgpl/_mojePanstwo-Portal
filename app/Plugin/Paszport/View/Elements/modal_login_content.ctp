@@ -65,7 +65,7 @@
 
             <div class="slide logInVia col-xs-12">
                 <div class="content text-center">
-                    <?php echo $this->Html->link('<i class="fa fa-facebook"></i>' . __d('paszport', 'LC_PASZPORT_LOGIN'), array(
+                    <?php echo $this->Html->link('<span class="fa fa-facebook"></span>' . __d('paszport', 'LC_PASZPORT_LOGIN'), array(
                         'plugin' => 'paszport',
                         'controller' => 'users',
                         'action' => 'fblogin'
