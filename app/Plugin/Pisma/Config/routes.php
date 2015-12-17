@@ -1,5 +1,7 @@
 <?php
 
+Router::connect("/pisma/:page", array('plugin' => 'Pisma', 'controller' => 'Pisma', 'action' => 'patrzymynawas'), array('page' => '(?i:trybunal)'));
+Router::connect("/pisma/:page", array('plugin' => 'Pisma', 'controller' => 'Pisma', 'action' => 'patrzymynawas'), array('page' => '(?i:trybunał)'));
 Router::connect("/pisma/:page", array('plugin' => 'Pisma', 'controller' => 'Pisma', 'action' => 'patrzymynawas'), array('page' => '(?i:ratujmytrybunal)'));
 Router::connect("/pisma/:page", array('plugin' => 'Pisma', 'controller' => 'Pisma', 'action' => 'patrzymynawas'), array('page' => '(?i:ratujmytrybunał)'));
 
