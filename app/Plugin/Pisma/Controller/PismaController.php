@@ -279,7 +279,7 @@ class PismaController extends ApplicationsController
 
         $this->set('pismo_init', $pismo);
         $this->set('okregi', $this->Sejmometr->okregi_sejm());
-        $this->title = 'Patrzymy Na Was';
+        $this->title = 'Ratujmy Trybunał';
     }
 
     public function my()
