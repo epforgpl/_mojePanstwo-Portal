@@ -107,7 +107,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 							<a class="btn btn-default" type="cancel" href="<?= $object->getUrl() ?>">
 	                            Anuluj
 	                        </a>
-							<button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">
+                            <button class="btn width-auto btn-primary btn-icon submitBtn" type="submit">
                                 <span class="icon glyphicon glyphicon-ok"></span>
 	                            Zapisz
 	                        </button>

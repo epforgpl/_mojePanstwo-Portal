@@ -35,7 +35,7 @@ echo $this->element('Start.pageBegin'); ?>
 
 
     <div class="form-group overflow-hidden margin-top-30 text-center">
-        <button class="btn auto-width btn-primary btn-icon" type="submit">
+        <button class="btn width-auto btn-primary btn-icon" type="submit">
             <span class="icon glyphicon glyphicon-ok"></span>
             Zapisz
         </button>

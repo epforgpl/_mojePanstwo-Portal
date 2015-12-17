@@ -83,7 +83,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                         </div>
 
                         <div class="form-group overflow-hidden text-center margin-top-20">
-                            <button class="btn auto-width btn-primary btn-icon" type="submit">
+                            <button class="btn width-auto btn-primary btn-icon" type="submit">
                                 <span class="icon glyphicon glyphicon-ok"></span>
                                 Zapisz
                             </button>

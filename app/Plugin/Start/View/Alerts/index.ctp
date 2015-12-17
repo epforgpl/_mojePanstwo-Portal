@@ -5,7 +5,8 @@
 
         <div class="overflow-auto">
 			<h1 class="pull-left">Powiadomienia</h1>
-			<a href="/moje-powiadomienia/obserwuje" class="btn btn-primary btn-icon submit auto-width pull-right margin-top-20">
+            <a href="/moje-powiadomienia/obserwuje"
+               class="btn btn-primary btn-icon submit width-auto pull-right margin-top-20">
 		        <i aria-hidden="true" class="icon glyphicon glyphicon-cog"></i>
 		        Sprawy, które obserwuję
 		    </a>

@@ -276,7 +276,7 @@ if ($pismo['object_id']) {
                                 data-dismiss="modal">Anuluj
                         </button>
 
-                        <button name="send" value="Wyślij" type="submit" class="btn btn-primary btn-icon auto-width"><i
+                        <button name="send" value="Wyślij" type="submit" class="btn btn-primary btn-icon width-auto"><i
                                 class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo
                         </button>
 
@@ -291,7 +291,7 @@ if ($pismo['object_id']) {
             <div class="col-md-12">
 
                 <p class="text-center">
-                    <button data-action="send" class="btn btn-primary btn-icon auto-width"><i
+                    <button data-action="send" class="btn btn-primary btn-icon width-auto"><i
                             class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo...
                     </button>
                 </p>
@@ -371,7 +371,7 @@ if ($pismo['object_id']) {
                         data-action="add_response"
                         data-letter-alphaid="<?= $pismo['alphaid'] ?>"
                         data-letter-slug="<?= $pismo['slug'] ?>"
-                        class="btn btn-success btn-icon auto-width">
+                        class="btn btn-success btn-icon width-auto">
                         <span class="icon glyphicon glyphicon-plus-sign"></span>Dodaj odpowiedź na pismo
                     </button>
                 </p>
