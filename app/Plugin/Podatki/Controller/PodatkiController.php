@@ -27,18 +27,18 @@ class PodatkiController extends ApplicationsController
     {
         $result = false;
         if ($this->request->is("POST")) {
-	        
+
 	        if( isset($this->request->data['_action']) && ($this->request->data['_action']=='send') ) {
-	        	
-	        	// SEND DATA
-	        	
-	        	// $status = $this->Podatki->sendData( $this->request->data );
+
+                // SEND DATA
+
+                // $status = $this->Podatki->sendData( $this->request->data );
 	        	$status = true;
-	        	
-	        	$this->set('status', (boolean) $status);
+
+                $this->set('status', (boolean) $status);
 	        	$this->set('_serialize', array('status'));
 	        	return true;
-	        	
+
             } elseif (!empty($this->request->data)) {
                 if (
                     (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace'])))))
@@ -250,7 +250,7 @@ class PodatkiController extends ApplicationsController
                                 'kwota' => 41894.40,
                                 'subdzialy' => array(
                                     array(
-                                        'nazwa' => 'świadczenia rodzinne, świadczenia z funduszu alimentacyjnego, zasiłki, dodatki mieszkaniowe',
+                                        'nazwa' => 'świadczenia rodzinne, świadczenia z funduszu alimentacyjnego, zasiłki socjalne, dodatki mieszkaniowe',
                                         'kwota' => 13195.66,
                                     ),
                                     array(
