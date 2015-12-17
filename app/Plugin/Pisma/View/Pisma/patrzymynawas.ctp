@@ -30,12 +30,12 @@
 
 
 
-                            <h1 class="text-center">Wyślij pismo w super ważnej sprawie!</h1>
+                            <h1 class="text-center">Wyślij pismo do posłów w sprawie zmian w ustawie o Trybunale Konstytucyjnym!</h1>
 
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                     <div class="well">
-                                        <p>Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker.</p>
+                                        <p>Uważamy, że wniesiony 15 grudnia 2015 r. projekt nowelizacji ustawy o Trybunale Konstytucyjnym zawiera poważne zagrożenia dla ochrony naszych praw. Wbrew zapewnieniom twórców projektu - uderza on we wszystkich obywateli i obywatelki. Nie zgadzamy się z tym, by pozbawić parlament kontroli i nie zgadzamy się z tym, by posłowie ograniczali nasze bezpieczeństwo wobec władzy.</p>
 
                                         <p><a href="http://patrzymynawas.pl/" target="_blank">Więcej o akcji &raquo;</a>
                                         </p>
