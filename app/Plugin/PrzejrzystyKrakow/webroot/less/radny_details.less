@@ -14,15 +14,15 @@
         font-size: 16px;
 
         &.pismo {
-            a i {
+            a i, a > span {
                 background-color: #798;
             }
-            &:hover i {
+            &:hover i, &:hover > span {
                 background-color: #4cae4c;
             }
         }
 
-        &.inactive a i {
+        &.inactive a i, &.inactive a > span {
             background: lighten(@iconColor, 35%);
         }
 
@@ -37,7 +37,7 @@
         a {
             color: #fff;
 
-            i {
+            i, > span {
                 background-color: @iconColor;
                 width: 34px;
                 height: 34px;
@@ -56,7 +56,7 @@
         }
 
         &:hover {
-            i {
+            i, > span {
                 background-color: #157ab5;
             }
         }
