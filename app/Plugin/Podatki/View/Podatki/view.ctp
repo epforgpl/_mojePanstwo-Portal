@@ -357,21 +357,26 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <?
                 foreach ($wydatki['dzialy'] as &$d)
                     if ($d['id'] == '109')
-                        $d['nazwa'] = 'Gospodarka mieszkaniowa i ochrona środowiska';
+                        $d['nazwa'] = 'Gospodarka komunalna i ochrona środowiska';
                 ?>
 
-                <div id="pie_chart" class="pie_chart margin-top-30" data-suma="<?= $wydatki['suma'] ?>"
-                     data-podatek="<?= $kwota_podatku ?>"
-                     data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
+                <div class="pie_chart_block">
+                    <div id="pie_chart" class="pie_chart margin-top-30" data-suma="<?= $wydatki['suma'] ?>"
+                         data-podatek="<?= $kwota_podatku ?>"
+                         data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
+                    <div class="moneyLeft" data-sum="<?= round($kwota_podatku) ?>">Pozostało:
+                        <span><?= round($kwota_podatku) ?></span></div>
+                </div>
 
                 <h3 class="text-center col-xs-12 userChartTitle">W jaki sposób Ty wydałbyś swoje podatki?</h3>
-                <div class="btn btn-primary userChart btn-icon margin-top-5 auto-width"><i
+                <div class="btn btn-primary userChart btn-icon margin-top-5 width-auto"><i
                         class="icon glyphicon glyphicon-cog"></i>Zbuduj swój
                     wykres
                 </div>
                 <div class="userChartBlock hide col-xs-12 col-md-8 col-md-offset-2">
                     <p>Niebieskie słupki obrazują to jak Twoje pieniądze są wydawane w rzeczywistości. Pomarańczowe
-                        słupki to Twoje preferencje. Ustal wysokości pomarańczych słupków, podaj swoje dane w formularzu
+                        słupki to Twoje preferencje. Ustal wysokości pomarańczowych słupków, podaj swoje dane w
+                        formularzu
                         poniżej i kliknij przycisk "Wyślij"</p>
                     <div class="form-horizontal">
                         <div class="form-group col-xs-12">
@@ -392,9 +397,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             </div>
                         </div>
                     </div>
-                    <p class="small text-center col-xs-12">Dane są anonimowe i zostaną wykorzystane w ramach
-                        projektu badawczego
-                        "Jak wydawane są moje podatki".</p>
+                    <p class="text-center col-xs-12">Dane są anonimowe i zostaną wykorzystane w ramach projektu
+                        badawczego "Jak wydawane są moje podatki".</p>
                     <div class="col-xs-12 margin-top-10">
                         <div class="btn btn-default userChartCancel userOptions">Anuluj</div>
                         <div type="button" class="btn btn-primary userChartSave userOptions">Wyślij</div>
@@ -506,7 +510,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                     </a>
                     <a target="_blank" href="http://www.ibs.org.pl/"
                        title="Link do strony Fundacji Naukowej Instytutu Badań Strukturalnych">
-                        <img class="image" src="/Podatki/img/logotyp_ibs.jpg"
+                        <img class="image" src="/Podatki/img/logotyp_ibs.png"
                              alt="Logo Fundacji Naukowej Instytutu Badań Strukturalnych">
                     </a>
                 </div>

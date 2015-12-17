@@ -117,7 +117,7 @@ AcceptModerateRequestModal.prototype.getDOM = function() {
                         this.getSpinnerDOM(),
                     '</div>',
                     '<div class="modal-footer">',
-                        '<button class="btn btn-primary btn-icon auto-width submit">',
+		'<button class="btn btn-primary btn-icon width-auto submit">',
 		'<span class="icon" data-icon="&#xe604;"></span>Zapisz',
                         '</button>',
                         '<a href="#" class="btn btn-link" data-dismiss="modal">Anuluj</a>',

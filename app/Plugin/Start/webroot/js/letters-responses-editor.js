@@ -28,7 +28,7 @@ LetterResponseEditor.prototype = {
             content += '</div>';
         }
 
-		content += '<div class="dropzoneForm"><div class="actions"><button class="btn btn-sm btn-default btn-addfile" type="button">Dodaj załącznik</button></div><div class="dropzoneFormPreview" id="preview_' + self.index + '"></div></div></div><div class="form-group overflow-hidden text-center margin-top-20"><button class="btn btn-default abortChanges" type="button">Anuluj</button><button class="btn auto-width btn-primary btn-icon" type="submit"><span class="icon glyphicon glyphicon-edit"></span>Zapisz zmiany</button></div></fieldset></form></div>';
+		content += '<div class="dropzoneForm"><div class="actions"><button class="btn btn-sm btn-default btn-addfile" type="button">Dodaj załącznik</button></div><div class="dropzoneFormPreview" id="preview_' + self.index + '"></div></div></div><div class="form-group overflow-hidden text-center margin-top-20"><button class="btn btn-default abortChanges" type="button">Anuluj</button><button class="btn width-auto btn-primary btn-icon" type="submit"><span class="icon glyphicon glyphicon-edit"></span>Zapisz zmiany</button></div></fieldset></form></div>';
 
         self.createPreviewViewCache();
         self.obj.addClass('response-form');

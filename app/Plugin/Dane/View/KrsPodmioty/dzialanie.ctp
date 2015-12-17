@@ -76,7 +76,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                 }
 
                                 return '<div class="text-center margin-top-10">
-                                                <div class="btn mailingBtn auto-width btn-md btn-primary btn-icon">
+                                                <div class="btn mailingBtn width-auto btn-md btn-primary btn-icon">
                                                     <span class="icon glyphicon glyphicon-envelope"></span>
                                                     ' . $label . '
                                                 </div>
@@ -151,7 +151,9 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                                             <fieldset class="final">
                                                 <div class="form-group">
                                                     <div class="col-lg-10 col-lg-offset-1 text-center">
-                                                        <button type="submit" class="createBtn btn auto-width btn-md btn-primary btn-icon"><i
+                                                        <button type="submit"
+                                                                class="createBtn btn width-auto btn-md btn-primary btn-icon">
+                                                            <i
                                                                 class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
                                                         </button>
                                                     </div>
@@ -253,7 +255,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                 <? if($object_editable) { ?>
                     <div class="margin-top-10">
                         <a href="<?= $object->getUrl() ?>/dzialania/<?= $dzialanie->getData('id') ?>/edytuj">
-                            <button class="btn btn-sm btn-primary btn-icon btn-auto-width">
+                            <button class="btn btn-sm btn-primary btn-icon btn-width-auto">
                                 <span class="icon glyphicon glyphicon-pencil"></span>
                                 Edytuj
                             </button>

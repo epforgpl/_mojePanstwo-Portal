@@ -12,7 +12,9 @@ $this->Combinator->add_libs('js', 'home');
                         <form class="suggesterBlock" action="/dane">
                             <div class="main_input">
                                 <span class="glyph-addon" data-icon="&#xe600;"></span>
-                                <input name="q" value="" type="text" autocomplete="off"
+                                <label for="autocompleteDatasearch"
+                                       class="wcag-hidden"><?= __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER") ?></label>
+                                <input id="autocompleteDatasearch" name="q" value="" type="text" autocomplete="off"
                                        class="datasearch form-control input-lg"
                                        data-autocompletion="true"
                                        placeholder="<?= __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER") ?>" <?php if (isset($app)) {

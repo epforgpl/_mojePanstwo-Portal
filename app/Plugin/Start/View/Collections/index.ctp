@@ -5,10 +5,10 @@
 <div class="overflow-auto">
 	<h1 class="pull-left">Moje Kolekcje</h1>
 	<a
-		href="#"
-		class="btn btn-primary btn-icon submit auto-width pull-right margin-top-20"
-		data-toggle="modal"
-		data-target="#createCollection">
+        href="#"
+        class="btn btn-primary btn-icon submit width-auto pull-right margin-top-20"
+        data-toggle="modal"
+        data-target="#createCollection">
         <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
         Stwórz nową kolekcję
     </a>

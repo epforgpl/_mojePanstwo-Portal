@@ -146,7 +146,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
             <? if ($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
                 <div class="margin-top-50">
-                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width"
+                    <a class="btn btn-sm width-auto btn-primary btn-icon btn-width-auto"
                        href="/moje-pisma/<?= $pismo['alphaid'] ?>">
                         <span class="icon glyphicon glyphicon-pencil"></span>
                         Zarządzaj pismem
