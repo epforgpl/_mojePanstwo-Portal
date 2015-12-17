@@ -30,15 +30,65 @@
 
 
 
-                            <h1 class="text-center">Wyślij pismo do posłów w sprawie zmian w ustawie o Trybunale Konstytucyjnym!</h1>
+                            <h1 class="text-center">Dołącz do apelu organizacji ws projektu ustawy o Trybunale Konstytucyjnym. Przeciwko ograniczaniu praw obywatelskich!</h1>
 
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                     <div class="well">
-                                        <p>Uważamy, że wniesiony 15 grudnia 2015 r. projekt nowelizacji ustawy o Trybunale Konstytucyjnym zawiera poważne zagrożenia dla ochrony naszych praw. Wbrew zapewnieniom twórców projektu - uderza on we wszystkich obywateli i obywatelki. Nie zgadzamy się z tym, by pozbawić parlament kontroli i nie zgadzamy się z tym, by posłowie ograniczali nasze bezpieczeństwo wobec władzy.</p>
-
-                                        <p><a href="http://patrzymynawas.pl/" target="_blank">Więcej o akcji &raquo;</a>
-                                        </p>
+                                        
+					                                        <p>Grupa organizacji pozarządowych skierowała apel oraz opinię dotyczącą zagrożeń płynących z przyjęcia projektu ustawy o Trybunale Konstytucyjnym, którego pierwsze czytanie odbywa się 17 grudnia 2015 r. o 11.30. 
+					Dołączam się do ich apelu!</p>
+					
+					<p>Trybunał Konstytucyjny jest instytucją, która ma stać na straży praw i
+					wolności obywateli. Większość spraw, które rozpatruje, dotyczy
+					codziennego życia Polaków – wysokości kwoty wolnej od podatku,
+					rekrutacji do szkół i przedszkoli czy wolności zgromadzeń. Proponowane
+					zmiany uniemożliwią Trybunałowi realizację tej ważnej roli, a co za tym
+					idzie negatywnie wpłyną na sytuację wszystkich obywateli.</p>
+					
+					<p>Wejście w życie proponowanych w ustawie o Trybunale Konstytucyjnym zmian
+					doprowadzi do paraliżu prac tej instytucji. Projekt zakłada, że w
+					większości spraw Trybunał wydawać będzie wyroki w pełnym, minimum
+					13-osobowym składzie. Trybunał rozpatruje co roku po kilkadziesiąt skarg
+					konstytucyjnych, pytań prawnych oraz wniosków. Obecnie większość z nich
+					rozpatrywana jest przez składy kilkuosobowe. Wymóg każdorazowego
+					orzekania w pełnym składzie radykalnie przedłuży termin oczekiwania na
+					rozstrzygnięcie. Ta zmiana będzie dotyczyła również wszystkich spraw,
+					które są obecnie w toku.</p>
+					
+					<p>Kolejna zmiana zawarta w projekcie – wymóg stwierdzania
+					niekonstytucyjności ustaw większością 2/3 głosów, zamiast zwykłą
+					większością – doprowadzi do tego, że w najtrudniejszych,
+					kontrowersyjnych sprawach, wyrok może w ogóle nie zapaść.</p>
+					
+					<p>Prace nad zmianą ustawy o Trybunale Konstytucyjnym prowadzone są w
+					wielkim pośpiechu, który ogranicza możliwość zajęcia stanowiska przez
+					obywateli, w tym ekspertów i organizacje społeczne. W sprawach
+					fundamentalnych dla ustroju Rzeczypospolitej oraz praw obywateli
+					niezbędny jest namysł i rozwaga, a nie wyścig z czasem i praca w nocy.</p>
+					
+					<p>Wątpliwości dotyczące proponowanych zmian szczegółowo omawia
+					opinia prawna przygotowana przez Helsińską Fundację Praw Człowieka, znajdują się pod adresem
+					<a href="https://panoptykon.org/sites/default/files/stanowiska/opinia_hfpc_16_12_2015.pdf" target="_blank">https://panoptykon.org/sites/default/files/stanowiska/opinia_hfpc_16_12_2015.pdf</a></p>
+					
+					<p>Apelujemy o powstrzymanie się od przyjmowania zaproponowanych w tej
+					ustawie rozwiązań, a także o przeprowadzenie prac legislacyjnych z
+					należytą rozwagą i w sposób umożliwiający poważną i merytoryczną dyskusję.</p>
+					
+					<p>Szanowni Posłowie i Posłanki, prosimy Was, nie dawajcie nam w prezencie
+					na Święta ustawy, która uderza w prawa i wolności obywateli.</p>
+					
+					<p>Amnesty International<br/>
+					Fundacja Batorego<br/>
+					Fundacja ePaństwo<br/>
+					Fundacja Panoptykon<br/>
+					Helsińska Fundacja Praw Człowieka<br/>
+					INPRIS – Instytut Prawa i Społeczeństwa<br/>
+					Instytut Spraw Publicznych<br/>
+					Sieć Obywatelska Watchdog Polska<br/>
+					Stowarzyszenie Interwencji Prawnej
+					</p>
+                                        
                                     </div>
 
                                 </div>
