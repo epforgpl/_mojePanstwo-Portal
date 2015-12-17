@@ -34,5 +34,15 @@ class Gmina extends AppModel {
             'data' => $data,
         ));
     }
+    
+    public function checkEditKey($object_id, $key) {
+        return $this->getDataSource()->request('krakow/portal/verifyKey', array(
+            'method' => 'GET',
+            'data' => array(
+	            'object_id' => $object_id,
+	            'key' => $key,
+            ),
+        ));
+    }
 
 }

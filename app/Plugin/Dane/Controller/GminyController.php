@@ -3079,7 +3079,18 @@ class GminyController extends DataobjectsController
                     break;
                 }
                 case 'obietnice': {
-
+					
+					if( isset($this->request->query['editKey']) ) {
+						
+						$this->loadModel('Dane.Gmina');
+						if( $this->Gmina->checkEditKey( $radny->getId(), $this->request->query['editKey'] ) ) {
+														
+							$this->set('editKey', true);
+							
+						}
+						
+					}
+					
                     $submenu['selected'] = 'obietnice';
                     break;
                 }
