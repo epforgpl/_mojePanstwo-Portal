@@ -30,7 +30,7 @@
 
 
 
-                            <h1 class="text-center">Dołącz do apelu organizacji ws projektu ustawy o Trybunale Konstytucyjnym. Przeciwko ograniczaniu praw obywatelskich!</h1>
+                            <h1 class="text-center">Dołącz do apelu organizacji ws projektu ustawy o Trybunale Konstytucyjnym.<br/> Przeciwko ograniczaniu praw obywatelskich!</h1>
 
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
@@ -68,7 +68,7 @@
 					niezbędny jest namysł i rozwaga, a nie wyścig z czasem i praca w nocy.</p>
 					
 					<p>Wątpliwości dotyczące proponowanych zmian szczegółowo omawia
-					opinia prawna przygotowana przez Helsińską Fundację Praw Człowieka, znajdują się pod adresem
+					opinia prawna przygotowana przez Helsińską Fundację Praw Człowieka, znajduje się pod adresem
 					<a href="https://panoptykon.org/sites/default/files/stanowiska/opinia_hfpc_16_12_2015.pdf" target="_blank">https://panoptykon.org/sites/default/files/stanowiska/opinia_hfpc_16_12_2015.pdf</a></p>
 					
 					<p>Apelujemy o powstrzymanie się od przyjmowania zaproponowanych w tej
