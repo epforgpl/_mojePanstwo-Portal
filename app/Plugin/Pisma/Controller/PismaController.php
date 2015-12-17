@@ -279,7 +279,7 @@ class PismaController extends ApplicationsController
 
         $this->set('pismo_init', $pismo);
         $this->set('okregi', $this->Sejmometr->okregi_sejm());
-        $this->title = 'Ratujmy Trybunał';
+        $this->title = 'Dołącz do apelu organizacji ws projektu ustawy o Trybunale Konstytucyjnym';
     }
 
     public function my()
