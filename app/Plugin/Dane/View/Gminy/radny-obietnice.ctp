@@ -77,20 +77,21 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                         <?= nl2br($obietnica['text']) ?>
                                     </div>
                                     <? if (isset($editKey) && $editKey) { ?>
-                                        <div class="response" data-id="<?= $obietnica['id'] ?>">
+                                        <div class="response" data-id="<?= $obietnica['id'] ?>" action="" method="post">
                                             <label class="panel-header"
                                                    for="response<?= $obietnica['id'] ?>">Odpowiedź:</label>
                                             <textarea class="form-control tinymceField" rows="10"
                                                       id="response<?= $obietnica['id'] ?>"
                                                       name="response<?= $obietnica['id'] ?>"><?= @$obietnica['odpowiedz'] ?></textarea>
-                                            <div class="panel-footer">
-                                                <button class="saveBtn btn btn-success">Zapisz</button>
-                                            </div>
                                         </div>
                                     <? } ?>
                                 </li>
                             <? } ?>
                         </ul>
+                        <? if (isset($editKey) && $editKey) { ?>
+                            <button class="saveBtn btn btn-success pull-right margin-bottom-20" typeof="submit">Zapisz
+                            </button>
+                        <? } ?>
                     </div>
                 </div>
             </div>

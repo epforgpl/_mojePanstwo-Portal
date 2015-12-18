@@ -1,6 +1,8 @@
 /*global $, document, tinyMCE*/
 
 $(document).ready(function () {
+	var $radnyObietnice = $('.radny-obietnice');
+
 	function sentencecase(a) {
 		a = a.toLowerCase();
 		var b = true;
@@ -66,7 +68,7 @@ $(document).ready(function () {
 			+ "iframe[src|title|width|height|allowfullscreen|frameborder]"
 		});
 
-		$('.response .saveBtn').click(function () {
+		$radnyObietnice.find('.saveBtn').click(function () {
 			if (!$(this).hasClass('disabled')) {
 				var odpowiedzi = [];
 
@@ -85,7 +87,7 @@ $(document).ready(function () {
 					data: JSON.stringify(odpowiedzi),
 					contentType: 'application/json',
 					beforeSend: function () {
-						$('.response .saveBtn').addClass('disabled');
+						$radnyObietnice.find('.saveBtn').addClass('disabled loading');
 					},
 					success: function (res) {
 						location.reload();
