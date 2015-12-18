@@ -180,12 +180,12 @@ echo $this->Element('dataobject/pageBegin'); ?>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn auto-width btn-primary btn-icon submitBtn" type="submit">
+                        <button class="btn width-auto btn-primary btn-icon submitBtn" type="submit">
                             <span class="icon glyphicon glyphicon-ok"></span>
                             Zapisz
                         </button>
                         <? if ($edit) { ?>
-                            <div class="btn btn-link btn-icon btn-auto-width deleteBtn">
+                            <div class="btn btn-link btn-icon btn-width-auto deleteBtn">
                                 <span class="icon glyphicon glyphicon-remove"></span>
                                 Usuń działanie
                             </div>

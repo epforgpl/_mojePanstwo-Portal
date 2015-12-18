@@ -12,7 +12,9 @@
                 if (isset($app)) { ?>?app=<?= $app ?><? } ?>">
                     <div class="main_input">
                         <span class="glyph-addon" data-icon="&#xe600;"></span>
-                        <input name="q" value="" type="text" autocomplete="off" class="datasearch form-control input-lg"
+                        <label for="autocompleteDatasearch" class="wcag-hidden"><?= $placeholder ?></label>
+                        <input id="autocompleteDatasearch" name="q" value="" type="text" autocomplete="off"
+                               class="datasearch form-control input-lg"
                                placeholder="<?= $placeholder ?>" <?php if (isset($app)) echo 'data-app="' . $app . '"'; ?>
                                data-autocompletion="true"/>
                     </div>

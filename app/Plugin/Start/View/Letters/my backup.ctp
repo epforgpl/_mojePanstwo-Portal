@@ -6,7 +6,7 @@
 
 <div class="overflow-auto">
 	<h1 class="pull-left">Moje pisma</h1>
-	<a href="/moje-pisma/nowe" class="btn btn-primary btn-icon submit auto-width pull-right margin-top-20">
+    <a href="/moje-pisma/nowe" class="btn btn-primary btn-icon submit width-auto pull-right margin-top-20">
         <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
         Nowe pismo
     </a>
@@ -159,7 +159,7 @@
                 <?php } ?>
 
                 <div class="text-center margin-top-20">
-                    <a href="/moje-pisma/nowe" class="btn btn-primary btn-icon submit auto-width">
+                    <a href="/moje-pisma/nowe" class="btn btn-primary btn-icon submit width-auto">
                         <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
                         Nowe pismo
                     </a>

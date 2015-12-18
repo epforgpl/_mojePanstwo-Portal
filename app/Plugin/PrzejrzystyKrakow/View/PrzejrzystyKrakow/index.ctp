@@ -21,7 +21,9 @@
                     <form class="suggesterBlock" action="http://przejrzystykrakow.pl/">
                         <div class="main_input">
                             <span class="glyph-addon" data-icon="&#xe600;"></span>
-                            <input name="q" value="" type="text" autocomplete="off"
+                            <label for="autocompleteDatasearchKrakow" class="wcag-hidden">Szukaj w Przejrzystym
+                                Krakowie</label>
+                            <input id="autocompleteDatasearchKrakow" name="q" value="" type="text" autocomplete="off"
                                    class="datasearch form-control input-lg"
                                    data-autocompletion="true"
                                    placeholder="<?= __("Szukaj w Przejrzystym Krakowie...") ?>" <?php if (isset($app)) {

@@ -400,7 +400,7 @@ ObjectUsersManagement.prototype.getDOMModals = function () {
 			'<div id="moderate-users"></div>',
 			'</div>',
 			'<div class="modal-footer">',
-			'<button type="button" class="btn btn-md auto-width btn-primary btn-icon" data-dismiss="modal">',
+			'<button type="button" class="btn btn-md width-auto btn-primary btn-icon" data-dismiss="modal">',
 			'<span class="icon glyphicon glyphicon-ok"></span>Gotowe',
 			'</button>',
 			'</div>',

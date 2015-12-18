@@ -242,6 +242,17 @@ $(document).ready(function () {
 											y: Math.round(this.y)
 										});
 										chart.redraw();
+
+										maxSum = 0;
+										for (var i = 0; i < userSeries.length; i++) {
+											if (typeof userSeries[i] === "object") {
+												maxSum += Math.round(userSeries[i].y);
+											} else {
+												maxSum += Math.round(userSeries[i]);
+											}
+										}
+										$moneyLeft.attr('data-sum', pod - maxSum).find('span').text(pod - maxSum);
+
 										return false;
 									} else if (maxSum > pod) {
 										var correct = Math.round(this.y) - (maxSum - pod);
@@ -255,6 +266,17 @@ $(document).ready(function () {
 											y: Math.round(this.y)
 										});
 										chart.redraw();
+
+										maxSum = 0;
+										for (var i = 0; i < userSeries.length; i++) {
+											if (typeof userSeries[i] === "object") {
+												maxSum += Math.round(userSeries[i].y);
+											} else {
+												maxSum += Math.round(userSeries[i]);
+											}
+										}
+										$moneyLeft.attr('data-sum', pod - maxSum).find('span').text(pod - maxSum);
+
 										return false;
 									}
 									chart.series[1].data[this.index].update({
@@ -262,6 +284,16 @@ $(document).ready(function () {
 										y: Math.round(this.y)
 									});
 									chart.redraw();
+
+									maxSum = 0;
+									for (var i = 0; i < userSeries.length; i++) {
+										if (typeof userSeries[i] === "object") {
+											maxSum += Math.round(userSeries[i].y);
+										} else {
+											maxSum += Math.round(userSeries[i]);
+										}
+									}
+									$moneyLeft.attr('data-sum', pod - maxSum).find('span').text(pod - maxSum);
 								}
 							}
 						},
@@ -392,14 +424,20 @@ $(document).ready(function () {
 	});
 
 	$bdl.find('.block').click(function () {
-		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="tooltip"]').mouseover(function () {
+			$('.infoBlock .content').css('overflow', 'visible');
+		}).mouseout(function () {
+			$('.infoBlock .content').css('overflow', 'hidden');
+		}).tooltip();
 	});
 
 	var $userChart = $('.userChart'),
-		$userChartBlock = $('.userChartBlock');
+		$userChartBlock = $('.userChartBlock'),
+		$moneyLeft = $('.moneyLeft');
 
 	$userChart.click(function () {
 		chart.series[1].show();
+		$moneyLeft.show();
 		$userChart.addClass('disabled hide');
 		$userChartBlock.removeClass('hide');
 	});
@@ -407,12 +445,14 @@ $(document).ready(function () {
 	$userChartBlock.find('.userChartCancel').click(function () {
 		if ($(this).hasClass('userOptions')) {
 			chart.series[1].hide();
+			$moneyLeft.hide();
 			chart.series[1].setData([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 			$userChart.removeClass('disabled hide');
 		} else {
 			chart.series[1].options.cursor = 'default';
 			chart.series[1].options.draggableY = false;
 			$('.userChartTitle').hide();
+			$moneyLeft.hide();
 		}
 		$userChartBlock.find('.alert').removeClass('alert-error alert-success').addClass('hide').text('');
 		$userChartBlock.addClass('hide');
@@ -430,35 +470,40 @@ $(document).ready(function () {
 				sUser.push(this.y);
 			});
 
-			$.ajax({
-				url: "/podatki.json",
-				method: "POST",
-				data: {
-					'_action': 'send',
-					userSetup: sUserSetup,
-					userGraph: sUser,
-					userSex: sSex,
-					userAge: sAge
-				},
-				beforeSend: function () {
-					btnParent.find('.btn').addClass('disabled');
-				},
-				success: function (res) {
-					if (res.status ) {
-						btnParent.find('.alert').removeClass('hide alert-danger').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
-						btnParent.find('.btn.userOptions').remove();
-						btnParent.find('.btn:not(".userOptions")').removeClass('hide');
-					} else {
-						btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-danger').text('Wystąpił błąd podczas zapisywania danych - prosze spróbować ponownie później.');
+			if ($moneyLeft.attr('data-sum') === 0) {
+				$.ajax({
+					url: "/podatki.json",
+					method: "POST",
+					data: {
+						'_action': 'send',
+						userSetup: sUserSetup,
+						userGraph: sUser,
+						userSex: sSex,
+						userAge: sAge
+					},
+					beforeSend: function () {
+						btnParent.find('.btn').addClass('disabled');
+					},
+					success: function (res) {
+						if (res.status) {
+							btnParent.find('.alert').removeClass('hide alert-danger').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
+							btnParent.find('.btn.userOptions').remove();
+							btnParent.find('.btn:not(".userOptions")').removeClass('hide');
+						} else {
+							btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-danger').text('Wystąpił błąd podczas zapisywania danych - prosze spróbować ponownie później.');
+						}
+					},
+					complete: function () {
+						btnParent.find('.btn').removeClass('disabled');
 					}
-				},
-				complete: function () {
-					btnParent.find('.btn').removeClass('disabled');
-				}
-			});
+				});
+			} else {
+				btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-warning').text('Przed wysłaniem prosze rozdysponować wszelkie pozostałe pieniądze.');
+			}
 		}
 	});
 
 	btnAction();
 	resultPie();
-});
+})
+;

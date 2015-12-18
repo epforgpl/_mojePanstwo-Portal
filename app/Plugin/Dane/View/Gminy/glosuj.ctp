@@ -144,7 +144,7 @@ function getPoselTemplate($pos, $vote) {
                                             $btnText = 'Za';
                                             break;
                                     } ?>
-                                    <div class="votedFor pull-right btn btn-icon auto-width <?= $btnClass; ?>"><i
+                                    <div class="votedFor pull-right btn btn-icon width-auto <?= $btnClass; ?>"><i
                                             class="icon <?= $btnIcon; ?>"></i><?= $btnText; ?></div>
                                 </div>
                             </li>

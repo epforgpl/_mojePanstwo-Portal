@@ -15,8 +15,7 @@ $options = array(
 
     <div class="dataWrap">
         <div class="appBanner">
-            <h1 class="appTitle">Budżet gminy <?= $object->getTitle(); ?></h1>
-
+            <div class="h1 appTitle">Budżet gminy <?= $object->getTitle(); ?></div>
         </div>
     </div>
 
