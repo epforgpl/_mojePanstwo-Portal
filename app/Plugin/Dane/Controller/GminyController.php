@@ -4220,6 +4220,7 @@ class GminyController extends DataobjectsController
         $this->_prepareView();
         $this->request->params['action'] = 'wpf';
         if (isset($this->request->params['subid'])) {
+                        
             $program = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => 'krakow_wpf_programy',
@@ -4229,9 +4230,21 @@ class GminyController extends DataobjectsController
                     'przedsiewziecia'
                 )
             ));
+            
+            if( $this->request->isPost() ) {
+	            
+	            $res = $this->Gmina->saveWpf($program->getId(), $this->request->data);
+	            $this->set('res', $res);
+	            $this->set('_serialize', 'res');
+	            
+            } else {
 
-            $this->set('program', $program);
-            $this->set('title_for_layout', $program->getShortTitle());
+	            $this->set('program', $program);
+	            $this->set('title_for_layout', $program->getShortTitle());
+	            $this->set('superuser', $this->isSuperUser());
+            
+            }
+            
             $this->render('Dane.Gminy/wpf_program');
         } else {
             

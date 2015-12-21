@@ -55,6 +55,16 @@ class Gmina extends AppModel {
             ),
         ));
     }
+    
+    public function saveWpf($id, $data) {
+        return $this->getDataSource()->request('krakow/portal/saveWpf', array(
+            'method' => 'POST',
+            'data' => array(
+	            'id' => $id,
+	            'wpf' => $data,
+            ),
+        ));
+    }
 	
 	
 	
