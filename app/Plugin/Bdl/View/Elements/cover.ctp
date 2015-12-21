@@ -48,7 +48,7 @@ $colors['diff'] = array(
                             }
 
                             $id = $kategoria['kategoria']['id'];
-                            $label = $kategoria['kategoria']['nazwa'];
+                            $label = ucfirst(mb_strtolower($kategoria['kategoria']['nazwa']));
                             $slug = $kategoria['kategoria']['slug'];
                             ?>
                             <div class="block col-md-3"
@@ -105,11 +105,11 @@ $colors['diff'] = array(
 
 <? if( $_edit ) { ?>
 <div class="col-xs-12">
-	
-	<div id="kulturaBanner" class="alert alert-info">
+
+    <div id="kulturaBanner" class="alert alert-info">
 		<h2>Wskaźniki Żywej Kultury</h2>
 		<p><a href="/bdl/admin">Zarządzaj wskaźnikami &raquo;</a></p>
 	</div>
-	
+
 </div>
 <? } ?>
