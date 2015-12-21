@@ -1,4 +1,4 @@
-/*global $, document*/
+/*global $, document, google*/
 
 $(document).ready(function () {
 	$('.krakowWpfProgramStatic').each(function () {

@@ -107,7 +107,7 @@ if (!isset($_submenu['base']))
                 $marker = '{"formatted_address":"Powstańców Wielkopolskich 1, 30-553 Kraków-Podgórze, Polska","geometry":{"location":{"G":50.04251,"K":19.960890000000063}},"icon":"https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png","id":"50848b2d02aed8ff52899842152536a426189c65","name":"Powstańców Wielkopolskich 1","place_id":"ChIJ-_-eNk5bFkcRS0jOGqmaidw","reference":"CqQBnQAAADzYnjosfTGy7yQeTZaaIrE5l53vHotZkZFkeN1Ip7LU6eNYwKGLjT_wAySWPsNliqvKL6fpYPCUkY3ArvLHDUGdHRIFplD9D_ow5tfHSAmAKJzPD1-7ss0Ojw1BEvg_dEKfHJeNyGXOZIRuCNYcbDEM8xA-InUIOi-tLKpZYAKIzU5B0eSfOQMhuuCTHx7zwCs6kgt-nYnIwSDQ8qOUBMQSEG-HbA4Q7b-7gz3GWYqrGsEaFJ7qKoUe0GHhRc548YAqtEK--Xy5","types":["street_address"],"html_attributions":[]}';
 
                 if ((isset($can_edit) && $can_edit) || isset($marker)) { ?>
-                    <div class="krakowWpfPlaceMarker">
+                    <div class="krakowWpfPlaceMarker margin-top-20">
                         <? if ($can_edit) { ?>
                             <input id="pac-input" class="controls" type="text" placeholder="Wpisz adres"
                                    value="Kraków, ">
