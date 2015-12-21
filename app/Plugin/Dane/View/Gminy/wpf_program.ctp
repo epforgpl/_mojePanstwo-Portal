@@ -2,12 +2,23 @@
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-wpf', array('plugin' => 'Dane')));
 
+if ($object->getId() == '903') {
+    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+
+    switch (Configure::read('Config.language')) {
+        case 'pol':
+            $lang = "pl-PL";
+            break;
+        case 'eng':
+            $lang = "en-EN";
+            break;
+    };
+    echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=places&language=' . $lang, array('block' => 'scriptBlock'));
+}
+
 $this->Combinator->add_libs('js', 'Dane.view-gminy-wpf');
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
-
-if ($object->getId() == '903')
-    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 
 echo $this->Element('dataobject/pageBegin');
 
@@ -33,7 +44,7 @@ if (!isset($_submenu['base']))
             }
 
             ?>
-            <div style="overflow: hidden;padding: 20px 0; border-bottom: 1px solid #efefef;">
+            <div class="krakow_wpf_content">
                 <p class="text-muted">
                     <?= $p['kategoria_nazwa'] ?> <?= $p['podkategoria_nazwa'] ?>
                 </p>
@@ -90,6 +101,26 @@ if (!isset($_submenu['base']))
                     class="krakowWpfProgramStatic margin-top-20"
                     data-static="<?= htmlspecialchars(json_encode($static)); ?>">
                 </div>
+                <?
+
+                //TODO: fake marker data;
+                $marker = '{"formatted_address":"Powstańców Wielkopolskich 1, 30-553 Kraków-Podgórze, Polska","geometry":{"location":{"G":50.04251,"K":19.960890000000063}},"icon":"https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png","id":"50848b2d02aed8ff52899842152536a426189c65","name":"Powstańców Wielkopolskich 1","place_id":"ChIJ-_-eNk5bFkcRS0jOGqmaidw","reference":"CqQBnQAAADzYnjosfTGy7yQeTZaaIrE5l53vHotZkZFkeN1Ip7LU6eNYwKGLjT_wAySWPsNliqvKL6fpYPCUkY3ArvLHDUGdHRIFplD9D_ow5tfHSAmAKJzPD1-7ss0Ojw1BEvg_dEKfHJeNyGXOZIRuCNYcbDEM8xA-InUIOi-tLKpZYAKIzU5B0eSfOQMhuuCTHx7zwCs6kgt-nYnIwSDQ8qOUBMQSEG-HbA4Q7b-7gz3GWYqrGsEaFJ7qKoUe0GHhRc548YAqtEK--Xy5","types":["street_address"],"html_attributions":[]}';
+
+                if ((isset($can_edit) && $can_edit) || isset($marker)) { ?>
+                    <div class="krakowWpfPlaceMarker">
+                        <? if ($can_edit) { ?>
+                            <input id="pac-input" class="controls" type="text" placeholder="Wpisz adres"
+                                   value="Kraków, ">
+                        <? } ?>
+                        <div
+                            id="map"<? if (isset($marker)) echo ' data-place="' . htmlentities($marker) . '"' ?>></div>
+                        <? if ($can_edit) { ?>
+                            <form method="post" action="<?= $this->request->here; ?>.json">
+                                <button type="submit" class="btn btn-success pull-right margin-top-10">Zapisz</button>
+                            </form>
+                        <? } ?>
+                    </div>
+                <? } ?>
             </div>
         <? } ?>
 

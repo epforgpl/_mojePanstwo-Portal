@@ -5,12 +5,11 @@ App::uses('DataobjectsController', 'Dane.Controller');
 class GminyController extends DataobjectsController
 {
 
+    private static $voteSessionName = 'Krakow.Vote';
     public $observeOptions = true;
     public $addDatasetBreadcrumb = false;
-
     public $objectActivities = true;
     public $objectData = true;
-
     public $submenus = array(
         'rada' => array(
             'items' => array(
@@ -184,8 +183,6 @@ class GminyController extends DataobjectsController
         ),
     );
 
-    public $loadChannels = true;
-
     /*
      array(
             'label' => 'LC_DANE_START',
@@ -208,20 +205,23 @@ class GminyController extends DataobjectsController
             'id' => 'map',
         ),
     */
-
+    public $loadChannels = true;
     public $menu = array();
-
     public $helpers = array(
         'Number' => array(
             'className' => 'Dane.NumberPlus',
         ),
     );
-
     public $objectOptions = array(
         'bigTitle' => true,
     );
-
-    private static $voteSessionName = 'Krakow.Vote';
+    private $histogramIntervals = array(
+        100000000,                  // 100 mln.
+        10000000,                   // 10 mln.
+        1000000,                    // 1 mln.
+        100000,                     // 100 tys.
+        1000
+    );
 
     public function view()
     {
@@ -617,22 +617,22 @@ class GminyController extends DataobjectsController
                     ),
                 ),
             );
-				
+
 			if(
-            	@$this->request->query['order'] && 
-            	( $parts = explode(' ', $this->request->query['order']) ) && 
+                @$this->request->query['order'] &&
+                ($parts = explode(' ', $this->request->query['order'])) &&
             	( count($parts)>1 )
         	) {
-	        	
+
 	        	foreach(array('osoby', 'organizacje', 'pomoc_publiczna', 'radni_gminy', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'darczyncy', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'zamowienia_publiczne', 'urzad_zamowienia') as $a)
 	        		$aggs[$a]['aggs']['top']['top_hits']['sort'] = array(
 		        		$parts[0] => array(
 			        		'order' => $parts[1],
 		        		),
-	        		);	        	
-	        	
+                    );
+
         	}
-			
+
             $options = array(
                 'searchTitle' => 'Szukaj powiązań w Krakowie...',
                 'conditions' => array(
@@ -679,7 +679,7 @@ class GminyController extends DataobjectsController
 					),
                 ),
             );
-            
+
             $this->set('aggs_dictionary', array(
                 'osoby' => array(
                     'title' => 'Osoby w Krajowym Rejestrze Sądowym dla Krakowa',
@@ -1422,7 +1422,6 @@ class GminyController extends DataobjectsController
         $this->set('title_for_layout', 'Jak to działa? - Przejrzysty Kraków');
     }
 
-
     public function rada()
     {
 
@@ -1482,7 +1481,6 @@ class GminyController extends DataobjectsController
         $this->set('title_for_layout', 'Rada Miasta Krakowa');
 
     }
-
 
     public function urzad()
     {
@@ -2026,7 +2024,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('neighbours', 'druki', 'docs'),
             ));
-            
+
             $this->set('file',
                 isset($this->request->query['file']) ?
                     (int)$this->request->query['file'] : $uchwala->getData('dokument_id')
@@ -2174,7 +2172,6 @@ class GminyController extends DataobjectsController
         }
     }
 
-
     public function druki()
     {
         $this->_prepareView();
@@ -2273,12 +2270,12 @@ class GminyController extends DataobjectsController
                 'param' => 'kadencja',
                 'selected' => '7'
             );
-            
+
             if(isset($this->request->query[$cadences['param']]) &&
                 array_key_exists($this->request->query[$cadences['param']], $cadences['items'])) {
                 $cadences['selected'] = $this->request->query[$cadences['param']];
             }
-            
+
 
             $subaction = (isset($this->request->params['subaction']) && $this->request->params['subaction']) ? $this->request->params['subaction'] : 'view';
             $subsubid = (isset($this->request->params['subsubid']) && $this->request->params['subsubid']) ? $this->request->params['subsubid'] : false;
@@ -2622,8 +2619,7 @@ class GminyController extends DataobjectsController
 
         }
     }
-    
-    
+
     public function komisje_opinie()
     {
         $this->_prepareView();
@@ -2660,7 +2656,6 @@ class GminyController extends DataobjectsController
 
         }
     }
-
 
     public function radni_powiazania()
     {
@@ -3115,32 +3110,32 @@ class GminyController extends DataobjectsController
                     break;
                 }
                 case 'obietnice': {
-					
+
 					if( isset($this->request->query['editKey']) ) {
-						
+
 						$this->loadModel('Dane.Gmina');
-						
+
 						if( $this->request->isPost() ) {
-							
-							$promises = array();
+
+                            $promises = array();
 							foreach( $this->request->data as $k => $v )
 								if( is_numeric($k) )
 									$promises[] = array(
 										'id' => $k,
 										'content' => $v,
 									);
-									
-							if( !empty($promises) )
+
+                            if( !empty($promises) )
 								$res = $this->Gmina->savePromises($radny->getId(), $this->request->query['editKey'], $promises);
-																					
-						} elseif( $this->Gmina->checkEditKey( $radny->getId(), $this->request->query['editKey'] ) ) {
-															
-							$this->set('editKey', true);
-						
-						}
-						
-					}
-					
+
+                        } elseif( $this->Gmina->checkEditKey( $radny->getId(), $this->request->query['editKey'] ) ) {
+
+                            $this->set('editKey', true);
+
+                        }
+
+                    }
+
                     $submenu['selected'] = 'obietnice';
                     break;
                 }
@@ -3385,25 +3380,25 @@ class GminyController extends DataobjectsController
                             'layers' => array('punkty')
                         )))
                     ) {
-						
-						
-						$aggs = @$this->Dataobject->getAggs();
+
+
+                        $aggs = @$this->Dataobject->getAggs();
 						if( @$aggs['dokumenty']['labels']['buckets'] ) {
-							
-							$wybrany_dokument = false;
+
+                            $wybrany_dokument = false;
 							$this->set('dokumenty', $aggs['dokumenty']['labels']['buckets']);
-							
-							if( isset($this->request->query['d']) ) 
-								foreach( $aggs['dokumenty']['labels']['buckets'] as $b ) 
+
+                            if (isset($this->request->query['d']))
+                                foreach ($aggs['dokumenty']['labels']['buckets'] as $b)
 									foreach( $b['top']['hits']['hits'] as $h )
 										if( $h['fields']['id'][0]==$this->request->query['d'] )
 											$wybrany_dokument = $h;
-														
-							if( $wybrany_dokument )
+
+                            if( $wybrany_dokument )
 								$this->set('wybrany_dokument', $wybrany_dokument);
-							
-						}
-						
+
+                        }
+
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
 
                         $punkty = (array)$posiedzenie->getLayer('punkty');
@@ -3487,25 +3482,25 @@ class GminyController extends DataobjectsController
                             'layers' => array('punkty')
                         )))
                     ) {
-						
-						
-						$aggs = @$this->Dataobject->getAggs();
+
+
+                        $aggs = @$this->Dataobject->getAggs();
 						if( @$aggs['dokumenty']['labels']['buckets'] ) {
-							
-							$wybrany_dokument = false;
+
+                            $wybrany_dokument = false;
 							$this->set('dokumenty', $aggs['dokumenty']['labels']['buckets']);
-							
-							if( isset($this->request->query['d']) ) 
-								foreach( $aggs['dokumenty']['labels']['buckets'] as $b ) 
+
+                            if (isset($this->request->query['d']))
+                                foreach ($aggs['dokumenty']['labels']['buckets'] as $b)
 									foreach( $b['top']['hits']['hits'] as $h )
 										if( $h['fields']['id'][0]==$this->request->query['d'] )
 											$wybrany_dokument = $h;
-														
-							if( $wybrany_dokument )
+
+                            if( $wybrany_dokument )
 								$this->set('wybrany_dokument', $wybrany_dokument);
-							
-						}
-						
+
+                        }
+
                         // debug( $this->API->document($posiedzenie->getData('przedmiot_dokument_id')) ); die();
 
                         $punkty = (array)$posiedzenie->getLayer('punkty');
@@ -3571,7 +3566,6 @@ class GminyController extends DataobjectsController
 
         }
     }
-
 
     public function radni_dzielnic()
     {
@@ -3951,7 +3945,6 @@ class GminyController extends DataobjectsController
 
     }
 
-
     public function dotacje_ue()
     {
         $this->_prepareView();
@@ -4153,7 +4146,7 @@ class GminyController extends DataobjectsController
             $this->set('oswiadczenie', $oswiadczenie);
             $this->set('title_for_layout', $oswiadczenie->getTitle());
             $this->render('oswiadczenie');
-            
+
         } else {
 
             $this->Components->load('Dane.DataBrowser', array(
@@ -4202,7 +4195,6 @@ class GminyController extends DataobjectsController
         $this->set('spat', $this->object->loadLayer('enspat'));
     }
 
-
     public function zamowienia_publiczne()
     {
 
@@ -4221,7 +4213,7 @@ class GminyController extends DataobjectsController
         $this->_prepareView();
         $this->request->params['action'] = 'wpf';
         if (isset($this->request->params['subid'])) {
-                        
+
             $program = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => 'krakow_wpf_programy',
@@ -4231,28 +4223,28 @@ class GminyController extends DataobjectsController
                     'przedsiewziecia'
                 )
             ));
-            
+
             if( $this->request->isPost() ) {
-	            	            
-	            $this->loadModel('Dane.Gmina');
+
+                $this->loadModel('Dane.Gmina');
 	            $res = $this->Gmina->saveWpf($program->getId(), $this->request->data);
-	            	            
-	            $this->set('res', $res);
+
+                $this->set('res', $res);
 	            $this->set('_serialize', 'res');
-	            
-	            return $this->redirect( $program->getUrl() );
-	            
+
+                return $this->redirect( $program->getUrl() );
+
             } else {
 
 	            $this->set('program', $program);
 	            $this->set('title_for_layout', $program->getShortTitle());
 	            $this->set('superuser', $this->isSuperUser());
-            
+                $this->set('can_edit', $this->isSuperUser()); //TODO: should be checking if is permition to change content on page (superuser, admins, moderators, etc)
             }
-            
+
             $this->render('Dane.Gminy/wpf_program');
         } else {
-            
+
             $this->set('title_for_layout', 'Wykaz Przedsięwzięć Wieloletnich dla Krakowa');
             $this->set('_submenu', array_merge($this->submenus['wpf'], array(
 	            'selected' => 'wpf',
@@ -4264,8 +4256,8 @@ class GminyController extends DataobjectsController
                 'browserTitle' => 'Wykaz Przedsięwzięć Wieloletnich dla Krakowa',
                 'limit' => 50
             ));
-            
-            
+
+
         }
     }
 
@@ -4280,14 +4272,6 @@ class GminyController extends DataobjectsController
             'selected' => 'wpf_finanse',
         )));
     }
-
-    private $histogramIntervals = array(
-        100000000,                  // 100 mln.
-        10000000,                   // 10 mln.
-        1000000,                    // 1 mln.
-        100000,                     // 100 tys.
-        1000
-    );
 
     public function finanse()
     {
@@ -5168,9 +5152,9 @@ class GminyController extends DataobjectsController
     }
 
     public function aktywnosci() {
-	    
+
         $this->request->params['action'] = 'rada';
-        
+
         $this->addInitAggs(array(
 	        'ranking_aktywnosci' => array(
 		        'scope' => 'global',
@@ -5245,10 +5229,10 @@ class GminyController extends DataobjectsController
                 ),
             ),
         ));
-        
-		
+
+
         $this->_prepareView();
-		
+
         if ($this->object->getId() != '903')
             throw new NotFoundException;
 
@@ -5257,8 +5241,8 @@ class GminyController extends DataobjectsController
         $this->set('_submenu', array_merge($this->submenus['rada'], array(
             'selected' => 'aktywnosci',
         )));
-        
-		$this->set('title_for_layout', 'Ranking aktywności Rady Miasta Kraków');
+
+        $this->set('title_for_layout', 'Ranking aktywności Rady Miasta Kraków');
     }
 
     public function glosuj() {
@@ -5516,8 +5500,8 @@ class GminyController extends DataobjectsController
         $menu = array(
             'items' => array(),
             'base' => $this->object->getUrl(),
-        );		
-		
+        );
+
         $aggs = array();
         if (isset($this->viewVars['dataBrowser']['aggs']) && !empty($this->viewVars['dataBrowser']['aggs']))
             $aggs = $this->viewVars['dataBrowser']['aggs'];
@@ -5533,7 +5517,6 @@ class GminyController extends DataobjectsController
                 'id' => 'home',
             ),
         );
-		
 
 
         if ($object->getId() == '903') {
@@ -5592,14 +5575,14 @@ class GminyController extends DataobjectsController
             );
 
         }
-        
+
         $menu['items'][] = array(
             'id' => 'finanse',
             'label' => 'Finanse',
         );
 
         if (
-	        ( $this->object->getId() != '903' ) && 
+            ($this->object->getId() != '903') &&
 	        (
 	            @$this->object_aggs['dzialania']['doc_count'] ||
 	            $this->_canEdit()
@@ -5613,7 +5596,7 @@ class GminyController extends DataobjectsController
         }
 
         if (
-	        ( $this->object->getId() != '903' ) && 
+            ($this->object->getId() != '903') &&
         	$this->_canEdit()
         ) {
             $menu['items'][] = array(
@@ -5622,15 +5605,14 @@ class GminyController extends DataobjectsController
             );
         }
 
-        
-        
+
         if ($object->getId() == '903') {
-	    	
-	    	$menu['items'][] = array(
+
+            $menu['items'][] = array(
 	            'id' => 'wpf',
 	            'label' => 'Wieloletnia Prognoza Finansowa',
 	        );
-	    	   
+
         }
 
         return $menu;
