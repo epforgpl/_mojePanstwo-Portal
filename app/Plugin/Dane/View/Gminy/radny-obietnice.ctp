@@ -79,18 +79,36 @@ echo $this->Element('Dane.dataobject/subobject', array(
                                     <? if (isset($editKey) && $editKey) { ?>
                                         <div class="response" data-id="<?= $obietnica['id'] ?>" action="" method="post">
                                             <label class="panel-header"
-                                                   for="response<?= $obietnica['id'] ?>">Odpowiedź:</label>
+                                                   for="response<?= $obietnica['id'] ?>">Działania podjęte w celu realizacji obietnicy:</label>
                                             <textarea class="form-control tinymceField" rows="10"
                                                       id="response<?= $obietnica['id'] ?>"
                                                       name="response<?= $obietnica['id'] ?>"><?= @$obietnica['odpowiedz'] ?></textarea>
                                         </div>
+                                    <? } elseif( $obietnica['odpowiedz'] ) { ?>
+                                    
+                                    	<div class="response" data-id="<?= $obietnica['id'] ?>" action="" method="post">
+                                            <label class="panel-header"
+                                                   for="response<?= $obietnica['id'] ?>">Działania podjęte w celu realizacji obietnicy:</label>
+                                            <div class="response-static"><?= $obietnica['odpowiedz'] ?></div>
+                                        </div>
+                                    
                                     <? } ?>
                                 </li>
                             <? } ?>
                         </ul>
-                        <? if (isset($editKey) && $editKey) { ?>
-                            <button class="saveBtn btn btn-success pull-right margin-bottom-20" typeof="submit">Zapisz
+                        <?
+	                        if (isset($editKey) && $editKey) {
+	                        	
+	                        	$submit_href = $this->request->here . '.json?editKey=' . $this->request->query['editKey'];
+	                        	$redirect_href = $this->request->here;
+	                        	
+                        ?>
+                        <div class="margin-bottom-20 text-center">
+                            <a href="<?= $redirect_href ?>" class="btn btn-default btn-lg">Anuluj
+                            </a>
+                            <button data-submit_href="<?= $submit_href ?>" data-redirect_href="<?= $redirect_href ?>" class="saveBtn btn btn-success btn-lg" typeof="submit">Zapisz
                             </button>
+                        </div>
                         <? } ?>
                     </div>
                 </div>

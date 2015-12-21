@@ -44,5 +44,18 @@ class Gmina extends AppModel {
             ),
         ));
     }
-
+    
+    public function savePromises($object_id, $key, $items) {
+        return $this->getDataSource()->request('krakow/portal/savePromises', array(
+            'method' => 'POST',
+            'data' => array(
+	            'object_id' => $object_id,
+	            'key' => $key,
+	            'items' => $items,
+            ),
+        ));
+    }
+	
+	
+	
 }

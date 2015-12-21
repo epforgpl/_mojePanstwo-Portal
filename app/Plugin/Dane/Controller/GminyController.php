@@ -2710,6 +2710,10 @@ class GminyController extends DataobjectsController
                         'label' => 'Dane',
                     ),
                     array(
+                        'label' => 'Wystąpienia',
+                        'id' => 'wystapienia',
+                    ),
+                    array(
                         'label' => 'Wyniki głosowań',
                         'id' => 'glosowania',
                     ),
@@ -2764,6 +2768,37 @@ class GminyController extends DataobjectsController
             switch ($subaction) {
                 case 'view': {
                     $global_aggs = array(
+                        'wystapienia' => array(
+                            'filter' => array(
+                                'bool' => array(
+                                    'must' => array(
+                                        array(
+                                            'term' => array(
+                                                'dataset' => 'krakow_posiedzenia_wystapienia',
+                                            ),
+                                        ),
+                                        array(
+                                            'term' => array(
+                                                'data.krakow_posiedzenia_wystapienia.radny_id' => $radny->getId(),
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'aggs' => array(
+                                'top' => array(
+                                    'top_hits' => array(
+                                        'size' => 3,
+                                        'fielddata_fields' => array('dataset', 'id'),
+                                        'sort' => array(
+                                            'krakow_posiedzenia.data' => 'desc',
+                                            'krakow_posiedzenia_wystapienia.ord' => 'desc',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'scope' => 'global'
+                        ),
                         'oswiadczenia' => array(
                             'filter' => array(
                                 'bool' => array(
@@ -3083,10 +3118,24 @@ class GminyController extends DataobjectsController
 					if( isset($this->request->query['editKey']) ) {
 						
 						$this->loadModel('Dane.Gmina');
-						if( $this->Gmina->checkEditKey( $radny->getId(), $this->request->query['editKey'] ) ) {
-														
-							$this->set('editKey', true);
+						
+						if( $this->request->isPost() ) {
 							
+							$promises = array();
+							foreach( $this->request->data as $k => $v )
+								if( is_numeric($k) )
+									$promises[] = array(
+										'id' => $k,
+										'content' => $v,
+									);
+									
+							if( !empty($promises) )
+								$res = $this->Gmina->savePromises($radny->getId(), $this->request->query['editKey'], $promises);
+																					
+						} elseif( $this->Gmina->checkEditKey( $radny->getId(), $this->request->query['editKey'] ) ) {
+															
+							$this->set('editKey', true);
+						
 						}
 						
 					}

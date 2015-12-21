@@ -70,27 +70,31 @@ $(document).ready(function () {
 
 		$radnyObietnice.find('.saveBtn').click(function () {
 			if (!$(this).hasClass('disabled')) {
-				var odpowiedzi = [];
+				
+				var submit_href = $(this).data('submit_href');
+				var redirect_href = $(this).data('redirect_href');
+				
+				console.log('submit_href', submit_href);
+				console.log('redirect_href', redirect_href);
+				
+				$(this).addClass('disabled loading');
+				var odpowiedzi = {};
 
 				tinyMCE.triggerSave();
 
 				$('.response').each(function () {
 					var that = $(this),
 						id = that.attr('data-id');
-
-					odpowiedzi.push({id: id, odpowiedz: that.find('#response' + id).val()});
+					
+					odpowiedzi[ id ] = that.find('#response' + id).val();					
 				});
 
 				$.ajax({
-					url: '',
+					url: submit_href,
 					type: "POST",
-					data: JSON.stringify(odpowiedzi),
-					contentType: 'application/json',
-					beforeSend: function () {
-						$radnyObietnice.find('.saveBtn').addClass('disabled loading');
-					},
+					data: odpowiedzi,
 					success: function (res) {
-						location.reload();
+						location.href = redirect_href;
 					}
 				});
 			}

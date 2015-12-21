@@ -49,7 +49,39 @@ $options = array(
 
         <div class="col-md-9">
             <div class="databrowser-panels">
+								
+                <? if (@$dataBrowser['aggs']['wystapienia']['top']['hits']['hits']) { ?>
+                    <div class="databrowser-panel margin-top-20">
 
+                        <h2>Ostatnie wystąpienia:</h2>
+
+                        <div class="aggs-init">
+
+                            <div class="dataAggs">
+                                <div class="agg agg-Dataobjects">
+                                    <? if ($dataBrowser['aggs']['wystapienia']['top']['hits']['hits']) { ?>
+                                        <ul class="dataobjects">
+                                            <? foreach ($dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] as $doc) { ?>
+                                                <li>
+                                                    <?
+                                                    echo $this->Dataobject->render($doc, 'default');
+                                                    ?>
+                                                </li>
+                                            <? } ?>
+                                        </ul>
+                                        <div class="buttons">
+                                            <a href="<?= $radny->getUrl() ?>/wystapienia" class="btn btn-primary btn-xs">Zobacz
+                                                więcej</a>
+                                        </div>
+                                    <? } ?>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                <? } ?>
+                
                 <? if (@$dataBrowser['aggs']['glosowania']['top']['hits']['hits']) { ?>
                     <div class="databrowser-panel margin-top-20">
 
