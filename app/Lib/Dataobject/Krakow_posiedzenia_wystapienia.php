@@ -7,8 +7,8 @@ class Krakow_posiedzenia_wystapienia extends DataObject
 
     protected $routes = array(
         'title' => 'skrot',
-        'shortTitle' => false,
-        'date' => 'data',
+        'shortTitle' => 'skrot',
+        'date' => 'krakow_posiedzenia.data',
     );  
 
     public function getLabel()
@@ -29,9 +29,12 @@ class Krakow_posiedzenia_wystapienia extends DataObject
     }
 
     public function getUrl() {
-
-        return '/dane/instytucje/3214,sejm/debaty/' . $this->getData('debata_id') . '/wystapienia/' . $this->getId();
-
+		
+		if( $this->getData('punkt_id') )
+	        return '/dane/gminy/903,krakow/punkty/' . $this->getData('punkt_id') . '/wystapienia/' . $this->getId();
+		else
+	        return '/dane/gminy/903,krakow/wystapienia/' . $this->getId();
+		
     }
     
     public function getSlug() {
@@ -40,6 +43,18 @@ class Krakow_posiedzenia_wystapienia extends DataObject
     
     public function getIcon() {
 	    return false;
+    }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array();
+				
+		if( $date = $this->getDate() )
+			$output[] = dataSlownie($date);
+				
+        return $output;
+
     }
     
 }

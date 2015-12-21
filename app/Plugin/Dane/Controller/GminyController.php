@@ -3035,14 +3035,15 @@ class GminyController extends DataobjectsController
 
                     $this->Components->load('Dane.DataBrowser', array(
                         'conditions' => array(
-                            'dataset' => 'rady_gmin_wystapienia',
-                            'rady_gmin_wystapienia.osoba_id' => $radny->getData('osoba_id'),
+                            'dataset' => 'krakow_posiedzenia_wystapienia',
+                            'krakow_posiedzenia_wystapienia.radny_id' => $radny->getData('id'),
                         ),
-                        'aggsPreset' => 'rady_gmin_wystapienia',
-                        'renderFile' => 'radni_gmin/rady_gmin_wystapienia',
+                        // 'aggsPreset' => 'rady_gmin_wystapienia',
+                        // 'renderFile' => 'radni_gmin/rady_gmin_wystapienia',
+                        'truncate' => 1000,
                     ));
 
-                    $this->set('DataBrowserTitle', 'Wystąpienia na posiedzeniach Rady Miasta');
+                    $submenu['selected'] = 'wystapienia';
                     $title_for_layout .= ' - Wystąpienia na posiedzeniach Rady Miasta';
 
                     break;
@@ -4232,9 +4233,10 @@ class GminyController extends DataobjectsController
             ));
             
             if( $this->request->isPost() ) {
-	            
+	            	            
 	            $this->loadModel('Dane.Gmina');
 	            $res = $this->Gmina->saveWpf($program->getId(), $this->request->data);
+	            	            
 	            $this->set('res', $res);
 	            $this->set('_serialize', 'res');
 	            
