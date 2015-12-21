@@ -18,6 +18,11 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
             <h1 class="appTitle"><?= __d('podatki', 'LC_PODATKI_HEADLINE'); ?></h1>
 
             <p class="appSubtitle"><?= __d('podatki', 'LC_PODATKI_SUBHEADLINE'); ?></p>
+
+            <p class="margin-top-20"><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?> <a href="#" data-toggle="modal"
+                                                                                         data-target="#metodologia_modal"
+                                                                                         target="_blank">Zobacz
+                    metodologię obliczeń &raquo;</a></p>
         </div>
 
         <div class="sections userSetup">
@@ -476,6 +481,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             </p>
 
                             <p>Wszystkie kwoty zaokrąglono do pełnych złotych.</p>
+                            <p>W razie dalszych pytań prosimy o kontakt na adres: <a
+                                    href="mailto:jakub.sawulski@ibs.org.pl">jakub.sawulski@ibs.org.pl</a> lub <a
+                                    href="mailto:jan.baran@ibs.org.pl">jan.baran@ibs.org.pl</a></p>
                         </div>
                     </div>
                 </div>
@@ -488,11 +496,6 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
 
 
     <div class="footer text-center">
-        <div class="container">
-            <p><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?> <a href="#" data-toggle="modal"
-                                                                   data-target="#metodologia_modal" target="_blank">Zobacz
-                    metodologię obliczeń &raquo;</p>
-        </div>
         <div class="customObject krakow903 col-xs-12" id="fundatorzy">
             <div class="part">
                 <div class="logotypy">
