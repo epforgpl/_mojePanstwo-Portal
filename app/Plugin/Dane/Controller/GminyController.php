@@ -4233,9 +4233,12 @@ class GminyController extends DataobjectsController
             
             if( $this->request->isPost() ) {
 	            
+	            $this->loadModel('Dane.Gmina');
 	            $res = $this->Gmina->saveWpf($program->getId(), $this->request->data);
 	            $this->set('res', $res);
 	            $this->set('_serialize', 'res');
+	            
+	            return $this->redirect( $program->getUrl() );
 	            
             } else {
 
