@@ -356,7 +356,7 @@ $description =
 
                 </section>
                 <div class="linkmore text-center">
-                    <a href="<?= $object->getUrl() . '/kolekcje' ?>" class="btn btn-primary btn-xs"">więcej</a>
+                    <a href="<?= $object->getUrl() . '/kolekcje' ?>" class="btn btn-primary btn-xs">więcej</a>
                 </div>
             </div>
             <? } ?>
@@ -625,7 +625,7 @@ $description =
 
                                 <ul class="dzialalnosci">
                                     <? foreach ($dzialalnosci as $d) { ?>
-                                        <li><?= $d['str'] ?></li>
+                                        <li><? if($d['przewazajaca']) {?><span class="label label-danger">Działalność przeważająca</span> <? } ?><?= $d['str'] ?></li>
                                     <? } ?>
                                 </ul>
 
