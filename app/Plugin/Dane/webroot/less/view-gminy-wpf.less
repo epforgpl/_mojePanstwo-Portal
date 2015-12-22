@@ -1,13 +1,20 @@
-    .krakow_wpf_content {
-        overflow: hidden;
-        padding: 20px 0;
-        border-bottom: 1px solid #efefef;
+.krakow_wpf_content {
+    overflow: hidden;
+    padding: 20px 0;
+    border-bottom: 1px solid #efefef;
 
-        .krakowWpfProgramStatic {
-            min-height: 120px;
-        }
+    .krakowWpfProgramStatic {
+        min-height: 120px;
+    }
+}
+
+.krakowWpfPlace {
+    header {
+        height: 36px;
     }
     .krakowWpfPlaceMarker {
+        position: relative;
+
         #map {
             width: 100%;
             height: 400px;
@@ -32,6 +39,9 @@
             padding: 0 11px 0 13px;
             text-overflow: ellipsis;
             width: 300px;
+            position: absolute;
+            top: 18px;
+            left: 90px;
         }
 
         #pac-input:focus {
@@ -49,3 +59,4 @@
             font-weight: 300;
         }
     }
+}
