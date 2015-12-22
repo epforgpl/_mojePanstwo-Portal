@@ -1,24 +1,21 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-wpf', array('plugin' => 'Dane')));
+if ($object->getId() == '903') $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 
-if ($object->getId() == '903') {
-    $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=places&language=' . $lang, array('block' => 'scriptBlock'));
 
-    switch (Configure::read('Config.language')) {
-        case 'pol':
-            $lang = "pl-PL";
-            break;
-        case 'eng':
-            $lang = "en-EN";
-            break;
-    };
-    echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=places&language=' . $lang, array('block' => 'scriptBlock'));
-}
-
-$this->Combinator->add_libs('js', 'Dane.view-gminy-wpf');
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Dane.view-gminy-wpf');
 
 echo $this->Element('dataobject/pageBegin');
 

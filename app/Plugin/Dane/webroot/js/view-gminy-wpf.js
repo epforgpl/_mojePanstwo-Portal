@@ -106,12 +106,7 @@ $(document).ready(function () {
 		init_lon = googleMap.attr('data-lon'),
 		marker = null,
 		form = $('#map_form'),
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 50.0467656, lng: 20.0048731},
-			zoom: (googleMap.attr('data-zoom') !== "0") ? Number(googleMap.attr('data-zoom')) : 11,
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			scrollwheel: false
-		});
+		map;
 
 	// EXTEND MAP FUNCTIONS FOR ADMIN
 	function mapMarkerCleaner() {
@@ -132,98 +127,107 @@ $(document).ready(function () {
 		form.find('input[name=lon]').val(this.position.lng());
 	}
 
-	// CREATING MARKER ON STARTUP IF EXIST LAT/LNG
-	if (init_lat && init_lon) {
-		var position = {lat: Number(init_lat), lng: Number(init_lon)};
-
-		marker = new google.maps.Marker({
-			map: map,
-			title: 'Marker',
-			position: position,
-			draggable: (form.length) ? true : false
+	if (googleMap.length()) {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: 50.0467656, lng: 20.0048731},
+			zoom: (googleMap.attr('data-zoom') !== "0") ? Number(googleMap.attr('data-zoom')) : 11,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			scrollwheel: false
 		});
 
-		if (form.length) {
-			google.maps.event.addListener(marker, 'dragend', mapMarkerDragEnd);
-		}
-
-		map.setCenter(position);
-	}
-
-	// EXTEND MAP FOR ADMIN
-	if (form.length) {
-		var pacInput = $('#pac-input'),
-			input = document.getElementById('pac-input');
-
-		form.submit(function (event) {
-			var lat = form.find('input[name=lat]').val(),
-				lon = form.find('input[name=lon]').val();
-
-			if (lat && lon) {
-				form.submit();
-			} else {
-				event.preventDefault();
-				alert('Najpierw ustal marker');
-				return false;
-			}
-		});
-
-		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
+		// CREATING MARKER ON STARTUP IF EXIST LAT/LNG
 		if (init_lat && init_lon) {
-			$('.removeMarker').click(mapMarkerRemover);
+			var position = {lat: Number(init_lat), lng: Number(init_lon)};
+
+			marker = new google.maps.Marker({
+				map: map,
+				title: 'Marker',
+				position: position,
+				draggable: (form.length) ? true : false
+			});
+
+			if (form.length) {
+				google.maps.event.addListener(marker, 'dragend', mapMarkerDragEnd);
+			}
+
+			map.setCenter(position);
 		}
 
-		if (pacInput.length) {
-			var searchBox = new google.maps.places.SearchBox(input);
+		// EXTEND MAP FOR ADMIN
+		if (form.length) {
+			var pacInput = $('#pac-input'),
+				input = document.getElementById('pac-input');
 
-			map.addListener('bounds_changed', function () {
-				searchBox.setBounds(map.getBounds());
-			});
+			form.submit(function (event) {
+				var lat = form.find('input[name=lat]').val(),
+					lon = form.find('input[name=lon]').val();
 
-			map.addListener('zoom_changed', function () {
-				form.find('input[name=zoom]').val(map.getZoom());
-			});
-
-			searchBox.addListener('places_changed', function () {
-				var places = searchBox.getPlaces();
-
-				if (places.length === 0) {
-					return;
+				if (lat && lon) {
+					form.submit();
+				} else {
+					event.preventDefault();
+					alert('Najpierw ustal marker');
+					return false;
 				}
+			});
 
-				mapMarkerCleaner();
+			map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-				var bounds = new google.maps.LatLngBounds();
+			if (init_lat && init_lon) {
+				$('.removeMarker').click(mapMarkerRemover);
+			}
 
-				marker = new google.maps.Marker({
-					map: map,
-					title: 'Marker',
-					position: places[0].geometry.location,
-					draggable: true
+			if (pacInput.length) {
+				var searchBox = new google.maps.places.SearchBox(input);
+
+				map.addListener('bounds_changed', function () {
+					searchBox.setBounds(map.getBounds());
 				});
 
-				form.find('input[name=lat]').val(places[0].geometry.location.lat());
-				form.find('input[name=lon]').val(places[0].geometry.location.lng());
+				map.addListener('zoom_changed', function () {
+					form.find('input[name=zoom]').val(map.getZoom());
+				});
 
-				if (places[0].geometry.viewport) {
-					bounds.union(places[0].geometry.viewport);
-				} else {
-					bounds.extend(places[0].geometry.location);
-				}
+				searchBox.addListener('places_changed', function () {
+					var places = searchBox.getPlaces();
 
-				google.maps.event.addListener(marker, 'dragend', mapMarkerDragEnd);
+					if (places.length === 0) {
+						return;
+					}
 
-				if ($('.krakowWpfPlace .removeMarker').length === 0) {
-					$('.krakowWpfPlace header').append(
-						$('<div></div>').addClass('removeMarker btn btn-danger btn-xs margin-sides-10').append(
-							$('<span></span>').addClass('glyphicon glyphicon-remove')
-						)
-					).click(mapMarkerRemover);
-				}
+					mapMarkerCleaner();
 
-				map.fitBounds(bounds);
-			});
+					var bounds = new google.maps.LatLngBounds();
+
+					marker = new google.maps.Marker({
+						map: map,
+						title: 'Marker',
+						position: places[0].geometry.location,
+						draggable: true
+					});
+
+					form.find('input[name=lat]').val(places[0].geometry.location.lat());
+					form.find('input[name=lon]').val(places[0].geometry.location.lng());
+
+					if (places[0].geometry.viewport) {
+						bounds.union(places[0].geometry.viewport);
+					} else {
+						bounds.extend(places[0].geometry.location);
+					}
+
+					google.maps.event.addListener(marker, 'dragend', mapMarkerDragEnd);
+
+					if ($('.krakowWpfPlace .removeMarker').length === 0) {
+						$('.krakowWpfPlace header').append(
+							$('<div></div>').addClass('removeMarker btn btn-danger btn-xs margin-sides-10').append(
+								$('<span></span>').addClass('glyphicon glyphicon-remove')
+							)
+						).click(mapMarkerRemover);
+					}
+
+					map.fitBounds(bounds);
+				});
+			}
 		}
 	}
 });
