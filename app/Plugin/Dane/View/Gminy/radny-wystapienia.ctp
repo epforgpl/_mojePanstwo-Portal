@@ -19,6 +19,13 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-echo $this->Element('Dane.DataBrowser/browser');
+if (!isset($_submenu['base']))
+    $_submenu['base'] = $radny->getUrl();
+
+echo $this->Element('Dane.DataBrowser/browser', array(
+	'menu' => $_submenu,
+	'class' => 'margin-top--5',
+	'truncate' => 1000,
+));
 
 echo $this->Element('dataobject/pageEnd');

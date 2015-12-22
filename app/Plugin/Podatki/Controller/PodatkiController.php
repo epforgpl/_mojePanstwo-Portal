@@ -28,16 +28,16 @@ class PodatkiController extends ApplicationsController
         $result = false;
         if ($this->request->is("POST")) {
 
-	        if( isset($this->request->data['_action']) && ($this->request->data['_action']=='send') ) {
+            if (isset($this->request->data['_action']) && ($this->request->data['_action'] == 'send')) {
 
                 // SEND DATA
 
                 // $status = $this->Podatki->sendData( $this->request->data );
-	        	$status = true;
+                $status = true;
 
-                $this->set('status', (boolean) $status);
-	        	$this->set('_serialize', array('status'));
-	        	return true;
+                $this->set('status', (boolean)$status);
+                $this->set('_serialize', array('status'));
+                return true;
 
             } elseif (!empty($this->request->data)) {
                 if (
@@ -588,7 +588,8 @@ class PodatkiController extends ApplicationsController
             $ODL_SK_SPOL = $SKLADKI1;
             $SKLADKI2 = min($ZLECENIE_BRUTTO, $ORG_SKLADKI) * ($EMERYT2 + $RENT2 + $WYPAD + $FP + $FGSP);
             $SKLADKI3 = ($ZLECENIE_BRUTTO - $ODL_SK_SPOL) * $NFZ;
-            $ODL_SK_ZDROW = ($ETAT_BRUTTO - $ODL_SK_SPOL) * 0.0775;
+            $ODL_SK_ZDROW = ($ZLECENIE_BRUTTO - $ODL_SK_SPOL) * 0.0775;
+
             $PODSTAWA_PODATKU = ceil(($ZLECENIE_BRUTTO - $ODL_SK_SPOL) + $DZIELO_BRUTTO - ($ZLECENIE_BRUTTO - $ODL_SK_SPOL) * 0.2 - $DZIELO_BRUTTO * 0.2);
 
             if ($PODSTAWA_PODATKU <= $PROG) {

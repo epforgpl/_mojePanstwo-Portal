@@ -49,7 +49,8 @@ $options = array(
 
         <div class="col-md-9">
             <div class="databrowser-panels">
-				<? /*				
+				
+				<? /*			
                 <? if (@$dataBrowser['aggs']['wystapienia']['top']['hits']['hits']) { ?>
                     <div class="databrowser-panel margin-top-20">
 

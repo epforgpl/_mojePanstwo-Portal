@@ -1,16 +1,51 @@
-.objectsPage .dataBrowser {
-	.dataObjects .innerContainer .objectRender {
-		padding-top: 20px !important;
-		padding-bottom: 20px !important;
-		
-		.title {
-			margin-bottom: 10px;
-		}
-		
-		.krakowWpfProgramStatic {
-			min-height: 120px;
-		}
-	}
-	.banner {
-	}
-}
+    .krakow_wpf_content {
+        overflow: hidden;
+        padding: 20px 0;
+        border-bottom: 1px solid #efefef;
+
+        .krakowWpfProgramStatic {
+            min-height: 120px;
+        }
+    }
+    .krakowWpfPlaceMarker {
+        #map {
+            width: 100%;
+            height: 400px;
+            margin: -10px 10px 10px;
+        }
+        .controls {
+            margin-top: 10px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        #pac-input {
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: 300;
+            margin-top: 28px;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 300px;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+        #type-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            padding: 5px 11px 0 11px;
+        }
+
+        #type-selector label {
+            font-size: 13px;
+            font-weight: 300;
+        }
+    }
