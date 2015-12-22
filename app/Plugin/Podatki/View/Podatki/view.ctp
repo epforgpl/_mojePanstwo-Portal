@@ -481,9 +481,8 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                             </p>
 
                             <p>Wszystkie kwoty zaokrąglono do pełnych złotych.</p>
-                            <p>W razie dalszych pytań prosimy o kontakt na adres: <a
-                                    href="mailto:jakub.sawulski@ibs.org.pl">jakub.sawulski@ibs.org.pl</a> lub <a
-                                    href="mailto:jan.baran@ibs.org.pl">jan.baran@ibs.org.pl</a></p>
+                            <p>W razie dalszych pytań prosimy o kontakt na adres: <a href="mailto:ibs@ibs.org.pl">ibs@ibs.org.pl</a>
+                            </p>
                         </div>
                     </div>
                 </div>
