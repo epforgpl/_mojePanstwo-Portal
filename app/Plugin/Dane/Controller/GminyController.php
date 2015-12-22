@@ -2704,10 +2704,12 @@ class GminyController extends DataobjectsController
                         'id' => '',
                         'label' => 'Dane',
                     ),
+                    /*
                     array(
                         'label' => 'Wystąpienia',
                         'id' => 'wystapienia',
                     ),
+                    */
                     array(
                         'label' => 'Wyniki głosowań',
                         'id' => 'glosowania',
