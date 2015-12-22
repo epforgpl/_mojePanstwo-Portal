@@ -35,13 +35,13 @@ $(document).ready(function () {
 					id: el.id,
 					title: el.nazwa,
 					kwota: number_format(el.laczne_naklady_fin, 0)
-					//kwota: pl_number_format(el.laczne_naklady_fin,0)
+					//kwota: pl_number_format(el.laczne_naklady_fin,1)
 				}
 			}));
 		}
 
-		for (var j = 0; i < markers.length; i++) {
-			var marker = markers[j];
+		for (var i = 0; i < markers.length; i++) {
+			var marker = markers[i];
 			google.maps.event.addListener(marker, 'click', function () {
 				var contentString = '<div id="wpfInfoContent">' +
 					'<div class="title">' +
