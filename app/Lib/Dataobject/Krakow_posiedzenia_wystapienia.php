@@ -41,17 +41,16 @@ class Krakow_posiedzenia_wystapienia extends DataObject
 	    return false;
     }
     
-    public function getIcon() {
-	    return false;
-    }
-    
     public function getMetaDescriptionParts($preset = false)
 	{
 				
 		$output = array();
-				
+					
 		if( $date = $this->getDate() )
 			$output[] = dataSlownie($date);
+			
+		if( $txt = $this->getData('krakow_posiedzenia_punkty.tytul') )
+			$output[] = $txt;
 				
         return $output;
 

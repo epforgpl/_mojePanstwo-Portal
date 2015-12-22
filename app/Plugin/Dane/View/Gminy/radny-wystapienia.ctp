@@ -25,6 +25,7 @@ if (!isset($_submenu['base']))
 echo $this->Element('Dane.DataBrowser/browser', array(
 	'menu' => $_submenu,
 	'class' => 'margin-top--5',
+	'truncate' => 1000,
 ));
 
 echo $this->Element('dataobject/pageEnd');

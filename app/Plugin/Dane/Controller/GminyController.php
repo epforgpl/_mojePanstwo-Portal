@@ -3040,7 +3040,6 @@ class GminyController extends DataobjectsController
                         ),
                         // 'aggsPreset' => 'rady_gmin_wystapienia',
                         // 'renderFile' => 'radni_gmin/rady_gmin_wystapienia',
-                        'truncate' => 1000,
                     ));
 
                     $submenu['selected'] = 'wystapienia';
