@@ -4273,6 +4273,18 @@ class GminyController extends DataobjectsController
             'selected' => 'wpf_finanse',
         )));
     }
+    
+    public function wpf_mapa() {
+        $this->addInitLayers(array(
+            'wpf_mapa'
+        ));
+        $this->_prepareView();
+        $this->request->params['action'] = 'wpf';
+        $this->set('title_for_layout', 'Mapa Wieloletniego Planu Finansowego dla Krakowa');
+        $this->set('_submenu', array_merge($this->submenus['wpf'], array(
+            'selected' => 'wpf_mapa',
+        )));
+    }
 
     public function finanse()
     {
