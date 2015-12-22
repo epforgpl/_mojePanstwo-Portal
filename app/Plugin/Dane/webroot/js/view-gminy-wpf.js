@@ -182,8 +182,7 @@ $(document).ready(function () {
 			});
 
 			map.addListener('zoom_changed', function () {
-				//form.find('input[name=zoom]').val(map.getZoom());
-				form.find('input[name=zoom]').val(18);
+				form.find('input[name=zoom]').val(map.getZoom());
 			});
 
 			searchBox.addListener('places_changed', function () {
