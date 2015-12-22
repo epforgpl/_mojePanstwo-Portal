@@ -1,6 +1,11 @@
 /*global $, document, google*/
 
 $(document).ready(function () {
+	
+	
+	
+	// DRAW HIGHCHART
+	
 	$('.krakowWpfProgramStatic').each(function () {
 		var data = $(this).data(),
 			from = -1,
@@ -42,7 +47,7 @@ $(document).ready(function () {
 				chart: {
 					type: 'line',
 					backgroundColor: null,
-					height: 120
+					height: 150
 				},
 				title: {
 					text: ''
@@ -97,21 +102,78 @@ $(document).ready(function () {
 		}
 	});
 
-	var $krakowWpfPlaceMarker = $('.krakowWpfPlaceMarker');
-	if ($krakowWpfPlaceMarker.length) {
-		var googleMap = $('#map'),
-			pacInput = $('#pac-input');
-
+	
+	
+	
+	
+	// DRAW MAP
+	
+	var googleMap = $('#map');
+	var init_lat = googleMap.attr('data-lat');
+	var init_lon = googleMap.attr('data-lon');
+	
+	console.log(init_lat, init_lon);
+	
+	if( init_lat && init_lon ) {
+		
+		init_lat = Number(init_lat);
+		init_lon = Number(init_lon);
+		
 		var map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: 50.0467656, lng: 20.0048731},
-				zoom: (googleMap.attr('data-place') !== undefined) ? 16 : 11,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			}),
-			input = document.getElementById('pac-input'),
-			markers = [];
+			center: {lat: 50.0467656, lng: 20.0048731},
+			zoom: (googleMap.attr('data-place') !== undefined) ? 16 : 11,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			scrollwheel: false
+		});
+		var markers = [];
+		
+		var position = {lat: init_lat, lng: init_lon};
+		
+		markers.push(new google.maps.Marker({
+			map: map,
+			title: 'Marker',
+			position: position
+		}));
+		map.setCenter(position);
 
+	}
+	
+	
+	
+	
+	
+	// EXTEND MAP FOR ADMIN
+	
+	var form = $('#map_form');
+	if( form.length ) {
+		
+		form.submit(function(event){
+			
+			
+			
+			var lat = form.find('input[name=lat]').val();
+			var lon = form.find('input[name=lon]').val();
+			
+			if( lat && lon ) {
+				
+				form.submit();
+			
+			} else {
+				
+				event.preventDefault();
+				alert('Najpierw ustal marker');
+				return false;
+				
+			}			
+			
+		});
+		
+		var $krakowWpfPlaceMarker = $('.krakowWpfPlaceMarker');
+		var pacInput = $('#pac-input');
+
+				
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
+		
 		if (pacInput.length) {
 			var searchBox = new google.maps.places.SearchBox(input);
 			map.addListener('bounds_changed', function () {
@@ -129,7 +191,7 @@ $(document).ready(function () {
 					marker.setMap(null);
 				});
 
-				$krakowWpfPlaceMarker.find('form input[name="place[]"]').remove();
+				// $krakowWpfPlaceMarker.find('form input[name="place[]"]').remove();
 
 				var bounds = new google.maps.LatLngBounds();
 				places.forEach(function (place) {
@@ -147,57 +209,29 @@ $(document).ready(function () {
 						title: place.name,
 						position: place.geometry.location
 					}));
-
-					if ($krakowWpfPlaceMarker.find('form').length) {
-						$krakowWpfPlaceMarker.find('form').append(
-							$('<input/>').attr({
-								name: 'place[]',
-								type: 'hidden'
-							}).val(JSON.stringify(place))
-						);
-					}
+									
+					console.log(place.geometry.location);
+					
+					// TODO: find out a better way to retrieve lattidude and longitude
+					form.find('input[name=lat]').val( place.geometry.location.lat() );
+					form.find('input[name=lon]').val( place.geometry.location.lng() );
+					form.find('input[name=zoom]').val( map.getZoom() );
 
 					if (place.geometry.viewport) {
 						bounds.union(place.geometry.viewport);
 					} else {
 						bounds.extend(place.geometry.location);
 					}
+					
+					return false;
+					
 				});
+				
 				map.fitBounds(bounds);
+				
 			});
 		}
-
-		if (googleMap.attr('data-place') !== undefined) {
-			var place = JSON.parse(googleMap.attr('data-place'));
-
-			var icon = {
-				url: place.icon,
-				size: new google.maps.Size(71, 71),
-				origin: new google.maps.Point(0, 0),
-				anchor: new google.maps.Point(17, 34),
-				scaledSize: new google.maps.Size(25, 25)
-			};
-
-			markers.push(new google.maps.Marker({
-				map: map,
-				icon: icon,
-				title: place.name,
-				position: {lat: place.geometry.location.G, lng: place.geometry.location.K}
-			}));
-
-			map.setCenter({lat: place.geometry.location.G, lng: place.geometry.location.K});
-
-			if ($krakowWpfPlaceMarker.find('form').length) {
-				$krakowWpfPlaceMarker.find('form').append(
-					$('<input/>').attr({
-						name: 'place[]',
-						type: 'hidden'
-					}).val(JSON.stringify(place))
-				);
-			}
-			if (pacInput.length) {
-				pacInput.val(place.formatted_address);
-			}
-		}
+		
 	}
+	
 });

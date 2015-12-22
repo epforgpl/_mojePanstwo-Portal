@@ -4219,10 +4219,10 @@ class GminyController extends DataobjectsController
                     'id' => $this->request->params['subid'],
                 ),
                 'layers' => array(
-                    'przedsiewziecia'
+                    'przedsiewziecia', 'location'
                 )
             ));
-
+                        
             if( $this->request->isPost() ) {
 
                 $this->loadModel('Dane.Gmina');
