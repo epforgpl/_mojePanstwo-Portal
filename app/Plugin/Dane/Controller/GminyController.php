@@ -4224,7 +4224,7 @@ class GminyController extends DataobjectsController
                     'przedsiewziecia', 'location'
                 )
             ));
-                        
+
             if( $this->request->isPost() ) {
 
                 $this->loadModel('Dane.Gmina');
