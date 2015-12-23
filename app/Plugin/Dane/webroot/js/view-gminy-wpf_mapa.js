@@ -10,7 +10,19 @@ $(document).ready(function () {
 			center: {lat: 50.0467656, lng: 20.0048731},
 			zoom: 11,
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			scrollwheel: false
+			scrollwheel: false,
+			mapTypeControl: true,
+			mapTypeControlOptions: {
+				style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+				position: google.maps.ControlPosition.TOP_CENTER
+			},
+			panControl: false,
+			zoomControl: true,
+			zoomControlOptions: {
+				position: google.maps.ControlPosition.RIGHT_CENTER
+			},
+			scaleControl: true,
+			streetViewControl: false
 		});
 
 	function mapSize() {
