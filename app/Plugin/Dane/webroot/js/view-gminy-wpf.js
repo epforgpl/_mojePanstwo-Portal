@@ -39,8 +39,6 @@ $(document).ready(function () {
 			}
 		});
 
-		console.log(categories, years);
-
 		if (years.length > 1) {
 			$(this).highcharts({
 				chart: {
