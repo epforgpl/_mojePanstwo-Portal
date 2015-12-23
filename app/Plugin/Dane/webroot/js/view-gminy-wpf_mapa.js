@@ -2,6 +2,12 @@
 
 $(document).ready(function () {
 	var $wpfMapa = $('#wpfMapa'),
+		featureStyle = {
+			fillColor: '#0000aa',
+			fillOpacity: 0.05,
+			strokeWeight: 2,
+			strokeColor: '#0000aa'
+		},
 		base = ($wpfMapa.attr('data-pk')) ? '/wpf/' : '/dane/gminy/903,krakow/wpf/',
 		$places = $.parseJSON($wpfMapa.attr('data-json')),
 		markers = [],
@@ -22,6 +28,8 @@ $(document).ready(function () {
 			streetViewControl: false,
 			overviewMapControl: false
 		});
+	map.data.loadGeoJson('/Dane/files/krakow_dzielnice.geojson');
+	map.data.setStyle(featureStyle);
 
 	function mapSize() {
 		$wpfMapa.css('height', 'auto');
