@@ -3,7 +3,11 @@
 $(document).ready(function () {
 	//FIND BULLETS AT DESCRIPTION
 	var descText = $('.descBlock .text');
-	descText.html(descText.text().replace(/(\s\d{1,3}\))/g, "<br>$1"));
+	descText.html(descText.text()
+		.replace(/(\s\d{1,3}\))/g, "<br>$1")
+		.replace(/(\s­+)/g, "<br>&bull;&nbsp;$1")
+		.replace('Dla zrealizowania powyższego zadania koniecznym jest osiągnięcie następujących kamieni milowych:', '<br><br>Dla zrealizowania powyższego zadania koniecznym jest osiągnięcie następujących kamieni milowych:')
+	);
 
 	// DRAW HIGHCHART
 	$('.krakowWpfProgramStatic').each(function () {
