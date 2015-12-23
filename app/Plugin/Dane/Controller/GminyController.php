@@ -1837,73 +1837,190 @@ class GminyController extends DataobjectsController
         $this->_prepareView();
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
-
-            $debata = $this->Dataobject->find('first', array(
+			
+			
+			if( 
+				( @$this->request->params['ext'] == 'json' ) && 
+				( @$this->request->params['subaction']=='wystapienia' ) && 
+				( is_numeric( $this->request->params['subsubid'] ) )
+			) {
+				
+				$wystapienie = $this->Dataobject->find('first', array(
+	                'conditions' => array(
+	                    'dataset' => 'krakow_posiedzenia_wystapienia',
+	                    'id' => $this->request->params['subsubid'],
+	                ),
+	                'layers' => array(
+		                'html',
+	                ),
+	            ));
+	            
+	            $this->set('data', $wystapienie->getData());
+	            $this->set('layers', $wystapienie->getLayers());
+	            $this->set('_serialize', array('data', 'layers'));
+	            return true;
+				
+			}
+			
+			
+			$debata = $this->Dataobject->find('first', array(
                 'conditions' => array(
                     'dataset' => 'krakow_posiedzenia_punkty',
                     'id' => $this->request->params['subid'],
                 ),
                 'layers' => array('neighbours', 'wystapienia'),
-                'aggs' => array(
-                    'druk' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'rady_druki',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.rady_druki.punkt_id' => $this->request->params['subid'],
-                                        ),
+            ));
+			
+			$global_aggs = array(
+                'druk' => array(
+                    'filter' => array(
+                        'bool' => array(
+                            'must' => array(
+                                array(
+                                    'term' => array(
+                                        'dataset' => 'rady_druki',
                                     ),
                                 ),
-                            ),
-                        ),
-                        'scope' => 'global',
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    'size' => 1
+                                array(
+                                    'term' => array(
+                                        'data.rady_druki.punkt_id' => $this->request->params['subid'],
+                                    ),
                                 ),
                             ),
                         ),
                     ),
-                    'glosowania' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'krakow_glosowania',
-                                        ),
+                    'scope' => 'global',
+                    'aggs' => array(
+                        'top' => array(
+                            'top_hits' => array(
+                                'fielddata_fields' => array('dataset', 'id'),
+                                'size' => 1
+                            ),
+                        ),
+                    ),
+                ),
+                'glosowania' => array(
+                    'filter' => array(
+                        'bool' => array(
+                            'must' => array(
+                                array(
+                                    'term' => array(
+                                        'dataset' => 'krakow_glosowania',
                                     ),
-                                    array(
-                                        'term' => array(
-                                            'data.krakow_glosowania.punkt_id' => $this->request->params['subid'],
-                                        ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.krakow_glosowania.punkt_id' => $this->request->params['subid'],
                                     ),
                                 ),
                             ),
                         ),
-                        'scope' => 'global',
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    'size' => 100
+                    ),
+                    'scope' => 'global',
+                    'aggs' => array(
+                        'top' => array(
+                            'top_hits' => array(
+                                'fielddata_fields' => array('dataset', 'id'),
+                                'size' => 100
+                            ),
+                        ),
+                    ),
+                ),
+                'wystapienia' => array(
+                    'filter' => array(
+                        'bool' => array(
+                            'must' => array(
+                                array(
+                                    'term' => array(
+                                        'dataset' => 'krakow_posiedzenia_wystapienia',
+                                    ),
+                                ),
+                                array(
+                                    'term' => array(
+                                        'data.krakow_posiedzenia_punkty.id' => $this->request->params['subid'],
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'scope' => 'global',
+                    'aggs' => array(
+                        'top' => array(
+                            'top_hits' => array(
+                                'size' => 1000,
+                                'fielddata_fields' => array('dataset', 'id'),
+                                'sort' => array(
+                                    'data.krakow_posiedzenia_wystapienia._ord' => array(
+	                                    'order' => 'asc',
+                                    ),
                                 ),
                             ),
                         ),
                     ),
                 ),
-            ));
+            );
+            
+            $options = array(
+                'searchTitle' => 'Szukaj w debacie...',
+                'conditions' => array(
+                    'dataset' => 'krakow_posiedzenia_punkty',
+                    'data.krakow_posiedzenia_punkty.id' => $debata->getId(),
+                ),
+                'cover' => array(
+                    'view' => array(
+                        'plugin' => 'Dane',
+                        'element' => 'sejm_debaty/cover',
+                    ),
+                    'aggs' => $global_aggs,
+                ),
+                'aggs' => array(
+                    'dataset' => array(
+                        'terms' => array(
+                            'field' => 'dataset',
+                        ),
+                        'visual' => array(
+                            'label' => 'Zbiory danych',
+                            'skin' => 'datasets',
+                            'class' => 'special',
+                            'field' => 'dataset',
+                            'dictionary' => array(
+                                'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
+                                'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
+                            ),
+                        ),
+                    ),
+                ),
+            );
 
+            $this->Components->load('Dane.DataBrowser', $options);	
+						
+			
+			if( 
+				( @$this->request->params['subaction']=='wystapienia' ) && 
+				( is_numeric( $this->request->params['subsubid'] ) )
+			) {
+				
+				$wystapienie = $this->Dataobject->find('first', array(
+	                'conditions' => array(
+	                    'dataset' => 'krakow_posiedzenia_wystapienia',
+	                    'id' => $this->request->params['subsubid'],
+	                ),
+	                'layers' => array(
+		                'html',
+	                ),
+	            ));	
+	            	            
+	            $this->set('wystapienie', $wystapienie);
+				
+			}
+			
+			/*
             $this->set('debata', $debata);
-            $this->set('aggs', $this->Dataobject->getAggs());
+            $this->set('title_for_layout', $debata->getTitle());
+            $this->render('sejm_debata');
+			*/
+			
+            $this->set('debata', $debata);
 
             $wystapienia = $debata->getLayer('wystapienia');
             $this->set('wystapienia', $wystapienia);
@@ -2704,12 +2821,10 @@ class GminyController extends DataobjectsController
                         'id' => '',
                         'label' => 'Dane',
                     ),
-                    /*
                     array(
                         'label' => 'Wystąpienia',
                         'id' => 'wystapienia',
                     ),
-                    */
                     array(
                         'label' => 'Wyniki głosowań',
                         'id' => 'glosowania',
@@ -2789,7 +2904,7 @@ class GminyController extends DataobjectsController
                                         'fielddata_fields' => array('dataset', 'id'),
                                         'sort' => array(
                                             'krakow_posiedzenia.data' => 'desc',
-                                            'krakow_posiedzenia_wystapienia.ord' => 'desc',
+                                            'krakow_posiedzenia_wystapienia._ord' => 'desc',
                                         ),
                                     ),
                                 ),
