@@ -65,7 +65,7 @@ $(document).ready(function () {
 					'<div class="title">' +
 					'<a href="' + base + this.data.id + '">' + this.data.title + '</a>' +
 					'</div>' +
-					'<div class="cost">Łączna kwota: <strong>' + this.data.kwota + ' zł</strong></div>' +
+					'<div class="cost">Wartość inwestycji: <strong>' + this.data.kwota + ' zł</strong></div>' +
 					'</div>';
 
 				infowindow.setContent(contentString);

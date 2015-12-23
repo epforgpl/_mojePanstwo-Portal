@@ -745,6 +745,7 @@ class AppController extends Controller
 	        $this->set('_applications', $this->applications);
 	        $this->set('_menu', $menu);
 	        $this->set('_observeOptions', $this->observeOptions);
+	        $this->set('_domainMode', $this->domainMode);
 	        $this->set('appSelected', $this->appSelected);
         
         }
