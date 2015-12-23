@@ -45,7 +45,7 @@ function initialize() {
 		panControl: false,
 		zoomControl: true,
 		zoomControlOptions: {
-			style: google.maps.ZoomControlStyle.SMALL
+			position: google.maps.ControlPosition.RIGHT_CENTER
 		},
 		mapTypeControl: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,

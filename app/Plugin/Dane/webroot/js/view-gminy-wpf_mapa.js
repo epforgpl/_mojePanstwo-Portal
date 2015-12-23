@@ -9,20 +9,18 @@ $(document).ready(function () {
 		map = new google.maps.Map(document.getElementById('wpfMapa'), {
 			center: {lat: 50.0467656, lng: 20.0048731},
 			zoom: 11,
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			scrollwheel: false,
-			mapTypeControl: true,
-			mapTypeControlOptions: {
-				style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-				position: google.maps.ControlPosition.TOP_CENTER
-			},
+			navigationControl: true,
 			panControl: false,
 			zoomControl: true,
 			zoomControlOptions: {
 				position: google.maps.ControlPosition.RIGHT_CENTER
 			},
-			scaleControl: true,
-			streetViewControl: false
+			mapTypeControl: false,
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			scaleControl: false,
+			streetViewControl: false,
+			overviewMapControl: false
 		});
 
 	function mapSize() {
@@ -35,8 +33,8 @@ $(document).ready(function () {
 	});
 
 	if ($places.length) {
-		for (var i = 0, len = $places.length; i < len; i++) {
-			var el = $places[i],
+		for (var j = 0, len = $places.length; j < len; j++) {
+			var el = $places[j],
 				position = {lat: Number(el.lat), lng: Number(el.lon)};
 
 			markers.push(new google.maps.Marker({
