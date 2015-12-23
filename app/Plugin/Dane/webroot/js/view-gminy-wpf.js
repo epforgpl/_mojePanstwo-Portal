@@ -39,6 +39,8 @@ $(document).ready(function () {
 			}
 		});
 
+		console.log(categories, years);
+
 		if (years.length > 1) {
 			$(this).highcharts({
 				chart: {
@@ -96,6 +98,8 @@ $(document).ready(function () {
 					color: '#3CB371'
 				}]
 			});
+		} else {
+			$(this).parents('.block').hide();
 		}
 	});
 
@@ -127,7 +131,7 @@ $(document).ready(function () {
 		form.find('input[name=lon]').val(this.position.lng());
 	}
 
-	if (googleMap.length()) {
+	if (googleMap.length) {
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 50.0467656, lng: 20.0048731},
 			zoom: (googleMap.attr('data-zoom') !== "0") ? Number(googleMap.attr('data-zoom')) : 11,
