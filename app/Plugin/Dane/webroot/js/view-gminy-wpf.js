@@ -1,8 +1,11 @@
 /*global $, document, google*/
 
 $(document).ready(function () {
-	// DRAW HIGHCHART
+	//FIND BULLETS AT DESCRIPTION
+	var descText = $('.descBlock .text');
+	descText.html(descText.text().replace(/(\s\d{1,3}\))/g, "<br>$1"));
 
+	// DRAW HIGHCHART
 	$('.krakowWpfProgramStatic').each(function () {
 		var data = $(this).data(),
 			from = -1,
