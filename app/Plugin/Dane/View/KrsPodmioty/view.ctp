@@ -34,7 +34,7 @@ $description =
 
 <div class="krsPodmioty">
     <div class="col-xs-12 col-md-3 objectSide">
-        <? if ($page = $object->getPage()) { ?>
+        <? if ( ($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www')) ) { ?>
             <div class="iconsList">
                 <div class="col-xs-12 nopadding">
 
@@ -93,7 +93,7 @@ $description =
                                onclick="return false;"><span class="fa fa-twitter"></span></a>
                         </div>
                     <? } ?>
-                    <? if ($www = $object->getPage('www')) { ?>
+                    <? if (($www = $object->getData('www')) || ($www = $object->getPage('www'))) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="<?= $www; ?>"
                                target="_blank"><span class="glyphicon glyphicon-link"></span></a>
@@ -105,7 +105,7 @@ $description =
                         </div>
                     <? } ?>
 
-                    <? if ($email = $object->getPage('email')) { ?>
+                    <? if (($email = $object->getData('email')) || ($email = $object->getPage('email'))) { ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="Adres e-mail"
                                href="mailto:<?= $email; ?>" target="_blank"><span
@@ -242,14 +242,16 @@ $description =
                 'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
             ));
             echo '</div>';
-
-            $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
-            $this->Combinator->add_libs('js', 'Pisma.pisma-button');
-            echo '<div class="bannerCol col-xs-6 col-md-12">';
-            echo $this->element('tools/pismo', array(
-                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-            ));
-            echo '</div>';
+			
+			if (($email = $object->getData('email')) || ($email = $object->getPage('email'))) {
+	            $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+	            $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+	            echo '<div class="bannerCol col-xs-6 col-md-12">';
+	            echo $this->element('tools/pismo', array(
+	                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+	            ));
+	            echo '</div>';
+            }
 
             $page = $object->getLayer('page');
             if (!$page['moderated'])
