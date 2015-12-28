@@ -2,7 +2,7 @@ msgid "LC_PODATKI_HEADLINE"
 msgstr "Jak są wydawane moje podatki?"
 
 msgid "LC_PODATKI_SUBHEADLINE"
-msgstr "Wpisz poniżej wysokość Twoich dochodów. Sprawdź ile podatków płacisz i na co są one wydawane."
+msgstr "Wpisz poniżej wysokość Twoich dochodów. Sprawdź, ile podatków płacisz i na co są one wydawane."
 
 msgid "LC_PODATKI_RESULTS_SUBHEADLINE"
 msgstr "Poniżej znajdziesz podsumowanie, kliknij aby zobaczyć szczegóły."

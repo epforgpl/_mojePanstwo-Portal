@@ -498,7 +498,7 @@ $(document).ready(function () {
 					}
 				});
 			} else {
-				btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-warning').text('Przed wysłaniem prosze rozdysponować wszelkie pozostałe pieniądze.');
+				btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-warning').text('Przed wysłaniem rozdysponuj wszystkie Twoje podatki.');
 			}
 		}
 	});
