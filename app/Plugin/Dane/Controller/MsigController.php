@@ -18,12 +18,16 @@ class MSiGController extends DataobjectsController
     {
 
         $this->_prepareView();
+        
+        /*
+        debug( $this->object->getLayer('toc') ); die();
 
         if ($this->object->getLayer('toc')) {
             $this->render('toc');
         } else {
             $this->render('view');
         }
+        */
     }
 
     public function dokument()

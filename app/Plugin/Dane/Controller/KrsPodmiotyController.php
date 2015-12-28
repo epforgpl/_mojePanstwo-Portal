@@ -592,6 +592,41 @@ class KrsPodmiotyController extends DataobjectsController
         }
 
     }
+    
+    public function msig()
+    {
+
+        $this->_prepareView();
+
+
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            $faktura = $this->Dataobject->find('first', array(
+	            'conditions' => array(
+		            'dataset' => 'faktury',
+		            'id' => $this->request->params['subid'],
+	            ),
+            ));
+
+            $this->set('faktura', $faktura);
+            $this->set('title_for_layout', $faktura->getTitle());
+            $this->render('faktura');
+
+        } else {
+
+            $this->_prepareView();
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'msig_pozycje',
+	                'msig_pozycje.krs_id' => $this->object->getId()
+	            ),
+	        ));
+
+	        $this->set('title_for_layout', 'Aktualności w Monitorze Sądowym i Gospodarczym o ' . $this->object->getData('nazwa'));
+
+        }
+
+    }
 
     public function emisje_akcji()
     {
