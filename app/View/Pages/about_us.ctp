@@ -87,7 +87,7 @@
                                     <div class="logotypy">
                                         <a target="_blank" href="http://www.eeagrants.org/"
                                            title="Link do strony EEA Grants">
-                                            <img class="image" src="/img/partnerzy/eea_grants.png"
+                                            <img class="image" src="/img/partnerzy/norway_grants.png"
                                                  alt="Logo EEA Grants"/>
                                         </a>
                                         <a target="_blank" href="http://www.batory.org.pl/"
