@@ -634,6 +634,7 @@
 									return;
 								}
 								label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
+								value = ((value) ? value.split("-")[0] : ' - ');
 							} else if (label === 'plec') {
 								label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;
 								if (value === 'K') {
