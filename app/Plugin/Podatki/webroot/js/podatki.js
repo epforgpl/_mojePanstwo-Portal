@@ -96,7 +96,12 @@ $(document).ready(function () {
 				draggableY: true,
 				dragMinY: 0,
 				visible: false,
-				cursor: 'ns-resize'
+				cursor: 'ns-resize',
+				dataLabels: {
+					borderRadius: 5,
+					backgroundColor: 'rgba(255, 255, 255, 0.75)',
+					zIndex: 7
+				}
 			});
 
 			chart = new Highcharts.Chart({
@@ -114,7 +119,8 @@ $(document).ready(function () {
 						alpha: 10,
 						beta: 25,
 						depth: 70
-					}
+					},
+					events: {}
 				},
 				title: {
 					text: ' '
@@ -127,6 +133,7 @@ $(document).ready(function () {
 							enabled: true,
 							crop: false,
 							overflow: 'none',
+							allowOverlap: 10,
 							formatter: function () {
 								return Highcharts.numberFormat(this.y, 0) + ' zł';
 							}
