@@ -242,7 +242,7 @@ $description =
                 'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
             ));
             echo '</div>';
-			
+
 			if (($email = $object->getData('email')) || ($email = $object->getPage('email'))) {
 	            $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
 	            $this->Combinator->add_libs('js', 'Pisma.pisma-button');
@@ -266,7 +266,7 @@ $description =
         <div class="object">
 
             <? if ($object->getData('wykreslony')) { ?>
-            <div class="alert alert-dismissable alert-danger">yn 55y6
+            <div class="alert alert-dismissable alert-danger">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
             </div>
