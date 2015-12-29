@@ -52,7 +52,7 @@
 
                             <li><strong>Serwis</strong> - zespół stron www udostępnionych przez Usługodawcę na serwerach
                                 internetowych pod adresami: <a href="http://mojepanstwo.pl/" target="_blank">http://mojepanstwo.pl</a>,
-                                <a href="http://koduj.dla.polski.pl/" target="_blank">http://koduj.dla.polski.pl</a>, <a
+                                <a href="http://kodujdlapolski.pl/" target="_blank">http://kodujdlapolski.pl</a>, <a
                                     href="http://epf.org.pl/" target="_blank">http://epf.org.pl</a>;
                             </li>
 
