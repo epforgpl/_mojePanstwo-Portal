@@ -49,6 +49,7 @@
 
     $this->Combinator->add_libs('css', $this->Less->css('jquery/jquery-ui-customize'), false);
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
+    $this->Combinator->add_libs('css', $this->Less->css('portal'), false);
     $this->Combinator->add_libs('css', $this->Less->css('main'), false);
     $this->Combinator->add_libs('css', $this->Less->css('themes'), false);
     $this->Combinator->add_libs('css', $this->Less->css('icon-applications'));
@@ -149,7 +150,7 @@
         <?php
         if ($domainMode == 'PK')
             echo $this->Element('PrzejrzystyKrakow.pkrk-header');
-					
+
         if (isset($_layout['header']) && !empty($_layout['header'])) {
             echo $this->Element('headers/' . $_layout['header']['element']);
         } ?>
@@ -202,6 +203,7 @@ echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.m
 $this->Combinator->add_libs('js', 'enhance', false);
 $this->Combinator->add_libs('js', 'structure', false);
 $this->Combinator->add_libs('js', 'mpbase', false);
+$this->Combinator->add_libs('js', 'portal', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
