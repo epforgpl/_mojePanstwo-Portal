@@ -71,7 +71,6 @@
 					links.push({source: s, target: t, label: link.type, id: link.id});
 				});
 
-				// Sort links by source, then target
 				links.sort(function (a, b) {
 					var sort;
 
@@ -91,8 +90,8 @@
 					return sort;
 				});
 
-				// Any links with duplicate source and target get an incremented 'linknum'
-				for (var i = 0; i < links.length; i++) {
+				var i;
+				for (i = 0; i < links.length; i++) {
 					if (i !== 0 &&
 						links[i].source.id === links[i - 1].source.id &&
 						links[i].target.id === links[i - 1].target.id) {
@@ -154,7 +153,7 @@
 						return d;
 					})
 					.attr("refX", 0)
-					.attr("refY", d3Data.size.nodesMarkerSize * .5)
+					.attr("refY", d3Data.size.nodesMarkerSize * 0.5)
 					.attr("markerWidth", d3Data.size.nodesMarkerSize)
 					.attr("markerHeight", d3Data.size.nodesMarkerSize)
 					.attr("orient", "auto")
@@ -365,8 +364,8 @@
 								$(this).css({'fill': d3Data.color[o.label], 'stroke': d3Data.color[o.label]});
 								return false;
 							});
-							return false;
-						});
+								return false;
+							});
 					})
 					.on("mouseout", function () {
 						circle.classed('node-active', function (o) {
@@ -374,14 +373,14 @@
 							circleText.classed("text-active", function () {
 								$(this).css('opacity', 1);
 							});
-								return false;
+							return false;
 							});
 						path.classed('link-active', function () {
 							this.setAttribute('stroke-opacity', 1);
 							pathText.classed("text-active", function () {
 								$(this).css('fill', 'rgba(0,0,0,1)');
 							});
-							return false;
+								return false;
 							});
 					})
 					.on("mousedown", function (d) {
@@ -580,8 +579,9 @@
 
 				function zoomed() {
 					d3Data.innerContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-					if (connectionGraph.find('.dataContent').length)
+					if (connectionGraph.find('.dataContent').length) {
 						detailInfoPosition(connectionGraph.find('.dataContent').data('node'))
+					}
 				}
 
 				function dragstarted() {
@@ -595,7 +595,7 @@
 						d.y = d3.event.y;
 					}
 					tick(d);
-				}
+					}
 
 				function dragended() {
 					d3.select(this).classed("dragging", false);
@@ -606,9 +606,13 @@
 
 					detailInfoRemove();
 
-					var dataContent = $('<div></div>').addClass('dataContent').css('width', dataContentWidth);
-					dataContent.append($('<button></button>').addClass('btn btn-xs pull-right').text('x'));
-					dataContent.append($('<table></table>').addClass('table table-striped'));
+					var dataContent = $('<div></div>').addClass('dataContent').css('width', dataContentWidth).append(
+						$('<div></div>').addClass('arrow')
+					).append(
+						$('<button></button>').addClass('btn btn-xs pull-right').text('x')
+					).append(
+						$('<ul></ul>').addClass('wskazniki')
+					);
 
 					var linkEl = $('<a></a>').attr({
 						'href': '#',
@@ -623,7 +627,9 @@
 								linkEl.attr('href', '/dane/krs_osoby/' + value);
 							}
 						} else {
-							var tr = $('<tr></tr>');
+							var tr = $('<li></li>').append(
+								$('<div></div>').addClass('row')
+							);
 
 							if (label === 'privacy_level' && Number(value) === 1) {
 								birthdayPrivacy = true;
@@ -642,7 +648,7 @@
 								} else if (value === 'M') {
 									value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA;
 								}
-								}
+							}
 							else if (label === 'nazwisko') {
 								label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO;
 							} else if (label === 'imiona') {
@@ -660,11 +666,11 @@
 							} else if (label === 'nazwa') {
 								label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWA;
 							} else {
-								return;
-							}
-							tr.append($('<td></td>').text(label));
-							tr.append($('<td></td>').text((value) ? value : ' - '));
-							dataContent.find('table').append(tr);
+									return;
+								}
+							tr.find('.row').append($('<div></div>').addClass('col-xs-5').text(label));
+							tr.find('.row').append($('<div></div>').addClass('col-xs-7').text((value) ? value : ' - '));
+							dataContent.find('.wskazniki').append(tr);
 							}
 					});
 
@@ -721,14 +727,16 @@
 					var nodeX = node.x + nodeSize + windowX,
 						nodeY = node.y + nodeSize + windowY;
 
-					if (nodeX + dataContentWidth > windowW)
+					if (nodeX + dataContentWidth > windowW) {
 						nodeX -= (dataContentWidth + (nodeSize * 2));
-					if (nodeY + detailInfoHeight > windowH)
+					}
+					if (nodeY + detailInfoHeight > windowH) {
 						nodeY -= (detailInfoHeight + (nodeSize * 2));
+					}
 
 					detailInfo.css({
-						top: nodeY,
-						left: nodeX
+						top: nodeY - ((node.label === "osoba") ? d3Data.size.nodesSize * 3.5 : d3Data.size.nodesSize * 5.5),
+						left: nodeX - ((node.label === "osoba") ? d3Data.size.nodesSize : d3Data.size.nodesSize * 2)
 					});
 				}
 
@@ -739,7 +747,7 @@
 						detailInfo.data('node').detailWindow = null;
 						detailInfo.remove();
 					}
-				}
+					}
 
 				function grabIcon() {
 					connectionGraph.find('>svg').mousedown(function () {
@@ -766,7 +774,7 @@
 								)
 						);
 					}
-				}
+					}
 
 				/*ADDITIONAL FUNCTIONS*/
 				function init() {
