@@ -67,17 +67,17 @@ $(document).ready(function () {
 	}
 
 	function resultPie() {
-		var res = $chartArea.attr('data-series');
+		var res = $chartArea.attr('data-series'),
+			categories = [],
+			data = [],
+			dataSeries = [],
+			userSeries = [];
 
 		if (typeof res !== "undefined" && res !== false) {
 			res = $.parseJSON(res);
 
 			var suma = $chartArea.attr('data-suma'),
 				podatek = $chartArea.attr('data-podatek'),
-				categories = [],
-				data = [],
-				dataSeries = [],
-				userSeries = [],
 				i, bLen;
 
 			for (i = 0, bLen = res.length; i < bLen; i++) {
@@ -145,7 +145,6 @@ $(document).ready(function () {
 								dblclick: function (e) {
 									if (this.series.index === 1) {
 										var index = this.index,
-											x = this.x,
 											y = this.y,
 											$div = $('<div></div>')
 												.dialog({
@@ -187,11 +186,7 @@ $(document).ready(function () {
 													maxSum = maxSum + (newY - Math.round(y));
 
 													if (newY < 0) {
-														newY = 0;
-														chart.series[1].data[index].update({
-															x: Math.round(x),
-															y: Math.round(newY)
-														});
+														chart.series[1].data[index].update(0);
 														chart.redraw();
 														$div.dialog("close");
 														return;
@@ -199,22 +194,14 @@ $(document).ready(function () {
 														var correct = Math.round(newY) - (maxSum - pod);
 
 														if (correct < 0) {
-															newY = 0;
-														} else {
-															newY = correct;
+															correct = 0;
 														}
-														chart.series[1].data[index].update({
-															x: Math.round(x),
-															y: Math.round(newY)
-														});
+														chart.series[1].data[index].update(Math.round(correct));
 														chart.redraw();
 														$div.dialog("close");
 														return;
 													}
-													chart.series[1].data[index].update({
-														x: Math.round(x),
-														y: Math.round(newY)
-													});
+													chart.series[1].data[index].update(Math.round(newY));
 													chart.redraw();
 													$div.dialog("close");
 												})
@@ -258,6 +245,7 @@ $(document).ready(function () {
 												maxSum += Math.round(userSeries[i]);
 											}
 										}
+
 										$moneyLeft.attr('data-sum', pod - maxSum).find('span').text(pod - maxSum);
 
 										return false;
@@ -443,6 +431,9 @@ $(document).ready(function () {
 		$moneyLeft = $('.moneyLeft');
 
 	$userChart.click(function () {
+		for (var k = 0; k < chart.series[1].data.length; k++) {
+			chart.series[1].data[k].update(0);
+		}
 		chart.series[1].show();
 		$moneyLeft.show();
 		$userChart.addClass('disabled hide');
@@ -450,16 +441,21 @@ $(document).ready(function () {
 	});
 
 	$userChartBlock.find('.userChartCancel').click(function () {
+		var podatek = Math.round($chartArea.attr('data-podatek'));
+
 		if ($(this).hasClass('userOptions')) {
+			for (var k = 0; k < chart.series[1].data.length; k++) {
+				chart.series[1].data[k].update(null);
+			}
 			chart.series[1].hide();
-			$moneyLeft.hide();
-			chart.series[1].setData([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+			$moneyLeft.hide().attr('data-sum', podatek).find('span').text(podatek);
+
 			$userChart.removeClass('disabled hide');
 		} else {
 			chart.series[1].options.cursor = 'default';
 			chart.series[1].options.draggableY = false;
 			$('.userChartTitle').hide();
-			$moneyLeft.hide();
+			$moneyLeft.hide().attr('data-sum', podatek).find('span').text(podatek);
 		}
 		$userChartBlock.find('.alert').removeClass('alert-error alert-success').addClass('hide').text('');
 		$userChartBlock.addClass('hide');
