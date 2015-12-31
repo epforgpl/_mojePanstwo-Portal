@@ -1,0 +1,29 @@
+.pkd-list {
+  list-style: none;
+}
+.pkd-list .pkd-item {
+  list-style: none;
+  margin: 25px 15px;
+}
+.pkd-list .pkd-item a {
+  padding: 0;
+  margin: 0;
+}
+.pkd-list .pkd-item a .pkd-icon {
+  max-width: 40px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4px;
+}
+.pkd-list .pkd-item a .pkd-title {
+  font-size: 16px;
+  margin: -7px 0 7px;
+}
+.pkd-list .pkd-item a .pkd-desc {
+  font-size: 12px;
+  color: #444;
+}
+.pkd-list .pkd-item a .pkd-desc strong {
+  font-weight: normal;
+}

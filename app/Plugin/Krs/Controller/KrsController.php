@@ -50,6 +50,27 @@ class KrsController extends ApplicationsController
                             ),
                         ),
                         'aggs' => array(
+                            'dzialalnosci' => array(
+	                            'nested' => array(
+		                            'path' => 'krs_podmioty-dzialalnosci',
+	                            ),
+	                            'aggs' => array(
+		                            'sekcja' => array(
+			                            'terms' => array(
+				                            'field' => 'krs_podmioty-dzialalnosci.pkd2007.sekcja.symbol',
+				                            'size' => 20,
+			                            ),
+			                            'aggs' => array(
+				                            'nazwa' => array(
+					                            'terms' => array(
+						                            'field' => 'krs_podmioty-dzialalnosci.pkd2007.sekcja.nazwa',
+						                            'size' => 1,
+					                            ),
+				                            ),
+			                            ),
+		                            ),
+	                            ),
+                            ),
                             'typ_id' => array(
                                 'terms' => array(
                                     'field' => 'data.krs_podmioty.forma_prawna_id',
