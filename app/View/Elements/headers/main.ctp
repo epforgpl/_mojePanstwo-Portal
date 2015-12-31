@@ -33,8 +33,8 @@
         </div>
     <?php } ?>
     <div class="container">
-        <a href="/" target="_self">
-            <img src="/img/mp-logo.svg" title="moje Państwo"/>
+        <a class="btn btn-link" href="/" target="_self">
+            <img id="mp-logo" src="/img/logo/mp_logo_white.png" title="moje Państwo"/>
         </a>
         <ul class="app-icons">
             <li class="login">
