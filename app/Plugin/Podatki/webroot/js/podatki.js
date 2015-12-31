@@ -457,7 +457,7 @@ $(document).ready(function () {
 			$('.userChartTitle').hide();
 			$moneyLeft.hide().attr('data-sum', podatek).find('span').text(podatek);
 		}
-		$userChartBlock.find('.alert').removeClass('alert-error alert-success').addClass('hide').text('');
+		$userChartBlock.find('.alert').removeClass('alert-error alert-warning alert-success').addClass('hide').text('');
 		$userChartBlock.addClass('hide');
 	});
 	$userChartBlock.find('.userChartSave').click(function () {
@@ -489,11 +489,11 @@ $(document).ready(function () {
 					},
 					success: function (res) {
 						if (res.status) {
-							btnParent.find('.alert').removeClass('hide alert-danger').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
+							btnParent.find('.alert').removeClass('hide alert-danger alert-warning').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
 							btnParent.find('.btn.userOptions').remove();
 							btnParent.find('.btn:not(".userOptions")').removeClass('hide');
 						} else {
-							btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-danger').text('Wystąpił błąd podczas zapisywania danych - prosze spróbować ponownie później.');
+							btnParent.find('.alert').removeClass('hide alert-success alert-warning').addClass('alert-danger').text('Wystąpił błąd podczas zapisywania danych - prosze spróbować ponownie później.');
 						}
 					},
 					complete: function () {
@@ -501,7 +501,7 @@ $(document).ready(function () {
 					}
 				});
 			} else {
-				btnParent.find('.alert').removeClass('hide alert-success').addClass('alert-warning').text('Przed wysłaniem rozdysponuj wszystkie Twoje podatki.');
+				btnParent.find('.alert').removeClass('hide alert-success alert-danger').addClass('alert-warning').text('Przed wysłaniem rozdysponuj wszystkie Twoje podatki.');
 			}
 		}
 	});
