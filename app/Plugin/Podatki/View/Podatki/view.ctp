@@ -443,8 +443,9 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                 Uproszczenie to wynika ze struktury dochodów budżetu państwa. Składki na ubezpieczenie
                                 społeczne płacone przez pracodawcę obejmują też składki na Fundusz Pracy i Fundusz
                                 Gwarantowanych Świadczeń Pracowniczych. Przyjęto stawkę wypadkową w wysokości 1,93%.
-                                W przypadku umowy-zlecenie założono, że nie jest opłacana składka na ubezpieczenie
-                                chorobowe.
+                                W przypadku umowy zlecenie założono, że nie jest opłacana składka na ubezpieczenie
+                                chorobowe. Dla umowy zlecenie i umowy o dzieło przyjęto 20% kosztów uzyskania przychodu
+                                oraz pomniejszono podatek PIT o 1/12 rocznej kwoty zmniejszającej podatek (46 zł).
                             </p>
 
                             <p>Struktura wydatków państwa została opracowana na podstawie danych za 2013 rok. W tym celu

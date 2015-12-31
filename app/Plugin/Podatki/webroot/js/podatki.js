@@ -477,7 +477,7 @@ $(document).ready(function () {
 				sUser.push(this.y);
 			});
 
-			if ($moneyLeft.attr('data-sum') === 0) {
+			if (Number($moneyLeft.attr('data-sum')) === 0) {
 				$.ajax({
 					url: "/podatki.json",
 					method: "POST",
