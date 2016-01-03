@@ -10,19 +10,10 @@ $options = array(
 );
 ?>
 
-<div class="col-xs-12 col-sm-4 col-md-1-5 nopadding dataAggsContainer">
-    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 
-	    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
+<div class="col-xs-12">
 
-    </div>
-</div>
-
-
-<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
-
-    <div class="dataWrap">
-        <div class="appBanner bottom-border">
+        <div class="appBanner">
             <h1 class="appTitle">Krajowy Rejestr Sądowy</h1>
             <p class="appSubtitle">Przeglądaj informacje o organizacjach gospodarczych.</p>
             
@@ -38,31 +29,40 @@ $options = array(
 			</div>            
         </div>
 		
-		<? if( $dzialalnosci = $dataBrowser['aggs']['krs_podmioty']['dzialalnosci']['sekcja']['buckets'] ) { ?>
-			<div class="block col-xs-12">
-		        <header>Przeglądaj organizacje według działalności</header>
+		<div class="row">
 		
-		        <section class="aggs-init">
-		            <ul class="pkd-list">
-		            <? foreach( $dzialalnosci as $d ) { ?>
-		            	<li class="pkd-item">
-		            		<a href="/krs/pkd/<?= $d['key'] ?>">
-			            		<div class="row">
-				            		<div class="col-xs-1">
-					            		<img class="pkd-icon" src="/krs/icons/pkd/sekcje/<?= $d['key'] ?>.svg" />
-				            		</div>
-				            		<div class="col-xs-11">
-					            		<p class="pkd-title normalizeText"><?= $d['nazwa']['buckets'][0]['key'] ?></p>
-					            		<p class="pkd-desc"><?= pl_dopelniacz($d['doc_count'], "organizacja", "organizacje", "organizacji") ?></p>
-				            		</div>
-			            		</div>
-		            		</a>
-		            	</li>
-		            <? } ?>
-		            </ul>
-		        </section>
+			<div class="col-xs-8">
+				<div class="block">
+			        <header>Formy prawne</header>
+			
+			        <section class="aggs-init">
+			            
+			        </section>
+				</div>
 		    </div>
-		<? } ?>
+			
+			<? if( $dzialalnosci = $dataBrowser['aggs']['krs_podmioty']['dzialalnosci']['sekcja']['buckets'] ) { ?>
+				<div class="col-xs-4">
+					<div class="block">
+				        <header>Przeglądaj według działalności:</header>
+				
+				        <section class="aggs-init">
+				            <ul class="pkd-list">
+				            <? foreach( $dzialalnosci as $d ) { ?>
+				            	<li class="pkd-item">
+				            		<a href="/krs/pkd/<?= $d['key'] ?>">
+					            		<img class="pkd-icon" src="/krs/icons/pkd/sekcje/<?= $d['key'] ?>.svg" />
+					            		<p class="pkd-title normalizeText"><?= $this->Text->truncate($d['nazwa']['buckets'][0]['key'], 35) ?></p>
+				            		</a>
+				            	</li>
+				            <? } ?>
+				            </ul>
+				        </section>
+					</div>
+			    </div>
+			<? } ?>
+		
+		</div>
 		
 	    <div class="block col-xs-12">
 	        <header>Formy prawne organizacji</header>
@@ -106,7 +106,5 @@ $options = array(
 	            </div>
 	        </section>
 	    </div>
-	    
-	 </div>
-	
+	    	
 </div>
