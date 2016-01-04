@@ -50,6 +50,12 @@ class KrsController extends ApplicationsController
                             ),
                         ),
                         'aggs' => array(
+                            'organizacje' => array(
+	                            'top_hits' => array(
+		                            'size' => 10,
+		                            'fielddata_fields' => array('dataset', 'id'),
+	                            ),
+                            ),
                             'dzialalnosci' => array(
 	                            'nested' => array(
 		                            'path' => 'krs_podmioty-dzialalnosci',

@@ -30,16 +30,29 @@ $options = array(
         </div>
 		
 		<div class="row">
-		
+						
+			<? if( $organizacje = $dataBrowser['aggs']['krs_podmioty']['organizacje']['hits']['hits'] ) { ?>
 			<div class="col-xs-8">
 				<div class="block">
-			        <header>Formy prawne</header>
+			        <header>Ostatnio zarejestrowane organizacje:</header>
 			
-			        <section class="aggs-init">
-			            
-			        </section>
+			        <section class="content margin-top-10">
+		                <div class="agg agg-Dataobjects">
+		                    <ul class="dataobjects" style="margin: 0 20px;">
+		                        <? foreach ($organizacje as $doc) { ?>
+		                            <li class="margin-top-10">
+		                                <?
+		                                echo $this->Dataobject->render($doc, 'default');
+		                                ?>
+		                            </li>
+		                        <? } ?>
+		                    </ul>
+		                </div>
+		            </section>
+		            
 				</div>
 		    </div>
+		    <? } ?>
 			
 			<? if( $dzialalnosci = $dataBrowser['aggs']['krs_podmioty']['dzialalnosci']['sekcja']['buckets'] ) { ?>
 				<div class="col-xs-4">
@@ -52,7 +65,7 @@ $options = array(
 				            	<li class="pkd-item">
 				            		<a href="/krs/pkd/<?= $d['key'] ?>">
 					            		<img class="pkd-icon" src="/krs/icons/pkd/sekcje/<?= $d['key'] ?>.svg" />
-					            		<p class="pkd-title normalizeText"><?= $this->Text->truncate($d['nazwa']['buckets'][0]['key'], 35) ?></p>
+					            		<p class="pkd-title normalizeText"><?= $this->Text->truncate($d['nazwa']['buckets'][0]['key'], 40) ?></p>
 				            		</a>
 				            	</li>
 				            <? } ?>
