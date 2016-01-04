@@ -5282,8 +5282,8 @@ class GminyController extends DataobjectsController
     public function aktywnosci() {
 
         $this->request->params['action'] = 'rada';
-
-        $this->addInitAggs(array(
+		
+		$params = array(
 	        'ranking_aktywnosci' => array(
 		        'scope' => 'global',
 		        'filter' => array(
@@ -5307,18 +5307,7 @@ class GminyController extends DataobjectsController
 				        ),
 			        ),
 		        ),
-		        'aggs' => array(
-			        'top' => array(
-				        'top_hits' => array(
-					        'size' => 44,
-					        'sort' => array(
-						        'data.radni_gmin.punkty_aktywnosc' => array(
-							        'order' => 'desc',
-						        ),
-					        ),
-				        ),
-			        ),
-		        ),
+		        'aggs' => array(),
 	        ),
             'ranking_otwartosci' => array(
                 'scope' => 'global',
@@ -5356,7 +5345,68 @@ class GminyController extends DataobjectsController
                     ),
                 ),
             ),
-        ));
+        );
+        
+        if( isset($this->request->q['m']) ) {
+	        
+	        $params['ranking_aktywnosci']['aggs'] = array(
+		        'rank' => array(
+			        'nested' => array(
+				        'path' => 'radni_gmin-ranking',
+			        ),
+			        'aggs' => array(
+				        'target_date' => array(
+					        'filter' => array(
+						        'term' => array(
+		                            'radni_gmin-ranking.month' => $this->request->q['m'],
+	                            ),
+					        ),
+					        'aggs' => array(
+						        'points' => array(
+							        'terms' => array(
+								        'field' => 'points',
+								        'size' => 50,
+								        'order' => array(
+									        '_term' => 'desc',
+								        ),
+							        ),
+							        'aggs' => array(
+								        'reverse' => array(
+									        'reverse_nested' => '_empty',
+									        'aggs' => array(
+										        'top' => array(
+											        'top_hits' => array(
+												        'size' => 1,
+											        ),
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),							        
+					        ),
+				        ),
+			        ),
+		        ),
+	        );
+	        
+        } else {
+	        
+	        $params['ranking_aktywnosci']['aggs'] = array(
+		        'top' => array(
+			        'top_hits' => array(
+				        'size' => 44,
+				        'sort' => array(
+					        'data.radni_gmin.punkty_aktywnosc' => array(
+						        'order' => 'desc',
+					        ),
+				        ),
+			        ),
+		        ),
+	        );
+	        
+        }
+		
+        $this->addInitAggs($params);
 
 
         $this->_prepareView();

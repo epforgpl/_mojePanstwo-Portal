@@ -35,7 +35,9 @@ echo $this->Element('dataobject/pageBegin', array(
                 <div class="dataWrap">
 
                     <h1 class="smaller margin-top-15">Ranking aktywności radnych</h1>
-
+					
+					<? debug($aggs['ranking_aktywnosci']); ?>
+					
                     <div class="margin-top-20">
 		                <? if(
                         !empty($aggs['ranking_aktywnosci']['top']['hits']['hits']) &&
