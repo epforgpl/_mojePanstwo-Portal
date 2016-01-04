@@ -5347,7 +5347,7 @@ class GminyController extends DataobjectsController
             ),
         );
         
-        if( isset($this->request->q['m']) ) {
+        if( isset($this->request->query['m']) ) {
 	        
 	        $params['ranking_aktywnosci']['aggs'] = array(
 		        'rank' => array(
@@ -5358,7 +5358,7 @@ class GminyController extends DataobjectsController
 				        'target_date' => array(
 					        'filter' => array(
 						        'term' => array(
-		                            'radni_gmin-ranking.month' => $this->request->q['m'],
+		                            'radni_gmin-ranking.month' => $this->request->query['m'],
 	                            ),
 					        ),
 					        'aggs' => array(
