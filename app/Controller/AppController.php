@@ -62,7 +62,7 @@ class AppController extends Controller
 //			)
         ),
     );
-	
+
 	public $protocol = 'https://';
 	public $port = false;
     public $domainMode = 'MP';
@@ -113,7 +113,7 @@ class AppController extends Controller
             'element' => 'default',
         ),
     );
-	
+
     public $datasets = array(
         'krs' => array(
             'krs_podmioty' => array(
@@ -173,7 +173,7 @@ class AppController extends Controller
 					'dataset' => 'prawo_hasla',
 				),
             ),
-        ),  
+        ),
         'orzecznictwo' => array(
             'sa_orzeczenia' => array(
             	'label' => 'Orzeczenia sądów administracyjnych',
@@ -341,7 +341,7 @@ class AppController extends Controller
         'podatki' => array(
             'name' => 'Jak są wydawane moje podaki?',
             'href' => '/podatki',
-            'tag' => 2,
+            'tag' => 1,
             'icon' => '&#xe901;',
         ),
         'mapa' => array(
@@ -429,7 +429,7 @@ class AppController extends Controller
             'tag' => 0,
             'icon' => '&#xe616;',
         ),
-        
+
         /*
         'mapa_prawa' => array(
             'name' => 'Mapa prawa',
@@ -485,8 +485,8 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe60c;',
         ),
-        
-        
+
+
         'wydatki_poslow' => array(
             'name' => 'Wydatki Posłów',
             'href' => '/wydatki_poslow',
@@ -499,22 +499,22 @@ class AppController extends Controller
             'tag' => 2,
             'icon' => '&#xe612;',
         ),
-        
+
     );
 
     public function beforeFilter()
     {
-	    
-	    $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 	    $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
-	    	    				
+
         if (defined('PORTAL_DOMAIN')) {
             $pieces = parse_url(Router::url($this->here, true));
-			
+
             if (defined('PK_DOMAIN') && ($pieces['host'] == PK_DOMAIN)) {
-                
+
                 $this->domainMode = 'PK';
-								
+
                 // only certain actions are allowed in this domain
                 // for other actions we are immediatly redirecting to PORTAL_DOMAIN
 
@@ -546,8 +546,8 @@ class AppController extends Controller
 					stripos($_SERVER['REQUEST_URI'], '/login') === 0 or
 					stripos($_SERVER['REQUEST_URI'], '/logout') === 0
                 );
-				
-				if( 
+
+                if (
 					!in_array($_id, array(
 						'dane.gminy',
 						'dane.highstock_browser',
@@ -569,26 +569,26 @@ class AppController extends Controller
                         $url = ($p === false) ? '' : substr($url, $p);
                     }
                     return $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $url);
-					
-				}
+
+                }
 
             } elseif ($pieces['host'] != PORTAL_DOMAIN) {
-                                
+
                 $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $this->here, 301);
                 die();
 
             }
-            
+
         }
 
         $this->response->header('Access-Control-Allow-Origin', $this->request->header('Origin'));
         $this->response->header('Access-Control-Allow-Credentials', true);
-		
-		
-		$redirect = false;
+
+
+        $redirect = false;
 
         if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
-						
+
             $this->loadModel('Pisma.Pismo');
             $this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
             $this->Session->delete('Pisma.transfer_anonymous');
@@ -599,9 +599,8 @@ class AppController extends Controller
 
         if ($redirect)
             return $this->redirect($this->request->here);
-            
-            
-		
+
+
         # assigning translations for javascript use
         if ($this->params->plugin) {
             $path = ROOT . DS . APP_DIR . DS . 'Plugin' . DS . Inflector::camelize($this->params->plugin) . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . Inflector::underscore($this->params->plugin) . '.po';
@@ -731,31 +730,31 @@ class AppController extends Controller
 
     public function beforeRender()
     {
-        
+
         if( @$this->request->params['ext']!='json' ) {
-        	               
-	        $layout = $this->setLayout();
+
+            $layout = $this->setLayout();
 	        $menu = $this->getMenu();
-					
-			if( !empty($menu) ) {
-							
-		        if ($this->menu_selected == '_default')
+
+            if( !empty($menu) ) {
+
+                if ($this->menu_selected == '_default')
 		            $this->menu_selected = $this->request->params['action'];
-		
-		        $menu['selected'] = $this->menu_selected;
-	        
-	        }
-	        
-	        $this->set('_layout', $layout);
+
+                $menu['selected'] = $this->menu_selected;
+
+            }
+
+            $this->set('_layout', $layout);
 	        $this->set('_breadcrumbs', $this->breadcrumbs);
 	        $this->set('_applications', $this->applications);
 	        $this->set('_menu', $menu);
 	        $this->set('_observeOptions', $this->observeOptions);
 	        $this->set('_domainMode', $this->domainMode);
 	        $this->set('appSelected', $this->appSelected);
-        
+
         }
-        
+
     }
 
     /**
