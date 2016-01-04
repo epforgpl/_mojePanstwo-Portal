@@ -208,8 +208,27 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 		});
 		/*SPECIAL CLASS TO POP UP LOGIN BUTTON FOR SPECIAL CASE*/
 		$('._specialCaseLoginButton').click(function (e) {
+			var loginPage = $('.fullPageHeight > #modalPaszportLoginForm');
+
 			e.preventDefault();
-			modalPaszportLoginForm.modal('show');
+			if (loginPage) {
+				var input = loginPage.find('#UserEmail'),
+					elem = input[0],
+					pos = input.val().length;
+
+				input.focus();
+				if (elem.setSelectionRange) {
+					elem.setSelectionRange(pos, pos);
+				} else if (elem.createTextRange) {
+					var range = elem.createTextRange();
+					range.collapse(true);
+					range.moveEnd('character', pos);
+					range.moveStart('character', pos);
+					range.select();
+				}
+			} else {
+				modalPaszportLoginForm.modal('show');
+			}
 		});
 
 		$('#modalPaszportLoginForm').on('shown.bs.modal', function () {
