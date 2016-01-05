@@ -35,8 +35,9 @@ $options = array(
 <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
     <div class="dataWrap">
         <div class="appBanner">
-            <h1 class="appTitle">Państwo na Twitterze</h1>
-
+            <h1 class="appTitle">
+                <?= isset($accountTypeLabel) ? $accountTypeLabel : 'Państwo na Twitterze' ?>
+            </h1>
             <p class="appSubtitle">Zobacz kto i jak wykorzystuje media społecznościowe w debacie publicznej.</p>
         </div>
     </div>
