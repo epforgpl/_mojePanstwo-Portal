@@ -3,7 +3,13 @@
 Router::connect('/api/technical_info', array(
     'plugin' => 'api',
     'controller' => 'api',
-    'action' => 'technical_info'
+    'action' => 'info'
+));
+
+Router::connect('/api/info', array(
+    'plugin' => 'api',
+    'controller' => 'api',
+    'action' => 'info'
 ));
 
 // API z dedykowanym opisem (zawartym w Api/View/Elements

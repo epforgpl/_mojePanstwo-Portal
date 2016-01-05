@@ -366,7 +366,7 @@ class AppController extends Controller
             'name' => 'API',
             'href' => '/api',
             'tag' => 4,
-            'icon' => '&#xe615;',
+            'icon' => '&#xe902;',
         ),
         'kto_tu_rzadzi' => array(
             'name' => 'Kto tu rządzi?',
@@ -392,7 +392,7 @@ class AppController extends Controller
         'dostep_do_informacji_publicznej' => array(
             'name' => 'Dostęp do Informacji Publicznej',
             'href' => '/dostep_do_informacji_publicznej',
-            'tag' => 2,
+            'tag' => 1,
             'icon' => '&#xe60e;',
         ),
         'finanse' => array(
@@ -490,13 +490,13 @@ class AppController extends Controller
         'wydatki_poslow' => array(
             'name' => 'Wydatki Posłów',
             'href' => '/wydatki_poslow',
-            'tag' => 2,
+            'tag' => 1,
             'icon' => '&#xe611;',
         ),
         'wyjazdy_poslow' => array(
             'name' => 'Wyjazdy Posłów',
             'href' => '/wyjazdy_poslow',
-            'tag' => 2,
+            'tag' => 1,
             'icon' => '&#xe612;',
         ),
 
