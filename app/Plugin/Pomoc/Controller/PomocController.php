@@ -38,7 +38,7 @@ class PomocController extends ApplicationsController
 			'label' => 'Pomoc',
 			'href' => '/' . $this->settings['id'],
 			'class' => '_label',
-            'icon' => 'icon-applications-faq',
+            'icon' => 'appIcon',
 			'appIcon' => $app['icon'],
 		);
 
