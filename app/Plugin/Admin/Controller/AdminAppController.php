@@ -67,6 +67,11 @@ class AdminAppController extends AppController
             'label' => 'Kandydaci 2015 a KRS',
             'href'  => '/admin/krs_candidates',
         ),
+        array(
+            'id'    => 'public_content',
+            'label' => 'Treści publiczne',
+            'href'  => '/admin/public_content',
+        ),
     );
 
     public function beforeFilter() {
