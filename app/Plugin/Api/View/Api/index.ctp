@@ -30,7 +30,7 @@ $this->Html->script(array(
 
 ), array('inline' => 'false', 'block' => 'scriptBlock'));
 
-$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "https://api-v3.mojepanstwo.pl/swagger.json", uiRoot: "/api/",docExpansion: "list"});window.swaggerUi.load();',
+$this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "' . API_url . '/swagger.json", uiRoot: "/api/",docExpansion: "list"});window.swaggerUi.load();',
     array('inline' => 'false', 'block' => 'scriptBlock'));
 
 ?>
@@ -89,6 +89,8 @@ $this->Html->scriptBlock('window.swaggerUi = new SwaggerUi({url: "https://api-v3
 				                </div>
 				                
 					        </section>
+					        
+				        </div>
 				        
 				    </div>
 				

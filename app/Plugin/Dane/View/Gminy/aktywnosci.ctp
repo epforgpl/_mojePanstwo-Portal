@@ -70,7 +70,12 @@ echo $this->Element('dataobject/pageBegin', array(
                                                 punkt</strong>
                                         <li class="margin-bottom-5">Złożenie interpelacji - <strong>30 punktów</strong>
                                     </ul>
-
+									
+									<div class="range-selector">
+										<p>Zestawienie obejmuje bieżącą kadencję. <a href="#">Wybierz konkretny miesiąc.</a></p>
+										<? /* <p><a href="#">Zobacz zestawienie dla całej kadencji Rady Miasta &raquo;</a></p> */ ?>
+									</div>
+									
                                     <div
                                         data-aggs="<?= htmlentities(json_encode($data)) ?>"
                                         data-mode="<?= $mode ?>"

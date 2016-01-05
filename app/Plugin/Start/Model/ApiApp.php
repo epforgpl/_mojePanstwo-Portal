@@ -5,6 +5,9 @@
  *
  */
 class ApiApp extends AppModel {
+    
+    public $useDbConfig = 'sql_server';
+    
     public $name = 'Start.ApiApp';
     public $useTable = 'api_apps';
 
