@@ -38,14 +38,6 @@ echo $this->Element('dataobject/pageBegin', array(
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
                     <div class="dataWrap">
-                        <div class="datepickerBlock form-inline">
-                            <div class="form-group">
-                                <label for="aktywnosciDate">Data:</label>
-                                <input type="text" value="<?= isset($_GET["m"]) ? $_GET["m"] : date('Y-m') ?>"
-                                       class="form-control datepickerAktywnosciDate" id="aktywnosciDate" name="date">
-                            </div>
-                        </div>
-
                         <h1 class="smaller margin-top-15">Ranking aktywności radnych</h1>
                         <div class="margin-top-20">
                             <? if (!empty($aggs['ranking_aktywnosci']['top']['hits']['hits']) || !empty($aggs['ranking_aktywnosci']['rank']['target_date']['points'])) {
@@ -70,12 +62,26 @@ echo $this->Element('dataobject/pageBegin', array(
                                                 punkt</strong>
                                         <li class="margin-bottom-5">Złożenie interpelacji - <strong>30 punktów</strong>
                                     </ul>
-									
-									<div class="range-selector">
-										<p>Zestawienie obejmuje bieżącą kadencję. <a href="#">Wybierz konkretny miesiąc.</a></p>
-										<? /* <p><a href="#">Zobacz zestawienie dla całej kadencji Rady Miasta &raquo;</a></p> */ ?>
-									</div>
-									
+
+                                    <div class="datepickerBlock range-selector">
+                                        <p>Zestawienie
+                                            obejmuje <?
+                                            $month = ['ze styczenia', 'z lutego', 'z marzca', 'z kwietnia', 'z maja', 'z czerwca', 'z lipica', 'z sierpnia', 'z września', 'z października', 'z listopada', 'z grudnia'];
+                                            if (isset($_GET["m"])) {
+                                                $d = explode('-', $_GET["m"]);
+
+                                                echo 'okres ' . $month[intval($d[1]) - 1] . ' ' . $d[0];
+                                            } else {
+                                                echo 'bieżącą kadencję';
+                                            } ?>. <span
+                                                class="btn-link datepickerAktywnosciDate">Wybierz <?= isset($_GET["m"]) ? 'inny' : 'konkretny' ?>
+                                                miesiąc.</span></p>
+                                        <? if (isset($_GET["m"])) { ?>
+                                            <p><a href="/aktywnosci">Zobacz zestawienie dla całej kadencji Rady
+                                                    Miasta &raquo;</a></p>
+                                        <? } ?>
+                                    </div>
+
                                     <div
                                         data-aggs="<?= htmlentities(json_encode($data)) ?>"
                                         data-mode="<?= $mode ?>"
