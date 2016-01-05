@@ -211,7 +211,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 			var loginPage = $('.fullPageHeight > #modalPaszportLoginForm');
 
 			e.preventDefault();
-			if (loginPage) {
+			if (loginPage.length) {
 				var input = loginPage.find('#UserEmail'),
 					elem = input[0],
 					pos = input.val().length;
