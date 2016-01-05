@@ -19,19 +19,23 @@ class ApiController extends ApplicationsController
 
     public function index()
     {
-		$this->menu_selected = 'view';
+		// $this->menu_selected = 'view';
+		$this->title = 'API - Buduj aplikacje w oparciu o dane publiczne';
     }
 
     public function view($slug)
     {
         $uiRoot = Router::url(array('plugin' => 'api', 'controller' => 'api', 'action' => 'view', 'slug' => $slug), false);
 
-        $this->menu_selected = $slug;
+        $this->chapter_selected = '';
         $this->set(compact('uiRoot', 'slug'));
+        
+        
     }
 
-    public function technical_info()
+    public function info()
     {
+		$this->title = 'Informacje ogólne o API';
     }
     
     public function getMenu()
@@ -60,4 +64,35 @@ class ApiController extends ApplicationsController
 	    return $menu;
 	    
     }
+    
+    public function getChapters() {
+
+		$mode = false;
+		$items = array();
+		$app = $this->getApplication( $this->settings['id'] );
+				
+		$items[] = array(
+			'label' => 'API',
+			'href' => '/' . $this->settings['id'],
+			'class' => '_label',
+			'icon' => 'appIcon',
+			'appIcon' => $app['icon'],
+		);
+		
+		$items[] = array(
+			'label' => 'Informacje ogólne',
+			'href' => '/api/info',
+			'id' => 'info',
+			'icon' => 'icon-datasets-dot',
+		);
+        
+		
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
 }

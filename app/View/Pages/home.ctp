@@ -42,6 +42,7 @@ $this->Combinator->add_libs('js', 'home');
                         } ?>
                     </div>
 
+					<? /*
                     <div class="appsList">
                         <h2>Raporty</h2>
                         <? foreach ($_applications as $a) {
@@ -58,6 +59,8 @@ $this->Combinator->add_libs('js', 'home');
                             <? }
                         } ?>
                     </div>
+                    */ ?>
+                    
                 </div>
             </div>
         </div>
