@@ -40,6 +40,9 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
             <ul class="collection-meta">
                 <li>Pismo <?= $pismo['is_public'] ? 'publiczne' : 'prywatne'; ?></li>
+                <? if (isset($responses) && is_array($responses) && count($responses)) { ?>
+                    <li class="highlight">Otrzymano odpowiedź</li>
+                <? } ?>
             </ul>
 
             <div class="letter-table">
@@ -118,7 +121,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
                                         </h2>
 
                                         <div class="content">
-                                            <?= $response['Response']['content'] != '' ? htmlspecialchars($response['Response']['content']) : 'Brak treści' ?>
+                                            <?= $response['Response']['content'] != '' ? nl2br(htmlspecialchars($response['Response']['content'])) : 'Brak treści' ?>
                                         </div>
                                         <? if (count($response['files'])) { ?>
                                             <div class="files">

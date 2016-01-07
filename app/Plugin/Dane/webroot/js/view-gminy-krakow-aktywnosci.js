@@ -26,16 +26,31 @@ $(document).ready(function () {
 			field = $(this).data('field'),
 			chart,
 			categories = [],
-			data = [];
+			data = [],
+			categoriesTemp = [],
+			dataTemp = [],
+			i;
 
-		aggs.forEach(function (row) {
-			categories.push({
+		aggs.forEach(function (row, i) {
+			categoriesTemp.push({
 				name: row['radni_gmin.nazwa'],
 				id: row['radni_gmin.id'],
 				avatar: row['radni_gmin.avatar_id']
 			});
-			data.push(parseInt(row[field]));
+			dataTemp.push({
+				id: i,
+				data: parseInt(row[field], 0)
+			});
 		});
+
+		dataTemp = dataTemp.sort(function (a, b) {
+			return b.data - a.data;
+		});
+
+		for (i = 0; i < dataTemp.length; i++) {
+			categories.push(categoriesTemp[dataTemp[i].id]);
+			data.push(dataTemp[i].data);
+		}
 
 		$(this).append('<div class="chart"></div>');
 		chart = $(this).find('.chart');
@@ -112,8 +127,7 @@ $(document).ready(function () {
 				data: data,
 				point: {
 					events: {
-						click: function (e) {
-							// window.location.href = choose_request + columns_horizontal_keys[this.index];
+						click: function () {
 							return false;
 						}
 					}
@@ -141,6 +155,14 @@ $(document).ready(function () {
 		endDate: '0d',
 		autoclose: true
 	}).on('changeDate', function (e) {
-		window.location.href = '/aktywnosci?m=' + e.target.value;
+		var date = new Date(e.date),
+			d = date.getMonth() + 1;
+
+		if (d < 10) {
+			d = '0' + d;
+		}
+
+		window.location.href = '/aktywnosci?m=' + date.getFullYear() + '-' + d;
 	});
-});
+})
+;
