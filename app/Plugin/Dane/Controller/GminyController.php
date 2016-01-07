@@ -5960,4 +5960,14 @@ class GminyController extends DataobjectsController
 
     }
 
+    public function radni_ranking() {
+        $this->_prepareView();
+        if($this->object->getId() != '903')
+            throw new NotFoundException;
+
+        $this->loadModel('Dane.GminyKrakowRadni');
+        $this->set('results', $this->GminyKrakowRadni->getRanking($this->request->query));
+        $this->set('_serialize', array('results'));
+    }
+
 }
