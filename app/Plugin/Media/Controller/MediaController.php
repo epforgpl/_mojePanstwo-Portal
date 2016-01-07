@@ -86,8 +86,10 @@ class MediaController extends ApplicationsController
 		
 		if( isset($this->request->query['a']) )
 	        foreach( $this->accounts_map as $k => $v )
-		        if( $v[0] == $this->request->query['a'] )
-			        return $this->redirect('/media/' . $k);
+		        if( $v[0] == $this->request->query['a'] ) {
+					$t = @$this->request->query['t'];
+					return $this->redirect('/media/' . $k . ($t ? '?t=' . $t : ''));
+				}
 		
 		if(
 			@$this->request->params['id'] && 
