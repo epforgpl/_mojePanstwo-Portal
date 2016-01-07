@@ -40,15 +40,7 @@ echo $this->Element('dataobject/pageBegin', array(
                     <div class="dataWrap">
                         <h1 class="smaller margin-top-15">Ranking aktywności radnych</h1>
                         <div class="margin-top-20">
-                            <? if (!empty($aggs['ranking_aktywnosci']['top']['hits']['hits']) || !empty($aggs['ranking_aktywnosci']['rank']['target_date']['points'])) {
-                                if (!empty($aggs['ranking_aktywnosci']['top']['hits']['hits'])) {
-                                    $mode = 'g';
-                                    $data = $aggs['ranking_aktywnosci']['top']['hits']['hits'];
-                                } else {
-                                    $mode = 'm';
-                                    $data = $aggs['ranking_aktywnosci']['rank']['target_date']['points']['buckets'];
-                                }
-                                ?>
+                            <? if (isset($activity_ranking)) { ?>
                                 <div class="margin-top-10">
 
                                     <p>Radni którzy najczęściej wypowiadali się na posiedzeniach, brali udział w
@@ -74,7 +66,8 @@ echo $this->Element('dataobject/pageBegin', array(
                                             } else {
                                                 echo 'bieżącą kadencję';
                                             } ?>. <span
-                                                class="btn-link datepickerAktywnosciDate">Wybierz <?= isset($_GET["m"]) ? 'inny' : 'konkretny' ?>
+                                                class="btn-link datepickerAktywnosciDate"
+                                                data-url="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/aktywnosci' : '/aktywnosci') ?>">Wybierz <?= isset($_GET["m"]) ? 'inny' : 'konkretny' ?>
                                                 miesiąc.</span></p>
                                         <? if (isset($_GET["m"])) { ?>
                                             <p><a href="/aktywnosci">Zobacz zestawienie dla całej kadencji Rady
@@ -95,15 +88,7 @@ echo $this->Element('dataobject/pageBegin', array(
 
                             <h1 class="smaller margin-top-15">Ranking otwartości radnych</h1>
 
-                            <? if (!empty($aggs['ranking_otwartosci']['top']['hits']['hits']) || !empty($aggs['ranking_otwartosci']['rank']['target_date']['points'])) {
-                                if (!empty($aggs['ranking_otwartosci']['top']['hits']['hits'])) {
-                                    $mode = 'g';
-                                    $data = $aggs['ranking_otwartosci']['top']['hits']['hits'];
-                                } else {
-                                    $mode = 'm';
-                                    $data = $aggs['ranking_otwartosci']['rank']['target_date']['points']['buckets'];
-                                }
-                                ?>
+                            <? if (isset($openness_ranking)) { ?>
                                 <div class="margin-top-10">
 
                                     <p>Radni którzy udostępnili o sobie najwięcej informacji. Punkty zostały

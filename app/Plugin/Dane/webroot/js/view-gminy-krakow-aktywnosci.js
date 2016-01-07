@@ -173,7 +173,8 @@ $(document).ready(function () {
 
 	});
 
-	var datepicker = $('.datepickerAktywnosciDate');
+	var datepicker = $('.datepickerAktywnosciDate'),
+		url = datepicker.data('url');
 
 	$.fn.bootstrapDP = $.fn.datepicker.noConflict();
 
@@ -194,7 +195,7 @@ $(document).ready(function () {
 			d = '0' + d;
 		}
 
-		window.location.href = '/aktywnosci?m=' + date.getFullYear() + '-' + d;
+		window.location.href = url + '?m=' + date.getFullYear() + '-' + d;
 	});
 })
 ;
