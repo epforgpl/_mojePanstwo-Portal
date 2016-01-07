@@ -339,7 +339,7 @@ class AppController extends Controller
             'icon' => '&#xe614;',
         ),
         'podatki' => array(
-            'name' => 'Jak są wydawane moje podaki?',
+            'name' => 'Jak są wydawane moje podatki?',
             'href' => '/podatki',
             'tag' => 1,
             'icon' => '&#xe901;',

@@ -19,8 +19,12 @@ class ApiController extends ApplicationsController
 
     public function index()
     {
-		// $this->menu_selected = 'view';
 		$this->title = 'API - Buduj aplikacje w oparciu o dane publiczne';
+    }
+    
+    public function bdl()
+    {
+		$this->title = 'API - Bank Danych Lokalnych';
     }
 
     public function view($slug)
@@ -32,39 +36,7 @@ class ApiController extends ApplicationsController
         
         
     }
-
-    public function info()
-    {
-		$this->title = 'Informacje ogólne o API';
-    }
-    
-    public function getMenu()
-    {
-	    
-	    $menu = array(
-		    'items' => array(
-			    array(
-				    'label' => 'Start',
-					'icon' => array(
-						'src' => 'glyphicon',
-						'id' => 'home',
-					),
-			    ),
-			    array(
-				    'id' => 'technical_info',
-				    'label' => 'Opis techniczny',
-			    ),
-                array(
-                    'id' => 'bdl',
-                    'label' => 'Statystyki'
-                )
-		    ),
-		    'base' => '/api',
-	    );
-	    return $menu;
-	    
-    }
-    
+        
     public function getChapters() {
 
 		$mode = false;
@@ -80,9 +52,9 @@ class ApiController extends ApplicationsController
 		);
 		
 		$items[] = array(
-			'label' => 'Informacje ogólne',
-			'href' => '/api/info',
-			'id' => 'info',
+			'label' => 'Bank Danych Lokalnych',
+			'href' => '/api/bdl',
+			'id' => 'bdl',
 			'icon' => 'icon-datasets-dot',
 		);
         
