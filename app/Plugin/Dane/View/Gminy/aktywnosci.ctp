@@ -66,7 +66,7 @@ echo $this->Element('dataobject/pageBegin', array(
                                     <div class="datepickerBlock range-selector">
                                         <p>Zestawienie
                                             obejmuje <?
-                                            $month = ['ze styczenia', 'z lutego', 'z marzca', 'z kwietnia', 'z maja', 'z czerwca', 'z lipica', 'z sierpnia', 'z września', 'z października', 'z listopada', 'z grudnia'];
+                                            $month = array('ze styczenia', 'z lutego', 'z marzca', 'z kwietnia', 'z maja', 'z czerwca', 'z lipica', 'z sierpnia', 'z września', 'z października', 'z listopada', 'z grudnia');
                                             if (isset($_GET["m"])) {
                                                 $d = explode('-', $_GET["m"]);
 
