@@ -5420,6 +5420,9 @@ class GminyController extends DataobjectsController
         if(isset($this->request->query['m']))
             $activityQuery['m'] = $this->request->query['m'];
         $this->set('activity_ranking', $this->GminyKrakowRadni->getRanking($activityQuery));
+        $this->set('openness_ranking', $this->GminyKrakowRadni->getRanking(array(
+            'type' => 'openness'
+        )));
 
         $this->set('aggs',  $this->Dataobject->getAggs());
 
