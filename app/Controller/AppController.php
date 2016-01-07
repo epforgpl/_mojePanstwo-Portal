@@ -326,11 +326,35 @@ class AppController extends Controller
         ),
     );
     public $applications = array(
-        'api' => array(
-            'name' => 'API',
-            'href' => '/api',
-            'tag' => 4,
-            'icon' => '&#xe902;',
+        'krs' => array(
+            'name' => 'Krajowy Rejestr Sądowy',
+            'href' => '/krs',
+            'tag' => 1,
+            'icon' => '&#xe605;',
+        ),
+        'ngo' => array(
+            'name' => 'NGO',
+            'href' => '/ngo',
+            'tag' => 1,
+            'icon' => '&#xe614;',
+        ),
+        'podatki' => array(
+            'name' => 'Jak są wydawane moje podatki?',
+            'href' => '/podatki',
+            'tag' => 1,
+            'icon' => '&#xe901;',
+        ),
+        'mapa' => array(
+            'name' => 'Mapa',
+            'href' => '/mapa',
+            'tag' => 1,
+            'icon' => '&#xe900;',
+        ),
+        'prawo' => array(
+            'name' => 'Prawo',
+            'href' => '/prawo',
+            'tag' => 1,
+            'icon' => '&#xe60d;',
         ),
         'bdl' => array(
             'name' => 'Bank Danych Lokalnych',
@@ -338,17 +362,18 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe615;',
         ),
-        'dane' => array(
-            'name' => 'Szukaj...',
-            'href' => '/dane',
-            'tag' => 0,
-            'icon' => '&#xe616;',
-        ),
-        'dostep_do_informacji_publicznej' => array(
-            'name' => 'Dostęp do Informacji Publicznej',
-            'href' => '/dostep_do_informacji_publicznej',
+        'kto_tu_rzadzi' => array(
+            'name' => 'Kto tu rządzi?',
+            'href' => '/kto_tu_rzadzi',
+            'src' => '/KtoTuRzadzi/icon/kto_tu_rzadzi.svg',
             'tag' => 1,
-            'icon' => '&#xe60e;',
+            'icon' => '&#xe609;',
+        ),
+        'media' => array(
+            'name' => 'Media',
+            'href' => '/media',
+            'tag' => 1,
+            'icon' => '&#xe608;',
         ),
         'finanse' => array(
             'name' => 'Finanse publiczne',
@@ -362,6 +387,38 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe603;',
         ),
+        'zamowienia_publiczne' => array(
+            'name' => 'Zamówienia publiczne',
+            'href' => '/zamowienia_publiczne',
+            'tag' => 1,
+            'icon' => '&#xe613;',
+        ),
+        'orzecznictwo' => array(
+            'name' => 'Orzecznictwo',
+            'href' => '/orzecznictwo',
+            'tag' => 1,
+            'icon' => '&#xe617;',
+        ),
+        'api' => array(
+            'name' => 'API',
+            'href' => '/api',
+            'tag' => 4,
+            'icon' => '&#xe902;',
+        ),
+        
+        'dane' => array(
+            'name' => 'Szukaj...',
+            'href' => '/dane',
+            'tag' => 0,
+            'icon' => '&#xe616;',
+        ),
+        'dostep_do_informacji_publicznej' => array(
+            'name' => 'Dostęp do Informacji Publicznej',
+            'href' => '/dostep_do_informacji_publicznej',
+            'tag' => 1,
+            'icon' => '&#xe60e;',
+        ),
+        
         /*
         'kody_pocztowe' => array(
             'name' => 'Kody pocztowe',
@@ -378,25 +435,9 @@ class AppController extends Controller
             'tag' => 1,
         ),
         */
-        'krs' => array(
-            'name' => 'Krajowy Rejestr Sądowy',
-            'href' => '/krs',
-            'tag' => 1,
-            'icon' => '&#xe605;',
-        ),
-        'kto_tu_rzadzi' => array(
-            'name' => 'Kto tu rządzi?',
-            'href' => '/kto_tu_rzadzi',
-            'src' => '/KtoTuRzadzi/icon/kto_tu_rzadzi.svg',
-            'tag' => 1,
-            'icon' => '&#xe609;',
-        ),
-        'mapa' => array(
-            'name' => 'Mapa',
-            'href' => '/mapa',
-            'tag' => 1,
-            'icon' => '&#xe900;',
-        ),
+        
+        
+        
         /*
         'mapa_prawa' => array(
             'name' => 'Mapa prawa',
@@ -405,12 +446,7 @@ class AppController extends Controller
             'icon' => '&#xe607;',
         ),
         */
-        'media' => array(
-            'name' => 'Media',
-            'href' => '/media',
-            'tag' => 1,
-            'icon' => '&#xe608;',
-        ),
+        
         /*
         'moja_gmina' => array(
             'name' => 'Moja Gmina',
@@ -419,18 +455,8 @@ class AppController extends Controller
             'icon' => '&#xe605;',
         ),
         */
-        'ngo' => array(
-            'name' => 'NGO',
-            'href' => '/ngo',
-            'tag' => 1,
-            'icon' => '&#xe614;',
-        ),
-        'orzecznictwo' => array(
-            'name' => 'Orzecznictwo',
-            'href' => '/orzecznictwo',
-            'tag' => 1,
-            'icon' => '&#xe617;',
-        ),
+        
+        
         'paszport' => array(
             'name' => 'Paszport',
             'href' => '/paszport',
@@ -451,12 +477,6 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe60b;',
         ),
-        'podatki' => array(
-            'name' => 'Jak są wydawane moje podatki?',
-            'href' => '/podatki',
-            'tag' => 1,
-            'icon' => '&#xe901;',
-        ),
         'pomoc' => array(
             'name' => 'Centrum pomocy',
             'href' => '/pomoc',
@@ -469,12 +489,7 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe60a;',
         ),
-        'prawo' => array(
-            'name' => 'Prawo',
-            'href' => '/prawo',
-            'tag' => 1,
-            'icon' => '&#xe60d;',
-        ),
+        
         'sejmometr' => array(
             'name' => 'Sejmometr',
             'href' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej',
@@ -492,12 +507,6 @@ class AppController extends Controller
             'href' => '/wyjazdy_poslow',
             'tag' => 1,
             'icon' => '&#xe612;',
-        ),
-        'zamowienia_publiczne' => array(
-            'name' => 'Zamówienia publiczne',
-            'href' => '/zamowienia_publiczne',
-            'tag' => 1,
-            'icon' => '&#xe613;',
         ),
     );
 
