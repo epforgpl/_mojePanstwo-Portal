@@ -127,7 +127,7 @@ echo $this->Element('dataobject/pageBegin', array(
                                     <div
                                         data-aggs="<?= htmlentities(json_encode($data)) ?>"
                                         data-mode="<?= $mode ?>"
-                                        data-field="radni_gmin.punkty_aktywnosc"
+                                        data-field="radni_gmin.ranking_otwartosc"
                                         data-request="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/radni/' : '/radni/') ?>"
                                         class="radniRankingChart"
                                     ></div>
