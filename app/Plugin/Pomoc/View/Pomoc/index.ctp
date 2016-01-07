@@ -1,7 +1,6 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-//$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 ?>
 
 <div class="objectsPage">
