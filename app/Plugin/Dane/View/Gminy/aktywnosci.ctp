@@ -83,10 +83,7 @@ echo $this->Element('dataobject/pageBegin', array(
                                     </div>
 
                                     <div
-                                        data-aggs="<?= htmlentities(json_encode($data)) ?>"
                                         data-ranking="<?= htmlentities(json_encode($activity_ranking)) ?>"
-                                        data-mode="<?= $mode ?>"
-                                        data-field="radni_gmin.punkty_aktywnosc"
                                         data-request="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/radni/' : '/radni/') ?>"
                                         class="radniRankingChart"
                                     ></div>
@@ -126,10 +123,7 @@ echo $this->Element('dataobject/pageBegin', array(
                                     </ul>
 
                                     <div
-                                        data-aggs="<?= htmlentities(json_encode($data)) ?>"
                                         data-ranking="<?= htmlentities(json_encode($openness_ranking)) ?>"
-                                        data-mode="<?= $mode ?>"
-                                        data-field="radni_gmin.punkty_otwartosc"
                                         data-request="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/radni/' : '/radni/') ?>"
                                         class="radniRankingChart"
                                     ></div>

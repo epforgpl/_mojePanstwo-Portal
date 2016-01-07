@@ -1,56 +1,26 @@
-/*global window, document, $, jQuery*/
+/*global window, document, $, jQuery, number_format*/
 
 $(document).ready(function () {
-	function normalize(aggs, mode) {
-		var data = [];
-		if (aggs && aggs.length) {
-			if (mode === 'm') {
-
-				aggs.forEach(function (row) {
-					data.push(row.reverse.top.hits.hits[0].fields.source[0].data);
-				});
-			} else {
-				aggs.forEach(function (row) {
-					data.push(row.fields.source[0].data);
-				});
-			}
-		}
-
-		return data;
-	}
-
 	$('.radniRankingChart').each(function () {
-		var mode = $(this).data('mode'),
-			aggs = normalize($(this).data('aggs'), mode),
+		var aggs = $(this).data('ranking'),
 			request = $(this).data('request'),
-			field = $(this).data('field'),
 			chart,
 			categories = [],
-			data = [],
-			categoriesTemp = [],
-			dataTemp = [],
-			i;
+			data = [];
 
-		aggs.forEach(function (row, i) {
-			categoriesTemp.push({
-				name: row['radni_gmin.nazwa'],
-				id: row['radni_gmin.id'],
-				avatar: row['radni_gmin.avatar_id']
-			});
-			dataTemp.push({
-				id: i,
-				data: parseInt(row[field], 0)
-			});
+		aggs = aggs.sort(function (a, b) {
+			return b.types['*'] - a.types['*'];
 		});
 
-		dataTemp = dataTemp.sort(function (a, b) {
-			return b.data - a.data;
+		aggs.forEach(function (row) {
+			categories.push({
+				name: row.nazwa,
+				id: row.id,
+				avatar: row.avatar_id,
+				data: row.types
+			});
+			data.push(parseInt(row.types['*'], 0));
 		});
-
-		for (i = 0; i < dataTemp.length; i++) {
-			categories.push(categoriesTemp[dataTemp[i].id]);
-			data.push(dataTemp[i].data);
-		}
 
 		$(this).append('<div class="chart"></div>');
 		chart = $(this).find('.chart');
@@ -104,7 +74,67 @@ $(document).ready(function () {
 				}
 			},
 			tooltip: {
-				headerFormat: '<span style="font-size: 10px">{point.key.name}</span><br/>'
+				headerFormat: '<span style="font-size: 10px">{point.key.name}</span><br/>',
+				pointFormatter: function () {
+					var html = '<div>',
+						c = this.category.data;
+
+					html += '<p>Łączna ilość punktów: ';
+					html += '<strong>' + number_format(c['*'], 0, '.', ' ') + '</strong>';
+					html += '</p>';
+					html += '<br /><p class="margin-top-5">zdobyte w: </p>';
+
+					if (typeof c.s !== "undefined") {
+						html += '<br /><p> - wystąpienia na posiedzeniu: ';
+						html += '<strong>' + number_format(c.s, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+					if (typeof c.v !== "undefined") {
+						html += '<br /><p> - oddane głosy: ';
+						html += '<strong>' + number_format(c.v, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+					if (typeof c.i !== "undefined") {
+						html += '<br /><p> - złożone interpelacje: ';
+						html += '<strong>' + number_format(c.i, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+
+					if (typeof c.tel !== "undefined") {
+						html += '<br /><p> - udostępniony numer telefonu: ';
+						html += '<strong>' + number_format(c.tel, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+					if (typeof c.blog !== "undefined") {
+						html += '<br /><p> - prowadzenie bloga: ';
+						html += '<strong>' + number_format(c.blog, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+					if (typeof c.www !== "undefined") {
+						html += '<br /><p> - prowadzenie strony WWW: ';
+						html += '<strong>' + number_format(c.www, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+					if (typeof c.fb !== "undefined") {
+						html += '<br /><p> - prowadzenie konta Facebook: ';
+						html += '<strong>' + number_format(c.fb, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+					if (typeof c.twitter !== "undefined") {
+						html += '<br /><p> - prowadzenie konta Twitter: ';
+						html += '<strong>' + number_format(c.twitter, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+					if (typeof c.email2 !== "undefined") {
+						html += '<br /><p> - udostępniony adresu e-mail: ';
+						html += '<strong>' + number_format(c.email2, 0, '.', ' ') + '</strong>';
+						html += '</p>';
+					}
+
+					html += '</div>';
+
+					return html;
+				}
 			},
 			plotOptions: {
 				bar: {
