@@ -50,6 +50,8 @@ echo $this->Element('dataobject/pageBegin', array(
                                     <ul>
                                         <li class="margin-bottom-5">Wystąpienie na posiedzeniu Rady Miasta - <strong>10
                                                 punktów</strong>
+                                        <li class="margin-bottom-5">Wystąpienie na posiedzeniu Rady Miasta w roli przewodniczącego - <strong>3
+                                                punkty</strong>
                                         <li class="margin-bottom-5">Oddanie głosu na posiedzeniu Rady Miasta - <strong>1
                                                 punkt</strong>
                                         <li class="margin-bottom-5">Złożenie interpelacji - <strong>30 punktów</strong>

@@ -90,6 +90,11 @@ $(document).ready(function () {
 							html += '<strong>' + number_format(c.s, 0, '.', ' ') + '&nbsp;pkt</strong>';
 							html += '</p>';
 						}
+						if (typeof c.p !== "undefined") {
+							html += '<p>Za wystąpienia w roli przewodniczącego:  ';
+							html += '<strong>' + number_format(c.p, 0, '.', ' ') + '&nbsp;pkt</strong>';
+							html += '</p>';
+						}
 						if (typeof c.v !== "undefined") {
 							html += '<p>Za udział w głosowaniach: ';
 							html += '<strong>' + number_format(c.v, 0, '.', ' ') + '&nbsp;pkt</strong>';
