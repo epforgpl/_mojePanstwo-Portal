@@ -1,6 +1,7 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => 'Pomoc')));
 ?>
 
 <div class="objectsPage">
@@ -29,8 +30,58 @@ $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin
                             <p class="appSubtitle">Centrum pomocy portalu mojePaństwo</p>
                         </div>
                         <div class="content">
-                            <div class="block col-xs-12">3 posty z WP</div>
-                            <div class="block col-xs-12">3 filmy</div>
+                            <div class="epfPosts whiteBlocks block col-xs-12">
+                                <header>Instrukcje</header>
+                                <section class="noleftpadding norightpadding">
+                                    <ul class="item-list">
+                                        <?
+                                        $i = 1;
+                                        foreach ($epfRSSFeed as $post) { ?>
+                                            <li class="item list">
+                                                <a href="<?= $post['link'] ?>" target="_blank">
+                                                    <h3 class="title"><?= str_replace(' & ', ' &amp; ', $post['title']); ?></h3>
+                                                </a>
+                                                <time
+                                                    class="date"><?= date('d M Y', strtotime($post['date'])); ?></time>
+                                                <p class="desc"><?= $post['desc']; ?></p>
+                                                <a class="btn btn-primary btn-sm" href="<?= $post['link'] ?>"
+                                                   target="_blank">Dowiedz się więcej</a>
+                                            </li>
+                                            <?
+                                            if ($i++ == 4) break;
+                                        }
+                                        ?>
+                                    </ul>
+                                </section>
+                            </div>
+                            <div class="epfYTVideo whiteBlocks block col-xs-12">
+                                <header>Tutoriale video</header>
+                                <section class="noleftpadding norightpadding">
+                                    <ul class="item-list">
+                                        <?
+                                        foreach ($ytPlaylist as $video) { ?>
+                                            <li class="item list">
+                                                <a href="https://www.youtube.com/watch?v=<?= $video['snippet']['resourceId']['videoId'] ?>&list=<?= $video['snippet']['playlistId'] ?>"
+                                                   target="_blank">
+                                                    <img class="photo"
+                                                         src="<?= $video['snippet']['thumbnails']['medium']['url'] ?>"/>
+                                                    <h3 class="title"><?= $video['snippet']['title'] ?></h3>
+                                                    <p class="desc"><?= $this->Text->truncate(
+                                                            $video['snippet']['description'],
+                                                            175,
+                                                            array(
+                                                                'ellipsis' => ' [...]',
+                                                                'exact' => false
+                                                            )
+                                                        ); ?></p>
+                                                </a>
+                                            </li>
+                                            <?
+                                        }
+                                        ?>
+                                    </ul>
+                                </section>
+                            </div>
                             <div id="blad" class="block col-xs-12 reportBug">
                                 <header>Zgłoś błąd</header>
                                 <section>

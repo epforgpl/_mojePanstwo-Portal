@@ -1,7 +1,7 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-//$this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => 'Pomoc')));
 ?>
 
 <div class="objectsPage">
@@ -29,7 +29,23 @@ $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin
 
                             <p class="appSubtitle">Instrukcje</p>
                         </div>
-                        <div class="block col-xs-12">
+                        <div class="epfPosts whiteBlocks block col-xs-12">
+                            <ul class="item-list">
+                                <?
+                                foreach ($epfRSSFeed as $post) { ?>
+                                    <li class="item list">
+                                        <a href="<?= $post['link'] ?>" target="_blank">
+                                            <h3 class="title"><?= str_replace(' & ', ' &amp; ', $post['title']); ?></h3>
+                                        </a>
+                                        <time class="date"><?= date('d M Y', strtotime($post['date'])); ?></time>
+                                        <p class="desc"><?= $post['desc']; ?></p>
+                                        <a class="btn btn-primary btn-sm" href="<?= $post['link'] ?>" target="_blank">Dowiedz
+                                            się więcej</a>
+                                    </li>
+                                    <?
+                                }
+                                ?>
+                            </ul>
                         </div>
                     </div>
                 </div>

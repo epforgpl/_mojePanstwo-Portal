@@ -3,6 +3,13 @@ App::uses('ApplicationsController', 'Controller', 'HttpSocket', 'Network/Http');
 
 class PomocController extends ApplicationsController
 {
+
+    public $_layout = array(
+        'body' => array(
+            'theme' => 'default',
+        ),
+    );
+
     public $settings = array(
         'id' => 'pomoc',
     );
@@ -10,35 +17,66 @@ class PomocController extends ApplicationsController
     public function index()
     {
         $this->title = 'Centrum pomocy';
+        $epfRSSFeed = $this->epfRSSFeed();
+        $playListItems = $this->youtubeList(4);
+
+        $this->set('epfRSSFeed', $epfRSSFeed);
+        $this->set('ytPlaylist', $playListItems);
+    }
+
+    public function epfRSSFeed()
+    {
+        $rss = new DOMDocument();
+        $rss->load('http://epf.org.pl/pl/category/moje-panstwo/feed/');
+
+        $feed = array();
+        foreach ($rss->getElementsByTagName('item') as $node) {
+            $item = array(
+                'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
+                'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
+                'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
+                'date' => $node->getElementsByTagName('pubDate')->item(0)->nodeValue,
+            );
+            array_push($feed, $item);
+        }
+
+        return ($feed);
+    }
+
+    public function youtubeList($limit)
+    {
+        $playlist_id = 'PLa_8n5BEWSbnvu-owdDAOCmD2dbI0Zosv';
+
+        $client = new Google_Client();
+
+        $client->setApplicationName(GOOGLE_API_ID);
+        $client->setDeveloperKey(GOOGLE_API_SECRET);
+
+        $youtube = new Google_Service_YouTube($client);
+
+        $playlistItems = $youtube->playlistItems->listPlaylistItems('snippet', array(
+            'playlistId' => $playlist_id,
+            'maxResults' => $limit
+        ));
+
+        return $playlistItems['items'];
     }
 
     public function instrukcje()
     {
         $this->title = 'Instrukcje';
+        $epfRSSFeed = $this->epfRSSFeed();
 
-        $me = 'http://local.wordpress.dev/wp-json/wp/v2/users/me';
-        $client = new GuzzleHttp\Client();
-        $json = $client->get($me, [
-            'auth' => [
-                'admin',
-                'password'
-            ]
-        ]);
-        $json = json_decode($json->getBody());
-        var_dump($json);
-
-        $HttpSocket = new HttpSocket();
-
-        $results = $HttpSocket->post(
-            'http://epf.org.pl/wp-json/wp/v2/posts'
-        );
-        debug($results);
-        die();
+        $this->set('epfRSSFeed', $epfRSSFeed);
     }
 
     public function filmy()
     {
         $this->title = 'Tutoriale video';
+        $playListItems = $this->youtubeList(50);
+
+        $this->set('ytPlaylist', $playListItems);
+
     }
 
     public function dane_osobowe()
@@ -48,8 +86,6 @@ class PomocController extends ApplicationsController
 
     public function getChapters()
     {
-
-        $mode = false;
         $items = array();
         $app = $this->getApplication($this->settings['id']);
 
@@ -90,18 +126,5 @@ class PomocController extends ApplicationsController
 
         return $output;
 
-    }
-
-    function get_ePF_posts()
-    {
-        App::uses('HttpSocket', 'Network/Http');
-
-        $HttpSocket = new HttpSocket();
-
-        $results = $HttpSocket->post(
-            'http://epf.org.pl/wp-json/wp/v2/posts'
-        );
-        debug($results);
-        die();
     }
 }

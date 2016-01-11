@@ -1,3 +1,17 @@
+.theme-default .block {
+    border: 0;
+    background: none;
+
+    &:first-child > header {
+        border-bottom: 0;
+    }
+
+    > header {
+        background: none;
+        font-size: 24px;
+    }
+}
+
 .reportBug {
     p:last-child {
         margin-bottom: 20px;
@@ -22,5 +36,89 @@
         .form-control {
             margin-top: 2px;
         }
+    }
+}
+
+.whiteBlocks .item {
+    float: left;
+    display: block;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    color: #616161;
+    max-width: 720px;
+    padding: 10px;
+    width: 48%;
+    margin: 0 1% 20px;
+
+    &:nth-child(2n+1) {
+        clear: left;
+    }
+
+    .title {
+        color: #00659d;
+        font-weight: normal;
+        line-height: 1.1;
+        margin: 10px 0 0;
+        padding-top: 10px;
+        font-size: 24px;
+    }
+    .desc {
+        font-size: 14px;
+        color: #616161;
+    }
+}
+
+.epfPosts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .item-list {
+        padding: 0;
+        display: block;
+        width: 100%;
+        float: left;
+
+        .item {
+            .date {
+                color: #9a9a9a;
+                display: block;
+                font-size: 10px;
+                margin-top: 5px;
+            }
+            .btn {
+                float: right;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.epfYTVideo {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .item-list {
+        padding: 0;
+        display: block;
+        width: 100%;
+        float: left;
+
+        .item .photo {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    .allvideo {
+        width: 100%;
+        float: left;
+        margin-bottom: 20px;
+        text-align: center;
     }
 }
