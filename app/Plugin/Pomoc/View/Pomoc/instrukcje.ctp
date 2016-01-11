@@ -46,6 +46,11 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                 }
                                 ?>
                             </ul>
+                            <div class="col-xs-12 text-center margin-bottom-20">
+                                <a class="btn btn-primary"
+                                   href="http://epf.org.pl/pl/category/moje-panstwo/"
+                                   target="_blank">Zobacz więcej instrukcji</a>
+                            </div>
                         </div>
                     </div>
                 </div>

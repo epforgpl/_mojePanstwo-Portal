@@ -53,8 +53,11 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                 }
                                 ?>
                             </ul>
-                            <a class="allvideo" href="https://www.youtube.com/playlist?list=<?= $ytPlaylist[0]['id'] ?>"
-                               target="_blank">Zobacz więcej filmów</a>
+                            <div class="col-xs-12 text-center margin-bottom-20">
+                                <a class="btn btn-primary"
+                                   href="https://www.youtube.com/playlist?list=<?= $ytPlaylist[0]['id'] ?>"
+                                   target="_blank">Zobacz więcej filmów</a>
+                            </div>
                         </div>
                     </div>
                 </div>

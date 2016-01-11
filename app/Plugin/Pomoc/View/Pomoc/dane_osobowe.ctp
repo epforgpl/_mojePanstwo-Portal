@@ -29,7 +29,7 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
 
                             <p class="appSubtitle">Ochrona danych osobowych</p>
                         </div>
-                        <div class="block col-xs-12">
+                        <div class="daneOsobowe block col-xs-12">
                             <header>Podstawa Prawna portalu mojepanstwo.pl</header>
                             <section>
                                 <p><strong>Sposób pozyskania danych.</strong> Portal mojepanstwo.pl wydawany jest przez
