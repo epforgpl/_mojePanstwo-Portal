@@ -21,6 +21,16 @@ class AjaxRequestController extends ApplicationsController
             $this->redirect('/paszport');
     }
 
+    public function setIsNgo() {
+        $user = new User();
+        $response = $user->setIsNgo(
+            (isset($this->data['is_ngo']) && $this->data['is_ngo'] == '1' ? '1' : '0')
+        );
+
+        $this->updateLoggedUser($response, 'is_ngo', $this->data['is_ngo']);
+        return json_encode($response);
+    }
+
     public function setUserName()
     {
         $user = new User();

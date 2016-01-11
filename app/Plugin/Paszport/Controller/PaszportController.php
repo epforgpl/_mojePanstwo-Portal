@@ -170,6 +170,17 @@ class PaszportController extends ApplicationsController
                         $user[$model] = $values;
                 }
 
+                if(strtotime($user['created']) >= time() - 180) {
+                    $this->Session->setFlash(
+                        'Welcome',
+                        'flash_facebook_welcome',
+                        array(
+                            'plugin' => 'Start',
+                            'clean' => true
+                        )
+                    );
+                }
+
                 $this->Auth->login($user);
                 $this->redirect($this->Auth->redirectUrl());
             } else {
