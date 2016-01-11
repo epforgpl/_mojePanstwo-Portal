@@ -53,6 +53,14 @@
 			            </div>
 			        <? } ?>
 			    </div>
+				<div class="form-group">
+					<div class="checkbox">
+						<input id="accountIsNgo" name="is_ngo" type="checkbox" value="1" <?= AuthComponent::user('is_ngo') == '1' ? 'checked' : '' ?>/>
+						<label for="accountIsNgo">
+							Działam w organizacji pozarządowej
+						</label>
+					</div>
+				</div>
 			</form>
 
 			<button type="button" id="deletePaszportButton" class="btn btn-default remove-button margin-top-20" data-toggle="modal"

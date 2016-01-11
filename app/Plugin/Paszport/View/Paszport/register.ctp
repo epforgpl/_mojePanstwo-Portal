@@ -116,6 +116,13 @@
                     </div>
 
                     <div class="slide inputForm sendForm col-xs-12">
+                        <label>
+                            <?php echo $this->Form->checkbox('is_ngo'); ?>
+                            Działam w organizacji pozarządowej
+                        </label>
+                    </div>
+
+                    <div class="slide inputForm sendForm col-xs-12">
                         <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_REGISTER_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
                     </div>
 

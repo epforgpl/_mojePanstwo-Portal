@@ -238,4 +238,12 @@ $(function () {
         });
     });
 
+    $('#accountIsNgo').click(function() {
+        $.post("/paszport/user/setIsNgo", {
+            is_ngo: $(this).is(':checked') ? '1' : '0'
+        }, function(data) {
+            console.log(data);
+        });
+    });
+
 });

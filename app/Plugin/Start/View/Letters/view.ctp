@@ -10,6 +10,9 @@ $this->Combinator->add_libs('js', 'dropzone.js');
 $this->Html->css(array('../plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min'), array('inline' => 'false', 'block' => 'cssBlock'));
 $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', '../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pl.min'), array('inline' => 'false', 'block' => 'scriptBlock'));
 
+// tinymce
+echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
+
 $accessDict = array(
     'prywatne',
     'publiczne'
@@ -345,7 +348,7 @@ if ($pismo['object_id']) {
                             </h2>
 
                             <div class="content">
-                                <?= $response['Response']['content'] != '' ? htmlspecialchars($response['Response']['content']) : 'Brak treści' ?>
+                                <?= $response['Response']['content'] != '' ? $response['Response']['content'] : 'Brak treści' ?>
                             </div>
                             <? if (count($response['files'])) { ?>
                                 <div class="files">

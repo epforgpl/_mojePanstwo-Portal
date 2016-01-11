@@ -101,11 +101,44 @@ var PISMO = Class.extend({
 	},
 	addResponseForm: function () {
 
-		var li = $('<li class="response response-form"><div class="well bs-component mp-form"><form class="letterResponseForm margin-top-10" method="post"  data-url="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json" action="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json"><fieldset>      <legend>Dodaj odpowiedź na to pismo:</legend><div class="row margin-top-10">                             <div class="col-md-9">                                 <div class="form-group">                                     <label for="responseName">Tytuł:</label>                                     <input maxlength="195" type="text" class="form-control" id="responseName" name="name">                                 </div>                             </div>                             <div class="col-md-3">                                 <div class="form-group">                                     <label for="responseDate">Data:</label>                                     <input type="text" value="" class="form-control datepickerResponseDate" id="responseDate"  name="date">                                 </div>                             </div>                         </div>                         <div class="form-group">                             <label for="responseContent">Treść:</label>                             <textarea class="form-control" rows="7" id="responseContent" name="content"></textarea>                         </div>                         <div class="form-group">                             <label for="collectionDescription">Załączniki:</label>                             <div class="dropzoneForm">                                 <div class="actions">                                     <a class="btn btn-sm btn-default btn-addfile">Dodaj załącznik</a>                                 </div>                                 <div class="dropzoneFormPreview" id="preview"></div>                             </div>                         </div>                         <div class="form-group overflow-hidden text-center margin-top-20"><button data-action="cancel" class="btn btn-default" type="button">Anuluj</button><button class="btn width-auto btn-primary btn-icon" type="submit">                                 <span class="icon glyphicon glyphicon-ok"></span>                                 Zapisz odpowiedź</button>                         </div></fieldset></form></div></li>');
+		var li = $('<li class="response response-form"><div class="well bs-component mp-form"><form class="letterResponseForm margin-top-10" method="post"  data-url="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json" action="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json"><fieldset>      <legend>Dodaj odpowiedź na to pismo:</legend><div class="row margin-top-10">                             <div class="col-md-9">                                 <div class="form-group">                                     <label for="responseName">Tytuł:</label>                                     <input maxlength="195" type="text" class="form-control" id="responseName" name="name">                                 </div>                             </div>                             <div class="col-md-3">                                 <div class="form-group">                                     <label for="responseDate">Data:</label>                                     <input type="text" value="" class="form-control datepickerResponseDate" id="responseDate"  name="date">                                 </div>                             </div>                         </div>                         <div class="form-group">                             <label for="responseContent">Treść:</label>                             <textarea class="form-control tinymceField" rows="7" id="responseContent" name="content"></textarea>                         </div>                         <div class="form-group">                             <label for="collectionDescription">Załączniki:</label>                             <div class="dropzoneForm">                                 <div class="actions">                                     <a class="btn btn-sm btn-default btn-addfile">Dodaj załącznik</a>                                 </div>                                 <div class="dropzoneFormPreview" id="preview"></div>                             </div>                         </div>                         <div class="form-group overflow-hidden text-center margin-top-20"><button data-action="cancel" class="btn btn-default" type="button">Anuluj</button><button class="btn width-auto btn-primary btn-icon" type="submit">                                 <span class="icon glyphicon glyphicon-ok"></span>                                 Zapisz odpowiedź</button>                         </div></fieldset></form></div></li>');
 		this.responsesList.append(li.hide());
 
 		li.slideDown(function () {
 
+		});
+
+		tinymce.init({
+			selector: ".tinymceField",
+			language : 'pl',
+			menubar: false,
+			statusbar : false,
+			content_css: [
+				"/libs/bootstrap/3.3.4/css/bootstrap.min.css",
+				"/css/main.css"
+			],
+			valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
+			+ "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
+			+ "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
+			+ "name|href|target|title|class|onfocus|onblur],strong/b,em/i,strike,u,"
+			+ "#p,-ol[type|compact],-ul[type|compact],-li,br,img[longdesc|usemap|"
+			+ "src|border|alt=|title|hspace|vspace|width|height|align],-sub,-sup,"
+			+ "-blockquote,-table[border=0|cellspacing|cellpadding|width|frame|rules|"
+			+ "height|align|summary|bgcolor|background|bordercolor],-tr[rowspan|width|"
+			+ "height|align|valign|bgcolor|background|bordercolor],tbody,thead,tfoot,"
+			+ "#td[colspan|rowspan|width|height|align|valign|bgcolor|background|bordercolor"
+			+ "|scope],#th[colspan|rowspan|width|height|align|valign|scope],caption,-div,"
+			+ "-span,-code,-pre,address,-h1,-h2,-h3,-h4,-h5,-h6,hr[size|noshade],-font[face"
+			+ "|size|color],dd,dl,dt,cite,abbr,acronym,del[datetime|cite],ins[datetime|cite],"
+			+ "object[classid|width|height|codebase|*],param[name|value|_value],embed[type|width"
+			+ "|height|src|*],script[src|type],map[name],area[shape|coords|href|alt|target],bdo,"
+			+ "button,col[align|char|charoff|span|valign|width],colgroup[align|char|charoff|span|"
+			+ "valign|width],dfn,fieldset,form[action|accept|accept-charset|enctype|method],"
+			+ "input[accept|alt|checked|disabled|maxlength|name|readonly|size|src|type|value],"
+			+ "kbd,label[for],legend,noscript,optgroup[label|disabled],option[disabled|label|selected|value],"
+			+ "q[cite],samp,select[disabled|multiple|name|size],small,"
+			+ "textarea[cols|rows|disabled|name|readonly],tt,var,big,"
+			+ "iframe[src|title|width|height|allowfullscreen|frameborder]"
 		});
 
 		$('html').animate({scrollTop: li.offset()['top']});
@@ -180,6 +213,12 @@ var PISMO = Class.extend({
 					'</div>',
 					'</div>'
 				].join('')
+			});
+
+			$(this).submit(function() {
+
+				tinyMCE.triggerSave();
+
 			});
 
 		});

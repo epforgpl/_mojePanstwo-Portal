@@ -59,7 +59,7 @@ $accessDict = array(
                     </div>
                 <? } ?>
                 <? if ($pismo['is_public']) { ?>
-                    <div class="shareList">
+                    <div class="shareList margin-top-10">
                         <?
                         $share_url = 'https://mojepanstwo.pl/dane/pisma/' . $pismo['id'];
 
@@ -102,7 +102,7 @@ $accessDict = array(
                                         </h2>
 
                                         <div class="content">
-                                            <?= $response['Response']['content'] != '' ? htmlspecialchars($response['Response']['content']) : 'Brak treści' ?>
+                                            <?= $response['Response']['content'] != '' ? $response['Response']['content'] : 'Brak treści' ?>
                                         </div>
                                         <? if (count($response['files'])) { ?>
                                             <div class="files">
