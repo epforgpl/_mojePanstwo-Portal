@@ -8,6 +8,9 @@ class PomocController extends ApplicationsController
         'body' => array(
             'theme' => 'default',
         ),
+        'footer' => array(
+            'element' => 'default',
+        )
     );
 
     public $settings = array(

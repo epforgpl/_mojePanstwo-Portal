@@ -107,7 +107,7 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                 <section>
                                     <p>Jeśli znajdują się u nas jakies błędy krytyczne bądź błędy bezpieczeństwa -
                                         prosimy wtedy o
-                                        zgłoszenia droga mailową, aby nie upubliczniać informacji o wykrytej
+                                        zgłoszenia drogą mailową, aby nie upubliczniać informacji o wykrytej
                                         dziurze/błędzie.</p>
 
                                     <div class="input-group sliceBtn">
