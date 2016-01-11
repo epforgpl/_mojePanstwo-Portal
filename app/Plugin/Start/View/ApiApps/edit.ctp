@@ -29,7 +29,8 @@
                 <div class="form-group">
                     <? echo $this->Form->input('name', array('label' => 'Nazwa', 'class' => 'form-control')); ?>
                 </div>
-                <!--
+
+                <? /*
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-primary btn-file">
@@ -39,7 +40,8 @@
                     <input type="text" class="form-control" readonly
                            value="<?= @$this->request->data['ApiApp']['logo']; ?>">
                 </div>
-                -->
+                */ ?>
+
                 <div class="form-group">
                     <?php echo $this->Form->input('description', array('class' => 'form-control', 'label' => 'Opis')); ?>
                 </div>

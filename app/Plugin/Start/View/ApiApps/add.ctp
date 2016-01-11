@@ -9,6 +9,7 @@
 
         <h1>Dodaj aplikację</h1>
 
+        <!--TODO: mp-form > form-group z dodaj_dzialanie-->
         <div class="apiApps add">
             <fieldset>
                 <?php echo $this->Form->create('ApiApp'); ?>
@@ -24,20 +25,22 @@
                         <label for="apiNewTypeDomain">Aplikacja serwerowa</label>
                     </div>
                     <span class="info-warning">Uwaga! Po utworzenie typu aplikacji niemożna go zmienić</span>
-                </div>
+                    </div>
                 <div class="form-group">
                     <? echo $this->Form->input('name', array('class' => 'form-control', 'label' => 'Nazwa')); ?>
-                </div>
-                <!--
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <span class="btn btn-primary btn-file">
-                            Przeglądaj&hellip; <? echo $this->Form->file('logo'); ?>
+                    </div>
+
+                <? /*
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-primary btn-file">
+                                Przeglądaj&hellip; <? echo $this->Form->file('logo'); ?>
+                            </span>
                         </span>
-                    </span>
-                    <input type="text" class="form-control" readonly>
-                </div>
-                -->
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                    */ ?>
+
                 <div class="form-group">
                     <?php echo $this->Form->input('description', array('class' => 'form-control', 'label' => 'Opis (jakie zbiory danych i w jakim celu będziesz wykorzystywać)')); ?>
                 </div>
@@ -55,8 +58,8 @@
                 <?php echo $this->Form->button('Dodaj', array('class' => 'btn btn-primary pull-right submitBtn')); ?>
             </div>
             <?php echo $this->Form->end(); ?>
+            </div>
         </div>
     </div>
-</div>
 
 <?= $this->element('Start.pageEnd'); ?>
