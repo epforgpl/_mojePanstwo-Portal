@@ -77,6 +77,11 @@ class AdminAppController extends AppController
             'label' => 'Użytkownicy',
             'href'  => '/admin/users',
         ),
+        array(
+            'id'    => 'websites',
+            'label' => 'Websites',
+            'href'  => '/admin/websites',
+        ),
     );
 
     public function beforeFilter() {
