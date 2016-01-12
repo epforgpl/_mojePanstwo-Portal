@@ -211,7 +211,7 @@ $(function () {
 
 		get: function (year, type, done_function) {
 			$.getJSON(
-				apiHost + 'handel_zagraniczny/stats/getSymbols.json' +
+				apiHost + '/handel_zagraniczny/stats/getSymbols.json' +
 				'?parent_id=0' +
 				'&year=' + year +
 				'&type=' + type +
@@ -387,6 +387,7 @@ $(function () {
 
 	var hz_updateTopSymbolsDetails = function (symbols) {
 		var hzImportSymbols = $('#hzImportSymbols'),
+			hzExportSymbols = $('#hzExportSymbols'),
 			i, s;
 
 		hzImportSymbols.html('');
@@ -401,15 +402,15 @@ $(function () {
 			more.open('symbols', 'import');
 		});
 
-		hzImportSymbols.html('');
+		hzExportSymbols.html('');
 		for (i = 0; i < symbols.export.length; i++) {
 			s = symbols.export[i];
-			hzImportSymbols.append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + '</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>');
+			hzExportSymbols.append('<li class="list-group-item"><span class="badge">' + pl_currency_format(s.wartosc_pln) + '</span><a href="/dane/handel_zagraniczny_towary/' + s.id + '?y=' + hz_year + '">' + s.nazwa.trim() + '</a></li>');
 		}
 
-		hzImportSymbols.append('<li class="list-group-item text-center"><a class="more" href="#more">więcej</a></li>');
+		hzExportSymbols.append('<li class="list-group-item text-center"><a class="more" href="#more">więcej</a></li>');
 
-		hzImportSymbols.find('a.more').click(function () {
+		hzExportSymbols.find('a.more').click(function () {
 			more.open('symbols', 'export');
 		});
 	};
