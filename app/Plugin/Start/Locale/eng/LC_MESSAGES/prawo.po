@@ -1,8 +1,0 @@
-msgid "LC_USTAWY_HEADLINE"
-msgstr "Aktualne treści <b>ustaw</b> obowiązujących w Polsce"
-
-msgid "LC_USTAWY_SZUKAJ"
-msgstr "Szukaj..."
-
-msgid "LC_USTAWY_USTAWA"
-msgstr "Ustawa"

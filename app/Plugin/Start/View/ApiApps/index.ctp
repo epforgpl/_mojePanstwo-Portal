@@ -37,11 +37,11 @@
                                 <td width="120">Klucz API</td>
                                 <td>
                                     <span class="apiKeyValue"
-                                          data-key="<?php echo h($apiApp['ApiApp']['api_key']); ?>">***</span>
+                                          data-key="<?php echo h($apiApp['ApiApp']['api_key']); ?>">*****</span>
                                 </td>
                                 <td width="140">
                                     <a class="btn btn-link btn-sm"
-                                       onclick="var th=$(this).parents('tr').find('.apiKeyValue'); th.text(th.data('key')); setTimeout(function(){th.text('***');}, 4000);">Pokaż</a>
+                                       onclick="var th=$(this).parents('tr').find('.apiKeyValue'); th.text(th.data('key')); setTimeout(function(){th.text('*****');}, 4000);">Pokaż</a>
                                     <?php echo $this->Form->postLink('Zresetuj', array('action' => 'reset_api_key', $apiApp['ApiApp']['id']), array('class' => 'btn btn-link btn-sm'), 'Czy na pewno chcesz zresetować klucz API? Konieczne będzie jego podmienienie we wszystkich klientach, które z niego korzystają.'); ?>
                                 </td>
                             </tr>
@@ -52,7 +52,7 @@
                             <?php echo $this->Html->link('Edytuj', array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-primary editBtn')); ?>
                             <?php echo $this->Form->postLink('Skasuj', array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger deleteBtn'), __('Czy na pewno chcesz skasować aplikację "%s"?', $apiApp['ApiApp']['name'])); ?>
                             <? if (isset($apiApp['User'])) {
-                                echo '<div class="author">Autor: <a href="mailto:' . $apiApp['User']['email'] . '">' . $apiApp['User']['username'] . '</a></div>';
+                                echo '<div class="author">Autor:<br /><a href="mailto:' . $apiApp['User']['email'] . '">' . $apiApp['User']['username'] . '</a></div>';
                             } ?>
                         </div>
                     </div>

@@ -1,22 +1,23 @@
 .optionsBtn {
-    .btn-default, .btn-primary, .btn-warning, .btn-danger {
-        font-weight: bold;
-        margin-right: 5px;
-        border-color: #E7E7E7;
+    &.apiActionBtn {
+        .btn-default, .btn-primary, .btn-warning, .btn-danger {
+            font-weight: bold;
+            margin-right: 5px;
+            border-color: #E7E7E7;
 
-        &:focus, &:hover {
-            background-color: #eee;
+            &:focus, &:hover {
+                background-color: #eee;
+            }
+        }
+        .btn-primary {
+            background-color: #ffffff;
+            color: #337ab7;
+        }
+        .btn-danger {
+            background-color: #ffffff;
+            color: #d9534f;
         }
     }
-    .btn-primary {
-        background-color: #ffffff;
-        color: #337ab7;
-    }
-    .btn-danger {
-        background-color: #ffffff;
-        color: #d9534f;
-    }
-
     .listBtn, .editBtn, .cancelBtn, .deleteBtn, .submitBtn {
         &:before {
             font-family: 'Glyphicons Halflings';
@@ -37,9 +38,6 @@
     }
     .deleteBtn:before {
         content: "\e090";
-    }
-    .submitBtn:before {
-        content: "\e013";
     }
 }
 
@@ -107,6 +105,8 @@
             .author {
                 font-size: 11px;
                 margin-top: 3px;
+                margin-left: 2px;
+                margin-right: 2px;
             }
 
             > p {
@@ -187,6 +187,7 @@
         }
 
         .optionsBtn {
+            margin-top: 20px;
             padding: 0;
 
             .btn.pull-right {
@@ -195,12 +196,6 @@
             .btn.pull-left {
                 margin-right: 10px;
             }
-        }
-    }
-
-    &.view, &.edit {
-        .optionsBtn {
-            margin-top: 20px;
         }
     }
 }

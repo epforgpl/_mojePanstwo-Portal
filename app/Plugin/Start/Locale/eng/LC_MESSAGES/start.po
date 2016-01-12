@@ -1,0 +1,38 @@
+msgid "LC_APIAPPS_TYP_APLIKACJI"
+msgstr "Typ aplikacji"
+
+msgid "LC_APIAPPS_APLIKACJA_WEBOWA"
+msgstr "Aplikacja webowa"
+
+msgid "LC_APIAPPS_APLIKACJA_SERWEROWA"
+msgstr "Aplikacja serwerowa"
+
+msgid "LC_APIAPPS_ADDING_WARNING"
+msgstr "Uwaga! Po utworzenie typu aplikacji niemożna go zmienić."
+
+msgid "LC_APIAPPS_NAZWA"
+msgstr "Nazwa"
+
+msgid "LC_APIAPPS_OPIS"
+msgstr "Opis (jakie zbiory danych i w jakim celu będziesz wykorzystywać)"
+
+msgid "LC_APIAPPS_HOMEPAGE"
+msgstr "Strona projektu / link do aplikacji"
+
+msgid "LC_APIAPPS_DOMAINS"
+msgstr "Obsługiwane domeny (dla aplikacji webowej"
+
+msgid "LC_APIAPPS_PROMOTION_AGREE"
+msgstr "Dodając aplikację zgadasz się na wykorzystanie podanych informacji w działaniach promocyjnych serwisu Moje Państwo."
+
+msgid "LC_APIAPPS_ADD"
+msgstr "Dodaj"
+
+msgid "LC_APIAPPS_SAVE"
+msgstr "Zapisz"
+
+msgid "LC_APIAPPS_CANCEL"
+msgstr "Anuluj"
+
+msgid "LC_APIAPPS_DELETE"
+msgstr "Usuń"
