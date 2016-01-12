@@ -109,8 +109,19 @@
 }
 
 .daneOsobowe {
-    > header:before {
-        display: none !important;
+    > header {
+        text-align: center;
+        &:before {
+            display: none !important;
+        }
+    }
+
+    section {
+        p {
+            line-height: 2em;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
     }
 
     .reportBug {
