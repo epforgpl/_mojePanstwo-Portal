@@ -34,7 +34,7 @@ $description =
 
 <div class="krsPodmioty">
     <div class="col-xs-12 col-md-3 objectSide">
-        <? if ( ($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www')) ) { ?>
+        <? if (($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www'))) { ?>
             <div class="iconsList">
                 <div class="col-xs-12 nopadding">
 
@@ -243,14 +243,19 @@ $description =
             ));
             echo '</div>';
 
-			if (($email = $object->getData('email')) || ($email = $object->getPage('email'))) {
-	            $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
-	            $this->Combinator->add_libs('js', 'Pisma.pisma-button');
-	            echo '<div class="bannerCol col-xs-6 col-md-12">';
-	            echo $this->element('tools/pismo', array(
-	                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-	            ));
-	            echo '</div>';
+            if (($email = $object->getData('email')) || ($email = $object->getPage('email'))) {
+                $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+                $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+                echo '<div class="bannerCol col-xs-6 col-md-12">';
+                echo $this->element('tools/pismo', array(
+                    'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+                ));
+                echo '</div>';
+            }
+
+            if ($object->getId() == '359730') {
+                /*TODO: sprawdzic czy ustawiono opcje darowizny i podać id z tranferuj.pl*/
+                echo $this->element('tools/transferuj', array('transferuj_id' => 21638));
             }
 
             $page = $object->getLayer('page');
@@ -627,7 +632,8 @@ $description =
 
                                 <ul class="dzialalnosci">
                                     <? foreach ($dzialalnosci as $d) { ?>
-                                        <li><? if($d['przewazajaca']) {?><span class="label label-danger">Działalność przeważająca</span> <? } ?><?= $d['str'] ?></li>
+                                        <li><? if ($d['przewazajaca']) { ?><span class="label label-danger">Działalność przeważająca</span> <? } ?><?= $d['str'] ?>
+                                        </li>
                                     <? } ?>
                                 </ul>
 
