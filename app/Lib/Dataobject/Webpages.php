@@ -16,7 +16,7 @@ class Webpages extends DataObject {
     }
 
     public function getUrl() {
-        return $this->getData('url');
+        return '/admin/news/add/' . $this->getId();
     }
 
     public function getThumbnailUrl($size = '2') {
