@@ -4,7 +4,7 @@ $(document).ready(function() {
     tinymce.init({
         selector: ".tinymceField",
         language : 'pl',
-        toolbar: 'undo redo | bold italic underline | bullist numlist',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | removeformat',
         menubar: false,
         statusbar : false,
         content_css: [

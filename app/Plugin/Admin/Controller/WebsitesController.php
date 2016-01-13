@@ -19,7 +19,8 @@ class WebsitesController extends AdminAppController {
 	                'grant',
 	                'ngo',
                 ),
-            )
+            ),
+            'beforeBrowserElement' => 'Admin.websitesBeforeBrowser'
         ));
 
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
