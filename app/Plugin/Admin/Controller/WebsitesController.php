@@ -14,6 +14,11 @@ class WebsitesController extends AdminAppController {
             'dataset' => 'webpages',
             'conditions' => array(
                 'dataset' => 'webpages',
+                'qs' => array(
+	                'konkurs',
+	                'grant',
+	                'ngo',
+                ),
             )
         ));
 

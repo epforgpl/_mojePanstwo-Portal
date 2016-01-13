@@ -4,6 +4,7 @@ namespace MP\Lib;
 
 class Webpages extends DataObject {
 
+	public $force_hl_fields = true;
     protected $tiny_label = 'Webpages';
 
     protected $routes = array(
@@ -12,7 +13,7 @@ class Webpages extends DataObject {
     );
 
     public function getLabel() {
-        return 'Webpage';
+        return $this->getData('websites.name');
     }
 
     public function getUrl() {
@@ -27,20 +28,23 @@ class Webpages extends DataObject {
         return $this->getData('title');
     }
 
-    public function getTitleAddon() {
-        if($c = $this->getData('cts')) {
-            return 'Aktualizowano ' . getDiff($c, false);
-        }
-
-        return false;
-    }
-
     public function getSlug() {
         return '';
     }
 
-    public function getTitle() {
-        return $this->getData('name');
+    public function getShortTitle() {
+        return $this->getData('webpages.title');
+    }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array();
+		
+		$output[] = getDiff( $this->getData('cts'), false );
+				
+        return $output;
+
     }
 
 }
