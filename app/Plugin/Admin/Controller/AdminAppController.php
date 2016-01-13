@@ -82,6 +82,11 @@ class AdminAppController extends AppController
             'label' => 'Websites',
             'href'  => '/admin/websites',
         ),
+        array(
+            'id'    => 'news',
+            'label' => 'Aktualności',
+            'href'  => '/admin/news',
+        ),
     );
 
     public function beforeFilter() {
