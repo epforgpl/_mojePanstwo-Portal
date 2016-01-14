@@ -205,7 +205,7 @@ $options = array(
     if(is_array($udzialy) && count($udzialy) > 0) { ?>
         <div class="block block-simple col-xs-12">
             <header>Udziały</header>
-            <section class="aggs-init margin-top-10">
+            <section class="aggs-init margin-sides-20 margin-top-10">
                 <? foreach($udzialy as $udzial) { ?>
                     <div class="row">
                         <div class="col-xs-6">

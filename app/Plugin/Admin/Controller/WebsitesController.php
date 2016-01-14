@@ -14,6 +14,7 @@ class WebsitesController extends AdminAppController {
             'dataset' => 'webpages',
             'conditions' => array(
                 'dataset' => 'webpages',
+                'webpages.status' => '0',
                 'qs' => array(
 	                'konkurs',
 	                'grant',
@@ -24,6 +25,16 @@ class WebsitesController extends AdminAppController {
         ));
 
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
+    }
+
+    public function ignore($id = 0) {
+        $this->loadModel('Admin.CrawlerPage');
+        $this->CrawlerPage->save(array(
+            'id' => (int) $id,
+            'status' => '2'
+        ));
+
+        $this->redirect('/admin/websites');
     }
 
 }

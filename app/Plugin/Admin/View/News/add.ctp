@@ -10,7 +10,7 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
 
 <h2>Dodaj aktualność</h2>
 
-<form style="padding: 10px;" action="/admin/news/add/<?= $crawlerPage['CrawlerPage']['id'] ?>" method="POST">
+<form style="padding: 10px;" action="/admin/news/add/<?= isset($crawlerPage) ? $crawlerPage['CrawlerPage']['id'] : '' ?>" method="POST">
     <? if (isset($crawlerPage)) { ?>
         <input type="hidden" name="crawler_page_id" value="<?= $crawlerPage['CrawlerPage']['id'] ?>"/>
     <? } ?>
