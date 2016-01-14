@@ -540,7 +540,13 @@ $description =
                                 <? } elseif (@$osoba['krs_id']) {
                                 $class = "Organization"; ?>
                                 <a class="list-group-item row" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>">
-                                    <? } else {
+                                    <? } elseif (@$osoba['gmina_id']) {
+                                    $class = "Organization"; ?>
+                                    <a class="list-group-item row" href="/dane/gminy/<?= $osoba['gmina_id'] ?>,<?= $osoba['gmina_slug'] ?>">
+                                        <? } elseif (@$osoba['powiat_id']) {
+                                        $class = "Organization"; ?>
+                                        <a class="list-group-item row" href="/dane/powiaty/<?= $osoba['powiat_id'] ?>,<?= $osoba['powiat_slug'] ?>">
+                                            <? } else {
                                     $class = "Intangible"; ?>
                                     <div class="list-group-item row">
                                         <? } ?>
@@ -560,7 +566,7 @@ $description =
                                                class="list-group-item-text normalizeText col-xs-6"><?= $osoba['funkcja'] ?></p>
                                         <? } ?>
 
-                                        <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
+                                        <? if (@$osoba['osoba_id'] || @$osoba['krs_id'] || @$osoba['gmina_id'] || @$osoba['powiat_id']) { ?>
                                 </a>
                                 <? } else { ?>
                     </div>

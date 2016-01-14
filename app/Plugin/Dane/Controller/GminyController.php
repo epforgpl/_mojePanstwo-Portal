@@ -227,7 +227,7 @@ class GminyController extends DataobjectsController
     {
 
 
-        $_layers = array('szef', 'channels');
+        $_layers = array('szef', 'channels', 'udzialy');
         $this->addInitLayers($_layers);
 
         $this->_prepareView();
