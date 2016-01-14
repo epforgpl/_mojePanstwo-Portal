@@ -255,7 +255,8 @@ $description =
 
             if ($object->getId() == '359730') {
                 /*TODO: sprawdzic czy ustawiono opcje darowizny i podać id z tranferuj.pl*/
-                echo $this->element('tools/transferuj', array('transferuj_id' => 21638));
+                $this->Combinator->add_libs('js', 'Dane.transferuj');
+                echo $this->element('tools/transferuj', array('podmiotId' => $object->getId()));
             }
 
             $page = $object->getLayer('page');
