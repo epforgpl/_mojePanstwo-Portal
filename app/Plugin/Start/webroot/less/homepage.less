@@ -1,0 +1,68 @@
+#homepage {
+    .appsList, .reportsList {
+        float: left;
+        margin: 15px 0;
+        width: 100%;
+
+        .appBorder {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+            display: block;
+            float: left;
+            padding: 10px;
+            width: 100%;
+            line-height: 1.2em;
+
+            .mainpart, .subpart {
+                width: 100%;
+                float: left;
+                display: inline-block;
+            }
+
+            .mainpart {
+                color: #546466;
+                margin-bottom: 20px;
+
+                .icon {
+                    font-size: 50px;
+                    margin-right: 10px;
+                    display: block;
+                    float: left;
+                }
+
+                > strong {
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    display: block;
+                    -webkit-transform: translate(0, 100%);
+                    -moz-transform: translate(0, 100%);
+                    -ms-transform: translate(0, 100%);
+                    -o-transform: translate(0, 100%);
+                    transform: translate(0, 100%);
+                }
+            }
+            .subpart {
+                .title {
+                    margin-bottom: 6px;
+                    color: #92A7A4;
+                    font-size: 15px;
+                    font-weight: normal;
+                    text-transform: uppercase;
+                }
+
+                .text {
+                    margin-bottom: 0;
+                    color: #212829;
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+            }
+
+            .img-responsive {
+                font-size: 5em;
+                margin-top: 100%;
+            }
+        }
+    }
+}
