@@ -111,7 +111,7 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
 
 } else {
-	Router::connect( '/', array( 'controller' => 'pages', 'action' => 'display', 'home' ) );
+	Router::connect( '/', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'view' ) );
 }
 
 /**
