@@ -8,6 +8,10 @@
         foreach ($_META as $key => $val)
             echo $this->Html->meta(array('property' => $key, 'content' => $val));
     } ?>
+    
+    <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon-new.svg">
+    
+    <? /*
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png"/>
     <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png"/>
@@ -24,8 +28,11 @@
     <link rel="manifest" href="/img/favicon/manifest.json"/>
     <meta name="msapplication-TileColor" content="#ffffff"/>
     <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png"/>
+    */ ?>
     <meta name="theme-color" content="#ffffff"/>
-
+	
+	
+	
     <?php
     echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
     echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
