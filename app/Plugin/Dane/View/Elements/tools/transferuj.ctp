@@ -1,3 +1,9 @@
+<?
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$domainName = $_SERVER['HTTP_HOST'] . '/';
+?>
+
+
 <div class="banner transferuj block<? if (isset($class)) echo " " . $class; ?>">
     <?php echo $this->Html->image('Dane.banners/pisma.svg', array('width' => '92', 'alt' => 'Stwórz pismo do organizacji', 'class' => 'pull-right')); ?>
     <p><?= isset($label) ? $label : '<strong>Wesprzyj</strong> darowizną organizację'; ?></p>
@@ -14,23 +20,36 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="transferujModalLabel"></h4>
             </div>
-            <form action="https://secure.tpay.com" method="post" accept-charset="utf-8">
+
+            <form action="https://secure.tpay.com" method="POST" accept-charset="utf-8">
                 <fieldset>
                     <div class="modal-body">
-                        <input type="hidden" name="id" value="<?= $transferuj_id; ?>" required>
+                        <? /*TODO: all hidden to Controller*/ ?>
+                        <input type="hidden" name="id" value="21638" required>
+                        <input type="hidden" name="opis" value="<?= $podmiotId; ?>" required>
+
+                        <input type="hidden"
+                               value="<?= $protocol . $domainName; ?>dane/krs_podmioty/<?= $podmiotId ?>?transaction_confirmation"
+                               name="wyn_url">
+                        <input type="hidden" value="biuro@epf.org.pl" name="wyn_email">
+                        <input type="hidden"
+                               value="<?= $protocol . $domainName; ?>dane/krs_podmioty/<?= $podmiotId ?>"
+                               name="pow_url">
 
                         <div class="form-group">
                             <label for="transferujModalKwota">Kwota</label>
-                            <input type="number" name="kwota" class="form-control" id="transferujModalKwota"
-                                   value="0.00" required>
+                            <div class="input-group">
+                                <div class="input-group-addon">PLN</div>
+                                <input type="number" name="kwota" class="form-control" id="transferujModalKwota"
+                                       min="0.01" step="0.01" value="0.01">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="transferujModalOpis">Opis transakcji</label>
-                            <input type="text" name="opis" class="form-control" id="transferujModalOpis"
-                                   placeholder="Opis transakcji" maxlength="128" required>
+                                <textarea name="opisUser" class="form-control" id="transferujModalOpis"
+                                          placeholder="Krótki opis dla odbiorcy"></textarea>
                         </div>
 
-                        <span class="col-xs-12 small">Poniższe pola są opcjonalne</span>
                         <div class="form-group">
                             <label for="transferujModalEmail">Adres email</label>
                             <input type="email" name="email" class="form-control" id="transferujModalEmail"
@@ -49,7 +68,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" name="Przejdź do płatności">
+                        <input type="submit" class="btn btn-primary" name="Przejdź do płatności"
+                               value="Wyślij darowiznę">
                     </div>
                 </fieldset>
             </form>
