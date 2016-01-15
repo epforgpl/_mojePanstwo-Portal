@@ -1,10 +1,13 @@
+@appSize: 200px;
+
 .app-sidebar {
-    width: 200px;
+    width: @appSize;
     background-color: #23282d;
     z-index: 1;
     height: auto;
     min-height: 100%;
     -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: subpixel-antialiased;
     display: block;
     position: fixed;
     top: 44px;
@@ -57,5 +60,5 @@
 }
 
 .app-content-wrap {
-    margin-left: 200px;
+    margin-left: @appSize;
 }
