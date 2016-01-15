@@ -1,22 +1,61 @@
-.app-wrapper {
-	
-}
-
 .app-sidebar {
-	
-	width: 200px;
-	background-color: #23282d;
-	z-index: 1;
-	height: auto;
+    width: 200px;
+    background-color: #23282d;
+    z-index: 1;
+    height: auto;
     min-height: 100%;
     -webkit-font-smoothing: subpixel-antialiased;
     display: block;
     position: fixed;
     top: 44px;
-    z-index: 1;
-	
+
+    .app-list {
+        background-color: #34343d;
+        list-style: none;
+        padding: 0;
+
+        li {
+            display: block;
+            min-height: 42px;
+            padding: 15px 20px;
+            font-size: 10px;
+
+            .icon {
+                margin-right: 5px;
+                font-size: 1.2em;
+            }
+        }
+
+        > li {
+            text-transform: uppercase;
+
+            &.active {
+                color: #d8d8d8;
+                background-color: #29292f;
+            }
+
+            > a {
+                color: #999999;
+
+                > ul {
+                    padding-top: 12px;
+                    padding-left: 20px;
+
+                    li {
+                        color: #cccccc;
+                        text-transform: lowercase;
+
+                        &:last-child {
+                            padding-bottom: 0;
+                            min-height: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .app-content-wrap {
-	margin-left: 200px;
+    margin-left: 200px;
 }

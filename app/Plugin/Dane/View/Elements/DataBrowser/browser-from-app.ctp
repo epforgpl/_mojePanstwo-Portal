@@ -7,20 +7,30 @@ $columns = isset($columns) ? $columns : array(9, 3);
 echo $this->element('headers/main');
 ?>
 
-
 <div class="app-sidebar">
     <div class="app-logo">asd</div>
     <ul class="app-list">
-        <li>Menu aplikacji</li>
-        <li>Menu aplikacji</li>
-        <li>Menu aplikacji
+        <? foreach ($_applications as $a) {
+            if ($a['tag'] == 1) {
+                $icon = ($a['icon']) ? 'data-icon-applications="' . $a['icon'] . '"' : 'data-icon="&#xe612;"';
+                ?>
+                <li>
+                    <a href="<?= $a['href'] ?>" target="_self">
+                        <span class="icon" <?= $icon; ?>></span>
+                        <strong><?= $a['name'] ?></strong>
+                    </a>
+                </li>
+            <? }
+        } ?>
+        <li class="active"><span class="icon" data-icon="&#xe612;"></span><strong>Menu aplikacji</strong>
+        <li><span class="icon" data-icon="&#xe612;"></span><strong>Menu aplikacji</strong>
             <ul>
                 <li>submenu aplikacji</li>
                 <li>submenu aplikacji</li>
                 <li>submenu aplikacji</li>
             </ul>
         </li>
-        <li>Menu aplikacji</li>
+        <li><span class="icon" data-icon="&#xe612;"></span><strong>Menu aplikacji</strong></li>
     </ul>
 </div>
 
