@@ -39,7 +39,8 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                         </a>
                                         <time class="date"><?= date('d M Y', strtotime($post['date'])); ?></time>
                                         <p class="desc"><?= $post['desc']; ?></p>
-                                        <a class="btn btn-primary btn-sm" href="<?= $post['link'] ?>" target="_blank">Dowiedz
+                                        <a class="btn btn-primary btn-link btn-sm" href="<?= $post['link'] ?>"
+                                           target="_blank">Dowiedz
                                             się więcej</a>
                                     </li>
                                     <?

@@ -1,4 +1,4 @@
-.theme-default .block {
+.theme-default .block:not(.daneOsobowe) {
     border: 0;
     background: none;
 
@@ -21,6 +21,26 @@
             top: 0;
             width: 40px;
         }
+    }
+}
+
+.app_chapters li:not(._label) > a {
+    position: relative;
+
+    .object-icon {
+        position: absolute;
+        top: 50%;
+        left: 8px;
+        -webkit-transform: translate(0, -50%);
+        -moz-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        -o-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+    }
+    .object-icon-side {
+        margin-top: 1px;
+        margin-bottom: 1px;
+        padding-left: 32px;
     }
 }
 
@@ -52,6 +72,25 @@
     .desc {
         font-size: 14px;
         color: #616161;
+    }
+}
+
+.reportBug {
+    p:last-child {
+        margin-bottom: 20px;
+    }
+
+    .sliceBtn {
+        width: 330px;
+        margin: 10px auto;
+
+        &.btn-github {
+            display: block;
+        }
+
+        &.emailBtn .form-control {
+            margin-top: 1px;
+        }
     }
 }
 
@@ -111,9 +150,6 @@
 .daneOsobowe {
     > header {
         text-align: center;
-        &:before {
-            display: none !important;
-        }
     }
 
     section {
@@ -121,33 +157,6 @@
             line-height: 2em;
             margin-bottom: 40px;
             text-align: justify;
-        }
-    }
-
-    .reportBug {
-        p:last-child {
-            margin-bottom: 20px;
-        }
-
-        .sliceBtn {
-            width: 330px;
-            margin: 10px auto;
-        }
-
-        .btn.btn-github {
-            display: block;
-
-            > *:first-child {
-                font-size: 1.2em;
-            }
-        }
-        .input-group {
-            .input-group-btn, .form-control {
-                height: 34px;
-            }
-            .form-control {
-                margin-top: 2px;
-            }
         }
     }
 }

@@ -111,7 +111,8 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                         prosimy wtedy o
                                         zgłoszenia drogą mailową, aby nie upubliczniać informacji o wykrytej
                                         dziurze/błędzie.</p>
-                                    <div class="input-group sliceBtn">
+                                    <div
+                                        class="input-group emailBtn sliceBtn col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                                             <span class="input-group-btn">
                                                 <a class="btn btn-default glyphicon glyphicon-envelope" type="button"
                                                    href="mailto:security@mojepanstwo.pl"></a>
