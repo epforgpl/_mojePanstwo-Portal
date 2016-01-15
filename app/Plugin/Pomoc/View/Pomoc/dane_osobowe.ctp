@@ -33,6 +33,28 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                             <header>Podstawa Prawna portalu mojepanstwo.pl</header>
                             <section>
                                 <div class="block">
+                                    <p>
+                                        Na portalu mojePaństwo gromadzimy i przetwarzamy wiele danych publicznych czyli
+                                        pochodzących od urzędów publicznych. Szczególną grupą tych danych są informacje
+                                        pochodzące z Krajowego Rejestru Sądowego i Monitora Sądowego i Gospodarczego.
+                                        Część tych danych ma charakter nie tylko danych publicznych, ale również danych
+                                        osobowych.
+                                    </p>
+                                    <p>
+                                        Publikowanie takich informacji w przystępnych formatach ma na celu wspieranie
+                                        jawności i pewności obrotu gospodarczego. Odpowiada to działalności statutowej
+                                        Fundacji ePaństwo, która jest wydawcą portalu. Pragniemy również zwrócić uwagę,
+                                        że zakres danych osobowych przetwarzanych przez Fundację jest tożsamy z zakresem
+                                        danych osobowych ujawnionych w Krajowym Rejestrze Sądowym oraz Monitorze Sądowym
+                                        i Gospodarczym, których funkcjonowanie reguluje ustawa o Krajowym Rejestrze
+                                        Sądowym.
+                                    </p>
+                                    <p>
+                                        Dane osobowe udostępniane na portalu mojePaństwo dotyczą wyłącznie życia
+                                        zawodowego, a publikowane przez nas dane: imię, nazwisko oraz rok urodzenia osób
+                                        zarejestrowanych w Krajowym Rejestrze Sądowym, pozwalają korzystającym z portalu
+                                        użytkownikom rozróżnić osoby, których szukają.
+                                    </p>
                                     <p><strong>Sposób pozyskania danych.</strong><br/>Portal mojepanstwo.pl wydawany
                                         jest
                                         przez Fundację ePaństwo zarejestrowaną pod numerem KRS 0000359730 i&nbsp;zawiera
