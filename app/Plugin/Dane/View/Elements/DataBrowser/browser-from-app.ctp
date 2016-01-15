@@ -8,7 +8,12 @@ echo $this->element('headers/main');
 ?>
 
 <div class="app-sidebar">
-    <div class="app-logo">asd</div>
+    <div class="app-logo">
+        <a href="#" target="_self">
+            <span class="icon" data-icon="&#xe612;"></span>
+            <strong>Krajowy Rejestr Sądowy</strong>
+        </a>
+    </div>
     <ul class="app-list">
         <? foreach ($_applications as $a) {
             if ($a['tag'] == 1) {

@@ -6,11 +6,24 @@
     z-index: 1;
     height: auto;
     min-height: 100%;
-    -webkit-font-smoothing: subpixel-antialiased;
-    -moz-osx-font-smoothing: subpixel-antialiased;
     display: block;
     position: fixed;
     top: 44px;
+
+    .app-logo {
+        padding: 20px;
+        font-size: 12px;
+        text-transform: uppercase;
+
+        &, > a {
+            color: #d8d8d8;
+        }
+
+        .icon {
+            font-size: 2em;
+            margin-right: 5px;
+        }
+    }
 
     .app-list {
         background-color: #34343d;
