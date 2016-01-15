@@ -84,7 +84,7 @@ class PomocController extends ApplicationsController
 
     public function dane_osobowe()
     {
-        $this->title = 'Ochrona danych osobowych';
+        $this->title = 'Dane osobowe w Krajowym Rejestrze Sądowym';
     }
 
     public function getChapters()
@@ -115,7 +115,7 @@ class PomocController extends ApplicationsController
         );
 
         $items[] = array(
-            'label' => 'Ochrona danych osobowych',
+            'label' => 'Dane osobowe w Krajowym Rejestrze Sądowym',
             'href' => '/pomoc/dane_osobowe',
             'id' => 'dane_osobowe',
             'icon' => 'icon-datasets-dot',
