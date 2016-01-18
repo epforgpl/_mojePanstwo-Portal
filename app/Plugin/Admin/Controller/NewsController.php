@@ -143,4 +143,29 @@ class NewsController extends AdminAppController {
         $this->redirect('/admin/news');
     }
 
+    public function iframe($crawler_page_id = 0) {
+        $this->loadModel('Admin.CrawlerPage');
+        $crawlerPage = $this->CrawlerPage->find('first', array(
+            'conditions' => array(
+                'CrawlerPage.id' => (int) $crawler_page_id
+            ),
+            'joins' => array(
+                array(
+                    'table' => 'crawler_sites',
+                    'alias' => 'CrawlerSite',
+                    'type' => 'INNER',
+                    'conditions' => array(
+                        'CrawlerSite.id = CrawlerPage.site_id'
+                    )
+                )
+            ),
+            'fields' => array('CrawlerPage.*', 'CrawlerSite.*'),
+        ));
+
+        if(!$crawlerPage)
+            throw new NotFoundException;
+
+        $this->set('crawlerPage', $crawlerPage);
+    }
+
 }

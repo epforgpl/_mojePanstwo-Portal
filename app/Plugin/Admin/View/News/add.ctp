@@ -57,7 +57,7 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
 </form>
 
 <? if (isset($crawlerPage)) { ?>
-    <iframe style="border: none; width: 100%; height: 500px;" src="<?= $crawlerPage['CrawlerPage']['url'] ?>"></iframe>
+    <iframe style="border: none; width: 100%; height: 500px;" src="/admin/news/iframe/<?= $crawlerPage['CrawlerPage']['id'] ?>"></iframe>
     <a href="<?= $crawlerPage['CrawlerPage']['url'] ?>" target="_blank" class="btn btn-link">Otwórz stronę w nowej karcie</a>
 <? } ?>
 
