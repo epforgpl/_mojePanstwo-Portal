@@ -19,7 +19,7 @@ class WebsitesController extends AdminAppController {
 	                'konkurs',
 	                'grant',
 	                'pozarządowe',
-	                'nabór',
+	                //'nabór',
 	                'dofinansowanie',
 	                'dotacja',
 	                'konkurs',

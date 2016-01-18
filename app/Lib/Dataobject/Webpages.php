@@ -33,7 +33,7 @@ class Webpages extends DataObject {
     }
 
     public function getShortTitle() {
-        return $this->getData('webpages.title');
+        return strlen(trim($this->getData('webpages.title'))) > 0 ? $this->getData('webpages.title') : 'Brak tytułu';
     }
     
     public function getMetaDescriptionParts($preset = false)
