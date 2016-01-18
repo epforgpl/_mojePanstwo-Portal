@@ -1,8 +1,15 @@
 <?php
 
+$this->Combinator->add_libs('css', $this->Less->css('news-form', array('plugin' => 'Admin')));
+
 /* tinymce */
 echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', 'Admin.news-form');
+
+/* tag-it */
+echo $this->Html->script('../plugins/tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
+echo $this->Html->css('../plugins/tag-it/css/jquery.tagit.css');
+echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
 
 ?>
 
@@ -10,7 +17,7 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
 
 <h2>Dodaj aktualność</h2>
 
-<form style="padding: 10px;" action="/admin/news/add/<?= isset($crawlerPage) ? $crawlerPage['CrawlerPage']['id'] : '' ?>" method="POST">
+<form action="/admin/news/add/<?= isset($crawlerPage) ? $crawlerPage['CrawlerPage']['id'] : '' ?>" method="POST">
     <? if (isset($crawlerPage)) { ?>
         <input type="hidden" name="crawler_page_id" value="<?= $crawlerPage['CrawlerPage']['id'] ?>"/>
     <? } ?>
@@ -37,10 +44,14 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
     <? } ?>
     <div class="row">
         <div class="col-md-6">
-            <label>Data dodania</label>
-            <input type="text" name="date" value="<?= date('Y-m-d', isset($crawlerPage) ? strtotime($crawlerPage['CrawlerPage']['cts']) : time()) ?>" class="form-control" placeholder="Tytuł"/>
-        </div>
-        <div class="col-md-6">
+            <div class="form-group">
+                <label>Data dodania</label>
+                <input type="text" name="date" value="<?= date('Y-m-d', isset($crawlerPage) ? strtotime($crawlerPage['CrawlerPage']['cts']) : time()) ?>" class="form-control" placeholder="Tytuł"/>
+            </div>
+            <div class="form-group">
+                <label>Deadline</label>
+                <input type="text" name="deadline" value="YYYY-MM-DD" class="form-control" placeholder="Deadline"/>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <label>Przedział min.</label>
@@ -50,6 +61,23 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
                     <label>Przedział max.</label>
                     <input type="text" name="range_max" value="0.00" class="form-control" placeholder="max."/>
                 </div>
+            </div>
+            <div class="row tags margin-top-10">
+                <div class="col-md-12">
+                    <label>Słowa kluczowe</label>
+                    <input type="text" class="form-control tagit" name="tags"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label>Obszar działania</label>
+            <div class="margin-top-10">
+                <? foreach($areas as $i => $area) { ?>
+                    <div class="checkbox margin-top-0">
+                        <input id="area_<?= ($i + 1) ?>" name="areas[]" type="checkbox" value="<?= ($i + 1) ?>"/>
+                        <label for="area_<?= ($i + 1) ?>"><?= ucfirst($area) ?></label>
+                    </div>
+                <? } ?>
             </div>
         </div>
     </div>

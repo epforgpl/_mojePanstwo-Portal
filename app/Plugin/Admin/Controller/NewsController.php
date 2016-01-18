@@ -5,6 +5,20 @@ App::uses('AdminAppController', 'Admin.Controller');
 class NewsController extends AdminAppController {
 
     private static $perPage = 20;
+    private static $areas = array(
+        'działalność charytatywna',
+        'pomoc społeczna',
+        'ochrona praw obywatelskich i praw człowieka',
+        'rozwój przedsiębiorczości',
+        'nauka, kultura, edukacja',
+        'ekologia',
+        'działalność międzynarodowa',
+        'aktywność społeczna',
+        'sport, turystyka',
+        'bezpieczeństwo publiczne',
+        'inne',
+        'uchodźcy'
+    );
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -78,6 +92,8 @@ class NewsController extends AdminAppController {
 
             $this->set('crawlerPage', $crawlerPage);
         }
+
+        $this->set('areas', self::$areas);
     }
 
     public function edit($id = 0) {
@@ -113,7 +129,7 @@ class NewsController extends AdminAppController {
                         'conditions' => array(
                             'CrawlerSite.id = CrawlerPage.site_id'
                         )
-                    )
+                    ),
                 ),
                 'fields' => array('CrawlerPage.*', 'CrawlerSite.*'),
             ));
@@ -124,7 +140,16 @@ class NewsController extends AdminAppController {
             $this->set('crawlerPage', $crawlerPage);
         }
 
+        $this->set('newsAreas', array_column(array_column(
+            $this->News->query("SELECT * FROM news_areas WHERE news_id = " . (int) $id)
+            , 'news_areas'), 'area_id'));
+
+        $this->set('tags', array_column(array_column(
+            $this->News->query("SELECT tematy.q FROM news_tags INNER JOIN tematy ON tematy.id = news_tags.tag_id WHERE news_tags.news_id = " . (int) $id)
+            , 'tematy'), 'q'));
+
         $this->set('news', $news);
+        $this->set('areas', self::$areas);
     }
 
     public function delete($id = 0) {

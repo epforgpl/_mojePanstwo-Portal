@@ -1,8 +1,15 @@
 <?php
 
+$this->Combinator->add_libs('css', $this->Less->css('news-form', array('plugin' => 'Admin')));
+
 /* tinymce */
 echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 $this->Combinator->add_libs('js', 'Admin.news-form');
+
+/* tag-it */
+echo $this->Html->script('../plugins/tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
+echo $this->Html->css('../plugins/tag-it/css/jquery.tagit.css');
+echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
 
 ?>
 
@@ -36,19 +43,45 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
         <? } ?>
         <div class="row">
             <div class="col-md-6">
-                <label>Data dodania</label>
-                <input type="text" name="date" value="<?= $news['News']['date'] ?>" class="form-control" placeholder="Tytuł"/>
-            </div>
-            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data dodania</label>
+                    <input type="text" name="date" value="<?= $news['News']['date'] ?>" class="form-control" placeholder="Tytuł"/>
+                </div>
+                <div class="form-group">
+                    <label>Deadline</label>
+                    <input type="text" name="deadline" value="<?= $news['News']['deadline'] ?>" class="form-control" placeholder="Deadline"/>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label>Przedział min.</label>
-                        <input type="text" name="range_min" value="<?= $news['News']['range_min'] ?>" class="form-control" placeholder="min."/>
+                        <input type="text" name="range_min" value="0.00" class="form-control" placeholder="min."/>
                     </div>
                     <div class="col-md-6">
                         <label>Przedział max.</label>
-                        <input type="text" name="range_max" value="<?= $news['News']['range_max'] ?>" class="form-control" placeholder="max."/>
+                        <input type="text" name="range_max" value="0.00" class="form-control" placeholder="max."/>
                     </div>
+                </div>
+                <div class="row tags margin-top-10">
+                    <div class="col-md-12">
+                        <label>Słowa kluczowe</label>
+                        <input
+                            type="text"
+                            class="form-control tagit"
+                            name="tags"
+                            <? if(isset($tags)) printf('data-value="%s"', htmlspecialchars(json_encode($tags), ENT_QUOTES, 'UTF-8')); ?>
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Obszar działania</label>
+                <div class="margin-top-10">
+                    <? foreach($areas as $i => $area) { ?>
+                        <div class="checkbox margin-top-0">
+                            <input id="area_<?= ($i + 1) ?>" name="areas[]" type="checkbox" value="<?= ($i + 1) ?>" <?= in_array($i + 1, $newsAreas) ? 'checked': '' ?>/>
+                            <label for="area_<?= ($i + 1) ?>"><?= ucfirst($area) ?></label>
+                        </div>
+                    <? } ?>
                 </div>
             </div>
         </div>
