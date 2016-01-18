@@ -34,7 +34,7 @@ $description =
 
 <div class="krsPodmioty">
     <div class="col-xs-12 col-md-3 objectSide">
-        <? if ( ($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www')) ) { ?>
+        <? if (($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www'))) { ?>
             <div class="iconsList">
                 <div class="col-xs-12 nopadding">
 
@@ -243,14 +243,20 @@ $description =
             ));
             echo '</div>';
 
-			if (($email = $object->getData('email')) || ($email = $object->getPage('email'))) {
-	            $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
-	            $this->Combinator->add_libs('js', 'Pisma.pisma-button');
-	            echo '<div class="bannerCol col-xs-6 col-md-12">';
-	            echo $this->element('tools/pismo', array(
-	                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
-	            ));
-	            echo '</div>';
+            if (($email = $object->getData('email')) || ($email = $object->getPage('email'))) {
+                $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
+                $this->Combinator->add_libs('js', 'Pisma.pisma-button');
+                echo '<div class="bannerCol col-xs-6 col-md-12">';
+                echo $this->element('tools/pismo', array(
+                    'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+                ));
+                echo '</div>';
+            }
+
+            if ($object->getId() == '359730') {
+                /*TODO: sprawdzic czy ustawiono opcje darowizny i podać id z tranferuj.pl*/
+                $this->Combinator->add_libs('js', 'Dane.transferuj');
+                echo $this->element('tools/transferuj', array('podmiotId' => $object->getId()));
             }
 
             $page = $object->getLayer('page');
@@ -266,8 +272,7 @@ $description =
         <div class="object">
 
             <? if ($object->getData('wykreslony')) { ?>
-            <div class="alert alert-dismissable alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+            <div class="alert alert-danger margin-top-10 margin-bottom-0">
                 Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
             </div>
             <? } ?>
@@ -535,7 +540,13 @@ $description =
                                 <? } elseif (@$osoba['krs_id']) {
                                 $class = "Organization"; ?>
                                 <a class="list-group-item row" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>">
-                                    <? } else {
+                                    <? } elseif (@$osoba['gmina_id']) {
+                                    $class = "Organization"; ?>
+                                    <a class="list-group-item row" href="/dane/gminy/<?= $osoba['gmina_id'] ?>,<?= $osoba['gmina_slug'] ?>">
+                                        <? } elseif (@$osoba['powiat_id']) {
+                                        $class = "Organization"; ?>
+                                        <a class="list-group-item row" href="/dane/powiaty/<?= $osoba['powiat_id'] ?>,<?= $osoba['powiat_slug'] ?>">
+                                            <? } else {
                                     $class = "Intangible"; ?>
                                     <div class="list-group-item row">
                                         <? } ?>
@@ -555,7 +566,7 @@ $description =
                                                class="list-group-item-text normalizeText col-xs-6"><?= $osoba['funkcja'] ?></p>
                                         <? } ?>
 
-                                        <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
+                                        <? if (@$osoba['osoba_id'] || @$osoba['krs_id'] || @$osoba['gmina_id'] || @$osoba['powiat_id']) { ?>
                                 </a>
                                 <? } else { ?>
                     </div>
@@ -627,7 +638,8 @@ $description =
 
                                 <ul class="dzialalnosci">
                                     <? foreach ($dzialalnosci as $d) { ?>
-                                        <li><? if($d['przewazajaca']) {?><span class="label label-danger">Działalność przeważająca</span> <? } ?><?= $d['str'] ?></li>
+                                        <li><? if ($d['przewazajaca']) { ?><span class="label label-danger">Działalność przeważająca</span> <? } ?><?= $d['str'] ?>
+                                        </li>
                                     <? } ?>
                                 </ul>
 

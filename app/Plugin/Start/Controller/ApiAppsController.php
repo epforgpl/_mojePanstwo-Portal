@@ -67,6 +67,7 @@ class ApiAppsController extends StartAppController
     }
 
     public function add() {
+        $this->title = 'Klucze API - dodaj nowy klucz';
         if ($this->request->is('post')) {
 
             // sanitize data
@@ -99,6 +100,7 @@ class ApiAppsController extends StartAppController
     }
 
     public function view($id = null) {
+        $this->title = 'Klucze API - przeglądanie kluczy';
         if (!$this->ApiApp->exists($id)) {
             throw new NotFoundException(__('Invalid api app'));
         }
@@ -107,6 +109,7 @@ class ApiAppsController extends StartAppController
     }
 
     public function edit($id = null) {
+        $this->title = 'Klucze API - edytuj klucz';
         $app = $this->ApiApp->read(null, $id);
         if (!$app) {
             throw new NotFoundException(__('Invalid api app'));

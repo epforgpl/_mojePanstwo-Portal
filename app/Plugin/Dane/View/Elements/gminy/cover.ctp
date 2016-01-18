@@ -201,6 +201,29 @@ $options = array(
         </div>
     <? } ?>
 
+    <? $udzialy = $object->getLayer('udzialy');
+    if(is_array($udzialy) && count($udzialy) > 0) { ?>
+        <div class="block block-simple col-xs-12">
+            <header>Udziały</header>
+            <section class="aggs-init margin-sides-20 margin-top-10">
+                <? foreach($udzialy as $udzial) { ?>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <a href="/dane/krs_podmioty/<?= $udzial['pozycja_id'] ?>,<?= $udzial['slug'] ?>" title="<?= $udzial['nazwa'] ?>">
+                                <?= $udzial['nazwa'] ?>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <p class="normalizeText text-muted">
+                                <?= $udzial['udzialy_str'] ?>
+                            </p>
+                        </div>
+                    </div>
+                <? } ?>
+            </section>
+        </div>
+    <? } ?>
+
     <div class="block block-simple col-xs-12">
         <header>Typy zarejestrowanych organizacji<? if ($object->getId() == 903) { ?> w Krakowie<? } ?></header>
 

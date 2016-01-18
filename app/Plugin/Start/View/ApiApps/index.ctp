@@ -11,34 +11,50 @@
         <div class="apiApps">
             <?php foreach ($apiApps as $apiApp): ?>
                 <div class="key col-xs-12" data-keyid="<?php echo h($apiApp['ApiApp']['id']); ?>">
-                    <!--<div class="col-xs-1 apiLogo">
-                    </div>-->
+                    <? /* <div class="col-xs-1 apiLogo"></div> */ ?>
                     <div class="col-xs-9 apiInfo">
                         <h4 class="title"><?php echo h($apiApp['ApiApp']['name']); ?></h4>
-                        <a href="<?= h($apiApp['ApiApp']['home_link']); ?>"><?php echo h($apiApp['ApiApp']['home_link']); ?></a>
-
-                        <?php if ($apiApp['ApiApp']['domains']) { ?>
-                            <br/><span>Domeny: <?= $apiApp['ApiApp']['domains'] ?></span>
-                        <? } ?>
-
-                        <div class="description"><?php echo h($apiApp['ApiApp']['description']); ?></div>
-
-                        <div class="apiGeneratedKey">
-                            Klucz API:
-                            <span class="apiKeyValue" data-key="<?php echo h($apiApp['ApiApp']['api_key']); ?>">***</span>
-                            <a class="btn btn-link btn-sm" onclick="javascript: var th=$(this).siblings('.apiKeyValue'); th.text(th.data('key')); setTimeout(function(){th.text('***');}, 4000);">Pokaż</a>
-                            <?php echo $this->Form->postLink('Zresetuj', array('action' => 'reset_api_key', $apiApp['ApiApp']['id']), array('class' => 'btn btn-link btn-sm'), 'Czy na pewno chcesz zresetować klucz API? Konieczne będzie jego podmienienie we wszystkich klientach, które z niego korzystają.'); ?>
-                        </div>
+                        <table class="table table-striped">
+                            <?php if ($apiApp['ApiApp']['home_link']) { ?>
+                                <tr>
+                                    <td width="120">Strona główna</td>
+                                    <td colspan="2"><a class="home_link"
+                                                       href="<?= h($apiApp['ApiApp']['home_link']); ?>"><?php echo h($apiApp['ApiApp']['home_link']); ?></a>
+                                    </td>
+                                </tr>
+                            <? } ?>
+                            <?php if ($apiApp['ApiApp']['domains']) { ?>
+                                <tr>
+                                    <td width="120">Domeny</td>
+                                    <td colspan="2"><?= $apiApp['ApiApp']['domains'] ?></td>
+                                </tr>
+                            <? } ?>
+                            <tr>
+                                <td>Opis</td>
+                                <td colspan="2"><?php echo h($apiApp['ApiApp']['description']); ?></td>
+                            </tr>
+                            <tr>
+                                <td width="120">Klucz API</td>
+                                <td>
+                                    <span class="apiKeyValue"
+                                          data-key="<?php echo h($apiApp['ApiApp']['api_key']); ?>">*****</span>
+                                </td>
+                                <td width="140">
+                                    <a class="btn btn-link btn-sm"
+                                       onclick="var th=$(this).parents('tr').find('.apiKeyValue'); th.text(th.data('key')); setTimeout(function(){th.text('*****');}, 4000);">Pokaż</a>
+                                    <?php echo $this->Form->postLink('Zresetuj', array('action' => 'reset_api_key', $apiApp['ApiApp']['id']), array('class' => 'btn btn-link btn-sm'), 'Czy na pewno chcesz zresetować klucz API? Konieczne będzie jego podmienienie we wszystkich klientach, które z niego korzystają.'); ?>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="col-xs-3 apiActionBtn optionsBtn">
                         <div class="pull-left">
                             <?php echo $this->Html->link('Edytuj', array('action' => 'edit', $apiApp['ApiApp']['id']), array('class' => 'btn btn-primary editBtn')); ?>
                             <?php echo $this->Form->postLink('Skasuj', array('action' => 'delete', $apiApp['ApiApp']['id']), array('class' => 'btn btn-danger deleteBtn'), __('Czy na pewno chcesz skasować aplikację "%s"?', $apiApp['ApiApp']['name'])); ?>
+                            <? if (isset($apiApp['User'])) {
+                                echo '<div class="author">Autor:<br /><a href="mailto:' . $apiApp['User']['email'] . '">' . $apiApp['User']['username'] . '</a></div>';
+                            } ?>
                         </div>
-                        <? if (isset($apiApp['User'])) {
-                            // ustawione jeżeli ogląda to admin
-                            echo '<p>Autor: <a href="mailto:' . $apiApp['User']['email'] . '">' . $apiApp['User']['username'] . '</a></p>';
-                        } ?>
                     </div>
                 </div>
             <?php endforeach; ?>

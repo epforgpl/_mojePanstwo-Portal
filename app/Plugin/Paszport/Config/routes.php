@@ -12,6 +12,7 @@ Router::connect('/paszport/logi', array('plugin' => 'paszport', 'controller' => 
 Router::connect('/paszport/user/setUserName', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'setUserName'));
 Router::connect('/paszport/user/setEmail', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'setEmail'));
 Router::connect('/paszport/user/setPassword', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'setPassword'));
+Router::connect('/paszport/user/setIsNgo', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'setIsNgo'));
 Router::connect('/paszport/user/createNewPassword', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'createNewPassword'));
 Router::connect('/paszport/user/delete', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'delete'));
 

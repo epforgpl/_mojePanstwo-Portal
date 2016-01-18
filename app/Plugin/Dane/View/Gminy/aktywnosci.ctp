@@ -40,15 +40,7 @@ echo $this->Element('dataobject/pageBegin', array(
                     <div class="dataWrap">
                         <h1 class="smaller margin-top-15">Ranking aktywności radnych</h1>
                         <div class="margin-top-20">
-                            <? if (!empty($aggs['ranking_aktywnosci']['top']['hits']['hits']) || !empty($aggs['ranking_aktywnosci']['rank']['target_date']['points'])) {
-                                if (!empty($aggs['ranking_aktywnosci']['top']['hits']['hits'])) {
-                                    $mode = 'g';
-                                    $data = $aggs['ranking_aktywnosci']['top']['hits']['hits'];
-                                } else {
-                                    $mode = 'm';
-                                    $data = $aggs['ranking_aktywnosci']['rank']['target_date']['points']['buckets'];
-                                }
-                                ?>
+                            <? if (isset($activity_ranking)) { ?>
                                 <div class="margin-top-10">
 
                                     <p>Radni którzy najczęściej wypowiadali się na posiedzeniach, brali udział w
@@ -58,6 +50,8 @@ echo $this->Element('dataobject/pageBegin', array(
                                     <ul>
                                         <li class="margin-bottom-5">Wystąpienie na posiedzeniu Rady Miasta - <strong>10
                                                 punktów</strong>
+                                        <li class="margin-bottom-5">Wystąpienie na posiedzeniu Rady Miasta w roli przewodniczącego - <strong>3
+                                                punkty</strong>
                                         <li class="margin-bottom-5">Oddanie głosu na posiedzeniu Rady Miasta - <strong>1
                                                 punkt</strong>
                                         <li class="margin-bottom-5">Złożenie interpelacji - <strong>30 punktów</strong>
@@ -74,7 +68,8 @@ echo $this->Element('dataobject/pageBegin', array(
                                             } else {
                                                 echo 'bieżącą kadencję';
                                             } ?>. <span
-                                                class="btn-link datepickerAktywnosciDate">Wybierz <?= isset($_GET["m"]) ? 'inny' : 'konkretny' ?>
+                                                class="btn-link datepickerAktywnosciDate"
+                                                data-url="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/aktywnosci' : '/aktywnosci') ?>">Wybierz <?= isset($_GET["m"]) ? 'inny' : 'konkretny' ?>
                                                 miesiąc.</span></p>
                                         <? if (isset($_GET["m"])) { ?>
                                             <p><a href="/aktywnosci">Zobacz zestawienie dla całej kadencji Rady
@@ -83,9 +78,7 @@ echo $this->Element('dataobject/pageBegin', array(
                                     </div>
 
                                     <div
-                                        data-aggs="<?= htmlentities(json_encode($data)) ?>"
-                                        data-mode="<?= $mode ?>"
-                                        data-field="radni_gmin.punkty_aktywnosc"
+                                        data-ranking="<?= htmlentities(json_encode($activity_ranking)) ?>"
                                         data-request="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/radni/' : '/radni/') ?>"
                                         class="radniRankingChart"
                                     ></div>
@@ -97,15 +90,7 @@ echo $this->Element('dataobject/pageBegin', array(
 
                             <h1 class="smaller margin-top-15">Ranking otwartości radnych</h1>
 
-                            <? if (!empty($aggs['ranking_otwartosci']['top']['hits']['hits']) || !empty($aggs['ranking_otwartosci']['rank']['target_date']['points'])) {
-                                if (!empty($aggs['ranking_otwartosci']['top']['hits']['hits'])) {
-                                    $mode = 'g';
-                                    $data = $aggs['ranking_otwartosci']['top']['hits']['hits'];
-                                } else {
-                                    $mode = 'm';
-                                    $data = $aggs['ranking_otwartosci']['rank']['target_date']['points']['buckets'];
-                                }
-                                ?>
+                            <? if (isset($openness_ranking)) { ?>
                                 <div class="margin-top-10">
 
                                     <p>Radni którzy udostępnili o sobie najwięcej informacji. Punkty zostały
@@ -125,9 +110,7 @@ echo $this->Element('dataobject/pageBegin', array(
                                     </ul>
 
                                     <div
-                                        data-aggs="<?= htmlentities(json_encode($data)) ?>"
-                                        data-mode="<?= $mode ?>"
-                                        data-field="radni_gmin.punkty_aktywnosc"
+                                        data-ranking="<?= htmlentities(json_encode($openness_ranking)) ?>"
                                         data-request="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/radni/' : '/radni/') ?>"
                                         class="radniRankingChart"
                                     ></div>

@@ -86,7 +86,7 @@ msgid "LC_FOOTER_REPORT_BUG"
 msgstr "Zgłoś błąd"
 
 msgid "LC_FOOTER_FAQ"
-msgstr "Centrum pomocy"
+msgstr "Pomocy"
 
 msgid "LC_FOOTER_CONTACT_US"
 msgstr "Napisz do nas"

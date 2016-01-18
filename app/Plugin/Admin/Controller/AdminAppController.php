@@ -72,6 +72,21 @@ class AdminAppController extends AppController
             'label' => 'Treści publiczne',
             'href'  => '/admin/public_content',
         ),
+        array(
+            'id'    => 'users',
+            'label' => 'Użytkownicy',
+            'href'  => '/admin/users',
+        ),
+        array(
+            'id'    => 'websites',
+            'label' => 'Websites',
+            'href'  => '/admin/websites',
+        ),
+        array(
+            'id'    => 'news',
+            'label' => 'Aktualności',
+            'href'  => '/admin/news',
+        ),
     );
 
     public function beforeFilter() {

@@ -227,7 +227,7 @@ class GminyController extends DataobjectsController
     {
 
 
-        $_layers = array('szef', 'channels');
+        $_layers = array('szef', 'channels', 'udzialy');
         $this->addInitLayers($_layers);
 
         $this->_prepareView();
@@ -5280,139 +5280,21 @@ class GminyController extends DataobjectsController
     }
 
     public function aktywnosci() {
-
         $this->request->params['action'] = 'rada';
-		
-		$params = array(
-	        'ranking_aktywnosci' => array(
-		        'scope' => 'global',
-		        'filter' => array(
-			        'bool' => array(
-				        'must' => array(
-					        array(
-						        'term' => array(
-							        'dataset' => 'radni_gmin',
-						        ),
-					        ),
-					        array(
-						        'term' => array(
-							        'data.radni_gmin.gmina_id' => '903',
-						        ),
-					        ),
-					        array(
-                                'term' => array(
-                                    'data.radni_gmin.kadencja_id' => '7',
-                                ),
-                            ),
-				        ),
-			        ),
-		        ),
-		        'aggs' => array(),
-	        ),
-            'ranking_otwartosci' => array(
-                'scope' => 'global',
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'radni_gmin',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.gmina_id' => '903',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.radni_gmin.kadencja_id' => '7',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 44,
-                            'sort' => array(
-                                'data.radni_gmin.punkty_dostepnosc' => array(
-                                    'order' => 'desc',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-        
-        if( isset($this->request->query['m']) ) {
-	        
-	        $params['ranking_aktywnosci']['aggs'] = array(
-		        'rank' => array(
-			        'nested' => array(
-				        'path' => 'radni_gmin-ranking',
-			        ),
-			        'aggs' => array(
-				        'target_date' => array(
-					        'filter' => array(
-						        'term' => array(
-		                            'radni_gmin-ranking.month' => $this->request->query['m'],
-	                            ),
-					        ),
-					        'aggs' => array(
-						        'points' => array(
-							        'terms' => array(
-								        'field' => 'points',
-								        'size' => 50,
-								        'order' => array(
-									        '_term' => 'desc',
-								        ),
-							        ),
-							        'aggs' => array(
-								        'reverse' => array(
-									        'reverse_nested' => '_empty',
-									        'aggs' => array(
-										        'top' => array(
-											        'top_hits' => array(
-												        'size' => 1,
-											        ),
-										        ),
-									        ),
-								        ),
-							        ),
-						        ),							        
-					        ),
-				        ),
-			        ),
-		        ),
-	        );
-	        
-        } else {
-	        
-	        $params['ranking_aktywnosci']['aggs'] = array(
-		        'top' => array(
-			        'top_hits' => array(
-				        'size' => 44,
-				        'sort' => array(
-					        'data.radni_gmin.punkty_aktywnosc' => array(
-						        'order' => 'desc',
-					        ),
-				        ),
-			        ),
-		        ),
-	        );
-	        
-        }
-		
-        $this->addInitAggs($params);
-
-
         $this->_prepareView();
 
         if ($this->object->getId() != '903')
             throw new NotFoundException;
+
+        $this->loadModel('Dane.GminyKrakowRadni');
+
+        $activityQuery = array('type' => 'activity');
+        if(isset($this->request->query['m']))
+            $activityQuery['m'] = $this->request->query['m'];
+        $this->set('activity_ranking', $this->GminyKrakowRadni->getRanking($activityQuery));
+        $this->set('openness_ranking', $this->GminyKrakowRadni->getRanking(array(
+            'type' => 'openness'
+        )));
 
         $this->set('aggs',  $this->Dataobject->getAggs());
 
@@ -5958,6 +5840,16 @@ class GminyController extends DataobjectsController
 
         }
 
+    }
+
+    public function radni_ranking() {
+        $this->_prepareView();
+        if($this->object->getId() != '903')
+            throw new NotFoundException;
+
+        $this->loadModel('Dane.GminyKrakowRadni');
+        $this->set('results', $this->GminyKrakowRadni->getRanking($this->request->query));
+        $this->set('_serialize', array('results'));
     }
 
 }
