@@ -16,8 +16,8 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
         <input type="hidden" name="id" value="<?= $news['News']['id'] ?>"/>
         <input type="hidden" name="updated_at" value="<?= date('Y-m-d H:i:s') ?>"/>
         <div class="form-group">
-            <label>Nazwa</label>
-            <input value="<?= $news['News']['name'] ?>" type="text" name="name" class="form-control" placeholder="Nazwa"/>
+            <label>Tytuł</label>
+            <input value="<?= $news['News']['name'] ?>" type="text" name="name" class="form-control" placeholder="Tytuł"/>
         </div>
         <div class="form-group">
             <label>Opis</label>
@@ -27,19 +27,32 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
             <label>Treść</label>
             <textarea name="content" class="form-control tinymceField" rows="8" title="Treść" placeholder="Treść"><?= $news['News']['content'] ?></textarea>
         </div>
-        <div class="form-group">
-            <label>Promuj</label><br/>
-            <label>
-                <input type="radio" name="is_promoted" value="1" <?= $news['News']['is_promoted'] == '1' ? 'checked' : '' ?>>
-                Tak
-            </label>&nbsp;
-            <label>
-                <input type="radio" name="is_promoted" value="0" <?= $news['News']['is_promoted'] == '0' ? 'checked' : '' ?>>
-                Nie
-            </label>
+        <? if (isset($crawlerPage)) { ?>
+            <div class="form-group">
+                <label>Organizator</label>
+                <input type="hidden" name="instytucja_id" value="<?= $crawlerPage['CrawlerSite']['instytucja_id'] ?>"/>
+                <input type="text" value="<?= $crawlerPage['CrawlerSite']['name'] ?>" class="form-control" disabled/>
+            </div>
+        <? } ?>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Data dodania</label>
+                <input type="text" name="date" value="<?= $news['News']['date'] ?>" class="form-control" placeholder="Tytuł"/>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Przedział min.</label>
+                        <input type="text" name="range_min" value="<?= $news['News']['range_min'] ?>" class="form-control" placeholder="min."/>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Przedział max.</label>
+                        <input type="text" name="range_max" value="<?= $news['News']['range_max'] ?>" class="form-control" placeholder="max."/>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-default">Zapisz</button>
+        <button type="submit" class="btn btn-default margin-top-10">Zapisz</button>
     </form>
 
 <? if(isset($crawlerPage)) { ?>

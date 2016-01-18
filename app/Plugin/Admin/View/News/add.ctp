@@ -16,8 +16,8 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
     <? } ?>
     <input type="hidden" name="user_id" value="<?= AuthComponent::user('id') ?>"/>
     <div class="form-group">
-        <label>Nazwa</label>
-        <input type="text" name="name" class="form-control" placeholder="Nazwa"/>
+        <label>Tytuł</label>
+        <input type="text" name="name" class="form-control" placeholder="Tytuł"/>
     </div>
     <div class="form-group">
         <label>Opis</label>
@@ -28,24 +28,37 @@ $this->Combinator->add_libs('js', 'Admin.news-form');
         <textarea name="content" class="form-control tinymceField" rows="8" title="Treść"
                   placeholder="Treść"></textarea>
     </div>
+    <? if (isset($crawlerPage)) { ?>
     <div class="form-group">
-        <label>Promuj</label><br/>
-        <label>
-            <input type="radio" name="is_promoted" value="1" checked>
-            Tak
-        </label>&nbsp;
-        <label>
-            <input type="radio" name="is_promoted" value="0">
-            Nie
-        </label>
+        <label>Organizator</label>
+        <input type="hidden" name="instytucja_id" value="<?= $crawlerPage['CrawlerSite']['instytucja_id'] ?>"/>
+        <input type="text" value="<?= $crawlerPage['CrawlerSite']['name'] ?>" class="form-control" disabled/>
     </div>
-    <button type="submit" class="btn btn-default">Zapisz</button>
+    <? } ?>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Data dodania</label>
+            <input type="text" name="date" value="<?= date('Y-m-d', isset($crawlerPage) ? strtotime($crawlerPage['CrawlerPage']['cts']) : time()) ?>" class="form-control" placeholder="Tytuł"/>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Przedział min.</label>
+                    <input type="text" name="range_min" value="0.00" class="form-control" placeholder="min."/>
+                </div>
+                <div class="col-md-6">
+                    <label>Przedział max.</label>
+                    <input type="text" name="range_max" value="0.00" class="form-control" placeholder="max."/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default margin-top-10">Zapisz</button>
 </form>
 
 <? if (isset($crawlerPage)) { ?>
     <iframe style="border: none; width: 100%; height: 500px;" src="<?= $crawlerPage['CrawlerPage']['url'] ?>"></iframe>
-    <a href="<?= $crawlerPage['CrawlerPage']['url'] ?>" target="_blank" class="btn btn-link">Otwórz stronę w nowej
-        karcie</a>
+    <a href="<?= $crawlerPage['CrawlerPage']['url'] ?>" target="_blank" class="btn btn-link">Otwórz stronę w nowej karcie</a>
 <? } ?>
 
 <?= $this->element('Admin.footer'); ?>
