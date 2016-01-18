@@ -8,6 +8,22 @@ echo $this->element('headers/main');
 ?>
 
 <div class="app-sidebar">
+	
+	<?
+		
+		// w zmiennej $_app są dane potrzebne do wyświetlenia aktualnej aplikacji (jej id, nazwa, ikona itd)	
+		debug($_app);
+	
+		
+		// w zmiennej $app_chapters['items'] są dane do menu aplikacji
+		// Tutaj usuwam na chama pierwszy element menu (array_shift)
+		// docelowo jutro zmienie kod kontrolera, żeby tej pozycji w ogóle nie wrzucało
+		
+		// array_shift( $app_chapters['items'] );
+		debug($app_chapters['items']);
+			
+	?>
+	
     <div class="app-logo">
         <? if (!empty($appSettings) && $appSettings['shortTitle'] !== 'mojePaństwo') { ?>
             <a href="#" target="_self">
