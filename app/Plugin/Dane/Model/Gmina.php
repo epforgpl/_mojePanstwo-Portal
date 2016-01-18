@@ -40,7 +40,7 @@ class Gmina extends AppModel {
             'method' => 'GET',
             'data' => array(
 	            'object_id' => $object_id,
-	            'key' => $key,
+	            'key' => str_replace(' ', '+', $key),
             ),
         ));
     }
@@ -50,7 +50,7 @@ class Gmina extends AppModel {
             'method' => 'POST',
             'data' => array(
 	            'object_id' => $object_id,
-	            'key' => $key,
+	            'key' => str_replace(' ', '+', $key),
 	            'items' => $items,
             ),
         ));
