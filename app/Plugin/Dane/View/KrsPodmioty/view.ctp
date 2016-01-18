@@ -272,8 +272,7 @@ $description =
         <div class="object">
 
             <? if ($object->getData('wykreslony')) { ?>
-            <div class="alert alert-dismissable alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+            <div class="alert alert-danger margin-top-10 margin-bottom-0">
                 Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
             </div>
             <? } ?>
