@@ -18,7 +18,7 @@ class WebsitesController extends AdminAppController {
                 'qs' => array(
 	                'konkurs',
 	                'grant',
-	                'nabór',
+	                //'nabór',
 	                'dofinansowanie',
 	                'dotacja',
 	                'zlecenie zadania publicznego'
