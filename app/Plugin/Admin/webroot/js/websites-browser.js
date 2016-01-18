@@ -6,7 +6,12 @@
         $('.objectRender.webpages').each(function() {
 
             var id = $(this).attr('oid'),
-                content = $(this).find('.content').first();
+                content = $(this).find('.content').first(),
+                aThumb = $(this).find('a.thumb_cont').first(),
+                aTitle = $(this).find('.title a').first();
+
+            aThumb.attr('target', 'blank');
+            aTitle.attr('target', 'blank');
 
             content.append([
                 '<div class="margin-top-10">',

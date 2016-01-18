@@ -58,8 +58,19 @@ class NewsController extends AdminAppController {
             $this->loadModel('Admin.CrawlerPage');
             $crawlerPage = $this->CrawlerPage->find('first', array(
                 'conditions' => array(
-                    'id' => (int) $crawler_page_id
-                )
+                    'CrawlerPage.id' => (int) $crawler_page_id
+                ),
+                'joins' => array(
+                    array(
+                        'table' => 'crawler_sites',
+                        'alias' => 'CrawlerSite',
+                        'type' => 'INNER',
+                        'conditions' => array(
+                            'CrawlerSite.id = CrawlerPage.site_id'
+                        )
+                    )
+                ),
+                'fields' => array('CrawlerPage.*', 'CrawlerSite.*'),
             ));
 
             if(!$crawlerPage)
@@ -92,8 +103,19 @@ class NewsController extends AdminAppController {
             $this->loadModel('Admin.CrawlerPage');
             $crawlerPage = $this->CrawlerPage->find('first', array(
                 'conditions' => array(
-                    'id' => (int) $news['News']['crawler_page_id']
-                )
+                    'CrawlerPage.id' => (int) $news['News']['crawler_page_id']
+                ),
+                'joins' => array(
+                    array(
+                        'table' => 'crawler_sites',
+                        'alias' => 'CrawlerSite',
+                        'type' => 'INNER',
+                        'conditions' => array(
+                            'CrawlerSite.id = CrawlerPage.site_id'
+                        )
+                    )
+                ),
+                'fields' => array('CrawlerPage.*', 'CrawlerSite.*'),
             ));
 
             if(!$crawlerPage)
