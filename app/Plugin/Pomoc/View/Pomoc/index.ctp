@@ -44,7 +44,7 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                                 <time
                                                     class="date"><?= date('d M Y', strtotime($post['date'])); ?></time>
                                                 <p class="desc"><?= $post['desc']; ?></p>
-                                                <a class="btn btn-primary btn-sm" href="<?= $post['link'] ?>"
+                                                <a class="btn btn-primary btn-link btn-sm" href="<?= $post['link'] ?>"
                                                    target="_blank">Dowiedz się więcej</a>
                                             </li>
                                             <?
@@ -83,7 +83,7 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                 </section>
                             </div>
                             <div id="blad" class="block col-xs-12 reportBug">
-                                <header>Zgłoś błąd</header>
+                                <header>Zgłoś błąd bądź sugestię</header>
                                 <section>
                                     <p>Jeśli wystąpił jakiś błąd w naszym serwisie, posiadamy błędne lub nieaktualne
                                         dane, bądź chcą Państwo
@@ -98,23 +98,25 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                                         w stanie łatwiej
                                         odtworzyć błąd w celu diagnozy i naprawienia go.</p>
 
-                                    <?php echo $this->Html->link('<span class="fa fa-github"></span>Powiadom bezpośrednio w serwisie GitHub', 'https://github.com/epforgpl/_mojePanstwo-Portal/issues/new', array(
-                                        'class' => 'btn btn-social btn-github sliceBtn',
-                                        'target' => '_blank',
-                                        'escape' => false
-                                    )); ?>
+                                    <p class="text-center">
+                                        <?php echo $this->Html->link('<span class="fa fa-github"></span>Powiadom bezpośrednio w serwisie GitHub', 'https://github.com/epforgpl/_mojePanstwo-Portal/issues/new', array(
+                                            'class' => 'btn btn-social btn-github sliceBtn',
+                                            'target' => '_blank',
+                                            'escape' => false
+                                        )); ?>
+                                    </p>
                                 </section>
                                 <section>
                                     <p>Jeśli znajdują się u nas jakies błędy krytyczne bądź błędy bezpieczeństwa -
                                         prosimy wtedy o
                                         zgłoszenia drogą mailową, aby nie upubliczniać informacji o wykrytej
                                         dziurze/błędzie.</p>
-
-                                    <div class="input-group sliceBtn">
-                                        <span class="input-group-btn">
-                                            <a class="btn btn-default glyphicon glyphicon-envelope" type="button"
-                                               href="mailto:security@mojepanstwo.pl"></a>
-                                        </span>
+                                    <div
+                                        class="input-group emailBtn sliceBtn col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                                            <span class="input-group-btn">
+                                                <a class="btn btn-default glyphicon glyphicon-envelope" type="button"
+                                                   href="mailto:security@mojepanstwo.pl"></a>
+                                            </span>
                                         <input type="text" class="form-control" value="security@mojepanstwo.pl"
                                                readonly>
                                     </div>
