@@ -18,7 +18,12 @@ class WebsitesController extends AdminAppController {
                 'qs' => array(
 	                'konkurs',
 	                'grant',
-	                'ngo',
+	                'pozarządowe',
+	                'nabór',
+	                'dofinansowanie',
+	                'dotacja',
+	                'konkurs',
+	                'zlecenie zadania publicznego'
                 ),
             ),
             'beforeBrowserElement' => 'Admin.websitesBeforeBrowser'

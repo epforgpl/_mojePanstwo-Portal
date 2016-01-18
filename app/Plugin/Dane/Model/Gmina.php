@@ -36,11 +36,12 @@ class Gmina extends AppModel {
     }
     
     public function checkEditKey($object_id, $key) {
+	    	    
         return $this->getDataSource()->request('krakow/portal/verifyKey', array(
             'method' => 'GET',
             'data' => array(
 	            'object_id' => $object_id,
-	            'key' => $key,
+	            'key' => str_replace(' ', '+', $key),
             ),
         ));
     }
