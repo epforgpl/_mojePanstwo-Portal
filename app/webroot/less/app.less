@@ -11,17 +11,35 @@
     top: 44px;
 
     .app-logo {
-        padding: 20px;
+        padding: 30px 20px;
         font-size: 12px;
         text-transform: uppercase;
 
         &, > a {
             color: #d8d8d8;
+            position: relative;
+            float: left;
+            width: 100%;
         }
 
         .icon {
+            width: 40px;
             font-size: 2em;
             margin-right: 5px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+        }
+
+        strong {
+            padding-left: 45px;
+            float: left;
+            line-height: 1.2em;
         }
     }
 
