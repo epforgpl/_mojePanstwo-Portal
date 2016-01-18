@@ -23,8 +23,7 @@
                 if ($a['tag'] == 1) {
                     $icon = ($a['icon']) ? 'data-icon-applications="' . $a['icon'] . '"' : 'data-icon="&#xe612;"';
                     $icon_link = $a['href'] . '/icon/icon_' . str_replace("/", "", $a['href']) . '.svg';
-                    //$icon_side = $a['href'].'/icon/side_'.str_replace("/","",$a['href']).'.svg';
-                    $icon_side = 'krs/icon/side_krs.svg';
+                    $icon_side = $a['href'] . '/icon/side_' . str_replace("/", "", $a['href']) . '.svg';
                     ?>
                     <a class="col-xs-12 col-sm-6" href="<?= $a['href'] ?>" target="_self">
                         <div class="appBorder">
@@ -57,8 +56,7 @@
                 if ($a['tag'] == 2) {
                     $icon = ($a['icon']) ? 'data-icon-applications="' . $a['icon'] . '"' : 'data-icon="&#xe612;"';
                     $icon_link = $a['href'] . '/icon/icon_' . str_replace("/", "", $a['href']) . '.svg';
-                    //$icon_side = $a['href'].'/icon/side_'.str_replace("/","",$a['href']).'.svg';
-                    $icon_side = 'krs/icon/side_krs.svg';
+                    $icon_side = $a['href'] . '/icon/side_' . str_replace("/", "", $a['href']) . '.svg';
                     ?>
                     <a class="col-xs-12 col-sm-6" href="<?= $a['href'] ?>" target="_self">
                         <div class="appBorder">
