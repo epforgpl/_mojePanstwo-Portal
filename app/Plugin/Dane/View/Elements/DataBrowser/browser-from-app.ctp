@@ -13,7 +13,7 @@ echo $this->element('headers/main');
             <a href="#" target="_self">
                 <img class="icon"
                      src="<?= $_app['href'] ?>/icon/icon_<?= $_app['id'] ?>.svg">
-                <strong><?= $_app['name'] ?></strong>
+                <p><?= $_app['name'] ?></p>
             </a>
         <? } ?>
     </div>
