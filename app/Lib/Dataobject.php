@@ -117,7 +117,7 @@ class Dataobject
 			return false;
 		else {
 			$parts = array_filter($parts);
-			return implode(' <span class="sep">-</span> ', $parts);
+			return implode(' <span class="sep">&mdash;</span> ', $parts);
 		}
 
 	}
