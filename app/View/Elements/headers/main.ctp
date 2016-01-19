@@ -88,6 +88,34 @@
                     <? /* <span class="_mPAppBadge badge">0</span> */ ?>
                 </a>
             </li>
+            <li class="apps">
+                <a class="_mPAppsList _appBlock _appBlockBackground" href="/#aplikacje" target="_self">
+                    <span class="_mPAppIcon glyphicon glyphicon-th"></span>
+                </a>
+                <div class="appsList">
+                    <ul class="appListUl">
+                        <? $i = 0;
+                        foreach ($_applications as $app) {
+                        if ($i == 9){
+                        ?>
+                    </ul>
+                    <a href="btn btn-link appListMore text-center">Więcej</a>
+                    <ul class="appListUl moreList">
+                        <?
+                        }
+                        $i++;
+                        ?>
+                        <li>
+                            <a target="_self" href="<?= $app['href'] ?>"
+                               class="_mPAppsList _appBlock _appBlockBackground text-center">
+                                <span data-icon-applications="<?= $app['icon'] ?>" class="_mPAppIcon"></span>
+                                <p class="_mPAppLabel"><?= $app['name'] ?></p>
+                            </a>
+                        </li>
+                        <? } ?>
+                    </ul>
+                </div>
+            </li>
             <li>
                 <a class="_mPSearch _appBlock _appBlockBackground" href="/#szukaj">
                     <span class="_mPAppIcon" data-icon="&#xe600;"></span>
