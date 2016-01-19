@@ -8,54 +8,26 @@ echo $this->element('headers/main');
 ?>
 
 <div class="app-sidebar">
-	
-	<?
-		
-		// w zmiennej $_app są dane potrzebne do wyświetlenia aktualnej aplikacji (jej id, nazwa, ikona itd)	
-		// debug($_app);
-	
-		
-		// w zmiennej $app_chapters['items'] są dane do menu aplikacji
-		// Tutaj usuwam na chama pierwszy element menu (array_shift)
-		// docelowo jutro zmienie kod kontrolera, żeby tej pozycji w ogóle nie wrzucało
-		
-		// array_shift( $app_chapters['items'] );
-		// debug($app_chapters['items']);
-			
-	?>
-	
     <div class="app-logo">
-        <? if (!empty($appSettings) && $appSettings['shortTitle'] !== 'mojePaństwo') { ?>
+        <? if (!empty($_app)) { ?>
             <a href="#" target="_self">
                 <img class="icon"
-                     src="/<?= strtolower($appSettings['shortTitle']) ?>/icon/icon_<?= strtolower($appSettings['shortTitle']) ?>.svg">
-                <strong><?= $appSettings['title'] ?></strong>
+                     src="<?= $_app['href'] ?>/icon/icon_<?= $_app['id'] ?>.svg">
+                <p><?= $_app['name'] ?></p>
             </a>
-
         <? } ?>
     </div>
     <ul class="app-list">
-        <? foreach ($_applications as $a) {
-            if ($a['tag'] == 1) {
-                $icon = ($a['icon']) ? 'data-icon-applications="' . $a['icon'] . '"' : 'data-icon="&#xe612;"';
-                ?>
-                <li>
-                    <a href="<?= $a['href'] ?>" target="_self">
-                        <span class="icon" <?= $icon; ?>></span>
-                        <strong><?= $a['name'] ?></strong>
-                    </a>
-                </li>
-            <? }
-        } ?>
-        <li class="active"><span class="icon" data-icon="&#xe612;"></span><strong>Menu aplikacji</strong>
-        <li><span class="icon" data-icon="&#xe612;"></span><strong>Menu aplikacji</strong>
-            <ul>
-                <li>submenu aplikacji</li>
-                <li>submenu aplikacji</li>
-                <li>submenu aplikacji</li>
-            </ul>
-        </li>
-        <li><span class="icon" data-icon="&#xe612;"></span><strong>Menu aplikacji</strong></li>
+        <? array_shift($app_chapters['items']); ?>
+        <? foreach ($app_chapters['items'] as $a) { ?>
+            <li>
+                <a href="<?= $a['href'] ?>" target="_self">
+                    <span class="icon <?= $a['icon'] ?>"></span>
+                    <strong><?= $a['label'] ?></strong>
+                </a>
+                <? /* <div class="sub-list"><li><li></ul> */ ?>
+            </li>
+        <? } ?>
     </ul>
 </div>
 

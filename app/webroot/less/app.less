@@ -2,30 +2,33 @@
 
 .app-sidebar {
     width: @appSize;
-    background-color: #23282d;
+    background-color: #34343d;
     z-index: 1;
     height: auto;
     min-height: 100%;
     display: block;
     position: fixed;
     top: 44px;
+    border-bottom: 12px solid #29292f;
 
     .app-logo {
-        padding: 30px 20px;
-        font-size: 12px;
+        padding: 12px 20px;
+        font-size: 10px;
         text-transform: uppercase;
+        background-color: #29292f;
 
         &, > a {
             color: #d8d8d8;
-            position: relative;
             float: left;
             width: 100%;
+            position: relative;
         }
 
         .icon {
-            width: 40px;
-            font-size: 2em;
-            margin-right: 5px;
+            width: 100%;
+            max-width: 36px;
+            height: 100%;
+            max-height: 32px;
             position: absolute;
             left: 0;
             top: 50%;
@@ -36,27 +39,53 @@
             transform: translate(0, -50%);
         }
 
-        strong {
-            padding-left: 45px;
+        p {
             float: left;
+            padding-left: 40px;
             line-height: 1.2em;
+            margin: 0;
         }
     }
 
     .app-list {
         background-color: #34343d;
         list-style: none;
-        padding: 0;
+        padding: 8px 0;
+        float: left;
 
         li {
             display: block;
             min-height: 42px;
-            padding: 15px 20px;
+            padding: 8px 30px;
             font-size: 10px;
 
-            .icon {
-                margin-right: 5px;
-                font-size: 1.2em;
+            &, a {
+                display: block;
+                width: 100%;
+                float: left;
+            }
+
+            a {
+                position: relative;
+
+                .icon {
+                    margin-right: 5px;
+                    font-size: 2em;
+                    color: #ffffff;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    -webkit-transform: translate(0, -50%);
+                    -moz-transform: translate(0, -50%);
+                    -ms-transform: translate(0, -50%);
+                    -o-transform: translate(0, -50%);
+                    transform: translate(0, -50%);
+                }
+
+                strong {
+                    float: left;
+                    padding-left: 30px;
+                }
             }
         }
 
@@ -68,21 +97,21 @@
                 background-color: #29292f;
             }
 
-            > a {
+            &, > a {
                 color: #999999;
+            }
+            .sub-list {
+                padding-top: 12px;
+                padding-left: 20px;
+                background-color: #323239;
 
-                > ul {
-                    padding-top: 12px;
-                    padding-left: 20px;
+                li {
+                    text-transform: lowercase;
+                    min-height: 0;
+                    padding: 9px 14px;
 
-                    li {
+                    &, > a {
                         color: #cccccc;
-                        text-transform: lowercase;
-
-                        &:last-child {
-                            padding-bottom: 0;
-                            min-height: 30px;
-                        }
                     }
                 }
             }
