@@ -12,7 +12,7 @@ echo $this->element('headers/main');
 	<?
 		
 		// w zmiennej $_app są dane potrzebne do wyświetlenia aktualnej aplikacji (jej id, nazwa, ikona itd)	
-		debug($_app);
+		// debug($_app);
 	
 		
 		// w zmiennej $app_chapters['items'] są dane do menu aplikacji
@@ -20,7 +20,7 @@ echo $this->element('headers/main');
 		// docelowo jutro zmienie kod kontrolera, żeby tej pozycji w ogóle nie wrzucało
 		
 		// array_shift( $app_chapters['items'] );
-		debug($app_chapters['items']);
+		// debug($app_chapters['items']);
 			
 	?>
 	
