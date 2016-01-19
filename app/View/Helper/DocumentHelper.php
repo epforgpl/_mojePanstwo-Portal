@@ -32,7 +32,7 @@ class DocumentHelper extends AppHelper
 		App::import("Model", "Document");  
 		$Document = new Document();  
 									
-		$doc = $Document->load($id, $options);
+		$doc = $Document->load($id, $options['package']);
 		
         return $this->_View->element('Document/view', array(
             'document' => $doc,
