@@ -21,11 +21,20 @@ echo $this->element('headers/main');
         <? array_shift($app_chapters['items']); ?>
         <? foreach ($app_chapters['items'] as $a) { ?>
             <li>
-                <a href="<?= $a['href'] ?>" target="_self">
-                    <span class="icon <?= $a['icon'] ?>"></span>
-                    <strong><?= $a['label'] ?></strong>
-                </a>
-                <? /* <div class="sub-list"><li><li></ul> */ ?>
+                <? if (isset($a['href'])) {
+                    echo '<a href="' . $a['href'] . '" target="_self">';
+                } else {
+                    echo '<div class="blank">';
+                }
+                ?>
+                <span class="icon <?= $a['icon'] ?>"></span>
+                <strong><?= $a['label'] ?></strong>
+                <? if (isset($a['href'])) {
+                    echo '</a>';
+                } else {
+                    echo '</div>';
+                } ?>
+                <? /* <ul class="sub-list"><li><li></ul> */ ?>
             </li>
         <? } ?>
     </ul>

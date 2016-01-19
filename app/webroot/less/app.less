@@ -56,32 +56,29 @@
             padding: 8px 30px;
             font-size: 10px;
 
-            &, a {
+            &, .blank, a {
                 display: block;
                 width: 100%;
                 float: left;
+                position: relative;
             }
 
-            a {
-                position: relative;
+            .icon {
+                margin-right: 5px;
+                font-size: 2em;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                -webkit-transform: translate(0, -50%);
+                -moz-transform: translate(0, -50%);
+                -ms-transform: translate(0, -50%);
+                -o-transform: translate(0, -50%);
+                transform: translate(0, -50%);
+            }
 
-                .icon {
-                    margin-right: 5px;
-                    font-size: 2em;
-                    position: absolute;
-                    top: 50%;
-                    left: 0;
-                    -webkit-transform: translate(0, -50%);
-                    -moz-transform: translate(0, -50%);
-                    -ms-transform: translate(0, -50%);
-                    -o-transform: translate(0, -50%);
-                    transform: translate(0, -50%);
-                }
-
-                strong {
-                    float: left;
-                    padding-left: 30px;
-                }
+            strong {
+                float: left;
+                padding-left: 30px;
             }
         }
 
@@ -97,7 +94,7 @@
                 }
             }
 
-            &, > a {
+            &, .blank, > a {
                 color: #999999;
             }
             .sub-list {
