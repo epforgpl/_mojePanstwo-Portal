@@ -21,7 +21,6 @@
         <div class="appsList">
             <? foreach ($_applications as $a) {
                 if ($a['tag'] == 1) {
-                    $icon = ($a['icon']) ? 'data-icon-applications="' . $a['icon'] . '"' : 'data-icon="&#xe612;"';
                     $icon_link = $a['href'] . '/icon/icon_' . str_replace("/", "", $a['href']) . '.svg';
                     $icon_side = $a['href'] . '/icon/side_' . str_replace("/", "", $a['href']) . '.svg';
                     ?>
@@ -29,7 +28,6 @@
                         <div class="appBorder">
                             <div class="col-xs-8">
                                 <div class="mainpart">
-                                    <? /*<span class="icon" <?= $icon; ?>></span>*/ ?>
                                     <img src="<?= $icon_link ?>" class="icon"/>
                                     <strong><?= $a['name'] ?></strong>
                                 </div>
@@ -42,7 +40,6 @@
                                 </div>
                             </div>
                             <div class="col-xs-4">
-                                <?/*<span class="img-responsive" alt="" <?= $icon; ?>></span>*/ ?>
                                 <img src="<?= $icon_side ?>" class="img-responsive"/>
                             </div>
                         </div>
@@ -54,7 +51,6 @@
         <div class="reportsList">
             <? foreach ($_applications as $a) {
                 if ($a['tag'] == 2) {
-                    $icon = ($a['icon']) ? 'data-icon-applications="' . $a['icon'] . '"' : 'data-icon="&#xe612;"';
                     $icon_link = $a['href'] . '/icon/icon_' . str_replace("/", "", $a['href']) . '.svg';
                     $icon_side = $a['href'] . '/icon/side_' . str_replace("/", "", $a['href']) . '.svg';
                     ?>
@@ -62,7 +58,6 @@
                         <div class="appBorder">
                             <div class="col-xs-8">
                                 <div class="mainpart">
-                                    <? /* <span class="icon" <?= $icon; ?>></span>*/ ?>
                                     <img src="<?= $icon_link ?>" class="icon"/>
                                     <strong><?= $a['name'] ?></strong>
                                 </div>
@@ -75,7 +70,6 @@
                                 </div>
                             </div>
                             <div class="col-xs-4">
-                                <?/*<span class="img-responsive" alt="" <?= $icon; ?>></span>*/ ?>
                                 <img src="<?= $icon_side ?>" class="img-responsive"/>
                             </div>
                         </div>

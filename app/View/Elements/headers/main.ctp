@@ -96,19 +96,23 @@
                     <ul class="appListUl">
                         <? $i = 0;
                         foreach ($_applications as $app) {
-                            if ($i == 9) {
-                                echo '</ul><a href="#appsMore" class="btn btn-link appListMore">Więcej</a><ul class="appListUl moreList">';
-                            }
-                            $i++;
-                            ?>
-                            <li>
-                                <a target="_self" href="<?= $app['href'] ?>"
-                                   class="_mPAppsList _appBlock _appBlockBackground text-center">
-                                    <span data-icon-applications="<?= $app['icon'] ?>" class="_mPAppIcon"></span>
-                                    <p class="_mPAppLabel"><?= $app['name'] ?></p>
-                                </a>
-                            </li>
-                        <? } ?>
+                            if ($app['tag'] == 1) {
+                                $icon_link = $app['href'] . '/icon/icon_' . str_replace("/", "", $app['href']) . '.svg';
+
+                                if ($i == 9) {
+                                    echo '</ul><a href="#appsMore" class="btn btn-link appListMore">Więcej</a><ul class="appListUl moreList">';
+                                }
+                                $i++;
+                                ?>
+                                <li>
+                                    <a target="_self" href="<?= $app['href'] ?>"
+                                       class="_mPAppsList _appBlock _appBlockBackground text-center">
+                                        <img src="<?= $icon_link ?>" class="_mPAppIcon icon"/>
+                                        <p class="_mPAppLabel"><?= $app['name'] ?></p>
+                                    </a>
+                                </li>
+                            <? }
+                        } ?>
                     </ul>
                 </div>
             </li>
