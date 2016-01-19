@@ -15,7 +15,6 @@ echo $this->element('headers/main');
                      src="<?= $_app['href'] ?>/icon/icon_<?= $_app['id'] ?>.svg">
                 <strong><?= $_app['name'] ?></strong>
             </a>
-
         <? } ?>
     </div>
     <ul class="app-list">
@@ -26,6 +25,7 @@ echo $this->element('headers/main');
                     <span class="icon <?= $a['icon'] ?>"></span>
                     <strong><?= $a['label'] ?></strong>
                 </a>
+                <? /* <div class="sub-list"><li><li></ul> */ ?>
             </li>
         <? } ?>
     </ul>

@@ -2,18 +2,20 @@
 
 .app-sidebar {
     width: @appSize;
-    background-color: #23282d;
+    background-color: #34343d;
     z-index: 1;
     height: auto;
     min-height: 100%;
     display: block;
     position: fixed;
     top: 44px;
+    border-bottom: 12px solid #29292f;
 
     .app-logo {
-        padding: 30px 20px;
-        font-size: 12px;
+        padding: 14px 20px;
+        font-size: 9px;
         text-transform: uppercase;
+        background-color: #29292f;
 
         &, > a {
             color: #d8d8d8;
@@ -23,7 +25,7 @@
         }
 
         .icon {
-            width: 40px;
+            width: 32px;
             font-size: 2em;
             margin-right: 5px;
             position: absolute;
@@ -46,12 +48,13 @@
     .app-list {
         background-color: #34343d;
         list-style: none;
-        padding: 0;
+        padding: 8px 0;
+        float: left;
 
         li {
             display: block;
             min-height: 42px;
-            padding: 15px 20px;
+            padding: 8px 30px;
             font-size: 10px;
 
             &, a {
@@ -92,21 +95,21 @@
                 background-color: #29292f;
             }
 
-            > a {
+            &, > a {
                 color: #999999;
+            }
+            .sub-list {
+                padding-top: 12px;
+                padding-left: 20px;
+                background-color: #323239;
 
-                > ul {
-                    padding-top: 12px;
-                    padding-left: 20px;
+                li {
+                    text-transform: lowercase;
+                    min-height: 0;
+                    padding: 9px 14px;
 
-                    li {
+                    &, > a {
                         color: #cccccc;
-                        text-transform: lowercase;
-
-                        &:last-child {
-                            padding-bottom: 0;
-                            min-height: 30px;
-                        }
                     }
                 }
             }
