@@ -96,22 +96,18 @@
                     <ul class="appListUl">
                         <? $i = 0;
                         foreach ($_applications as $app) {
-                        if ($i == 9){
-                        ?>
-                    </ul>
-                    <a href="btn btn-link appListMore text-center">Więcej</a>
-                    <ul class="appListUl moreList">
-                        <?
-                        }
-                        $i++;
-                        ?>
-                        <li>
-                            <a target="_self" href="<?= $app['href'] ?>"
-                               class="_mPAppsList _appBlock _appBlockBackground text-center">
-                                <span data-icon-applications="<?= $app['icon'] ?>" class="_mPAppIcon"></span>
-                                <p class="_mPAppLabel"><?= $app['name'] ?></p>
-                            </a>
-                        </li>
+                            if ($i == 9) {
+                                echo '</ul><a href="#appsMore" class="btn btn-link appListMore">Więcej</a><ul class="appListUl moreList">';
+                            }
+                            $i++;
+                            ?>
+                            <li>
+                                <a target="_self" href="<?= $app['href'] ?>"
+                                   class="_mPAppsList _appBlock _appBlockBackground text-center">
+                                    <span data-icon-applications="<?= $app['icon'] ?>" class="_mPAppIcon"></span>
+                                    <p class="_mPAppLabel"><?= $app['name'] ?></p>
+                                </a>
+                            </li>
                         <? } ?>
                     </ul>
                 </div>
