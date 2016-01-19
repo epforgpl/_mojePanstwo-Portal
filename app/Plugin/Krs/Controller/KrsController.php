@@ -14,6 +14,49 @@ class KrsController extends ApplicationsController
     );
 
     public $mainMenuLabel = 'Przeglądaj';
+    
+    public $forms = array(
+	    14 => array(
+		    'title' => 'Spółki z ograniczoną odpowiedzialnością (sp. z o.o.)',
+		    'desc' => '<p class="p">Przedsiębiorstwa utworzone przez jedną lub więcej osób, zwanych wspólnikami. Wspólnicy nie odpowiadają za zobowiązania spółki wobec wierzycieli. Odpowiada za nie sama spółka swoim majątkiem utworzonym z wkładów wspólników.</p>',
+		    'latest' => 'Ostatnio zarejestrowane spółki z o.o.',
+	    ),
+	    15 => array(
+		    'title' => 'Stowarzyszenia',
+		    'desc' => '<p class="p">Organizacje społeczne powoływane przez grupę osób mających wspólne cele lub zainteresowania. Stowarzyszenia są dobrowolne i działają w celach niezarobkowych. Samodzielnie określają swoje cele, programy działania i struktury organizacyjne. Ich działalność opiera się na pracy społecznej swoich członków.</p>',
+		    'latest' => 'Ostatnio zarejestrowane stowarzyszenia',
+	    ),
+	    11 => array(
+		    'title' => 'Spółki jawne',
+		    'desc' => '<p class="p">Przedsiębiorstwa pod własną firmą, nie posiadające osobowości prawnej. Odpowiedzialność za zobowiązania spółki ponoszą wszyscy wspólnicy, bez ograniczeń, całym swoim majątkiem, zarówno obecnym, jak i przyszłym.</p>',
+		    'latest' => 'Ostatnio zarejestrowane spółki jawne',
+	    ),
+	    12 => array(
+		    'title' => 'Spółki komandytowe',
+		    'desc' => '<p class="p">Spółki osobowe mające na celu prowadzenie przedsiębiorstwa pod własną firmą, w której za zobowiązania spółki wobec wierzycieli odpowiada w sposób nieograniczony co najmniej jeden wspólnik (komplementariusz), a odpowiedzialność co najmniej jednego wspólnika jest ograniczona (komandytariusz).</p>',
+		    'latest' => 'Ostatnio zarejestrowane spółki komandytowe',
+	    ),
+	    1 => array(
+		    'title' => 'Fundacje',
+		    'desc' => '<p class="p">Organizacje pozarządowe, dysponujące kapitałem przeznaczonym na określony cel oraz statutem zawierającym reguły dysponowania tym kapitałem. W odróżnieniu od stowarzyszeń, fundacje nie mają członków. O celu, majątku, zasadach działania decydują ich twórcy (fundatorzy).</p>',
+		    'latest' => 'Ostatnio zarejestrowane fundacje',
+	    ),
+	    9 => array(
+		    'title' => 'Spółdzielnie',
+		    'desc' => '<p class="p">Dobrowolne zrzeszenia nieograniczonej liczby członków, w celu prowadzenia przediębiorstwa na zasadach prawa spółdzielczego. Każda osoba po spełnieniu odpowiednich przesłanek ujętych w statucie bądź przepisie prawa, może przystąpić do spółdzielni. Członkowie spółdzielni nie odpowiadają za jej zobowiązania.</p>',
+		    'latest' => 'Ostatnio zarejestrowane spółdzielnie',
+	    ),
+	    10 => array(
+		    'title' => 'Spółki akcyjne',
+		    'desc' => '<p class="p">Spółki kapitałowe, których forma opiera się na obiegu akcji będących w posiadaniu akcjonariuszy. Kapitał zakładowy składa się z wkładów założycieli, którzy stają się współwłaścicielami spółki. Akcjonariusze nie odpowiadają za zobowiązania spółki, ryzyko ponoszą jedynie do wysokości wniesionego kapitału oraz czerpią zyski (np. w postaci dywidendy).</p>.',
+		    'latest' => 'Ostatnio zarejestrowane spółki akcyjne',
+	    ),
+	    18 => array(
+		    'title' => 'Związki zawodowe',
+		    'desc' => '<p class="p">Masowe organizacje społeczne zrzeszające na zasadzie dobrowolności ludzi pracy najemnej. Ich celem jest obrona interesów społeczno-ekonomicznych. Tworzone mogą być według kryteriów gałęzi produkcji, zawodu lub regionu, w którym operują. Związki mogą też rozwijać działalność samopomocową, edukacyjną czy kulturalną.</p>',
+		    'latest' => 'Ostatnio zarejestrowane związki zawodowe',
+	    ),
+    );
 
     public function prepareMetaTags()
     {
@@ -50,12 +93,6 @@ class KrsController extends ApplicationsController
                             ),
                         ),
                         'aggs' => array(
-                            'organizacje' => array(
-	                            'top_hits' => array(
-		                            'size' => 10,
-		                            'fielddata_fields' => array('dataset', 'id'),
-	                            ),
-                            ),
                             'dzialalnosci' => array(
 	                            'nested' => array(
 		                            'path' => 'krs_podmioty-dzialalnosci',
@@ -77,20 +114,21 @@ class KrsController extends ApplicationsController
 		                            ),
 	                            ),
                             ),
-                            'typ_id' => array(
+                            'formy' => array(
                                 'terms' => array(
                                     'field' => 'data.krs_podmioty.forma_prawna_id',
                                     'exclude' => array(
                                         'pattern' => '0'
                                     ),
-                                    'size' => 12,
+                                    'size' => 8,
                                 ),
                                 'aggs' => array(
-                                    'label' => array(
-                                        'terms' => array(
-                                            'field' => 'data.krs_podmioty.forma_prawna_str',
-                                        ),
-                                    ),
+                                    'organizacje' => array(
+			                            'top_hits' => array(
+				                            'size' => 3,
+				                            'fielddata_fields' => array('dataset', 'id'),
+			                            ),
+		                            ),
                                 ),
                             ),
                             'kapitalizacja' => array(
@@ -148,6 +186,7 @@ class KrsController extends ApplicationsController
             'browserTitle' => 'Wyniki wyszukiwania w Krajowym Rejestrze Sądowym',
         );
 		
+		$this->set('forms', $this->forms);
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Organizacje zarejestrowane w Krajowym Rejestrze Sądowym';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');

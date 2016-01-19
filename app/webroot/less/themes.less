@@ -38,7 +38,8 @@
 
 .theme-default .block-group,
 .theme-wallpaper .block-group,
-.theme-simply .block-group.block-border {
+.theme-simply .block-group.block-border, 
+.block {
     background-color: #fff;
     display: inline-block;
     border: 1px solid #ddd;
@@ -46,6 +47,7 @@
     padding: 0;
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 100%;
 
     .block {
         border-width: 0;
@@ -53,13 +55,29 @@
         margin-top: 0;
         margin-bottom: 0;
     }
+    
+    p.p {
+	    margin: 0 15px 15px;
+    }
+    
+    .buttons {
+	    text-align: center;
+	    margin-bottom: 15px;
+    }
+}
+
+.block.nobg {
+	border-color: transparent;
+	background-color: transparent;
+}
+
+.block.block-highlightedA {
+	background-color: #F6FAFF;
 }
 
 .theme-simply .block,
 .theme-default .block.block-simple,
 .theme-wallpaper .block.block-simple {
-    background: none;
-    border: none;
 
     > header {
         padding: 10px;
@@ -68,6 +86,7 @@
         font-weight: 600;
         line-height: 1em;
         background: none;
+        margin: 5px;
     }
     > section {
         padding: 0;

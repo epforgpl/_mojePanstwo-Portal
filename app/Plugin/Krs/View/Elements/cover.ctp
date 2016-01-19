@@ -30,33 +30,61 @@ $options = array(
         </div>
 		
 		<div class="row">
-						
-			<? if( $organizacje = $dataBrowser['aggs']['krs_podmioty']['organizacje']['hits']['hits'] ) { ?>
-			<div class="col-xs-8">
-				<div class="block">
-			        <header>Ostatnio zarejestrowane organizacje:</header>
 			
-			        <section class="content margin-top-10">
-		                <div class="agg agg-Dataobjects">
-		                    <ul class="dataobjects" style="margin: 0 20px;">
-		                        <? foreach ($organizacje as $doc) { ?>
-		                            <li class="margin-top-10">
-		                                <?
-		                                echo $this->Dataobject->render($doc, 'default');
-		                                ?>
-		                            </li>
-		                        <? } ?>
-		                    </ul>
-		                </div>
-		            </section>
-		            
-				</div>
+			<div class="col-xs-8">
+				
+				<?					
+					if( $formy = @$dataBrowser['aggs']['krs_podmioty']['formy']['buckets'] ) {
+						foreach( $formy as $forma ) {	
+							$data = $forms[ $forma['key'] ];
+				?>
+				
+						<div class="block">
+					        <header><?= $data['title'] ?>:</header>
+					
+					        <section class="content">
+				                
+				                <?= $data['desc'] ?>
+				                				                
+				                <? if( $organizacje = $forma['organizacje']['hits']['hits'] ) { ?>
+									
+									<p class="p"><?= $data['latest'] ?>:</p>
+									
+					                <div class="agg agg-Dataobjects">
+					                    <ul class="dataobjects" style="margin: 0 20px;">
+					                        <? foreach ($organizacje as $doc) { ?>
+					                            <li class="margin-top-10">
+					                                <?
+					                                echo $this->Dataobject->render($doc, 'default');
+					                                ?>
+					                            </li>
+					                        <? } ?>
+					                    </ul>
+					                </div>
+					                
+					                <div class="buttons">
+						                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+					                </div>
+							           
+							    <? } ?>
+				                
+				                
+				            </section>
+				            
+						</div>
+				
+				<?
+						}
+					}
+				?>
+				
 		    </div>
-		    <? } ?>
+					
+			
 			
 			<? if( $dzialalnosci = $dataBrowser['aggs']['krs_podmioty']['dzialalnosci']['sekcja']['buckets'] ) { ?>
 				<div class="col-xs-4">
-					<div class="block">
+					<div class="block nobg">
 				        <header>Przeglądaj według działalności:</header>
 				
 				        <section class="aggs-init">
@@ -77,21 +105,8 @@ $options = array(
 		
 		</div>
 		
-	    <div class="block col-xs-12">
-	        <header>Formy prawne organizacji</header>
-	
-	        <section class="aggs-init">
-	            <div class="dataAggs">
-	                <div class="agg agg-PieChart" data-chart-options="<?= htmlentities(json_encode($options)) ?>"
-	                     data-choose-request="dane/krs_podmioty?conditions[krs_podmioty.forma_prawna_id]="
-	                     data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['krs_podmioty']['typ_id'])) ?>">
-	                    <div class="chart">
-	                    </div>
-	                </div>
-	            </div>
-	        </section>
-	    </div>
-	
+	    
+		<? /*
 	    <div class="block col-xs-12">
 	        <header>Kapitalizacja spółek handlowych</header>
 	
@@ -119,5 +134,6 @@ $options = array(
 	            </div>
 	        </section>
 	    </div>
+	    */ ?>
 	    	
 </div>
