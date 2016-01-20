@@ -19,7 +19,7 @@ array_shift($app_chapters['items']);
             </a>
         <? } ?>
         <? if (!empty($app_chapters['items'])) { ?>
-            <div class="_mobile btn btn-default btn-sm"></div>
+            <div class="_mobile btn btn-link btn-sm"></div>
         <? } ?>
     </div>
     <ul class="app-list">
