@@ -1,13 +1,17 @@
 #homepage {
-	
-	.appBanner .appSearch {
-		margin-bottom: -45px;
-	}
-	
+
+    .appBanner .appSearch {
+        margin-bottom: -45px;
+    }
+
     .appsList, .reportsList {
         float: left;
         margin: 15px 0;
         width: 100%;
+
+        > a:nth-child(2n+1) {
+            clear: left;
+        }
 
         .appBorder {
             margin-top: 15px;
@@ -28,13 +32,15 @@
             }
 
             .mainpart {
+                @iconWidth: 50px;
+                @iconMargin: 10px;
+
                 color: #546466;
-                margin-bottom: 20px;
+                position: relative;
 
                 .icon {
-                    width: 50px;
-                    //font-size: 50px;
-                    margin-right: 10px;
+                    width: @iconWidth;
+                    margin-right: @iconMargin;
                     display: block;
                     float: left;
                 }
@@ -43,14 +49,20 @@
                     font-size: 18px;
                     text-transform: uppercase;
                     display: block;
-                    -webkit-transform: translate(0, 100%);
-                    -moz-transform: translate(0, 100%);
-                    -ms-transform: translate(0, 100%);
-                    -o-transform: translate(0, 100%);
-                    transform: translate(0, 100%);
+                    position: absolute;
+                    top: 50%;
+                    left: @iconWidth+@iconMargin;
+                    -webkit-transform: translate(0, -50%);
+                    -moz-transform: translate(0, -50%);
+                    -ms-transform: translate(0, -50%);
+                    -o-transform: translate(0, -50%);
+                    transform: translate(0, -50%);
                 }
             }
             .subpart {
+                margin-top: 20px;
+                margin-bottom: 20px;
+
                 .title {
                     margin-bottom: 6px;
                     color: #92A7A4;
@@ -67,10 +79,15 @@
                 }
             }
 
-            .img-responsive {
-                font-size: 5em;
-                margin-top: 50%;
-                max-height: 100px;
+            .sideIcon {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+
+                .img-responsive {
+                    font-size: 5em;
+                    max-height: 100px;
+                }
             }
         }
     }
