@@ -1,31 +1,143 @@
+@font-face {
+    font-family: 'icon-krs';
+    src: url(/krs/fonts/krs.eot?5lcey8);
+    src: url(/krs/fonts/krs.eot?#iefix5lcey8) format('embedded-opentype'),
+    url(/krs/fonts/krs.woff?5lcey8) format('woff'),
+    url(/krs/fonts/krs.ttf?5lcey8) format('truetype'),
+    url(/krs/fonts/krs.svg?5lcey8#krs) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .pkd-list {
-	list-style: none;
-	overflow: auto;
-	padding: 0;
-	margin: 0 0 0 0;
-	.pkd-item {
-		list-style: none;
-		margin: 0;
-		padding: 12px 0;
-		margin: 0 15px;
-		border-bottom: 1px solid #DDD;
-		&:last-child {
-			border-bottom: none;
-		}
-		a {
-			padding: 0;
-			margin: 0;
-			.pkd-icon {
-				max-width: 20px;
-				display: block;
-				float: left;
-				opacity: .8;
-				margin-right: 5px;
-			}
-			.pkd-title {
-				font-size: 14px;
-			    margin: 0 0 0 10px;
-			}
-		}
-	}
+    list-style: none;
+    overflow: auto;
+    padding: 0;
+    margin: 0 0 0 0;
+
+    .pkd-item {
+        list-style: none;
+        padding: 12px 0;
+        margin: 0 15px;
+        border-bottom: 1px solid #DDD;
+
+        &:last-child {
+            border-bottom: none;
+        }
+        a {
+            padding: 0;
+            margin: 0;
+
+            .pkd-icon {
+                max-width: 20px;
+                display: block;
+                float: left;
+                opacity: .8;
+                margin-right: 5px;
+            }
+
+            .pkd-title {
+                font-size: 14px;
+                margin: 0 0 0 10px;
+            }
+
+            [class^="icon-krs-"]:before, [class*=" icon-krs-"]:before {
+                font-family: "Glyphicons Halflings";
+                font-style: normal;
+                content: "\e019";
+                font-size: 1em;
+            }
+
+            .icon-krs-R:before {
+                font-family: "icon-krs";
+                content: "\e900";
+                font-size: 1.2em;
+            }
+            .icon-krs-A:before {
+                font-family: "icon-krs";
+                content: "\e901";
+                font-size: 1.2em;
+            }
+            .icon-krs-B:before {
+                font-family: "icon-krs";
+                content: "\e902";
+                font-size: 1.2em;
+            }
+            .icon-krs-C:before {
+                font-family: "icon-krs";
+                content: "\e903";
+                font-size: 1.2em;
+            }
+            .icon-krs-F:before {
+                font-family: "icon-krs";
+                content: "\e904";
+                font-size: 1.2em;
+            }
+            .icon-krs-G:before {
+                font-family: "icon-krs";
+                content: "\e905";
+                font-size: 1.2em;
+            }
+            .icon-krs-H:before {
+                font-family: "icon-krs";
+                content: "\e906";
+                font-size: 1.2em;
+            }
+            .icon-krs-I:before {
+                font-family: "icon-krs";
+                content: "\e907";
+                font-size: 1.2em;
+            }
+            .icon-krs-J:before {
+                font-family: "icon-krs";
+                content: "\e908";
+                font-size: 1.2em;
+            }
+            .icon-krs-K:before {
+                font-family: "icon-krs";
+                content: "\e909";
+                font-size: 1.2em;
+            }
+            .icon-krs-L:before {
+                font-family: "icon-krs";
+                content: "\e90a";
+                font-size: 1.2em;
+            }
+            .icon-krs-M:before {
+                font-family: "icon-krs";
+                content: "\e90b";
+                font-size: 1.2em;
+            }
+            .icon-krs-N:before {
+                font-family: "icon-krs";
+                content: "\e90c";
+                font-size: 1.2em;
+            }
+            .icon-krs-O:before {
+                font-family: "icon-krs";
+                content: "\e90d";
+                font-size: 1.2em;
+            }
+            .icon-krs-P:before {
+                font-family: "icon-krs";
+                content: "\e90e";
+                font-size: 1.2em;
+            }
+            .icon-krs-Q:before {
+                font-family: "icon-krs";
+                content: "\e90f";
+                font-size: 1.2em;
+            }
+            .icon-krs-T:before {
+                font-family: "icon-krs";
+                content: "\e910";
+                font-size: 1.2em;
+            }
+            .icon-krs-U:before {
+                font-family: "icon-krs";
+                content: "\e911";
+                font-size: 1.2em;
+            }
+        }
+    }
 }
