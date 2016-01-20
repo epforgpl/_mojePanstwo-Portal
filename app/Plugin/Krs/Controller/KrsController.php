@@ -188,7 +188,7 @@ class KrsController extends ApplicationsController
 		
 		$this->set('forms', $this->forms);
         $this->Components->load('Dane.DataBrowser', $options);
-        $this->title = 'Organizacje zarejestrowane w Krajowym Rejestrze Sądowym';
+        $this->title = 'Krajowy Rejestr Sądowy';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
