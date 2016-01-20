@@ -30,7 +30,6 @@ $this->Combinator->add_libs('css', $this->Less->css('pomoc', array('plugin' => '
                             <p class="appSubtitle">Ochrona danych osobowych</p>
                         </div>
                         <div class="daneOsobowe block block-simple col-xs-12">
-                            <header>Podstawa Prawna portalu mojepanstwo.pl</header>
                             <section>
                                 <div class="block">
                                     <p>
