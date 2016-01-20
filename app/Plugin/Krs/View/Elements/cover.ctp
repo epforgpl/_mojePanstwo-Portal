@@ -31,7 +31,7 @@ $options = array(
 
 		<div class="row">
 
-			<div class="col-xs-8">
+			<div class="col-md-8">
 
 				<h2 class="appInnerTitle">Jakie organizacje są zarejestrowane w KRS?</h2>
 
@@ -55,16 +55,16 @@ $options = array(
                                         <p class="p"><?= $data['latest'] ?>:</p>
 
                                         <div class="agg agg-Dataobjects">
-					                    <ul class="dataobjects" style="margin: 0 20px;">
-					                        <? foreach ($organizacje as $doc) { ?>
-					                            <li class="margin-top-10">
-					                                <?
-					                                echo $this->Dataobject->render($doc, 'default');
-					                                ?>
-					                            </li>
-					                        <? } ?>
-					                    </ul>
-					                </div>
+						                    <ul class="dataobjects" style="margin: 0 20px;">
+						                        <? foreach ($organizacje as $doc) { ?>
+						                            <li class="margin-top-10">
+						                                <?
+						                                echo $this->Dataobject->render($doc, 'default');
+						                                ?>
+						                            </li>
+						                        <? } ?>
+						                    </ul>
+						                </div>
 
                                         <div class="buttons">
 						                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
@@ -90,7 +90,7 @@ $options = array(
 
 
             <? if( $dzialalnosci = $dataBrowser['aggs']['krs_podmioty']['dzialalnosci']['sekcja']['buckets'] ) { ?>
-				<div class="col-xs-4">
+				<div class="col-md-4">
 					<div class="block nobg">
 				        <header>Przeglądaj według działalności:</header>
 

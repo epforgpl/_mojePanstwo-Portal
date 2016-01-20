@@ -32,14 +32,14 @@
 			
 				<div class="col-xs-8">
 					
-					<div class="block block-simple col-sm-12">
-			            <header class="nopadding">Aktualności:</header>
-			            <section class="content margin-top-10">
+					<div class="block">
+			            <header>Aktualności:</header>
+			            <section class="content">
 			
 			                <div class="agg agg-Dataobjects">
-			                    <ul class="dataobjects">
+			                    <ul class="dataobjects" style="margin: 0 20px;">
 			                        <? foreach ($news as $doc) { ?>
-			                            <li class="margin-top-10">
+			                            <li class="margin-top-15">
 			                                <?
 			                                echo $this->Dataobject->render($doc, 'default');
 			                                ?>
@@ -59,14 +59,14 @@
 				<div class="col-xs-4">
 					
 					<? if( $konstytucja ) {?>
-				        <div class="block block-simple col-sm-12 konstytucja">
-				            <header class="nopadding">Konstytucja:</header>
-				            <section class="content margin-top-10">
+				        <div class="block nobg konstytucja">
+				            <header>Konstytucja:</header>
+				            <section class="content">
 				
 				                <div class="agg agg-Dataobjects">
-				                    <ul class="dataobjects">
+				                    <ul class="dataobjects" style="margin: 0 20px;">
 				                        <? foreach ($konstytucja as $doc) { ?>
-				                            <li class="margin-top-10">
+				                            <li>
 				                                <?
 				                                echo $this->Dataobject->render($doc, 'default');
 				                                ?>
@@ -80,12 +80,12 @@
 				        <? } ?>
 				
 				        <? if( $kodeksy ) {?>
-				        <div class="block block-simple col-sm-12 kodeksy">
-				            <header class="nopadding">Kodeksy:</header>
-				            <section class="content margin-top-10">
+				        <div class="block nobg kodeksy">
+				            <header>Kodeksy:</header>
+				            <section class="content">
 				
 				                <div class="agg agg-Dataobjects">
-				                    <ul class="dataobjects">
+				                    <ul class="dataobjects" style="margin: 0 20px;">
 				                        <? foreach ($kodeksy as $doc) { ?>
 				                            <li class="margin-top-10">
 				                                <?
