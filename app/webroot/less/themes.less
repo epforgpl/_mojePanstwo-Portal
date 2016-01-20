@@ -75,6 +75,20 @@
 	background-color: #F6FAFF;
 }
 
+h2.appInnerTitle {
+	color: #888 !important;
+    font-size: 1.25em !important;
+    font-weight: normal !important;
+    line-height: 1.35em !important;
+	margin: 22px 0 !important;
+	text-align: center !important;
+}
+
+.appInnerP {
+	text-align: center;
+	margin: 10px 0;
+}
+
 .theme-simply .block,
 .theme-default .block.block-simple,
 .theme-wallpaper .block.block-simple {
@@ -87,11 +101,28 @@
         line-height: 1em;
         background: none;
         margin: 5px;
+        
+        &.block-bg-area {
+	        background-color: #F6F8FA;
+		    margin: 0;
+		    padding: 15px;
+		    border-top-left-radius: 5px;
+		    border-top-right-radius: 5px;
+        }
+        
     }
     > section {
         padding: 0;
         &.textBlock {
             padding: 0 10px;
+        }
+        .block-bg-area {
+	        background-color: #F6F8FA;
+	        padding-bottom: 0px;
+	        margin-bottom: 10px;
+	        padding-top: 12px;
+	        border-top: 1px solid #EEE;
+	        border-bottom: 1px solid #EEE;
         }
     }
 

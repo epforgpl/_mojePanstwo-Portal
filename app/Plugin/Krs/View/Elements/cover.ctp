@@ -33,6 +33,8 @@ $options = array(
 			
 			<div class="col-xs-8">
 				
+				<h2 class="appInnerTitle">Jakie organizacje są zarejestrowane w KRS?</h2>
+				
 				<?					
 					if( $formy = @$dataBrowser['aggs']['krs_podmioty']['formy']['buckets'] ) {
 						foreach( $formy as $forma ) {	
@@ -40,11 +42,13 @@ $options = array(
 				?>
 				
 						<div class="block">
-					        <header><?= $data['title'] ?>:</header>
+					        <header><?= $data['title'] ?></header>
 					
 					        <section class="content">
 				                
-				                <?= $data['desc'] ?>
+				                <div class="block-bg-area">
+					                <?= $data['desc'] ?>
+				                </div>
 				                				                
 				                <? if( $organizacje = $forma['organizacje']['hits']['hits'] ) { ?>
 									
@@ -77,6 +81,10 @@ $options = array(
 						}
 					}
 				?>
+				
+				<p class="appInnerP margin-bottom-20">
+					<a href="/krs/formy_prane">Zobacz wszystkie formy prawne &raquo;</a>
+				</p>
 				
 		    </div>
 					
