@@ -3127,13 +3127,17 @@ class GminyController extends DataobjectsController
                     );
 
                     if ($radny->getData('krs_osoba_id')) {
-                        $this->set('osoba', $this->Dataobject->find('first', array(
-                            'conditions' => array(
-                                'dataset' => 'krs_osoby',
-                                'id' => $radny->getData('krs_osoba_id'),
-                            ),
-                            'layers' => array('organizacje'),
-                        )));
+	                    try {
+	                        $this->set('osoba', $this->Dataobject->find('first', array(
+	                            'conditions' => array(
+	                                'dataset' => 'krs_osoby',
+	                                'id' => $radny->getData('krs_osoba_id'),
+	                            ),
+	                            'layers' => array('organizacje'),
+	                        )));
+                        } catch(Exception $e) {
+	                        
+                        }
                     }
 
                     $this->Components->load('Dane.DataBrowser', $options);
