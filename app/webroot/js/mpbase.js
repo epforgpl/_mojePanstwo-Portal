@@ -39,10 +39,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 					style = 'position: absolute !important; top: -1000 !important; ';
 
 					// this is useful with css3pie
-					$target = $target.
-						clone().
-						attr('style', style).
-						appendTo('body');
+					$target = $target.clone().attr('style', style).appendTo('body');
 				};
 
 				restore = function () {
@@ -258,5 +255,20 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 			}
 		});
 	}
+
+	/*MOBILE MENU*/
+	$('.app-sidebar ._mobile').click(function (e) {
+		var that = $(this);
+
+		e.preventDefault();
+
+		if (that.hasClass('_mobile-show')) {
+			that.removeClass('_mobile-show');
+			that.parents('.app-sidebar').find('.app-list').hide();
+		} else {
+			that.addClass('_mobile-show');
+			that.parents('.app-sidebar').find('.app-list').show();
+		}
+	});
 })
 (jQuery);

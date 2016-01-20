@@ -5,6 +5,8 @@ $displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
 $columns = isset($columns) ? $columns : array(9, 3);
 
 echo $this->element('headers/main');
+
+array_shift($app_chapters['items']);
 ?>
 
 <div class="app-sidebar">
@@ -16,9 +18,11 @@ echo $this->element('headers/main');
                 <p><?= $_app['name'] ?></p>
             </a>
         <? } ?>
+        <? if (!empty($app_chapters['items'])) { ?>
+            <div class="_mobile btn btn-default btn-sm"></div>
+        <? } ?>
     </div>
     <ul class="app-list">
-        <? array_shift($app_chapters['items']); ?>
         <? foreach ($app_chapters['items'] as $a) { ?>
             <li>
                 <? if (isset($a['href'])) {
