@@ -54,6 +54,8 @@ echo $this->Element('dataobject/pageBegin', array(
                                                 punkty</strong>
                                         <li class="margin-bottom-5">Oddanie głosu na posiedzeniu Rady Miasta - <strong>1
                                                 punkt</strong>
+                                        <li class="margin-bottom-5">15 minut dyżuru - <strong>2
+                                                punkty</strong>
                                         <li class="margin-bottom-5">Złożenie interpelacji - <strong>30 punktów</strong>
                                     </ul>
 
