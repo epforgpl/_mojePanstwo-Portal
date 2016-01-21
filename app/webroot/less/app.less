@@ -1,21 +1,46 @@
-@appSize: 200px;
-
 .app-sidebar {
-    width: @appSize;
     background-color: #34343d;
-    z-index: 1;
-    height: auto;
-    min-height: 100%;
     display: block;
-    position: fixed;
-    top: 44px;
-    border-bottom: 12px solid #29292f;
+    z-index: 1;
+    float: left;
+    width: 100%;
 
     .app-logo {
-        padding: 20px;
+        padding: 20px 40px 20px 20px;
         font-size: 10px;
         text-transform: uppercase;
         background-color: #29292f;
+        position: relative;
+        min-height: 52px;
+
+        ._mobile {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            display: inline-block;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Glyphicons Halflings';
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            -webkit-transform: translate(0, -50%);
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+
+            &:before {
+                content: "\e114";
+            }
+
+            &._mobile-show:before {
+                content: "\e113";
+            }
+        }
 
         &, > a {
             color: #d8d8d8;
@@ -49,6 +74,8 @@
         list-style: none;
         padding: 8px 0;
         float: left;
+        width: 100%;
+        display: none;
 
         li {
             display: block;
@@ -116,6 +143,33 @@
     }
 }
 
-.app-content-wrap {
-    margin-left: @appSize;
+@media (min-width: 768px) {
+    @appSize: 230px;
+
+    .app-sidebar {
+        width: @appSize;
+        height: auto;
+        min-height: 100%;
+        position: fixed;
+        top: 44px;
+
+        .app-logo {
+            padding: 20px;
+
+            ._mobile {
+                display: none;
+            }
+        }
+        .app-list {
+            display: block;
+        }
+    }
+
+    .app-content-wrap {
+        margin-left: @appSize;
+    }
+
+    footer.footer {
+        padding-left: @appSize;
+    }
 }

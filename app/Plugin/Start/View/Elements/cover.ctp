@@ -26,20 +26,21 @@
                     ?>
                     <a class="col-xs-12 col-sm-6" href="<?= $a['href'] ?>" target="_self">
                         <div class="appBorder">
-                            <div class="col-xs-8">
+                            <div class="col-md-8">
                                 <div class="mainpart">
                                     <img src="<?= $icon_link ?>" class="icon"/>
                                     <strong><?= $a['name'] ?></strong>
                                 </div>
                                 <div class="subpart">
-                                    <p class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-                                        vitae hendrerit metus. Aenean at lacus tempus leo molestie fermentum. Curabitur
-                                        malesuada tortor sed tincidunt tempor. Curabitur pellentesque tellus sit amet
-                                        risus vestibulum, sit amet tincidunt nisl tincidunt.</p>
+                                    <? if (isset($a['subname']) && !empty($a['subname'])) { ?>
+                                        <p class="title"><?= $a['subname'] ?></p>
+                                    <? } ?>
+                                    <? if (isset($a['desc']) && !empty($a['desc'])) { ?>
+                                        <p class="text"><?= $a['desc'] ?></p>
+                                    <? } ?>
                                 </div>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-md-4 sideIcon">
                                 <img src="<?= $icon_side ?>" class="img-responsive"/>
                             </div>
                         </div>
@@ -62,14 +63,15 @@
                                     <strong><?= $a['name'] ?></strong>
                                 </div>
                                 <div class="subpart">
-                                    <p class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-                                        vitae hendrerit metus. Aenean at lacus tempus leo molestie fermentum. Curabitur
-                                        malesuada tortor sed tincidunt tempor. Curabitur pellentesque tellus sit amet
-                                        risus vestibulum, sit amet tincidunt nisl tincidunt.</p>
+                                    <? if (isset($a['subname']) && !empty($a['subname'])) { ?>
+                                        <p class="title"><?= $a['subname'] ?></p>
+                                    <? } ?>
+                                    <? if (isset($a['desc']) && !empty($a['desc'])) { ?>
+                                        <p class="text"><?= $a['desc'] ?></p>
+                                    <? } ?>
                                 </div>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-4 sideIcon">
                                 <img src="<?= $icon_side ?>" class="img-responsive"/>
                             </div>
                         </div>

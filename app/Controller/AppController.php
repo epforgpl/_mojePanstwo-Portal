@@ -62,9 +62,9 @@ class AppController extends Controller
 //			)
         ),
     );
-	
-	public $protocol = 'https://';
-	public $port = false;
+
+    public $protocol = 'https://';
+    public $port = false;
     public $domainMode = 'MP';
     public $appSelected = false;
     public $breadcrumbs = array();
@@ -72,7 +72,7 @@ class AppController extends Controller
     public $menu_selected = '_default';
     public $chapter_selected = false;
     public $observeOptions = false;
-	public $app_menu = array(array(), array());
+    public $app_menu = array(array(), array());
 
     public $helpers = array(
         'Html',
@@ -113,100 +113,100 @@ class AppController extends Controller
             'element' => 'default',
         ),
     );
-	
+
     public $datasets = array(
         'krs' => array(
             'krs_podmioty' => array(
-            	'label' => 'Organizacje',
-				'browserTitle' => 'Organizacje w Krajowym Rejestrze Sądowym',
-				'searchTitle' => 'Szukaj organizacji...',
-				'menu_id' => 'organizacje',
-				'autocompletion' => array(
-					'dataset' => 'krs_podmioty',
-				),
+                'label' => 'Organizacje',
+                'browserTitle' => 'Organizacje w Krajowym Rejestrze Sądowym',
+                'searchTitle' => 'Szukaj organizacji...',
+                'menu_id' => 'organizacje',
+                'autocompletion' => array(
+                    'dataset' => 'krs_podmioty',
+                ),
             ),
             'krs_osoby' => array(
-            	'label' => 'Osoby',
-				'browserTitle' => 'Osoby w Krajowym Rejestrze Sądowym',
-				'searchTitle' => 'Szukaj osób...',
-				'menu_id' => 'osoby',
+                'label' => 'Osoby',
+                'browserTitle' => 'Osoby w Krajowym Rejestrze Sądowym',
+                'searchTitle' => 'Szukaj osób...',
+                'menu_id' => 'osoby',
             ),
             'msig' => array(
-            	'label' => 'Monitor Sądowy i Gospodarczy',
-            	'browserTitle' => 'Wydania Monitora Sądowego i Gospodarczego',
-				'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
-				'menu_id' => 'msig',
+                'label' => 'Monitor Sądowy i Gospodarczy',
+                'browserTitle' => 'Wydania Monitora Sądowego i Gospodarczego',
+                'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
+                'menu_id' => 'msig',
             ),
         ),
         'bdl' => array(
             'bdl_wskazniki' => array(
-            	'label' => 'Wskaźniki'
+                'label' => 'Wskaźniki'
             ),
             'bdl_wskazniki_grupy' => array(
-            	'label' => 'Grupy wskaźników'
+                'label' => 'Grupy wskaźników'
             ),
             'bdl_wskazniki_kategorie' => array(
-            	'label' => 'Kategorie wskaźników'
+                'label' => 'Kategorie wskaźników'
             ),
         ),
         'prawo' => array(
             'prawo' => array(
-            	'label' => 'Prawo powszechne',
-				'searchTitle' => 'Szukaj w prawie powszechnym...',
-				'menu_id' => 'powszechne',
-				'autocompletion' => array(
-					'dataset' => 'prawo',
-				),
+                'label' => 'Prawo powszechne',
+                'searchTitle' => 'Szukaj w prawie powszechnym...',
+                'menu_id' => 'powszechne',
+                'autocompletion' => array(
+                    'dataset' => 'prawo',
+                ),
             ),
             'prawo_wojewodztwa' => array(
-            	'label' => 'Prawo lokalne',
-				'searchTitle' => 'Szukaj w prawie lokalnym...',
-				'menu_id' => 'lokalne',
+                'label' => 'Prawo lokalne',
+                'searchTitle' => 'Szukaj w prawie lokalnym...',
+                'menu_id' => 'lokalne',
             ),
             'prawo_urzedowe' => array(
-            	'label' => 'Prawo urzędowe',
-				'searchTitle' => 'Szukaj w prawie urzędowym...',
-				'menu_id' => 'urzedowe',
+                'label' => 'Prawo urzędowe',
+                'searchTitle' => 'Szukaj w prawie urzędowym...',
+                'menu_id' => 'urzedowe',
             ),
             'prawo_hasla' => array(
-            	'label' => 'Tematy w prawie',
-				'searchTitle' => 'Szukaj w tematach...',
-				'menu_id' => 'tematy',
-				'autocompletion' => array(
-					'dataset' => 'prawo_hasla',
-				),
+                'label' => 'Tematy w prawie',
+                'searchTitle' => 'Szukaj w tematach...',
+                'menu_id' => 'tematy',
+                'autocompletion' => array(
+                    'dataset' => 'prawo_hasla',
+                ),
             ),
-        ),  
+        ),
         'orzecznictwo' => array(
             'sa_orzeczenia' => array(
-            	'label' => 'Orzeczenia sądów administracyjnych',
-				'searchTitle' => 'Szukaj w orzeczeniach sądów administracyjnych...',
-				'menu_id' => 'sa',
+                'label' => 'Orzeczenia sądów administracyjnych',
+                'searchTitle' => 'Szukaj w orzeczeniach sądów administracyjnych...',
+                'menu_id' => 'sa',
             ),
             'sp_orzeczenia' => array(
-            	'label' => 'Orzeczenia sądów powszechnych',
-				'searchTitle' => 'Szukaj w orzeczeniach sądów powszechnych...',
-				'menu_id' => 'sp',
-           ),
+                'label' => 'Orzeczenia sądów powszechnych',
+                'searchTitle' => 'Szukaj w orzeczeniach sądów powszechnych...',
+                'menu_id' => 'sp',
+            ),
             'sn_orzeczenia' => array(
-            	'label' => 'Orzeczenia Sądu Najwyższego',
-				'searchTitle' => 'Szukaj w orzeczeniach Sądu Najwyższego...',
-				'menu_id' => 'sn',
+                'label' => 'Orzeczenia Sądu Najwyższego',
+                'searchTitle' => 'Szukaj w orzeczeniach Sądu Najwyższego...',
+                'menu_id' => 'sn',
             ),
         ),
         'ngo' => array(
-	        'ngo_tematy' => array(
-		        'label' => 'Tematy',
-		        'menu_id' => 'tematy',
-	        ),
+            'ngo_tematy' => array(
+                'label' => 'Tematy',
+                'menu_id' => 'tematy',
+            ),
         ),
         'zamowienia_publiczne' => array(
             'zamowienia_publiczne' => array(
-            	'label' => 'Zamówienia publiczne',
+                'label' => 'Zamówienia publiczne',
             ),
             'zamowienia_publiczne_zamawiajacy' => array(
-            	'label' => 'Zamawiający',
-            	'menu_id' => 'zamawiajacy',
+                'label' => 'Zamawiający',
+                'menu_id' => 'zamawiajacy',
             ),
         ),
         /*
@@ -234,127 +234,137 @@ class AppController extends Controller
         */
         'media' => array(
             'twitter_accounts' => array(
-            	'label' => 'Obserwowane konta',
-				'searchTitle' => 'Szukaj w kontach Twitter...',
-				'menu_id' => 'twitter_konta',
-				'default_order' => 'twitter_accounts.liczba_obserwujacych desc',
-				'default_conditions' => array(
-	                'twitter_accounts.liczba_tweetow>' => 0,
-				),
+                'label' => 'Obserwowane konta',
+                'searchTitle' => 'Szukaj w kontach Twitter...',
+                'menu_id' => 'twitter_konta',
+                'default_order' => 'twitter_accounts.liczba_obserwujacych desc',
+                'default_conditions' => array(
+                    'twitter_accounts.liczba_tweetow>' => 0,
+                ),
             ),
             'twitter' => array(
-            	'label' => 'Tweety',
-				'searchTitle' => 'Szukaj w tweetach...',
-				'menu_id' => 'tweety',
+                'label' => 'Tweety',
+                'searchTitle' => 'Szukaj w tweetach...',
+                'menu_id' => 'tweety',
             ),
         ),
         'sejmometr' => array(
             'poslowie' => array(
-            	'label' => 'Posłowie',
-				'menu_id' => 'poslowie',
-				'autocompletion' => array(
-					'dataset' => 'poslowie',
-				),
+                'label' => 'Posłowie',
+                'menu_id' => 'poslowie',
+                'autocompletion' => array(
+                    'dataset' => 'poslowie',
+                ),
             ),
             'sejm_dezyderaty' => array(
-            	'label' => 'Dezyderaty komisji',
-				'menu_id' => 'dezyderaty',
+                'label' => 'Dezyderaty komisji',
+                'menu_id' => 'dezyderaty',
             ),
             'sejm_druki' => array(
-            	'label' => 'Druki sejmowe',
-				'menu_id' => 'druki',
+                'label' => 'Druki sejmowe',
+                'menu_id' => 'druki',
             ),
             'sejm_glosowania' => array(
-            	'label' => 'Głosowania',
-				'menu_id' => 'glosowania',
+                'label' => 'Głosowania',
+                'menu_id' => 'glosowania',
             ),
             'sejm_interpelacje' => array(
-            	'label' => 'Interpelacje',
-				'menu_id' => 'interpelacje',
+                'label' => 'Interpelacje',
+                'menu_id' => 'interpelacje',
             ),
             'sejm_kluby' => array(
-            	'label' => 'Kluby sejmowe',
-				'menu_id' => 'kluby',
+                'label' => 'Kluby sejmowe',
+                'menu_id' => 'kluby',
             ),
             'sejm_komisje' => array(
-            	'label' => 'Komisje sejmowe',
-				'menu_id' => 'komisje',
+                'label' => 'Komisje sejmowe',
+                'menu_id' => 'komisje',
             ),
             'sejm_komunikaty' => array(
-            	'label' => 'Komunikaty Kancelarii Sejmu',
-				'menu_id' => 'komunikaty',
+                'label' => 'Komunikaty Kancelarii Sejmu',
+                'menu_id' => 'komunikaty',
             ),
             'sejm_posiedzenia' => array(
-            	'label' => 'Posiedzenia Sejmu',
-				'menu_id' => 'posiedzenia',
+                'label' => 'Posiedzenia Sejmu',
+                'menu_id' => 'posiedzenia',
             ),
             'sejm_posiedzenia_punkty' => array(
-            	'label' => 'Punkty porządku dziennego',
-				'menu_id' => 'punkty',
+                'label' => 'Punkty porządku dziennego',
+                'menu_id' => 'punkty',
             ),
             'sejm_wystapienia' => array(
-            	'label' => 'Wystąpienia podczas posiedzeń Sejmu',
-				'menu_id' => 'wystapienia',
+                'label' => 'Wystąpienia podczas posiedzeń Sejmu',
+                'menu_id' => 'wystapienia',
             ),
             'sejm_komisje_opinie' => array(
-            	'label' => 'Opinie komisji sejmowych',
-				'menu_id' => 'komisje_opinie',
+                'label' => 'Opinie komisji sejmowych',
+                'menu_id' => 'komisje_opinie',
             ),
             'sejm_komisje_uchwaly' => array(
-            	'label' => 'Uchwały komisji sejmowych',
-				'menu_id' => 'komisje_uchwaly',
+                'label' => 'Uchwały komisji sejmowych',
+                'menu_id' => 'komisje_uchwaly',
             ),
             'poslowie_oswiadczenia_majatkowe' => array(
-            	'label' => 'Oświadczenia majątkowe posłów',
-				'menu_id' => 'poslowie_oswiadczenia',
+                'label' => 'Oświadczenia majątkowe posłów',
+                'menu_id' => 'poslowie_oswiadczenia',
             ),
             'poslowie_rejestr_korzysci' => array(
-            	'label' => 'Rejestr korzyści posłów',
-				'menu_id' => 'poslowie_korzysci',
+                'label' => 'Rejestr korzyści posłów',
+                'menu_id' => 'poslowie_korzysci',
             ),
             'poslowie_wspolpracownicy' => array(
-            	'label' => 'Współpracownicy posłów',
-				'menu_id' => 'poslowie_wspolpracownicy',
+                'label' => 'Współpracownicy posłów',
+                'menu_id' => 'poslowie_wspolpracownicy',
             ),
         ),
         'kto_tu_rzadzi' => array(
             'instytucje' => array(
-            	'label' => 'Instytucje',
-				'menu_id' => 'instytucje',
-				'order' => 'weight desc',
-				'autocompletion' => array(
-					'dataset' => 'instytucje',
-				),
+                'label' => 'Instytucje',
+                'menu_id' => 'instytucje',
+                'order' => 'weight desc',
+                'autocompletion' => array(
+                    'dataset' => 'instytucje',
+                ),
             ),
         ),
     );
     public $applications = array(
         'krs' => array(
             'name' => 'Krajowy Rejestr Sądowy',
+            'subname' => 'Przeglądaj firmy i organizacje pozarządowe zarejestrowane w KRS',
+            'desc' => 'Poznaj misje firm i organizacji pozarządowych, sposób ich reprezentacji oraz sprawdzaj powiązania osób z Zarządu i Rady z innymi organizacjami i firmami. Pobierz również za darmo odpis z KRS.',
             'href' => '/krs',
             'tag' => 1,
             'icon' => '&#xe605;',
         ),
         'ngo' => array(
             'name' => 'NGO',
+            'subname' => 'Znajdź oraz zarządzaj kontem swojej organizacji i docieraj do wspierających',
+            'desc' => 'Pokaż, że jesteś specjalistą w swojej branży. Dodawaj działania swojej organizacji, pokaż jej aktywność w social media oraz pochwal się wysłanymi pismami w sprawach ważnych dla osób wspierających Twoją organizację.',
             'href' => '/ngo',
             'tag' => 1,
             'icon' => '&#xe614;',
         ),
         'mapa' => array(
             'name' => 'Mapa',
+            'subname' => 'Śledź działania innych w swojej okolicy',
+            'desc' => 'Sprawdź, jakie działania podejmowane są w Twojej okolicy oraz jakie firmy i organizacje pozarządowe są zarejestrowane w wybranej lokalizacji.',
             'href' => '/mapa',
             'tag' => 1,
             'icon' => '&#xe900;',
         ),
         'prawo' => array(
             'name' => 'Prawo',
+            'subname' => 'Przeglądaj ujednolicone teksty polskiego prawa',
+            'desc' => 'Sprawdzaj za darmo wszystkie akty prawne w interesujących Cię tematach. Znajdziesz je wpisując w wyszukiwarkę nazwę lub słowo kluczowe, które zawiera.',
             'href' => '/prawo',
             'tag' => 1,
             'icon' => '&#xe60d;',
         ),
         'bdl' => array(
             'name' => 'Bank Danych Lokalnych',
+            'subname' => 'Poznaj dane statystyczne w interesującym Cię obszarz',
+            'desc' => 'Przeglądaj dowolne dane statystyczne za wybrany okres czasu. Porównuj je na wykresach i mapach obszarowych Polski.',
             'href' => '/bdl',
             'tag' => 1,
             'icon' => '&#xe615;',
@@ -367,6 +377,8 @@ class AppController extends Controller
         ),
         'kto_tu_rzadzi' => array(
             'name' => 'Kto tu rządzi?',
+            'subname' => 'Dowiedz się kto sprawuje władzę w Twojej okolicy',
+            'desc' => 'Prześledź działania wybranych instytucji państwowych. Zapoznaj się z tworzonymi przez nie raportami i analizami oraz wykorzystuj je w codziennej pracy.',
             'href' => '/kto_tu_rzadzi',
             'src' => '/KtoTuRzadzi/icon/kto_tu_rzadzi.svg',
             'tag' => 1,
@@ -382,30 +394,40 @@ class AppController extends Controller
         */
         'media' => array(
             'name' => 'Media',
+            'subname' => 'Śledź aktywności sektora publicznego na Twitterze',
+            'desc' => 'Monitoruj treści tworzone przez polityków, komentatorów, miasta, urzędników oraz organizacje pozarządowe na Twitterze. Zobacz, o czym piszą i włącz się do dyskusji z nimi na wybrane przez siebie tematy.',
             'href' => '/media',
             'tag' => 1,
             'icon' => '&#xe608;',
         ),
         'dostep_do_informacji_publicznej' => array(
             'name' => 'Dostęp do Informacji Publicznej',
+            'subname' => 'Twórz i wysyłaj wnioski o dostęp do informacji publicznej',
+            'desc' => 'Dowiedz się, w jakich przypadkach możesz wysłać wniosek o dostęp do informacji publicznej oraz jakie prawa Ci przysługują, jeśli urząd nie wypełni prawa w tym zakresie.',
             'href' => '/dostep_do_informacji_publicznej',
             'tag' => 2,
             'icon' => '&#xe60e;',
         ),
         'finanse' => array(
             'name' => 'Finanse publiczne',
+            'subname' => 'Rozliczaj państwo oraz gminy z realizacji swoich budżetów',
+            'desc' => 'Porównaj rządy poszczególnych Premierów i zobacz, kiedy był największy deficyt, dochody oraz wydatki. Dodatkowo prześledź wydatki wybranej polskiej gminy i zobacz, na co wydatkowany jest jej budżet.',
             'href' => '/finanse',
             'tag' => 1,
             'icon' => '&#xe602;',
         ),
         'zamowienia_publiczne' => array(
             'name' => 'Zamówienia publiczne',
+            'subname' => 'Kontroluj wydawanie publicznych pieniędzy i sprawdzaj do kogo trafiają',
+            'desc' => 'Zbadaj największe zamówienia publiczne w instytucjach publicznych oraz to, na jakie działania zostały przeznaczone środki publiczne.',
             'href' => '/zamowienia_publiczne',
             'tag' => 1,
             'icon' => '&#xe613;',
         ),
         'handel_zagraniczny' => array(
             'name' => 'Handel zagraniczny',
+            'subname' => 'Dowiedz się więcej o polskim imporcie i eksporcie',
+            'desc' => 'Zweryfikuj z kim Polska najczęściej wymieniała swoje towary. Do jakiego kraju eksportowano, a z jakiego importowano.',
             'href' => '/handel_zagraniczny',
             'tag' => 1,
             'icon' => '&#xe603;',
@@ -426,7 +448,7 @@ class AppController extends Controller
             'tag' => 0,
             'icon' => '&#xe616;',
         ),
-        
+
         /*
         'mapa_prawa' => array(
             'name' => 'Mapa prawa',
@@ -451,12 +473,16 @@ class AppController extends Controller
         ),
         'orzecznictwo' => array(
             'name' => 'Orzecznictwo',
+            'subname' => 'Przeglądaj potężną bazę wyroków sądów',
+            'desc' => 'Czytaj za darmo najnowsze orzeczenia Sądu Najwyższego, sądów powszechnych oraz sądów administracyjnych.',
             'href' => '/orzecznictwo',
             'tag' => 1,
             'icon' => '&#xe617;',
         ),
         'sejmometr' => array(
             'name' => 'Sejmometr',
+            'subname' => 'Monitoruj pracę i działania Sejmu',
+            'desc' => 'Nadzoruj pracę swoich przedstawicieli w Sejmie: ich głosowania, interpelacje oraz wystąpienia publiczne. Śledź posiedzenia Sejmu oraz tworzone podczas nich ustawy.',
             'href' => '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej',
             'tag' => 1,
             'icon' => '&#xe610;',
@@ -482,36 +508,38 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe60c;',
         ),
-        
-        
         'wydatki_poslow' => array(
             'name' => 'Wydatki Posłów',
+            'subname' => 'Kontroluj zarobki i wydatki posłów',
+            'desc' => 'Obserwuj na co posłowie średnio wydają najwięcej pieniędzy oraz kto przoduje w wybranych kategoriach.',
             'href' => '/wydatki_poslow',
             'tag' => 2,
             'icon' => '&#xe611;',
         ),
         'wyjazdy_poslow' => array(
             'name' => 'Wyjazdy Posłów',
+            'subname' => 'Zobacz, gdzie na świecie reprezentują nas posłowie',
+            'desc' => 'Monitoruj wyjazdy zagraniczne posłów, w których uczestniczą w różnych spotkaniach, konferencjach, szkoleniach. Jako obywatele i działacze organizacji pozarządowych mamy prawo wiedzieć, gdzie osoby, które wybraliśmy nas reprezentują oraz w jakiej sprawie udają się w dane miejsce.',
             'href' => '/wyjazdy_poslow',
             'tag' => 2,
             'icon' => '&#xe612;',
         ),
-        
+
     );
 
     public function beforeFilter()
     {
-	    
-	    $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-	    $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
-	    	    				
+
+        $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
+
         if (defined('PORTAL_DOMAIN')) {
             $pieces = parse_url(Router::url($this->here, true));
-			
+
             if (defined('PK_DOMAIN') && ($pieces['host'] == PK_DOMAIN)) {
-                
+
                 $this->domainMode = 'PK';
-								
+
                 // only certain actions are allowed in this domain
                 // for other actions we are immediatly redirecting to PORTAL_DOMAIN
 
@@ -536,56 +564,55 @@ class AppController extends Controller
                     die();
                 }
 
-				$_id = strtolower($this->request->params['plugin'] . '.' . $this->request->params['controller']);
+                $_id = strtolower($this->request->params['plugin'] . '.' . $this->request->params['controller']);
 
-				$cross_domain = (
-					stripos($_SERVER['REQUEST_URI'], '/cross-domain-') === 0 or
-					stripos($_SERVER['REQUEST_URI'], '/login') === 0 or
-					stripos($_SERVER['REQUEST_URI'], '/logout') === 0
+                $cross_domain = (
+                    stripos($_SERVER['REQUEST_URI'], '/cross-domain-') === 0 or
+                    stripos($_SERVER['REQUEST_URI'], '/login') === 0 or
+                    stripos($_SERVER['REQUEST_URI'], '/logout') === 0
                 );
-				
-				if( 
-					!in_array($_id, array(
-						'dane.gminy',
-						'dane.highstock_browser',
-						'powiadomienia.powiadomienia',
-						'subscriptions.subscriptions',
-						'pisma.pisma',
-						'pisma.szablony',
-						'zamowieniapubliczne.zamowieniapubliczne',
-						'finanse.gminy'
-					)) &&
-					!$cross_domain
-				) {
+
+                if (
+                    !in_array($_id, array(
+                        'dane.gminy',
+                        'dane.highstock_browser',
+                        'powiadomienia.powiadomienia',
+                        'subscriptions.subscriptions',
+                        'pisma.pisma',
+                        'pisma.szablony',
+                        'zamowieniapubliczne.zamowieniapubliczne',
+                        'finanse.gminy'
+                    )) &&
+                    !$cross_domain
+                ) {
 
 
-
-					$url = $_SERVER['REQUEST_URI'];
+                    $url = $_SERVER['REQUEST_URI'];
                     if ($url[0] == ',') {
                         $p = strpos($url, '/');
                         $url = ($p === false) ? '' : substr($url, $p);
                     }
                     return $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $url);
-					
-				}
+
+                }
 
             } elseif ($pieces['host'] != PORTAL_DOMAIN) {
-                                
+
                 $this->redirect($this->protocol . PORTAL_DOMAIN . $this->port . $this->here, 301);
                 die();
 
             }
-            
+
         }
 
         $this->response->header('Access-Control-Allow-Origin', $this->request->header('Origin'));
         $this->response->header('Access-Control-Allow-Credentials', true);
-		
-		
-		$redirect = false;
+
+
+        $redirect = false;
 
         if ($this->Session->read('Auth.User.id') && $this->Session->read('Pisma.transfer_anonymous')) {
-						
+
             $this->loadModel('Pisma.Pismo');
             $this->Pismo->transfer_anonymous($this->Session->read('previous_id'));
             $this->Session->delete('Pisma.transfer_anonymous');
@@ -596,9 +623,8 @@ class AppController extends Controller
 
         if ($redirect)
             return $this->redirect($this->request->here);
-            
-            
-		
+
+
         # assigning translations for javascript use
         if ($this->params->plugin) {
             $path = ROOT . DS . APP_DIR . DS . 'Plugin' . DS . Inflector::camelize($this->params->plugin) . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . Inflector::underscore($this->params->plugin) . '.po';
@@ -664,7 +690,7 @@ class AppController extends Controller
         if ($id && array_key_exists($id, $this->applications)) {
 
             return array_merge($this->applications[$id], array(
-	            'id' => $id,
+                'id' => $id,
             ));
 
         } else return false;
@@ -695,7 +721,7 @@ class AppController extends Controller
 
     public function getDatasetByAlias($app_id = false, $alias = false)
     {
-	    if( $app_id && $alias && array_key_exists($app_id, $this->datasets) ) {
+        if ($app_id && $alias && array_key_exists($app_id, $this->datasets)) {
             foreach ($this->datasets[$app_id] as $dataset_id => $dataset_name) {
                 if (@$dataset_name['menu_id'] == $alias) {
                     return array(
@@ -705,7 +731,7 @@ class AppController extends Controller
                     );
                 }
             }
-	    }
+        }
     }
 
     public function getDataset($id = false)
@@ -728,30 +754,30 @@ class AppController extends Controller
 
     public function beforeRender()
     {
-        
-        if( @$this->request->params['ext']!='json' ) {
-        	               
-	        $layout = $this->setLayout();
-	        $menu = $this->getMenu();
-					
-			if( !empty($menu) ) {
-							
-		        if ($this->menu_selected == '_default')
-		            $this->menu_selected = $this->request->params['action'];
-		
-		        $menu['selected'] = $this->menu_selected;
-	        
-	        }
-	        
-	        $this->set('_layout', $layout);
-	        $this->set('_breadcrumbs', $this->breadcrumbs);
-	        $this->set('_applications', $this->applications);
-	        $this->set('_menu', $menu);
-	        $this->set('_observeOptions', $this->observeOptions);
-	        $this->set('appSelected', $this->appSelected);
-        
+
+        if (@$this->request->params['ext'] != 'json') {
+
+            $layout = $this->setLayout();
+            $menu = $this->getMenu();
+
+            if (!empty($menu)) {
+
+                if ($this->menu_selected == '_default')
+                    $this->menu_selected = $this->request->params['action'];
+
+                $menu['selected'] = $this->menu_selected;
+
+            }
+
+            $this->set('_layout', $layout);
+            $this->set('_breadcrumbs', $this->breadcrumbs);
+            $this->set('_applications', $this->applications);
+            $this->set('_menu', $menu);
+            $this->set('_observeOptions', $this->observeOptions);
+            $this->set('appSelected', $this->appSelected);
+
         }
-        
+
     }
 
     /**
@@ -855,8 +881,9 @@ class AppController extends Controller
 
     }
 
-    public function isSuperUser() {
-	    return $this->hasUserRole('2');
+    public function isSuperUser()
+    {
+        return $this->hasUserRole('2');
     }
 
     /**
@@ -872,7 +899,8 @@ class AppController extends Controller
      * @param $data
      * @param null $val
      */
-    public function setSerialized($data, $val = null) {
+    public function setSerialized($data, $val = null)
+    {
         if (is_array($data)) {
             $this->set($data);
             $this->set('_serialize', array_keys($data));
