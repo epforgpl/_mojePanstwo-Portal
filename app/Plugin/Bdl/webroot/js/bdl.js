@@ -11,7 +11,7 @@ $(document).ready(function () {
 
 			var item = $bdl.find('.item[name=' + hash + ']');
 			if( item.length ) {
-				bdlClick(item.parents('.block')[0]);
+				bdlClick(item.parents('.bdlBlock')[0]);
 			} else {
 				history.pushState("", document.title, window.location.pathname);
 			}
@@ -19,6 +19,6 @@ $(document).ready(function () {
 	}
 
 	$bdl.find('.item .inner').click(function (e) {
-		bdlClick($(e.target).parents('.block')[0]);
+		bdlClick($(e.target).parents('.bdlBlock')[0]);
 	});
 });

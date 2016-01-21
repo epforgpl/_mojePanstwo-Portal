@@ -215,7 +215,7 @@ $(document).ready(function () {
 	}
 
 	$bdl.find('.item .inner.clickable').click(function (e) {
-		bdlClick($(e.target).parents('.block')[0]);
+		bdlClick($(e.target).parents('.bdlBlock')[0]);
 	});
 
 	$podatki.find('button[type="submit"]').click(function () {

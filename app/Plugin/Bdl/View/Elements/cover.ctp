@@ -34,7 +34,7 @@ $colors['diff'] = array(
 			</div>
         </div>
     </div>
-    
+
 
     <div id="bdl" class="bdlClickEngine">
         <div class="container">
@@ -62,7 +62,8 @@ $colors['diff'] = array(
                             $label = $kategoria['kategoria']['nazwa'];
                             $slug = $kategoria['kategoria']['slug'];
                             ?>
-                            <div class="col-md-3" data-color="<? echo $color[0] . ', ' . $color[1] . ', ' . $color[2] ?>">
+                            <div class="bdlBlock col-md-3"
+                                 data-color="<? echo $color[0] . ', ' . $color[1] . ', ' . $color[2] ?>">
                                 <div class="item" name="<?= $slug ?>" data-id="<?= $id ?>">
                                     <a href="/bdl#<?= $slug ?>" class="inner" data-title="<?= $label ?>" data-info="">
                                         <div class="logo">
@@ -110,7 +111,7 @@ $colors['diff'] = array(
         </div>
     </div>
 
-        
+
 </div>
 
 

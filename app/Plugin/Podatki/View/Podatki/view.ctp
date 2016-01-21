@@ -287,7 +287,7 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                 <div class="row items bdlClickEngine">
                     <h2 class="text-center"><?= __d('podatki', 'LC_PODATKI_RESULTS_WYDAWANE_PODATKI'); ?>:</h2>
                     <? foreach ($wydatki['dzialy'] as $dzial) { ?>
-                        <div class="block col-xs-12 col-sm-6 col-md-3">
+                        <div class="bdlBlock col-xs-12 col-sm-6 col-md-3">
                             <div class="item more">
                                 <div class="inner<? if (isset($dzial['subdzialy'])) { ?> clickable<? } ?>">
                                     <div class="logo">

@@ -19,14 +19,14 @@ $(document).ready(function () {
 		}
 
 		var items = block.parent('.items'),
-			next = block.next('.block'),
+			next = block.next('.bdlBlock'),
 			targetPos = block.position().top,
 			slideMark;
 
 		if (block[0] === lastChoose[0]) {
 			lastChoose = false;
 			items.removeClass('focus-control');
-			items.find('.block.focus').removeClass('focus');
+			items.find('.bdlBlock.focus').removeClass('focus');
 			$bdl.find('.infoBlock').addClass('old').css({
 				'height': 0,
 				'border-width': 0
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
 			return;
 		} else {
-			items.find('.block.focus').removeClass('focus');
+			items.find('.bdlBlock.focus').removeClass('focus');
 			items.addClass('focus-control');
 			block.addClass('focus');
 			lastChoose = block;
@@ -48,19 +48,19 @@ $(document).ready(function () {
 			slideMark = block;
 		} else {
 			while (next.length !== 0) {
-				if (next.next('.block').length === 0) {
+				if (next.next('.bdlBlock').length === 0) {
 					if (next.position().top !== targetPos) {
-						slideMark = next.prev('.block');
+						slideMark = next.prev('.bdlBlock');
 					} else {
 						slideMark = next;
 					}
 					break;
 				} else {
 					if (next.position().top !== targetPos) {
-						slideMark = next.prev('.block');
+						slideMark = next.prev('.bdlBlock');
 						break;
 					}
-					next = next.next('.block');
+					next = next.next('.bdlBlock');
 				}
 			}
 		}
