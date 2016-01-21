@@ -18,7 +18,7 @@ class StartController extends ApplicationsController
 	
 	public function view()
     {
-
+				
         $options = array(
             'searchTag' => array(
 	            'href' => '/krs',
@@ -40,7 +40,7 @@ class StartController extends ApplicationsController
         );
 		
         $this->Components->load('Dane.DataBrowser', $options);
-        $this->title = 'Organizacje zarejestrowane w Krajowym Rejestrze Sądowym';
+        $this->title = 'mojePaństwo';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }

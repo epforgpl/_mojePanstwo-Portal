@@ -18,8 +18,11 @@ echo $this->element('headers/main');
         <? } ?>
     </div>
     <ul class="app-list">
-        <? array_shift($app_chapters['items']); ?>
-        <? foreach ($app_chapters['items'] as $a) { ?>
+        <? 
+	        if( @$app_chapters['items'] ) {
+		        @array_shift($app_chapters['items']);
+		        foreach ($app_chapters['items'] as $a) {      
+        ?>
             <li>
                 <? if (isset($a['href'])) {
                     echo '<a href="' . $a['href'] . '" target="_self">';
@@ -36,7 +39,10 @@ echo $this->element('headers/main');
                 } ?>
                 <? /* <ul class="sub-list"><li><li></ul> */ ?>
             </li>
-        <? } ?>
+        <?
+	    		}
+	        }
+        ?>
     </ul>
 </div>
 

@@ -16,15 +16,26 @@ $colors['diff'] = array(
 
 ?>
 
+
 <div class="col-xs-12">
+
     <div class="appBanner">
         <h1 class="appTitle">Bank danych lokalnych</h1>
-
         <p class="appSubtitle">Przeglądaj wskaźniki dotyczące sytuacji społecznej i ekonomicznej Polski.</p>
-    </div>
-</div>
 
-<div class="col-xs-12">
+        <div class="appSearch form-group">
+			<div class="input-group">
+				<input class="form-control" placeholder="Szukaj wskaźników..." type="text">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-primary input-md">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+				</span>
+			</div>
+        </div>
+    </div>
+    
+
     <div id="bdl" class="bdlClickEngine">
         <div class="container">
             <div class="content col-xs-12 row">
@@ -51,8 +62,7 @@ $colors['diff'] = array(
                             $label = $kategoria['kategoria']['nazwa'];
                             $slug = $kategoria['kategoria']['slug'];
                             ?>
-                            <div class="block col-md-3"
-                                 data-color="<? echo $color[0] . ', ' . $color[1] . ', ' . $color[2] ?>">
+                            <div class="col-md-3" data-color="<? echo $color[0] . ', ' . $color[1] . ', ' . $color[2] ?>">
                                 <div class="item" name="<?= $slug ?>" data-id="<?= $id ?>">
                                     <a href="/bdl#<?= $slug ?>" class="inner" data-title="<?= $label ?>" data-info="">
                                         <div class="logo">
@@ -75,13 +85,13 @@ $colors['diff'] = array(
                                                             <div class="row">
                                                                 <div class="col-xs-9">
                                                                     <span class="href"
-                                                                          href="/dane/bdl_wskazniki/<?= $wskaznik['bdl_wskazniki.id'] ?>"><?= $wskaznik['bdl_wskazniki.tytul'] ?></span>
+                                                                          href="/dane/bdl_wskazniki/<?= $wskaznik['bdl_wskazniki']['id'] ?>"><?= $wskaznik['bdl_wskazniki']['tytul'] ?></span>
                                                                 </div>
                                                                 <div class="col-xs-1">
-                                                                    <?= @$wskaznik['bdl_wskazniki.liczba_ostatni_rok'] ?>
+                                                                    <?= @$wskaznik['bdl_wskazniki']['liczba_ostatni_rok'] ?>
                                                                 </div>
                                                                 <div class="col-xs-2">
-                                                                    <?= @$wskaznik['bdl_wskazniki.poziom_str'] ?>
+                                                                    <?= @$wskaznik['bdl_wskazniki']['poziom_str'] ?>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -99,4 +109,13 @@ $colors['diff'] = array(
             </div>
         </div>
     </div>
+
+        
 </div>
+
+
+
+
+
+
+

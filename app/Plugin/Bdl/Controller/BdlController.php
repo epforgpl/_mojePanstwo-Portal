@@ -67,6 +67,7 @@ class BdlController extends ApplicationsController
 							                'dataset' => 'bdl_wskazniki',
 						                ),
 					                ),
+					                /*
 					                array(
 						                'range' => array(
 							                'data.bdl_wskazniki.liczba_ostatni_rok' => array(
@@ -74,6 +75,7 @@ class BdlController extends ApplicationsController
 							                ),
 						                ),
 					                ),
+					                */
 				                ),
 			                ),
 		                ),
@@ -82,10 +84,10 @@ class BdlController extends ApplicationsController
 				                'top_hits' => array(
 					                'size' => 1000,
 					                'sort' => array(
-						                'bdl_wskazniki.kategoria_tytul_raw' => array(
+						                'data.bdl_wskazniki.kategoria_tytul' => array(
 							                'order' => 'asc',
 						                ),
-						                'bdl_wskazniki.grupa_tytul_raw' => array(
+						                'data.bdl_wskazniki.grupa_tytul' => array(
 							                'order' => 'asc',
 						                ),
 						                'title.raw' => array(
@@ -138,31 +140,28 @@ class BdlController extends ApplicationsController
         parent::beforeRender();
 		
 		if( $hits = @$this->viewVars['dataBrowser']['aggs']['wskazniki']['top']['hits']['hits'] ) {
-			
-			// debug($hits); die();
-			
+						
 			$tree = array();
 			foreach( $hits as $h ) {
 								
-				$h = $h['fields']['source'][0]['data'];
+				$h = $h['_source']['data'];
 				
-				$tree[ $h['bdl_wskazniki.kategoria_id'] ]['kategoria'] = array(
-					'id' => $h['bdl_wskazniki.kategoria_id'],
-					'nazwa' => $h['bdl_wskazniki.kategoria_tytul'],
-					'slug' => @$h['bdl_wskazniki.kategoria_slug'],
+				$tree[ $h['bdl_wskazniki']['kategoria_id'] ]['kategoria'] = array(
+					'id' => $h['bdl_wskazniki']['kategoria_id'],
+					'nazwa' => $h['bdl_wskazniki']['kategoria_tytul'],
+					'slug' => @$h['bdl_wskazniki']['kategoria_slug'],
 				);
-				$tree[ $h['bdl_wskazniki.kategoria_id'] ]['grupy'][ $h['bdl_wskazniki.grupa_id'] ]['grupa'] = array(
-					'id' => $h['bdl_wskazniki.grupa_id'],
-					'nazwa' => $h['bdl_wskazniki.grupa_tytul'],
-					'slug' => @$h['bdl_wskazniki.grupa_slug'],
+				$tree[ $h['bdl_wskazniki']['kategoria_id'] ]['grupy'][ $h['bdl_wskazniki']['grupa_id'] ]['grupa'] = array(
+					'id' => $h['bdl_wskazniki']['grupa_id'],
+					'nazwa' => $h['bdl_wskazniki']['grupa_tytul'],
+					'slug' => @$h['bdl_wskazniki']['grupa_slug'],
 				);
-				$tree[ $h['bdl_wskazniki.kategoria_id'] ]['grupy'][ $h['bdl_wskazniki.grupa_id'] ]['wskazniki'][] = $h;
+				$tree[ $h['bdl_wskazniki']['kategoria_id'] ]['grupy'][ $h['bdl_wskazniki']['grupa_id'] ]['wskazniki'][] = $h;
 				
 			}
 			
 			unset( $this->viewVars['dataBrowser']['aggs']['wskazniki'] );
-			$tree = array_values( $tree );
-			
+			$tree = array_values( $tree );			
 			
 			$this->set('tree', $tree);
 			
