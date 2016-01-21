@@ -105,6 +105,11 @@ $(document).ready(function () {
 							html += '<strong>' + number_format(c.i, 0, '.', ' ') + '&nbsp;pkt</strong>';
 							html += '</p>';
 						}
+						if (typeof c.d !== "undefined") {
+							html += '<p>Za dyżury: ';
+							html += '<strong>' + number_format(c.d, 0, '.', ' ') + '&nbsp;pkt</strong>';
+							html += '</p>';
+						}
 
 						if (typeof c.tel !== "undefined") {
 							html += '<p>Za udostępnione numery telefonów: ';
