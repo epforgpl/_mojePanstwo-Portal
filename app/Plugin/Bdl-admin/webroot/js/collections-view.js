@@ -129,7 +129,7 @@ $(document).ready(function() {
 				}
 
 				el.html([
-					'<button type="submit" data-tooltip="true" data-original-title="Edytuj" data-placement="bottom" class="btn btn-default btnNoteEdit btn"><i class="glyphicon glyphicon-edit" title="Edytuj notatkę" aria-hidden="true"></i></button>', 
+					'<button type="submit" data-tooltip="true" data-original-title="Edytuj" data-placement="bottom" class="btn btn-default btnNoteEdit btn"><i class="glyphicon glyphicon-edit" title="Edytuj notatkę" aria-hidden="true"></i></button>',
 					'<div class="content">',
 					val,
 					'</div>'
@@ -153,10 +153,10 @@ $(document).ready(function() {
 				!isEmpty ? content.html() : '',
 				'</textarea>',
 				'<div class="overflow-hidden">',
-				'<button class="btn margin-top-10 pull-right auto-width btn-primary submitBtn" type="submit">',
+				'<button class="btn margin-top-10 pull-right width-auto btn-primary submitBtn" type="submit">',
 				'Zapisz',
 				'</button>',
-				'<button class="btn margin-top-10 margin-sides-10 pull-right auto-width btn-default cancelBtn" type="submit">',
+				'<button class="btn margin-top-10 margin-sides-10 pull-right width-auto btn-default cancelBtn" type="submit">',
 				'Anuluj',
 				'</button>',
 				'</div>',
@@ -250,10 +250,10 @@ $(document).ready(function() {
 				self.noteContent,
 				'</textarea>',
 				'<div class="overflow-hidden margin-bottom-10">',
-					'<button class="btn btn-sm margin-top-10 pull-right auto-width saveNote btn-primary" type="submit">',
+				'<button class="btn btn-sm margin-top-10 pull-right width-auto saveNote btn-primary" type="submit">',
 						'Zapisz',
 					'</button>',
-					'<button class="btn btn-sm margin-top-10 margin-sides-10 pull-right closeNoteEditor auto-width btn-default" type="submit">',
+				'<button class="btn btn-sm margin-top-10 margin-sides-10 pull-right closeNoteEditor width-auto btn-default" type="submit">',
 						'Anuluj',
 					'</button>',
 				'</div>'

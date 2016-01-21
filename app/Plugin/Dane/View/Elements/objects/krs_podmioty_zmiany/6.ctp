@@ -18,7 +18,7 @@ if (!empty($data)) {
 
             ?>
             <tr>
-                <td><b><?= $z['tytul'] ?></b></td>
+                <td><strong><?= $z['tytul'] ?></strong></td>
                 <td><?= $z['dane']['-'][0] ?></td>
                 <td><?= $z['dane']['+'][0] ?></td>
             </tr>

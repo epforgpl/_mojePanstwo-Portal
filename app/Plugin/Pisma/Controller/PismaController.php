@@ -36,8 +36,13 @@ class PismaController extends ApplicationsController
 
     public function beforeFilter() {
         parent::beforeFilter();
-        if($this->request->params['ext'] != 'json')
-            $this->redirect('/moje-pisma');
+        
+        if(!in_array($this->request->params['action'], array('naszrzecznik', 'patrzymynawas'))) {
+        
+	        if(@$this->request->params['ext'] != 'json')
+	            $this->redirect('/moje-pisma');
+            
+        }
     }
 
     public function prepareMetaTags()
@@ -259,6 +264,22 @@ class PismaController extends ApplicationsController
         $this->set('pismo_init', $pismo);
         $this->set('okregi', $this->Sejmometr->okregi_sejm());
         $this->title = 'Nasz Rzecznik | Pisma';
+    }
+    
+    public function patrzymynawas()
+    {
+
+        $this->menu_selected = 'nowe';
+        $query = array_merge($this->request->query, $this->request->params);
+
+        $pismo = array(
+            'szablon_id' => isset($query['szablon_id']) ? $query['szablon_id'] : false,
+            'adresat_id' => isset($query['adresat_id']) ? $query['adresat_id'] : false,
+        );
+
+        $this->set('pismo_init', $pismo);
+        $this->set('okregi', $this->Sejmometr->okregi_sejm());
+        $this->title = 'Dołącz do apelu organizacji ws projektu ustawy o Trybunale Konstytucyjnym';
     }
 
     public function my()

@@ -24,7 +24,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
 
         <div class="content col-xs-12 row pull-left lettersResponses">
 
-            <i class="object-icon icon-applications-pisma"></i>
+            <span class="object-icon icon-applications-pisma"></span>
             <div class="object-icon-side titleBlock">
                 <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
                     <a href="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['nazwa'] ?></a>
@@ -49,7 +49,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
 
             <div class="row">
                 <div class="col-md-12">
-                    <h1><i class="icon glyphicon glyphicon-comment"></i> Dodaj odpowiedź</h1>
+                    <h1><span class="icon glyphicon glyphicon-comment"></span> Dodaj odpowiedź</h1>
                     <form class="letterResponseForm margin-top-10" method="post" data-url="/moje-pisma/<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>/responses.json">
 
                         <div class="row margin-top-10">
@@ -83,8 +83,8 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'];
                         </div>
 
                         <div class="form-group overflow-hidden text-center margin-top-20">
-                            <button class="btn auto-width btn-primary btn-icon" type="submit">
-                                <i class="icon glyphicon glyphicon-ok"></i>
+                            <button class="btn width-auto btn-primary btn-icon" type="submit">
+                                <span class="icon glyphicon glyphicon-ok"></span>
                                 Zapisz
                             </button>
                         </div>

@@ -19,45 +19,52 @@ class ApiController extends ApplicationsController
 
     public function index()
     {
-		$this->menu_selected = 'view';
+		$this->title = 'API - Buduj aplikacje w oparciu o dane publiczne';
+    }
+    
+    public function bdl()
+    {
+		$this->title = 'API - Bank Danych Lokalnych';
     }
 
     public function view($slug)
     {
         $uiRoot = Router::url(array('plugin' => 'api', 'controller' => 'api', 'action' => 'view', 'slug' => $slug), false);
 
-        $this->menu_selected = $slug;
+        $this->chapter_selected = '';
         $this->set(compact('uiRoot', 'slug'));
+        
+        
     }
+        
+    public function getChapters() {
 
-    public function technical_info()
-    {
-    }
-    
-    public function getMenu()
-    {
-	    
-	    $menu = array(
-		    'items' => array(
-			    array(
-				    'label' => 'Start',
-					'icon' => array(
-						'src' => 'glyphicon',
-						'id' => 'home',
-					),
-			    ),
-			    array(
-				    'id' => 'technical_info',
-				    'label' => 'Opis techniczny',
-			    ),
-                array(
-                    'id' => 'bdl',
-                    'label' => 'Statystyki'
-                )
-		    ),
-		    'base' => '/api',
-	    );
-	    return $menu;
-	    
-    }
+		$mode = false;
+		$items = array();
+		$app = $this->getApplication( $this->settings['id'] );
+				
+		$items[] = array(
+			'label' => 'API',
+			'href' => '/' . $this->settings['id'],
+			'class' => '_label',
+			'icon' => 'appIcon',
+			'appIcon' => $app['icon'],
+		);
+		
+		$items[] = array(
+			'label' => 'Bank Danych Lokalnych',
+			'href' => '/api/bdl',
+			'id' => 'bdl',
+			'icon' => 'icon-datasets-dot',
+		);
+        
+		
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
 }

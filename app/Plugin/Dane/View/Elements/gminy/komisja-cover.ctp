@@ -9,12 +9,29 @@ $options = array(
     'mode' => 'init',
 );
 ?>
-<div class="col-md-8">
-    <div class="databrowser-panels">
 
-        <? if ($object->getId() == 903) { ?>
+<div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
+	<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 
-            <div class="databrowser-panel">
+    <? if(isset($_submenu) && isset($_submenu['items'])) {
+
+        if (!isset($_submenu['base']))
+            $_submenu['base'] = $komisja->getUrl();
+
+        echo $this->Element('Dane.DataBrowser/browser-menu', array(
+            'menu' => $_submenu,
+        ));
+
+    } ?>
+    
+	</div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+	<div class="dataWrap">
+		
+		<? if ($object->getId() == 903) { ?>
+
+            <div class="databrowser-panel margin-top-20">
                 <h2>Najnowsze posiedzenia komisji:</h2>
 
                 <div class="aggs-init">
@@ -32,7 +49,7 @@ $options = array(
                                     <? } ?>
                                 </ul>
                                 <div class="buttons">
-                                    <a href="<?= $komisja->getUrl() ?>/posiedzenia" class="btn btn-primary btn-sm">Zobacz
+                                    <a href="<?= $komisja->getUrl() ?>/posiedzenia" class="btn btn-primary btn-xs">Zobacz
                                         więcej</a>
                                 </div>
                             <? } ?>
@@ -78,7 +95,6 @@ $options = array(
             </div>
 
         <? } ?>
-
-    </div>
-
+		
+	</div>
 </div>

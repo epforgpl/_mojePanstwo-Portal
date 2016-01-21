@@ -15,7 +15,7 @@ $shortTitle = (isset($options['forceTitle'])) ?
 
 $object_content_sizes = array(2, 10);
 
-// debug( $object->getData() ); 
+// debug( $object->getData() );
 
 $this->Dataobject->setObject($object);
 ?>
@@ -37,14 +37,9 @@ $this->Dataobject->setObject($object);
             <? } ?>
 
             <div>
-
-
                 <div class="content col-md-12">
-
-                    <i class="object-icon glyphicon glyphicon-file"></i>
-
+                    <span class="object-icon glyphicon glyphicon-file"></span>
                     <div class="object-icon-side">
-
                         <p class="title">
                             <?php if ($object->getUrl() != false) { ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">

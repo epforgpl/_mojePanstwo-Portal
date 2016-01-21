@@ -4,7 +4,7 @@ $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
-$this->Combinator->add_libs('css', 'icon-dzialy');
+$this->Combinator->add_libs('css', $this->Less->css('icon-dzialy', array('plugin' => 'Finanse')));
 $this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'FinanseGmin')));
 $this->Combinator->add_libs('css', $this->Less->css('mp-sections', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
@@ -146,7 +146,7 @@ $options = array(
                             <a href="#<?= $dzial['id'] ?>" class="inner" data-title="<?= $dzial['label'] ?>">
 
                                 <div class="logo">
-                                    <i class="icon-dzialy-<?= $dzial['id'] ?>"></i>
+                                    <span class="icon-dzialy-<?= $dzial['id'] ?>"></span>
                                 </div>
 
                                 <div class="details"><span class="detail">

@@ -1,3 +1,5 @@
+/*global $, jQuery, google, document, window*/
+
 function parsePolyStrings(ps) {
 	var i, j, lat, lng, tmp, tmpArr, arr = [], m = ps.match(/\([^\(\)]+\)/g);
 	if (m !== null) {
@@ -131,7 +133,7 @@ GminyKrakowOkregi.prototype.getAreasListByYear = function (year) {
 	var html = [];
 	if (this.data[year] !== undefined) {
 		for (var i = 0; i < this.data[year].length; i++) {
-			html.push('<li><a href="okregi/' + this.data[year][i][0] + '" data-number="' + this.data[year][i][2] + '">' + this.data[year][i][2] + ' (Dzielnice ' + this.data[year][i][4] + ')</a></li>');
+			html.push('<li><a href="/okregi/' + this.data[year][i][0] + '" data-number="' + this.data[year][i][2] + '">' + this.data[year][i][2] + ' (Dzielnice ' + this.data[year][i][4] + ')</a></li>');
 		}
 	}
 	return html.join('');
@@ -206,7 +208,6 @@ $(document).ready(function () {
 		var o = new GminyKrakowOkregi('kto_tu_rzadzi');
 		o.initialize();
 	} else if ($('div[data-name="okreg"]').length > 0) {
-
 		var okreg = $('div[data-name="okreg"]').data('content');
 
 		var map = new google.maps.Map(
@@ -240,10 +241,10 @@ $(document).ready(function () {
 		var polygons = [],
 			p = parsePolyStrings(okreg),
 			center = {
-				latMin: p[0][0].H,
-				latMax: p[0][0].H,
-				lngMin: p[0][0].L,
-				lngMax: p[0][0].L
+				latMin: p[0][0].G,
+				latMax: p[0][0].G,
+				lngMin: p[0][0].K,
+				lngMax: p[0][0].K
 			};
 
 		for (var s = 0; s < p.length; s++) {
@@ -254,21 +255,25 @@ $(document).ready(function () {
 				strokeColor: '#0000aa',
 				path: p[s]
 			});
+
 			poly.setMap(map);
 			polygons.push(poly);
 
 			for (var t = 0; t < p[s].length; t++) {
-				if (center.latMin > p[s][t].H)
-					center.latMin = p[s][t].H;
-				if (center.latMax < p[s][t].H)
-					center.latMax = p[s][t].H;
-				if (center.lngMin > p[s][t].L)
-					center.lngMin = p[s][t].L;
-				if (center.lngMax < p[s][t].L)
-					center.lngMax = p[s][t].L;
+				if (center.latMin > p[s][t].G) {
+					center.latMin = p[s][t].G;
+				}
+				if (center.latMax < p[s][t].G) {
+					center.latMax = p[s][t].G;
+				}
+				if (center.lngMin > p[s][t].K) {
+					center.lngMin = p[s][t].K;
+				}
+				if (center.lngMax < p[s][t].K) {
+					center.lngMax = p[s][t].K;
+				}
 			}
 		}
-
 		map.setCenter({
 			lat: center.latMin + (center.latMax - center.latMin) / 2,
 			lng: center.lngMin + (center.lngMax - center.lngMin) / 2

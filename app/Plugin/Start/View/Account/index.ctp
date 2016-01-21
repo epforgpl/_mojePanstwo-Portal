@@ -6,26 +6,26 @@
 	<div class="col-md-12">
 
 		<h1>Ustawienia konta</h1>
-			
-		<div class="mainForm">	
-			
-			<form>
+
+        <div class="mainForm">
+
+            <form>
 			    <div class="form-group">
 			        <label for="inputUserName">Nazwa użytkownika</label>
-			
+
 			        <div class="form-user-edit" data-field="username">
 			            <a href="#" title="Edytuj">
-			                <b><?= $user['username']; ?></b>
+                            <strong><?= $user['username']; ?></strong>
 			                <span class="glyphicon glyphicon-pencil"></span>
 			            </a>
 			        </div>
 			    </div>
 			    <div class="form-group">
 			        <label for="inputEmail">Adres E-mail</label>
-			
-			        <div class="form-user-edit" data-field="email">
+
+                    <div class="form-user-edit" data-field="email">
 			            <a href="#" title="Edytuj">
-			                <b><?= $user['email']; ?></b>
+                            <strong><?= $user['email']; ?></strong>
 			                <span class="glyphicon glyphicon-pencil"></span>
 			            </a>
 			        </div>
@@ -53,6 +53,14 @@
 			            </div>
 			        <? } ?>
 			    </div>
+				<div class="form-group">
+					<div class="checkbox">
+						<input id="accountIsNgo" name="is_ngo" type="checkbox" value="1" <?= AuthComponent::user('is_ngo') == '1' ? 'checked' : '' ?>/>
+						<label for="accountIsNgo">
+							Działam w organizacji pozarządowej
+						</label>
+					</div>
+				</div>
 			</form>
 
 			<button type="button" id="deletePaszportButton" class="btn btn-default remove-button margin-top-20" data-toggle="modal"
@@ -60,8 +68,8 @@
 			    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
 			    Usuń konto
 			</button>
-			
-			<? if($canCreatePassword) { ?>
+
+            <? if($canCreatePassword) { ?>
 			    <p class="help-block">Opcja usunięcia konta dostępna po utworzeniu hasła.</p>
 			<? } ?>
 			<div class="modal fade delete-paszport-modal" tabindex="-1" role="dialog"
@@ -75,8 +83,8 @@
 			            </div>
 			            <div class="modal-body">
 			                <p>Wprowadź aktualne hasło aby potwierdzić operację usunięcia konta.</p>
-			
-			                <div class="form-group">
+
+                            <div class="form-group">
 			                    <label for="inputDeletePassword">Hasło</label>
 			                    <input id="inputDeletePassword" value="" type="password" class="form-control"
 			                           name="deletePassword">
@@ -89,10 +97,10 @@
 			        </div>
 			    </div>
 			</div>
-		
-		</div>
-		
-	</div>
+
+        </div>
+
+    </div>
 </div>
 
 <?= $this->element('Start.pageEnd'); ?>

@@ -9,6 +9,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_subitem');
 <?= $this->Element('dataobject/pageBegin', array('renderFile' => 'page-bdl_wskazniki')); ?>
 
 <?= $this->Element('bdl_select', array('expand_dimension' => $expand_dimension, 'dims' => $dims)); ?>
+<div class="row">
     <div id="bdl-wskazniki" class="col-xs-12 col-sm-12 col-md-12">
         <? if (in_array('bdl_opis', $object_editable)) {
             echo $this->element('Dane.bdl_opis');
@@ -30,5 +31,5 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_subitem');
             ?>
         </div>
     </div>
-
+</div>
 <?= $this->Element('dataobject/pageEnd'); ?>

@@ -345,7 +345,7 @@
                 top: 5px;
             }
 
-            a > i {
+            a > i, a > span {
                 font-size: 0.9em;
                 margin-right: 15px;
             }
@@ -360,26 +360,22 @@
                 display: table;
             }
 
-            i {
-                margin-right: 4px;
-
-                &.object-icon {
-                    margin-top: -8px;
-                    margin-right: 10px;
-                    background-color: #89A;
-                    color: #FFF;
-                    display: block;
-                    float: left;
-                    font-size: 28px;
-                    height: 40px;
-                    width: 40px;
-                    line-height: 1.35em;
-                    text-align: center;
-                    border-radius: 20px;
-                    -webkit-border-radius: 20px;
-                    -moz-border-radius: 20px;
-                    -o-border-radius: 20px;
-                }
+            i.object-icon, span.object-icon {
+                margin-top: -8px;
+                margin-right: 10px;
+                background-color: #89A;
+                color: #FFF;
+                display: block;
+                float: left;
+                font-size: 28px;
+                height: 40px;
+                width: 40px;
+                line-height: 1.35em;
+                text-align: center;
+                border-radius: 20px;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                -o-border-radius: 20px;
             }
             small {
                 label {
@@ -459,7 +455,7 @@
         .dataHighlight ._label {
             float: left;
             margin-right: 6px;
-            margin-top: 6px;
+            margin-top: 3px;
         }
     }
 
@@ -509,8 +505,8 @@
 
         ._label {
             font-size: 9px;
-            line-height: 0.75em;
-            margin: 4px 0 6px;
+            line-height: 1.4em;
+            margin: 3px 0 6px;
             font-weight: 600;
             text-transform: uppercase;
             color: #666;

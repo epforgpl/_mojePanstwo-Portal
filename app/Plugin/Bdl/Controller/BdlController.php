@@ -139,6 +139,8 @@ class BdlController extends ApplicationsController
 
         parent::beforeRender();
 		
+		$this->set('_edit', $this->hasUserRole('3'));
+		
 		if( $hits = @$this->viewVars['dataBrowser']['aggs']['wskazniki']['top']['hits']['hits'] ) {
 						
 			$tree = array();

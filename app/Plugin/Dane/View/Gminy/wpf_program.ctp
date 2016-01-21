@@ -1,91 +1,162 @@
 <?
-echo $this->Element('dataobject/pageBegin');
-$this->Combinator->add_libs('js', 'Dane.view-gminy-wpf');
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-wpf', array('plugin' => 'Dane')));
+if ($object->getId() == '903') $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=places&language=' . $lang, array('block' => 'scriptBlock'));
+
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('js', 'Dane.view-gminy-wpf');
+
+echo $this->Element('dataobject/pageBegin');
+
+echo $this->Element('Dane.dataobject/subobject', array(
+    'object' => $program,
+    'objectOptions' => array(
+        'bigTitle' => true,
+    )
+));
+
+if (!isset($_submenu['base']))
+    $_submenu['base'] = $object->getUrl();
 ?>
 
-<div class="row">
 
-    <div class="col-sm-9">
-        <h1 class="margin-top-15"><?= $program->getShortTitle() ?></h1>
+    <div class="col-xs-12 col-md-9 objectMain">
+        <div class="object">
 
-        <? $przedsiewziecia = $program->getLayer('przedsiewziecia');
-        foreach($przedsiewziecia as $p) {
+            <?
+            $przedsiewziecia = $program->getLayer('przedsiewziecia');
+            foreach ($przedsiewziecia as $p) {
 
-            $static = array(
-                'years' => array()
-            );
-
-            for($i = 2016; $i <= 2052; $i++) {
-                $static['years'][] = array(
-                    $i,
-                    $p['limit_' . $i]
+                $static = array(
+                    'years' => array()
                 );
-            }
 
-            ?>
-            <div style="overflow: hidden;padding: 20px 0; border-bottom: 1px solid #efefef;">
-                <p class="text-muted">
-                    <?= $p['kategoria_nazwa'] ?> <?= $p['podkategoria_nazwa'] ?>
-                </p>
+                for ($i = 2016; $i <= 2052; $i++) {
+                    $static['years'][] = array(
+                        $i,
+                        $p['limit_' . $i]
+                    );
+                }
 
-                <? if(isset($p['opis']) && strlen($p['opis']) > 10) { ?>
-                    <p class="text-muted">
-                        <?= ucfirst($p['opis']) ?>
-                    </p>
+                ?>
+
+                <? if (count($przedsiewziecia) > 1) { ?>
+                    <div class="block block-simple" style="padding: 0 10px;">
+                        <ul class="dataHighlights oneline">
+                            <? foreach (array(
+                                            array(
+                                                'field' => 'cel',
+                                                'label' => 'Cel'
+                                            ),
+                                            array(
+                                                'field' => 'jednostka',
+                                                'label' => 'Jednostka'
+                                            ),
+                                            array(
+                                                'field' => 'okres_od',
+                                                'label' => 'Okres Od'
+                                            ),
+                                            array(
+                                                'field' => 'okres_do',
+                                                'label' => 'Okres do'
+                                            ),
+                                            array(
+                                                'field' => 'nr',
+                                                'label' => 'Numer'
+                                            ),
+                                            array(
+                                                'field' => 'laczne_naklady_fin',
+                                                'label' => 'Łączne nakłady finansowe'
+                                            ),
+                                            array(
+                                                'field' => 'limit_zobowiazan',
+                                                'label' => 'Limit zobowiązań'
+                                            ),
+                                        ) as $f) {
+                                if (isset($p[$f['field']]) && trim($p[$f['field']]) != '') { ?>
+                                    <li class="dataHighlight col-sm-6">
+                                        <p class="_label"><?= $f['label'] ?></p>
+                                        <p class="_value"><?=
+                                            in_array($f['field'], array('laczne_naklady_fin', 'limit_zobowiazan')) ?
+                                                number_format_h($p[$f['field']]) . ' zł' : $p[$f['field']]
+                                            ?></p>
+                                    </li>
+                                <? }
+                            } ?>
+                        </ul>
+                    </div>
                 <? } ?>
 
-                <ul class="dataHighlights oneline col-xs-12">
-                    <? foreach(array(
-                        array(
-                            'field' => 'cel',
-                            'label' => 'Cel'
-                        ),
-                        array(
-                            'field' => 'jednostka',
-                            'label' => 'Jednostka'
-                        ),
-                        array(
-                            'field' => 'okres_od',
-                            'label' => 'Okres Od'
-                        ),
-                        array(
-                            'field' => 'okres_do',
-                            'label' => 'Okres do'
-                        ),
-                       array(
-                           'field' => 'nr',
-                           'label' => 'Numer'
-                       ),
-                       array(
-                           'field' => 'laczne_naklady_fin',
-                           'label' => 'Łączne nakłady finansowe'
-                       ),
-                       array(
-                           'field' => 'limit_zobowiazan',
-                           'label' => 'Limit zobowiązań'
-                       ),
-                    ) as $f) { if(isset($p[$f['field']]) && trim($p[$f['field']]) != '') { ?>
-                        <li class="dataHighlight col-sm-6">
-                            <p class="_label"><?= $f['label'] ?></p>
-                            <p class="_value"><?=
-                                in_array($f['field'], array('laczne_naklady_fin', 'limit_zobowiazan')) ?
-                                    number_format_h($p[$f['field']]) . ' zł' : $p[$f['field']]
-                            ?></p>
-                        </li>
-                    <? } } ?>
-                </ul>
-                <div
-                    class="krakowWpfProgramStatic margin-top-20"
-                    data-static="<?= htmlspecialchars(json_encode($static)); ?>">
+                <? if (isset($p['opis']) && strlen($p['opis']) > 10) { ?>
+                    <div class="block block-simple col-xs-12">
+                        <header>Opis</header>
+                        <section class="content textBlock descBlock">
+                            <div class="text"><?= $p['opis'] ?></div>
+                        </section>
+                    </div>
+                <? } ?>
+
+
+                <div class="block block-simple col-xs-12">
+                    <header>Finansowanie w latach</header>
+                    <section class="content">
+                        <div
+                            class="krakowWpfProgramStatic margin-top-20"
+                            data-static="<?= htmlspecialchars(json_encode($static)); ?>">
+                        </div>
+                    </section>
                 </div>
-            </div>
-        <? } ?>
 
+                <?
+                $lat = $lon = $zoom = null;
+
+                if ($can_edit || (($location = $program->getLayer('location')) && ($lat = $location['lat']) && ($lon = $location['lon']) && ($zoom = $location['zoom']))) {
+                    if ($can_edit && ($location = $program->getLayer('location'))) {
+                        $lat = $location['lat'];
+                        $lon = $location['lon'];
+                        $zoom = $location['zoom'];
+                    }
+
+                    ?>
+                    <div class="block block-simple col-xs-12 krakowWpfPlace">
+                        <header>Lokalizacja<? if ($can_edit && $lat && $lon) { ?>
+                                <div class="removeMarker btn btn-danger btn-xs margin-sides-10"><span
+                                        class="glyphicon glyphicon-remove"></span></div><? } ?></header>
+                        <section class="content">
+                            <div class="krakowWpfPlaceMarker margin-top-20">
+                                <div id="map" data-lat="<?= $lat ?>" data-lon="<?= $lon ?>"
+                                     data-zoom="<?= $zoom ?>"></div>
+                                <? if ($can_edit) { ?>
+                                    <input id="pac-input" class="controls" type="text" placeholder="Podaj adres"
+                                           value="Kraków, ">
+                                    <form id="map_form" class="text-center" method="post"
+                                          action="<?= $this->request->here; ?>.json">
+                                        <input type="hidden" name="lat" value="<?= $lat ?>"/>
+                                        <input type="hidden" name="lon" value="<?= $lon ?>"/>
+                                        <input type="hidden" name="zoom" value="<?= $zoom ?>"/>
+                                        <button type="submit" class="btn btn-success margin-top-10">Zapisz lokalizację
+                                        </button>
+                                    </form>
+                                <? } ?>
+                            </div>
+                        </section>
+                    </div>
+                <? } ?>
+            <? } ?>
+        </div>
     </div>
-
-    <div class="col-sm-3">
+    <div class="col-xs-12 col-md-3 objectSide">
         <ul class="dataHighlights">
             <li class="dataHighlight">
                 <p class="_label">Liczba przedsięwzięć</p>
@@ -108,8 +179,7 @@ $this->Combinator->add_libs('js', '../plugins/highstock/locals');
                 <p class="_value"><?= $program->getData('okres_do') ?></p>
             </li>
         </ul>
-    </div>
 
-</div>
+    </div>
 
 <? echo $this->Element('dataobject/pageEnd');

@@ -30,5 +30,10 @@ class Bdl_wskazniki_grupy extends DataObject
     {
         return 'Grupa wskaźników';
     }
+    
+    public function getUrl()
+    {
+	    return '/bdl#' . $this->getData('bdl_wskazniki_kategorie.slug');
+    }
 
 }

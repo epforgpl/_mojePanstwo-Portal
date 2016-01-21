@@ -1,7 +1,7 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
-echo $this->Combinator->add_libs('js', 'Dane.dataobjects-ajax');
-echo $this->Combinator->add_libs('js', 'Dane.filters');
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.dataobjects-ajax');
+$this->Combinator->add_libs('js', 'Dane.filters');
 
 if ($object->getId() == '903') $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 
@@ -10,7 +10,6 @@ echo $this->Element('dataobject/pageBegin', array(
 ));
 
 echo $this->Element('Dane.dataobject/subobject', array(
-    'menu' => false,
     'object' => $posiedzenie,
     'objectOptions' => array(
         'bigTitle' => true,
@@ -65,12 +64,12 @@ if ($posiedzenie->getData('yt_video_id')) {
 <? } ?>
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-1 objectMain">
+        <div class="col-md-9">
             <?
             if ($posiedzenie->getData('protokol_dokument_id')) {
                 ?>
                 <h2 class="light">Protokół z obrad</h2>
-                <?= $this->Document->place($posiedzenie->getData('protokol_dokument_id')) ?>
+                <?= $this->Document->place($posiedzenie->getData('protokol_dokument_id'), array('toolbar' => false)) ?>
             <? } ?>
 
 
@@ -78,7 +77,7 @@ if ($posiedzenie->getData('yt_video_id')) {
             if ($posiedzenie->getData('przedmiot_dokument_id')) {
                 ?>
                 <h2 class="light">Przedmiot obrad</h2>
-                <?= $this->Document->place($posiedzenie->getData('przedmiot_dokument_id')) ?>
+                <?= $this->Document->place($posiedzenie->getData('przedmiot_dokument_id'), array('toolbar' => false)) ?>
             <? } ?>
 
 

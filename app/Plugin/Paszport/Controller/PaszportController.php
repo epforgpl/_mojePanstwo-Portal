@@ -148,11 +148,11 @@ class PaszportController extends ApplicationsController
                 $this->Session->setFlash(__d('paszport', $error, true), null, array('class' => 'alert-error'));
                 $this->redirect(array('action' => 'login'));
             }
-            $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
+            $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email')));
         } else {
-            $userData = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
+            $userData = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),locale');
             if (!$userData)
-                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
+                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email')));
 
             $user = new User();
             $response = $user->registerFromFacebook($userData);
@@ -168,6 +168,17 @@ class PaszportController extends ApplicationsController
                 foreach ($response['user'] as $model => $values) {
                     if ($model != 'User')
                         $user[$model] = $values;
+                }
+
+                if(strtotime($user['created']) >= time() - 180) {
+                    $this->Session->setFlash(
+                        'Welcome',
+                        'flash_facebook_welcome',
+                        array(
+                            'plugin' => 'Start',
+                            'clean' => true
+                        )
+                    );
                 }
 
                 $this->Auth->login($user);
@@ -232,6 +243,11 @@ class PaszportController extends ApplicationsController
 
     public function register()
     {
+	    
+	    if( $this->Auth->user() ) {
+		    return $this->redirect('/');
+	    }
+	    
         $this->setLayout(array(
             'header' => false,
             'body' => array(

@@ -27,14 +27,26 @@ class PodatkiController extends ApplicationsController
     {
         $result = false;
         if ($this->request->is("POST")) {
-            if (!empty($this->request->data)) {
+
+            if (isset($this->request->data['_action']) && ($this->request->data['_action'] == 'send')) {
+
+                // SEND DATA
+
+                $status = $this->Podatki->sendData( $this->request->data );
+                $status = true;
+
+                $this->set('status', (boolean)$status);
+                $this->set('_serialize', array('status'));
+                return true;
+
+            } elseif (!empty($this->request->data)) {
                 if (
-                    !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace']))))
-                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie']))))
-                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo']))))
-                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza']))))
-                    || !(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza_koszt']))))
+                    (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_prace'])))))
+                    || (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_zlecenie'])))))
+                    || (count(array_filter(array_unique(array_map("floatval", $this->request->data['umowa_o_dzielo'])))))
+                    || (count(array_filter(array_unique(array_map("floatval", $this->request->data['dzialalnosc_gospodarcza'])))))
                 ) {
+
                     $result = $this->result_sum();
 
                     $this->loadModel('Finanse.Finanse');
@@ -238,7 +250,7 @@ class PodatkiController extends ApplicationsController
                                 'kwota' => 41894.40,
                                 'subdzialy' => array(
                                     array(
-                                        'nazwa' => 'świadczenia rodzinne, świadczenia z funduszu alimentacyjnego, zasiłki, dodatki mieszkaniowe',
+                                        'nazwa' => 'świadczenia rodzinne, świadczenia z funduszu alimentacyjnego, zasiłki socjalne, dodatki mieszkaniowe',
                                         'kwota' => 13195.66,
                                     ),
                                     array(
@@ -576,7 +588,8 @@ class PodatkiController extends ApplicationsController
             $ODL_SK_SPOL = $SKLADKI1;
             $SKLADKI2 = min($ZLECENIE_BRUTTO, $ORG_SKLADKI) * ($EMERYT2 + $RENT2 + $WYPAD + $FP + $FGSP);
             $SKLADKI3 = ($ZLECENIE_BRUTTO - $ODL_SK_SPOL) * $NFZ;
-            $ODL_SK_ZDROW = ($ETAT_BRUTTO - $ODL_SK_SPOL) * 0.0775;
+            $ODL_SK_ZDROW = ($ZLECENIE_BRUTTO - $ODL_SK_SPOL) * 0.0775;
+
             $PODSTAWA_PODATKU = ceil(($ZLECENIE_BRUTTO - $ODL_SK_SPOL) + $DZIELO_BRUTTO - ($ZLECENIE_BRUTTO - $ODL_SK_SPOL) * 0.2 - $DZIELO_BRUTTO * 0.2);
 
             if ($PODSTAWA_PODATKU <= $PROG) {
@@ -659,5 +672,10 @@ class PodatkiController extends ApplicationsController
         );
 
         return $RESULT_SUM;
+    }
+
+    public function metodologia()
+    {
+
     }
 }

@@ -1,5 +1,5 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 }
@@ -50,11 +50,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
                     <div class="content nopadding">
                         <ul class="nav nav-pills nav-stacked">
-                            <?php foreach ($wystapienia as $id => $wystapienie) { ?>
+                            <?php foreach ($wystapienia as $id => $_wystapienie) { ?>
                                 <li>
-                                    <a data-video-position="<?php echo $wystapienie['video_start']; ?>"
-                                       href="#<?php echo $wystapienie['id']; ?>">
-                                        <span><?php echo (date('H', $wystapienie['video_start']) - 1) . date(':i:s', $wystapienie['video_start']); ?></span> <?php echo $wystapienie['mowca_str']; ?>
+                                    <a data-video-position="<?php echo $_wystapienie['video_start']; ?>"
+                                       href="#<?php echo $_wystapienie['id']; ?>">
+                                        <span><?php echo (date('H', $_wystapienie['video_start']) - 1) . date(':i:s', $_wystapienie['video_start']); ?></span> <?php echo $_wystapienie['mowca_str']; ?>
                                     </a>
                                 </li>
                             <?php } ?>
@@ -68,10 +68,64 @@ echo $this->Element('Dane.dataobject/subobject', array(
 <? } ?>
 
     <div class="dataBrowser">
+		
+		<div class="row">
+			<?
+			if( $wystapienia = @$dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] ) {
+				
+				?>
+				<script type="text/javascript">
+					var _requests_prefix = '<?= ($_domainMode=='PK') ? '/punkty/' . $debata->getId() : '/dane/gminy/903,krakow/punkty/' . $debata->getId() ?>';
+				</script>
+				<?
+				
+				$this->Combinator->add_libs('css', $this->Less->css('view-radygmindebaty-wystapienia', array('plugin' => 'Dane')));	
+				$this->Combinator->add_libs('js', 'Dane.view-radygmindebaty-wystapienia');
+					
+			?>
+			<div class="col-md-7">
+				
+				<ul class="debata-wystapienia" did="<?= $debata->getId() ?>"<? if( isset($wystapienie) ){?> wid="<?= $wystapienie->getId() ?>"<?}?>>
+					<? foreach( $dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] as $doc ) { ?>
+					<li>
+						<?
+						echo $this->Dataobject->render($doc, 'krakow_posiedzenia_punkty-wystapienie', array(
+							'html' => (
+								isset($wystapienie) && 
+								( $wystapienie->getId()==$doc['fields']['id'][0] )
+							) ? $wystapienie->getLayer('html') : false,
+						));
+						?>
+					</li>
+					<? } ?>
+				</ul>
+				
+			</div>
+			<? } ?>
+			<div class="col-md-5">
+				
+				<? if (@$dataBrowser['aggs']['druk']['top']['hits']['hits']['0']) { ?>
+                    <div class="block block-default col-xs-12">
+                        <header>Rozpatrywany druk</header>
 
-        <? if (@$aggs['glosowania']['top']['hits']['hits']) { ?>
-            <div class="row">
-                <div class="col-md-8">
+                        <section class="aggs-init">
+                            <div class="dataAggs">
+                                <div class="agg agg-Dataobjects">
+                                    <ul class="dataobjects">
+                                        <li>
+                                            <?
+                                            echo $this->Dataobject->render($dataBrowser['aggs']['druk']['top']['hits']['hits']['0'], 'default');
+                                            ?>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+		        <? } ?>
+				
+				<? if (@$dataBrowser['aggs']['glosowania']['top']['hits']['hits']) { ?>
                     <div class="block block-default col-xs-12">
                         <header>Głosowania</header>
 
@@ -79,7 +133,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
                             <div class="dataAggs">
                                 <div class="agg agg-Dataobjects">
                                     <ul class="dataobjects">
-                                        <? foreach ($aggs['glosowania']['top']['hits']['hits'] as $glosowanie) { ?>
+                                        <? foreach ($dataBrowser['aggs']['glosowania']['top']['hits']['hits'] as $glosowanie) { ?>
                                             <li>
                                                 <?
                                                 echo $this->Dataobject->render($glosowanie, 'krakow_glosowania');
@@ -92,35 +146,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
                             </div>
                         </section>
                     </div>
-                </div>
-            </div>
-        <? } ?>
-
-        <? if (@$aggs['druk']['top']['hits']['hits']['0']) { ?>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="block block-default col-xs-12">
-                        <header>Rozpatrywany druk</header>
-
-                        <section class="aggs-init">
-                            <div class="dataAggs">
-                                <div class="agg agg-Dataobjects">
-                                    <ul class="dataobjects">
-                                        <li>
-                                            <?
-                                            echo $this->Dataobject->render($aggs['druk']['top']['hits']['hits']['0'], 'default');
-                                            ?>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        <? } ?>
-
+		        <? } ?>
+				        
+			</div>
+		</div>
+				
     </div>
 
 

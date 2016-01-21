@@ -51,7 +51,7 @@
                         <?= $page_request['PageRequest']['firstname']; ?>
                         <?= $page_request['PageRequest']['lastname']; ?>
                         (<?= $page_request['PageRequest']['position']; ?>)<br/>
-                        <b><?= $page_request['PageRequest']['organization']; ?></b>
+                        <strong><?= $page_request['PageRequest']['organization']; ?></strong>
                     </td>
                     <? if($status == 0) { ?>
                         <td>

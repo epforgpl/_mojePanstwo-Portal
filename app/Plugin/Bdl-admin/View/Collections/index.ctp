@@ -5,10 +5,10 @@
 <div class="overflow-auto">
 	<h1 class="pull-left">Moje Kolekcje</h1>
 	<a
-		href="#"
-		class="btn btn-primary btn-icon submit auto-width pull-right margin-top-20"
-		data-toggle="modal"
-		data-target="#createCollection">
+        href="#"
+        class="btn btn-primary btn-icon submit width-auto pull-right margin-top-20"
+        data-toggle="modal"
+        data-target="#createCollection">
         <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
         Stwórz nową kolekcję
     </a>
@@ -50,7 +50,8 @@
 							<div class="form-group form-row">
 								<div class="col-lg-9 col-lg-offset-3">
 									<button type="reset" data-dismiss="modal" class="btn btn-default">Anuluj</button>
-									<button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i class="icon glyphicon glyphicon-pencil"></i>Stwórz kolekcje
+                                    <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><span
+                                            class="icon glyphicon glyphicon-pencil"></span>Stwórz kolekcje
 									</button>
 								</div>
 							</div>

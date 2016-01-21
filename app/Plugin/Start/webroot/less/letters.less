@@ -1063,15 +1063,18 @@
         float: left;
         list-style: none;
         margin: 0 12px;
+        &.highlight {
+            color: #008000;
+        }
         &:after {
-	        content: "\00B7";
-		    font-size: 16px;
-		    margin-top: -3px;
-		    padding-left: 10px;
-		    position: absolute;
+            content: "\00B7";
+            font-size: 16px;
+            margin-top: -3px;
+            padding-left: 10px;
+            position: absolute;
         }
         &:last-child:after {
-	        display: none;
+            display: none;
         }
     }
 }
@@ -1212,7 +1215,7 @@
 }
 
 .anonimizePublicBtn {
-	width: auto !important;
+    width: auto !important;
 }
 
 .form-visibility-display {
@@ -1226,14 +1229,13 @@
         width: 100%;
     }
     .anonymize {
-	    padding-left: 0;
-	    text-align: center;
-	    font-size: 13px;
+        padding-left: 0;
+        text-align: center;
+        font-size: 13px;
     }
 }
 
-input.h1-editable {
-
+.h1-editable {
     color: #456;
     font-size: 24px;
     font-weight: 400;
@@ -1241,7 +1243,10 @@ input.h1-editable {
     box-shadow: none;
     border-color: #fff;
     padding: 0 5px;
-    min-width: 550px;
+    min-width: 100px;
+    width: auto;
+    min-height: 35px;
+    height: auto;
 
     &:hover {
         border-color: #eee;
@@ -1250,5 +1255,16 @@ input.h1-editable {
     &:focus {
         border-color: #4d90fe;
     }
+}
 
+@media (min-width: 768px) {
+    .h1-editable {
+        margin-right: 60px;
+    }
+
+    .buttons.pull-right.nopadding {
+        position: absolute;
+        top: 40px;
+        right: 0;
+    }
 }

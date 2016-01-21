@@ -31,7 +31,7 @@ $accessDict = array(
             <div class="overflow-auto">
 
                 <div class="content pull-left">
-                    <i class="object-icon icon-datasets-kolekcje"></i>
+                    <span class="object-icon icon-datasets-kolekcje"></span>
                     <div class="object-icon-side">
                         <h2><?= $item->getData('nazwa') ?></h2>
                     </div>

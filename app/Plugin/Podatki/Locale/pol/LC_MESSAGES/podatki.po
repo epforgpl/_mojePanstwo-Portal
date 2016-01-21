@@ -2,22 +2,25 @@ msgid "LC_PODATKI_HEADLINE"
 msgstr "Jak są wydawane moje podatki?"
 
 msgid "LC_PODATKI_SUBHEADLINE"
-msgstr "Wpisz poniżej wysokość twoich przychodów. Sprawdź ile podatków płacisz i na co są one wydawane."
+msgstr "Wpisz poniżej wysokość Twoich dochodów. Sprawdź, ile podatków płacisz i na co są one wydawane."
 
 msgid "LC_PODATKI_RESULTS_SUBHEADLINE"
 msgstr "Poniżej znajdziesz podsumowanie, kliknij aby zobaczyć szczegóły."
 
 msgid "LC_PODATKI_INFORMATION"
-msgstr "Obliczenie jest anonimowe. Twoje dane nie będą nigdzie przechowywane."
+msgstr "Obliczenie jest anonimowe."
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE"
-msgstr "Miesięczne przychody brutto z umowy o pracę"
+msgstr "Miesięczne dochody  brutto z umowy o pracę"
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE"
-msgstr "Miesięczne przychody brutto z umowy o zlecenie"
+msgstr "Miesięczne dochody brutto z umowy zlecenie"
 
 msgid "LC_PODATKI_PRZYCHODY_UMOWA_DZIELO"
-msgstr "Miesięczne przychody brutto z umowy o dzieło"
+msgstr "Miesięczne dochody brutto z umowy o dzieło"
+
+msgid "LC_PODATKI_DZIALANOSC_GOSPODARCZA_QUESTION"
+msgstr "Prowadzisz jednoosobową działalność gospodarczą?"
 
 msgid "LC_PODATKI_WARUNKI_PREFERENCYJNE"
 msgstr "Warunki preferencyjne"
@@ -37,35 +40,38 @@ msgstr "Wprowadź liczbe z dwoma miejscami po przecinku"
 msgid "LC_PODATKI_ADD_NEW_UMOWA"
 msgstr "Dodaj kolejną umowę"
 
-msgid "LC_PODATKI_RESULTS_MIESIECZNIE_ODPROWADZASZ_DO_PANSTWA"
-msgstr "Miesięcznie odprowadzasz do budżetu państwa"
+msgid "LC_PODATKI_RESULTS_MIESIECZNIE %s"
+msgstr "Suma <span>%s zł/miesięcznie</span>"
 
 msgid "LC_PODATKI_RESULTS_WYDAWANE_PODATKI"
 msgstr "Twoje podatki zostały wydane na"
 
 msgid "LC_PODATKI_RESULTS_PIE_ZUS"
-msgstr "Ubezpieczenie społeczne (ZUS)"
-
-msgid "LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA"
-msgstr "Ubezpieczenie społeczne (ZUS) płacone przez pracodawcę"
+msgstr "składek na ubezpieczenia społeczne (ZUS)"
 
 msgid "LC_PODATKI_RESULTS_PIE_ZDROW"
-msgstr "Składka zdrowotna"
+msgstr "składki zdrowotnej"
 
 msgid "LC_PODATKI_RESULTS_PIE_PIT"
-msgstr "Podatek dochodowy (PIT)"
+msgstr "podatku dochodowego (PIT)"
 
 msgid "LC_PODATKI_RESULTS_PIE_VAT"
-msgstr "Podatek od towarów i usług (VAT)"
+msgstr "podatku VAT"
 
 msgid "LC_PODATKI_RESULTS_PIE_AKCYZA"
-msgstr "Akcyza"
+msgstr "akcyzy"
+
+msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_ZUS_PRACODAWCA"
+msgstr "składki na ubezpieczenie społeczne płacone przez pracodawcę obejmują też składki na Fundusz Pracy i Fundusz Gwarantowanych Świadczeń Pracowniczych"
 
 msgid "LC_PODATKI_RESULTS_INFO_NUMBERS_TABEL_TAX"
-msgstr "wartość przybliżona, na podstawie tablic * dla podanych przez Ciebie danych."
+msgstr "podatek VAT i akcyza płacone przez konsumentów podane są w wartościach szacunkowych, obliczonych na podstawie przeciętnej konsumpcji w gospodarstwach domowych w podziale na grupy dochodowe"
 
 msgid "LC_PODATKI_MODAL_BTN"
 msgstr "szczegóły"
 
 msgid "LC_PODATKI_MODAL_LACZNA_KWOTA"
 msgstr "Łączna kwota"
+
+msgid "LC_PODATKI_METODOLOGIA_HEADLINE"
+msgstr "Metodologia"

@@ -51,7 +51,7 @@
             text-align: left;
             margin-top: 6px;
 
-            .btn i {
+            .btn i, .btn > span {
                 margin-right: 3px;
             }
         }
@@ -84,6 +84,72 @@
         }
     }
 
+    .splitTable {
+        background-color: #d5eeff;
+        float: left;
+        text-align: left;
+        width: 100%;
+        margin-top: 24px;
+        margin-bottom: 22px;
+        padding-bottom: 16px;
+        padding-top: 32px;
+
+        .block {
+            line-height: 1em;
+
+            .text, .cost {
+                display: inline-block;
+                text-align: center;
+                width: 100%
+            }
+
+            .text {
+                font-size: 16px;
+            }
+            .cost {
+                font-size: 36px;
+                font-weight: bold;
+                line-height: 1em;
+                padding: 10px 0;
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding: 0 0 0 15px;
+            margin: 15px 0 10px;
+            font-size: 0.9em;
+            color: #000000;
+            text-align: center;
+
+            li {
+                padding: 0;
+            }
+        }
+
+        .h3 {
+            margin: 0 0 12px;
+
+            p {
+                font-size: 24px;
+                margin-top: 28px;
+
+                span {
+                    display: block;
+                    font-size: 50px;
+                }
+            }
+        }
+
+        .small {
+            margin-bottom: 10px;
+
+            p {
+                margin-bottom: 3px;
+            }
+        }
+    }
+
     .stripe {
         background-color: #f8f9fa;
         margin-bottom: 50px;
@@ -93,36 +159,33 @@
         border-bottom: 1px solid #DDD;
         margin-top: 30px;
 
-        .pie {
-            position: relative;
-            z-index: 1;
-            height: 260px;
-        }
-        .legend {
-            margin-top: 3em;
-            text-align: left;
-
-            .position {
-                margin-bottom: 10px;
-
-                span {
-                    display: block;
-                    min-width: 20px;
-                    min-height: 10px;
-                    width: 2.5em;
-                    height: 1.25em;
-                    margin-right: 6px;
-                    float: left;
-                }
-            }
+        .bdlClickEngine > h2 {
+            margin-bottom: 25px;
         }
 
         .items {
+            &.focus-control .block {
+                opacity: .25;
+
+                &.focus {
+                    opacity: 1;
+
+                    .item .inner.clickable .title .nazwa .glyphicon:before {
+                        content: "\e014";
+                    }
+                }
+            }
             .block {
                 padding: 0 15px 0;
                 background-color: inherit;
                 border: none;
                 margin: 0;
+
+                -webkit-transition-duration: 1s;
+                -moz-transition-duration: 1s;
+                -ms-transition-duration: 1s;
+                -o-transition-duration: 1s;
+                transition-duration: 1s;
             }
 
             .item {
@@ -146,8 +209,16 @@
                     &.clickable {
                         cursor: pointer;
 
-                        .title {
-                            background-color: #12669f;
+                        .title .nazwa {
+                            padding-right: 45px;
+
+                            .glyphicon {
+                                display: block;
+
+                                &:before {
+                                    content: "\e114";
+                                }
+                            }
                         }
                     }
 
@@ -240,7 +311,7 @@
                     .title {
                         width: 100%;
                         height: 50px;
-                        background-color: #789;
+                        background-color: #12669f;
                         padding: 0;
                         color: #FFFFFF;
                         position: relative;
@@ -258,7 +329,7 @@
 
                         .nazwa {
                             font-size: 14px;
-                            line-height: 14px;
+                            line-height: 12px;
                             font-weight: normal;
                             position: absolute;
                             top: 50%;
@@ -271,6 +342,19 @@
                             -ms-transform: translate(0, -50%);
                             -o-transform: translate(0, -50%);
                             transform: translate(0, -50%);
+
+                            .glyphicon {
+                                position: absolute;
+                                right: 15px;
+                                top: 50%;
+                                display: none;
+
+                                -webkit-transform: translate(0, -50%);
+                                -moz-transform: translate(0, -50%);
+                                -ms-transform: translate(0, -50%);
+                                -o-transform: translate(0, -50%);
+                                transform: translate(0, -50%);
+                            }
                         }
 
                         .desc {
@@ -291,10 +375,47 @@
             }
         }
 
-        .chart_area {
-            margin-top: 20px;
-            margin-bottom: 50px;
-            min-height: 300px;
+        .pie_chart_block {
+            position: relative;
+
+            .pie_chart {
+                margin-top: 30px;
+                min-height: 300px;
+            }
+            .moneyLeft {
+                position: absolute;
+                top: 20px;
+                right: 0;
+                padding: 5px;
+                display: none;
+
+                > span {
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin-left: 4px;
+
+                    &::after {
+                        content: ' zł';
+                    }
+                }
+            }
+        }
+        .userChart, .userChartBlock .btn {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .userChartBlock {
+            .form-horizontal {
+                padding: 20px;
+            }
+            p {
+                margin-top: 10px;
+            }
+            .alert {
+                margin-top: 20px;
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
         }
     }
 
@@ -369,7 +490,7 @@
 
                 .wskazniki {
                     list-style: none;
-                    margin: 0 100px 50px 0;
+                    margin: 0 100px 0 0;
 
                     li {
                         border-bottom: 1px solid #ddd;
@@ -380,6 +501,31 @@
                         &:last-child {
                             border-bottom: none;
                         }
+
+                        .href {
+                            color: #444;
+                        }
+
+                    }
+
+                    .tooltipIcon {
+                        background-color: #789;
+                        color: #ffffff;
+                        cursor: pointer;
+                        font-size: 0.75em;
+                        font-weight: bold;
+                        height: 10px;
+                        margin-left: 4px;
+                        padding: 1px 6px;
+                        text-align: center;
+                        vertical-align: top;
+                        width: 10px;
+                        position: relative;
+                        top: 3px;
+
+                        -webkit-border-radius: 50px;
+                        -moz-border-radius: 50px;
+                        border-radius: 50px;
                     }
                 }
 
@@ -392,12 +538,5 @@
     #podatki .section .inputpadding {
         padding-left: 0;
         padding-right: 0;
-    }
-}
-
-@media (min-width: 992px) {
-    #podatki .stripe .pie .highcharts-container {
-        width: 80% !important;
-        float: right;
     }
 }

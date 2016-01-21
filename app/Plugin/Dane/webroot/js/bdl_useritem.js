@@ -13,7 +13,7 @@ $(document).ready(function () {
 
             if (data.BdlTempItem.ingredients) {
                 $.each(data.BdlTempItem.ingredients, function (key, val) {
-                    remove_btn = '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button>';
+					remove_btn = '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><span class="icon glyphicon glyphicon-remove"></span></button>';
 
                     if (val.is_pos == 1) {
                         znak = '<span class="icon sign glyphicon glyphicon-plus is_pos" is_pos="1"></span>';
@@ -35,7 +35,7 @@ $(document).ready(function () {
 
     function pullList(on_success) {
         $.ajax({
-            url: '/bdl/bdl_temp_items/listall',
+            url: '/bdl/admin/listall',
             method: 'post',
             success: function (res) {
                 if (res == false) {
@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     function saveData(dane) {
         $.ajax({
-            url: '/bdl/bdl_temp_items/addingredients',
+            url: '/bdl/admin/addingredients',
             method: 'post',
             data: dane,
             success: function (res) {
@@ -140,7 +140,7 @@ $(document).ready(function () {
 
     $(".add_to_item").click(function () {
         pullList(function () {
-            var url = '/bdl/bdl_temp_items/' + wsk_id;
+            var url = '/bdl/admin/' + wsk_id;
             getWskz(url);
             $("#bdl_user_wskaznik_modal").modal('show');
         });
@@ -156,21 +156,21 @@ $(document).ready(function () {
     $("#bdl_temp_addbtn_m").click(function () {
         $("#bdl_temp_addbtn_m").addClass('hidden');
         $("#bdl_temp_addbtn_l").addClass('hidden');
-        $(".mianownik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon sign glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
+		$(".mianownik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon sign glyphicon-plus  is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><span class="icon glyphicon glyphicon-remove"></span></button></li>');
         binding();
     });
 
     $("#bdl_temp_addbtn_l").click(function () {
         $("#bdl_temp_addbtn_m").addClass('hidden');
         $("#bdl_temp_addbtn_l").addClass('hidden');
-        $(".licznik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus sign is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button></li>');
+		$(".licznik_list").append('<li value="' + dim_id + '" class="list-group-item"><span class="icon glyphicon glyphicon-plus sign is_pos" is_pos="1"></span> ' + dim_name + '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><span class="icon glyphicon glyphicon-remove"></span></button></li>');
         binding();
     });
 
     $("#lista_wskaznikow").change(function () {
 
         var id = $(this).val();
-        var url = '/bdl/bdl_temp_items/' + id;
+        var url = '/bdl/admin/' + id;
         getWskz(url);
 
         $("#bdl_temp_addbtn_m").removeClass('hidden');

@@ -7,8 +7,8 @@
             </button>
         </div>
         <div class="_mPLogo">
-            <a href="/" target="_self">
-                <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo"/>
+            <a href="/" target="_self" title="Link do strony głównej">
+                <img src="/icon/moje_panstwo_logo.svg" title="moje Państwo" alt="Logo Mojego Państwa"/>
             </a>
         </div>
     </div>

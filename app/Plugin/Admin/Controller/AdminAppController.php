@@ -67,6 +67,31 @@ class AdminAppController extends AppController
             'label' => 'Kandydaci 2015 a KRS',
             'href'  => '/admin/krs_candidates',
         ),
+        array(
+            'id'    => 'public_content',
+            'label' => 'Treści publiczne',
+            'href'  => '/admin/public_content',
+        ),
+        array(
+            'id'    => 'users',
+            'label' => 'Użytkownicy',
+            'href'  => '/admin/users',
+        ),
+        array(
+            'id'    => 'websites',
+            'label' => 'Websites',
+            'href'  => '/admin/websites',
+        ),
+        array(
+            'id'    => 'news',
+            'label' => 'Aktualności',
+            'href'  => '/admin/news',
+        ),
+        array(
+            'id'    => 'bank_accounts',
+            'label' => 'Konta bankowe',
+            'href'  => '/admin/bank_accounts',
+        ),
     );
 
     public function beforeFilter() {

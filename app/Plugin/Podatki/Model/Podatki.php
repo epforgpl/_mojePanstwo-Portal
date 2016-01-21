@@ -17,5 +17,17 @@ class Podatki extends AppModel
         return $res;
 
     }
+    
+    public function sendData( $data )
+    {
+
+        $res = $this->getDataSource()->request('podatki/sendData', array(
+            'method' => 'POST',
+            'data' => $data,
+        ));
+
+        return $res;
+
+    }
 
 }

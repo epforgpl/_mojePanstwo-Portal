@@ -7,10 +7,10 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<style type="text/css">
 #container {
-	height: 500px; 
-	min-width: 310px; 
-	max-width: 600px; 
-	margin: 0 auto; 
+    height: 500px;
+    min-width: 310px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 .loading {
 	margin-top: 10em;
@@ -195,7 +195,7 @@ $(function () {
     }];
 
 
-    // Load the data from a Google Spreadsheet 
+    // Load the data from a Google Spreadsheet
     // https://docs.google.com/a/highsoft.com/spreadsheet/pub?hl=en_GB&hl=en_GB&key=0AoIaUO7wH1HwdFJHaFI4eUJDYlVna3k5TlpuXzZubHc&output=html
     Highcharts.data({
 
@@ -205,7 +205,7 @@ $(function () {
         parsed: function (columns) {
 
             /**
-             * Event handler for clicking points. Use jQuery UI to pop up 
+             * Event handler for clicking points. Use jQuery UI to pop up
              * a pie chart showing the details for each state.
              */
             function pointClick() {
@@ -339,7 +339,7 @@ $(function () {
 
         error: function () {
             $('#container').html('<div class="loading">' +
-                '<i class="icon-frown icon-large"></i> ' +
+                '<span class="icon-frown icon-large"></span> ' +
                 'Error loading data from Google Spreadsheets' +
                 '</div>');
         }
@@ -353,13 +353,13 @@ $(function () {
 <script src="../../js/modules/data.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-   
+
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" type="text/css" />
 
 <div id="container">
 	<div class="loading">
-		<i class="icon-spinner icon-spin icon-large"></i>
+        <span class="icon-spinner icon-spin icon-large"></span>
 		Loading data from Google Spreadsheets...
 	</div>
 </div>

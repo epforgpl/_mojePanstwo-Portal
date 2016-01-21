@@ -21,10 +21,10 @@
             <div class="col-md-10">
                 <div class="letter-meta">
                     <p>Autor:
-                        <b><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></b>
+                        <strong><? echo ($pismo['from_user_type'] == 'account') ? $pismo['from_user_name'] : "Anonimowy użytkownik" ?></strong>
                     </p>
 
-                    <p class="small"><b>Przed wysłaniem pisma należy je zapisać</b></p>
+                    <p class="small"><strong>Przed wysłaniem pisma należy je zapisać</strong></p>
                 </div>
             </div>
         </div>

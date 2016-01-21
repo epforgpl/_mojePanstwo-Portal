@@ -24,7 +24,7 @@ class Krs_osoby extends DataObject
         else
             $icon .= '_mezczyzna';
 
-        return '<i class="object-icon icon-datasets-' . $icon . '"></i>';
+        return '<span class="object-icon icon-datasets-' . $icon . '"></span>';
     }
 
     public function getData($field = '*')

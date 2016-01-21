@@ -1,5 +1,38 @@
+msgid "LC_PASZPORT_USERNAME_MUST_BE_UNIQUE"
+msgstr "Użytkownik o takiej nazwie już istnieje"
+
+msgid "LC_PASZPORT_ALPHANUMERIC"
+msgstr "Nazwa użytkownika może składać się tylko ze znaków alfanumerycznych"
+
+msgid "LC_PASZPORT_PASSWORD_REQUIRED_AND_LENGTH"
+msgstr "Hasło musi składać się z przynajmniej 6 znaków"
+
+msgid "LC_PASZPORT_PASSWORDS_DONT_MATCH"
+msgstr "Podane hasła różnią się od siebie"
+
+msgid "LC_PASZPORT_EMAIL_MUST_BE_UNIQUE"
+msgstr "Użytkownik o takim adresie e-mail już istnieje"
+
+msgid "LC_PASZPORT_NOT_A_VALID_EMAIL"
+msgstr "Podany adres e-mail jest nieprawidłowy"
+
 msgid "LC_COCKPITBAR_USER_SEARCH"
 msgstr "Szukaj"
+
+msgid "LC_COCKPITBAR_USER_MY_DATA"
+msgstr "Moje Dane"
+
+msgid "LC_COCKPITBAR_USER_MY_DOCS"
+msgstr "Moje Pisma"
+
+msgid "LC_COCKPITBAR_USER_BASIC_INFO"
+msgstr "Podstawowe informacje"
+
+msgid "LC_COCKPITBAR_USER_BASIC_APPS"
+msgstr "Aplikacje"
+
+msgid "LC_COCKPITBAR_USER_PUBLIC_DATA"
+msgstr "Dane publiczne"
 
 msgid "LC_COCKPITBAR_USER_APPLICATION"
 msgstr "Aplikacje"
@@ -20,22 +53,10 @@ msgid "LC_MAINHEADER_TEXT"
 msgstr "<b>_moje</b>Państwo <span>to zestaw aplikacji, dzięki którym możesz kontrolować i&nbsp;wpływać na działania Twojego państwa.</span>"
 
 msgid "LC_MAINHEADER_GUIDE"
-msgstr "More&nbsp;&raquo;"
+msgstr "Więcej&nbsp;&raquo;"
 
 msgid "LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"
-msgstr "Search in public data..."
-
-msgid "LC_FOOTER_COPYRIGHTS"
-msgstr "Some rights reserved"
-
-msgid "LC_FOOTER_EPF"
-msgstr "ePaństwo Fundation"
-
-msgid "LC_SEARCH"
-msgstr "Search"
-
-msgid "LC_SEARCH_DOTS"
-msgstr "Search..."
+msgstr "Szukaj w danych publicznych..."
 
 msgid "LC_CONTACTUS_HEADLINE"
 msgstr "Napisz do nas!"
@@ -52,33 +73,6 @@ msgstr "Adres e-mail"
 msgid "LC_CONTACTUS_SEND"
 msgstr "Wyślij"
 
-msgid "LC_REPORTBUG_HEADLINE"
-msgstr "Jeśli wystąpił jakiś błąd w naszym serwisie, bądź posiadamy błędne lub nieaktualne dane - poinformuj nas o tym, a My postaramy się naprawić błąd w jak najszybszym czasie."
-
-msgid "LC_REPORTBUG_VIA_GITHUB"
-msgstr "Zgłoś błąd bezpośrednio w serwisie GitHub"
-
-msgid "LC_REPORTBUG_OR"
-msgstr "bądź"
-
-msgid "LC_REPORTBUG_EMAIL_HEADLINE"
-msgstr "Wyślij do nas wiadomość"
-
-msgid "LC_REPORTBUG_EMAIL_LINK"
-msgstr "Link"
-
-msgid "LC_REPORTBUG_EMAIL_LINK_PLACEHOLDER"
-msgstr "Np. http://mojepanstwo.pl/błąd"
-
-msgid "LC_REPORTBUG_EMAIL_DESC"
-msgstr "Opis"
-
-msgid "LC_REPORTBUG_EMAIL_DESC_PLACEHOLDER"
-msgstr "Prosimy o jak najdokładniejszy opis występującego problemu - w ten sposób będzie łatwiej nam go zlokalizować i naprawić"
-
-msgid "LC_REPORTBUG_EMAIL_SUBMIT"
-msgstr "Wyślij zgłoszenie"
-
 msgid "LC_FOOTER_ABOUT_US"
 msgstr "O portalu"
 
@@ -91,8 +85,59 @@ msgstr "Regulamin"
 msgid "LC_FOOTER_REPORT_BUG"
 msgstr "Zgłoś błąd"
 
+msgid "LC_FOOTER_FAQ"
+msgstr "Pomoc"
+
 msgid "LC_FOOTER_CONTACT_US"
 msgstr "Napisz do nas"
 
+msgid "LC_FOOTER_COPYRIGHTS"
+msgstr "Niektóre prawa zastrzeżone"
+
+msgid "LC_FOOTER_EPF"
+msgstr "Fundacja ePaństwo"
+
+msgid "LC_SEARCH"
+msgstr "Szukaj"
+
+msgid "LC_SEARCH_DOTS"
+msgstr "Szukaj..."
+
 msgid "LC_SEARCH_BRAK_WYNIKOW"
 msgstr "Brak wyników"
+
+msgid "Jan"
+msgstr "Sty"
+
+msgid "Feb"
+msgstr "Lut"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "Apr"
+msgstr "Kwi"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "Jun"
+msgstr "Cze"
+
+msgid "Jul"
+msgstr "Lip"
+
+msgid "Aug"
+msgstr "Sie"
+
+msgid "Sep"
+msgstr "Wrz"
+
+msgid "Oct"
+msgstr "Paź"
+
+msgid "Nov"
+msgstr "Lis"
+
+msgid "Dec"
+msgstr "Gru"

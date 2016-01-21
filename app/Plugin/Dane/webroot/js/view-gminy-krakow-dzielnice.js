@@ -35,6 +35,25 @@ function mapHoverOut() {
 	});
 }
 
+function mapSize() {
+	var dzielniceMap = $('#dzielnice_map'),
+		size,
+		dzielniceListHeight,
+		holder = dzielniceMap.parent().find('.holder');
+
+	dzielniceMap.css('height', 'auto');
+	size = $('#_wrapper').height() - $('.appHeader ').outerHeight() - $('.appMenu').outerHeight() - $('footer.footer').height();
+	dzielniceMap.css('height', size);
+	dzielniceListHeight = $('.dzielniceList').outerHeight();
+
+	if (size < dzielniceListHeight) {
+		size = dzielniceListHeight;
+	}
+
+	holder.css('min-height', size);
+
+}
+
 function initialize() {
 	var mapOptions = {
 		zoom: 11,
@@ -45,7 +64,7 @@ function initialize() {
 		panControl: false,
 		zoomControl: true,
 		zoomControlOptions: {
-			style: google.maps.ZoomControlStyle.SMALL
+			position: google.maps.ControlPosition.RIGHT_CENTER
 		},
 		mapTypeControl: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -97,24 +116,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function () {
 	if ($(window).outerWidth() > 728) {
-		var dzielniceMap = $('#dzielnice_map'),
-			holder = dzielniceMap.parent().find('.holder'),
-			fundatorzy = $('#fundatorzy').outerHeight(true),
-			header = $('.appHeader').outerHeight(true),
-			submenu = $('.appMenu').outerHeight(true),
-			size = $(window).outerHeight() - fundatorzy - header - submenu,
-			dzielniceListHeight = $('.dzielniceList').outerHeight() + 40;
+		window.onresize = mapSize;
+		mapSize();
 
-		if (size < dzielniceListHeight)
-			size = dzielniceListHeight;
-
-		holder.css('min-height', size);
-		dzielniceMap.css('min-height', size);
+		$('.dzielniceList a').mouseover(function () {
+			mapHoverIn($(this).data('dzielnica'));
+		}).mouseout(function () {
+			mapHoverOut();
+		});
 	}
-
-	$('.dzielniceList a').mouseover(function () {
-		mapHoverIn($(this).data('dzielnica'));
-	}).mouseout(function () {
-		mapHoverOut();
-	});
 });

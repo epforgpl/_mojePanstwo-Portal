@@ -11,8 +11,10 @@ $this->Combinator->add_libs('js', 'home');
                     <div class="_mPSearchOutside">
                         <form class="suggesterBlock" action="/dane">
                             <div class="main_input">
-                                <i class="glyph-addon" data-icon="&#xe600;"></i>
-                                <input name="q" value="" type="text" autocomplete="off"
+                                <span class="glyph-addon" data-icon="&#xe600;"></span>
+                                <label for="autocompleteDatasearch"
+                                       class="wcag-hidden"><?= __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER") ?></label>
+                                <input id="autocompleteDatasearch" name="q" value="" type="text" autocomplete="off"
                                        class="datasearch form-control input-lg"
                                        data-autocompletion="true"
                                        placeholder="<?= __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER") ?>" <?php if (isset($app)) {
@@ -28,11 +30,11 @@ $this->Combinator->add_libs('js', 'home');
                             if ($a['tag'] == 1) { ?>
                                 <a class="homePageIcon col-xs-6 col-sm-4 col-md-3" href="<?= $a['href'] ?>"
                                    target="_self">
-                                    <i class="icon" <? if ($a['icon']) {
+                                    <span class="icon" <? if ($a['icon']) {
                                         echo 'data-icon-applications="' . $a['icon'] . '"';
                                     } else {
                                         echo 'data-icon="&#xe612;"';
-                                    } ?>></i>
+                                    } ?>></span>
 
                                     <p><?= $a['name'] ?></p>
                                 </a>
@@ -40,22 +42,25 @@ $this->Combinator->add_libs('js', 'home');
                         } ?>
                     </div>
 
+					<? /*
                     <div class="appsList">
                         <h2>Raporty</h2>
                         <? foreach ($_applications as $a) {
                             if ($a['tag'] == 2) { ?>
                                 <a class="homePageIcon col-xs-6 col-sm-4 col-md-3" href="<?= $a['href'] ?>">
-                                    <i class="icon" <? if ($a['icon']) {
+                                    <span class="icon" <? if ($a['icon']) {
                                         echo 'data-icon-applications="' . $a['icon'] . '"';
                                     } else {
                                         echo 'data-icon="&#xe612;"';
-                                    } ?>></i>
+                                    } ?>></span>
 
                                     <p><?= $a['name'] ?></p>
                                 </a>
                             <? }
                         } ?>
                     </div>
+                    */ ?>
+                    
                 </div>
             </div>
         </div>

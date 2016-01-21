@@ -24,7 +24,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
         <div class="overflow-auto margin-top-10">
 
             <div class="content pull-left">
-                <i class="object-icon icon-applications-pisma"></i>
+                <span class="object-icon icon-applications-pisma"></span>
 
                 <div class="object-icon-side">
                     <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>"><?= $pismo['name'] ?></h1>
@@ -40,6 +40,9 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
             <ul class="collection-meta">
                 <li>Pismo <?= $pismo['is_public'] ? 'publiczne' : 'prywatne'; ?></li>
+                <? if (isset($responses) && is_array($responses) && count($responses)) { ?>
+                    <li class="highlight">Otrzymano odpowiedź</li>
+                <? } ?>
             </ul>
 
             <div class="letter-table">
@@ -87,12 +90,13 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
                             <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>"
                                    onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>', 'mywin',
                                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                                   class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook"></i></a>
+                                   class="btn btn-social-icon btn-sm btn-facebook"><span class="fa fa-facebook"></span></a>
                             </li>
                             <li><a href="https://twitter.com/home?status=<?= $share_url ?>"
                                    onclick="window.open('https://twitter.com/home?status=<?= $share_url ?>', 'mywin',
                                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                                   class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter"></i></a></li>
+                                   class="btn btn-social-icon btn-sm btn-twitter"><span
+                                        class="fa fa-twitter"></span></a></li>
                             <li><a href="http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>"
                                    onclick="window.open('http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>', 'mywin',
                                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
@@ -117,7 +121,7 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
                                         </h2>
 
                                         <div class="content">
-                                            <?= $response['Response']['content'] != '' ? htmlspecialchars($response['Response']['content']) : 'Brak treści' ?>
+                                            <?= $response['Response']['content'] != '' ? nl2br(htmlspecialchars($response['Response']['content'])) : 'Brak treści' ?>
                                         </div>
                                         <? if (count($response['files'])) { ?>
                                             <div class="files">
@@ -145,9 +149,9 @@ $href_base = '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug']; ?>
 
             <? if ($pismo['from_user_id'] == AuthComponent::user('id')) { ?>
                 <div class="margin-top-50">
-                    <a class="btn btn-sm auto-width btn-primary btn-icon btn-auto-width"
+                    <a class="btn btn-sm width-auto btn-primary btn-icon btn-width-auto"
                        href="/moje-pisma/<?= $pismo['alphaid'] ?>">
-                        <i class="icon glyphicon glyphicon-pencil"></i>
+                        <span class="icon glyphicon glyphicon-pencil"></span>
                         Zarządzaj pismem
                     </a>
                 </div>

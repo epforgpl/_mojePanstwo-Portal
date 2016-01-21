@@ -1,43 +1,43 @@
 /*global $, jQuery, d3, mPHeart, graph */
 
 (function ($) {
-	"use strict";
+		"use strict";
 
-	var d3Data = {
-			'color': {
-				'links': '#333333',
-				'osoba': "#D3D6DB",
-				'podmiot': "#95C4E4",
-				'osobaDisabled': "#EFF0F2",
-				'podmiotDisabled': "#B4D4EA"
+		var d3Data = {
+				'color': {
+					'links': '#333333',
+					'osoba': "#D3D6DB",
+					'podmiot': "#95C4E4",
+					'osobaDisabled': "#EFF0F2",
+					'podmiotDisabled': "#B4D4EA"
+				},
+				size: {
+					'distance': 900,
+					'linksLength': 40,
+					'linksWidth': 1,
+					'linkText': '8px',
+					'nodesSize': 15,
+					'rootSize': 45,
+					'nodeText': '12px',
+					'nodeTextBox': 10,
+					'nodeTextSeparate': 3,
+					'nodesMarkerSize': 10,
+					'nodesMarkerSpace': 2
+				},
+				zoomConst: {
+					min: 0.5,
+					max: 4
+				}
 			},
-			size: {
-				'distance': 900,
-				'linksLength': 40,
-				'linksWidth': 1,
-				'linkText': '8px',
-				'nodesSize': 15,
-				'rootSize': 45,
-				'nodeText': '12px',
-				'nodeTextBox': 10,
-				'nodeTextSeparate': 3,
-				'nodesMarkerSize': 10,
-				'nodesMarkerSpace': 2
-			},
-			zoomConst: {
-				min: 0.5,
-				max: 4
-			}
-		},
-		connectionGraph = jQuery('#connectionGraph'),
-		powiazania = jQuery('.powiazania'),
-		margin = {top: -5, right: -5, bottom: -5, left: -5},
-		width = connectionGraph.outerWidth() + 60 - margin.left - margin.right,
-		height = connectionGraph.outerHeight() - margin.top - margin.bottom,
-		dataContentWidth = ((width / 2) > 550 ? 550 : (width / 2));
+			connectionGraph = jQuery('#connectionGraph'),
+			powiazania = jQuery('.powiazania'),
+			margin = {top: -5, right: -5, bottom: -5, left: -5},
+			width = connectionGraph.outerWidth() + 60 - margin.left - margin.right,
+			height = connectionGraph.outerHeight() - margin.top - margin.bottom,
+			dataContentWidth = ((width / 2) > 550 ? 550 : (width / 2));
 
-	if (connectionGraph.length > 0) {
-		d3.json("/dane/" + connectionGraph.data('url') + "/" + connectionGraph.data('id') + "/graph.json", function (error, graph) {
+		if (connectionGraph.length > 0) {
+			d3.json("/dane/" + connectionGraph.data('url') + "/" + connectionGraph.data('id') + "/graph.json", function (error, graph) {
 				var nodes = graph.nodes,
 					links = [],
 					root;
@@ -71,15 +71,14 @@
 					links.push({source: s, target: t, label: link.type, id: link.id});
 				});
 
-				// Sort links by source, then target
 				links.sort(function (a, b) {
 					var sort;
 
 					if (a.source.id > b.source.id) {
-						sort = 1;
+							sort = 1;
 					} else if (a.source.id < b.source.id) {
-						sort = -1;
-					} else {
+							sort = -1;
+						} else {
 						if (a.target.id > b.target.id) {
 							sort = 1;
 						} else if (a.target.id < b.target.id) {
@@ -87,12 +86,12 @@
 						} else {
 							sort = 0;
 						}
-					}
+						}
 					return sort;
 				});
 
-				// Any links with duplicate source and target get an incremented 'linknum'
-				for (var i = 0; i < links.length; i++) {
+				var i;
+				for (i = 0; i < links.length; i++) {
 					if (i !== 0 &&
 						links[i].source.id === links[i - 1].source.id &&
 						links[i].target.id === links[i - 1].target.id) {
@@ -101,7 +100,7 @@
 					else {
 						links[i].linknum = 1;
 					}
-				}
+					}
 
 				d3Data.zoom = d3.behavior.zoom()
 					.scaleExtent([d3Data.zoomConst.min, d3Data.zoomConst.max])
@@ -154,7 +153,7 @@
 						return d;
 					})
 					.attr("refX", 0)
-					.attr("refY", d3Data.size.nodesMarkerSize * .5)
+					.attr("refY", d3Data.size.nodesMarkerSize * 0.5)
 					.attr("markerWidth", d3Data.size.nodesMarkerSize)
 					.attr("markerHeight", d3Data.size.nodesMarkerSize)
 					.attr("orient", "auto")
@@ -265,22 +264,22 @@
 							name = nameBegin + nameEnd.substring(0, nameEnd.indexOf(' '));
 							lines = name.match(new RegExp(regex, 'g')).join('\n').split('\n');
 
-							d3.select(this)
-								.append("tspan")
-								.attr('x', 0)
-								.attr('y', function (d) {
-									return ((d.id === root.id) ? d3Data.size.nodesSize : d3Data.size.nodesSize - 6);
-								})
-								.attr('font-family', 'datasets')
-								.attr('font-size', function (d) {
-									return (d.id === root.id) ? '3em' : '1.8em';
-								})
-								.attr('fill', function (d) {
-									return (d.label == 'osoba') ? '#000000' : '#ffffff'
-								})
-								.text(function (d) {
-									return (d.label == 'osoba') ? '\ue627' : '\ue62a'
-								});
+								d3.select(this)
+									.append("tspan")
+									.attr('x', 0)
+									.attr('y', function (d) {
+										return ((d.id === root.id) ? d3Data.size.nodesSize : d3Data.size.nodesSize - 6);
+									})
+									.attr('font-family', 'datasets')
+									.attr('font-size', function (d) {
+										return (d.id === root.id) ? '3em' : '1.8em';
+									})
+									.attr('fill', function (d) {
+										return (d.label == 'osoba') ? '#000000' : '#ffffff'
+									})
+									.text(function (d) {
+										return (d.label == 'osoba') ? '\ue627' : '\ue62a'
+									});
 
 							for (var i = 0; i < lines.length; i++) {
 								var yLine = ( (lines.length % 2 === 0) ? ((d3Data.size.nodeTextSeparate / 2) + d3Data.size.nodeTextBox) : (d3Data.size.nodeTextBox / 2)) - ( (Math.floor(lines.length / 2)) * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) ) + ( i * (d3Data.size.nodeTextBox + d3Data.size.nodeTextSeparate) );
@@ -301,7 +300,7 @@
 									})
 									.text(lines[i]);
 							}
-						}
+							}
 					});
 
 				/*CREATE CIRCLE*/
@@ -354,45 +353,45 @@
 									if (!!(o.source === root && o.target.id === pathLink[l]) || !!(o.source.id === pathLink[l] && o.target === root)) {
 										$(this).addClass('text-active').css('fill', 'rgba(0,0,0,1)');
 									}
-								}
+									}
 							});
 
 							return false;
-						});
+							});
 
 						d3.select(this).classed("node-active", function (o) {
 							d3.select('.' + d.id).classed('node-active', function () {
 								$(this).css({'fill': d3Data.color[o.label], 'stroke': d3Data.color[o.label]});
 								return false;
 							});
-							return false;
-						});
+								return false;
+							});
 					})
 					.on("mouseout", function () {
 						circle.classed('node-active', function (o) {
-							$(this).css({'fill': d3Data.color[o.label], 'stroke': d3Data.color[o.label]});
+								$(this).css({'fill': d3Data.color[o.label], 'stroke': d3Data.color[o.label]});
 							circleText.classed("text-active", function () {
 								$(this).css('opacity', 1);
 							});
 							return false;
-						});
+							});
 						path.classed('link-active', function () {
 							this.setAttribute('stroke-opacity', 1);
 							pathText.classed("text-active", function () {
 								$(this).css('fill', 'rgba(0,0,0,1)');
 							});
-							return false;
-						});
+								return false;
+							});
 					})
 					.on("mousedown", function (d) {
 						d.mousePos = {x: d.x, y: d.y};
 					})
 					.on("mouseup", function (d) {
-						if ((d.mousePos.x === d.x) && (d.mousePos.y === d.y)) {
+						if (d.mousePos !== null && d.mousePos.x === d.x && d.mousePos.y === d.y) {
 							detailInfo(d);
 						}
 						d.mousePos = null;
-					});
+						});
 
 				d3.select("#panControlFullscreen").on('click', function () {
 					var pan = $(this),
@@ -405,13 +404,13 @@
 						pan.removeClass('on glyphicon-resize-small').addClass('glyphicon-resize-full');
 						powiazania.removeClass('fullscreen');
 
-						transStart = (trans.indexOf('translate(')) + 10;
-						transEnd = trans.indexOf(',', transStart);
-						transX = Number(trans.substr(transStart, transEnd - transStart));
+							transStart = (trans.indexOf('translate(')) + 10;
+							transEnd = trans.indexOf(',', transStart);
+							transX = Number(trans.substr(transStart, transEnd - transStart));
 
 						connectionGraph.find('svg > g > g').attr('transform', trans.substr(0, transStart) + Number(transX - screen.width / 4) + trans.substr(transEnd));
 
-					} else {
+						} else {
 						pan.addClass('on glyphicon-resize-small').removeClass('glyphicon-resize-full');
 						powiazania.addClass('fullscreen');
 
@@ -424,7 +423,7 @@
 						} else {
 							connectionGraph.find('svg > g > g').attr('transform', 'translate(' + screen.width / 4 + ',0)scale(1)');
 						}
-					}
+						}
 
 					width = connectionGraph.outerWidth() + 60 - margin.left - margin.right;
 					height = connectionGraph.outerHeight() - margin.top - margin.bottom;
@@ -485,7 +484,7 @@
 						q.visit(collide(nodes[i]));
 						i++;
 					}
-				}
+					}
 
 				function linkArc(d) {
 					var sourceX = Math.floor(d.source.x),
@@ -530,11 +529,11 @@
 						pathPoint = pathEl.getPointAtLength(pathLength - pathSize);
 						return "M" + Math.floor(pathPoint.x) + "," + Math.floor(pathPoint.y) + " L" + targetX + "," + targetY;
 					}
-				}
+					}
 
 				function transform(d) {
 					return "translate(" + d.x + "," + d.y + ")";
-				}
+					}
 
 				function collide(node) {
 					if (node.y < d3Data.size.nodesSize) {
@@ -580,14 +579,15 @@
 
 				function zoomed() {
 					d3Data.innerContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-					if (connectionGraph.find('.dataContent').length)
+					if (connectionGraph.find('.dataContent').length) {
 						detailInfoPosition(connectionGraph.find('.dataContent').data('node'))
+					}
 				}
 
 				function dragstarted() {
 					d3.event.sourceEvent.stopPropagation();
 					d3.select(this).classed("dragging", true);
-				}
+					}
 
 				function dragged(d) {
 					if (d.id !== root.id) {
@@ -595,7 +595,7 @@
 						d.y = d3.event.y;
 					}
 					tick(d);
-				}
+					}
 
 				function dragended() {
 					d3.select(this).classed("dragging", false);
@@ -606,9 +606,13 @@
 
 					detailInfoRemove();
 
-					var dataContent = $('<div></div>').addClass('dataContent').css('width', dataContentWidth);
-					dataContent.append($('<button></button>').addClass('btn btn-xs pull-right').text('x'));
-					dataContent.append($('<table></table>').addClass('table table-striped'));
+					var dataContent = $('<div></div>').addClass('dataContent').css('width', dataContentWidth).append(
+						$('<div></div>').addClass('arrow')
+					).append(
+						$('<button></button>').addClass('btn btn-xs pull-right').text('x')
+					).append(
+						$('<ul></ul>').addClass('wskazniki')
+					);
 
 					var linkEl = $('<a></a>').attr({
 						'href': '#',
@@ -623,17 +627,20 @@
 								linkEl.attr('href', '/dane/krs_osoby/' + value);
 							}
 						} else {
-							var tr = $('<tr></tr>');
+							var tr = $('<li></li>').append(
+								$('<div></div>').addClass('row')
+							);
 
 							if (label === 'privacy_level' && Number(value) === 1) {
 								birthdayPrivacy = true;
-							}
+								}
 
 							if (label === 'data_urodzenia') {
 								if (birthdayPrivacy) {
 									return;
 								}
 								label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
+								value = ((value) ? value.split("-")[0] : ' - ');
 							} else if (label === 'plec') {
 								label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;
 								if (value === 'K') {
@@ -659,12 +666,12 @@
 							} else if (label === 'nazwa') {
 								label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWA;
 							} else {
-								return;
+									return;
+								}
+							tr.find('.row').append($('<div></div>').addClass('col-xs-5').text(label));
+							tr.find('.row').append($('<div></div>').addClass('col-xs-7').text((value) ? value : ' - '));
+							dataContent.find('.wskazniki').append(tr);
 							}
-							tr.append($('<td></td>').text(label));
-							tr.append($('<td></td>').text((value) ? value : ' - '));
-							dataContent.find('table').append(tr);
-						}
 					});
 
 					if (linkEl.attr('href') === "#") {
@@ -672,8 +679,8 @@
 							linkEl.attr('href', '/dane/krs_podmioty/' + node.id.replace(/\D/g, ''));
 						} else if (node.label === "osoba") {
 							linkEl.attr('href', '/dane/krs_osoby/' + node.id.replace(/\D/g, ''));
+							}
 						}
-					}
 
 					var link = $('<tr></tr>').append(
 						$('<td></td>').attr('colspan', 2).append(linkEl)
@@ -720,14 +727,16 @@
 					var nodeX = node.x + nodeSize + windowX,
 						nodeY = node.y + nodeSize + windowY;
 
-					if (nodeX + dataContentWidth > windowW)
+					if (nodeX + dataContentWidth > windowW) {
 						nodeX -= (dataContentWidth + (nodeSize * 2));
-					if (nodeY + detailInfoHeight > windowH)
+					}
+					if (nodeY + detailInfoHeight > windowH) {
 						nodeY -= (detailInfoHeight + (nodeSize * 2));
+					}
 
 					detailInfo.css({
-						top: nodeY,
-						left: nodeX
+						top: nodeY - ((node.label === "osoba") ? d3Data.size.nodesSize * 3.5 : d3Data.size.nodesSize * 5.5),
+						left: nodeX - ((node.label === "osoba") ? d3Data.size.nodesSize : d3Data.size.nodesSize * 2)
 					});
 				}
 
@@ -738,7 +747,7 @@
 						detailInfo.data('node').detailWindow = null;
 						detailInfo.remove();
 					}
-				}
+					}
 
 				function grabIcon() {
 					connectionGraph.find('>svg').mousedown(function () {
@@ -746,7 +755,7 @@
 					}).mouseup(function () {
 						$(this).removeClass('grabbing');
 					});
-				}
+					}
 
 				function panIcon() {
 					var powiazaniaHeader = powiazania.find('.block-header');
@@ -759,20 +768,23 @@
 								$('<div></div>').attr('id', 'panControlCenter').addClass('btn btn-default glyphicon glyphicon-home')
 							).append(
 								$('<div></div>').attr('id', 'panControlZoomIn').addClass('btn btn-default glyphicon glyphicon-zoom-in')
-							)
+								)
 								.append(
-								$('<div></div>').attr('id', 'panControlZoomOut').addClass('btn btn-default glyphicon glyphicon-zoom-out')
-							)
+									$('<div></div>').attr('id', 'panControlZoomOut').addClass('btn btn-default glyphicon glyphicon-zoom-out')
+								)
 						);
 					}
-				}
+					}
 
 				/*ADDITIONAL FUNCTIONS*/
 				function init() {
 					grabIcon();
 					panIcon();
+					}
 				}
-			}
-		);
+			);
+		}
 	}
-}(jQuery));
+	(jQuery)
+)
+;

@@ -34,5 +34,39 @@ class Gmina extends AppModel {
             'data' => $data,
         ));
     }
-
+    
+    public function checkEditKey($object_id, $key) {
+	    	    
+        return $this->getDataSource()->request('krakow/portal/verifyKey', array(
+            'method' => 'GET',
+            'data' => array(
+	            'object_id' => $object_id,
+	            'key' => str_replace(' ', '+', $key),
+            ),
+        ));
+    }
+    
+    public function savePromises($object_id, $key, $items) {
+        return $this->getDataSource()->request('krakow/portal/savePromises', array(
+            'method' => 'POST',
+            'data' => array(
+	            'object_id' => $object_id,
+	            'key' => str_replace(' ', '+', $key),
+	            'items' => $items,
+            ),
+        ));
+    }
+    
+    public function saveWpf($id, $data) {
+        return $this->getDataSource()->request('krakow/portal/saveWpf', array(
+            'method' => 'POST',
+            'data' => array(
+	            'id' => $id,
+	            'wpf' => $data,
+            ),
+        ));
+    }
+	
+	
+	
 }

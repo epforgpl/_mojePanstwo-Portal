@@ -345,6 +345,12 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe614;',
         ),
+        'podatki' => array(
+            'name' => 'Jak są wydawane moje podatki?',
+            'href' => '/podatki',
+            'tag' => 1,
+            'icon' => '&#xe901;',
+        ),
         'mapa' => array(
             'name' => 'Mapa',
             'subname' => 'Śledź działania innych w swojej okolicy',
@@ -369,12 +375,6 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe615;',
         ),
-        'api' => array(
-            'name' => 'API',
-            'href' => '/api',
-            'tag' => 4,
-            'icon' => '&#xe615;',
-        ),
         'kto_tu_rzadzi' => array(
             'name' => 'Kto tu rządzi?',
             'subname' => 'Dowiedz się kto sprawuje władzę w Twojej okolicy',
@@ -384,14 +384,6 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe609;',
         ),
-        /*
-        'moja_gmina' => array(
-            'name' => 'Moja Gmina',
-            'href' => '/moja_gmina',
-            'tag' => 1,
-            'icon' => '&#xe605;',
-        ),
-        */
         'media' => array(
             'name' => 'Media',
             'subname' => 'Śledź aktywności sektora publicznego na Twitterze',
@@ -416,6 +408,12 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe602;',
         ),
+        'handel_zagraniczny' => array(
+            'name' => 'Handel zagraniczny',
+            'href' => '/handel_zagraniczny',
+            'tag' => 1,
+            'icon' => '&#xe603;',
+        ),
         'zamowienia_publiczne' => array(
             'name' => 'Zamówienia publiczne',
             'subname' => 'Kontroluj wydawanie publicznych pieniędzy i sprawdzaj do kogo trafiają',
@@ -430,10 +428,36 @@ class AppController extends Controller
             'desc' => 'Zweryfikuj z kim Polska najczęściej wymieniała swoje towary. Do jakiego kraju eksportowano, a z jakiego importowano.',
             'href' => '/handel_zagraniczny',
             'tag' => 1,
-            'icon' => '&#xe603;',
+            'icon' => '&#xe617;',
         ),
-
-
+        'api' => array(
+            'name' => 'API',
+            'href' => '/api',
+            'tag' => 4,
+            'icon' => '&#xe902;',
+        ),
+        
+        'dane' => array(
+            'name' => 'Szukaj...',
+            'href' => '/dane',
+            'tag' => 0,
+            'icon' => '&#xe616;',
+        ),
+        'dostep_do_informacji_publicznej' => array(
+            'name' => 'Dostęp do Informacji Publicznej',
+            'href' => '/dostep_do_informacji_publicznej',
+            'tag' => 1,
+            'icon' => '&#xe60e;',
+        ),
+        
+        /*
+        'kody_pocztowe' => array(
+            'name' => 'Kody pocztowe',
+            'href' => '/kody_pocztowe',
+            'tag' => 1,
+            'icon' => '&#xe604;',
+        ),
+        */
         /*
         'koleje' => array(
             'name' => 'Koleje',
@@ -457,14 +481,31 @@ class AppController extends Controller
             'icon' => '&#xe607;',
         ),
         */
-
-
-        'powiadomienia' => array(
-            'name' => 'Powiadomienia',
-            'href' => '/powiadomienia',
-            'tag' => 3,
-            'icon' => '&#xe60a;',
+        
+        /*
+        'moja_gmina' => array(
+            'name' => 'Moja Gmina',
+            'href' => '/moja_gmina',
+            'tag' => 1,
+            'icon' => '&#xe605;',
         ),
+        */
+        
+        
+        'paszport' => array(
+            'name' => 'Paszport',
+            'href' => '/paszport',
+            'tag' => 3,
+            'icon' => '&#xe60c;',
+        ),
+        /*
+        'patenty' => array(
+            'name' => 'Patenty',
+            'href' => '/patenty',
+            'src' => '/sejmometr/icon/sejmometr.svg',
+            'tag' => 1,
+        ),
+        */
         'pisma' => array(
             'name' => 'Pisma',
             'href' => '/pisma',
@@ -478,7 +519,7 @@ class AppController extends Controller
             'href' => '/orzecznictwo',
             'tag' => 1,
             'icon' => '&#xe617;',
-        ),
+        ),        
         'sejmometr' => array(
             'name' => 'Sejmometr',
             'subname' => 'Monitoruj pracę i działania Sejmu',
@@ -487,33 +528,24 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe610;',
         ),
-        /*
-        'kody_pocztowe' => array(
-            'name' => 'Kody pocztowe',
-            'href' => '/kody_pocztowe',
-            'tag' => 1,
-            'icon' => '&#xe604;',
-        ),
-        /*
-        'patenty' => array(
-            'name' => 'Patenty',
-            'href' => '/patenty',
-            'src' => '/sejmometr/icon/sejmometr.svg',
-            'tag' => 1,
-        ),
-        */
-        'paszport' => array(
-            'name' => 'Paszport',
-            'href' => '/paszport',
+        'pomoc' => array(
+            'name' => 'Centrum pomocy',
+            'href' => '/pomoc',
             'tag' => 3,
-            'icon' => '&#xe60c;',
+            'icon' => '&#xe903;',
         ),
+        'powiadomienia' => array(
+            'name' => 'Powiadomienia',
+            'href' => '/powiadomienia',
+            'tag' => 3,
+            'icon' => '&#xe60a;',
+		),
         'wydatki_poslow' => array(
             'name' => 'Wydatki Posłów',
             'subname' => 'Kontroluj zarobki i wydatki posłów',
             'desc' => 'Obserwuj na co posłowie średnio wydają najwięcej pieniędzy oraz kto przoduje w wybranych kategoriach.',
             'href' => '/wydatki_poslow',
-            'tag' => 2,
+            'tag' => 1,
             'icon' => '&#xe611;',
         ),
         'wyjazdy_poslow' => array(
@@ -521,10 +553,9 @@ class AppController extends Controller
             'subname' => 'Zobacz, gdzie na świecie reprezentują nas posłowie',
             'desc' => 'Monitoruj wyjazdy zagraniczne posłów, w których uczestniczą w różnych spotkaniach, konferencjach, szkoleniach. Jako obywatele i działacze organizacji pozarządowych mamy prawo wiedzieć, gdzie osoby, które wybraliśmy nas reprezentują oraz w jakiej sprawie udają się w dane miejsce.',
             'href' => '/wyjazdy_poslow',
-            'tag' => 2,
+            'tag' => 1,
             'icon' => '&#xe612;',
         ),
-
     );
 
     public function beforeFilter()
@@ -774,6 +805,7 @@ class AppController extends Controller
             $this->set('_applications', $this->applications);
             $this->set('_menu', $menu);
             $this->set('_observeOptions', $this->observeOptions);
+            $this->set('_domainMode', $this->domainMode);
             $this->set('appSelected', $this->appSelected);
 
         }

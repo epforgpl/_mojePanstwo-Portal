@@ -215,6 +215,15 @@ class User extends PaszportAppModel
         return $response;
     }
 
+    public function setIsNgo($isNgo) {
+        return $this->getDataSource()->request('paszport/user/setIsNgo', array(
+            'data' => array(
+                'is_ngo' => $isNgo
+            ),
+            'method' => 'POST'
+        ));
+    }
+
     public function setUserName($username)
     {
         $response = $this->getDataSource()->request('paszport/user/setUserName', array(

@@ -1,5 +1,5 @@
 <?
-echo $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') {
     $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
 }
@@ -18,10 +18,10 @@ echo $this->Element('Dane.dataobject/subobject', array(
 
 <div class="row">
 	<div class="col-sm-9">
-		
-		<?= $this->Document->place($faktura->getData('dokument_id')) ?>
-		
-	</div>
+
+        <?= $this->Document->place($faktura->getData('dokument_id')) ?>
+
+    </div>
 </div>
 
 <?

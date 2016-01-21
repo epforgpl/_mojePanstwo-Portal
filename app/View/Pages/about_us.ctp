@@ -73,6 +73,15 @@
                                     href="http://mojepanstwo.pl">mojePaństwo.pl</a>.
                             </p>
                         </div>
+
+                        <h2>Projekt Systemowy Fundacji im. Stefana Batorego:</h2>
+                        <h3>Numer wniosku: S/257</h3>
+                        <h4>Tytuł projektu systemowego: Grywalizacja prac na rzecz dobra publicznego</h4>
+                        <p>Celem projektu jest stworzenie i spopularyzowanie internetowej platformy "grywalizacyjnej"
+                            nakierowanej na prace na rzecz dobra publicznego oraz zbudowanie wokół niej społeczności
+                            organizacji i użytkowników. Projekt odpowiada na potrzebę zaangażowania w sprawy publiczne
+                            organizacji oraz osób indywidualnych wykorzystując naturalną potrzebę zdobywania uznania i
+                            autorytetu.</p>
                     </div>
 
                     <div class="fundatorzy">
@@ -85,19 +94,22 @@
                                         finansowanego z Funduszy EOG:</p>
 
                                     <div class="logotypy">
-                                        <a target="_blank" href="http://www.eeagrants.org/" title="EEA Grants">
-                                            <img class="image" src="/img/partnerzy/eea_grants.png"/>
+                                        <a target="_blank" href="http://www.eeagrants.org/"
+                                           title="Link do strony EEA Grants">
+                                            <img class="image" src="/img/partnerzy/norway_grants.png"
+                                                 alt="Logo EEA Grants"/>
                                         </a>
                                         <a target="_blank" href="http://www.batory.org.pl/"
-                                           title="Fundacja im. Stefana Batorego">
-                                            <img class="image" src="/img/partnerzy/fundacja_batorego.png"/>
+                                           title="Link do strony Fundacji im. Stefana Batorego">
+                                            <img class="image" src="/img/partnerzy/fundacja_batorego.png"
+                                                 alt="Logo Fundacji Batorego"/>
                                         </a>
                                         <a target="_blank" href="http://www.pcyf.org.pl/"
-                                           title="Polska Fundacja Dzieci i Młodzieży">
+                                           title="Link do strony Polskiej Fundacji Dzieci i Młodzieży">
                                             <img class="image"
-                                                 src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png"/>
+                                                 src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png"
+                                                 alt="Logo Polskiej Fundacji Dzieci i Młodzieży"/>
                                         </a>
-
                                     </div>
                                 </div>
 
@@ -106,18 +118,23 @@
 
                                     <div class="logotypy">
                                         <a target="_blank" href="http://www.soros.org/initiatives/information"
-                                           title="Open Society Foundations (OSF) Information Program">
-                                            <img class="image" src="/img/partnerzy/open_society_institute.png"/>
+                                           title="Link do strony Open Society Foundations (OSF) Information Program">
+                                            <img class="image" src="/img/partnerzy/open_society_institute.png"
+                                                 alt="Logo Open Society Foundations (OSF) Information Program"/>
                                         </a>
-                                        <a target="_blank" href="http://www.mysociety.org/" title="mySociety">
-                                            <img class="image" src="/img/partnerzy/mysociety.png"/>
+                                        <a target="_blank" href="http://www.mysociety.org/"
+                                           title="Link do strony mySociety">
+                                            <img class="image" src="/img/partnerzy/mysociety.png" alt="Logo mySociety"/>
                                         </a>
-                                        <a target="_blank" href="http://www.omidyar.com/" title="Omidyar Network">
-                                            <img class="image" src="/img/partnerzy/omidyar_network.png"/>
+                                        <a target="_blank" href="http://www.omidyar.com/"
+                                           title="Link do strony Omidyar Network">
+                                            <img class="image" src="/img/partnerzy/omidyar_network.png"
+                                                 alt="Logo Omidyar Network"/>
                                         </a>
                                         <a target="_blank" href="http://www.ceetrust.org/"
-                                           title="CEE TRUST - Trust for Civil Society in Central and Eastern Europe">
-                                            <img class="image" src="/img/partnerzy/cee_logo.gif"/>
+                                           title="Link do strony CEE TRUST - Trust for Civil Society in Central and Eastern Europe">
+                                            <img class="image" src="/img/partnerzy/cee_logo.gif"
+                                                 alt="Logo CEE TRUST - Trust for Civil Society in Central and Eastern Europe"/>
                                         </a>
                                     </div>
                                 </div>
@@ -129,9 +146,13 @@
                     <div class="sideContent loading hidden-xs hidden-sm">
                         <div id="fb-root"></div>
                         <div class="fb-like-box" data-href="https://www.facebook.com/epanstwo"
-                             data-height="430" data-show-faces="true" data-stream="true"
+                             data-height="620" data-show-faces="true" data-stream="true"
                              data-border-color="#FFFFFF" data-header="true"></div>
-                        <script>document.getElementsByClassName('fb-like-box')[0].setAttribute('data-width', document.getElementsByClassName('fb-like-box')[0].parentElement.clientWidth)</script>
+                        <script>
+                            var height = document.getElementsByClassName('mainContent')[0].clientHeight;
+                            document.getElementsByClassName('fb-like-box')[0].setAttribute('data-width', document.getElementsByClassName('fb-like-box')[0].parentElement.clientWidth);
+                            document.getElementsByClassName('fb-like-box')[0].setAttribute('data-height', (height < 620) ? 620 : height);
+                        </script>
                     </div>
                 </div>
             </section>

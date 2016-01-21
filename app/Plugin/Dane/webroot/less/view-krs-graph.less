@@ -94,21 +94,78 @@
         font-weight: 400;
         color: #000000;
         padding: 5px;
-        border: 1px solid #eeeeee;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#999999)"; /*IE 8*/
-        -moz-box-shadow: 3px 3px 3px #999999; /*FF 3.5+*/
-        -webkit-box-shadow: 3px 3px 3px #999999; /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
-        box-shadow: 3px 3px 3px #999999; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-        filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color=#999999); /*IE 5.5-7*/
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
 
-        .btn {
-            margin-bottom: 10px;
+        -webkit-box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+
+        -webkit-transform: translate(-50%, -100%);
+        -moz-transform: translate(-50%, -100%);
+        -ms-transform: translate(-50%, -100%);
+        -o-transform: translate(-50%, -100%);
+        transform: translate(-50%, -100%);
+
+        .arrow {
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 26px solid rgba(0, 0, 0, 0.1);
+
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 0;
+            height: 0;
+
+            -webkit-transform: translate(-50%, 100%);
+            -moz-transform: translate(-50%, 100%);
+            -ms-transform: translate(-50%, 100%);
+            -o-transform: translate(-50%, 100%);
+            transform: translate(-50%, 100%);
+
+            &:before {
+                content: " ";
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 24px solid #ffffff;
+
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                width: 0;
+                height: 0;
+
+                -webkit-transform: translate(-50%, -2px);
+                -moz-transform: translate(-50%, -2px);
+                -ms-transform: translate(-50%, -2px);
+                -o-transform: translate(-50%, -2px);
+                transform: translate(-50%, -2px);
+            }
         }
-        .table {
-            margin: 0;
+
+        .wskazniki {
+            list-style: none;
+            margin: 20px 10px 10px;
+
+            li {
+                border-bottom: 1px solid #ddd;
+                list-style: outside none none;
+                margin: 0;
+                padding: 7px;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .bdl_value {
+                    color: green;
+                    font-size: 12px;
+                }
+
+            }
         }
     }
 }

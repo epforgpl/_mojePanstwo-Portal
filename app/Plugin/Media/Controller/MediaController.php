@@ -28,6 +28,7 @@ class MediaController extends ApplicationsController
 		'urzedy' => array(3, 'Urzędy na Twitterze'),
 		'miasta' => array(10, 'Miasta na Twitterze'),
 		'media' => array(6, 'Media na Twitterze'),
+		'partie' => array(8, 'Partie polityczne na Twitterze'),
 	);
 	
     public function prepareMetaTags()
@@ -85,8 +86,10 @@ class MediaController extends ApplicationsController
 		
 		if( isset($this->request->query['a']) )
 	        foreach( $this->accounts_map as $k => $v )
-		        if( $v[0] == $this->request->query['a'] )
-			        return $this->redirect('/media/' . $k);
+		        if( $v[0] == $this->request->query['a'] ) {
+					$t = @$this->request->query['t'];
+					return $this->redirect('/media/' . $k . ($t ? '?t=' . $t : ''));
+				}
 		
 		if(
 			@$this->request->params['id'] && 
@@ -96,6 +99,7 @@ class MediaController extends ApplicationsController
 			$this->request->query['a'] = $item[0];
 			$this->chapter_selected = $this->request->params['id'];
 			$this->title = $item[1];
+			$this->set('accountTypeLabel', $item[1]);
 		}
 		
         if(
@@ -707,7 +711,7 @@ class MediaController extends ApplicationsController
 			$items[] = array(
 				'id' => 'partie',
 				'label' => 'Partie polityczne',
-				'href' => '/media/media',
+				'href' => '/media/partie',
 				'icon' => 'icon-datasets-dot',
 				'class' => 'border-bottom',
 			);

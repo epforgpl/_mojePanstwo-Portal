@@ -72,15 +72,15 @@
                                 <input type="hidden" name="vote_id" value="<?= $vote['id']; ?>"/>
 
                                 <div class="voteOptions pull-right">
-                                    <button type="submit" name="vote" class="btn btn-success btn-icon auto-width"
-                                            value="Za"><i class="icon glyphicon glyphicon-ok"></i>Za
+                                    <button type="submit" name="vote" class="btn btn-success btn-icon width-auto"
+                                            value="Za"><span class="icon glyphicon glyphicon-ok"></span>Za
                                     </button>
-                                    <button type="submit" name="vote" class="btn btn-primary btn-icon auto-width"
-                                            value="Wstrzymuje się"><i class="icon glyphicon glyphicon-minus"></i>Wstrzymuje
+                                    <button type="submit" name="vote" class="btn btn-primary btn-icon width-auto"
+                                            value="Wstrzymuje się"><span class="icon glyphicon glyphicon-minus"></span>Wstrzymuje
                                         się
                                     </button>
-                                    <button type="submit" name="vote" class="btn btn-danger btn-icon auto-width"
-                                            value="Przeciw"><i class="icon glyphicon glyphicon-remove"></i>Przeciw
+                                    <button type="submit" name="vote" class="btn btn-danger btn-icon width-auto"
+                                            value="Przeciw"><span class="icon glyphicon glyphicon-remove"></span>Przeciw
                                     </button>
                                 </div>
                             </form>

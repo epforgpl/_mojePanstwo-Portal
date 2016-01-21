@@ -1,5 +1,6 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
+$this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
@@ -14,8 +15,7 @@ $options = array(
 
     <div class="dataWrap">
         <div class="appBanner">
-            <h1 class="appTitle">Budżet gminy <?= $object->getTitle(); ?></h1>
-
+            <div class="h1 appTitle">Budżet gminy <?= $object->getTitle(); ?></div>
         </div>
     </div>
 
@@ -125,7 +125,7 @@ $options = array(
 				</div>
 			</div>
 
-            <div class="row items">
+            <div class="row items 1">
                 <? foreach ($dzialy as $dzial) { ?>
                     <div class="block col-xs-12 col-sm-6 col-md-3">
                         <div class="item <?= $dzial['global']['class'] ?>" data-id="<?= $dzial['id'] ?>">
@@ -133,7 +133,7 @@ $options = array(
                             <a href="#<?= $dzial['id'] ?>" class="inner" data-title="<?= $dzial['label'] ?>">
 
                                 <div class="logo">
-                                    <i class="icon-dzialy-<?= $dzial['id'] ?>"></i>
+                                    <span class="icon-dzialy-<?= $dzial['id'] ?>"></span>
                                 </div>
 
                                 <div class="details"><span class="detail">

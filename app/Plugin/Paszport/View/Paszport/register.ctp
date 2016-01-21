@@ -116,6 +116,13 @@
                     </div>
 
                     <div class="slide inputForm sendForm col-xs-12">
+                        <label>
+                            <?php echo $this->Form->checkbox('is_ngo'); ?>
+                            Działam w organizacji pozarządowej
+                        </label>
+                    </div>
+
+                    <div class="slide inputForm sendForm col-xs-12">
                         <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_REGISTER_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
                     </div>
 
@@ -125,7 +132,7 @@
 
                     <div class="slide logInVia col-xs-12">
                         <div class="content text-center">
-                            <?php echo $this->Html->link('<i class="fa fa-facebook"></i>' . __d('paszport', 'LC_PASZPORT_LOGIN'), array(
+                            <?php echo $this->Html->link('<span class="fa fa-facebook"></span>' . __d('paszport', 'LC_PASZPORT_LOGIN'), array(
                                 'plugin' => 'paszport',
                                 'controller' => 'users',
                                 'action' => 'fblogin'

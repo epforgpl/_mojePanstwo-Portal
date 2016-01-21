@@ -86,6 +86,14 @@ class StartAppController extends ApplicationsController {
                     'href' => '/konto',
                     'icon' => 'icon-datasets-users',
                 ),
+/* Issue 521 zawieszone
+                array(
+                    'id' => 'api_keys',
+                    'label' => 'Klucze API',
+                    'href' => '/klucze-api',
+                    'icon' => 'icon-datasets-strony',
+                ),
+*/
                 array(
                     'id' => 'pages',
                     'label' => 'Strony którymi zarządzam',

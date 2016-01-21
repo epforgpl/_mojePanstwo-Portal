@@ -268,7 +268,7 @@
                                                    name="data[User][personal_bday]"
                                                    placeholder="<?php echo date('d-m-Y') ?>"
                                                    autocomplete='off'/>
-                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                            <div class="add-on"><span class="icon-calendar"></span></div>
                                         </div>
                                     </div>
                                 </div>

@@ -32,7 +32,7 @@ $(document).ready(function () {
     var dim_id;
 
     var id = $('.wskz_id').val();
-    var url = '/bdl/bdl_temp_items/' + id;
+    var url = '/bdl/admin/' + id;
     getWskz(url);
 
 
@@ -44,7 +44,7 @@ $(document).ready(function () {
 
             if (data.BdlTempItem.ingredients) {
                 $.each(data.BdlTempItem.ingredients, function (key, val) {
-                    remove_btn = '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><i class="icon glyphicon glyphicon-remove"></i></button>';
+					remove_btn = '<button class="btn btn-xs btn-danger remove-btn hidden pull-right"><span class="icon glyphicon glyphicon-remove"></span></button>';
 
                     if (val.is_pos == 1) {
                         znak = '<span class="icon sign glyphicon glyphicon-plus is_pos" is_pos="1"></span>';
@@ -66,7 +66,7 @@ $(document).ready(function () {
 
     function saveData(dane) {
         $.ajax({
-            url: '/bdl/bdl_temp_items/addingredients',
+            url: '/bdl/admin/addingredients',
             method: 'post',
             data: dane,
             success: function (res) {

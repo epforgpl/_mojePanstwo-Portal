@@ -1,16 +1,18 @@
-/*global mPHeart, window, document, $, confirm, bdlClick*/
+/*global Highcharts, mPHeart, window, document, $, confirm, bdlClick*/
 
 $(document).ready(function () {
 	var $podatki = $('#podatki'),
 		$stripe = $('.stripe'),
-		$chartArea = $('.chart_area'),
-		$bdl = $('.bdlClickEngine');
+		$chartArea = $('.pie_chart'),
+		$bdl = $('.bdlClickEngine'),
+		chart;
 
 	function btnAction() {
 		$podatki.find('input.currency:not(".blurEffect")').addClass('blurEffect').on('keydown', function (e) {
 			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 188, 190]) !== -1 ||
 				(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+				(e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
 				(e.keyCode >= 35 && e.keyCode <= 39)) {
 				return;
@@ -65,85 +67,258 @@ $(document).ready(function () {
 	}
 
 	function resultPie() {
-		var res = $chartArea.attr('data-result');
+		var res = $chartArea.attr('data-series'),
+			categories = [],
+			data = [],
+			dataSeries = [],
+			userSeries = [];
 
 		if (typeof res !== "undefined" && res !== false) {
-			var data = [],
-				colors = [];
-
 			res = $.parseJSON(res);
 
-			if (res.zus > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS,
-					y: Number(res.zus)
-				});
-				colors.push(res.zus_color);
-			}
-			if (res.zus_pracodawca > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZUS_PRACODAWCA,
-					y: Number(res.zus_pracodawca)
-				});
-				colors.push(res.zus_pracodawca_color);
-			}
-			if (res.zdrow > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_ZDROW,
-					y: Number(res.zdrow)
-				});
-				colors.push(res.zdrow_color);
-			}
-			if (res.pit > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_PIT,
-					y: Number(res.pit)
-				});
-				colors.push(res.pit_color);
-			}
-			if (res.vat > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_VAT,
-					y: Number(res.vat)
-				});
-				colors.push(res.vat_color);
-			}
-			if (res.akcyza > 0) {
-				data.push({
-					name: mPHeart.translation.LC_PODATKI_RESULTS_PIE_AKCYZA,
-					y: Number(res.akcyza)
-				});
-				colors.push(res.akcyza_color);
+			var suma = $chartArea.attr('data-suma'),
+				podatek = $chartArea.attr('data-podatek'),
+				i, bLen;
+
+			for (i = 0, bLen = res.length; i < bLen; i++) {
+				categories.push(res[i].nazwa);
+				dataSeries.push(parseFloat(((res[i].kwota / suma) * podatek).toFixed(0)));
+				userSeries.push(0);
 			}
 
-			$chartArea.find('.pie').highcharts({
+			data.push({
+				name: 'Koszt wg. Państwa',
+				data: dataSeries
+			}, {
+				name: 'Koszt sugerowany wg. użytkownika',
+				data: userSeries,
+				color: '#f0ad4e',
+				draggableY: true,
+				dragMinY: 0,
+				visible: false,
+				cursor: 'ns-resize',
+				dataLabels: {
+					borderRadius: 5,
+					backgroundColor: 'rgba(255, 255, 255, 0.75)',
+					zIndex: 7
+				}
+			});
+
+			chart = new Highcharts.Chart({
 				credits: false,
 				chart: {
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: false,
+					renderTo: 'pie_chart',
+					type: 'column',
 					backgroundColor: 'transparent',
-					type: 'pie'
+					height: 700,
+					marginTop: 50,
+					spacingBottom: 30,
+					marginLeft: 0,
+					options3d: {
+						enabled: true,
+						alpha: 10,
+						beta: 25,
+						depth: 70
+					},
+					events: {}
 				},
 				title: {
 					text: ' '
 				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.y}</b>'
-				},
 				plotOptions: {
-					pie: {
+					column: {
+						depth: 25,
 						dataLabels: {
-							enabled: false
+							align: 'center',
+							enabled: true,
+							crop: false,
+							overflow: 'none',
+							allowOverlap: 10,
+							formatter: function () {
+								return Highcharts.numberFormat(this.y, 0) + ' zł';
+							}
 						}
+					},
+					series: {
+						point: {
+							events: {
+								dblclick: function (e) {
+									if (this.series.index === 1) {
+										var index = this.index,
+											y = this.y,
+											$div = $('<div></div>')
+												.dialog({
+													title: ' ',
+													width: 400,
+													height: 200,
+													dialogClass: 'modal-dialog',
+													close: function (event, ui) {
+														$(this).dialog('destroy').remove();
+													}
+												});
+
+										$div.append(
+											$('<div></div>').addClass('form-group').append(
+												$('<label></label>').attr('for', 'newY').text('Podaj nową wartość')
+											).append(
+												$('<input>').attr({
+													type: 'number',
+													class: 'form-control',
+													placeholder: y,
+													id: 'newY'
+												})
+											)
+										).append(
+											$('<div></div>').addClass('modal-footer').append(
+												$('<button></button>').addClass('btn btn-success margin-top-10 pull-right').text('Zapisz').click(function () {
+													var newY = Math.round($('#newY').val()),
+														maxSum = 0,
+														pod = Math.round(podatek);
+
+													for (var i = 0; i < userSeries.length; i++) {
+														if (typeof userSeries[i] === "object") {
+															maxSum += Math.round(userSeries[i].y);
+														} else {
+															maxSum += Math.round(userSeries[i]);
+														}
+													}
+
+													maxSum = maxSum + (newY - Math.round(y));
+
+													if (newY < 0) {
+														chart.series[1].data[index].update(0);
+														chart.redraw();
+														$div.dialog("close");
+														return;
+													} else if (maxSum > pod) {
+														var correct = Math.round(newY) - (maxSum - pod);
+
+														if (correct < 0) {
+															correct = 0;
+														}
+														chart.series[1].data[index].update(Math.round(correct));
+														chart.redraw();
+														$div.dialog("close");
+														return;
+													}
+													chart.series[1].data[index].update(Math.round(newY));
+													chart.redraw();
+													$div.dialog("close");
+												})
+											)
+										);
+									}
+								},
+								drag: function (e) {
+									if (e.y < 0) {
+										this.y = 0;
+										return false;
+									}
+								},
+								drop: function () {
+									var maxSum = 0,
+										pod = Math.round(podatek);
+
+									for (var i = 0; i < userSeries.length; i++) {
+										if (typeof userSeries[i] === "object") {
+											maxSum += Math.round(userSeries[i].y);
+										} else {
+											maxSum += Math.round(userSeries[i]);
+										}
+									}
+
+									this.y = Math.round(this.y);
+
+									if (this.y < 0) {
+										this.y = 0;
+										chart.series[1].data[this.index].update({
+											x: Math.round(this.x),
+											y: Math.round(this.y)
+										});
+										chart.redraw();
+
+										maxSum = 0;
+										for (var i = 0; i < userSeries.length; i++) {
+											if (typeof userSeries[i] === "object") {
+												maxSum += Math.round(userSeries[i].y);
+											} else {
+												maxSum += Math.round(userSeries[i]);
+											}
+										}
+
+										$moneyLeft.attr('data-sum', pod - maxSum).find('span').text(pod - maxSum);
+
+										return false;
+									} else if (maxSum > pod) {
+										var correct = Math.round(this.y) - (maxSum - pod);
+										if (correct < 0) {
+											this.y = 0;
+										} else {
+											this.y = correct;
+										}
+										chart.series[1].data[this.index].update({
+											x: Math.round(this.x),
+											y: Math.round(this.y)
+										});
+										chart.redraw();
+
+										maxSum = 0;
+										for (var i = 0; i < userSeries.length; i++) {
+											if (typeof userSeries[i] === "object") {
+												maxSum += Math.round(userSeries[i].y);
+											} else {
+												maxSum += Math.round(userSeries[i]);
+											}
+										}
+										$moneyLeft.attr('data-sum', pod - maxSum).find('span').text(pod - maxSum);
+
+										return false;
+									}
+									chart.series[1].data[this.index].update({
+										x: Math.round(this.x),
+										y: Math.round(this.y)
+									});
+									chart.redraw();
+
+									maxSum = 0;
+									for (var i = 0; i < userSeries.length; i++) {
+										if (typeof userSeries[i] === "object") {
+											maxSum += Math.round(userSeries[i].y);
+										} else {
+											maxSum += Math.round(userSeries[i]);
+										}
+									}
+									$moneyLeft.attr('data-sum', pod - maxSum).find('span').text(pod - maxSum);
+								}
+							}
+						},
+						stickyTracking: false
 					}
 				},
-				colors: colors,
-				series: [{
-					name: "Kwota",
-					colorByPoint: true,
-					data: data
-				}]
+				xAxis: {
+					categories: categories,
+					labels: {
+						rotation: -45,
+						align: 'right'
+					},
+					title: {
+						text: ''
+					},
+					crosshair: true
+				},
+				yAxis: {
+					min: 0,
+					title: {
+						text: 'zł'
+					}
+				},
+				tooltip: {
+					enabled: false
+				},
+				legend: {
+					enabled: false
+				},
+				series: data
 			});
 		}
 	}
@@ -229,6 +404,109 @@ $(document).ready(function () {
 		return (state > 0);
 	});
 
+	$bdl.find('.block').each(function () {
+		$(this).find('.wskazniki li .wskaznikText .href').each(function () {
+			var textBlock = $(this);
+			if (textBlock.text().indexOf("(") > -1) {
+				var tooltip = $('<span></span>').attr({
+					'title': textBlock.text().match(/\(([^)]+)\)/)[1],
+					'data-placement': 'bottom',
+					'data-toggle': 'tooltip'
+				}).addClass('tooltipIcon').text('i');
+				textBlock.text(textBlock.text().replace(/ *\([^)]*\) */g, "")).append(tooltip);
+			}
+		});
+	});
+
+	$bdl.find('.block').click(function () {
+		$('[data-toggle="tooltip"]').mouseover(function () {
+			$('.infoBlock .content').css('overflow', 'visible');
+		}).mouseout(function () {
+			$('.infoBlock .content').css('overflow', 'hidden');
+		}).tooltip();
+	});
+
+	var $userChart = $('.userChart'),
+		$userChartBlock = $('.userChartBlock'),
+		$moneyLeft = $('.moneyLeft');
+
+	$userChart.click(function () {
+		for (var k = 0; k < chart.series[1].data.length; k++) {
+			chart.series[1].data[k].update(0);
+		}
+		chart.series[1].show();
+		$moneyLeft.show();
+		$userChart.addClass('disabled hide');
+		$userChartBlock.removeClass('hide');
+	});
+
+	$userChartBlock.find('.userChartCancel').click(function () {
+		var podatek = Math.round($chartArea.attr('data-podatek'));
+
+		if ($(this).hasClass('userOptions')) {
+			for (var k = 0; k < chart.series[1].data.length; k++) {
+				chart.series[1].data[k].update(null);
+			}
+			chart.series[1].hide();
+			$moneyLeft.hide().attr('data-sum', podatek).find('span').text(podatek);
+
+			$userChart.removeClass('disabled hide');
+		} else {
+			chart.series[1].options.cursor = 'default';
+			chart.series[1].options.draggableY = false;
+			$('.userChartTitle').hide();
+			$moneyLeft.hide().attr('data-sum', podatek).find('span').text(podatek);
+		}
+		$userChartBlock.find('.alert').removeClass('alert-error alert-warning alert-success').addClass('hide').text('');
+		$userChartBlock.addClass('hide');
+	});
+	$userChartBlock.find('.userChartSave').click(function () {
+		var btn = $(this),
+			btnParent = $(this).parent(),
+			sUserSetup = $('.userSetup :input').serializeArray(),
+			sUser = [],
+			sSex = $('#inputSex').val(),
+			sAge = $('#inputAge').val();
+
+		if (!btn.hasClass('disabled')) {
+			$.each(chart.series[1].data, function () {
+				sUser.push(this.y);
+			});
+
+			if (Number($moneyLeft.attr('data-sum')) === 0) {
+				$.ajax({
+					url: "/podatki.json",
+					method: "POST",
+					data: {
+						'_action': 'send',
+						userSetup: sUserSetup,
+						userGraph: sUser,
+						userSex: sSex,
+						userAge: sAge
+					},
+					beforeSend: function () {
+						btnParent.find('.btn').addClass('disabled');
+					},
+					success: function (res) {
+						if (res.status) {
+							btnParent.find('.alert').removeClass('hide alert-danger alert-warning').addClass('alert-success').text('Dziękujemy. Dane zostały poprawnie zapisane na serwerze.');
+							btnParent.find('.btn.userOptions').remove();
+							btnParent.find('.btn:not(".userOptions")').removeClass('hide');
+						} else {
+							btnParent.find('.alert').removeClass('hide alert-success alert-warning').addClass('alert-danger').text('Wystąpił błąd podczas zapisywania danych - prosze spróbować ponownie później.');
+						}
+					},
+					complete: function () {
+						btnParent.find('.btn').removeClass('disabled');
+					}
+				});
+			} else {
+				btnParent.find('.alert').removeClass('hide alert-success alert-danger').addClass('alert-warning').text('Przed wysłaniem rozdysponuj wszystkie Twoje podatki.');
+			}
+		}
+	});
+
 	btnAction();
 	resultPie();
-});
+})
+;

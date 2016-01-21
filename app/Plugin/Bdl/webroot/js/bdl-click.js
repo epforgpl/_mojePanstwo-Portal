@@ -93,9 +93,25 @@ $(document).ready(function () {
 		}
 
 		infoBlock.data('marker', slideMark).find('.container').empty().append(function () {
-			var slug = $(this);
-			var leftCol = $('<div></div>').addClass('leftSide col-xs-12');
-			var content = block.find('.text').html();
+			var slug = $(this),
+				leftCol = $('<div></div>').addClass('leftSide col-xs-12'),
+				content = block.find('.text').html();
+
+			if (!(typeof $bdl.attr('data-bdllabel') !== "undefined" && $bdl.attr('data-bdllabel') === "false")) {
+				leftCol.append(
+					$('<div></div>').addClass('block-nav').append(
+						$('<div></div>').addClass('row').append(
+							$('<div></div>').addClass('col-xs-8').append(
+								$('<span></span>').addClass('nazwa').text('Nazwa wskaźnika')
+							)
+						).append(
+							$('<div></div>').addClass('col-xs-2').text('Ostatni rocznik')
+						).append(
+							$('<div></div>').addClass('col-xs-2').text('Poziom agregacji')
+						)
+					)
+				);
+			}
 
 			leftCol.append(content.replace(/span/g, 'a'));
 			slug.append(leftCol);

@@ -18,7 +18,7 @@ $(document).ready(function () {
         return c;
     }
 
-	var form = $('section.content form'),
+	var form = $('form.form-horizontal').first(),
         header = $('.appHeader.dataobject').first(),
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
@@ -40,37 +40,47 @@ $(document).ready(function () {
 		selector: ".tinymceField",
         language : 'pl',
         plugins: "media image sentencecase",
+        toolbar: 'undo redo | bold italic underline | bullist numlist',
         menubar: false,
         statusbar : false,
         content_css: [
             "/libs/bootstrap/3.3.4/css/bootstrap.min.css",
             "/css/main.css"
         ],
-        valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
-        + "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
-        + "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
-        + "name|href|target|title|class|onfocus|onblur],strong/b,em/i,strike,u,"
-        + "#p,-ol[type|compact],-ul[type|compact],-li,br,img[longdesc|usemap|"
-        + "src|border|alt=|title|hspace|vspace|width|height|align],-sub,-sup,"
-        + "-blockquote,-table[border=0|cellspacing|cellpadding|width|frame|rules|"
-        + "height|align|summary|bgcolor|background|bordercolor],-tr[rowspan|width|"
-        + "height|align|valign|bgcolor|background|bordercolor],tbody,thead,tfoot,"
-        + "#td[colspan|rowspan|width|height|align|valign|bgcolor|background|bordercolor"
-        + "|scope],#th[colspan|rowspan|width|height|align|valign|scope],caption,-div,"
-        + "-span,-code,-pre,address,-h1,-h2,-h3,-h4,-h5,-h6,hr[size|noshade],-font[face"
-        + "|size|color],dd,dl,dt,cite,abbr,acronym,del[datetime|cite],ins[datetime|cite],"
-        + "object[classid|width|height|codebase|*],param[name|value|_value],embed[type|width"
-        + "|height|src|*],script[src|type],map[name],area[shape|coords|href|alt|target],bdo,"
-        + "button,col[align|char|charoff|span|valign|width],colgroup[align|char|charoff|span|"
-        + "valign|width],dfn,fieldset,form[action|accept|accept-charset|enctype|method],"
-        + "input[accept|alt|checked|disabled|maxlength|name|readonly|size|src|type|value],"
-        + "kbd,label[for],legend,noscript,optgroup[label|disabled],option[disabled|label|selected|value],"
-        + "q[cite],samp,select[disabled|multiple|name|size],small,"
-        + "textarea[cols|rows|disabled|name|readonly],tt,var,big,"
-        + "iframe[src|title|width|height|allowfullscreen|frameborder]"
+        valid_elements : "p,b,i,u,ul,ol,li"
     });
 
+    // Source: http://blog.mmx3.pl/2010/11/16/javascript-walidator-numeru-rachunku-bankowego-nrb/
+    /**
+     * @return {boolean}
+     */
+    function NRBvalidatior(nrb) {
+        nrb = nrb.replace(/[^0-9]+/g, '');
+        var wagi = [1, 10, 3, 30, 9, 90, 27, 76, 81, 34, 49, 5, 50, 15, 53, 45, 62, 38, 89, 17, 73, 51, 25, 56, 75, 71, 31, 19, 93, 57];
+
+        if (nrb.length == 26) {
+            nrb = nrb + "2521";
+            nrb = nrb.substr(2) + nrb.substr(0, 2);
+            var Z = 0;
+            for(var i = 0; i < 30; i++) {
+                Z += nrb[29 - i] * wagi[i];
+            }
+
+            return Z % 97 == 1;
+        }
+
+        return false;
+    }
+
     form.submit(function() {
+        var bankAccountInput = $(this).find('#bankAccountNumber').first();
+        if(bankAccountInput.length) {
+            if(NRBvalidatior(bankAccountInput.val()) == false) {
+                alert('Podałeś/aś nieprawidłowy numer konta');
+                return false;
+            }
+        }
+
         tinyMCE.triggerSave();
 
         $(this)

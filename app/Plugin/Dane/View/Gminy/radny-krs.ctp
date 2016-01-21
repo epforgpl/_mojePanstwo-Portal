@@ -17,40 +17,54 @@ echo $this->Element('dataobject/pageBegin', array(
 
 echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $radny,
-    'menu' => isset($_submenu) ? $_submenu : false,
     'objectOptions' => array(
         'hlFields' => array('komitet', 'liczba_glosow', 'procent_glosow_w_okregu'),
         'bigTitle' => true,
     )
 ));
-
 ?>
-    <div class="col-md-10 col-md-offset-1">
-        <div id="komisje" class="object">
 
-            <? if (isset($osoba) && $osoba) { ?>
-
-                <h1 class="light"><a href="<?= $radny->getUrl() ?>"
-                                     class="btn-back glyphicon glyphicon-circle-arrow-left"></a> Powiązania radnego w <a
-                        href="/krs">Krajowym Rejestrze Sądowym</a></h1>
-
-                <? if (isset($osoba) && $osoba) {
-                    echo $this->Element('Dane.objects/krs_osoby/organizacje', array(
-                        'organizacje' => $osoba->getLayer('organizacje'),
-                    ));
-                } ?>
-
-                <div class="powiazania block">
-                    <div class="block-header"><h2 class="label">Powiązania</h2></div>
-                    <div id="connectionGraph" class="loading" data-id="<?php echo $osoba->getId() ?>"
-                         data-url="krs_osoby"></div>
+<div class="dataBrowser margin-top--5">
+    <div class="row">
+        <div class="dataBrowserContent">
+            <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
+                <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+                    <? if (isset($_submenu) && isset($_submenu['items'])) {
+                        if (!isset($_submenu['base']))
+                            $_submenu['base'] = $radny->getUrl();
+                        echo $this->Element('Dane.DataBrowser/browser-menu', array(
+                            'menu' => $_submenu,
+                        ));
+                    } ?>
                 </div>
+                </div>
+            <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+                <div class="dataWrap">
+                    <? if (isset($osoba) && $osoba) { ?>
+                        <h1 class="smaller">Powiązania radnego w <a
+                                href="/krs">Krajowym Rejestrze Sądowym</a>
+                        </h1>
 
-            <? } ?>
+                        <? if (isset($osoba) && $osoba) { ?>
+                            <div class="margin-top-20">
+                                <?= $this->Element('Dane.objects/krs_osoby/organizacje', array(
+                                    'organizacje' => $osoba->getLayer('organizacje'),
+                                )); ?>
+                            </div>
+                        <? } ?>
 
+                        <div class="powiazania block block-simple">
+                            <header>
+                                <div class="sm">Powiązania</div>
+                            </header>
+                            <section id="connectionGraph" class="loading col-xs-12 nopadding"
+                                     data-id="<?php echo $osoba->getId() ?>" data-url="krs_osoby"></section>
+                        </div>
+                    <? } ?>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 
-<?
-echo $this->Element('dataobject/pageEnd');
-?>
+<? echo $this->Element('dataobject/pageEnd'); ?>

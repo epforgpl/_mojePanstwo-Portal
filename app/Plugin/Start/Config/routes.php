@@ -5,6 +5,10 @@ Router::connect('/start', array('plugin' => 'Start', 'controller' => 'Start', 'a
 /* KONTO ROUTES */
 Router::connect('/konto', array('plugin' => 'Start', 'controller' => 'Account', 'action' => 'index'));
 
+Router::connect('/klucze-api', array('plugin' => 'Start', 'controller' => 'ApiApps', 'action' => 'index'));
+Router::connect('/klucze-api/:action', array('plugin' => 'Start', 'controller' => 'ApiApps'));
+Router::connect('/klucze-api/:action/*', array('plugin' => 'Start', 'controller' => 'ApiApps'));
+
 Router::connect('/moje-strony', array('plugin' => 'Start', 'controller' => 'Pages', 'action' => 'index'));
 
 
@@ -333,6 +337,3 @@ Router::connect('/moje-powiadomienia/:action', array('plugin' => 'Start', 'contr
 /* MOJE STRONY ROUTES */
 //Router::connect('/moje-strony', array('plugin' => 'Start', 'controller' => 'Pages', 'action' => 'index'));
 //Router::connect('/moje-strony/:action', array('plugin' => 'Start', 'controller' => 'Pages'));
-
-/* POMOC */
-Router::connect('/pomoc', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'help'));

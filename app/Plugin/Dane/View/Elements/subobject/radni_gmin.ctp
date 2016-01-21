@@ -12,10 +12,10 @@ if ($object->getDescription()) { ?>
 
 <div class="krakowRadnyDetail">
     <div class="row col-xs-12">
-        <? if ($bip = $object->getLayers('bip_url')) { ?>
+        <? if ($bip = $object->getLayer('bip_url')) { ?>
             <div class="option pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" title="Biuletyn Informacji Publicznej"
-                   href="<?= $bip; ?>" target="_blank">
+                   href="<?= @$bip; ?>" target="_blank">
                     <img class="bip" src="/Dane/img/customObject/krakow/logo_bip.png"/>
                 </a>
             </div>
@@ -24,7 +24,7 @@ if ($object->getDescription()) { ?>
             <div class="option pull-left" data-toggle="modal" data-target="#krakowRadnyDetailPhone">
                 <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
                    onclick="return false;">
-                    <i class="fa fa-phone"></i>
+                    <span class="fa fa-phone"></span>
                 </a>
             </div>
             <div class="modal fade" id="krakowRadnyDetailPhone">
@@ -41,7 +41,7 @@ if ($object->getDescription()) { ?>
                                 <strong><?= $tel ?></strong>
                             </p>
                             <a class="btn btn-primary btn-social btn-skype" href="skype:<?= $tel; ?>">
-                                <i class="fa fa-skype"></i> Zadzwoń przez Skype
+                                <span class="fa fa-skype"></span> Zadzwoń przez Skype
                             </a>
                         </div>
                     </div>
@@ -51,20 +51,20 @@ if ($object->getDescription()) { ?>
             <div class="option pull-left inactive">
                 <a data-toggle="tooltip" data-placement="bottom" title="Telefon kontaktowy" href="#"
                    onclick="return false;">
-                    <i class="fa fa-phone"></i>
+                    <span class="fa fa-phone"></span>
                 </a>
             </div>
         <? } ?>
         <? if ($fb = $object->getData('fb')) { ?>
             <div class="option pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="<?= $fb; ?>" target="_blank">
-                    <i class="fa fa-facebook"></i>
+                    <span class="fa fa-facebook"></span>
                 </a>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
                 <a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="#" onclick="return false;">
-                    <i class="fa fa-facebook"></i>
+                    <span class="fa fa-facebook"></span>
                 </a>
             </div>
         <? } ?>
@@ -72,39 +72,39 @@ if ($object->getDescription()) { ?>
             <div class="option pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="<?= $twitter; ?>"
                    target="_blank">
-                    <i class="fa fa-twitter"></i>
+                    <span class="fa fa-twitter"></span>
                 </a>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
                 <a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="#" onclick="return false;">
-                    <i class="fa fa-twitter"></i>
+                    <span class="fa fa-twitter"></span>
                 </a>
             </div>
         <? } ?>
         <? if ($blog = $object->getData('blog')) { ?>
             <div class="option pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" title="Blog" href="<?= $blog; ?>" target="_blank">
-                    <i class="glyphicon glyphicon-link"></i>
+                    <span class="glyphicon glyphicon-link"></span>
                 </a>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
                 <a data-toggle="tooltip" data-placement="bottom" title="Blog" href="#" onclick="return false;">
-                    <i class="glyphicon glyphicon-link"></i>
+                    <span class="glyphicon glyphicon-link"></span>
                 </a>
             </div>
         <? } ?>
         <? if ($www = $object->getData('www')) { ?>
             <div class="option pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="<?= $www; ?>" target="_blank">
-                    <i class="glyphicon glyphicon-link"></i>
+                    <span class="glyphicon glyphicon-link"></span>
                 </a>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
                 <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="#" onclick="return false;">
-                    <i class="glyphicon glyphicon-link"></i>
+                    <span class="glyphicon glyphicon-link"></span>
                 </a>
             </div>
         <? } ?>
@@ -112,14 +112,14 @@ if ($object->getDescription()) { ?>
             <div class="option pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wikipedia"
                    href="<?= $wiki; ?>" target="_blank">
-                    <i class="fa fa-wikipedia-w"></i>
+                    <span class="fa fa-wikipedia-w"></span>
                 </a>
             </div>
         <? } else { ?>
             <div class="option pull-left inactive">
                 <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wikipedia" href="#"
                    onclick="return false;">
-                    <i class="fa fa-wikipedia-w"></i>
+                    <span class="fa fa-wikipedia-w"></span>
                 </a>
             </div>
         <? } ?>
@@ -128,7 +128,7 @@ if ($object->getDescription()) { ?>
             <div class="option pismo pull-left" data-toggle="modal" data-target="#krakowRadnyDetailPismo">
                 <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wyślij pismo do radnego"
                    href="#" onclick="return false;">
-                    <i class="glyphicon glyphicon-envelope"></i>
+                    <span class="glyphicon glyphicon-envelope"></span>
                 </a>
             </div>
             <div class="modal fade" id="krakowRadnyDetailPismo">
@@ -164,7 +164,7 @@ if ($object->getDescription()) { ?>
             <div class="option inactive pull-left">
                 <a data-toggle="tooltip" data-placement="bottom" data-placement="bottom" title="Wyślij pismo do radnego"
                    href="#" onclick="return false;">
-                    <i class="glyphicon glyphicon-envelope"></i>
+                    <span class="glyphicon glyphicon-envelope"></span>
                 </a>
             </div>
         <? } ?>

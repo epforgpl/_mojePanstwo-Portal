@@ -106,12 +106,12 @@ class UsersController extends PaszportAppController
                 }
 
             } else {
-                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
+                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email')));
             }
         } else { # we do have access to user details
-            $user_data = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
+            $user_data = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),locale');
             if ($user_data == null) {
-                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email,user_birthday')));
+                $this->redirect($this->Connect->FB->getLoginUrl(array('scope' => 'email')));
             }
 
             /* $conds = array(
@@ -521,7 +521,7 @@ class UsersController extends PaszportAppController
             return true;
         }
         # check if user has already given permissions to the app
-        $user_data = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
+        $user_data = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),locale');
         if ($user_data['id']) { # merge, save, inform
             $this->User->id = $this->Auth->user('id');
 
@@ -541,7 +541,7 @@ class UsersController extends PaszportAppController
                 $this->Session->setFlash(implode('. ', array_pop($this->User->validationErrors)), 'alert', array('class' => 'alert-error'));
             }
         } else { # fetch permissions try to merge again
-            $opts = array('scope' => 'email,user_birthday');
+            $opts = array('scope' => 'email');
             if (!is_null($redirect)) {
                 $opts['redirect'] = $redirect;
             }
@@ -904,10 +904,10 @@ class UsersController extends PaszportAppController
      */
     public function externalfblogin($service = null, $session_id = null)
     {
-        $user_data = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),birthday,locale');
+        $user_data = $this->Connect->FB->api('/me/?fields=id,first_name,last_name,email,gender,picture.type(square).width(200),locale');
         if (!isset($user_data['id'])) { # do we have access to user details ?
             $this->redirect($this->Connect->FB->getLoginUrl(array(
-                'scope' => 'email,user_birthday',
+                'scope' => 'email',
                 'next_url' => FULL_BASE_URL . '/' . $this->here
             )));
         } else { # we do...

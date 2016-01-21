@@ -299,7 +299,7 @@
             color: #5e5e5e;
         }
 
-        i {
+        i, > span {
             margin-right: 10px;
             border: 1px solid;
             margin-top: -1px;
@@ -427,4 +427,27 @@
             margin-bottom: 20px;
         }
     }
+}
+
+.response {
+    display: inline-block;
+    width: 100%;
+
+    > label {
+        background-color: #e9eaed;
+        display: inline-block;
+        margin: 0;
+        padding: 5px 15px;
+        width: 100%;
+    }
+
+    .mce-tinymce {
+        border-left: none;
+        border-right: none;
+    }
+}
+
+.saveBtn.loading {
+    background-image: url(/img/loader/search-loading.png);
+    background-size: 20px auto;
 }

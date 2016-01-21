@@ -594,7 +594,8 @@ class DataBrowserComponent extends Component
                     'label' => 'Rok',
                     'all' => 'Wszystkie lata',
                     ' g' => 'list',
-                    'field' => 'krakow_pomoc_publiczna.rok'
+                    'field' => 'krakow_pomoc_publiczna.rok',
+                    'skin' => 'columns_horizontal',
                 ),
             ),
             'beneficjenci' => array(

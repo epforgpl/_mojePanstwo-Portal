@@ -21,7 +21,7 @@ if (isset($data['wykreslono']) && !empty($data['wykreslono'])) {
 
             ?>
             <tr>
-                <td><b><?= $zmiana['kod'] ?></b> <?= $zmiana['nazwa'] ?></td>
+                <td><strong><?= $zmiana['kod'] ?></strong> <?= $zmiana['nazwa'] ?></td>
             </tr>
             <?
             $i++;
@@ -61,7 +61,7 @@ if (isset($data['wpisano']) && !empty($data['wpisano'])) {
 
             ?>
             <tr>
-                <td><b><?= $zmiana['kod'] ?></b> <?= $zmiana['nazwa'] ?></td>
+                <td><strong><?= $zmiana['kod'] ?></strong> <?= $zmiana['nazwa'] ?></td>
             </tr>
             <?
             $i++;

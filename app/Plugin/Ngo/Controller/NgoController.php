@@ -393,6 +393,11 @@ class NgoController extends ApplicationsController
 				                            'dataset' => 'pisma',
 				                        ),
 				                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.pisma.is_promoted' => 'true',
+                                        ),
+                                    ),
 				                ),
 				            ),
 				        ),

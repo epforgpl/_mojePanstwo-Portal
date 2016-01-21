@@ -8,7 +8,7 @@
                     <a class="thumb_cont" href="http://przejrzystykrakow.pl">
                         <?php } ?>
                         <img class="thumb" src="/dane/img/customObject/krakow/logo_pkrk.png"
-                             alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
+                             alt="Logo <?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
                         <?php if ($object->getUrl() != false) { ?>
                     </a>
                 <?php } ?>

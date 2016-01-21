@@ -1,0 +1,162 @@
+.theme-default .block:not(.daneOsobowe) {
+    border: 0;
+    background: none;
+
+    &:first-child > header:before {
+        display: none;
+    }
+
+    > header {
+        background: none;
+        font-size: 24px;
+        position: relative;
+
+        &::before {
+            background-color: #00659d;
+            content: " ";
+            display: block;
+            height: 2px;
+            left: 10px;
+            position: absolute;
+            top: 0;
+            width: 40px;
+        }
+    }
+}
+
+.app_chapters li:not(._label) > a {
+    position: relative;
+
+    .object-icon {
+        position: absolute;
+        top: 50%;
+        left: 8px;
+        -webkit-transform: translate(0, -50%);
+        -moz-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        -o-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+    }
+    .object-icon-side {
+        margin-top: 1px;
+        margin-bottom: 1px;
+        padding-left: 32px;
+    }
+}
+
+.whiteBlocks .item {
+    float: left;
+    display: block;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    color: #616161;
+    max-width: 720px;
+    padding: 10px;
+    width: 48%;
+    margin: 0 1% 20px;
+
+    &:nth-child(2n+1) {
+        clear: left;
+    }
+
+    .title {
+        color: #00659d;
+        font-weight: normal;
+        line-height: 1.1;
+        margin: 10px 0 0;
+        padding-top: 10px;
+        font-size: 24px;
+    }
+    .desc {
+        font-size: 14px;
+        color: #616161;
+    }
+}
+
+.reportBug {
+    p:last-child {
+        margin-bottom: 20px;
+    }
+
+    .sliceBtn {
+        width: 330px;
+        margin: 10px auto;
+
+        &.btn-github {
+            display: block;
+        }
+
+        &.emailBtn .form-control {
+            margin-top: 1px;
+        }
+    }
+}
+
+.epfPosts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .item-list {
+        padding: 0;
+        display: block;
+        width: 100%;
+        float: left;
+
+        .item {
+            .date {
+                color: #9a9a9a;
+                display: block;
+                font-size: 10px;
+                margin-top: 5px;
+            }
+            .btn {
+                float: right;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.epfYTVideo {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .item-list {
+        padding: 0;
+        display: block;
+        width: 100%;
+        float: left;
+
+        .item .photo {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    .allvideo {
+        width: 100%;
+        float: left;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+}
+
+.daneOsobowe {
+    > header {
+        text-align: center;
+    }
+
+    section {
+        p {
+            line-height: 1.5em;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+    }
+}

@@ -10,6 +10,9 @@ $this->Combinator->add_libs('js', 'dropzone.js');
 $this->Html->css(array('../plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min'), array('inline' => 'false', 'block' => 'cssBlock'));
 $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', '../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pl.min'), array('inline' => 'false', 'block' => 'scriptBlock'));
 
+// tinymce
+echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
+
 $accessDict = array(
     'prywatne',
     'publiczne'
@@ -42,14 +45,13 @@ if ($pismo['object_id']) {
     <div class="overflow-auto">
 
         <div class="content pull-left">
-            <i class="object-icon icon-applications-pisma"></i>
+            <span class="object-icon icon-applications-pisma"></span>
 
             <div class="object-icon-side">
                 <h1 data-url="<?= $pismo['alphaid'] . ',' . $pismo['slug'] ?>">
                     <? if ($pismo['is_owner']) { ?>
-                        <input data-url="/start/letters/setDocumentName/<?= $pismo['alphaid'] ?>"
-                               class="form-control h1-editable" type="text" name="nazwa"
-                               value="<?= $pismo['nazwa'] ?>"/>
+                        <div contenteditable="true" data-url="/start/letters/setDocumentName/<?= $pismo['alphaid'] ?>"
+                             class="form-control h1-editable"><?= $pismo['nazwa'] ?></div>
                     <? } else { ?>
                         <?= $pismo['nazwa'] ?>
                     <? } ?>
@@ -57,8 +59,7 @@ if ($pismo['object_id']) {
             </div>
         </div>
 
-
-        <ul class="buttons pull-right">
+        <ul class="buttons pull-right nopadding">
             <li>
                 <form action="" method="post">
                     <input type="hidden" name="delete"/>
@@ -278,7 +279,7 @@ if ($pismo['object_id']) {
                                 data-dismiss="modal">Anuluj
                         </button>
 
-                        <button name="send" value="Wyślij" type="submit" class="btn btn-primary btn-icon auto-width"><i
+                        <button name="send" value="Wyślij" type="submit" class="btn btn-primary btn-icon width-auto"><i
                                 class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo
                         </button>
 
@@ -293,7 +294,7 @@ if ($pismo['object_id']) {
             <div class="col-md-12">
 
                 <p class="text-center">
-                    <button data-action="send" class="btn btn-primary btn-icon auto-width"><i
+                    <button data-action="send" class="btn btn-primary btn-icon width-auto"><i
                             class="icon glyphicon glyphicon glyphicon-send"></i>Wyślij pismo...
                     </button>
                 </p>
@@ -347,7 +348,7 @@ if ($pismo['object_id']) {
                             </h2>
 
                             <div class="content">
-                                <?= $response['Response']['content'] != '' ? htmlspecialchars($response['Response']['content']) : 'Brak treści' ?>
+                                <?= $response['Response']['content'] != '' ? $response['Response']['content'] : 'Brak treści' ?>
                             </div>
                             <? if (count($response['files'])) { ?>
                                 <div class="files">
@@ -373,8 +374,8 @@ if ($pismo['object_id']) {
                         data-action="add_response"
                         data-letter-alphaid="<?= $pismo['alphaid'] ?>"
                         data-letter-slug="<?= $pismo['slug'] ?>"
-                        class="btn btn-success btn-icon auto-width">
-                        <i class="icon glyphicon glyphicon-plus-sign"></i>Dodaj odpowiedź na pismo
+                        class="btn btn-success btn-icon width-auto">
+                        <span class="icon glyphicon glyphicon-plus-sign"></span>Dodaj odpowiedź na pismo
                     </button>
                 </p>
             <? } ?>
@@ -390,12 +391,12 @@ if ($pismo['object_id']) {
             <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>"
                    onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>', 'mywin',
                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                   class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook"></i></a>
+                   class="btn btn-social-icon btn-sm btn-facebook"><span class="fa fa-facebook"></span></a>
             </li>
             <li><a href="https://twitter.com/home?status=<?= $share_url ?>"
                    onclick="window.open('https://twitter.com/home?status=<?= $share_url ?>', 'mywin',
                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
-                   class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter"></i></a></li>
+                   class="btn btn-social-icon btn-sm btn-twitter"><span class="fa fa-twitter"></span></a></li>
             <li><a href="http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>"
                    onclick="window.open('http://www.wykop.pl/dodaj/link/?url=<?= $share_url ?>', 'mywin',
                        'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"

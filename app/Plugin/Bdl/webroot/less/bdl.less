@@ -157,12 +157,11 @@
         margin-top: 10px;
         margin-bottom: 10px;
 
-        &.focus-control {
-            .block {
-                opacity: .25;
-                &.focus {
-                    opacity: 1;
-                }
+        &.focus-control .block {
+            opacity: .25;
+
+            &.focus {
+                opacity: 1;
             }
         }
 
@@ -301,7 +300,7 @@
 
             &:after {
                 border: @size solid rgba(255, 255, 255, 0);
-                border-bottom: @size solid #ffffff;
+                border-bottom: @size solid #f6f6f6;
                 margin-left: -@size;
             }
             &:before {
@@ -327,9 +326,16 @@
             .container {
                 padding: 30px 10px;
 
+                .folder {
+                    &:first-child {
+                        margin-top: -20px;
+                    }
+                }
+
                 .wskazniki {
                     list-style: none;
-                    margin: 0 100px 50px 0;
+                    margin: 0 70px 20px 0;
+                    padding-left: 20px;
 
                     li {
                         border-bottom: 1px solid #ddd;
@@ -340,10 +346,48 @@
                         &:last-child {
                             border-bottom: none;
                         }
+
+                        .bdl_value {
+                            color: green;
+                            font-size: 12px;
+                        }
+
                     }
                 }
-
             }
         }
+    }
+}
+
+#kulturaBanner {
+    margin: 20px 15px 35px;
+    padding: 20px;
+    text-align: center;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+
+    h2 {
+        font-size: 36px;
+        font-weight: 300;
+    }
+    p {
+        padding: 10px;
+    }
+}
+
+.block-nav {
+    background-color: #f6f6f6;
+    color: #666;
+    font-size: 12px;
+    font-weight: bold;
+    margin: -30px 37px 10px -25px;
+    padding: 10px 47px 10px 52px;
+
+    .nazwa {
+        margin-left: -27px;
     }
 }

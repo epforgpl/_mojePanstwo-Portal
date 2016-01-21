@@ -10,7 +10,7 @@ echo $this->element('Start.pageBegin'); ?>
     <div class="overflow-auto">
 
         <div class="content pull-left">
-            <i class="object-icon icon-datasets-kolekcje"></i>
+            <span class="object-icon icon-datasets-kolekcje"></span>
             <div class="object-icon-side">
                 <h1>Tworzenie nowej kolekcji</h1>
             </div>
@@ -33,8 +33,8 @@ echo $this->element('Start.pageBegin'); ?>
     </div>
 
     <div class="form-group overflow-hidden text-center margin-top-30">
-        <button class="btn auto-width btn-primary btn-icon" type="submit">
-            <i class="icon glyphicon glyphicon-ok"></i>
+        <button class="btn width-auto btn-primary btn-icon" type="submit">
+            <span class="icon glyphicon glyphicon-ok"></span>
             Zapisz
         </button>
     </div>

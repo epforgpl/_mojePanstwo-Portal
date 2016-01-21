@@ -94,7 +94,7 @@ $baseUrl = $object->getUrl() . ($object->getDataset() == 'krs_podmioty' ? '/medi
                     <div class="col-md-7">
                         <a href="#" class="switcher hidden"
                            data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
-                            <i class="icon" data-icon="&#xe604;"></i>
+                            <span class="icon" data-icon="&#xe604;"></span>
                             Zastosuj
                         </a>
                         <a href="#" class="cancel hidden"

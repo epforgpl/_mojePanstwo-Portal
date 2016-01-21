@@ -9,13 +9,16 @@
     <div class="searcher form-group has-feedback">
         <div class="col-md-12">
             <div class="input-group size-<?=$size?>">
-                <input class="form-control hasclear input-<?= $size ?><? if (isset($url) && !empty($q)) {
+                <label for="suggesterBlock"
+                       class="wcag-hidden"><?= isset($placeholder) ? $placeholder : 'Szukaj'; ?></label>
+                <input id="suggesterBlock"
+                       class="form-control hasclear input-<?= $size ?><? if (isset($url) && !empty($q)) {
                     echo ' clearer-on';
                 } ?>"
                        placeholder="<?= isset($placeholder) ? $placeholder : 'Szukaj...'; ?>"
                        type="text"
                        name="q"
-                       value="<?= $q ?>"
+                       value="<?= htmlentities(stripcslashes($q), ENT_QUOTES | ENT_IGNORE, "UTF-8") ?>"
                        data-dataset="<?= $autocompletion ? $autocompletion['dataset'] : '*'; ?>"
                        data-url="<?= @$url ?>"
                        data-autocompletion="<?= $autocompletion ? 'true' : 'false' ?>"
