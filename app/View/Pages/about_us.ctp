@@ -73,6 +73,15 @@
                                     href="http://mojepanstwo.pl">mojePaństwo.pl</a>.
                             </p>
                         </div>
+
+                        <h2>Projekt Systemowy Fundacji im. Stefana Batorego:</h2>
+                        <h3>Numer wniosku: S/257</h3>
+                        <h4>Tytuł projektu systemowego: Grywalizacja prac na rzecz dobra publicznego</h4>
+                        <p>Celem projektu jest stworzenie i spopularyzowanie internetowej platformy "grywalizacyjnej"
+                            nakierowanej na prace na rzecz dobra publicznego oraz zbudowanie wokół niej społeczności
+                            organizacji i użytkowników. Projekt odpowiada na potrzebę zaangażowania w sprawy publiczne
+                            organizacji oraz osób indywidualnych wykorzystując naturalną potrzebę zdobywania uznania i
+                            autorytetu.</p>
                     </div>
 
                     <div class="fundatorzy">
