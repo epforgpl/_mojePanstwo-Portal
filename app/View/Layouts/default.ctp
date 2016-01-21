@@ -8,9 +8,9 @@
         foreach ($_META as $key => $val)
             echo $this->Html->meta(array('property' => $key, 'content' => $val));
     } ?>
-    
+
     <link rel="icon" type="image/svg+xml" href="/img/favicon/favicon-new.svg">
-    
+
     <? /*
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png"/>
     <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png"/>
@@ -30,9 +30,8 @@
     <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png"/>
     */ ?>
     <meta name="theme-color" content="#ffffff"/>
-	
-	
-	
+
+
     <?php
     echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
     echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
@@ -51,7 +50,7 @@
 
     echo $this->Html->css('../libs/jqueryui/themes/cupertino/jquery-ui.theme.min.css');
 
-    if(isset($header_vote) && is_array($header_vote))
+    if (isset($header_vote) && is_array($header_vote))
         $this->Combinator->add_libs('css', $this->Less->css('header-vote', array('plugin' => 'Dane')));
 
     $this->Combinator->add_libs('css', $this->Less->css('jquery/jquery-ui-customize'), false);
@@ -82,7 +81,7 @@
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
     /* OBJECT "PAGE" ICONS */
-    if(isset($object) && $object->getPage())
+    if (isset($object) && $object->getPage())
         $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
 
     if (isset($object_editable) && !empty($object_editable)) {
@@ -113,11 +112,19 @@
     <![endif]-->
 </head>
 <body
-    class="theme-<?php echo $_layout['body']['theme'] ?>"<?php if ($_layout['body']['theme'] == 'wallpaper') { ?> style="background-image: url(<?php if (isset($_COOKIE["mojePanstwo"])) {
-    $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
-    if (isset($mojePanstwo->background->url) && !empty($mojePanstwo->background->url))
-        echo $mojePanstwo->background->url;
-} ?>)" <?php } ?>>
+    class="theme-<?php echo $_layout['body']['theme'];
+    if (empty($app_chapters['items'])) {
+        echo ' app-sidebar-oneline';
+    } ?>"
+    <?php
+    if (isset($_COOKIE["mojePanstwo"])) {
+        $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
+        if (isset($mojePanstwo->background->url) && !empty($mojePanstwo->background->url))
+            $mpBackground = $mojePanstwo->background->url;
+    }
+    if ($_layout['body']['theme'] == 'wallpaper') {
+        echo 'style="background-image: url(' . @$mpBackground . ')"';
+    } ?>>
 
 <?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
@@ -130,9 +137,23 @@
         user_id: '<?= AuthComponent::user('id'); ?>',
         username: '<?= AuthComponent::user('username'); ?>',
         language: {
-            twoDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl"; break; case 'eng': echo "en"; break; }  ?>",
+            twoDig: "<?php switch (Configure::read('Config.language')) {
+                case 'pol':
+                    echo "pl";
+                    break;
+                case 'eng':
+                    echo "en";
+                    break;
+            }  ?>",
             threeDig: "<?php echo Configure::read('Config.language'); ?>",
-            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) { case 'pol': echo "pl-PL"; break; case 'eng': echo "en-EN"; break; }  ?>"
+            twoPerThreeDig: "<?php switch (Configure::read('Config.language')) {
+                case 'pol':
+                    echo "pl-PL";
+                    break;
+                case 'eng':
+                    echo "en-EN";
+                    break;
+            }  ?>"
         },
         social: {
             facebook: {

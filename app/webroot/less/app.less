@@ -144,32 +144,34 @@
 }
 
 @media (min-width: 768px) {
-    @appSize: 230px;
+    body:not(.app-sidebar-oneline) {
+        @appSize: 230px;
 
-    .app-sidebar {
-        width: @appSize;
-        height: auto;
-        min-height: 100%;
-        position: fixed;
-        top: 44px;
+        .app-sidebar {
+            width: @appSize;
+            height: auto;
+            min-height: 100%;
+            position: fixed;
+            top: 44px;
 
-        .app-logo {
-            padding: 20px;
+            .app-logo {
+                padding: 20px;
 
-            ._mobile {
-                display: none;
+                ._mobile {
+                    display: none;
+                }
+            }
+            .app-list {
+                display: block;
             }
         }
-        .app-list {
-            display: block;
+
+        .app-content-wrap {
+            margin-left: @appSize;
         }
-    }
 
-    .app-content-wrap {
-        margin-left: @appSize;
-    }
-
-    footer.footer {
-        padding-left: @appSize;
+        footer.footer {
+            padding-left: @appSize;
+        }
     }
 }
