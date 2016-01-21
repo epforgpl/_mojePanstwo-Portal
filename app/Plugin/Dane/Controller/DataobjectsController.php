@@ -88,6 +88,10 @@ class DataobjectsController extends AppController
             throw new NotFoundException;
 
         $this->addInitLayers('page');
+
+        if(@$this->request->params['controller'] == 'krs_podmioty')
+            $this->addInitLayers('bank_account');
+
         $this->_prepareView();
         if(!$this->_canEdit())
             throw new ForbiddenException;

@@ -87,6 +87,11 @@ class AdminAppController extends AppController
             'label' => 'Aktualności',
             'href'  => '/admin/news',
         ),
+        array(
+            'id'    => 'bank_accounts',
+            'label' => 'Konta bankowe',
+            'href'  => '/admin/bank_accounts',
+        ),
     );
 
     public function beforeFilter() {

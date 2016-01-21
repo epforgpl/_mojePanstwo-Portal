@@ -100,6 +100,45 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         </div>
                     <? } ?>
 
+
+						<? if(in_array($object->getData('forma_prawna_id'), array('1', '15'))) { ?>
+							<? $bankAccount = $object->getLayer('bank_account'); ?>
+							<div class="form-group form-row">
+								<label class="col-lg-12 control-label control-label-full" for="bankAccountNumber">Numer konta bankowego:</label>
+								<div class="col-lg-12">
+									<? if($bankAccount && $bankAccount['status'] == '0') { ?>
+										<input
+											disabled
+											type="text"
+											class="form-control"
+											value="<?= $bankAccount['bank_account'] ?>"
+											id="bankAccountNumber"
+											name="bank_account_number"/>
+										<p class="help-block">
+											Podane przez Ciebie konto bankowe oczekuje na moderacje.
+										</p>
+									<? } else { ?>
+										<input
+											type="text"
+											class="form-control"
+											id="bankAccountNumber"
+											<?= $bankAccount ? 'value="' . $bankAccount['bank_account'] . '"' : '' ?>
+											name="bank_account_number"/>
+
+											<? if(!$bankAccount) { ?>
+
+											<? } elseif($bankAccount['status'] == '1') { ?>
+												<p class="text-success margin-top-5">Podane wyżej konto zostało zaakceptowane. Pamiętaj, że każda kolejna zmiana podlega ponownej weryfikacji.</p>
+											<? } elseif($bankAccount['status'] == '2') { ?>
+												<p class="text-danger margin-top-5">Podane wyżej konto zostało odrzucone. Podaj prawidłowy numer konta bądź skontaktuj się z nami w celu rozwiązania problemu.</p>
+										<? } ?>
+
+										<p class="help-block">Numer rachunku musi składać się z 26 cyfr. Podczas każdej aktualizacji numeru konta bankowego podlega on weryfikacji przez administratora (w ciągu 1-3 dni roboczych).</p>
+									<? } ?>
+								</div>
+							</div>
+						<? } ?>
+
                     <? } ?>
 
                     <div class="form-group form-row">

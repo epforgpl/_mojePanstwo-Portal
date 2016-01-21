@@ -18,7 +18,7 @@ $(document).ready(function () {
         return c;
     }
 
-	var form = $('section.content form'),
+	var form = $('form.form-horizontal').first(),
         header = $('.appHeader.dataobject').first(),
         dataset = header.attr('data-dataset'),
         object_id = header.attr('data-object_id'),
@@ -50,7 +50,37 @@ $(document).ready(function () {
         valid_elements : "p,b,i,u,ul,ol,li"
     });
 
+    // Source: http://blog.mmx3.pl/2010/11/16/javascript-walidator-numeru-rachunku-bankowego-nrb/
+    /**
+     * @return {boolean}
+     */
+    function NRBvalidatior(nrb) {
+        nrb = nrb.replace(/[^0-9]+/g, '');
+        var wagi = [1, 10, 3, 30, 9, 90, 27, 76, 81, 34, 49, 5, 50, 15, 53, 45, 62, 38, 89, 17, 73, 51, 25, 56, 75, 71, 31, 19, 93, 57];
+
+        if (nrb.length == 26) {
+            nrb = nrb + "2521";
+            nrb = nrb.substr(2) + nrb.substr(0, 2);
+            var Z = 0;
+            for(var i = 0; i < 30; i++) {
+                Z += nrb[29 - i] * wagi[i];
+            }
+
+            return Z % 97 == 1;
+        }
+
+        return false;
+    }
+
     form.submit(function() {
+        var bankAccountInput = $(this).find('#bankAccountNumber').first();
+        if(bankAccountInput.length) {
+            if(NRBvalidatior(bankAccountInput.val()) == false) {
+                alert('Podałeś/aś nieprawidłowy numer konta');
+                return false;
+            }
+        }
+
         tinyMCE.triggerSave();
 
         $(this)
