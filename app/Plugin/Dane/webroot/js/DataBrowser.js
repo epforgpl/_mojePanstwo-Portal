@@ -649,7 +649,6 @@ var DataBrowser = Class.extend({
 							$(chart.series[0].points[i].graphic.element).click();
 						}
 					}
-
 				}
 			}
 		};

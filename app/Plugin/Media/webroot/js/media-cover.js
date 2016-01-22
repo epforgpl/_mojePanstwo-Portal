@@ -1,33 +1,42 @@
+/*global $,jQuery,document*/
+
 $(document).ready(function () {
 	// STICKY
 	$('#accountsSwitcher').sticky({
-		widthFromWrapper: false
+		widthFromWrapper: false,
+		topSpacing: 45
 	}).on('sticky-start', function () {
 		var t = $(this),
 			p = t.parent();
 
-		if (t.width() < p.width())
+		if (t.width() < p.width()) {
 			t.width(p.width());
+		}
 	});
 
 	// TAGS CLOUD
 	var tagsCloud = $("#tagsCloud");
-	if (tagsCloud.length)
+	if (tagsCloud.length) {
 		tagsCloud.cloud({
-			hwratio: .5,
-			fog: .4
+			hwratio: 0.5,
+			fog: 0.4
 		});
+	}
 
 	// HighstockPicker
 	(function () {
 		function dateToYYYYMMDD(date) {
 			var d = date,
-				month = '' + (d.getMonth() + 1),
-				day = '' + d.getDate(),
+				month = (d.getMonth() + 1),
+				day = d.getDate(),
 				year = d.getFullYear();
 
-			if (month.length < 2) month = '0' + month;
-			if (day.length < 2) day = '0' + day;
+			if (month.length < 2) {
+				month = '0' + month;
+			}
+			if (day.length < 2) {
+				day = '0' + day;
+			}
 
 			return [year, month, day].join('-');
 		}
@@ -54,10 +63,11 @@ $(document).ready(function () {
 			}
 
 			if (
-				current.getDate() == date.getDate() &&
-				current.getMonth() == date.getMonth() &&
-				current.getFullYear() == date.getFullYear())
+				current.getDate() === date.getDate() &&
+				current.getMonth() === date.getMonth() &&
+				current.getFullYear() === date.getFullYear()) {
 				return 'dzisiaj';
+			}
 
 			return date.getDate() + ' ' + month + ' ' + date.getFullYear() + ' r.';
 		}
@@ -151,7 +161,7 @@ $(document).ready(function () {
 				minRange: 86400000,
 				events: {
 					setExtremes: function (e) {
-						if (e.trigger == 'navigator') {
+						if (e.trigger === 'navigator') {
 							switcher.removeClass('hidden');
 							cancel.removeClass('hidden');
 
@@ -227,16 +237,34 @@ $(document).ready(function () {
 				},
 				formatter: function () {
 					var img = '';
-					if (this.point.logo == 'facebook' || this.point.logo == 'plume_for_android' || this.point.logo == 'tweetdeck' || this.point.logo == 'twitter_for_android' || this.point.logo == 'twitter_for_ipad' || this.point.logo == 'twitter_for_iphone' || this.point.logo == 'twitter_web_client' || this.point.logo == 'twitterfeed') {
+					if (this.point.logo === 'facebook' || this.point.logo === 'plume_for_android' || this.point.logo === 'tweetdeck' || this.point.logo === 'twitter_for_android' || this.point.logo === 'twitter_for_ipad' || this.point.logo === 'twitter_for_iphone' || this.point.logo === 'twitter_web_client' || this.point.logo === 'twitterfeed') {
 						img = '<img src="/media/img/twitterapp/' + this.point.logo + '.png"/>';
 					}
-					return '<div style="display: block"><b>#' + this.point.x + '</b> ' + img + this.point.name + '</div>';
+					return '<div style="display: block"><strong>#' + this.point.x + '</strong> ' + img + this.point.name + '</div>';
 				},
 				useHTML: true,
 				headerFormat: ' '
 			},
 			legend: {
-				enabled: false
+				enabled: true,
+				labelFormatter: function () {
+					var img = '',
+						ret,
+						name = this.name;
+
+					if (this.logo === 'facebook' || this.logo === 'plume_for_android' || this.logo === 'tweetdeck' || this.logo === 'twitter_for_android' || this.logo === 'twitter_for_ipad' || this.logo === 'twitter_for_iphone' || this.logo === 'twitter_web_client' || this.logo === 'twitterfeed') {
+						img = '<img src="/media/img/twitterapp/' + this.logo + '.png" style="margin-right:4px" />';
+					}
+
+					ret = '<strong>#' + this.x + '</strong> ' + img;
+
+					if (name.length > 55) {
+						name = this.name.substring(0, 52);
+						name += '...';
+					}
+					return '<div style="margin-top: -5px; margin-bottom:10px">' + ret + name + '</div>';
+				},
+				useHTML: true
 			},
 			legacy: {
 				enabled: false
@@ -264,27 +292,6 @@ $(document).ready(function () {
 							return false;
 						}
 					}
-				},
-				dataLabels: {
-					enabled: true,
-					formatter: function () {
-						var img = '',
-							ret,
-							name = this.point.name;
-
-						if (this.point.logo == 'facebook' || this.point.logo == 'plume_for_android' || this.point.logo == 'tweetdeck' || this.point.logo == 'twitter_for_android' || this.point.logo == 'twitter_for_ipad' || this.point.logo == 'twitter_for_iphone' || this.point.logo == 'twitter_web_client' || this.point.logo == 'twitterfeed') {
-							img = '<img src="/media/img/twitterapp/' + this.point.logo + '.png" style="margin-right:4px" />';
-						}
-
-						ret = '<b>#' + this.point.x + '</b> ' + img;
-
-						if (name.length > 55) {
-							name = this.point.name.substring(0, 52);
-							name += '...';
-						}
-						return ret + name;
-					},
-					useHTML: true
 				}
 			}]
 		});
