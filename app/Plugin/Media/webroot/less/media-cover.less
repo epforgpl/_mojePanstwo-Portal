@@ -71,28 +71,25 @@
 }
 
 .appSwitchers {
+    .pull-left {
+        margin-bottom: 5px;
+    }
 
-    .dataWrap {
-        .pull-left {
-            margin-bottom: 5px;
-        }
+    .dropdown-menu {
+        left: -108px;
+        min-width: 180px;
 
-        ul.dropdown-menu {
-            left: -72px;
-            min-width: 180px;
+        li {
+            &.dropdown-title {
+                font-size: 13px;
+                font-weight: normal;
+                color: #666;
+                margin: 15px 10px 3px;
+                border-bottom: 1px solid #F5f5f5;
+                padding-bottom: 5px;
 
-            li {
-                &.dropdown-title {
-                    font-size: 13px;
-                    font-weight: normal;
-                    color: #666;
-                    margin: 15px 10px 3px;
-                    border-bottom: 1px solid #F5f5f5;
-                    padding-bottom: 5px;
-
-                    &:first-child {
-                        margin-top: 3px;
-                    }
+                &:first-child {
+                    margin-top: 3px;
                 }
             }
         }
