@@ -80,8 +80,10 @@
             }
 
             .sideIcon {
+                @iconSize: 90px;
+
                 position: relative;
-                min-height: 200px;
+                min-height: @iconSize+30;
 
                 -webkit-transition: height 1s;
                 -moz-transition: height 1s;
@@ -91,7 +93,7 @@
 
                 .img-responsive {
                     font-size: 5em;
-                    max-height: 100px;
+                    height: @iconSize;
 
                     position: absolute;
                     top: 50%;

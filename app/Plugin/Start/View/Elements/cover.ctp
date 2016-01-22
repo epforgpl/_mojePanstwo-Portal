@@ -29,7 +29,7 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
                     ?>
                     <a class="col-xs-12 col-sm-6" href="<?= $a['href'] ?>" target="_self">
                         <div class="appBorder">
-                            <div class="col-md-8">
+                            <div class="col-xs-12 col-md-8">
                                 <div class="mainpart">
                                     <img src="<?= $icon_link ?>" class="icon"/>
                                     <strong><?= $a['name'] ?></strong>
@@ -43,7 +43,7 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
                                     <? } ?>
                                 </div>
                             </div>
-                            <div class="col-md-4 sideIcon">
+                            <div class="col-xs-12 col-md-4 sideIcon">
                                 <img src="<?= $icon_side ?>" class="img-responsive"/>
                             </div>
                         </div>
