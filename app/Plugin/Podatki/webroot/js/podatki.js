@@ -385,7 +385,7 @@ $(document).ready(function () {
 
 	if ($stripe.hasClass('scroll')) {
 		$('html, body').animate({
-			scrollTop: $stripe.offset().top
+			scrollTop: $stripe.offset().top - 40
 		}, 600);
 	}
 
