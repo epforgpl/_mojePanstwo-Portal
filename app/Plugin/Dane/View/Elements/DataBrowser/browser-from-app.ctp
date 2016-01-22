@@ -11,9 +11,7 @@ if (@$app_chapters['items'])
     array_shift($app_chapters['items']);
 ?>
 
-<div class="app-sidebar<? if (empty($app_chapters['items'])) {
-    echo ' app-sidebar-oneline';
-} ?>">
+<div class="app-sidebar">
     <div class="app-logo">
         <? if (!empty($_app)) { ?>
             <a href="/<?= $_app['id'] ?>" target="_self">
