@@ -19,30 +19,32 @@ echo $this->element('app/sidebar');
 
 <div class="app-content-wrap">
     <div class="objectsPage">
-	    
+
 		<form id="podatki" method="post">
 		    <div class="container">
 		        <div class="appBanner margin-top-20">
 		            <h1 class="appTitle"><?= __d('podatki', 'LC_PODATKI_HEADLINE'); ?></h1>
-		
+
 		            <p class="appSubtitle"><?= __d('podatki', 'LC_PODATKI_SUBHEADLINE'); ?></p>
-		
+
 		            <p class="margin-top-20"><?= __d('podatki', 'LC_PODATKI_INFORMATION'); ?> <a href="#" data-toggle="modal"
 		                                                                                         data-target="#metodologia_modal"
 		                                                                                         target="_blank">Zobacz
 		                    metodologię obliczeń &raquo;</a></p>
 		        </div>
-		
+
 		        <div class="sections userSetup">
 		            <div class="section">
 		                <div class="row"
 		                     data-number="<?= (isset($post['umowa_o_prace'])) ? count($post['umowa_o_prace']) : 1 ?>">
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
 		                        <label
 		                            for="przychody_umowa_o_prace_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_O_PRACE'); ?>
 		                            :</label>
 		                    </div>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
 		                        <input type="text" autocomplete="off" name="umowa_o_prace[]"
 		                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
 		                               id="przychody_umowa_o_prace_1"
@@ -50,7 +52,7 @@ echo $this->element('app/sidebar');
 		                                   echo number_format((float)str_replace(',', '.', $post['umowa_o_prace'][0]), 2, ',', '');
 		                               } ?>">
 		                    </div>
-		                    <div class="col-xs-10 col-sm-4 col-md-3 button_container">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-md-3 button_container">
 		                        <a href="#<?= str_replace(' ', '_', strtolower(__d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'))); ?>"
 		                           class="btn btn-link btn-xs" data-type="przychody_umowa_o_prace">
 		                            <span
@@ -64,7 +66,7 @@ echo $this->element('app/sidebar');
 		                            ?>
 		                            <div class="additional row" data-number="<?= $i; ?>">
 		                                <div
-		                                    class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
+                                            class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
 		                                    <input type="text" autocomplete="off" class="form-control currency"
 		                                           name="umowa_o_prace[]"
 		                                           title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
@@ -83,16 +85,18 @@ echo $this->element('app/sidebar');
 		                    }
 		                } ?>
 		            </div>
-		
+
 		            <div class="section">
 		                <div class="row"
 		                     data-number="<?= (isset($post['umowa_zlecenie'])) ? count($post['umowa_zlecenie']) : 1 ?>">
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
 		                        <label
 		                            for="przychody_umowa_zlecenie_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_ZLECENIE'); ?>
 		                            :</label>
 		                    </div>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
 		                        <input type="text" autocomplete="off" name="umowa_zlecenie[]"
 		                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
 		                               id="przychody_umowa_zlecenie_1"
@@ -100,7 +104,7 @@ echo $this->element('app/sidebar');
 		                                   echo number_format((float)str_replace(',', '.', $post['umowa_zlecenie'][0]), 2, ',', '');
 		                               } ?>">
 		                    </div>
-		                    <div class="col-xs-10 col-sm-4 col-md-3 button_container">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-md-3 button_container">
 		                        <a href="#<?= str_replace(' ', '_', strtolower(__d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'))); ?>"
 		                           class="btn btn-link btn-xs" data-type="przychody_umowa_zlecenie">
 		                            <span
@@ -114,7 +118,7 @@ echo $this->element('app/sidebar');
 		                            ?>
 		                            <div class="additional row" data-number="<?= $i; ?>">
 		                                <div
-		                                    class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
+                                            class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
 		                                    <input type="text" autocomplete="off" class="form-control currency"
 		                                           name="umowa_zlecenie[]"
 		                                           title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
@@ -133,16 +137,18 @@ echo $this->element('app/sidebar');
 		                    }
 		                } ?>
 		            </div>
-		
+
 		            <div class="section">
 		                <div class="row"
 		                     data-number="<?= (isset($post['umowa_o_dzielo'])) ? count($post['umowa_o_dzielo']) : 1 ?>">
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
 		                        <label
 		                            for="przychody_umowa_o_dzielo_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_UMOWA_DZIELO'); ?>
 		                            :</label>
 		                    </div>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
 		                        <input type="text" autocomplete="off" name="umowa_o_dzielo[]"
 		                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
 		                               id="przychody_umowa_o_dzielo_1"
@@ -150,7 +156,7 @@ echo $this->element('app/sidebar');
 		                                   echo number_format((float)str_replace(',', '.', $post['umowa_o_dzielo'][0]), 2, ',', '');
 		                               } ?>">
 		                    </div>
-		                    <div class="col-xs-10 col-sm-4 col-md-3 button_container">
+                            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-md-3 button_container">
 		                        <a href="#<?= str_replace(' ', '_', strtolower(__d('podatki', 'LC_PODATKI_ADD_NEW_UMOWA'))); ?>"
 		                           class="btn btn-link btn-xs" data-type="przychody_umowa_o_dzielo">
 		                            <span
@@ -164,7 +170,7 @@ echo $this->element('app/sidebar');
 		                            ?>
 		                            <div class="additional row" data-number="<?= $i; ?>">
 		                                <div
-		                                    class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
+                                            class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-5 text-center inputpadding">
 		                                    <input type="text" autocomplete="off" class="form-control currency"
 		                                           name="umowa_o_dzielo[]"
 		                                           title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>"
@@ -185,17 +191,19 @@ echo $this->element('app/sidebar');
 		            </div>
 		            <div class="section dzialalnoscGospodarcza">
 		                <? $dzialanoscGospExist = ((isset($post['dzialalnosc_gospodarcza']) && !empty($post['dzialalnosc_gospodarcza'][0])) || (isset($post['dzialalnosc_gospodarcza_koszt']) && !empty($post['dzialalnosc_gospodarcza_koszt'][0]))) ? true : false; ?>
-		
-		                <p class="text-center<? if ($dzialanoscGospExist) { ?> hide<? } ?>">
+
+                        <p class="text-center<? if ($dzialanoscGospExist) { ?> hide<? } ?>">
 		                    <a href="#"><?= __d('podatki', 'LC_PODATKI_DZIALANOSC_GOSPODARCZA_QUESTION'); ?></a>
 		                </p>
-		
-		                <div class="row"<? if (!$dzialanoscGospExist) { ?> style="display: none"<? } ?>>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
+
+                        <div class="row"<? if (!$dzialanoscGospExist) { ?> style="display: none"<? } ?>>
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
 		                        <label
 		                            for="przychody_dzialalnosc_gospodarcza_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA'); ?></label>
 		                    </div>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
 		                        <input type="text" autocomplete="off" name="dzialalnosc_gospodarcza[]"
 		                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
 		                               id="przychody_dzialalnosc_gospodarcza_1"
@@ -207,7 +215,8 @@ echo $this->element('app/sidebar');
 		                        <a class="closeAdditional glyphicon glyphicon-remove show" aria-hidden="true"
 		                           href="#zamknij"></a>
 		                    </div>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-3 col-md-offset-5 checkbox">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-3 col-md-offset-5 checkbox">
 		                        <input type="hidden" id="warunki_preferencyjne_1_hidden" value="N"
 		                               name="warunki_preferencyjne[]">
 		                        <input type="checkbox" id="warunki_preferencyjne_1" value="Y"
@@ -215,11 +224,13 @@ echo $this->element('app/sidebar');
 		                        <label
 		                            for="warunki_preferencyjne_1"><?= __d('podatki', 'LC_PODATKI_WARUNKI_PREFERENCYJNE'); ?></label>
 		                    </div>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-0 text-right">
 		                        <label
 		                            for="przychody_dzialalnosc_gospodarcza_koszt_1"><?= __d('podatki', 'LC_PODATKI_PRZYCHODY_DZIALALNOSC_GOSPODARCZA_KOSZT'); ?></label>
 		                    </div>
-		                    <div class="col-xs-10 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
+                            <div
+                                class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-2 col-md-2 col-md-offset-0 text-center inputpadding">
 		                        <input type="text" autocomplete="off" name="dzialalnosc_gospodarcza_koszt[]"
 		                               title="<?= __d('podatki', 'LC_PODATKI_INPUT_FLOAT'); ?>" class="form-control currency"
 		                               id="przychody_dzialalnosc_gospodarcza_koszt_1"
@@ -231,8 +242,8 @@ echo $this->element('app/sidebar');
 		            </div>
 		        </div>
 		    </div>
-		
-		    <div class="main_button_container text-center">
+
+            <div class="main_button_container text-center">
 		        <button class="btn btn-success btn-lg btn-icon" type="submit"><i
 		                class="icon glyphicon glyphicon-refresh"></i><span>Oblicz</span>
 		        </button>
@@ -311,8 +322,8 @@ echo $this->element('app/sidebar');
 		                        <? } ?>
 		                    </ul>
 		                </div>
-		
-		                <div class="col-xs-12 text-center h3">
+
+                        <div class="col-xs-12 text-center h3">
 		                    <p><? if (isset($result['netto'])) {
 		                            $kwota_podatku = ((float)str_replace(',', '.', $result['zus']) + (float)str_replace(',', '.', $result['zus_pracodawca']) + (float)str_replace(',', '.', $result['zdrow']) + (float)str_replace(',', '.', $result['pit']) + (float)str_replace(',', '.', $result['vat']) + (float)str_replace(',', '.', $result['akcyza']));
 		                            echo __d('podatki', 'LC_PODATKI_RESULTS_MIESIECZNIE %s', number_format($kwota_podatku, 0, ',', ' '));
@@ -366,22 +377,22 @@ echo $this->element('app/sidebar');
 		                        </div>
 		                    <? } ?>
 		                </div>
-		
-		                <?
+
+                        <?
 		                foreach ($wydatki['dzialy'] as &$d)
 		                    if ($d['id'] == '109')
 		                        $d['nazwa'] = 'Gospodarka komunalna i ochrona środowiska';
 		                ?>
-		
-		                <div class="pie_chart_block">
+
+                        <div class="pie_chart_block">
 		                    <div id="pie_chart" class="pie_chart margin-top-30" data-suma="<?= $wydatki['suma'] ?>"
 		                         data-podatek="<?= $kwota_podatku ?>"
 		                         data-series='<?= json_encode($wydatki['dzialy']) ?>'></div>
 		                    <div class="moneyLeft" data-sum="<?= round($kwota_podatku) ?>">Pozostało:
 		                        <span><?= round($kwota_podatku) ?></span></div>
 		                </div>
-		
-		                <h3 class="text-center col-xs-12 userChartTitle">W jaki sposób Ty wydałbyś swoje podatki?</h3>
+
+                        <h3 class="text-center col-xs-12 userChartTitle">W jaki sposób Ty wydałbyś swoje podatki?</h3>
 		                <div class="btn btn-primary userChart btn-icon margin-top-5 width-auto"><i
 		                        class="icon glyphicon glyphicon-cog"></i>Zbuduj swój
 		                    wykres
@@ -429,8 +440,8 @@ echo $this->element('app/sidebar');
 		            </a>
 		        </div>
 		    <? } ?>
-		
-		    <div class="modal fade" id="metodologia_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+            <div class="modal fade" id="metodologia_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		        <div class="modal-dialog" role="document">
 		            <div class="modal-content">
 		                <div class="modal-header">
@@ -455,8 +466,8 @@ echo $this->element('app/sidebar');
 		                                chorobowe. Dla umowy zlecenie i umowy o dzieło przyjęto 20% kosztów uzyskania przychodu
 		                                oraz pomniejszono podatek PIT o 1/12 rocznej kwoty zmniejszającej podatek (46 zł).
 		                            </p>
-		
-		                            <p>Struktura wydatków państwa została opracowana na podstawie danych za 2013 rok. W tym celu
+
+                                    <p>Struktura wydatków państwa została opracowana na podstawie danych za 2013 rok. W tym celu
 		                                wykorzystano następujące źródła danych: sprawozdanie z wykonania budżetu państwa za 2013
 		                                rok; raport NIK „Analiza wykonania budżetu państwa i założeń polityki pieniężnej w 2013
 		                                roku”; informacje NIK o wynikach kontroli wykonania budżetu państwa w poszczególnych
@@ -469,8 +480,8 @@ echo $this->element('app/sidebar');
 		                                otrzymane bezpośrednio z Ministerstwa Finansów w trybie dostępu do informacji
 		                                publicznej.
 		                            </p>
-		
-		                            <p>Wszystkie kwoty zaokrąglono do pełnych złotych.</p>
+
+                                    <p>Wszystkie kwoty zaokrąglono do pełnych złotych.</p>
 		                            <p>W razie dalszych pytań prosimy o kontakt na adres: <a href="mailto:ibs@ibs.org.pl">ibs@ibs.org.pl</a>
 		                            </p>
 		                        </div>
@@ -482,9 +493,9 @@ echo $this->element('app/sidebar');
 		            </div>
 		        </div>
 		    </div>
-		
-		
-		    <div class="footer text-center">
+
+
+            <div class="footer text-center">
 		        <div class="customObject krakow903 col-xs-12" id="fundatorzy">
 		            <div class="part">
 		                <div class="logotypy">
