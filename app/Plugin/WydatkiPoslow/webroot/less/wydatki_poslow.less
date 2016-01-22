@@ -4,712 +4,728 @@
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=90, Color=#333); /*IE 5.5-7*/
 }
 
-#_wrapper #_main {
-    height: auto;
-    min-height: inherit;
-    margin-bottom: 0;
+.sticky-wrapper, .app-sidebar {
+    position: fixed;
+    width: 100%;
+}
 
-    #storyLineMediaInformation {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background-color: #41a8de;
+.app-sidebar {
+    top: 44px;
+}
 
-        p {
-            margin-top: 30%;
-            text-align: center;
-            color: #ffffff;
-            font-size: 28px;
-            white-space: pre-wrap;
-        }
-    }
+html, body, #_wrapper {
+    min-height: 0;
+}
 
-    #storyLine {
-        display: none;
-        min-width: 100%;
-        height: 100vh;
-        background-color: #41a8de;
-        white-space: nowrap;
-        padding-bottom: 0;
+#_wrapper {
+    #_main {
+        height: auto;
+        min-height: inherit;
+        margin-bottom: 0;
 
-        .innerStory {
-            min-width: 100%;
+        #storyLineMediaInformation {
+            position: fixed;
+            width: 100%;
             height: 100%;
-            position: relative;
+            background-color: #41a8de;
 
-            .far, .medium, .near {
-                position: absolute;
-                top: 0;
-                left: 0;
-                display: block;
+            p {
+                margin-top: 30%;
+                text-align: center;
+                color: #ffffff;
+                font-size: 28px;
+                white-space: pre-wrap;
+            }
+        }
+
+        #storyLine {
+            display: none;
+            min-width: 100%;
+            height: 100vh;
+            background-color: #41a8de;
+            white-space: nowrap;
+            padding-bottom: 0;
+            margin-top: 90px;
+
+            .innerStory {
+                min-width: 100%;
                 height: 100%;
-                min-height: 680px;
-            }
-
-            .far {
                 position: relative;
-                overflow: hidden;
 
-                background: #5eb7e4;
-                background: -moz-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
-                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5eb7e4), color-stop(100%, #7db9e8));
-                background: -webkit-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
-                background: -o-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
-                background: -ms-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
-                background: linear-gradient(to bottom, #5eb7e4 0%, #7db9e8 100%);
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5eb7e4', endColorstr='#7db9e8', GradientType=0);
-
-                .clouds {
-                    background: url(/WydatkiPoslow/img/background_clouds.png) bottom left no-repeat;
-                    width: 100%;
+                .far, .medium, .near {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: block;
                     height: 100%;
-                    position: absolute;
+                    min-height: 680px;
                 }
-            }
 
-            .medium {
-                .stat {
-                    border-left: 6px solid #FFFFFF;
-                    color: #FFFFFF;
-                    padding-left: 25px;
-                    opacity: 0;
-                    position: absolute;
-                    top: auto;
-                    line-height: 32px;
-                    z-index: 2;
+                .far {
+                    position: relative;
+                    overflow: hidden;
 
-                    p {
+                    background: #5eb7e4;
+                    background: -moz-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
+                    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5eb7e4), color-stop(100%, #7db9e8));
+                    background: -webkit-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
+                    background: -o-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
+                    background: -ms-linear-gradient(top, #5eb7e4 0%, #7db9e8 100%);
+                    background: linear-gradient(to bottom, #5eb7e4 0%, #7db9e8 100%);
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5eb7e4', endColorstr='#7db9e8', GradientType=0);
 
-                        padding: 0;
-                        margin: 0;
+                    .clouds {
+                        background: url(/WydatkiPoslow/img/background_clouds.png) bottom left no-repeat;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                    }
+                }
 
-                        small {
+                .medium {
+                    .stat {
+                        border-left: 6px solid #FFFFFF;
+                        color: #FFFFFF;
+                        padding-left: 25px;
+                        opacity: 0;
+                        position: absolute;
+                        top: auto;
+                        line-height: 32px;
+                        z-index: 2;
+
+                        p {
+
+                            padding: 0;
+                            margin: 0;
+
+                            small {
+                                display: block;
+                            }
+                            .number {
+                                font-size: 54px;
+                                font-weight: 600;
+
+                                small {
+                                    display: inline;
+                                    font-size: 24px;
+                                }
+                            }
+
+                            .l {
+                                text-transform: uppercase;
+                                font-size: 10px;
+                            }
+
+                        }
+
+                        .nposel {
+                            img {
+                                margin-right: 5px;
+                            }
+                        }
+
+                        .srednio {
                             display: block;
                         }
-                        .number {
-                            font-size: 54px;
-                            font-weight: 600;
 
-                            small {
-                                display: inline;
-                                font-size: 24px;
-                            }
-                        }
+                        .najwiecej {
+                            display: block;
+                            .number {
+                                font-size: 36px;
+                                line-height: 22px;
 
-                        .l {
-                            text-transform: uppercase;
-                            font-size: 10px;
-                        }
-
-                    }
-
-                    .nposel {
-                        img {
-                            margin-right: 5px;
-                        }
-                    }
-
-                    .srednio {
-                        display: block;
-                    }
-
-                    .najwiecej {
-                        display: block;
-                        .number {
-                            font-size: 36px;
-                            line-height: 22px;
-
-                            small {
-                                font-size: 18px;
-                            }
-                        }
-                    }
-
-                    &.out {
-                        opacity: 1;
-                    }
-
-                    > span {
-                        font-size: 22px;
-                        line-height: 28px;
-                        display: block;
-                        white-space: pre-line;
-                        width: 400px;
-
-                        &.tooltipIcon .glyphicon {
-                            color: #FFFFFF;
-                            margin-left: 8px;
-                            position: relative;
-                            top: 0;
-                        }
-                    }
-
-                    > strong {
-                        font-size: 54px;
-                        line-height: 72px;
-
-                        small {
-                            font-size: 24px;
-                        }
-
-                        small.l {
-                            font-size: 11px;
-                            font-weight: 400;
-                            text-transform: uppercase;
-                            margin-right: 5px;
-                        }
-                    }
-
-                    > .icon {
-                        display: inline-block;
-                        float: left;
-                        font-size: 10px;
-                        padding-left: 4px;
-                        text-transform: uppercase;
-
-                        &:before {
-                            margin-right: 10px;
-                        }
-                    }
-                }
-
-                .scene {
-                    width: 1204px;
-                    height: 100%;
-                    display: inline-block;
-                    vertical-align: top;
-                    white-space: nowrap;
-                    margin-right: -4px;
-                    position: relative;
-
-                    &:last-child {
-                        margin-right: 0;
-                    }
-
-                    .marker {
-                        //background-color: red;
-                        display: block;
-                        height: 500px;
-                        position: absolute;
-                        width: 5px;
-                        bottom: 0;
-                    }
-
-                    .stat {
-                        .shadow();
-                    }
-
-                    &.intro {
-                        background: url(/WydatkiPoslow/img/default_green.png) bottom left repeat-x;
-                        position: relative;
-                        text-align: center;
-
-                        .title {
-                            padding: 10px 65px;
-
-                            h3 {
-                                color: #ffffff;
-                                font-size: 40px;
-                                white-space: pre-wrap;
-
-                                strong {
-                                    font-size: 65px;
+                                small {
+                                    font-size: 18px;
                                 }
                             }
                         }
-                        .subtitle {
-                            color: #FFF;
-                        }
-                        .wyjazdyBtn {
-                            position: absolute;
-                            top: 50%;
-                            left: 0;
-                            z-index: 2;
-                            width: 380px;
-                            height: 142px;
-                            background: url(/WydatkiPoslow/img/button/wyjazdyBtn.png) bottom left no-repeat #003b6d;
-                            display: block;
-                            padding: 30px 40px 30px 130px;
-                            text-align: left;
 
-                            font-size: 18px;
-                            line-height: 20px;
-                            font-weight: bold;
-                            color: #ffffff;
+                        &.out {
+                            opacity: 1;
+                        }
+
+                        > span {
+                            font-size: 22px;
+                            line-height: 28px;
+                            display: block;
+                            white-space: pre-line;
+                            width: 400px;
+
+                            &.tooltipIcon .glyphicon {
+                                color: #FFFFFF;
+                                margin-left: 8px;
+                                position: relative;
+                                top: 0;
+                            }
+                        }
+
+                        > strong {
+                            font-size: 54px;
+                            line-height: 72px;
+
+                            small {
+                                font-size: 24px;
+                            }
+
+                            small.l {
+                                font-size: 11px;
+                                font-weight: 400;
+                                text-transform: uppercase;
+                                margin-right: 5px;
+                            }
+                        }
+
+                        > .icon {
+                            display: inline-block;
+                            float: left;
+                            font-size: 10px;
+                            padding-left: 4px;
                             text-transform: uppercase;
 
-                            -webkit-transform: translate(0, -50%);
-                            -moz-transform: translate(0, -50%);
-                            -ms-transform: translate(0, -50%);
-                            -o-transform: translate(0, -50%);
-                            transform: translate(0, -50%);
+                            &:before {
+                                margin-right: 10px;
+                            }
+                        }
+                    }
 
-                            i, > span {
+                    .scene {
+                        width: 1204px;
+                        height: 100%;
+                        display: inline-block;
+                        vertical-align: top;
+                        white-space: nowrap;
+                        margin-right: -4px;
+                        position: relative;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        .marker {
+                            //background-color: red;
+                            display: block;
+                            height: 500px;
+                            position: absolute;
+                            width: 5px;
+                            bottom: 0;
+                        }
+
+                        .stat {
+                            .shadow();
+                        }
+
+                        &.intro {
+                            background: url(/WydatkiPoslow/img/default_green.png) bottom left repeat-x;
+                            position: relative;
+                            text-align: center;
+
+                            .title {
+                                padding: 10px 65px;
+
+                                h3 {
+                                    color: #ffffff;
+                                    font-size: 40px;
+                                    white-space: pre-wrap;
+
+                                    strong {
+                                        font-size: 65px;
+                                    }
+                                }
+                            }
+                            .subtitle {
+                                color: #FFF;
+                            }
+                            .wyjazdyBtn {
                                 position: absolute;
                                 top: 50%;
-                                right: 15px;
+                                left: 0;
+                                z-index: 2;
+                                width: 380px;
+                                height: 142px;
+                                background: url(/WydatkiPoslow/img/button/wyjazdyBtn.png) bottom left no-repeat #003b6d;
+                                display: block;
+                                padding: 30px 40px 30px 130px;
+                                text-align: left;
+
+                                font-size: 18px;
+                                line-height: 20px;
+                                font-weight: bold;
+                                color: #ffffff;
+                                text-transform: uppercase;
 
                                 -webkit-transform: translate(0, -50%);
                                 -moz-transform: translate(0, -50%);
                                 -ms-transform: translate(0, -50%);
                                 -o-transform: translate(0, -50%);
                                 transform: translate(0, -50%);
+
+                                i, > span {
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 15px;
+
+                                    -webkit-transform: translate(0, -50%);
+                                    -moz-transform: translate(0, -50%);
+                                    -ms-transform: translate(0, -50%);
+                                    -o-transform: translate(0, -50%);
+                                    transform: translate(0, -50%);
+                                }
                             }
-                        }
-                        .scrollHint {
-                            display: block;
-                            height: 66vh;
-                            width: 100vw;
-                            max-width: 850px;
-                            min-width: 400px;
-                            left: 50%;
-                            bottom: 40px;
-                            position: absolute;
-
-                            -webkit-transform: translate(-50%, 0);
-                            -moz-transform: translate(-50%, 0);
-                            -ms-transform: translate(-50%, 0);
-                            -o-transform: translate(-50%, 0);
-                            transform: translate(-50%, 0);
-
-                            .social {
-                                bottom: 20px;
+                            .scrollHint {
+                                display: block;
+                                height: 66vh;
+                                width: 100vw;
+                                max-width: 850px;
+                                min-width: 400px;
                                 left: 50%;
-                                position: absolute;
-                                width: 200px;
-                                margin-left: -100px;
-                                text-align: center;
-                            }
-
-                            > img {
-                                position: absolute;
-                            }
-                            .scrollInfo {
-                                top: 0;
-                                height: 52%;
-                                left: 50%;
-
-                                -webkit-transform: translate(-50%, 0);
-                                -moz-transform: translate(-50%, 0);
-                                -ms-transform: translate(-50%, 0);
-                                -o-transform: translate(-50%, 0);
-                                transform: translate(-50%, 0);
-                            }
-                            .poslankaBckgrnd, .poselBckgrnd {
-                                height: 80%;
                                 bottom: 40px;
-                            }
-                            .poslankaBckgrnd {
-                                left: 0;
-                            }
-                            .poselBckgrnd {
-                                right: 0;
-                            }
-                            .wszystkie {
-                                bottom: 180px;
                                 position: absolute;
-                                left: 50%;
 
                                 -webkit-transform: translate(-50%, 0);
                                 -moz-transform: translate(-50%, 0);
                                 -ms-transform: translate(-50%, 0);
                                 -o-transform: translate(-50%, 0);
                                 transform: translate(-50%, 0);
-                            }
-                        }
-                    }
-                    &.sejm {
-                        background: url(/WydatkiPoslow/img/scene_01_sejm_background.png) bottom left no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
 
-                        .building {
-                            background: url(/WydatkiPoslow/img/scene_01_sejm_building.png) left top no-repeat;
-                            bottom: 117px;
-                            height: 413px;
-                            left: 160px;
-                            position: absolute;
-                            width: 590px;
-                            z-index: 3;
-                        }
-
-                        .stat.wyplacane {
-                            bottom: 560px;
-                            left: 160px;
-                        }
-
-                        .stat.diety {
-                            bottom: 560px;
-                            left: 600px;
-                        }
-
-                    }
-                    &.biuro {
-                        background: url(/WydatkiPoslow/img/scene_02_biuro.png) 300px bottom no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .stat.biura {
-                            bottom: 390px;
-                            right: 600px;
-                        }
-
-                        .stat.pracownikow {
-                            bottom: 440px;
-                            right: 134px;
-                        }
-
-                        .stat.konserwacje {
-                            bottom: 480px;
-                            right: 0;
-                        }
-
-                        .stat.naprawy {
-                            bottom: 250px;
-                            right: 0;
-                        }
-                        .marker {
-                            right: 200px;
-                        }
-                    }
-                    &.sklep {
-                        background: url(/WydatkiPoslow/img/scene_02.5_sklep.png) bottom right no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .stat.materialy {
-                            bottom: 450px;
-                            right: 405px;
-                        }
-                        .stat.srodki {
-                            bottom: 450px;
-                            right: -107px;
-                        }
-
-                        .marker {
-                            right: 300px;
-                        }
-                    }
-                    &.szpital {
-                        background: url(/WydatkiPoslow/img/scene_03_skrzynka.png) bottom left no-repeat, url(/WydatkiPoslow/img/scene_04_szpital.png) bottom right no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .stat.korespondencja {
-                            bottom: 260px;
-                            left: 48px;
-                        }
-                        .stat.badania {
-                            bottom: 470px;
-                            right: 135px;
-                        }
-                        .stat.swiadczenia {
-                            bottom: 470px;
-                            right: -285px;
-                        }
-                    }
-                    &.bank {
-                        background: url(/WydatkiPoslow/img/scene_05_bank.png) bottom center no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .stat.rachunki {
-                            bottom: 520px;
-                            left: 50%;
-                            margin-left: 195px;
-                        }
-                    }
-                    &.spotkanie {
-                        background: url(/WydatkiPoslow/img/scene_06_spotkanie.png) bottom left no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .name {
-                            bottom: 302px;
-                            color: #ffffff;
-                            display: table;
-                            font-size: 26px;
-                            height: 88px;
-                            left: 313px;
-                            line-height: 30px;
-                            padding: 14px 15px;
-                            position: absolute;
-                            text-align: center;
-                            text-transform: uppercase;
-                            width: 342px;
-
-                            p {
-                                display: table-cell;
-                                vertical-align: middle;
-                            }
-                        }
-
-                        .men {
-                            width: 67px;
-                            height: 123px;
-                            position: absolute;
-                            bottom: 108px;
-                            left: 536px;
-                            background: url(/WydatkiPoslow/img/scene_06_spotkanie_men.png) top left no-repeat;
-                            z-index: 2;
-                        }
-
-                        .stat.sala {
-                            bottom: 450px;
-                            left: 370px;
-                        }
-                        .marker {
-                            right: 150px;
-                        }
-                    }
-                    &.tlumaczenia {
-                        background: url(/WydatkiPoslow/img/scene_07_tlumaczenia.png) 700px bottom no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .stat.przejazd {
-                            bottom: 280px;
-                            left: 0;
-                        }
-
-                        .stat.ekspertyzy {
-                            bottom: 510px;
-                            right: 64px;
-                        }
-
-                        .stat.zlecenia {
-                            bottom: 510px;
-                            right: -350px;
-                        }
-
-                        .marker {
-                            right: 1000px;
-                        }
-                    }
-                    &.dom {
-                        background: url(/WydatkiPoslow/img/scene_08_dom.png) bottom right no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .telefonDom {
-                            bottom: 260px;
-                            left: 50px;
-                        }
-                        .telefonPosel {
-                            bottom: 260px;
-                            left: 315px;
-                        }
-                        .stat.prywatny {
-                            bottom: 500px;
-                            right: -400px;
-                        }
-                        .stat.dom {
-                            bottom: 290px;
-                            right: -400px;
-                        }
-                    }
-                    &.droga {
-                        background: url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
-
-                        .stat.taksowka {
-                            bottom: 250px;
-                            left: 50%;
-                            margin-left: -100px;
-                        }
-
-                        .marker {
-                            left: 150px;
-                        }
-                    }
-                    &.lotnisko {
-                        background: url(/WydatkiPoslow/img/scene_09_lotnisko_background.png) bottom left no-repeat, url(/WydatkiPoslow/img/default_airport.png) bottom left repeat-x;
-
-                        .building {
-                            background: url(/WydatkiPoslow/img/scene_09_lotnisko_building.png) top left no-repeat;
-                            bottom: 116px;
-                            height: 336px;
-                            left: 0;
-                            position: absolute;
-                            width: 434px;
-                            z-index: 1;
-                        }
-
-                        .stat.loty {
-                            bottom: 455px;
-                            left: 200px;
-
-                            a {
-                                float: left;
-                                clear: both;
-                                margin: 10px 0;
-                            }
-                        }
-                        .marker {
-                            right: 250px;
-                        }
-                    }
-                    &.lot {
-                        background: url(/WydatkiPoslow/img/default_airport.png) bottom left repeat-x;
-                    }
-                    &.stats {
-                        background-color: #41a8de;
-                        z-index: 1;
-
-                        .repeat {
-                            cursor: pointer;
-                        }
-
-                        .scrollHint {
-                            display: block;
-                            height: 66vh;
-                            width: 100vw;
-                            max-width: 850px;
-                            min-width: 400px;
-                            left: 50%;
-                            bottom: 40px;
-                            position: absolute;
-
-                            -webkit-transform: translate(-50%, 0);
-                            -moz-transform: translate(-50%, 0);
-                            -ms-transform: translate(-50%, 0);
-                            -o-transform: translate(-50%, 0);
-                            transform: translate(-50%, 0);
-
-                            .social {
-                                bottom: 20px;
-                                left: 50%;
-                                position: absolute;
-                                width: 200px;
-                                margin-left: -100px;
-                                text-align: center;
-                            }
-
-                            > img {
-                                position: absolute;
-                            }
-                            .scrollInfo {
-                                top: 0;
-                                height: 52%;
-                                left: 50%;
-
-                                -webkit-transform: translate(-50%, 0);
-                                -moz-transform: translate(-50%, 0);
-                                -ms-transform: translate(-50%, 0);
-                                -o-transform: translate(-50%, 0);
-                                transform: translate(-50%, 0);
-                            }
-                            .poslankaBckgrnd, .poselBckgrnd {
-                                height: 80%;
-                                bottom: 40px;
-                            }
-                            .poslankaBckgrnd {
-                                left: 0;
-                            }
-                            .poselBckgrnd {
-                                right: 0;
-                            }
-                            .wszystkie {
-                                bottom: 180px;
-                                position: absolute;
-                                left: 50%;
-
-                                -webkit-transform: translate(-50%, 0);
-                                -moz-transform: translate(-50%, 0);
-                                -ms-transform: translate(-50%, 0);
-                                -o-transform: translate(-50%, 0);
-                                transform: translate(-50%, 0);
-                            }
-                        }
-
-                        .screen {
-                            float: left;
-                            height: 100%;
-
-                            .moneyLeft {
-                                padding: 88px 20px 0;
-
-                                .title {
-                                    > h3 {
-                                        color: #ffffff;
-                                        font-size: 34px;
-                                    }
-                                    > h2 {
-                                        color: #ffffff;
-                                        font-size: 210px;
-                                        font-weight: bold;
-                                        margin-top: -38px;
-                                        margin-bottom: -10px;
-
-                                        small {
-                                            color: #ffffff;
-                                            font-size: 70px;
-                                            font-weight: bold;
-                                            margin-left: -55px;
-                                        }
-                                    }
-                                }
-
-                                .infoIcon {
-                                    color: #ffffff;
-                                    float: left;
-                                    font-size: 17px;
-                                    line-height: 51px;
-                                    text-transform: uppercase;
-
-                                    &:before {
-                                        margin-right: 10px;
-                                    }
-                                }
-                                .moreLinks {
-                                    float: left;
-                                    margin-top: 80px;
-                                    width: 100%;
-
-                                    .button {
-                                        font-size: 16px;
-                                        padding: 1px 5px;
-                                        text-transform: uppercase;
-                                        border: 2px solid #ffffff;
-                                        margin: 0 20px;
-
-                                        &:before {
-                                            margin-left: -32px;
-                                            margin-right: 28px;
-                                        }
-
-                                        a {
-                                            color: #ffffff;
-                                            display: block;
-                                            padding: 4px 0;
-                                            white-space: pre-wrap;
-                                        }
-                                    }
-                                }
-                            }
-                            .list {
-                                > h3 {
-                                    color: #ffffff;
-                                    font-size: 45px;
-                                    font-weight: bold;
+                                .social {
+                                    bottom: 20px;
+                                    left: 50%;
+                                    position: absolute;
+                                    width: 200px;
+                                    margin-left: -100px;
                                     text-align: center;
                                 }
 
-                                .options {
-                                    margin-top: 25px;
-                                    margin-bottom: 10px;
+                                > img {
+                                    position: absolute;
+                                }
+                                .scrollInfo {
+                                    top: 0;
+                                    height: 52%;
+                                    left: 50%;
+
+                                    -webkit-transform: translate(-50%, 0);
+                                    -moz-transform: translate(-50%, 0);
+                                    -ms-transform: translate(-50%, 0);
+                                    -o-transform: translate(-50%, 0);
+                                    transform: translate(-50%, 0);
+                                }
+                                .poslankaBckgrnd, .poselBckgrnd {
+                                    height: 80%;
+                                    bottom: 40px;
+                                }
+                                .poslankaBckgrnd {
+                                    left: 0;
+                                }
+                                .poselBckgrnd {
+                                    right: 0;
+                                }
+                                .wszystkie {
+                                    bottom: 180px;
+                                    position: absolute;
+                                    left: 50%;
+
+                                    -webkit-transform: translate(-50%, 0);
+                                    -moz-transform: translate(-50%, 0);
+                                    -ms-transform: translate(-50%, 0);
+                                    -o-transform: translate(-50%, 0);
+                                    transform: translate(-50%, 0);
+                                }
+                            }
+                        }
+                        &.sejm {
+                            background: url(/WydatkiPoslow/img/scene_01_sejm_background.png) bottom left no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .building {
+                                background: url(/WydatkiPoslow/img/scene_01_sejm_building.png) left top no-repeat;
+                                bottom: 117px;
+                                height: 413px;
+                                left: 160px;
+                                position: absolute;
+                                width: 590px;
+                                z-index: 3;
+                            }
+
+                            .stat.wyplacane {
+                                bottom: 560px;
+                                left: 160px;
+                            }
+
+                            .stat.diety {
+                                bottom: 560px;
+                                left: 600px;
+                            }
+
+                        }
+                        &.biuro {
+                            background: url(/WydatkiPoslow/img/scene_02_biuro.png) 300px bottom no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .stat.biura {
+                                bottom: 390px;
+                                right: 600px;
+                            }
+
+                            .stat.pracownikow {
+                                bottom: 440px;
+                                right: 134px;
+                            }
+
+                            .stat.konserwacje {
+                                bottom: 480px;
+                                right: 0;
+                            }
+
+                            .stat.naprawy {
+                                bottom: 250px;
+                                right: 0;
+                            }
+                            .marker {
+                                right: 200px;
+                            }
+                        }
+                        &.sklep {
+                            background: url(/WydatkiPoslow/img/scene_02.5_sklep.png) bottom right no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .stat.materialy {
+                                bottom: 450px;
+                                right: 405px;
+                            }
+                            .stat.srodki {
+                                bottom: 450px;
+                                right: -107px;
+                            }
+
+                            .marker {
+                                right: 300px;
+                            }
+                        }
+                        &.szpital {
+                            background: url(/WydatkiPoslow/img/scene_03_skrzynka.png) bottom left no-repeat, url(/WydatkiPoslow/img/scene_04_szpital.png) bottom right no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .stat.korespondencja {
+                                bottom: 260px;
+                                left: 48px;
+                            }
+                            .stat.badania {
+                                bottom: 470px;
+                                right: 135px;
+                            }
+                            .stat.swiadczenia {
+                                bottom: 470px;
+                                right: -285px;
+                            }
+                        }
+                        &.bank {
+                            background: url(/WydatkiPoslow/img/scene_05_bank.png) bottom center no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .stat.rachunki {
+                                bottom: 520px;
+                                left: 50%;
+                                margin-left: 195px;
+                            }
+                        }
+                        &.spotkanie {
+                            background: url(/WydatkiPoslow/img/scene_06_spotkanie.png) bottom left no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .name {
+                                bottom: 302px;
+                                color: #ffffff;
+                                display: table;
+                                font-size: 26px;
+                                height: 88px;
+                                left: 313px;
+                                line-height: 30px;
+                                padding: 14px 15px;
+                                position: absolute;
+                                text-align: center;
+                                text-transform: uppercase;
+                                width: 342px;
+
+                                p {
+                                    display: table-cell;
+                                    vertical-align: middle;
+                                }
+                            }
+
+                            .men {
+                                width: 67px;
+                                height: 123px;
+                                position: absolute;
+                                bottom: 108px;
+                                left: 536px;
+                                background: url(/WydatkiPoslow/img/scene_06_spotkanie_men.png) top left no-repeat;
+                                z-index: 2;
+                            }
+
+                            .stat.sala {
+                                bottom: 450px;
+                                left: 370px;
+                            }
+                            .marker {
+                                right: 150px;
+                            }
+                        }
+                        &.tlumaczenia {
+                            background: url(/WydatkiPoslow/img/scene_07_tlumaczenia.png) 700px bottom no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .stat.przejazd {
+                                bottom: 280px;
+                                left: 0;
+                            }
+
+                            .stat.ekspertyzy {
+                                bottom: 510px;
+                                right: 64px;
+                            }
+
+                            .stat.zlecenia {
+                                bottom: 510px;
+                                right: -350px;
+                            }
+
+                            .marker {
+                                right: 1000px;
+                            }
+                        }
+                        &.dom {
+                            background: url(/WydatkiPoslow/img/scene_08_dom.png) bottom right no-repeat, url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .telefonDom {
+                                bottom: 260px;
+                                left: 50px;
+                            }
+                            .telefonPosel {
+                                bottom: 260px;
+                                left: 315px;
+                            }
+                            .stat.prywatny {
+                                bottom: 500px;
+                                right: -400px;
+                            }
+                            .stat.dom {
+                                bottom: 290px;
+                                right: -400px;
+                            }
+                        }
+                        &.droga {
+                            background: url(/WydatkiPoslow/img/default_road.png) bottom left repeat-x;
+
+                            .stat.taksowka {
+                                bottom: 250px;
+                                left: 50%;
+                                margin-left: -100px;
+                            }
+
+                            .marker {
+                                left: 150px;
+                            }
+                        }
+                        &.lotnisko {
+                            background: url(/WydatkiPoslow/img/scene_09_lotnisko_background.png) bottom left no-repeat, url(/WydatkiPoslow/img/default_airport.png) bottom left repeat-x;
+
+                            .building {
+                                background: url(/WydatkiPoslow/img/scene_09_lotnisko_building.png) top left no-repeat;
+                                bottom: 116px;
+                                height: 336px;
+                                left: 0;
+                                position: absolute;
+                                width: 434px;
+                                z-index: 1;
+                            }
+
+                            .stat.loty {
+                                bottom: 455px;
+                                left: 200px;
+
+                                a {
+                                    float: left;
+                                    clear: both;
+                                    margin: 10px 0;
+                                }
+                            }
+                            .marker {
+                                right: 250px;
+                            }
+                        }
+                        &.lot {
+                            background: url(/WydatkiPoslow/img/default_airport.png) bottom left repeat-x;
+                        }
+                        &.stats {
+                            background-color: #41a8de;
+                            z-index: 1;
+
+                            .repeat {
+                                cursor: pointer;
+                            }
+
+                            .scrollHint {
+                                display: block;
+                                height: 66vh;
+                                width: 100vw;
+                                max-width: 850px;
+                                min-width: 400px;
+                                left: 50%;
+                                bottom: 40px;
+                                position: absolute;
+
+                                -webkit-transform: translate(-50%, 0);
+                                -moz-transform: translate(-50%, 0);
+                                -ms-transform: translate(-50%, 0);
+                                -o-transform: translate(-50%, 0);
+                                transform: translate(-50%, 0);
+
+                                .social {
+                                    bottom: 20px;
+                                    left: 50%;
+                                    position: absolute;
+                                    width: 200px;
+                                    margin-left: -100px;
+                                    text-align: center;
                                 }
 
-                                ul {
-                                    margin-top: 15px;
-                                    padding: 0;
-                                    list-style: none;
+                                > img {
+                                    position: absolute;
+                                }
+                                .scrollInfo {
+                                    top: 0;
+                                    height: 52%;
+                                    left: 50%;
 
-                                    li {
+                                    -webkit-transform: translate(-50%, 0);
+                                    -moz-transform: translate(-50%, 0);
+                                    -ms-transform: translate(-50%, 0);
+                                    -o-transform: translate(-50%, 0);
+                                    transform: translate(-50%, 0);
+                                }
+                                .poslankaBckgrnd, .poselBckgrnd {
+                                    height: 80%;
+                                    bottom: 40px;
+                                }
+                                .poslankaBckgrnd {
+                                    left: 0;
+                                }
+                                .poselBckgrnd {
+                                    right: 0;
+                                }
+                                .wszystkie {
+                                    bottom: 180px;
+                                    position: absolute;
+                                    left: 50%;
+
+                                    -webkit-transform: translate(-50%, 0);
+                                    -moz-transform: translate(-50%, 0);
+                                    -ms-transform: translate(-50%, 0);
+                                    -o-transform: translate(-50%, 0);
+                                    transform: translate(-50%, 0);
+                                }
+                            }
+
+                            .screen {
+                                float: left;
+                                height: 100%;
+
+                                .moneyLeft {
+                                    padding: 88px 20px 0;
+
+                                    .title {
+                                        > h3 {
+                                            color: #ffffff;
+                                            font-size: 34px;
+                                        }
+                                        > h2 {
+                                            color: #ffffff;
+                                            font-size: 210px;
+                                            font-weight: bold;
+                                            margin-top: -38px;
+                                            margin-bottom: -10px;
+
+                                            small {
+                                                color: #ffffff;
+                                                font-size: 70px;
+                                                font-weight: bold;
+                                                margin-left: -55px;
+                                            }
+                                        }
+                                    }
+
+                                    .infoIcon {
                                         color: #ffffff;
                                         float: left;
-                                        font-size: 15px;
-                                        padding-bottom: 8px;
+                                        font-size: 17px;
+                                        line-height: 51px;
+                                        text-transform: uppercase;
 
-                                        &:nth-child(odd) {
-                                            padding-right: 55px;
+                                        &:before {
+                                            margin-right: 10px;
                                         }
-                                        &:nth-child(even) {
-                                            padding-left: 55px;
-                                        }
+                                    }
+                                    .moreLinks {
+                                        float: left;
+                                        margin-top: 80px;
+                                        width: 100%;
 
-                                        .txt {
+                                        .button {
+                                            font-size: 16px;
+                                            padding: 1px 5px;
+                                            text-transform: uppercase;
+                                            border: 2px solid #ffffff;
+                                            margin: 0 20px;
+
+                                            &:before {
+                                                margin-left: -32px;
+                                                margin-right: 28px;
+                                            }
+
+                                            a {
+                                                color: #ffffff;
+                                                display: block;
+                                                padding: 4px 0;
+                                                white-space: pre-wrap;
+                                            }
+                                        }
+                                    }
+                                }
+                                .list {
+                                    > h3 {
+                                        color: #ffffff;
+                                        font-size: 45px;
+                                        font-weight: bold;
+                                        text-align: center;
+                                    }
+
+                                    .options {
+                                        margin-top: 25px;
+                                        margin-bottom: 10px;
+                                    }
+
+                                    ul {
+                                        margin-top: 15px;
+                                        padding: 0;
+                                        list-style: none;
+
+                                        li {
+                                            color: #ffffff;
                                             float: left;
-                                            width: 70%;
-                                            text-align: left;
-                                        }
-                                        .cash {
-                                            float: right;
-                                            text-align: right;
-                                            width: 30%;
+                                            font-size: 15px;
+                                            padding-bottom: 8px;
+
+                                            &:nth-child(odd) {
+                                                padding-right: 55px;
+                                            }
+                                            &:nth-child(even) {
+                                                padding-left: 55px;
+                                            }
+
+                                            .txt {
+                                                float: left;
+                                                width: 70%;
+                                                text-align: left;
+                                            }
+                                            .cash {
+                                                float: right;
+                                                text-align: right;
+                                                width: 30%;
+                                            }
                                         }
                                     }
                                 }
@@ -717,104 +733,104 @@
                         }
                     }
                 }
-            }
-            .near {
-                pointer-events: none;
+                .near {
+                    pointer-events: none;
 
-                .posel, .poslanka {
-                    display: block;
-                    width: 60px;
-                    height: 110px;
-                    z-index: 1;
+                    .posel, .poslanka {
+                        display: block;
+                        width: 60px;
+                        height: 110px;
+                        z-index: 1;
 
-                    position: absolute;
-                    left: -999px;
-                    bottom: 122px;
-                }
-                .posel {
-                    background: url(/WydatkiPoslow/img/animated_posel.png) top left no-repeat;
-
-                    &.outfit {
-                        background-position: -60px 0;
+                        position: absolute;
+                        left: -999px;
+                        bottom: 122px;
                     }
-                    &.phone {
-                        background-position: -128px 0;
+                    .posel {
+                        background: url(/WydatkiPoslow/img/animated_posel.png) top left no-repeat;
+
+                        &.outfit {
+                            background-position: -60px 0;
+                        }
+                        &.phone {
+                            background-position: -128px 0;
+                        }
+                    }
+                    .poslanka {
+                        background: url(/WydatkiPoslow/img/animated_poslanka.png) top left no-repeat;
+
+                        &.outfit {
+                            background-position: -60px 0;
+                        }
+                        &.phone {
+                            background-position: -123px 0;
+                        }
+                    }
+                    .samochod {
+                        display: block;
+                        width: 291px;
+                        height: 96px;
+                        background: url(/WydatkiPoslow/img/animated_samochod.png) top left no-repeat;
+                        z-index: 2;
+
+                        position: absolute;
+                        left: -999px;
+                        bottom: 105px;
+
+                        &.in {
+                            background-position: bottom left;
+                        }
+                    }
+                    .taxi {
+                        display: block;
+                        width: 303px;
+                        height: 109px;
+                        background: url(/WydatkiPoslow/img/animated_taxi.png) top left no-repeat;
+                        z-index: 2;
+
+                        opacity: 0;
+
+                        position: absolute;
+                        left: -999px;
+                        bottom: 105px;
+
+                        &.in {
+                            background-position: bottom left;
+                        }
+                    }
+                    .samolot {
+                        display: block;
+                        width: 776px;
+                        height: 273px;
+                        background: url(/WydatkiPoslow/img/animated_samolot.png) top left no-repeat;
+
+                        position: absolute;
+                        left: -999px;
+                        bottom: 138px;
                     }
                 }
-                .poslanka {
-                    background: url(/WydatkiPoslow/img/animated_poslanka.png) top left no-repeat;
 
-                    &.outfit {
-                        background-position: -60px 0;
+                .sub {
+                    text-transform: uppercase;
+                    margin-top: -20px;
+                    font-size: 11px;
+
+                    strong {
+                        font-size: 18px;
+                        margin-left: 5px;
                     }
-                    &.phone {
-                        background-position: -123px 0;
+
+                    small {
+                        font-size: 12px;
+                        font-weight: 600;
+                        margin-left: 4px;
                     }
-                }
-                .samochod {
-                    display: block;
-                    width: 291px;
-                    height: 96px;
-                    background: url(/WydatkiPoslow/img/animated_samochod.png) top left no-repeat;
-                    z-index: 2;
 
-                    position: absolute;
-                    left: -999px;
-                    bottom: 105px;
-
-                    &.in {
-                        background-position: bottom left;
+                    .posel {
+                        margin-left: 5px;
                     }
+
                 }
-                .taxi {
-                    display: block;
-                    width: 303px;
-                    height: 109px;
-                    background: url(/WydatkiPoslow/img/animated_taxi.png) top left no-repeat;
-                    z-index: 2;
-
-                    opacity: 0;
-
-                    position: absolute;
-                    left: -999px;
-                    bottom: 105px;
-
-                    &.in {
-                        background-position: bottom left;
-                    }
-                }
-                .samolot {
-                    display: block;
-                    width: 776px;
-                    height: 273px;
-                    background: url(/WydatkiPoslow/img/animated_samolot.png) top left no-repeat;
-
-                    position: absolute;
-                    left: -999px;
-                    bottom: 138px;
-                }
-            }
-
-            .sub {
-                text-transform: uppercase;
-                margin-top: -20px;
-                font-size: 11px;
-
-                strong {
-                    font-size: 18px;
-                    margin-left: 5px;
-                }
-
-                small {
-                    font-size: 12px;
-                    font-weight: 600;
-                    margin-left: 4px;
-                }
-
-                .posel {
-                    margin-left: 5px;
-                }
-
             }
         }
     }
