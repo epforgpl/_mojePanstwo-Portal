@@ -115,16 +115,7 @@
     class="theme-<?php echo $_layout['body']['theme'];
     if (empty($app_chapters['items'])) {
         echo ' app-sidebar-oneline';
-    } ?>"
-    <?php
-    if (isset($_COOKIE["mojePanstwo"])) {
-        $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
-        if (isset($mojePanstwo->background->url) && !empty($mojePanstwo->background->url))
-            $mpBackground = $mojePanstwo->background->url;
-    }
-    if ($_layout['body']['theme'] == 'wallpaper') {
-        echo 'style="background-image: url(' . @$mpBackground . ')"';
-    } ?>>
+    } ?>">
 
 <?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
