@@ -7,9 +7,7 @@ class PodatkiController extends ApplicationsController
     public $components = array('RequestHandler');
 
     public $_layout = array(
-        'header' => array(
-            'element' => 'browser',
-        ),
+        'header' => false,
         'body' => array(
             'theme' => 'simply',
         ),
@@ -17,6 +15,7 @@ class PodatkiController extends ApplicationsController
             'element' => 'default',
         ),
     );
+    
 
     public $settings = array(
         'id' => 'podatki',
@@ -677,5 +676,10 @@ class PodatkiController extends ApplicationsController
     public function metodologia()
     {
 
+    }
+    
+    public function getChapters()
+    {
+	    return array();
     }
 }

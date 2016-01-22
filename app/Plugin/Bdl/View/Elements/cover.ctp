@@ -16,7 +16,6 @@ $colors['diff'] = array(
 
 ?>
 
-
 <div class="col-xs-12">
 
     <div class="appBanner">
