@@ -1,4 +1,7 @@
-<? $this->Combinator->add_libs('css', $this->Less->css('homepage', array('plugin' => 'Start'))); ?>
+<?
+$this->Combinator->add_libs('css', $this->Less->css('homepage', array('plugin' => 'Start')));
+$this->Combinator->add_libs('js', 'Start.homepage.js');
+?>
 
 <div id="homepage" class="col-xs-12">
     <div class="appBanner">
