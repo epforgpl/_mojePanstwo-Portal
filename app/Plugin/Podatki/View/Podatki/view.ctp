@@ -341,10 +341,10 @@ $this->Combinator->add_libs('js', 'Podatki.podatki.js');
                                                     <li>
                                                         <div class="row">
                                                             <div
-                                                                class="wskaznikWartosc col-xs-1 text-right"><?= number_format(($subdzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 0, ',', ' '); ?>
+                                                                class="wskaznikWartosc col-xs-2 col-md-1 text-right"><?= number_format(($subdzial['kwota'] / $wydatki['suma']) * $kwota_podatku, 0, ',', ' '); ?>
                                                                 zł
                                                             </div>
-                                                            <div class="wskaznikText col-xs-11">
+                                                            <div class="wskaznikText col-xs-10 col-md-11">
                                                                 <span class="href"><?= $subdzial['nazwa'] ?></span>
                                                             </div>
                                                         </div>

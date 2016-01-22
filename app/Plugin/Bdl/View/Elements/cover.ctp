@@ -62,7 +62,7 @@ $colors['diff'] = array(
                             $label = $kategoria['kategoria']['nazwa'];
                             $slug = $kategoria['kategoria']['slug'];
                             ?>
-                            <div class="bdlBlock col-md-3"
+                            <div class="bdlBlock col-xs-12 col-sm-6 col-md-3"
                                  data-color="<? echo $color[0] . ', ' . $color[1] . ', ' . $color[2] ?>">
                                 <div class="item" name="<?= $slug ?>" data-id="<?= $id ?>">
                                     <a href="/bdl#<?= $slug ?>" class="inner" data-title="<?= $label ?>" data-info="">
@@ -84,14 +84,14 @@ $colors['diff'] = array(
                                                     <? foreach ($grupa['wskazniki'] as $wskazowkiId => $wskaznik) { ?>
                                                         <li>
                                                             <div class="row">
-                                                                <div class="col-xs-9">
+                                                                <div class="col-xs-8 col-md-9">
                                                                     <span class="href"
                                                                           href="/dane/bdl_wskazniki/<?= $wskaznik['bdl_wskazniki']['id'] ?>"><?= $wskaznik['bdl_wskazniki']['tytul'] ?></span>
                                                                 </div>
                                                                 <div class="col-xs-1">
                                                                     <?= @$wskaznik['bdl_wskazniki']['liczba_ostatni_rok'] ?>
                                                                 </div>
-                                                                <div class="col-xs-2">
+                                                                <div class="col-xs-3 col-md-2">
                                                                     <?= @$wskaznik['bdl_wskazniki']['poziom_str'] ?>
                                                                 </div>
                                                             </div>
