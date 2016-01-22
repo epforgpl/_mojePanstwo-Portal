@@ -1,4 +1,4 @@
-/*global $,jQuery,window,mpHeart*/
+/*global $,jQuery,window,document,mpHeart,rangy,Cookies,XMLHttpRequest*/
 
 /* REDEFINE JQUERY UI DIALOG DEFAULT OPTIONS*/
 jQuery.extend(jQuery.ui.dialog.prototype.options, {
@@ -157,46 +157,6 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 		});
 	}
 
-	/*COOKIE BACKGROUND CONTROL*/
-	if ($('body').hasClass('theme-wallpaper')) {
-		var rand = Math.floor(Math.random() * cookieBackgroundLimit);
-		jsHour = jsDate.getHours();
-
-		if (mPCookie === undefined || mPCookie.background === undefined) {
-			mPCookie.background = {
-				url: '/img/home/backgrounds/home-background-default' + rand + '.jpg',
-				current: rand,
-				limit: cookieBackgroundLimit,
-				time: jsHour
-			};
-			$('body.theme-wallpaper').css('background-image', 'url(' + mPCookie.background.url + ')');
-		} else {
-			/*COOKIE MANAGER - BACKGROUND CHANGER*/
-			if (mPCookie.background.time !== jsHour) {
-				if (mPCookie.background.current + 1 < mPCookie.background.limit) {
-					/*CHECK IF NEW BACKGROUND EXIST - IF NOT SET DEFAULT*/
-					var http = new XMLHttpRequest();
-					http.open('HEAD', '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg', false);
-					http.send();
-					if (http.status === 404) {
-						mPCookie.background.current = rand;
-						mPCookie.background.url = '/img/home/backgrounds/home-background-default' + rand + '.jpg';
-					} else {
-						mPCookie.background.current = mPCookie.background.current + 1;
-						mPCookie.background.url = '/img/home/backgrounds/home-background-default' + mPCookie.background.current + '.jpg';
-					}
-				} else {
-					mPCookie.background.current = rand;
-					mPCookie.background.url = '/img/home/backgrounds/home-background-default' + rand + '.jpg';
-				}
-				mPCookie.background.time = jsHour;
-				mPCookie.background.limit = cookieBackgroundLimit;
-			}
-		}
-
-		cookieSave(mPCookie);
-	}
-
 	/*GLOBAL MODAL FOR LOGIN VIA PASZPORT PLUGIN*/
 	if (modalPaszportLoginForm.length > 0) {
 		$('#_mojePanstwoCockpit').find('a._mojePanstwoCockpitPowerButton._mojePanstwoCockpitIcons-login').click(function (e) {
@@ -205,8 +165,27 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 		});
 		/*SPECIAL CLASS TO POP UP LOGIN BUTTON FOR SPECIAL CASE*/
 		$('._specialCaseLoginButton').click(function (e) {
+			var loginPage = $('.fullPageHeight > #modalPaszportLoginForm');
+
 			e.preventDefault();
-			modalPaszportLoginForm.modal('show');
+			if (loginPage.length) {
+				var input = loginPage.find('#UserEmail'),
+					elem = input[0],
+					pos = input.val().length;
+
+				input.focus();
+				if (elem.setSelectionRange) {
+					elem.setSelectionRange(pos, pos);
+				} else if (elem.createTextRange) {
+					var range = elem.createTextRange();
+					range.collapse(true);
+					range.moveEnd('character', pos);
+					range.moveStart('character', pos);
+					range.select();
+				}
+			} else {
+				modalPaszportLoginForm.modal('show');
+			}
 		});
 
 		$('#modalPaszportLoginForm').on('shown.bs.modal', function () {
@@ -253,6 +232,36 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 				mp_sticky_resize();
 				$(window).resize(mp_sticky_resize);
 			}
+
+			if (el.outerHeight() > window.innerHeight) {
+				if (el.find('.showStickyBottom').length === 0) {
+					el.append(
+						$('<div></div>').addClass('showStickyBottom').css('top', window.innerHeight).append(
+							$('<div></div>').addClass('pull-right btn btn-primary btn-xs').append(
+								$('<i></i>').addClass('glyphicon glyphicon-save')
+							).on('click', function () {
+								$('.showStickyBottom').stop(true, true).animate({
+									'top': el.outerHeight()
+								}, 500);
+								el.stop(true, true).animate({
+									'margin-top': -(el.outerHeight() - window.innerHeight)
+								}, 500, function () {
+									el.mouseleave(function () {
+										$('.showStickyBottom').stop(true, true).animate({
+											'top': window.innerHeight
+										}, 500);
+										el.stop(true, true).animate({
+											'margin-top': 0
+										});
+									});
+								});
+							})
+						)
+					);
+				}
+			} else {
+				el.find('.showStickyBottom').remove();
+			}
 		});
 	}
 
@@ -270,5 +279,4 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 			that.parents('.app-sidebar').find('.app-list').show();
 		}
 	});
-})
-(jQuery);
+})(jQuery);

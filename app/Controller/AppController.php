@@ -347,6 +347,8 @@ class AppController extends Controller
         ),
         'podatki' => array(
             'name' => 'Jak są wydawane moje podatki?',
+            'subname' => 'Sprawdź, ile podatków płacisz oraz na co są wydawane',
+            'desc' => 'Wpisz wysokość swoich dochodów i dowiedz się, na co konkretnie idą Twoje podatki. Dodatkowo możesz ustalić własne preferencje ich wydatkowania i przesłać je do dalszej analizy.',
             'href' => '/podatki',
             'tag' => 1,
             'icon' => '&#xe901;',
@@ -436,7 +438,7 @@ class AppController extends Controller
             'tag' => 4,
             'icon' => '&#xe902;',
         ),
-        
+
         'dane' => array(
             'name' => 'Szukaj...',
             'href' => '/dane',
@@ -449,7 +451,7 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe60e;',
         ),
-        
+
         /*
         'kody_pocztowe' => array(
             'name' => 'Kody pocztowe',
@@ -481,7 +483,7 @@ class AppController extends Controller
             'icon' => '&#xe607;',
         ),
         */
-        
+
         /*
         'moja_gmina' => array(
             'name' => 'Moja Gmina',
@@ -490,8 +492,8 @@ class AppController extends Controller
             'icon' => '&#xe605;',
         ),
         */
-        
-        
+
+
         'paszport' => array(
             'name' => 'Paszport',
             'href' => '/paszport',
@@ -519,7 +521,7 @@ class AppController extends Controller
             'href' => '/orzecznictwo',
             'tag' => 1,
             'icon' => '&#xe617;',
-        ),        
+        ),
         'sejmometr' => array(
             'name' => 'Sejmometr',
             'subname' => 'Monitoruj pracę i działania Sejmu',

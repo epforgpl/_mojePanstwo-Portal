@@ -1,4 +1,7 @@
-<? $this->Combinator->add_libs('css', $this->Less->css('homepage', array('plugin' => 'Start'))); ?>
+<?
+$this->Combinator->add_libs('css', $this->Less->css('homepage', array('plugin' => 'Start')));
+$this->Combinator->add_libs('js', 'Start.homepage.js');
+?>
 
 <div id="homepage" class="col-xs-12">
     <div class="appBanner">
@@ -26,7 +29,7 @@
                     ?>
                     <a class="col-xs-12 col-sm-6" href="<?= $a['href'] ?>" target="_self">
                         <div class="appBorder">
-                            <div class="col-md-8">
+                            <div class="col-xs-12 col-md-8">
                                 <div class="mainpart">
                                     <img src="<?= $icon_link ?>" class="icon"/>
                                     <strong><?= $a['name'] ?></strong>
@@ -40,7 +43,7 @@
                                     <? } ?>
                                 </div>
                             </div>
-                            <div class="col-md-4 sideIcon">
+                            <div class="col-xs-12 col-md-4 sideIcon">
                                 <img src="<?= $icon_side ?>" class="img-responsive"/>
                             </div>
                         </div>
