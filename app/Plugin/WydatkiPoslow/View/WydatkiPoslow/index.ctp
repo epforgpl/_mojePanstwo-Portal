@@ -2,6 +2,12 @@
 <?php $this->Combinator->add_libs('js', 'WydatkiPoslow.libs.js'); ?>
 <?php $this->Combinator->add_libs('js', 'WydatkiPoslow.wydatki_poslow.js'); ?>
 <?php $this->Combinator->add_libs('js', 'Dane.naglosnij.js'); ?>
+<?
+	echo $this->Html->css($this->Less->css('app'));
+
+	echo $this->element('headers/main');
+	echo $this->element('app/sidebar');
+?>
 
 <div id="storyLine">
     <div class="innerStory">

@@ -26,4 +26,9 @@ class WyjazdyPoslowController extends ApplicationsController
         $this->set('title_for_layout', 'Wyjazdy zagraniczne posłow w VII Kadencji Sejmu');
 
     }
+    
+    public function getChapters()
+    {
+	    return array();
+    }
 }
