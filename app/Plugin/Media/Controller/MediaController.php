@@ -144,7 +144,7 @@ class MediaController extends ApplicationsController
 		                ),
 	                ),
 	                'fielddata_fields' => array('id', 'date', 'dataset'),
-	                'size' => 7,
+	                'size' => 20,
 	            ),
 	        ),
 	        'accounts_engagement' => array(
@@ -291,7 +291,10 @@ class MediaController extends ApplicationsController
 	            ),
 	        ),
 	    );
-
+		
+		
+		// debug($selectedAccountsFilter);
+		
 
         $options = array(
             'searchTag' => array(

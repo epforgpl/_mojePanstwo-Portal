@@ -47,8 +47,8 @@ $options = array(
                                 <section class="content">
 
                                     <div class="block-bg-area">
-					                <?= $data['desc'] ?>
-				                </div>
+						                <?= $data['desc'] ?>
+					                </div>
 
                                     <? if( $organizacje = $forma['organizacje']['hits']['hits'] ) { ?>
 
