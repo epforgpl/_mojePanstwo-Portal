@@ -8,6 +8,33 @@ $options = array(
 );
 ?>
 
+<div class="col-xs-12">
+
+    <div class="appBanner">
+        <h1 class="appTitle">Orzecznictwo</h1>
+        <p class="appSubtitle">Przeglądaj orzeczenia sądów w Polsce.</p>
+
+        <div class="appSearch form-group">
+			<div class="input-group">
+				<input class="form-control" placeholder="Szukaj orzeczeń..." type="text">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-primary input-md">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+				</span>
+			</div>
+        </div>
+    </div>
+        
+</div>
+
+
+
+
+
+
+
+<? /*
 <div class="col-xs-12 col-md-3 dataAggsContainer">
     <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
 </div>
@@ -45,3 +72,4 @@ $options = array(
         </section>
     </div>
 </div>
+*/ ?>

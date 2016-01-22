@@ -1,8 +1,9 @@
 <?php
 
 App::uses('Sanitize', 'Utility');
+App::uses('ApplicationsController', 'Controller');
 
-class WydatkiPoslowController extends AppController
+class WydatkiPoslowController extends ApplicationsController
 {
     public $settings = array(
         'id' => 'wydatki_poslow',
@@ -23,5 +24,10 @@ class WydatkiPoslowController extends AppController
         $this->set('biura', $biura);
         $this->set('title_for_layout', 'Wydatki posłów');
 
+    }
+    
+    public function getChapters()
+    {
+	    return array();
     }
 }

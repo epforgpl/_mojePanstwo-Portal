@@ -20,5 +20,10 @@ class HandelZagranicznyController extends ApplicationsController
     {
         $this->set('title_for_layout', 'Handel zagraniczny');
     }
+    
+    public function getChapters()
+    {
+	    return array();
+    }
 
 }

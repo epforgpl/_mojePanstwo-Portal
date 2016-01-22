@@ -7,11 +7,15 @@ $this->Combinator->add_libs('js', '../plugins/highstock/extras/map');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $this->Combinator->add_libs('js', 'WyjazdyPoslow.wyjazdy_poslow.js');
+
+echo $this->Html->css($this->Less->css('app'));
+
+echo $this->element('headers/main');
+echo $this->element('app/sidebar');
 ?>
 
 <div class="maplabel">
     <p>Kliknij na podświetlone Państwo, aby poznać szczegóły wyjazdów.</p>
-
 </div>
 
 <div id="wyjazdyPoslowMap">
