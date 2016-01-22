@@ -8,6 +8,10 @@ $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 
 $this->Combinator->add_libs('js', 'HandelZagraniczny.handel_zagraniczny.js');
 $this->Combinator->add_libs('js', 'Dane.naglosnij.js');
+echo $this->Html->css($this->Less->css('app'));
+
+echo $this->element('headers/main');
+echo $this->element('app/sidebar');
 ?>
 
 <div id="morebg"></div>
