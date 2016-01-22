@@ -7,7 +7,7 @@ jQuery(function ($) {
 		$html = $('html'),
 		$body = $('body'),
 		$htmlBody = $('html, body'),
-		$header = $body.find('#portal-header').height() + $body.find('.app-sidebar').height() - 2,
+		$header = $body.find('#portal-header').height() + $body.find('.app-sidebar').height(),
 		$bodyWidth = $body.innerWidth(),
 
 		$story = $('#storyLine'),
@@ -169,6 +169,7 @@ jQuery(function ($) {
 			'width': $medium.outerWidth(true),
 			'height': $window.height() - $header
 		});
+		$story.find('.far').css('height', $window.height() - $header - 10);
 
 		infoController = controller = new ScrollMagic({
 			vertical: false,
