@@ -4,7 +4,6 @@ App::uses('ApplicationsController', 'Controller');
 
 class MapaController extends ApplicationsController
 {
-
     public $components = array('RequestHandler');
 
     public $settings = array(
@@ -23,25 +22,25 @@ class MapaController extends ApplicationsController
         )
     );
 
-	public function obwody()
-	{
-		
-		$data = $this->Mapa->obwody($this->request->query['id']);
-		
-		$this->set('data', $data);
-		$this->set('_serialize', 'data');
-		
-	}
-	
+    public function obwody()
+    {
+
+        $data = $this->Mapa->obwody($this->request->query['id']);
+
+        $this->set('data', $data);
+        $this->set('_serialize', 'data');
+
+    }
+
     public function view()
     {
-	            
+
         $this->title = 'Mapa';
-			
-		$options = array(
+
+        $options = array(
             'searchTag' => array(
-	            'href' => '/mapa',
-	            'label' => 'Mapa',
+                'href' => '/mapa',
+                'label' => 'Mapa',
             ),
             'conditions' => array(
                 'dataset' => array('miejsca'),
@@ -50,36 +49,36 @@ class MapaController extends ApplicationsController
             'cover' => array(
                 'aggs' => array(
                     'miejsca' => array(
-					    'filter' => array(
-						    'bool' => array(
-							    'must' => array(
-								    array(
-									    'term' => array(
-										    'dataset' => 'miejsca',
-									    ),
-								    ),
-								    array(
-									    'term' => array(
-										    'data.miejsca.typ_id' => '1',
-									    ),
-								    ),
-							    ),
-						    ),
-					    ),
-					    'aggs' => array(
-						    'top' => array(
-							    'top_hits' => array(
-								    'size' => 20,
-								    'sort' => array(
-									    'title.raw_pl' => array(
-										    'order' => 'asc',
-									    ),
-								    ),
-							    ),
-						    ),
-					    ),
-					    'scope' => 'global',
-				    ),
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'miejsca',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.miejsca.typ_id' => '1',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'size' => 20,
+                                    'sort' => array(
+                                        'title.raw_pl' => array(
+                                            'order' => 'asc',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                        'scope' => 'global',
+                    ),
                 ),
             ),
             'apps' => true,
@@ -88,100 +87,100 @@ class MapaController extends ApplicationsController
         );
 
         $this->Components->load('Dane.DataBrowser', $options);
-			
+
         if (isset($this->request->query['widget'])) {
             $this->layout = 'blank';
             $this->set('widget', true);
         }
 
     }
-    
+
     public function grid()
     {
 
         if (
-	        isset( $this->request->query['area'] ) &&
-	        @$this->request->query['layer'] 
+            isset($this->request->query['area']) &&
+            @$this->request->query['layer']
         ) {
 
             list($tl, $br) = explode(',', $this->request->query['area']);
 
             $strlen = strlen($tl);
 
-            if( $strlen==10 )
-            	$strlen = 9;
+            if ($strlen == 10)
+                $strlen = 9;
 
-            if( $strlen==12 )
-            	$strlen = 11;
+            if ($strlen == 12)
+                $strlen = 11;
 
-            if( $strlen==14 )
-            	$strlen = 13;
+            if ($strlen == 14)
+                $strlen = 13;
 
-            if( $strlen==16 )
-            	$strlen = 15;
-			
-			
-			$must = array(
-				array(
-	                'geo_bounding_box' => array(
-	                    'position' => array(
-	                        'top_left' => $tl,
-	                        'bottom_right' => $br,
-	                    ),
-	                ),
-	            ),
-			);
-			
-			if( $this->request->query['layer']=='biznes' ) {
-				
-				$must[] = array(
-	                'term' => array(
+            if ($strlen == 16)
+                $strlen = 15;
+
+
+            $must = array(
+                array(
+                    'geo_bounding_box' => array(
+                        'position' => array(
+                            'top_left' => $tl,
+                            'bottom_right' => $br,
+                        ),
+                    ),
+                ),
+            );
+
+            if ($this->request->query['layer'] == 'biznes') {
+
+                $must[] = array(
+                    'term' => array(
                         'dataset' => 'krs_podmioty',
                     ),
-				);
-				
-				$must[] = array(
-	                'term' => array(
-	                    'data.krs_podmioty.forma_prawna_typ_id' => '1',
+                );
+
+                $must[] = array(
+                    'term' => array(
+                        'data.krs_podmioty.forma_prawna_typ_id' => '1',
                     ),
-				);
-				
-				$must[] = array(
-	                'term' => array(
-	                    'data.krs_podmioty.wykreslony' => '0',
+                );
+
+                $must[] = array(
+                    'term' => array(
+                        'data.krs_podmioty.wykreslony' => '0',
                     ),
-				);
-				
-			} elseif( $this->request->query['layer']=='ngo' ) {
-				
-				$must[] = array(
-	                'term' => array(
+                );
+
+            } elseif ($this->request->query['layer'] == 'ngo') {
+
+                $must[] = array(
+                    'term' => array(
                         'dataset' => 'krs_podmioty',
                     ),
-				);
-				
-				$must[] = array(
-	                'term' => array(
-	                    'data.krs_podmioty.forma_prawna_typ_id' => '2',
+                );
+
+                $must[] = array(
+                    'term' => array(
+                        'data.krs_podmioty.forma_prawna_typ_id' => '2',
                     ),
-				);
-				
-				$must[] = array(
-	                'term' => array(
-	                    'data.krs_podmioty.wykreslony' => '0',
+                );
+
+                $must[] = array(
+                    'term' => array(
+                        'data.krs_podmioty.wykreslony' => '0',
                     ),
-				);
-							
-			} elseif( $this->request->query['layer']=='komisje_wyborcze' ) {
-				
-				$must[] = array(
-	                'term' => array(
+                );
+
+            } elseif ($this->request->query['layer'] == 'komisje_wyborcze') {
+
+                $must[] = array(
+                    'term' => array(
                         'dataset' => 'wybory_parl_obwody',
                     ),
-				);
-								
-			} 
-			
+                );
+
+            }
+
 
             $precision = floor($strlen / 2);
 
@@ -212,12 +211,12 @@ class MapaController extends ApplicationsController
                                             ),
                                         ),
                                         'top' => array(
-	                                        'top_hits' => array(
-		                                        'size' => 1,
-		                                        'fielddata_fields' => array('position.lat', 'position.lon'),
-		                                        '_source' => false,
-		                                        'fields' => array(),
-	                                        ),
+                                            'top_hits' => array(
+                                                'size' => 1,
+                                                'fielddata_fields' => array('position.lat', 'position.lon'),
+                                                '_source' => false,
+                                                'fields' => array(),
+                                            ),
                                         ),
                                         /*
                                         'lat' => array(
@@ -258,23 +257,25 @@ class MapaController extends ApplicationsController
         }
 
     }
-	
-	public function beforeRender()
-	{
-				
-		parent::beforeRender();
-		
-		if ($this->request->params['action'] == 'grid') {
+
+    public function beforeRender()
+    {
+
+        parent::beforeRender();
+
+        $this->setLayout(array('header' => false, 'footer' => false));
+
+        if ($this->request->params['action'] == 'grid') {
 
             $data = $this->viewVars['dataBrowser']['aggs']['map'];
             foreach ($data['grid']['buckets'] as &$b) {
 
                 if ($b['doc_count'] === 1) {
-										
-					$b['location'] = array(
-						'lat' => $b['top']['hits']['hits'][0]['fields']['position.lat'][0],
-						'lon' => $b['top']['hits']['hits'][0]['fields']['position.lon'][0],
-					);
+
+                    $b['location'] = array(
+                        'lat' => $b['top']['hits']['hits'][0]['fields']['position.lat'][0],
+                        'lon' => $b['top']['hits']['hits'][0]['fields']['position.lon'][0],
+                    );
 
                     unset($b['top']);
 
@@ -292,32 +293,32 @@ class MapaController extends ApplicationsController
             $this->viewVars['dataBrowser'] = $data;
 
         } else {
-						
-			if( 
-				( @$this->viewVars['dataBrowser']['mode'] == 'cover' ) && 
-				( $hits = @$this->viewVars['dataBrowser']['aggs']['miejsca']['top']['hits']['hits'] )
-			) {
-							
-				$wojewodztwa = array();
-								
-				foreach( $hits as $h )
-					$wojewodztwa[] = array_merge($h['_source']['data'], $h['_source']['static']);
-							
-				$this->set('mapParams', array(
-					'mode' => 'start',
-					'title' => 'Mapa',
-				    'children' => array(
-					    'wojewodztwa' => $wojewodztwa,
-				    ),
-				    // 'viewport' => $viewport,
-				));
-			
-			}
-		
-		}
-		
-	}
-	
+
+            if (
+                (@$this->viewVars['dataBrowser']['mode'] == 'cover') &&
+                ($hits = @$this->viewVars['dataBrowser']['aggs']['miejsca']['top']['hits']['hits'])
+            ) {
+
+                $wojewodztwa = array();
+
+                foreach ($hits as $h)
+                    $wojewodztwa[] = array_merge($h['_source']['data'], $h['_source']['static']);
+
+                $this->set('mapParams', array(
+                    'mode' => 'start',
+                    'title' => 'Mapa',
+                    'children' => array(
+                        'wojewodztwa' => $wojewodztwa,
+                    ),
+                    // 'viewport' => $viewport,
+                ));
+
+            }
+
+        }
+
+    }
+
     public function geodecode()
     {
         if (
@@ -334,5 +335,4 @@ class MapaController extends ApplicationsController
             return $this->redirect('/mapa');
         }
     }
-
 }

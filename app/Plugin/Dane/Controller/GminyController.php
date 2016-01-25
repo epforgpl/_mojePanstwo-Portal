@@ -57,10 +57,10 @@ class GminyController extends DataobjectsController
                     'id' => 'okregi',
                     'label' => 'Okręgi wyborcze',
                 ),
-                /* array(
+                array(
                     'id' => 'aktywnosci',
-                    'label' => 'Aktywności radnych',
-                ), */
+                    'label' => 'Aktywność radnych',
+                ),
             ),
         ),
         'urzad' => array(

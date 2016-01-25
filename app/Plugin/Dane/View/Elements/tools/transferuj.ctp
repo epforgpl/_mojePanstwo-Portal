@@ -1,8 +1,3 @@
-<?
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$domainName = $_SERVER['HTTP_HOST'] . '/';
-?>
-
 
 <div class="banner transferuj block<? if (isset($class)) echo " " . $class; ?>">
     <?php echo $this->Html->image('Dane.banners/pisma.svg', array('width' => '92', 'alt' => 'Stwórz pismo do organizacji', 'class' => 'pull-right')); ?>
@@ -21,33 +16,22 @@ $domainName = $_SERVER['HTTP_HOST'] . '/';
                 <h4 class="modal-title" id="transferujModalLabel"></h4>
             </div>
 
-            <form action="https://secure.tpay.com" method="POST" accept-charset="utf-8">
+            <form action="/transactions/transactions/formSubmitAction" method="POST" accept-charset="utf-8">
+                <input type="hidden" name="krs_pozycje_id" value="<?= $object->getId() ?>"/>
                 <fieldset>
                     <div class="modal-body">
-                        <? /*TODO: all hidden to Controller*/ ?>
-                        <input type="hidden" name="id" value="21638" required>
-                        <input type="hidden" name="opis" value="<?= $podmiotId; ?>" required>
-
-                        <input type="hidden"
-                               value="<?= $protocol . $domainName; ?>dane/krs_podmioty/<?= $podmiotId ?>?transaction_confirmation"
-                               name="wyn_url">
-                        <input type="hidden" value="biuro@epf.org.pl" name="wyn_email">
-                        <input type="hidden"
-                               value="<?= $protocol . $domainName; ?>dane/krs_podmioty/<?= $podmiotId ?>"
-                               name="pow_url">
-
                         <div class="form-group">
                             <label for="transferujModalKwota">Kwota</label>
                             <div class="input-group">
                                 <div class="input-group-addon">PLN</div>
-                                <input type="number" name="kwota" class="form-control" id="transferujModalKwota"
+                                <input type="number" name="amount" class="form-control" id="transferujModalKwota"
                                        min="0.01" step="0.01" value="0.01">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="transferujModalOpis">Opis transakcji</label>
-                                <textarea name="opisUser" class="form-control" id="transferujModalOpis"
-                                          placeholder="Krótki opis dla odbiorcy"></textarea>
+                            <label for="transferujModalOpis">Wiadomość</label>
+                                <textarea name="message" class="form-control" id="transferujModalOpis"
+                                          placeholder="Krótka wiadomość dla odbiorcy"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -57,19 +41,18 @@ $domainName = $_SERVER['HTTP_HOST'] . '/';
                         </div>
                         <div class="form-group">
                             <label for="transferujModalNazwisko">Nazwisko</label>
-                            <input type="text" name="nazwisko" class="form-control" id="transferujModalNazwisko"
+                            <input type="text" name="surname" class="form-control" id="transferujModalNazwisko"
                                    placeholder="Nazwisko">
                         </div>
                         <div class="form-group">
                             <label for="transferujModalImie">Imię</label>
-                            <input type="text" name="imie" class="form-control" id="transferujModalImie"
+                            <input type="text" name="firstname" class="form-control" id="transferujModalImie"
                                    placeholder="Imię">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" name="Przejdź do płatności"
-                               value="Wyślij darowiznę">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                        <input type="submit" class="btn btn-primary" value="Wyślij darowiznę">
                     </div>
                 </fieldset>
             </form>

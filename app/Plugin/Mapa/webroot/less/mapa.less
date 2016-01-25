@@ -3,11 +3,15 @@
     padding-bottom: 5px !important;
     display: inline-block;
 
+    &, a {
+        color: #d8d8d8;
+    }
+
     > header {
         display: block;
         width: 100%;
         padding: 4px 20px;
-        background-color: #F8F9FA;
+        //background-color: #F8F9FA;
         position: relative;
         cursor: pointer;
 
@@ -40,6 +44,10 @@
                 margin-top: 0;
 
             }
+        }
+
+        h2 {
+            color: #d8d8d8;
         }
     }
     > section {
@@ -189,11 +197,6 @@
     }
 }
 
-#_wrapper footer.footer {
-    display: none;
-    height: 0;
-}
-
 .searcher-app .localizeMe {
     padding-bottom: 11px;
     padding-top: 11px;
@@ -206,8 +209,240 @@
     }
 }
 
+#_wrapper footer.footer {
+    display: none;
+    height: 0;
+}
+
 .gm-style img[src="http://maps.gstatic.com/mapfiles/api-3/images/google4.png"] {
     top: -30px !important;
+}
+
+.app-sidebar .details {
+    left: 0;
+    padding: 0;
+    top: 0;
+    width: 100%;
+    float: left;
+
+    .title {
+        margin: 0;
+        padding: 0;
+
+        h1 {
+            color: #d8d8d8;
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+
+        ._label {
+            color: #d8d8d8;
+            margin-bottom: -10px;
+            padding: 20px 23px 0;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 0.75em;
+            text-transform: uppercase;
+        }
+
+        li > a {
+            float: right;
+        }
+    }
+
+    .wyboryDetail {
+        ul.meta {
+            border-top: 1px solid #ddd;
+            list-style: outside none none;
+            padding: 0 0 5px;
+            margin: 0 8px;
+
+            &:first-child {
+                border-top: none;
+            }
+
+            > li {
+                margin: 3px 0;
+                padding: 1px 15px 1px 0;
+                text-align: center;
+
+                > span, > a {
+                    margin: 0;
+                    padding: 0;
+                    width: auto;
+                }
+
+                > a {
+                    float: left;
+                    margin: 3px 0 0 4px;
+                    text-align: left;
+                }
+
+                button {
+                    min-width: 195px;
+                    margin: 3px 0;
+                }
+
+                &.komisja-adres {
+                    background: transparent url(/mapa/img/marker-google.svg) no-repeat scroll 0 4px;
+                    padding-left: 35px;
+                }
+
+                h3 {
+                    font-size: 14px;
+                    margin: 10px 0 15px;
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    h1 {
+        font-size: 24px;
+        padding: 20px;
+        margin: 0;
+    }
+
+    .info-more {
+        font-size: 13px;
+        padding: 0 20px;
+        margin: -10px 0 20px;
+    }
+
+    h2 {
+        padding: 5px;
+        margin: 0;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    > ul > li {
+        border-bottom: 1px solid #DDD;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    ul {
+        margin: 0;
+        padding: 0 15px;
+        list-style: none;
+
+        li {
+            margin: 0;
+            padding: 3px;
+            list-style: none;
+
+            .adresy {
+                color: #789;
+                font-size: 12px;
+                margin: 0 0 0 10px;
+                padding: 0 0 0 10px;
+
+                > li {
+                    margin: 0;
+                }
+            }
+
+            .dcontent {
+                position: relative;
+
+                &.setCleaner {
+                    .searcher {
+                        padding-right: 18px;
+                    }
+
+                    .cleaner {
+                        color: #ABC;
+                        font-size: 10px;
+                        padding: 10px 5px;
+                        position: absolute;
+                        right: 5px;
+                        top: 6px;
+                        z-index: 1;
+                        cursor: pointer;
+                    }
+                }
+
+                .scrollZone {
+                    padding: 0;
+                }
+
+                .searcher {
+                    margin: 5px 15px 8px 0;
+                    width: 100%;
+                }
+
+                > ul {
+                    display: inline-block;
+                    float: left;
+                    height: 90%;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    width: 100%;
+
+                    > li {
+                        &.active > a {
+                            color: #d9534f;
+                        }
+
+                        > a {
+                            display: inline-block;
+                            width: 100%;
+                            margin-left: 5px;
+                            padding-left: 2px;
+                            line-height: 1em;
+                        }
+                    }
+                }
+            }
+        }
+        &.main {
+            overflow: hidden;
+        }
+
+        &.meta {
+            border-top: 1px solid #ddd;
+            margin: -5px 20px 0;
+            padding: 10px 0;
+
+            > li {
+                display: inline-block;
+                margin: 1px 0;
+                width: 100%;
+                padding: 0 3px;
+
+                > label {
+                    margin: 7px 0 0;
+                    padding: 0;
+                    float: left;
+                    color: #789;
+                    font-size: 9px;
+                    font-weight: 600;
+                    line-height: 0.75em;
+                    text-transform: uppercase;
+                }
+
+                > span, > a {
+                    margin: 0;
+                    padding: 0;
+                    font-weight: 400;
+                    font-size: 13px;
+
+                    > .glyphicon {
+                        font-size: 0.85em;
+                        margin-left: 8px;
+                    }
+                }
+
+                p {
+                    margin-bottom: 2px;
+                }
+            }
+
+        }
+    }
 }
 
 #mapBrowser {
@@ -230,7 +465,6 @@
 
     > .map {
         width: 100%;
-        margin-left: 280px;
 
         &.nodetails {
             margin-left: 0;
@@ -263,7 +497,6 @@
 
     .explore {
         width: 100%;
-        padding-left: 280px;
         max-height: 38px;
         position: absolute;
         bottom: 1px;
@@ -369,267 +602,6 @@
                         }
                     }
                 }
-            }
-        }
-    }
-
-    > .details, > .legend {
-        position: absolute;
-        z-index: 2;
-        background-color: #f8f9fa;
-
-        box-shadow: 0 5px 10px #AAA;
-        -moz-box-shadow: 0 5px 10px #AAA;
-        -webkit-box-shadow: 0 5px 10px #AAA;
-        -o-box-shadow: 0 5px 10px #AAA;
-    }
-
-    > .legend {
-        bottom: 160px;
-        left: 285px;
-        padding: 10px;
-        margin: 0;
-        list-style: none;
-
-        li {
-            clear: both;
-            float: left;
-            display: block;
-            padding: 5px 0;
-            font-size: 12px;
-
-            > strong {
-                font-size: 1.2em;
-            }
-
-            img {
-                width: 20px;
-                height: 20px;
-                margin-top: -2px;
-                margin-right: 5px;
-            }
-        }
-    }
-
-    > .details {
-        left: 0;
-        padding: 0;
-        top: 0;
-        width: 280px;
-
-        .title {
-            background-color: #FFF;
-            border-bottom: 1px solid #DDD;
-            margin: 0;
-            padding: 0;
-
-            ._label {
-                color: #789;
-                margin-bottom: -10px;
-                padding: 20px 23px 0;
-                font-size: 10px;
-                font-weight: 600;
-                line-height: 0.75em;
-                text-transform: uppercase;
-            }
-            li > a {
-
-                float: right;
-            }
-
-        }
-
-        .wyboryDetail {
-            ul.meta {
-                border-top: 1px solid #ddd;
-                list-style: outside none none;
-                padding: 0 0 5px;
-                margin: 0 8px;
-
-                &:first-child {
-                    border-top: none;
-                }
-
-                > li {
-                    margin: 3px 0;
-                    padding: 1px 15px 1px 0;
-                    text-align: center;
-
-                    > span, > a {
-                        margin: 0;
-                        padding: 0;
-                        width: auto;
-                    }
-
-                    > a {
-                        float: left;
-                        margin: 3px 0 0 4px;
-                        text-align: left;
-                    }
-
-                    button {
-                        min-width: 195px;
-                        margin: 3px 0;
-                    }
-
-                    &.komisja-adres {
-                        background: transparent url(/mapa/img/marker-google.svg) no-repeat scroll 0 4px;
-                        padding-left: 35px;
-                    }
-
-                    h3 {
-                        font-size: 14px;
-                        margin: 10px 0 15px;
-                        padding: 0;
-                    }
-                }
-            }
-        }
-
-        h1 {
-            font-size: 24px;
-            padding: 20px;
-            margin: 0;
-        }
-
-        .info-more {
-            font-size: 13px;
-            padding: 0 20px;
-            margin: -10px 0 20px;
-        }
-
-        h2 {
-            padding: 5px;
-            margin: 0;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        > ul > li {
-            border-bottom: 1px solid #DDD;
-
-            &:last-child {
-                border-bottom: none;
-            }
-        }
-
-        ul {
-            margin: 0;
-            padding: 0 15px;
-            list-style: none;
-
-            li {
-                margin: 0;
-                padding: 3px;
-                list-style: none;
-
-                .adresy {
-                    color: #789;
-                    font-size: 12px;
-                    margin: 0 0 0 10px;
-                    padding: 0 0 0 10px;
-
-                    > li {
-                        margin: 0;
-                    }
-                }
-
-                .dcontent {
-                    position: relative;
-
-                    &.setCleaner {
-                        .searcher {
-                            padding-right: 18px;
-                        }
-
-                        .cleaner {
-                            color: #ABC;
-                            font-size: 10px;
-                            padding: 10px 5px;
-                            position: absolute;
-                            right: 15px;
-                            top: 6px;
-                            z-index: 1;
-                            cursor: pointer;
-                        }
-                    }
-
-                    .scrollZone {
-                        padding: 0 15px;
-                    }
-
-                    .searcher {
-                        margin: 5px 14px 7px;
-                        width: 90%;
-                    }
-
-                    > ul {
-                        display: inline-block;
-                        float: left;
-                        height: 90%;
-                        overflow-x: hidden;
-                        overflow-y: auto;
-                        width: 100%;
-
-                        > li {
-                            &.active > a {
-                                color: #d9534f;
-                            }
-
-                            > a {
-                                display: inline-block;
-                                width: 100%;
-                                margin-left: 5px;
-                                padding-left: 2px;
-                                line-height: 1em;
-                            }
-                        }
-                    }
-                }
-            }
-            &.main {
-                overflow: hidden;
-            }
-
-            &.meta {
-                border-top: 1px solid #ddd;
-                margin: -5px 20px 0;
-                padding: 10px 0;
-
-                > li {
-                    display: inline-block;
-                    margin: 1px 0;
-                    width: 100%;
-                    padding: 0 3px;
-
-                    > label {
-                        margin: 7px 0 0;
-                        padding: 0;
-                        float: left;
-                        color: #789;
-                        font-size: 9px;
-                        font-weight: 600;
-                        line-height: 0.75em;
-                        text-transform: uppercase;
-                    }
-
-                    > span, > a {
-                        margin: 0;
-                        padding: 0;
-                        font-weight: 400;
-                        font-size: 13px;
-
-                        > .glyphicon {
-                            font-size: 0.85em;
-                            margin-left: 8px;
-                        }
-                    }
-
-                    p {
-                        margin-bottom: 2px;
-                    }
-                }
-
             }
         }
     }
