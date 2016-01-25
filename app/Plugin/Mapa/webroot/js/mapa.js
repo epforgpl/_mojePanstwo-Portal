@@ -196,9 +196,10 @@ var MapBrowser = Class.extend({
 	init: function () {
 		var self = this;
 		self.div = $('#mapBrowser');
+		self.sidebar = $('.app-sidebar');
 		self._data = self.div.data('data');
 		self.map_div = self.div.find('.map');
-		self.detail_div = self.div.find('.details');
+		self.detail_div = self.sidebar.find('.details');
 		self.detail_div_main = self.detail_div.find('ul.main');
 		self.detail_div_main_title = self.detail_div.find('.title');
 		self.detail_div_main_accords = self.detail_div_main.find('.accord');
@@ -305,83 +306,83 @@ var MapBrowser = Class.extend({
 					}, 300);
 				});
 			}
-			
+
 			/*
-			var polygonsParent = that.find('ul.scrollZone').attr('data-polygon'),
-				polygons = that.find('li.polygons'),
-				opacity = 0.1,
-				opacityHover = 0.3;
-				
-			
-			if ( (polygonsParent !== "null") && (typeof(polygonsParent) !== "undefined")) {
-				
-				console.log(1);
-				var pol = $.parseJSON(polygonsParent),
-					polygonArray = [];
-				console.log(2);
+			 var polygonsParent = that.find('ul.scrollZone').attr('data-polygon'),
+			 polygons = that.find('li.polygons'),
+			 opacity = 0.1,
+			 opacityHover = 0.3;
 
-				for (var k = 0, len = pol.length; k < len; k++) {
-					polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
-				}
 
-				var polygon = new google.maps.Polygon({
-					paths: polygonArray,
-					strokeColor: '#d43f3a',
-					strokeOpacity: 0.8,
-					strokeWeight: 4,
-					fillOpacity: 0
-				});
+			 if ( (polygonsParent !== "null") && (typeof(polygonsParent) !== "undefined")) {
 
-				polygon.setMap(self.map);
-			}
+			 console.log(1);
+			 var pol = $.parseJSON(polygonsParent),
+			 polygonArray = [];
+			 console.log(2);
 
-			if (polygons.length > 0) {
-				$.each(polygons, function () {
-					var that = $(this),
-						pol = $.parseJSON(that.attr('data-polygon')),
-						id = that.attr('data-id'),
-						polygonArray = [];
+			 for (var k = 0, len = pol.length; k < len; k++) {
+			 polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
+			 }
 
-					for (var k = 0, len = pol.length; k < len; k++) {
-						polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
-					}
+			 var polygon = new google.maps.Polygon({
+			 paths: polygonArray,
+			 strokeColor: '#d43f3a',
+			 strokeOpacity: 0.8,
+			 strokeWeight: 4,
+			 fillOpacity: 0
+			 });
 
-					var polygon = new google.maps.Polygon({
-						paths: polygonArray,
-						strokeColor: '#226799',
-						strokeOpacity: 0.8,
-						strokeWeight: 2,
-						fillColor: '#5bc0de',
-						fillOpacity: opacity
-					});
+			 polygon.setMap(self.map);
+			 }
 
-					self.mapaPolygon[id] = polygon;
-					polygon.setMap(self.map);
+			 if (polygons.length > 0) {
+			 $.each(polygons, function () {
+			 var that = $(this),
+			 pol = $.parseJSON(that.attr('data-polygon')),
+			 id = that.attr('data-id'),
+			 polygonArray = [];
 
-					google.maps.event.addListener(polygon, "mouseover", function () {
-						this.setOptions({fillOpacity: opacityHover});
-						self.detail_div_main_accords.find('li[data-id="' + id + '"]').addClass('active');
-					});
-					google.maps.event.addListener(polygon, "click", function () {
-						location.href = self.detail_div_main_accords.find('li[data-id="' + id + '"] a').attr('href');
-					});
-					google.maps.event.addListener(polygon, "mouseout", function () {
-						this.setOptions({fillOpacity: opacity});
-						self.detail_div_main_accords.find('li[data-id="' + id + '"]').removeClass('active');
-					});
+			 for (var k = 0, len = pol.length; k < len; k++) {
+			 polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
+			 }
 
-					self.detail_div_main_accords.find('li[data-id="' + id + '"]').on('mouseover', function () {
-						self.mapaPolygon[id].setOptions({fillOpacity: opacityHover});
-						$(this).addClass('active');
-					}).on('mouseout', function () {
-						self.mapaPolygon[id].setOptions({fillOpacity: opacity});
-						$(this).removeClass('active');
-					});
+			 var polygon = new google.maps.Polygon({
+			 paths: polygonArray,
+			 strokeColor: '#226799',
+			 strokeOpacity: 0.8,
+			 strokeWeight: 2,
+			 fillColor: '#5bc0de',
+			 fillOpacity: opacity
+			 });
 
-					p += 0.05;
-				});
-			}
-			*/
+			 self.mapaPolygon[id] = polygon;
+			 polygon.setMap(self.map);
+
+			 google.maps.event.addListener(polygon, "mouseover", function () {
+			 this.setOptions({fillOpacity: opacityHover});
+			 self.detail_div_main_accords.find('li[data-id="' + id + '"]').addClass('active');
+			 });
+			 google.maps.event.addListener(polygon, "click", function () {
+			 location.href = self.detail_div_main_accords.find('li[data-id="' + id + '"] a').attr('href');
+			 });
+			 google.maps.event.addListener(polygon, "mouseout", function () {
+			 this.setOptions({fillOpacity: opacity});
+			 self.detail_div_main_accords.find('li[data-id="' + id + '"]').removeClass('active');
+			 });
+
+			 self.detail_div_main_accords.find('li[data-id="' + id + '"]').on('mouseover', function () {
+			 self.mapaPolygon[id].setOptions({fillOpacity: opacityHover});
+			 $(this).addClass('active');
+			 }).on('mouseout', function () {
+			 self.mapaPolygon[id].setOptions({fillOpacity: opacity});
+			 $(this).removeClass('active');
+			 });
+
+			 p += 0.05;
+			 });
+			 }
+			 */
 		});
 
 		if (window.location.hash.length > 0) {
@@ -400,9 +401,9 @@ var MapBrowser = Class.extend({
 
 		var obwodyBlock = $('.wyboryDetail'),
 			obwody = obwodyBlock.attr('data-obwody');
-			
-		console.log('obwody', obwody);
-		
+
+		//console.log('obwody', obwody);
+
 		if (obwody) {
 			var that = this;
 			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
@@ -546,7 +547,7 @@ var MapBrowser = Class.extend({
 		this.resize();
 	},
 	resize: function () {
-		var h = $(window).height() - $(this.div).offset().top,
+		var h = $(window).height() - $(this.div).offset().top - 4,
 			h_title = this.detail_div_main_title.outerHeight(),
 			h_accord,
 			h_explore = this.div.find('.explore').outerHeight() || 0;
@@ -555,7 +556,7 @@ var MapBrowser = Class.extend({
 			'height': h - h_explore + 'px',
 			'margin-bottom': h_explore + 'px'
 		});
-		h -= h_title;
+		h -= (h_title + 30);
 		this.detail_div_main.css('height', h);
 		if (this.div.find('.explore.hide').length) {
 			this.div.find('.explore.hide').removeClass('hide');
@@ -860,7 +861,7 @@ $(document).ready(function () {
 				self.find('>section').css('height', 0);
 				self.removeClass('closed');
 				self.find('>section').animate({
-					height: sectionH
+					height: sectionH - 16
 				}, {
 					step: function () {
 						mapBrowser.resize();
