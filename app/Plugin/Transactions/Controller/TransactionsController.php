@@ -10,8 +10,8 @@ class TransactionsController extends AppController {
     public function formSubmitAction() {
         $res = $this->Transaction->save($this->request->data);
 
-        if(isset($res['error_message']) && isset($this->request->data['krs_pozycje_id'])) {
-            $this->Session->setFlash($res['error_message'], 'default');
+        if(isset($res['error']) && isset($this->request->data['krs_pozycje_id'])) {
+            $this->Session->setFlash($res['error'], 'default');
             $this->redirect('/dane/krs_podmioty/' . $this->request->data['krs_pozycje_id']);
         } elseif(isset($res['redirect'])) {
             $this->redirect($res['redirect']);
