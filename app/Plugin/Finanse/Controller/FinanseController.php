@@ -845,6 +845,9 @@ class FinanseController extends ApplicationsController
         if($this->request->params['action'] == 'gminy') {
 
             $aggs = $this->viewVars['dataBrowser']['aggs'];
+            
+            debug($aggs); die();
+            
             $this->viewVars['dataBrowser']['aggs']['gminy'] = null;
             $this->viewVars['dataBrowser']['aggs']['gmina'] = null;
 

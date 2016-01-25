@@ -10,8 +10,8 @@ $(function () {
 	 * @return {number}
 	 */
 	function SortByDate(a, b) {
-		var aName = a.fields.source[0].data['budzety.rok'];
-		var bName = b.fields.source[0].data['budzety.rok'];
+		var aName = a._source.data['budzety']['rok'];
+		var bName = b._source.data['budzety']['rok'];
 		return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 	}
 
@@ -31,39 +31,39 @@ $(function () {
 
 	var last_year;
 	$.map(data, function (el) {
-		var self = el.fields.source[0].data;
+		var self = el._source.data;
 
-		if (self['budzety.rok'] >= startDate) {
+		if (self['budzety']['rok'] >= startDate) {
 			wyd.push({
-				id: self['budzety.id'],
-				x: self['budzety.rok'],
-				y: self['budzety.liczba_wydatki'] * 1000
+				id: self['budzety']['id'],
+				x: self['budzety']['rok'],
+				y: self['budzety']['liczba_wydatki'] * 1000
 			});
 			doch.push({
-				id: self['budzety.id'],
-				x: self['budzety.rok'],
-				y: self['budzety.liczba_dochody'] * 1000
+				id: self['budzety']['id'],
+				x: self['budzety']['rok'],
+				y: self['budzety']['liczba_dochody'] * 1000
 			});
 			def.push({
-				id: self['budzety.id'],
-				x: self['budzety.rok'],
-				y: self['budzety.liczba_deficyt'] * 1000
+				id: self['budzety']['id'],
+				x: self['budzety']['rok'],
+				y: self['budzety']['liczba_deficyt'] * 1000
 			});
 
 			def_proc.push({
-				id: self['budzety.id'],
-				x: self['budzety.rok'],
-				y: -(1 - self['budzety.liczba_wydatki'] / self['budzety.liczba_dochody'])
+				id: self['budzety']['id'],
+				x: self['budzety']['rok'],
+				y: -(1 - self['budzety']['liczba_wydatki'] / self['budzety']['liczba_dochody'])
 			});
 
-			if (premierPlotBandData.id !== self['budzety.premier_czlowiek_id']) {
+			if (premierPlotBandData.id !== self['budzety']['premier_czlowiek_id']) {
 				if (premierPlotBandData.id !== undefined) {
-					premierPlotBandData.to = self['budzety.rok'];
+					premierPlotBandData.to = self['budzety']['rok'];
 					premierPlotBandData.color = (dataPremier.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
 					dataPremier.push(premierPlotBandData);
 					premierPlotBandData = {};
 				}
-				premierPlotBandData.id = self['budzety.premier_czlowiek_id'];
+				premierPlotBandData.id = self['budzety']['premier_czlowiek_id'];
 				premierPlotBandData.label = {
 					align: 'left',
 					text: '<img class="test" src="http://resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
@@ -72,17 +72,17 @@ $(function () {
 					y: +240
 					//x: -15
 				};
-				premierPlotBandData.from = self['budzety.rok'];
-				last_year = self['budzety.rok'];
+				premierPlotBandData.from = self['budzety']['rok'];
+				last_year = self['budzety']['rok'];
 
 				if (premierPlotBandData2.id !== undefined) {
-					premierPlotBandData2.to = self['budzety.rok'];
+					premierPlotBandData2.to = self['budzety']['rok'];
 					premierPlotBandData2.color = (dataPremier2.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
 					dataPremier2.push(premierPlotBandData2);
 					premierPlotBandData2 = {};
 				}
-				premierPlotBandData2.id = self['budzety.premier_czlowiek_id'];
-				premierPlotBandData2.from = self['budzety.rok'];
+				premierPlotBandData2.id = self['budzety']['premier_czlowiek_id'];
+				premierPlotBandData2.from = self['budzety']['rok'];
 			}
 		}
 	});

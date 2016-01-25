@@ -12,81 +12,59 @@ $dane = $dataBrowser['aggs']['budzety']['top']['hits']['hits'];
 $rok1 = array();
 $rok2 = array();
 $lata = array();
+
 foreach ($dane as $rocznik) {
-    if ($rocznik['fields']['source'][0]['data']['budzety.rok'] == $p1) {
-        $rok1['premier_id'] = $rocznik['fields']['source'][0]['data']['budzety.premier_czlowiek_id'];
-        $rok1['premier'] = $rocznik['fields']['source'][0]['data']['budzety.premier_nazwa'];
-        $rok1['bezrobocie'] = $rocznik['fields']['source'][0]['data']['budzety.bezrobocie'];
-        $rok1['inflacja'] = $rocznik['fields']['source'][0]['data']['budzety.inflacja'];
-        $rok1['pkb'] = $rocznik['fields']['source'][0]['data']['budzety.pkb'];
-        $rok1['pkb_per_capita'] = $rocznik['fields']['source'][0]['data']['budzety.pkb_per_capita'];
-        $rok1['dlug_publiczny'] = $rocznik['fields']['source'][0]['data']['budzety.dlug_publiczny'] * 1000 * 1000;
-        $rok1['eur'] = $rocznik['fields']['source'][0]['data']['budzety.eur'];
-        $rok1['usd'] = $rocznik['fields']['source'][0]['data']['budzety.usd'];
-        $rok1['dem'] = $rocznik['fields']['source'][0]['data']['budzety.dem'];
-        $rok1['wydatki'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_wydatki'] * 1000;
-        $rok1['dochody'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_dochody'] * 1000;
-        $rok1['deficyt'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_deficyt'] * 1000;
+		
+    if ($rocznik['_source']['data']['budzety']['rok'] == $p1) {
+        $rok1['premier_id'] = $rocznik['_source']['data']['budzety']['premier_czlowiek_id'];
+        $rok1['premier'] = $rocznik['_source']['data']['budzety']['premier_nazwa'];
+        $rok1['bezrobocie'] = $rocznik['_source']['data']['budzety']['bezrobocie'];
+        $rok1['inflacja'] = $rocznik['_source']['data']['budzety']['inflacja'];
+        $rok1['pkb'] = $rocznik['_source']['data']['budzety']['pkb'];
+        $rok1['pkb_per_capita'] = $rocznik['_source']['data']['budzety']['pkb_per_capita'];
+        $rok1['dlug_publiczny'] = $rocznik['_source']['data']['budzety']['dlug_publiczny'] * 1000 * 1000;
+        $rok1['eur'] = $rocznik['_source']['data']['budzety']['eur'];
+        $rok1['usd'] = $rocznik['_source']['data']['budzety']['usd'];
+        $rok1['dem'] = $rocznik['_source']['data']['budzety']['dem'];
+        $rok1['wydatki'] = $rocznik['_source']['data']['budzety']['liczba_wydatki'] * 1000;
+        $rok1['dochody'] = $rocznik['_source']['data']['budzety']['liczba_dochody'] * 1000;
+        $rok1['deficyt'] = $rocznik['_source']['data']['budzety']['liczba_deficyt'] * 1000;
     }
-    if ($rocznik['fields']['source'][0]['data']['budzety.rok'] == $p2) {
-        $rok2['premier_id'] = $rocznik['fields']['source'][0]['data']['budzety.premier_czlowiek_id'];
-        $rok2['premier'] = $rocznik['fields']['source'][0]['data']['budzety.premier_nazwa'];
-        $rok2['bezrobocie'] = $rocznik['fields']['source'][0]['data']['budzety.bezrobocie'];
-        $rok2['inflacja'] = $rocznik['fields']['source'][0]['data']['budzety.inflacja'];
-        $rok2['pkb'] = $rocznik['fields']['source'][0]['data']['budzety.pkb'];
-        $rok2['pkb_per_capita'] = $rocznik['fields']['source'][0]['data']['budzety.pkb_per_capita'];
-        $rok2['dlug_publiczny'] = $rocznik['fields']['source'][0]['data']['budzety.dlug_publiczny'] * 1000 * 1000;
-        $rok2['eur'] = $rocznik['fields']['source'][0]['data']['budzety.eur'];
-        $rok2['usd'] = $rocznik['fields']['source'][0]['data']['budzety.usd'];
-        $rok2['dem'] = $rocznik['fields']['source'][0]['data']['budzety.dem'];
-        $rok2['wydatki'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_wydatki'] * 1000;
-        $rok2['dochody'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_dochody'] * 1000;
-        $rok2['deficyt'] = $rocznik['fields']['source'][0]['data']['budzety.liczba_deficyt'] * 1000;
+    
+    if ($rocznik['_source']['data']['budzety']['rok'] == $p2) {
+        $rok2['premier_id'] = $rocznik['_source']['data']['budzety']['premier_czlowiek_id'];
+        $rok2['premier'] = $rocznik['_source']['data']['budzety']['premier_nazwa'];
+        $rok2['bezrobocie'] = $rocznik['_source']['data']['budzety']['bezrobocie'];
+        $rok2['inflacja'] = $rocznik['_source']['data']['budzety']['inflacja'];
+        $rok2['pkb'] = $rocznik['_source']['data']['budzety']['pkb'];
+        $rok2['pkb_per_capita'] = $rocznik['_source']['data']['budzety']['pkb_per_capita'];
+        $rok2['dlug_publiczny'] = $rocznik['_source']['data']['budzety']['dlug_publiczny'] * 1000 * 1000;
+        $rok2['eur'] = $rocznik['_source']['data']['budzety']['eur'];
+        $rok2['usd'] = $rocznik['_source']['data']['budzety']['usd'];
+        $rok2['dem'] = $rocznik['_source']['data']['budzety']['dem'];
+        $rok2['wydatki'] = $rocznik['_source']['data']['budzety']['liczba_wydatki'] * 1000;
+        $rok2['dochody'] = $rocznik['_source']['data']['budzety']['liczba_dochody'] * 1000;
+        $rok2['deficyt'] = $rocznik['_source']['data']['budzety']['liczba_deficyt'] * 1000;
     }
-    if ($rocznik['fields']['source'][0]['data']['budzety.rok'] != 1989) {
-        $lata[] = $rocznik['fields']['source'][0]['data']['budzety.rok'];
+    
+    if ($rocznik['_source']['data']['budzety']['rok'] != 1989) {
+        $lata[] = $rocznik['_source']['data']['budzety']['rok'];
     }
+    
 }
 rsort($lata);
 $zmiana_wydatki = $rok1['wydatki'] / $rok2['wydatki'];
 $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
 ?>
 
-<div class="col-xs-12 col-sm-2 noleftpadding dataAggsContainer">
-    <div class="mp-sticky mp-sticky-disable-sm-3" data-widthFromWrapper="false">
-        <? echo $this->Element('Dane.DataBrowser/app_chapters');
-        $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
-        ?>
-        <div class="banner block">
-            <div>
-                <div class="img-cog pull-left">
-                    <span class="object-icon" data-icon-applications="&#xe901;"></span>
-                </div>
-                <p class="headline margin-top-20">Jak są wydawane <strong>moje podatki?</strong></p>
-            </div>
-            <div class="description">
-                <p>Z każdego 1000 zł podatków 65 zł przeznaczane jest na same odsetki od długu publicznego - na co
-                    jeszcze?</p>
 
-                <p>Sprawdź, ile podatków płacisz i na co są one wydawane.</p>
-                <a class="btn btn-sm btn-primary" href="/podatki">Dowiedz się więcej</a>
-            </div>
-        </div>
+<div class="col-xs-12">
+
+    <div class="appBanner">
+        <h1 class="appTitle">Finanse publiczne</h1>
+        <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>        
     </div>
-</div>
-
-<div class="col-xs-12 col-sm-10 norightpadding">
-
-	<div class="dataWrap">
-
-        <div class="appBanner">
-	        <h1 class="appTitle">Finanse publiczne</h1>
-
-            <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
-	    </div>
-
-    </div>
-
+    
     <div class="finanseBlock">
 
         <div class="chart"
@@ -933,4 +911,3 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
     </div>
 
 </div>
-
