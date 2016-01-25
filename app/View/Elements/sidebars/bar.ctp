@@ -26,11 +26,10 @@
                     } else {
                         echo '<span class="_mPAppIcon _mPIconUser roundBorder" data-icon="&#xe620;"></span>';
                     } ?>
-                    <div class="optionsBtn" data-toggle="collapse"
-                         data-target="#mPUserOptions" aria-expanded="false" aria-controls="mPUserOptions">
+                    <div class="optionsBtn">
                         <span class="glyphicon" aria-hidden="true">&#x25BC;</span>
                     </div>
-                    <ul id="mPUserOptions" class="optionsList collapse">
+                    <ul id="mPUserOptions" class="optionsList">
                         <li>
                             <a href="<?php echo $this->Html->url(array('plugin' => 'Start', 'controller' => 'Account', 'action' => 'index')); ?>"
                                target="_self"><?php echo __('LC_COCKPITBAR_USER_BASIC_INFO'); ?></a>

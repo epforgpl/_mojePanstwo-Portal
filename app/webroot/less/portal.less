@@ -7,7 +7,7 @@
     padding: 0;
     margin: 0;
     height: 44px;
-    z-index: 5;
+    z-index: 1050;
 
     #mp-logo {
         float: left;
@@ -117,6 +117,7 @@
 
             &.login {
                 cursor: pointer;
+                position: relative;
 
                 .avatar {
                     width: 30px;
@@ -132,29 +133,35 @@
                     color: @backgroundTextColorBrighter;
                 }
                 .optionsList {
-                    margin: 0;
-                    padding: 0;
-                    list-style-type: none;
                     background-color: @backgroundColor;
                     position: absolute;
                     right: 0;
-                    top: 35px;
-                    width: 100px;
-                    font-size: 14px;
-                    z-index: 2;
+                    top: 55px;
+                    width: 140px;
+                    border: 1px solid darken(@backgroundColor, 10%);
+                    margin: 0;
+                    z-index: 10;
+                    display: none;
+                    padding: 10px 15px;
+
+                    &::before {
+                        @size: 12px;
+
+                        content: ' ';
+                        position: absolute;
+                        top: -@size;
+                        right: 20px;
+                        width: 0;
+                        height: 0;
+                        border-left: @size solid transparent;
+                        border-right: @size solid transparent;
+                        border-bottom: @size solid @backgroundColor;
+                    }
 
                     li {
                         padding: 0;
                         width: 100%;
                         float: left;
-
-                        &:first-child {
-                            padding-top: 10px;
-                        }
-
-                        &:last-child {
-                            padding-bottom: 10px;
-                        }
 
                         a {
                             display: block;

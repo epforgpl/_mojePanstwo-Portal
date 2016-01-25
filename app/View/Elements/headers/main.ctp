@@ -45,8 +45,7 @@
                         $name = $this->Session->read('Auth.User.personal_name') . ' ' . $this->Session->read('Auth.User.personal_lastname');
                     } ?>
 
-                    <div class="optionsBtn" data-toggle="collapse" data-target="#mPUserOptions" aria-expanded="false"
-                         aria-controls="mPUserOptions">
+                    <div class="optionsBtn">
                         <?php if ($this->Session->read('Auth.User.photo_small')) {
                             echo '<img class="avatar" src="' . $this->Session->read('Auth.User.photo_small') . '" alt=""/>';
                         } else {
@@ -60,7 +59,7 @@
                                 )
                             ); ?></p>
                     </div>
-                    <ul id="mPUserOptions" class="optionsList collapse">
+                    <ul id="mPUserOptions" class="optionsList">
                         <li>
                             <a href="<?php echo $this->Html->url(array('plugin' => 'Start', 'controller' => 'Account', 'action' => 'index')); ?>"
                                target="_self"><?php echo __('LC_COCKPITBAR_USER_BASIC_INFO'); ?></a>

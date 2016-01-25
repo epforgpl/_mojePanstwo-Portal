@@ -1,6 +1,8 @@
 /*global jQuery*/
 (function ($) {
 	var _mPCockpit = $('#portal-header'),
+		login = _mPCockpit.find('.app-icons li.login'),
+		loginOption = login.find('#mPUserOptions'),
 		apps = _mPCockpit.find('.app-icons li.apps'),
 		appList = apps.find('.appsList');
 
@@ -21,6 +23,20 @@
 			suggesterBlockModal.find('input').val('');
 		});
 	});
+	login.click(function (e) {
+		var el = $(this);
+		if (el.find('._specialCaseLoginButton').length === 0) {
+			e.preventDefault();
+
+			loginOption.toggle();
+
+			if (appList.is(':visible')) {
+				appList.hide();
+				appList.find('.appListMore').show();
+				appList.find('.appListUl.moreList').hide();
+			}
+		}
+	});
 	apps.find('> a').click(function (e) {
 		e.preventDefault();
 
@@ -29,6 +45,9 @@
 		if (appList.is(':hidden')) {
 			appList.find('.appListMore').show();
 			appList.find('.appListUl.moreList').hide();
+		}
+		if (loginOption.is(':visible')) {
+			loginOption.hide();
 		}
 	});
 	appList.find('.appListMore').click(function (e) {
