@@ -59,7 +59,7 @@ class GminyController extends DataobjectsController
                 ),
                 array(
                     'id' => 'aktywnosci',
-                    'label' => 'Aktywności radnych',
+                    'label' => 'Aktywność radnych',
                 ),
             ),
         ),
