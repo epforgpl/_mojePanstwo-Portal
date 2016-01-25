@@ -2,6 +2,9 @@
 
 App::uses('DataobjectsController', 'Dane.Controller');
 
+/**
+ * @property  RequestHandlerComponent request
+ */
 class KrsPodmiotyController extends DataobjectsController
 {
 
@@ -76,6 +79,7 @@ class KrsPodmiotyController extends DataobjectsController
             'jedynyAkcjonariusz',
             'prokurenci',
             'nadzor',
+            'bank_account',
             'komitetZalozycielski',
             'dzialalnosci',
             'udzialy',

@@ -126,6 +126,7 @@ $plugin_definitions =
         'Sentry'        => array('routes' => false, 'bootstrap' => false),
         'Widgets'       => array('routes' => true, 'bootstrap' => false),
         'Collections'   => array('routes' => true, 'bootstrap' => true),
+        'Transactions'   => array('routes' => true, 'bootstrap' => true),
 	);
 
 CakePlugin::loadAll($plugin_definitions);
