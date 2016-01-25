@@ -14,7 +14,7 @@ $rok2 = array();
 $lata = array();
 
 foreach ($dane as $rocznik) {
-		
+
     if ($rocznik['_source']['data']['budzety']['rok'] == $p1) {
         $rok1['premier_id'] = $rocznik['_source']['data']['budzety']['premier_czlowiek_id'];
         $rok1['premier'] = $rocznik['_source']['data']['budzety']['premier_nazwa'];
@@ -30,7 +30,7 @@ foreach ($dane as $rocznik) {
         $rok1['dochody'] = $rocznik['_source']['data']['budzety']['liczba_dochody'] * 1000;
         $rok1['deficyt'] = $rocznik['_source']['data']['budzety']['liczba_deficyt'] * 1000;
     }
-    
+
     if ($rocznik['_source']['data']['budzety']['rok'] == $p2) {
         $rok2['premier_id'] = $rocznik['_source']['data']['budzety']['premier_czlowiek_id'];
         $rok2['premier'] = $rocznik['_source']['data']['budzety']['premier_nazwa'];
@@ -46,11 +46,11 @@ foreach ($dane as $rocznik) {
         $rok2['dochody'] = $rocznik['_source']['data']['budzety']['liczba_dochody'] * 1000;
         $rok2['deficyt'] = $rocznik['_source']['data']['budzety']['liczba_deficyt'] * 1000;
     }
-    
+
     if ($rocznik['_source']['data']['budzety']['rok'] != 1989) {
         $lata[] = $rocznik['_source']['data']['budzety']['rok'];
     }
-    
+
 }
 rsort($lata);
 $zmiana_wydatki = $rok1['wydatki'] / $rok2['wydatki'];
@@ -62,16 +62,16 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
 
     <div class="appBanner">
         <h1 class="appTitle">Finanse publiczne</h1>
-        <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>        
+        <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
     </div>
-    
+
     <div class="finanseBlock">
 
         <div class="chart"
-	         data-json='<?php echo json_encode($dane); ?>'></div>
+             data-json='<?php echo json_encode($dane); ?>'></div>
 
         <div class="mid-chart"></div>
-	    <div class="chart2"></div>
+        <div class="chart2"></div>
 
     </div>
 

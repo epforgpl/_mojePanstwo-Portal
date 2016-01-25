@@ -10,7 +10,13 @@ class FinanseController extends ApplicationsController
         'title' => 'Finanse publiczne',
         'subtitle' => 'Przeglądaj informacje o finansach Polski',
     );
-
+    public $menu = array(
+        'gminy' => array(
+            'menu_id' => 'gminy',
+            'label' => 'Budżety gmin',
+            'icon' => 'special-finanse',
+        ),
+    );
     private $histogramIntervals = array(
         100000000,                  // 100 mln.
         10000000,                   // 10 mln.
@@ -18,16 +24,7 @@ class FinanseController extends ApplicationsController
         100000,                     // 100 tys.
         1000
     );
-	
-	public $menu = array(
-	    'gminy' => array(
-		    'menu_id' => 'gminy',
-		    'label' => 'Budżety gmin',
-			'icon' => 'pisma',
-	    ),
-    );
-    
-	
+
 	public function view() {
 
 		$options = array(
@@ -845,9 +842,9 @@ class FinanseController extends ApplicationsController
         if($this->request->params['action'] == 'gminy') {
 
             $aggs = $this->viewVars['dataBrowser']['aggs'];
-            
+
             debug($aggs); die();
-            
+
             $this->viewVars['dataBrowser']['aggs']['gminy'] = null;
             $this->viewVars['dataBrowser']['aggs']['gmina'] = null;
 
@@ -967,22 +964,22 @@ class FinanseController extends ApplicationsController
         }
 
     }
-	
+
 	public function getChapters() {
 
 		$mode = false;
 		$items = array();
-		$app = $this->getApplication( $this->settings['id'] );		
-		
+        $app = $this->getApplication($this->settings['id']);
+
 		if( @$this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'] )
 			$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] = $this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'];
-		
-		if(
+
+        if(
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
 		) {
-			
-			$items[] = array(
+
+            $items[] = array(
 				'id' => '_results',
 				'label' => 'Szukaj w finansach publicznych:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
@@ -1000,107 +997,105 @@ class FinanseController extends ApplicationsController
 			$mode = 'results';
 
 		} else {
-			
-			$items[] = array(
+
+            $items[] = array(
 				'label' => 'Finanse publiczne',
 				'href' => '/' . $this->settings['id'],
 				'class' => '_label',
 				'icon' => 'appIcon',
 				'appIcon' => $app['icon'],
 			);
-			
-		}
-		
-		
 
-		
-		$others_count = 0;
-		
-		foreach( $this->menu as $key => $value ) {
-						
-			if( !isset($value['menu_id']) )
+        }
+
+
+        $others_count = 0;
+
+        foreach( $this->menu as $key => $value ) {
+
+            if( !isset($value['menu_id']) )
 				$value['menu_id'] = '';
-						
-			$item = array(
+
+            $item = array(
 				'id' => $value['menu_id'],
 				'label' => $value['label'],
 			);
-			
-			if( $value['menu_id'] )
+
+            if( $value['menu_id'] )
 				$item['href'] = '/' . $this->settings['id'] . '/' . $value['menu_id'];
-			
-			if( isset($value['icon']) )
+
+            if( isset($value['icon']) )
 				$item['icon'] = 'icon-datasets-' . $value['icon'];
-				
-			if( isset($value['class']) )
+
+            if( isset($value['class']) )
 				$item['class'] = $value['class'];
 
 			if( $mode == 'results' ) {
-			
-				
-				$datasets = array();
-				
-				if( isset($item['href']) )
+
+
+                $datasets = array();
+
+                if( isset($item['href']) )
 					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
-				
-				if( @$value['forma_prawna_id'] ) {
-					
-					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+
+                if( @$value['forma_prawna_id'] ) {
+
+                    if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
 						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
-													
-							if( $dataset['key']=='krs_podmioty' ) {
-								
-								if( $value['forma_prawna_id']=='_all' ) {
-									
-									if( $dataset['doc_count'] );
+
+                            if( $dataset['key']=='krs_podmioty' ) {
+
+                                if( $value['forma_prawna_id']=='_all' ) {
+
+                                    if( $dataset['doc_count'] );
 										$items[] = $item;
-									
-								} else {
-											
-									foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
+
+                                } else {
+
+                                    foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
 										if( $forma['doc_count'] ) {
-																				
-											if( $value['forma_prawna_id']==$forma['key'] ) {
-												
-												$item['count'] = $forma['doc_count'];
+
+                                            if( $value['forma_prawna_id']==$forma['key'] ) {
+
+                                                $item['count'] = $forma['doc_count'];
 												$items[] = $item;
-													
-											} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
-												
-												$others_count += $forma['doc_count'];
-												
-											}
-																				
-										}
+
+                                            } elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
+
+                                                $others_count += $forma['doc_count'];
+
+                                            }
+
+                                        }
 									}
-									
-									if( ($value['forma_prawna_id']=='_other') && $others_count ) {
-										
-										$item['count'] = $others_count;
+
+                                    if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+
+                                        $item['count'] = $others_count;
 										$items[] = $item;
-										
-									}
-								
-								}
-								
-							}
+
+                                    }
+
+                                }
+
+                            }
 						}
 					}
-					
-				} else {
-					
-					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+
+                } else {
+
+                    if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
 						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
 							if( ($dataset['key'] == $key) && $dataset['doc_count'] ) {
-									
-								$item['count'] = $dataset['doc_count'];
+
+                                $item['count'] = $dataset['doc_count'];
 								$items[] = $item;
-								
-							}
+
+                            }
 						}
 					}
-					
-				}
+
+                }
 
 			} else {
 
@@ -1109,24 +1104,24 @@ class FinanseController extends ApplicationsController
 			}
 
 		}
-				
+
         foreach($items as $i => $item) {
 
             if(isset($item['submenu'])) {
                 $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
             }
-                                
+
             if(
-            	$i && 
-            	( @strpos($item['class'], 'border-top')!==false ) && 
+                $i &&
+                (@strpos($item['class'], 'border-top') !== false) &&
             	( @strpos($items[$i-1]['class'], '_label')!==false )
             )
 	            $items[$i]['class'] = str_replace('border-top', '', $item['class']);
 
         }
-        
-		
-		$output = array(
+
+
+        $output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
