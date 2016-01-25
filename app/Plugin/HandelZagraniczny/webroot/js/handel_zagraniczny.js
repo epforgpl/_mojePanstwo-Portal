@@ -706,6 +706,8 @@ $(function () {
 		return false;
 	});
 
-	$('#maplabel').sticky();
+	$('#maplabel').sticky({
+		topSpacing: 44
+	});
 
 });
