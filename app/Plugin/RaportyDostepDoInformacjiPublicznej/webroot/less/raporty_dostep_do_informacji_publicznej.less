@@ -26,12 +26,12 @@
 
 .gradient(@start, @end) {
     background: @start;
-    background: -moz-linear-gradient(top,  @start 0%, @end 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start), color-stop(100%,@end));
-    background: -webkit-linear-gradient(top,  @start 0%,@end 100%);
-    background: -o-linear-gradient(top,  @start 0%,@end 100%);
-    background: -ms-linear-gradient(top,  @start 0%,@end 100%);
-    background: linear-gradient(to bottom,  @start 0%,@end 100%);
+    background: -moz-linear-gradient(top, @start 0%, @end 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @start), color-stop(100%, @end));
+    background: -webkit-linear-gradient(top, @start 0%, @end 100%);
+    background: -o-linear-gradient(top, @start 0%, @end 100%);
+    background: -ms-linear-gradient(top, @start 0%, @end 100%);
+    background: linear-gradient(to bottom, @start 0%, @end 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@start, endColorstr=@end, GradientType=0);
 }
 
@@ -138,7 +138,7 @@
         width: 100%;
         min-height: 100%;
         height: 100%;
-        padding: 30px 0;
+        padding: 80px 0 30px;
 
         .infoGraphContent {
             .customFont('Lato', 14px);
@@ -159,7 +159,7 @@
                         @opa: 0.9;
 
                         .border-radius(10px);
-                        background: rgba(231, 231, 231,@opa);
+                        background: rgba(231, 231, 231, @opa);
                         font-size: 16px;
                         font-weight: normal;
                         color: #2f2f2f;
@@ -392,5 +392,5 @@
 }
 
 footer {
-	display: none;
+    display: none;
 }
