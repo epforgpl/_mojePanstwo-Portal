@@ -38,7 +38,7 @@ echo $this->Element('dataobject/pageBegin', array(
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
                     <div class="dataWrap">
-                        <h1 class="smaller margin-top-15">Aktywność radnych</h1>
+                        <h1 class="smaller margin-top-15">Aktywność Radnych</h1>
                         <div class="margin-top-20">
                             <? if (isset($activity_ranking)) { ?>
                                 <div class="margin-top-10">
@@ -90,7 +90,7 @@ echo $this->Element('dataobject/pageBegin', array(
 
                             <hr/>
 
-                            <h1 class="smaller margin-top-15">Otwartość radnych</h1>
+                            <h1 class="smaller margin-top-15">Otwartość Radnych</h1>
 
                             <? if (isset($openness_ranking)) { ?>
                                 <div class="margin-top-10">
