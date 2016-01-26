@@ -92,6 +92,11 @@ class AdminAppController extends AppController
             'label' => 'Konta bankowe',
             'href'  => '/admin/bank_accounts',
         ),
+        array(
+            'id'    => 'transactions',
+            'label' => 'Transakcje',
+            'href'  => '/admin/transactions',
+        ),
     );
 
     public function beforeFilter() {
