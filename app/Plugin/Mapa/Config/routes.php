@@ -1,6 +1,6 @@
 <?php
 Router::connect('/mapa', array('plugin' => 'Mapa', 'controller' => 'mapa', 'action' => 'view'));
-Router::connect('/mapa/grid', array('plugin' => 'Mapa', 'controller' => 'mapa', 'action' => 'grid'));
+Router::connect('/mapa/layer', array('plugin' => 'Mapa', 'controller' => 'mapa', 'action' => 'layer'));
 Router::connect('/mapa/obwody', array('plugin' => 'Mapa', 'controller' => 'mapa', 'action' => 'obwody'));
 Router::connect('/mapa/geodecode', array('plugin' => 'Mapa', 'controller' => 'mapa', 'action' => 'geodecode'));
 
@@ -20,4 +20,12 @@ Router::connect('/mapa/:code', array(
 ), array(
 	'code' => '([0-9]{2}\-[0-9]{3})',
 	'pass' => array('code'),
+));
+
+Router::connect('/mapa/:layers', array(
+	'plugin' => 'Mapa', 
+	'controller' => 'mapa', 
+	'action' => 'view'
+), array(
+	'pass' => array('layers'),
 ));

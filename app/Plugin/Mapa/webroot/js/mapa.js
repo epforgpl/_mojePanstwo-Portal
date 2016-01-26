@@ -1,124 +1,25 @@
-/*global $, window, document, Class, mPHeart, google, infowindow, Cookies, MapaWarstwy*/
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
 
-var Localizer = Class.extend({
-	init: function () {
-		this.nav = window.navigator;
-	},
-	alerts: function (msg, cls) {
-		var alrts = $('<div></div>'),
-			main = $('.dataBrowserContent');
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
 
-		alrts.addClass('alert alert-dismissible ' + cls).attr('role', 'alert').text(msg).append(
-			$('<button></button>').addClass('close').attr({
-				'type': 'button',
-				'data-dismiss': 'alert',
-				'aria-label': 'Close'
-			}).append(
-				$('<span></span>').attr('aria-hidden', 'true').html('&times;')
-			)
-		);
-		if (cls.indexOf("lert-lookingPosition") > -1) {
-			alrts.append(
-				$('<div></div>').addClass('spinner grey margin-bottom-0').append(
-					$('<div></div>').addClass('bounce1')
-				).append(
-					$('<div></div>').addClass('bounce2')
-				).append(
-					$('<div></div>').addClass('bounce3')
-				)
-			);
-		}
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
 
-		if (main.find('.alert').length === 0) {
-			main.append(alrts);
-		} else {
-			main.find('alert').after(alrts);
-		}
-		alrts.css('margin-left', -(alrts.outerWidth() / 2));
-	},
-	request_position: function () {
-		if (this.nav) {
-			this.geoloc = this.nav.geolocation;
-
-			if (this.geoloc) {
-				localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_LOADING, 'alert-info alert-lookingPosition');
-				this.geoloc.getCurrentPosition(this.request_position_success, this.request_position_error);
-			} else {
-				this.request_position_notAvailable();
-			}
-		} else {
-			this.request_position_notAvailable();
-		}
-	},
-
-	request_position_notAvailable: function () {
-		localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_POSITION_NOT_AVAILABLE, 'alert-warning');
-	},
-
-	/*RETURN INFORMATION WITH USER LOCATION*/
-	request_position_success: function (position) {
-		if (typeof position.coords !== "undefined") {
-			$.ajax({
-				method: 'GET',
-				url: '/mapa/geodecode.json',
-				dataType: 'json',
-				data: {
-					'lat': position.coords.latitude,
-					'lon': position.coords.longitude
-				},
-				success: function (res) {
-					var location = res.locations[0];
-					window.location.href = '/mapa/miejsce/' + res.data['miejsca.id'] + '#' + location.numer;
-				},
-				error: function (error) {
-					localizer.alerts(mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY + " (" + error.statusText + ")", 'alert-danger');
-				},
-				complete: function () {
-					$('.dataBrowserContent .alert.alert-lookingPosition').remove();
-				}
-			});
-		}
-	},
-
-	/*RETURN ERRORS FORM LOCACTION SYSTEM*/
-	request_position_error: function (error) {
-		var strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_POSITION;
-		switch (error.code) {
-			case error.PERMISSION_DENIED:
-				strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_BROWSER;
-				break;
-
-			case error.POSITION_UNAVAILABLE:
-				strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_TEMPORARY;
-				break;
-
-			case error.TIMEOUT:
-				strMessage = mPHeart.translation.LC_FINANSE_POSITION_CANNOT_LIMIT;
-				break;
-
-			default:
-				break;
-
-		}
-		localizer.alerts(strMessage, 'alert-warning');
-	}
-});
-
-var listCheck;
 var MapBrowser = Class.extend({
+	spinnerCounter: 0,
 	retina: false,
 	map: false,
 	fitBounds: false,
 	points: [],
-	komisjeOkreg: {
-		sejm_id: [],
-		senat_id: []
-	},
-	komisjePoints: [],
-	komisjePointsData: {},
-	mapaPolygon: {},
 	mapOptions: {
-		zoom: 6,
 		maxZoom: 18,
 		panControl: false,
 		zoomControl: true,
@@ -193,622 +94,250 @@ var MapBrowser = Class.extend({
 		strokeColor: "#444499",
 		strokeWeight: 1
 	}),
+	plCenter: [51.986797406813125, 19.32958984375001],
+	plZoom: 6,
+	layers: [],
+	loadDelay: 400,
 	init: function () {
+		
+		// setup
+		
 		var self = this;
 		self.div = $('#mapBrowser');
-		self.sidebar = $('.app-sidebar');
-		self._data = self.div.data('data');
 		self.map_div = self.div.find('.map');
-		self.detail_div = self.sidebar.find('.details');
-		self.detail_div_main = self.detail_div.find('ul.main');
-		self.detail_div_main_title = self.detail_div.find('.title');
-		self.detail_div_main_accords = self.detail_div_main.find('.accord');
-
-		var viewport = self.div.data('viewport');
-
-		if ((typeof viewport === 'object') && (typeof viewport.top_left === 'object') && (typeof viewport.bottom_right === 'object')) {
-			self.fitBounds = new google.maps.LatLngBounds(new google.maps.LatLng(viewport.bottom_right.lat, viewport.top_left.lon), new google.maps.LatLng(viewport.top_left.lat, viewport.bottom_right.lon));
-			self.mapOptions.center = self.fitBounds.getCenter();
-		} else {
-			self.mapOptions.center = new google.maps.LatLng(51.986797406813125, 19.32958984375001);
-		}
-
-		self.resizeSetup();
+		self.menu = $('.app-sidebar .app-list');
+		self.layers = self.div.data('layers') ? self.div.data('layers').split(',') : [];
+		
+		
+		
+		// set center i zoom to display
+		
+		var center = self.plCenter;
+		var zoom = self.plZoom;
+		
+		if( getUrlParameter('clat') )
+			center[0] = getUrlParameter('clat');
+			
+		if( getUrlParameter('clng') )
+			center[1] = getUrlParameter('clng');
+			
+		if( getUrlParameter('z') )
+			zoom = Number(getUrlParameter('z'));
+		
+		self.mapOptions.center = new google.maps.LatLng(center[0], center[1]);
+		self.mapOptions.zoom = zoom;
+		
+		
+		
+		// construct google map
+		
 		self.map = new google.maps.Map(self.map_div.get(0), self.mapOptions);
-
+		self.map.addListener('bounds_changed', $.proxy(self.load, self));
+		
+		/*		
 		if (self.fitBounds) {
 			self.map.fitBounds(self.fitBounds);
 		}
-
+		*/
+		
+		
+		
+		// settings Poland borders to display
+		
 		self.mapBorder.setMap(self.map);
 
-		// Address points
 		if (window.devicePixelRatio > 1.5) {
 			self.retina = true;
 		}
-		var points = self.div.find('._points li');
-		for (var i = 0; i < points.length; i++) {
-			var p = $(points[i]),
-				point = {
-					'label': p.find('a').text(),
-					'id': p.attr('name'),
-					'lat': p.find('meta[itemprop=latitude]').attr('content'),
-					'lon': p.find('meta[itemprop=longitude]').attr('content'),
-					'obwod_id': p.attr('data-obwod_id'),
-					'obwod': p.attr('data-obwod'),
-					'kod': p.attr('data-kod')
-				};
-
-			point.marker = new google.maps.Marker({
-				position: new google.maps.LatLng(point.lat, point.lon),
-				icon: self.setIconItem(),
-				map: self.map,
-				data: point
-			});
-
-			point.marker.addListener('click', function () {
-				window.location.hash = this.data.id;
-				self.detail_div_main_accords.find('._points li.active').removeClass('active');
-				self.detail_div_main_accords.find('._points li[name="' + this.data.id + '"]').addClass('active');
-				self.pointWindow(this);
-			});
-
-			self.points.push(point);
-
-			p.click(function () {
-				var id = $(this).attr('name'),
-					result;
-
-				for (var i = 0, len = self.points.length; i < len; i++) {
-					if (self.points[i].id === id) {
-						result = self.points[i];
-					}
-				}
-
-				self.detail_div_main_accords.find('._points li.active').removeClass('active');
-				$(this).addClass('active');
-				self.pointWindow(result.marker);
-			});
-		}
-
-		$.each(self.detail_div_main_accords, function () {
-			var that = $(this),
-				input = that.find('.dcontent > input');
-
-			if (input.length) {
-				that.data('list', that.find('.dcontent ul.scrollZone > li'));
-
-				if (input.val() !== '') {
-					self.cleaner(that);
-				}
-
-				input.keyup(function () {
-					var input = $(this),
-						searchV = input.val();
-
-					if (searchV.length === 0) {
-						that.find('.dcontent').removeClass('setCleaner').find('.cleaner').remove();
-					} else {
-						self.cleaner(that);
-					}
-
-					window.clearTimeout(listCheck);
-					listCheck = setTimeout(function () {
-						$.each(that.data('list'), function () {
-							var el = $(this);
-
-							if ($.trim(el.text()).toLowerCase().indexOf(searchV.toLowerCase()) > -1) {
-								el.removeClass('hide');
-							} else {
-								el.addClass('hide');
-							}
-						});
-					}, 300);
-				});
-			}
-
-			/*
-			 var polygonsParent = that.find('ul.scrollZone').attr('data-polygon'),
-			 polygons = that.find('li.polygons'),
-			 opacity = 0.1,
-			 opacityHover = 0.3;
-
-
-			 if ( (polygonsParent !== "null") && (typeof(polygonsParent) !== "undefined")) {
-
-			 console.log(1);
-			 var pol = $.parseJSON(polygonsParent),
-			 polygonArray = [];
-			 console.log(2);
-
-			 for (var k = 0, len = pol.length; k < len; k++) {
-			 polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
-			 }
-
-			 var polygon = new google.maps.Polygon({
-			 paths: polygonArray,
-			 strokeColor: '#d43f3a',
-			 strokeOpacity: 0.8,
-			 strokeWeight: 4,
-			 fillOpacity: 0
-			 });
-
-			 polygon.setMap(self.map);
-			 }
-
-			 if (polygons.length > 0) {
-			 $.each(polygons, function () {
-			 var that = $(this),
-			 pol = $.parseJSON(that.attr('data-polygon')),
-			 id = that.attr('data-id'),
-			 polygonArray = [];
-
-			 for (var k = 0, len = pol.length; k < len; k++) {
-			 polygonArray.push(google.maps.geometry.encoding.decodePath(pol[k].polygon_line));
-			 }
-
-			 var polygon = new google.maps.Polygon({
-			 paths: polygonArray,
-			 strokeColor: '#226799',
-			 strokeOpacity: 0.8,
-			 strokeWeight: 2,
-			 fillColor: '#5bc0de',
-			 fillOpacity: opacity
-			 });
-
-			 self.mapaPolygon[id] = polygon;
-			 polygon.setMap(self.map);
-
-			 google.maps.event.addListener(polygon, "mouseover", function () {
-			 this.setOptions({fillOpacity: opacityHover});
-			 self.detail_div_main_accords.find('li[data-id="' + id + '"]').addClass('active');
-			 });
-			 google.maps.event.addListener(polygon, "click", function () {
-			 location.href = self.detail_div_main_accords.find('li[data-id="' + id + '"] a').attr('href');
-			 });
-			 google.maps.event.addListener(polygon, "mouseout", function () {
-			 this.setOptions({fillOpacity: opacity});
-			 self.detail_div_main_accords.find('li[data-id="' + id + '"]').removeClass('active');
-			 });
-
-			 self.detail_div_main_accords.find('li[data-id="' + id + '"]').on('mouseover', function () {
-			 self.mapaPolygon[id].setOptions({fillOpacity: opacityHover});
-			 $(this).addClass('active');
-			 }).on('mouseout', function () {
-			 self.mapaPolygon[id].setOptions({fillOpacity: opacity});
-			 $(this).removeClass('active');
-			 });
-
-			 p += 0.05;
-			 });
-			 }
-			 */
-		});
-
-		if (window.location.hash.length > 0) {
-			var hash = window.location.hash.substr(1),
-				result;
-
-			for (var j = 0, len = self.points.length; j < len; j++) {
-				if (self.points[j].id === hash) {
-					result = self.points[j];
-				}
-			}
-
-			self.detail_div_main_accords.find('._points li[name="' + hash + '"]').addClass('active');
-			self.pointWindow(result.marker);
-		}
-
-		var obwodyBlock = $('.wyboryDetail'),
-			obwody = obwodyBlock.attr('data-obwody');
-
-		//console.log('obwody', obwody);
-
-		if (obwody) {
-			var that = this;
-			$.get('/mapa/obwody.json?id=' + obwody, function (data) {
-				for (var i = 0, len = data.length; i < len; i++) {
-					var k = data[i];
-
-					if ((k.punkt.lat && k.punkt.lon) && (k.punkt.lat !== 0 && k.punkt.lon !== 0)) {
-						var komisjeInfo = '<div class="komisjaInfoWindow">',
-							komisjeId = [],
-							komisjePosition = new google.maps.LatLng(k.punkt.lat, k.punkt.lon),
-							komisjeBtn = that.detail_div_main.find('.btn-obwod');
-
-						$.each(k.komisje, function (i, d) {
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_sejm'], that.komisjeOkreg.sejm_id) === -1) {
-								that.komisjeOkreg.sejm_id.push(d['wybory_parl_obwody.numer_okreg_sejm']);
-							}
-							if ($.inArray(d['wybory_parl_obwody.numer_okreg_senat'], that.komisjeOkreg.senat_id) === -1) {
-								that.komisjeOkreg.senat_id.push(d['wybory_parl_obwody.numer_okreg_senat']);
-							}
-
-							komisjeInfo += '<a class="komisja" href="#' + d['wybory_parl_obwody.id'] + '" data-id="' + d['wybory_parl_obwody.id'] + '">Komisja nr ' + d['wybory_parl_obwody.numer'] + '</a>';
-
-							that.komisjePointsData[d['wybory_parl_obwody.id']] = {
-								'numer': d['wybory_parl_obwody.numer'],
-								'typ': d['wybory_parl_obwody.typ'],
-								'adres': d['wybory_parl_obwody.adres'],
-								'okreg': d['wybory_parl_obwody.numer_okreg_senat'],
-								'przystosowanie': d['wybory_parl_obwody.niepelnosprawni'],
-								'granice': d['wybory_parl_obwody.granice'],
-								'location': d['wybory_parl_obwody.location']
-							};
-							komisjeId.push(d['wybory_parl_obwody.id']);
-
-							if (komisjeBtn.length) {
-								komisjeBtn.attr('disabled', null).click(function (event) {
-									var tid = $(event.target).attr('data-target');
-									if (tid) {
-										var marker;
-
-										for (var i = 0, len = that.komisjePoints.length; i < len; i++) {
-											if ($.inArray(tid, that.komisjePoints[i].id) > -1) {
-												marker = that.komisjePoints[i];
-											}
-										}
-
-										that.pointWindowOpener(marker);
-										that.komisjaDetail(tid);
-									}
-								});
-							}
-						});
-
-						komisjeInfo += '</div>';
-
-						var komisjeInfoMarker = new google.maps.Marker({
-							id: komisjeId,
-							position: komisjePosition,
-							icon: that.setKomisjeIcon(),
-							map: that.map,
-							data: komisjeInfo
-						});
-
-						that.komisjePoints.push(komisjeInfoMarker);
-						that.fitBounds.extend(komisjePosition);
-
-						komisjeInfoMarker.addListener('click', function () {
-							that.pointWindowOpener(this);
-						});
-					}
-				}
-				that.map.fitBounds(that.fitBounds);
-			});
-		}
+		
+		$(window).resize($.proxy(self.resize, self));
+		self.resize();
+		
 	},
-
-	komisjaDetail: function (id) {
-		var self = this,
-			detail = self.komisjePointsData[id],
-			komisjaModal = $('#komisjaDetailModal'),
-			obwodySenat = $('.wyboryDetail').attr('data-senat');
-
-		if (komisjaModal.length) {
-			komisjaModal.remove();
-		}
-
-		komisjaModal = $('<div></div>').addClass('modal fade').attr({
-			id: 'komisjaDetailModal',
-			role: 'dialog',
-			'aria-labelledby': 'KomisjaDetailLabel'
-		}).append(
-			$('<div></div>').addClass('modal-dialog').attr('role', 'document').append(
-				$('<div></div>').addClass('modal-content').append(
-					$('<div></div>').addClass('modal-header').append(
-						$('<button></button>').addClass('close').attr({
-							type: 'button',
-							'data-dismiss': 'modal',
-							'aria-label': 'Close'
-						}).append(
-							$('<span></span>').attr('aria-hidden', true).html('&times;')
-						)
-					).append(
-						$('<h4></h4>').addClass('modal-title').attr('id', 'KomisjaDetailLabel').html('Komisja obwodowa nr ' + detail.numer)
-					)
-				).append(
-					$('<div></div>').addClass('modal-body').append(
-						$('<div></div>').addClass('adresBlock  col-xs-12 nopadding').append(
-							$('<p></p>').addClass("adres_ulica").html(detail.adres.replace(/\n/g, '<br/>'))
-						).append(
-							$('<p>').addClass('adres_button pull-right').append(
-								$('<a></a>').addClass('btn btn-primary').attr({
-									href: 'https://www.google.com/maps/dir//' + detail.location.lat + ',' + detail.location.lon,
-									target: '_blank'
-								}).text('Dojazd do lokalu wyborczego')
-							)
-						)
-					).append(function () {
-						if (obwodySenat === 0) {
-								return $('<p class="okreg"></p>').text('Okręg do senatu: ').append(
-									$('<a></a>').attr({
-										'href': 'http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + detail.okreg,
-										'target': '_parent'
-									}).text(detail.okreg)
-								);
-							}
-						}
-					).append(
-						$('<p class="przystosowanie ' + detail.przystosowanie + '"></p>').html((detail.przystosowanie === 'Tak') ? 'Lokal jest przystosowany do potrzeb osób niepełnosprawnych.' : 'Lokal nie jest przystosowany do potrzeb osób niepełnosprawnych.')
-					).append(
-						$('<iframe width="567" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/streetview?key=AIzaSyA24YxhI1PjQTx06CNBCoA4EZekotkW3Ps&location=' + detail.location.lat + ',' + detail.location.lon + '"></iframe>')
-					).append(
-						$('<p class="granice margin-top-15"></p>').html('<b>Granice obwodu:</b> ' + detail.granice)
-					)
-				)
-			)
-		);
-		komisjaModal.modal('show');
-	},
-	resizeSetup: function () {
-		this.detail_div_main.attr('data-accords', this.detail_div_main.find('.accord').length);
-		$(window).resize($.proxy(this.resize, this));
-		this.resize();
-	},
-	resize: function () {
-		var h = $(window).height() - $(this.div).offset().top - 4,
-			h_title = this.detail_div_main_title.outerHeight(),
-			h_accord,
-			h_explore = this.div.find('.explore').outerHeight() || 0;
-
+	
+	
+	
+	// resize function gets called on viewport size changed
+	resize: function() {
+		
+		var h = $( window ).height() - 50;
 		this.map_div.css({
-			'height': h - h_explore + 'px',
-			'margin-bottom': h_explore + 'px'
+			'height': h  + 'px',
 		});
-		h -= (h_title + 30);
-		this.detail_div_main.css('height', h);
-		if (this.div.find('.explore.hide').length) {
-			this.div.find('.explore.hide').removeClass('hide');
+			
+	},
+	
+	
+	
+	// load function gets called on map bounds changed (this includes center or zoom changes) 
+	load: function() {
+		
+		var self = this;
+				
+		// construct q variable with actual map center and zoom
+		
+		var center = self.map.getCenter();
+		var zoom = self.map.getZoom();
+		
+		var q = {
+			clat: center.lat(),
+			clng: center.lng(),
+			z: zoom
+		};
+		
+		
+		
+		// TODO: apply actual center and zoom to browser location (push state)
+		
+		
+		
+		// apply actual center and zoom to app's chapters hrefs
+		
+		var param = $.param(q);
+		
+		var chapters = self.menu.find('a');
+		for( var i=0; i<chapters.length; i++ ) {
+			
+			var a = $( chapters[i] );
+			var href = a.data('href') + '?' + param;
+			a.attr('href', href);			
+			
 		}
-
-		h_accord = h / this.detail_div_main.attr('data-accords');
-
-		var accordFixedH = 0,
-			accordNoFixedC = 0,
-			accordLiPadding = 16;
-
-		$.each(this.detail_div_main_accords, function () {
-			var acc = $(this),
-				accH = acc.find('>header').outerHeight(),
-				accS = acc.find('>section:visible'),
-				accordH;
-
-			acc.removeAttr('style');
-			accS.find('ul.scrollZone').removeAttr('style');
-			accS = acc.find('>section:visible').outerHeight();
-
-			if (acc.hasClass('closed')) {
-				if (acc.css('min-height') !== 'none' && h < parseInt(acc.css('min-height'))) {
-					accordH = parseInt(acc.css('min-height'));
-				} else {
-					accordH = accH + accordLiPadding;
-				}
-				acc.addClass('accord-fixed');
-				accordFixedH += accordH;
-				acc.css('height', accordH);
-			} else {
-				if (((accH + accS) < h_accord) || acc.hasClass('accord-fullheight')) {
-					if (acc.css('min-height') !== 'none' && h < parseInt(acc.css('min-height'))) {
-						accordH = parseInt(acc.css('min-height'));
+		
+		
+		
+		// load data in separate API calls (one call for one layer)
+				
+		if( self.layers.length ) {
+			
+			self.pendingArea = self.getArea();
+			
+			window.clearTimeout(self.loadTimer);
+			self.loadTimer = window.setTimeout(function () {
+				
+				var area = self.getArea();
+				if ((area.tl === self.pendingArea.tl) && (area.br === self.pendingArea.br) && (area.zoom === self.pendingArea.zoom)) {
+					
+										
+					var params = {
+						tl: area.tl,
+						br: area.br,
+						zoom: area.zoom,
+					};
+					
+					
+					for( var i=0; i<self.layers.length; i++ ) {
+						
+						params.layer = self.layers[i];
+						
+						self.spinnerOn();
+															
+						self.xhr = $.get('/mapa/layer.json', params, function (data) {
+													
+							// self.cacheAjax[areaParms] = data;
+							self.render(data, area);
+						}, 'json');
+						
+					}								
+					
+					/*
+					var areaParms = area.tl + ',' + area.br + '&layer=' + layer;
+		
+					if (areaParms in self.cacheAjax) {
+						self.mapUpdateResults(self.cacheAjax[areaParms], area);
 					} else {
-						accordH = accH + accS + accordLiPadding;
-					}
-
-					acc.addClass('accord-fixed');
-					accordFixedH += accordH;
-					acc.css('height', accordH);
-				} else {
-					acc.addClass('accord-nofixed');
-					accordNoFixedC++;
-				}
-			}
-		});
-
-		if (accordNoFixedC > 0) {
-			h = (h - accordFixedH) / accordNoFixedC - accordLiPadding;
-			this.detail_div_main.find('.accord.accord-nofixed').css('height', Math.floor(h));
-		}
-
-		$.each(this.detail_div_main_accords, function () {
-			var acc = $(this),
-				accH = acc.find('>header').outerHeight(),
-				accLi = parseInt(acc.css('padding-top')) + parseInt(acc.css('padding-bottom')),
-				accSBlock = acc.find('>section:visible');
-
-			accSBlock.find('>ul.scrollZone').css('height', parseInt(acc.css('height')) - accH - accLi - accSBlock.find('.searcher').outerHeight(true));
-		});
-
-		this.detail_div_main.find('.accord').removeClass('accord-fixed accord-nofixed');
-	},
-
-	cleaner: function (self) {
-		if (self.find('.dcontent.setCleaner').length === 0) {
-			self.find('.dcontent').addClass('setCleaner').append(
-				$('<div></div>').addClass('cleaner glyphicon glyphicon-remove').click(function () {
-					self.find('.dcontent').removeClass('setCleaner').find('.cleaner').remove();
-					self.find('.dcontent > input').val('');
-					self.find('ul > li.hide').removeClass('hide');
-				})
-			);
-		}
-	},
-
-	setIconItem: function (booled) {
-		var active = booled ? true : false, url, size;
-
-		if (active) {
-			if (this.retina) {
-				url = '/mapa/img/marker-blur-active@2x.png';
-				size = 40;
-			} else {
-				url = '/mapa/img/marker-blur-active.png';
-				size = 20;
-			}
-		} else {
-			if (this.retina) {
-				url = '/mapa/img/marker-blur@2x.png';
-				size = 40;
-			} else {
-				url = '/mapa/img/marker-blur.png';
-				size = 20;
-			}
-		}
-
-		return {
-			url: url,
-			size: new google.maps.Size(size, size),
-			scaledSize: new google.maps.Size(20, 20),
-			origin: new google.maps.Point(0, 0),
-			anchor: new google.maps.Point(10, 10),
-			active: active
-		};
-	},
-
-	setKomisjeIcon: function () {
-		var icon = {
-			url: '/mapa/img/marker-komisja.svg',
-			origin: new google.maps.Point(0, 0)
-		};
-
-		if (this.retina) {
-			icon = $.extend(icon, {
-				size: new google.maps.Size(40, 60),
-				scaledSize: new google.maps.Size(30, 45),
-				anchor: new google.maps.Point(15, 45)
-			});
-		} else {
-			icon = $.extend(icon, {
-				size: new google.maps.Size(20, 30),
-				scaledSize: new google.maps.Size(20, 30),
-				anchor: new google.maps.Point(10, 30)
-			});
-		}
-
-		return icon;
-	},
-
-	pointWindow: function (marker) {
-		var self = this,
-			pixelOffset,
-			wyboryDetail = $('.wyboryDetail'),
-			obwodySenat = wyboryDetail.attr('data-senat');
-
-		$.each(self.points, function () {
-			if (this.marker.icon.active) {
-				this.marker.setIcon(self.setIconItem());
-			}
-			this.marker.setIcon(self.setIconItem());
-		});
-
-		marker.setIcon(self.setIconItem(true));
-
-		if (typeof infowindow !== "undefined") {
-			infowindow.close();
-		}
-
-		if (self.retina) {
-			pixelOffset = new google.maps.Size(-12, 4);
-		} else {
-			pixelOffset = new google.maps.Size(0, 4);
-		}
-		infowindow = new google.maps.InfoWindow({
-			pixelOffset: pixelOffset
-		});
-
-		var scontent = self.formatAddress(marker.data);
-
-		if (marker.data.obwod_id) {
-			if ((obwodySenat === 0) && ( typeof(self.komisjePointsData[marker.data.obwod_id]) !== "undefined")) {
-				scontent += '<div class="obwod">Okręg do senatu: <a href="http://mamprawowiedziec.pl/strona/parl2015-kandydaci/senat/' + self.komisjePointsData[marker.data.obwod_id].okreg + '">' + self.komisjePointsData[marker.data.obwod_id].okreg + '</a></div>';
-			}
-			scontent += '<div class="button_cont"><button data-target="' + marker.data.obwod_id + '" class="btn-obwod disabled btn btn-warning btn-xs">Pokaż lokal wyborczy</button></div>';
-			if (self.komisjePointsData, marker.data.obwod_id, self.komisjePointsData[marker.data.obwod_id]) {
-				scontent += '<div class="button_cont"><a href="https://www.google.com/maps/dir/' + marker.data.lat + ',' + marker.data.lon + '/' + self.komisjePointsData[marker.data.obwod_id].location.lat + ',' + self.komisjePointsData[marker.data.obwod_id].location.lon + '" target="_blank" class="btn-obwod btn btn-primary btn-xs">Dojazd do lokalu wyborczego</button></div>';
-			}
-		}
-
-
-		infowindow.setContent(scontent);
-		infowindow.open(self.map, marker);
-
-		google.maps.event.addListener(infowindow, 'closeclick', function () {
-			window.history.pushState("", "", window.location.href.split('#')[0]);
-		});
-
-		google.maps.event.addListener(infowindow, 'domready', function () {
-			$('.btn-obwod.disabled').removeClass('disabled').click(function (event) {
-				var tid = $(event.target).attr('data-target');
-				if (tid) {
-					var marker;
-
-					for (var i = 0, len = self.komisjePoints.length; i < len; i++) {
-						if ($.inArray(tid, self.komisjePoints[i].id) > -1) {
-							marker = self.komisjePoints[i];
+						if (self.xhr && self.xhr.readystate !== 4) {
+							self.xhr.abort();
 						}
+		
+						self.xhr = $.get('/mapa/grid.json', {
+							area: area.tl + ',' + area.br,
+							layer: layer
+						}, function (data) {
+							self.cacheAjax[areaParms] = data;
+							self.mapUpdateResults(data, area);
+						}, 'json');
 					}
-
-					self.pointWindowOpener(marker);
-					self.komisjaDetail(tid);
+					*/
+					
 				}
-			});
-		});
-	},
-
-	pointWindowOpener: function (marker) {
-		var self = this,
-			pixelOffset,
-			pixelOffsetPaddingTop = 100;
-
-		if (typeof infowindow !== "undefined") {
-			infowindow.close();
+				
+			}, self.loadDelay);
+			
 		}
-
-		if (self.retina) {
-			pixelOffset = new google.maps.Size(-12, pixelOffsetPaddingTop);
+					
+	},
+	
+	render: function(data, area) {
+		
+		var self = this;
+		self.spinnerOff();
+		
+		if( data.grid && data.grid.buckets && data.grid.buckets.length ) {
+			
+			var buckets = data.grid.buckets;
+			
+			// render grid as usual
+			
+		}
+		
+		if( data.hits && data.hits.length ) {
+			
+			
+			
+		}
+		
+		
+	},
+	
+	spinnerOn: function() {
+		this.spinnerCounter++;
+		this.spinnerUpdate();
+	},
+	
+	spinnerOff: function() {
+		this.spinnerCounter--;
+		this.spinnerUpdate();
+	},
+	
+	spinnerUpdate: function() {
+		if( this.spinnerCounter ) {
+			
+			// TODO: Show spinner
+			
 		} else {
-			pixelOffset = new google.maps.Size(0, pixelOffsetPaddingTop);
+			
+			// TODO: Hide spinner
+			
 		}
-
-		infowindow = new google.maps.InfoWindow({
-			content: marker.data,
-			pixelOffset: pixelOffset
-		});
-
-		google.maps.event.addListener(infowindow, 'domready', function () {
-			var komisje = $('.komisjaInfoWindow'),
-				komisjeHeight = komisje.outerHeight(),
-				pixelOffsetTop = komisjeHeight + pixelOffsetPaddingTop;
-
-			if (komisje.length) {
-				komisje.find('.komisja').click(function (e) {
-					var that = $(this);
-					e.preventDefault();
-					self.komisjaDetail(that.attr('data-id'));
-				});
-			}
-
-			if (self.retina) {
-				pixelOffset = new google.maps.Size(-12, pixelOffsetTop);
-			} else {
-				pixelOffset = new google.maps.Size(0, pixelOffsetTop);
-			}
-
-			infowindow.setOptions({'pixelOffset': pixelOffset});
-
-			$(komisje.parents('.gm-style-iw').prev().find('div')[0]).css({
-				'margin-top': '-' + (komisjeHeight + 18) + 'px',
-				'transform': 'translate(20px, 0) rotate(180deg)'
-			});
-			$(komisje.parents('.gm-style-iw').prev().find('div')[2]).css({
-				'margin-top': '-' + (komisjeHeight + 18) + 'px',
-				'transform': 'translate(20px, 0) rotate(180deg)'
-			});
-		});
-
-		infowindow.open(self.map, marker);
 	},
-
+	
+	spinnerReset: function() {
+		this.spinnerCounter = 0;
+		this.spinnerUpdate();
+	},
+	
+	getArea: function () {
+		var self = this,
+			bounds = self.map.getBounds(),
+			precision = self.map.getZoom(),
+			ne_lat = bounds.getNorthEast().lat(),
+			sw_lng = bounds.getSouthWest().lng(),
+			sw_lat = bounds.getSouthWest().lat(),
+			ne_lng = bounds.getNorthEast().lng(),
+			f = 0.1,
+			ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
+			ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
+			sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),
+			sw_lng_fixed = sw_lng - ((ne_lng - sw_lng) * f);
+	
+		return {
+			tl: Geohash.encode(ne_lat_fixed, sw_lng_fixed, precision),
+			br: Geohash.encode(sw_lat_fixed, ne_lng_fixed, precision),
+			zoom: self.map.getZoom()
+		};
+	},
+	
 	formatAddress: function (data) {
 		var html = '<ul class="address">';
 
@@ -834,10 +363,13 @@ var MapBrowser = Class.extend({
 	}
 });
 
-var map, mapBrowser, localizer, mapaWarstwy;
+var mapBrowser, localizer;
 
 $(document).ready(function () {
+	
 	mapBrowser = new MapBrowser();
+	
+	/*
 	localizer = new Localizer();
 
 	$('.localizeMe').click(function () {
@@ -850,161 +382,6 @@ $(document).ready(function () {
 			localizer.request_position();
 		}
 	});
-
-	var accords = $('.accord');
-	$.each(accords, function () {
-		var self = $(this);
-
-		self.find('>header').click(function () {
-			if (self.hasClass('closed')) {
-				var sectionH = self.find('>section').outerHeight(true);
-				self.find('>section').css('height', 0);
-				self.removeClass('closed');
-				self.find('>section').animate({
-					height: sectionH - 16
-				}, {
-					step: function () {
-						mapBrowser.resize();
-					},
-					complete: function () {
-						mapBrowser.resize();
-					}
-				});
-			} else {
-				self.addClass('closed');
-				mapBrowser.resize();
-				self.find('>section').animate({
-					height: 0
-				}, {
-					step: function () {
-						mapBrowser.resize();
-					},
-					complete: function () {
-						self.addClass('closed');
-						self.find('>section').css('height', 'auto');
-						mapBrowser.resize();
-					}
-				});
-			}
-		});
-	});
-
-	var mPCookie = {mapa: {}},
-		explore = $('.explore');
-
-	mapaWarstwy = new MapaWarstwy(mapBrowser.map);
-
-	if (Cookies.get('mojePanstwo') !== undefined) {
-		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
-	}
-
-	if (typeof mPCookie.mapa.warstwa !== "undefined" && mPCookie.mapa.warstwa) {
-		var showLayers = true;
-
-		if (typeof mPCookie.mapa.showMarkers) {
-			showLayers = mPCookie.mapa.showMarkers;
-			explore.find('.' + mPCookie.mapa.warstwa + '_content .showMarkers').prop('checked', showLayers);
-		}
-
-		mapaWarstwy.setLayer(mPCookie.mapa.warstwa, showLayers);
-		explore.find('li[data-layer="' + mPCookie.mapa.warstwa + '"]').addClass('open');
-		mapBrowser.resize();
-	}
-
-	explore.find('li').click(function () {
-		var c = $(this);
-		if (explore.height() > 0) {
-			if (c.hasClass('open')) {
-				explore.find('.explorerContent').animate({
-					height: 0
-				}, {
-					step: function () {
-						mapBrowser.resize();
-					},
-					complete: function () {
-						c.removeClass('open');
-						mapBrowser.resize();
-						mapaWarstwy.setLayer(false);
-
-						mPCookie.mapa.warstwa = false;
-						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-					}
-				}).css("overflow", "visible");
-			} else {
-				explore.find('li.open').removeClass('open');
-				c.addClass('open');
-
-				mapaWarstwy.setLayer(c.attr('data-layer'));
-
-				mPCookie.mapa.warstwa = c.attr('data-layer');
-				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-			}
-		} else {
-			if (c.attr('data-layer') === 'komisje_wyborcze') {
-				if ($('.wyboryCheckbox .bootstrap-switch.bootstrap-switch-on').length) {
-					mapaWarstwy.setLayer(c.attr('data-layer'));
-
-					mPCookie.mapa.warstwa = c.attr('data-layer');
-					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-				} else {
-					mapaWarstwy.setLayer(false);
-
-					mPCookie.mapa.warstwa = false;
-					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-				}
-			} else {
-				mapaWarstwy.setLayer(c.attr('data-layer'));
-
-				mPCookie.mapa.warstwa = c.attr('data-layer');
-				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-			}
-			if (c.attr('data-layer') === 'komisje_wyborcze') {
-				explore.find('.explorerContent').animate({
-					height: explore.css('max-height')
-				}, {
-					step: function () {
-						mapBrowser.resize();
-					},
-					complete: function () {
-						c.addClass('open');
-						mapBrowser.resize();
-					}
-				}).css("overflow", "visible");
-			} else {
-				c.addClass('open');
-			}
-		}
-	});
-
-	var c = explore.find('>ul li.open');
-	if (c.length) {
-		if (c.attr('data-layer') === 'komisje_wyborcze') {
-			if ($('.wyboryCheckbox [name="wyboryShow"]').is(':checked')) {
-				mapaWarstwy.setLayer(c.attr('data-layer'));
-
-				mPCookie.mapa.warstwa = c.attr('data-layer');
-				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-			}
-		} else {
-			mapaWarstwy.setLayer(c.attr('data-layer'));
-
-			mPCookie.mapa.warstwa = c.attr('data-layer');
-			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-		}
-	}
-
-	$('.wyboryCheckbox input[name="wyboryShow"]').bootstrapSwitch({
-		size: 'mini',
-		onText: 'Wł.',
-		offText: 'Wył.',
-		onSwitchChange: function (event, state) {
-			if (state) {
-				state = 'komisje_wyborcze';
-			}
-			mapaWarstwy.setLayer(state);
-
-			mPCookie.mapa.warstwa = state;
-			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-		}
-	});
+	*/
+	
 });

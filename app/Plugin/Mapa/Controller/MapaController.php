@@ -46,64 +46,93 @@ class MapaController extends ApplicationsController
                 'dataset' => array('miejsca'),
                 'miejsca.ignore' => false,
             ),
-            'cover' => array(
-                'aggs' => array(
-                    'miejsca' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'miejsca',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.miejsca.typ_id' => '1',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 20,
-                                    'sort' => array(
-                                        'title.raw_pl' => array(
-                                            'order' => 'asc',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                        'scope' => 'global',
-                    ),
-                ),
-            ),
             'apps' => true,
             'limit' => 10,
             'apps' => true,
         );
-
+		
+		$layers = '';
+		if( isset( $this->request->params['layers'] ) )
+			$layers = $this->request->params['layers'];
+				
+		$this->set('layers', $layers);
         $this->Components->load('Dane.DataBrowser', $options);
 
-        if (isset($this->request->query['widget'])) {
-            $this->layout = 'blank';
-            $this->set('widget', true);
-        }
-
     }
+    
+    public function getChapters() {
 
-    public function grid()
+		$mode = false;
+		$items = array(
+			array(
+				'id' => 'adm',
+				'label' => 'Podział administracyjny',
+				'icon' => 'icon-datasets-krs_podmioty',
+			),
+			array(
+				'id' => 'wojewodztwa',
+				'href' => '/mapa/wojewodztwa',
+				'label' => 'Województwa',
+				'icon' => 'icon-datasets-dot',
+			),
+			array(
+				'id' => 'powiaty',
+				'href' => '/mapa/powiaty',
+				'label' => 'Powiaty',
+				'icon' => 'icon-datasets-dot',
+			),
+			array(
+				'id' => 'gminy',
+				'href' => '/mapa/gminy',
+				'label' => 'Gminy',
+				'icon' => 'icon-datasets-dot',
+			),
+			array(
+				'id' => 'krs',
+				'href' => '/mapa/krs',
+				'label' => 'Organizacje',
+				'icon' => 'icon-datasets-krs_podmioty',
+			),
+			array(
+				'id' => 'ngo',
+				'href' => '/mapa/ngo',
+				'label' => 'NGO',
+				'icon' => 'icon-datasets-krs_podmioty',
+			),
+			array(
+				'id' => 'instytucje',
+				'href' => '/mapa/instytucje',
+				'label' => 'Instytucje publiczne',
+				'icon' => 'icon-datasets-krs_podmioty',
+			),
+			array(
+				'id' => 'wybory',
+				'href' => '/mapa/wybory',
+				'label' => 'Komisje wyborcze',
+				'icon' => 'icon-datasets-krs_podmioty',
+			),
+		);
+		
+		$output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
+
+    public function layer()
     {
 
         if (
-            isset($this->request->query['area']) &&
+            isset($this->request->query['tl']) &&
+            isset($this->request->query['br']) &&
             @$this->request->query['layer']
         ) {
-
-            list($tl, $br) = explode(',', $this->request->query['area']);
+			
+			$tl = $this->request->query['tl'];
+			$br = $this->request->query['br'];
 
             $strlen = strlen($tl);
 
@@ -151,6 +180,20 @@ class MapaController extends ApplicationsController
                     ),
                 );
 
+            } elseif ($this->request->query['layer'] == 'krs') {
+
+                $must[] = array(
+                    'term' => array(
+                        'dataset' => 'krs_podmioty',
+                    ),
+                );
+
+                $must[] = array(
+                    'term' => array(
+                        'data.krs_podmioty.wykreslony' => '0',
+                    ),
+                );
+            
             } elseif ($this->request->query['layer'] == 'ngo') {
 
                 $must[] = array(
@@ -265,7 +308,7 @@ class MapaController extends ApplicationsController
 
         $this->setLayout(array('header' => false, 'footer' => false));
 
-        if ($this->request->params['action'] == 'grid') {
+        if ($this->request->params['action'] == 'layer') {
 
             $data = $this->viewVars['dataBrowser']['aggs']['map'];
             foreach ($data['grid']['buckets'] as &$b) {
