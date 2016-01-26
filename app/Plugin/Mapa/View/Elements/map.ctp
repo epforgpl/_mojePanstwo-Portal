@@ -2,7 +2,7 @@
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobjectpage', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
-$this->Combinator->add_libs('css', $this->Less->css('warstwy', array('plugin' => 'Mapa')));
+//$this->Combinator->add_libs('css', $this->Less->css('warstwy', array('plugin' => 'Mapa')));
 $this->Combinator->add_libs('css', $this->Less->css('mapa', array('plugin' => 'Mapa')));
 
 echo $this->Html->css($this->Less->css('app'));
@@ -50,7 +50,9 @@ echo $this->element('headers/main');
 
             foreach ($app_chapters['items'] as $a) {
                 ?>
-                <li>
+                <li<? if ($layers == $a['id']) {
+                    echo ' class="active"';
+                } ?>>
                     <? if (isset($a['href'])) {
                         echo '<a href="' . $a['href'] . '" data-href="' . $a['href'] . '" target="_self">';
                     } else {

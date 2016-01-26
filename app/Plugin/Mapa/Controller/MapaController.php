@@ -50,16 +50,15 @@ class MapaController extends ApplicationsController
             'limit' => 10,
             'apps' => true,
         );
-		
-		$layers = '';
+
+        $layers = '';
 		if( isset( $this->request->params['layers'] ) )
 			$layers = $this->request->params['layers'];
-				
-		$this->set('layers', $layers);
-        $this->Components->load('Dane.DataBrowser', $options);
 
+        $this->set('layers', $layers);
+        $this->Components->load('Dane.DataBrowser', $options);
     }
-    
+
     public function getChapters() {
 
 		$mode = false;
@@ -112,8 +111,8 @@ class MapaController extends ApplicationsController
 				'icon' => 'icon-datasets-krs_podmioty',
 			),
 		);
-		
-		$output = array(
+
+        $output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
@@ -130,8 +129,8 @@ class MapaController extends ApplicationsController
             isset($this->request->query['br']) &&
             @$this->request->query['layer']
         ) {
-			
-			$tl = $this->request->query['tl'];
+
+            $tl = $this->request->query['tl'];
 			$br = $this->request->query['br'];
 
             $strlen = strlen($tl);
@@ -193,7 +192,7 @@ class MapaController extends ApplicationsController
                         'data.krs_podmioty.wykreslony' => '0',
                     ),
                 );
-            
+
             } elseif ($this->request->query['layer'] == 'ngo') {
 
                 $must[] = array(
