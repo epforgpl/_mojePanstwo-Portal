@@ -37,12 +37,17 @@ echo $this->element('headers/main');
         <? if (!empty($app_chapters['items'])) { ?>
             <div class="_mobile btn btn-link btn-sm"></div>
         <? } ?>
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
     </div>
 
     <ul class="app-list">
         <?
         if (@$app_chapters['items']) {
-						
+
             foreach ($app_chapters['items'] as $a) {
                 ?>
                 <li>
@@ -66,29 +71,30 @@ echo $this->element('headers/main');
         }
         ?>
     </ul>
-    
+
 </div>
 <div class="app-content-wrap">
     <div class="objectsPage">
         <div class="dataBrowser margin-top-0<? if (isset($class)) echo " " . $class; ?>">
             <div class="container">
-                
-                <div class="appBanner">		
-		            <div class="appSearch form-group">
-						<div class="input-group">
-							<input class="form-control" placeholder="Szukaj miejsc, kodów pocztowych, instytucji..." type="text">
+
+                <div class="appBanner">
+                    <div class="appSearch form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Szukaj miejsc, kodów pocztowych, instytucji..."
+                                   type="text">
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-primary input-md">
-			                        <span class="glyphicon glyphicon-search"></span>
-			                    </button>
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
 							</span>
-						</div>
-		            </div>
-		        </div>
-                
+                        </div>
+                    </div>
+                </div>
+
                 <div id="mapBrowser"
-                     class="row dataBrowserContent" 
-                     <? if($layers) { ?>data-layers="<?= $layers ?>" <? }?> 
+                     class="row dataBrowserContent"
+                     <? if ($layers) { ?>data-layers="<?= $layers ?>" <? } ?>
                      <? if (@$mapParams['viewport']) { ?>data-viewport="<?= htmlspecialchars(json_encode($mapParams['viewport'])) ?>"<? } ?>
                      <? if (@$mapParams['data']) { ?>data-typ_id="<?= $mapParams['data']['miejsca.typ_id'] ?>"<? } ?>
 
