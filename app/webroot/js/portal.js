@@ -1,7 +1,7 @@
 /*global jQuery*/
 (function ($) {
 	var _mPCockpit = $('#portal-header'),
-		login = _mPCockpit.find('.app-icons li.login'),
+		login = _mPCockpit.find('.user-icons li.login'),
 		loginOption = login.find('#mPUserOptions'),
 		apps = _mPCockpit.find('.app-icons li.apps'),
 		appList = apps.find('.appsList');

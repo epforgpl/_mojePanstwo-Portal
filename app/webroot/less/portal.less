@@ -9,17 +9,21 @@
     height: 44px;
     z-index: 1050;
 
-    #mp-logo {
+    .mpLogoBlock {
         float: left;
-        height: 38px;
-        margin: 4px 20px 1px;
+        width: 230px;
+
+        #mp-logo {
+            float: left;
+            height: 38px;
+            margin: 4px 20px 1px;
+        }
     }
 
-    .app-icons {
+    .app-icons, .user-icons {
         list-style: none;
         padding: 0 6px 0 0;
         margin: 0;
-        float: right;
 
         li {
             list-style: none;
@@ -36,11 +40,11 @@
                 position: relative;
 
                 .appsList {
-                    @right: -5px;
+                    @left: -5px;
 
                     background-color: @backgroundColor;
                     position: absolute;
-                    right: @right;
+                    left: @left;
                     top: 55px;
                     width: 290px;
                     border: 1px solid darken(@backgroundColor, 10%);
@@ -55,7 +59,7 @@
                         content: ' ';
                         position: absolute;
                         top: -@size;
-                        right: -@right+7;
+                        left: -@left+7;
                         width: 0;
                         height: 0;
                         border-left: @size solid transparent;
@@ -80,6 +84,7 @@
 
                         &.moreList {
                             display: none;
+                            padding-top: 0;
                             padding-bottom: 20px;
                         }
 

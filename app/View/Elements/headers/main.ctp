@@ -33,10 +33,53 @@
         </div>
     <?php } ?>
     <div>
-        <a href="/" target="_self">
-            <img id="mp-logo" src="/img/mp-logo-new.svg" title="moje Państwo"/>
-        </a>
-        <ul class="app-icons">
+        <div class="mpLogoBlock">
+            <a href="/" target="_self">
+                <img id="mp-logo" src="/img/mp-logo-new.svg" title="moje Państwo"/>
+            </a>
+        </div>
+        <ul class="app-icons pull-left">
+            <li>
+                <a class="_mPAppsList _appBlock _appBlockBackground" href="/moje-powiadomienia" target="_self">
+                    <span class="_mPAppIcon" data-icon-applications="&#xe60a;"></span>
+                    <? /* <span class="_mPAppBadge badge">0</span> */ ?>
+                </a>
+            </li>
+            <li class="apps">
+                <a class="_mPAppsList _appBlock _appBlockBackground" href="/#aplikacje" target="_self">
+                    <span class="_mPAppIcon glyphicon glyphicon-th"></span>
+                </a>
+                <div class="appsList">
+                    <ul class="appListUl">
+                        <? $i = 0;
+                        foreach ($_applications as $app) {
+                            if ($app['tag'] == 1) {
+                                $icon_link = $app['href'] . '/icon/icon_' . str_replace("/", "", $app['href']) . '.svg';
+
+                                if ($i == 9) {
+                                    echo '</ul><a href="#appsMore" class="btn btn-link appListMore">Więcej</a><ul class="appListUl moreList">';
+                                }
+                                $i++;
+                                ?>
+                                <li>
+                                    <a target="_self" href="<?= $app['href'] ?>"
+                                       class="_mPAppsList _appBlock _appBlockBackground text-center">
+                                        <img src="<?= $icon_link ?>" class="_mPAppIcon icon"/>
+                                        <p class="_mPAppLabel"><?= $app['name'] ?></p>
+                                    </a>
+                                </li>
+                            <? }
+                        } ?>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a class="_mPSearch _appBlock _appBlockBackground" href="/#szukaj">
+                    <span class="_mPAppIcon" data-icon="&#xe600;"></span>
+                </a>
+            </li>
+        </ul>
+        <ul class="user-icons pull-right">
             <li class="login">
                 <?php if ($this->Session->read('Auth.User.id')) { ?>
                     <?php if ($this->Session->read('Auth.User.username')) {
@@ -80,45 +123,6 @@
                         <i class="_mPAppIcon _mPIconUser" data-icon="&#xe620;"></i>
                     </a>
                 <?php } ?>
-            </li>
-            <li>
-                <a class="_mPAppsList _appBlock _appBlockBackground" href="/moje-powiadomienia" target="_self">
-                    <span class="_mPAppIcon" data-icon-applications="&#xe60a;"></span>
-                    <? /* <span class="_mPAppBadge badge">0</span> */ ?>
-                </a>
-            </li>
-            <li class="apps">
-                <a class="_mPAppsList _appBlock _appBlockBackground" href="/#aplikacje" target="_self">
-                    <span class="_mPAppIcon glyphicon glyphicon-th"></span>
-                </a>
-                <div class="appsList">
-                    <ul class="appListUl">
-                        <? $i = 0;
-                        foreach ($_applications as $app) {
-                            if ($app['tag'] == 1) {
-                                $icon_link = $app['href'] . '/icon/icon_' . str_replace("/", "", $app['href']) . '.svg';
-
-                                if ($i == 9) {
-                                    echo '</ul><a href="#appsMore" class="btn btn-link appListMore">Więcej</a><ul class="appListUl moreList">';
-                                }
-                                $i++;
-                                ?>
-                                <li>
-                                    <a target="_self" href="<?= $app['href'] ?>"
-                                       class="_mPAppsList _appBlock _appBlockBackground text-center">
-                                        <img src="<?= $icon_link ?>" class="_mPAppIcon icon"/>
-                                        <p class="_mPAppLabel"><?= $app['name'] ?></p>
-                                    </a>
-                                </li>
-                            <? }
-                        } ?>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a class="_mPSearch _appBlock _appBlockBackground" href="/#szukaj">
-                    <span class="_mPAppIcon" data-icon="&#xe600;"></span>
-                </a>
             </li>
         </ul>
     </div>
