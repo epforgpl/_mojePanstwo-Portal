@@ -48,6 +48,7 @@ class PrawoController extends ApplicationsController
 			'typ_id' => '1',
 			'icon' => 'dot',
 			'typ_id' => '1',
+			'submenu' => true,
 		),
 		'rozporzadzenia' => array(
 			'menu_id' => 'rozporzadzenia',
@@ -55,6 +56,7 @@ class PrawoController extends ApplicationsController
 			'typ_id' => '2',
 			'icon' => 'dot',
 			'typ_id' => '3',
+			'submenu' => true,
 		),
 		'umowy' => array(
 			'menu_id' => 'umowy',
@@ -62,12 +64,14 @@ class PrawoController extends ApplicationsController
 			'typ_id' => '18',
 			'icon' => 'dot',
 			'typ_id' => array('6', '7', '8', '10', '11', '12'),
+			'submenu' => true,
 		),
 		'inne' => array(
 			'menu_id' => 'inne',
 			'label' => 'Pozostałe',
 			'icon' => 'dot',
 			'typ_id' => '_other',
+			'submenu' => true,
 		),
 		'_publikatory' => array(
 			'label' => 'Przeglądaj według publikatora:',
@@ -80,22 +84,26 @@ class PrawoController extends ApplicationsController
 			'label' => 'Dziennik Ustaw',
 			'icon' => 'dot',
 			'publikator_id' => 'DzU',
+			'submenu' => true,
 		),
 		'monitor_polski' => array(
 			'menu_id' => 'monitor_polski',
 			'label' => 'Monitor Polski',
 			'icon' => 'dot',
 			'publikator_id' => 'MP',
+			'submenu' => true,
 		),
 		'prawo_wojewodztwa' => array(
 			'menu_id' => 'lokalne',
 			'label' => 'Prawo lokalne',
 			'icon' => 'dot',
+			'submenu' => true,
 		),
 		'prawo_urzedowe' => array(
 			'menu_id' => 'urzedowe',
 			'label' => 'Prawo urzędowe',
 			'icon' => 'dot',
+			'submenu' => true,
 		),
 	);
 	
@@ -473,6 +481,7 @@ class PrawoController extends ApplicationsController
 			$item = array(
 				'id' => $value['menu_id'],
 				'label' => $value['label'],
+				'submenu' => isset($value['submenu']) ? $value['submenu'] : false,
 			);
 			
 			if( $value['menu_id'] )
@@ -549,7 +558,8 @@ class PrawoController extends ApplicationsController
 					}
 					
 				} elseif( @$value['publikator_id'] ) {
-										
+					
+									
 					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
 						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
 													
@@ -610,9 +620,6 @@ class PrawoController extends ApplicationsController
 				
 			if( @$item['tag']=='publikatory' )
 				$items[$i]['count'] = $_publikatory;
-			
-            if(isset($item['submenu']))
-                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
 
         }
                 		

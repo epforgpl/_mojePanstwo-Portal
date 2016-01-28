@@ -22,7 +22,7 @@
         if (@$app_chapters['items']) {
             foreach ($app_chapters['items'] as $a) {
                 ?>
-                <li>
+                <li class="<? if( isset($app_chapters['selected']) && ( $app_chapters['selected'] == $a['id'] ) ) {?>active <? } ?><? if( isset($a['submenu']) && $a['submenu'] ) {?>sub<? } ?>">
                     <? if (isset($a['href'])) {
                         echo '<a href="' . $a['href'] . '" target="_self">';
                     } else {
