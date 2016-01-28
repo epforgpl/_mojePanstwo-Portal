@@ -590,7 +590,11 @@
 			function zoomed() {
 				d3Data.innerContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 				if (detailInfoWrapper.find('.dataContent').length) {
-					detailInfoPosition(detailInfoWrapper.find('.dataContent').data('node'));
+					if ((detailInfoWrapper.find('.dataContent').data('node').y + d3.event.translate[1]) <= 0) {
+						detailInfoRemove();
+					} else {
+						detailInfoPosition(detailInfoWrapper.find('.dataContent').data('node'));
+					}
 				}
 			}
 
