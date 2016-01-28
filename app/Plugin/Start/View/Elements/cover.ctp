@@ -24,7 +24,7 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
 
     <div class="appContent row">
         <div class="appsList">
-            <? foreach ($_applications as $a) {
+            <? foreach ($_applications as $app_id => $a) {
                 if ($a['tag'] == 1) {
                     $icon_link = $a['href'] . '/icon/icon_' . str_replace("/", "", $a['href']) . '.svg';
                     $icon_side = $a['href'] . '/icon/side_' . str_replace("/", "", $a['href']) . '.svg';
