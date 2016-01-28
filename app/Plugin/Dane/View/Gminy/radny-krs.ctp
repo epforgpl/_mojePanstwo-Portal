@@ -59,6 +59,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
                             </header>
                             <section id="connectionGraph" class="loading col-xs-12 nopadding"
                                      data-id="<?php echo $osoba->getId() ?>" data-url="krs_osoby"></section>
+                            <div class="detailInfoWrapper"></div>
                         </div>
                     <? } ?>
                 </div>

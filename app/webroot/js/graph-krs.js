@@ -30,13 +30,19 @@
 			}
 		},
 		connectionGraph = jQuery('#connectionGraph'),
-		powiazania = jQuery('.powiazania'),
+		powiazania = connectionGraph.parents('.powiazania'),
+		detailInfoWrapper = powiazania.find('.detailInfoWrapper'),
 		margin = {top: -5, right: -5, bottom: -5, left: -5},
 		width = connectionGraph.outerWidth() + 60 - margin.left - margin.right,
 		height = connectionGraph.outerHeight() - margin.top - margin.bottom,
 		dataContentWidth = ((width / 2) > 550 ? 550 : (width / 2));
 
 	if (connectionGraph.length > 0) {
+		detailInfoWrapper.css({
+			top: -500,
+			height: detailInfoWrapper.height() + 500
+		});
+
 		d3.json("/dane/" + connectionGraph.data('url') + "/" + connectionGraph.data('id') + "/graph.json", function (error, graph) {
 			var nodes = graph.nodes,
 				links = [],
@@ -583,8 +589,8 @@
 
 			function zoomed() {
 				d3Data.innerContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-				if (connectionGraph.find('.dataContent').length) {
-					detailInfoPosition(connectionGraph.find('.dataContent').data('node'));
+				if (detailInfoWrapper.find('.dataContent').length) {
+					detailInfoPosition(detailInfoWrapper.find('.dataContent').data('node'));
 				}
 			}
 
@@ -691,27 +697,24 @@
 				);
 				dataContent.find('table').append(link);
 
-				connectionGraph.append(dataContent);
+				detailInfoWrapper.append(dataContent);
 
 				node.detailWindow = true;
 				dataContent.data('node', node);
 
 				detailInfoPosition(node);
 
-				connectionGraph.find('.dataContent .btn').click(function () {
+				detailInfoWrapper.find('.dataContent .btn').click(function () {
 					detailInfoRemove();
 				});
 			}
 
 			function detailInfoPosition(node) {
-				var windowW = parseInt(d3Data.svg[0].parentNode.clientWidth),
-					windowH = parseInt(d3Data.svg[0].parentNode.clientHeight),
-					windowX = 0,
+				var windowX = 0,
 					windowY = 0,
 					gMain = connectionGraph.find('>svg > g'),
 					gInside = gMain.find('>g'),
-					detailInfo = connectionGraph.find('.dataContent'),
-					detailInfoHeight = detailInfo.outerHeight(),
+					detailInfo = detailInfoWrapper.find('.dataContent'),
 					nodeSize = (node.id === root.id) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize;
 
 				var reg = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/,
@@ -731,21 +734,14 @@
 				var nodeX = node.x + nodeSize + windowX,
 					nodeY = node.y + nodeSize + windowY;
 
-				if (nodeX + dataContentWidth > windowW) {
-					nodeX -= (dataContentWidth + (nodeSize * 2));
-				}
-				if (nodeY + detailInfoHeight > windowH) {
-					nodeY -= (detailInfoHeight + (nodeSize * 2));
-				}
-
 				detailInfo.css({
-					top: nodeY - ((node.label === "osoba") ? d3Data.size.nodesSize * 3.5 : d3Data.size.nodesSize * 5.5),
-					left: nodeX - ((node.label === "osoba") ? d3Data.size.nodesSize : d3Data.size.nodesSize * 2)
+					top: nodeY - ((node.fixed) ? d3Data.size.nodesSize * 5.5 : d3Data.size.nodesSize * 3.5) + 500,
+					left: nodeX - ((node.fixed) ? d3Data.size.nodesSize * 2 : d3Data.size.nodesSize)
 				});
 			}
 
 			function detailInfoRemove() {
-				var detailInfo = connectionGraph.find('.dataContent');
+				var detailInfo = detailInfoWrapper.find('.dataContent');
 
 				if (detailInfo.length > 0) {
 					detailInfo.data('node').detailWindow = null;

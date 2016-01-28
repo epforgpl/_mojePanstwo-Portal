@@ -17,5 +17,6 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 $this->Combinator->add_libs('js', 'graph-krs');
 ?>
     <div id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>" data-url="krs_osoby"></div>
+    <div class="detailInfoWrapper"></div>
 <?
 
