@@ -9,6 +9,8 @@
     <button type="submit" class="btn btn-default">Szukaj</button>
 </form>
 
+<p class="help-block margin-top-5 text-muted"><?= $count ?> rekordów.</p>
+
 <? if(isset($rows) && count($rows)) { ?>
     <table class="table table-striped table-hover table-bordered margin-top-10">
         <tr>
