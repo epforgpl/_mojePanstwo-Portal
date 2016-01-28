@@ -9,14 +9,14 @@
                  src="<?= $_app['href'] ?>/icon/icon_<?= $_app['id'] ?>.svg">
             <p><?= $_app['name'] ?></p>
         </a>
-        
+
         <? if (!empty($app_chapters['items'])) { ?>
             <div class="_mobile btn btn-link btn-sm"></div>
         <? } ?>
-        
+
     </div>
     <? } ?>
-    
+
     <ul class="app-list">
         <?
         if (@$app_chapters['items']) {

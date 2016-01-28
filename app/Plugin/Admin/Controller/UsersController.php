@@ -34,6 +34,7 @@ class UsersController extends AdminAppController {
             )
         );
 
+        $this->set('count', $count);
         $this->set('page', $page);
         $this->set('pages', ceil($count / self::$perPage));
         $this->set('rows', $this->AdminUser->find('all', array(

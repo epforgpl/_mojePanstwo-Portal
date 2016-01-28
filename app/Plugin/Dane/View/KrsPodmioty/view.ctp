@@ -623,6 +623,7 @@ $description =
 <div class="powiazania block block-simple col-xs-12">
     <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
              data-url="krs_podmioty"></section>
+    <div class="detailInfoWrapper"></div>
 </div>
 
 <div class="container">

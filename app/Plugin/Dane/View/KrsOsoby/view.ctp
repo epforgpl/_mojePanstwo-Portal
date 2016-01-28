@@ -32,6 +32,7 @@ $this->Combinator->add_libs('js', 'graph-krs');
     <div class="powiazania block block-simple col-md-12">
         <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
                  data-url="krs_osoby"></section>
+        <div class="detailInfoWrapper"></div>
     </div>
 
 <div><div>

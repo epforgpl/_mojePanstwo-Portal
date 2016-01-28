@@ -74,7 +74,7 @@ $(document).ready(function () {
 
     form.submit(function() {
         var bankAccountInput = $(this).find('#bankAccountNumber').first();
-        if(bankAccountInput.length) {
+        if(bankAccountInput.length && bankAccountInput.val().length) {
             if(NRBvalidatior(bankAccountInput.val()) == false) {
                 alert('Podałeś/aś nieprawidłowy numer konta');
                 return false;
