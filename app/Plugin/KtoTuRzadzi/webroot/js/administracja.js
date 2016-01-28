@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     $.each($administracja.find('.item a'), function () {
         var that = $(this),
-            block = that.parents('.block'),
+			block = that.parents('.blockSlide'),
             items = $(block.parent('.items'));
 
         that.click(function (e) {

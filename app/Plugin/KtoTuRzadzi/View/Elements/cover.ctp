@@ -6,28 +6,28 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 <div class="col-xs-12">
 
     <div class="appBanner">
-        
+
         <h1 class="appTitle">Kto tu rządzi?</h1>
-		<p class="appSubtitle">Informacje o urzędach i urzędnikach publicznych.</p>
+        <p class="appSubtitle">Informacje o urzędach i urzędnikach publicznych.</p>
 
         <div class="appSearch form-group">
-			<div class="input-group">
-				<input class="form-control" placeholder="Szukaj urzędów i urzędników..." type="text">
+            <div class="input-group">
+                <input class="form-control" placeholder="Szukaj urzędów i urzędników..." type="text">
 				<span class="input-group-btn">
 					<button type="submit" class="btn btn-primary input-md">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
 				</span>
-			</div>
+            </div>
         </div>
     </div>
 
-	<div id="administracja">
+    <div id="administracja">
 
         <div class="content">
             <div class="row items">
                 <? foreach ($data['files'] as $item) { ?>
-                    <div class="col-md-<?= $item['width'] ?>">
+                    <div class="blockSlide col-md-<?= $item['width'] ?>">
                         <div class="item" data-id="<?= $item['id'] ?>">
 
                             <a href="/dane/instytucje/<?= $item['id'] ?>" class="inner"
