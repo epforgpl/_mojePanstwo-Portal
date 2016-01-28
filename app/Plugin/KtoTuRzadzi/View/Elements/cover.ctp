@@ -3,33 +3,31 @@ $this->Combinator->add_libs('css', $this->Less->css('administracja', array('plug
 $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 ?>
 
-<? /*
-<div class="col-xs-12 col-sm-4 col-md-1-5 noleftpadding dataAggsContainer">
-	<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
-	    <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
-	</div>
-</div>
+<div class="col-xs-12">
 
-<div id="bdl_div" class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
-*/ ?>
+    <div class="appBanner">
+        
+        <h1 class="appTitle">Kto tu rządzi?</h1>
+		<p class="appSubtitle">Informacje o urzędach i urzędnikach publicznych.</p>
 
-<div id="bdl_div" class="col-xs-12">
-	<div class="dataWrap">
+        <div class="appSearch form-group">
+			<div class="input-group">
+				<input class="form-control" placeholder="Szukaj urzędów i urzędników..." type="text">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-primary input-md">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+				</span>
+			</div>
+        </div>
+    </div>
 
-		<div class="appBanner bottom-border">
-			<h1 class="appTitle">Kto tu rządzi?</h1>
-			<p class="appSubtitle">Informacje o urzędach i urzędnikach publicznych.</p>
-		</div>
-	
-	</div>
+	<div id="administracja">
 
-
-    <div id="administracja">
-
-        <div class="content col-xs-12 row">
+        <div class="content">
             <div class="row items">
                 <? foreach ($data['files'] as $item) { ?>
-                    <div class="block col-md-<?= $item['width'] ?>">
+                    <div class="col-md-<?= $item['width'] ?>">
                         <div class="item" data-id="<?= $item['id'] ?>">
 
                             <a href="/dane/instytucje/<?= $item['id'] ?>" class="inner"
@@ -70,7 +68,4 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
         </div>
     </div>
 
-
-
 </div>
-

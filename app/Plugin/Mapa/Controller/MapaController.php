@@ -224,7 +224,9 @@ class MapaController extends ApplicationsController
             }
 
 
-            $precision = floor($strlen / 2);
+            // $precision = round($strlen / 0.9);
+            // $precision = $strlen;
+            $precision = 11;
 
             $options = array(
                 'cover' => array(

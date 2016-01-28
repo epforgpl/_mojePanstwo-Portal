@@ -1,28 +1,25 @@
-<?
-/*HACK TO FIX FROM BACKEND*/
-if (@$app_chapters['items'])
-    array_shift($app_chapters['items']);    
-?>
-
 <div class="app-sidebar<? if (empty($app_chapters['items'])) {
     echo ' app-sidebar-oneline';
 } ?>">
+    <? if (!empty($_app)) { ?>
     <div class="app-logo">
-        <? if (!empty($_app)) { ?>
-            <a href="/<?= $_app['id'] ?>" target="_self">
-                <img class="icon"
-                     src="<?= $_app['href'] ?>/icon/icon_<?= $_app['id'] ?>.svg">
-                <p><?= $_app['name'] ?></p>
-            </a>
-        <? } ?>
+
+        <a href="/<?= $_app['id'] ?>" target="_self">
+            <img class="icon"
+                 src="<?= $_app['href'] ?>/icon/icon_<?= $_app['id'] ?>.svg">
+            <p><?= $_app['name'] ?></p>
+        </a>
+        
         <? if (!empty($app_chapters['items'])) { ?>
             <div class="_mobile btn btn-link btn-sm"></div>
         <? } ?>
+        
     </div>
+    <? } ?>
+    
     <ul class="app-list">
         <?
         if (@$app_chapters['items']) {
-
             foreach ($app_chapters['items'] as $a) {
                 ?>
                 <li>

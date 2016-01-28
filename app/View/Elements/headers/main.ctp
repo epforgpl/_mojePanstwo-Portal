@@ -125,7 +125,7 @@
 </div>
 
 
-<? if (isset($this->request->query['q']) && @isset($app_menu)) { ?>
+<? /* if (isset($this->request->query['q']) && @isset($app_menu)) { ?>
     <div class="apps-menu">
         <div class="container">
             <ul>
@@ -139,4 +139,4 @@
             </ul>
         </div>
     </div>
-<? } ?>
+<? } */ ?>

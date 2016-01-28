@@ -996,17 +996,7 @@ class FinanseController extends ApplicationsController
 				$this->chapter_selected = '_results';
 			$mode = 'results';
 
-		} else {
-
-            $items[] = array(
-				'label' => 'Finanse publiczne',
-				'href' => '/' . $this->settings['id'],
-				'class' => '_label',
-				'icon' => 'appIcon',
-				'appIcon' => $app['icon'],
-			);
-
-        }
+		}
 
 
         $others_count = 0;

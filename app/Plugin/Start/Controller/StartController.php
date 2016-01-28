@@ -44,5 +44,45 @@ class StartController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
+    
+    public function getChapters()
+    {
+	    
+	    return array(
+		    'items' => array(
+			    array(
+				    'id' => 'powiadomienia',
+				    'label' => 'Moje powiadomienia',
+				    'icon' => 'icon-datasets-krs_podmioty',
+				    'href' => 'moje-powiadomienia',
+			    ),
+			    array(
+				    'id' => 'pisma',
+				    'label' => 'Moje pisma',
+				    'icon' => 'icon-datasets-krs_podmioty',
+				    'href' => 'moje-pisma',
+			    ),
+			    array(
+				    'id' => 'kolekcje',
+				    'label' => 'Moje kolekcje',
+				    'icon' => 'icon-datasets-krs_podmioty',
+				    'href' => 'moje-kolekcje',
+			    ),
+			    array(
+				    'id' => 'konto',
+				    'label' => 'Ustawienia konta',
+				    'icon' => 'icon-datasets-krs_podmioty',
+				    'href' => 'konto',
+			    ),
+			    array(
+				    'id' => 'strony',
+				    'label' => 'Strony, którymi zarządzam',
+				    'icon' => 'icon-datasets-krs_podmioty',
+				    'href' => 'moje-strony',
+			    ),
+		    ),
+	    );
+	    
+    }
 
 }

@@ -429,7 +429,7 @@ var MapBrowser = Class.extend({
 	getArea: function () {
 		var self = this,
 			bounds = self.map.getBounds(),
-			precision = self.map.getZoom(),
+			precision = Math.ceil( self.map.getZoom() / 2 ),
 			ne_lat = bounds.getNorthEast().lat(),
 			sw_lng = bounds.getSouthWest().lng(),
 			sw_lat = bounds.getSouthWest().lat(),

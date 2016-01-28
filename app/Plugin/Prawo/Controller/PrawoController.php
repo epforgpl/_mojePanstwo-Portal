@@ -459,18 +459,7 @@ class PrawoController extends ApplicationsController
 				$this->chapter_selected = '_results';
 			$mode = 'results';
 
-		} else {
-			
-			$items[] = array(
-				'label' => 'Prawo',
-				'href' => '/' . $this->settings['id'],
-				'class' => '_label',
-				'icon' => '_app',
-			);
-			
 		}
-		
-		
 
 		$others_count = 0;
 		$_typy = 0;

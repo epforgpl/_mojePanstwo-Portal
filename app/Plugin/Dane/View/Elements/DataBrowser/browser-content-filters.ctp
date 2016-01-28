@@ -74,6 +74,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 	
 	
 	<? 
+		/*
 		$searcher = isset($searcher) ? $searcher : true;
 		if( $searcher && (!isset($nopaging) || !$nopaging) ) {
 	?>
@@ -82,7 +83,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 			'searcher' => true,
 		)); ?>
 	</div>
-	<? } ?>
+	<? } */ ?>
 	
 	
 	

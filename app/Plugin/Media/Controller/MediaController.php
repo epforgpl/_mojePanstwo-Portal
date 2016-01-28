@@ -669,14 +669,6 @@ class MediaController extends ApplicationsController
 			
 			
 			$items[] = array(
-				'label' => 'Państwo na Twitterze',
-				'href' => '/' . $this->settings['id'],
-				'class' => '_label no-border-bottom',
-				'icon' => 'appIcon',
-				'appIcon' => $app['icon'],
-			);
-			
-			$items[] = array(
 				'id' => 'politycy',
 				'label' => 'Politycy',
 				'href' => '/media/politycy',

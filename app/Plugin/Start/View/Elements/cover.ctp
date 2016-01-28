@@ -9,14 +9,16 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
         <p class="appSubtitle">Lorem ipsum placeholder</p>
 
         <div class="appSearch form-group">
-            <div class="input-group">
-                <input class="form-control" placeholder="Szukaj w danych publicznych..." type="text">
+	        <form action="/" method="get">
+	            <div class="input-group">
+	                <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text" />
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-md">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
+	                        <span class="glyphicon glyphicon-search"></span>
+	                    </button>
 					</span>
-            </div>
+	            </div>
+	        </form>
         </div>
     </div>
 

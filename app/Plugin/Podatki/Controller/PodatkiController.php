@@ -19,7 +19,7 @@ class PodatkiController extends ApplicationsController
 
     public $settings = array(
         'id' => 'podatki',
-        'title' => 'Podatki',
+        'title' => 'Jak są wydawane moje podatki?',
     );
 
     public function view()

@@ -312,16 +312,6 @@ class ApplicationsController extends AppController
 				$this->chapter_selected = '_results';
 			$mode = 'results';
 
-		} else {
-			
-			
-			$items[] = array(
-				'label' => isset($this->settings['shortTitle']) ? $this->settings['shortTitle'] : $this->settings['title'],
-				'href' => '/' . $this->settings['id'],
-				'class' => '_label',
-				'icon' => '_app',
-			);
-			
 		}
 
 		if(
