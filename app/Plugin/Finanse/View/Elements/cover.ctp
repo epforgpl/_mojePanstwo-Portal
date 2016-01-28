@@ -59,22 +59,23 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
 
 
 <div class="col-xs-12">
-
     <div class="appBanner">
         <h1 class="appTitle">Finanse publiczne</h1>
         <p class="appSubtitle">Poznaj stan finansów publicznych Polski.</p>
     </div>
+</div>
+</div>
+</div>
+<div class="finanseBlock">
+    <div class="chart"
+         data-json='<?php echo json_encode($dane); ?>'></div>
 
-    <div class="finanseBlock">
-
-        <div class="chart"
-             data-json='<?php echo json_encode($dane); ?>'></div>
-
-        <div class="mid-chart"></div>
-        <div class="chart2"></div>
-
-    </div>
-
+    <div class="mid-chart"></div>
+    <div class="chart2"></div>
+</div>
+<div class="container">
+    <div class="dataBrowserContent">
+        <div class="col-xs-12">
     <div class="row dataBrowserContent">
 
         <div id="compare" class="col-xs-12">

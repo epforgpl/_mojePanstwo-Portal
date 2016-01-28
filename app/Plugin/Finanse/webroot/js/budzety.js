@@ -1,17 +1,17 @@
 /*global $, window, document*/
 
 $(function () {
-	var dataBlock = $('.chart'),
-		dataBlock2 = $('.chart2'),
-		dataBlockmid = $('.mid-chart'),
-		data = $.parseJSON(dataBlock.attr('data-json'));
+	var dataBlockUp = $('.chart'),
+		dataBlockMid = $('.mid-chart'),
+		dataBlockDown = $('.chart2'),
+		data = $.parseJSON(dataBlockUp.attr('data-json'));
 
 	/**
 	 * @return {number}
 	 */
 	function SortByDate(a, b) {
-		var aName = a._source.data['budzety']['rok'];
-		var bName = b._source.data['budzety']['rok'];
+		var aName = a._source.data.budzety.rok,
+			bName = b._source.data.budzety.rok;
 		return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 	}
 
@@ -26,63 +26,62 @@ $(function () {
 		startDate = 1990,
 		premierPlotBandData = {},
 		premierPlotBandData2 = {},
-		premierPlotBandColorO = '#F3F3F3',//'#FFF',
-		premierPlotBandColorE = '#FFFFFF';//'#f8f9fa';
+		premierPlotBandColorO = '#F3F3F3',
+		premierPlotBandColorE = '#FFFFFF';
 
 	var last_year;
 	$.map(data, function (el) {
 		var self = el._source.data;
 
-		if (self['budzety']['rok'] >= startDate) {
+		if (self.budzety.rok >= startDate) {
 			wyd.push({
-				id: self['budzety']['id'],
-				x: self['budzety']['rok'],
-				y: self['budzety']['liczba_wydatki'] * 1000
+				id: self.budzety.id,
+				x: self.budzety.rok,
+				y: self.budzety.liczba_wydatki * 1000
 			});
 			doch.push({
-				id: self['budzety']['id'],
-				x: self['budzety']['rok'],
-				y: self['budzety']['liczba_dochody'] * 1000
+				id: self.budzety.id,
+				x: self.budzety.rok,
+				y: self.budzety.liczba_dochody * 1000
 			});
 			def.push({
-				id: self['budzety']['id'],
-				x: self['budzety']['rok'],
-				y: self['budzety']['liczba_deficyt'] * 1000
+				id: self.budzety.id,
+				x: self.budzety.rok,
+				y: self.budzety.liczba_deficyt * 1000
 			});
 
 			def_proc.push({
-				id: self['budzety']['id'],
-				x: self['budzety']['rok'],
-				y: -(1 - self['budzety']['liczba_wydatki'] / self['budzety']['liczba_dochody'])
+				id: self.budzety.id,
+				x: self.budzety.rok,
+				y: -(1 - self.budzety.liczba_wydatki / self.budzety.liczba_dochody)
 			});
 
-			if (premierPlotBandData.id !== self['budzety']['premier_czlowiek_id']) {
+			if (premierPlotBandData.id !== self.budzety.premier_czlowiek_id) {
 				if (premierPlotBandData.id !== undefined) {
-					premierPlotBandData.to = self['budzety']['rok'];
+					premierPlotBandData.to = self.budzety.rok;
 					premierPlotBandData.color = (dataPremier.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
 					dataPremier.push(premierPlotBandData);
 					premierPlotBandData = {};
 				}
-				premierPlotBandData.id = self['budzety']['premier_czlowiek_id'];
+				premierPlotBandData.id = self.budzety.premier_czlowiek_id;
 				premierPlotBandData.label = {
 					align: 'left',
 					text: '<img class="test" src="http://resources.sejmometr.pl/mowcy/a/1/' + premierPlotBandData.id + '.jpg" alt="" width="30" />',
 					useHTML: true,
 					zIndex: 115,
 					y: +240
-					//x: -15
 				};
-				premierPlotBandData.from = self['budzety']['rok'];
-				last_year = self['budzety']['rok'];
+				premierPlotBandData.from = self.budzety.rok;
+				last_year = self.budzety.rok;
 
 				if (premierPlotBandData2.id !== undefined) {
-					premierPlotBandData2.to = self['budzety']['rok'];
+					premierPlotBandData2.to = self.budzety.rok;
 					premierPlotBandData2.color = (dataPremier2.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
 					dataPremier2.push(premierPlotBandData2);
 					premierPlotBandData2 = {};
 				}
-				premierPlotBandData2.id = self['budzety']['premier_czlowiek_id'];
-				premierPlotBandData2.from = self['budzety']['rok'];
+				premierPlotBandData2.id = self.budzety.premier_czlowiek_id;
+				premierPlotBandData2.from = self.budzety.rok;
 			}
 		}
 	});
@@ -91,7 +90,6 @@ $(function () {
 	premierPlotBandData2.color = (dataPremier2.length % 2) ? premierPlotBandColorE : premierPlotBandColorO;
 	premierPlotBandData.to = last_year + 1;
 	premierPlotBandData2.to = last_year + 1;
-	//premierPlotBandData.label.x = -15;
 	dataPremier.push(premierPlotBandData);
 	dataPremier2.push(premierPlotBandData2);
 
@@ -133,13 +131,15 @@ $(function () {
 			zIndex: 0.01
 		}];
 
-	dataBlock.highcharts({
+	dataBlockUp.highcharts({
 		chart: {
-			spacingTop: 40,
-			spacingBottom: 40,
 			type: 'line',
 			backgroundColor: null,
 			height: 300,
+			spacingTop: 40,
+			spacingRight: 10,
+			spacingBottom: 40,
+			spacingLeft: 10,
 			style: {
 				fontFamily: "'Roboto', sans-serif"
 			}
@@ -224,16 +224,17 @@ $(function () {
 		}
 	});
 
-	dataBlockmid.highcharts({
+	dataBlockMid.highcharts({
 		chart: {
-			spacingBottom: 0,
 			type: 'line',
 			height: 90,
 			backgroundColor: null,
-			spacingTop: 0,
 			marginTop: 0,
 			marginBottom: 0,
-			spacingLeft: 64,
+			spacingTop: 0,
+			spacingRight: 10,
+			spacingBottom: 0,
+			spacingLeft: 65,
 			ignoreHiddenSeries: false,
 			style: {
 				fontFamily: "'Roboto', sans-serif"
@@ -253,7 +254,7 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				pointPlacement: 'between',
+				pointPlacement: 'on',
 				pointRange: 1
 			},
 			area: {
@@ -295,15 +296,16 @@ $(function () {
 		}
 	});
 
-	dataBlock2.highcharts({
+	dataBlockDown.highcharts({
 		chart: {
-			spacingBottom: 40,
 			type: 'area',
 			height: 175,
 			backgroundColor: null,
-			spacingTop: 0,
 			marginTop: 40,
-			spacingLeft: 27,
+			spacingTop: 0,
+			spacingRight: 10,
+			spacingBottom: 40,
+			spacingLeft: 25,
 			style: {
 				fontFamily: "'Roboto', sans-serif"
 			}
@@ -329,7 +331,7 @@ $(function () {
 						window.location = "/dane/budzety/" + event.point.id;
 					}
 				},
-				pointPlacement: 'between',
+				pointPlacement: 'on',
 				pointRange: 1
 			},
 			area: {
