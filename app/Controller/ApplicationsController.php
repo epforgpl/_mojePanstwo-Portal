@@ -79,6 +79,7 @@ class ApplicationsController extends AppController
 						'id' => $id,
 						'href' => $a['href'],
 						'title' => $a['name'],
+						'path' => isset( $a['path'] ) ? $a['path'] : false,
 					);
 
 
