@@ -67,8 +67,9 @@
                         border-bottom: @size solid @backgroundColor;
                     }
 
-                    .appListMore {
+                    .appListMore, .appListLess {
                         width: 100%;
+                        float: left;
                         font-size: 13px;
                         display: inline-block;
                         text-align: center;
@@ -77,15 +78,20 @@
                         text-decoration: none;
                     }
 
+                    .appListLess {
+                        display: none;
+                    }
+
                     .appListUl {
                         display: inline-block;
                         padding: 20px 15px 0;
                         white-space: normal;
+                        width: 100%;
+                        float: left;
 
                         &.moreList {
                             display: none;
                             padding-top: 0;
-                            padding-bottom: 20px;
                         }
 
                         li {

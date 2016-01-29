@@ -8,17 +8,17 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
         <h1 class="appTitle">mojePaństwo</h1>
         <p class="appSubtitle">Lorem ipsum placeholder</p>
 
-        <div class="appSearch form-group">
-	        <form action="/" method="get">
-	            <div class="input-group">
-	                <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text" />
+        <div class="_mPSearchOutside appSearch form-group">
+            <form action="/" method="get">
+                <div class="input-group">
+                    <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text"/>
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-md">
-	                        <span class="glyphicon glyphicon-search"></span>
-	                    </button>
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
 					</span>
-	            </div>
-	        </form>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -26,8 +26,10 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
         <div class="appsList">
             <? foreach ($_applications as $app_id => $a) {
                 if ($a['tag'] == 1) {
-                    $icon_link = $a['href'] . '/icon/icon_' . str_replace("/", "", $a['href']) . '.svg';
-                    $icon_side = $a['href'] . '/icon/side_' . str_replace("/", "", $a['href']) . '.svg';
+                    $path = (isset($a['path']) && !empty($a['path'])) ? $a['path'] : $app_id;
+
+                    $icon_link = '/' . $path . '/icon/icon_' . $app_id . '.svg';
+                    $icon_side = '/' . $path . '/icon/side_' . $app_id . '.svg';
                     ?>
                     <a class="col-xs-12 col-sm-6" href="<?= $a['href'] ?>" target="_self">
                         <div class="appBorder">
@@ -55,10 +57,12 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
         </div>
 
         <div class="reportsList">
-            <? foreach ($_applications as $a) {
+            <? foreach ($_applications as $app_id => $a) {
                 if ($a['tag'] == 2) {
-                    $icon_link = $a['href'] . '/icon/icon_' . str_replace("/", "", $a['href']) . '.svg';
-                    $icon_side = $a['href'] . '/icon/side_' . str_replace("/", "", $a['href']) . '.svg';
+                    $path = (isset($a['path']) && !empty($a['path'])) ? $a['path'] : $app_id;
+
+                    $icon_link = '/' . $path . '/icon/icon_' . $app_id . '.svg';
+                    $icon_side = '/' . $path . '/icon/side_' . $app_id . '.svg';
                     ?>
                     <a class="col-xs-12 col-sm-6" href="<?= $a['href'] ?>" target="_self">
                         <div class="appBorder">
