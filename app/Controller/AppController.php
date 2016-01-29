@@ -401,7 +401,7 @@ class AppController extends Controller
             'href' => '/dostep_do_informacji_publicznej',
             'tag' => 2,
             'icon' => '&#xe60e;',
-            'path' => 'RaportyDostepDoInformacjiPublicznej',
+            'path' => 'raporty_dostep_do_informacji_publicznej',
         ),
         'finanse' => array(
             'name' => 'Finanse publiczne',
@@ -445,12 +445,6 @@ class AppController extends Controller
             'href' => '/dane',
             'tag' => 0,
             'icon' => '&#xe616;',
-        ),
-        'dostep_do_informacji_publicznej' => array(
-            'name' => 'Dostęp do Informacji Publicznej',
-            'href' => '/dostep_do_informacji_publicznej',
-            'tag' => 1,
-            'icon' => '&#xe60e;',
         ),
 
         /*
