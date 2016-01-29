@@ -40,6 +40,11 @@
         </div>
         <ul class="app-icons pull-left">
             <li>
+                <a class="_mPSearch _appBlock _appBlockBackground" href="/#szukaj">
+                    <span class="_mPAppIcon" data-icon="&#xe600;"></span>
+                </a>
+            </li>
+            <li>
                 <a class="_mPAppsList _appBlock _appBlockBackground" href="/moje-powiadomienia" target="_self">
                     <span class="_mPAppIcon" data-icon-applications="&#xe60a;"></span>
                     <? /* <span class="_mPAppBadge badge">0</span> */ ?>
@@ -72,11 +77,6 @@
                         } ?>
                     </ul>
                 </div>
-            </li>
-            <li>
-                <a class="_mPSearch _appBlock _appBlockBackground" href="/#szukaj">
-                    <span class="_mPAppIcon" data-icon="&#xe600;"></span>
-                </a>
             </li>
         </ul>
         <ul class="user-icons pull-right">

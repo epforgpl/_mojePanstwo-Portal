@@ -1,181 +1,499 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('warstwy', array('plugin' => 'Mapa')));
 $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo')));
-$this->Combinator->add_libs('js', 'latlon-geohash');
-$this->Combinator->add_libs('js', 'Mapa.warstwy');
 $this->Combinator->add_libs('js', 'Ngo.ngo');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
-
-switch (Configure::read('Config.language')) {
-    case 'pol':
-        $lang = "pl-PL";
-        break;
-    case 'eng':
-        $lang = "en-EN";
-        break;
-};
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 
-<div class="col-xs-12 col-sm-4 col-md-1-5 noleftpadding dataAggsContainer">
-    <div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
-        <? echo $this->Element('Dane.DataBrowser/app_chapters'); ?>
-        <?
-        $this->Combinator->add_libs('js', 'Media.twitter-account-suggestion');
-        $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
-        $this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion', array('plugin' => 'Media')));
-        ?>
-        <div class="banner block">
-            <div>
-                <div class="img-cog pull-left">
-                    <span class="object-icon icon-datasets-strony"></span>
-                </div>
-                <p class="headline margin-top-20"><strong>Zarządzaj profilem</strong> <br/>swojej organizacji!</p>
-            </div>
-            <div class="description margin-top-30">
-                <p>Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane!</p>
 
-                <p>Aby zacząć, znajdź organizację, korzystając z wyszukiwarki powyżej, przejdź na jej profil i poproś o
-                    uprawnienia do zarządzania jej profilem.</p>
-                <button class="btn btn-sm btn-primary szukajOrganizajiBtn">Szukaj organizacji</button>
-            </div>
+<div class="col-xs-12">
+
+    <div class="appBanner">
+
+		<h1 class="appTitle">Organizacje pozarządowe</h1>
+        <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
+		
+        <div class="appSearch form-group">
+			<div class="input-group">
+				<input class="form-control" placeholder="Szukaj w NGO..." type="text">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-primary input-md">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+				</span>
+			</div>
         </div>
+        
     </div>
-</div>
 
-<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+	<div class="row">
+		<div class="col-md-8">
+			
+			<? if( $docs = @$dataBrowser['aggs']['konkursy']['top']['hits']['hits'] ) {?>
+			<div class="block">
+		        <header>Konkursy dla organizacji pozarządowych:</header>
+		        <section class="content">
+			        <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects" style="margin: 0 20px;">
+	                        <? foreach ($docs as $doc) { ?>
+	                            <li class="margin-top-10">
+	                                <?
+	                                echo $this->Dataobject->render($doc, 'default');
+	                                ?>
+	                            </li>
+	                        <? } ?>
+	                    </ul>
+	                </div>
 
-    <div class="dataWrap">
-        <div class="appBanner bottom-border">
-            <h1 class="appTitle">Organizacje pozarządowe</h1>
+                    <div class="buttons">
+		                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+                    </div>
+		        </section>
+			</div>
+			<? } ?>
+		
+		</div><div class="col-md-4">
+			
+			<div class="block bgA">
+		        <header>Najnowsze zbiórki publiczne:</header>
+		        <section class="content">
+			        <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects" style="margin: 0 20px;">
+	                        <? /* foreach ($organizacje as $doc) { ?>
+	                            <li class="margin-top-10">
+	                                <?
+	                                echo $this->Dataobject->render($doc, 'default');
+	                                ?>
+	                            </li>
+	                        <? } */ ?>
+	                    </ul>
+	                </div>
 
-            <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
-        </div>
-        <div id="actions-newest" class="block block-simple col-sm-12">
-            <header class="nopadding">Najnowsze działania organizacji pozarządowych:</header>
-            <section class="content margin-top-10">
-                <div class="row">
-                    <? foreach ($dataBrowser['aggs']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
-                        <div class="action col-sm-4">
-                            <h4>
-                                <a href="/dane/<?= $dzialanie['_source']['data']['dzialania']['dataset']; ?>/<?= $dzialanie['_source']['data']['dzialania']['object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
-                                    <?= $this->Text->truncate($dzialanie['_source']['data']['dzialania']['tytul'], 100); ?>
-                                </a>
-                            </h4>
-                            <? if ($dzialanie['_source']['data']['dzialania']['photo'] == '1') { ?>
-                                <div class="photo">
-                                    <a href="/dane/<?= $dzialanie['_source']['data']['dzialania']['dataset']; ?>/<?= $dzialanie['_source']['data']['dzialania']['object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
-                                            alt="<?= $dzialanie['_source']['data']['dzialania']['tytul']; ?>"
-                                            src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
-                                </div>
-                            <? } ?>
-                            <p class="owner"><?= @$dzialanie['_source']['data']['dzialania']['owner_name'] ?></p>
+                    <div class="buttons">
+		                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+                    </div>
+		        </section>
+			</div>
+			
+			<div class="block bgA">
+		        <header>Sprawozdania OPP:</header>
+		        <section class="content">
+			        <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects" style="margin: 0 20px;">
+	                        <? /* foreach ($organizacje as $doc) { ?>
+	                            <li class="margin-top-10">
+	                                <?
+	                                echo $this->Dataobject->render($doc, 'default');
+	                                ?>
+	                            </li>
+	                        <? } */ ?>
+	                    </ul>
+	                </div>
 
-                            <div class="desc">
-                                <?= @$this->Text->truncate($dzialanie['_source']['data']['dzialania']['podsumowanie'], 200) ?>
+                    <div class="buttons">
+		                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+                    </div>
+		        </section>
+			</div>
+			
+		</div>
+	</div>
+	
+	
+	<div id="actions-newest" class="block block-simple">
+        <header>Najnowsze działania organizacji pozarządowych:</header>
+        <section class="content" style="margin: 10px 20px; float: none; width: inherit;">
+            <div class="row">
+                <? foreach ($dataBrowser['aggs']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+                    <div class="action col-sm-4">
+                        <h4>
+                            <a href="/dane/<?= $dzialanie['_source']['data']['dzialania']['dataset']; ?>/<?= $dzialanie['_source']['data']['dzialania']['object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
+                                <?= $this->Text->truncate($dzialanie['_source']['data']['dzialania']['tytul'], 100); ?>
+                            </a>
+                        </h4>
+                        <? if ($dzialanie['_source']['data']['dzialania']['photo'] == '1') { ?>
+                            <div class="photo">
+                                <a href="/dane/<?= $dzialanie['_source']['data']['dzialania']['dataset']; ?>/<?= $dzialanie['_source']['data']['dzialania']['object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
+                                        alt="<?= $dzialanie['_source']['data']['dzialania']['tytul']; ?>"
+                                        src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
                             </div>
+                        <? } ?>
+                        <p class="owner"><?= @$dzialanie['_source']['data']['dzialania']['owner_name'] ?></p>
+
+                        <div class="desc">
+                            <?= @$this->Text->truncate($dzialanie['_source']['data']['dzialania']['podsumowanie'], 200) ?>
                         </div>
+                    </div>
+                <? } ?>
+            </div>
+            <div class="text-center margin-top-20">
+                <a class="btn btn-xs btn-primary" href="/ngo/dzialania">Zobacz więcej &raquo;</a>
+            </div>
+        </section>
+    </div>
+    
+    <? if( $docs = @$dataBrowser['aggs']['pisma']['top']['hits']['hits'] ) {?>
+	<div class="block block-simple">
+        <header class="nopadding">Pisma:</header>
+        <section class="content margin-top-10">
+
+            <div class="agg agg-Dataobjects">
+                <ul class="dataobjects">
+                    <? foreach ($docs as $doc) { ?>
+                        <li class="margin-top-10">
+                            <?
+                            echo $this->Dataobject->render($doc, 'default');
+                            ?>
+                        </li>
                     <? } ?>
+                </ul>
+                <div class="buttons text-center margin-top-10">
+                    <a href="/ngo/pisma" class="btn btn-primary btn-xs">Zobacz więcej &raquo;</a>
                 </div>
-                <div class="text-center margin-top-20">
-                    <a class="btn btn-xs btn-primary" href="/ngo/dzialania">Zobacz więcej &raquo;</a>
-                </div>
-            </section>
-        </div>
+            </div>
 
-        <? if( $docs = @$dataBrowser['aggs']['pisma']['top']['hits']['hits'] ) {?>
-		<div class="block block-simple col-sm-12">
-            <header class="nopadding">Pisma:</header>
-            <section class="content margin-top-10">
-
-                <div class="agg agg-Dataobjects">
-                    <ul class="dataobjects">
-                        <? foreach ($docs as $doc) { ?>
-                            <li class="margin-top-10">
-                                <?
-                                echo $this->Dataobject->render($doc, 'default');
-                                ?>
+        </section>
+    </div>
+    <? } ?>
+    
+    <div id="accountsSwitcher" class="appMenuStrip">
+        <? if (isset($twitterTimeranges) && isset($twitterTimerange)) { ?>
+            <div class="appSwitchers">
+                
+                <div class="pull-left">
+                    <p class="_label">Analizowany okres:</p>
+                    <ul class="nav nav-pills">
+                        <? foreach ($twitterTimeranges as $key => $value) { ?>
+                            <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
+                                <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
+                                    <?= $value ?>
+                                </a>
                             </li>
                         <? } ?>
                     </ul>
-                    <div class="buttons text-center margin-top-10">
-                        <a href="/ngo/pisma" class="btn btn-primary btn-xs">Zobacz więcej &raquo;</a>
-                    </div>
                 </div>
+                <div class="pull-right">
+                    <ul class="nav nav-pills">
+                        <li<? if (isset($this->request->query['t']) && ($this->request->query['t'] == $last_month_report['param'])) echo ' class="active"' ?>>
+                            <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
+                        </li>
 
-            </section>
-        </div>
-        <? } ?>
-
-        <div class="block block-simple col-sm-12">
-            <header class="nopadding">Mapa organizacji pozarządowych:</header>
-            <section class="content margin-top-10">
-                <div id="map"></div>
-                <div class="mapSpinner spinner grey hide">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
-                </div>
-            </section>
-        </div>
-
-        <? if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
-            $docs = $hits;
-            ?>
-            <div class="block col-xs-12">
-                <header>Najbardziej angażujące tweety NGO z ostatnich 7 dni:<i class="glyphicon glyphicon-question-sign" data-toggle="tooltip"
-                                                         data-placement="right"
-                                                         title="Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy."></i>
-                </header>
-                <section class="aggs-init">
-                    <div class="dataAggs">
-                        <div class="agg agg-Dataobjects">
-                            <ul class="dataobjects">
-                                <? foreach ($docs as $doc) { ?>
-                                    <li>
-                                        <?= $this->Dataobject->render($doc, 'default') ?>
-                                    </li>
-                                <? } ?>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="text-center margin-top-20">
-                        <a class="btn btn-xs btn-primary" href="/media/ngo">Zobacz więcej &raquo;</a>
-                    </div>
-                </section>
-            </div>
-        <? } ?>
-
-        <? if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) { ?>
-            <div class="block col-xs-12">
-                <header>Najbardziej angażujące profile NGO z ostatnich 7 dni:
-                    <i class="glyphicon glyphicon-question-sign"
-                        data-toggle="tooltip"
-                        data-placement="right"
-                        title="Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy."></i>
-                </header>
-                <section class="aggs-init">
-                    <div class="dataAggs">
-                        <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
-                             data-image_field="image_url" data-label_field="name"
-                             data-counter_field="engagement_count"
-                             data-choose-request="/dane/twitter_accounts/"
-                             data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
-                            <div class="chart">
-                                <div class="spinner grey">
-                                    <div class="bounce1"></div>
-                                    <div class="bounce2"></div>
-                                    <div class="bounce3"></div>
+                        <? if (isset($dropdownRanges)) { ?>
+                            <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
+                                <div class="dropdown">
+                                    <button class="clear dropdown-toggle" type="button" id="dropdownRanges"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Więcej <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownRanges">
+                                        <? foreach ($dropdownRanges as $dropdown) { ?>
+                                            <li class="dropdown-title"><?= $dropdown['title'] ?></li>
+                                            <? foreach ($dropdown['ranges'] as $range) { ?>
+                                                <li<? if ($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
+                                                    <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
+                                                        <?= $range['label'] ?>
+                                                    </a>
+                                                </li>
+                                            <? } ?>
+                                        <? } ?>
+                                    </ul>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center margin-top-20">
-                        <a class="btn btn-xs btn-primary" href="/media/ngo">Zobacz więcej &raquo;</a>
-                    </div>
-                </section>
+                            </li>
+                        <? } ?>
+                    </ul>
+                </div>
+
             </div>
         <? } ?>
+    </div>
+		
+    <div class="mediaHighstockPicker">
+        <div class="chart"
+             data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['selected_accounts']['histogram']) ?>'
+             data-xmax='<?= json_encode(isset($timerange['xmax']) ? $timerange['xmax'] : false) ?>'
+             data-range='<?= json_encode($timerange['range']) ?>'>
+            <div class="spinner grey">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+	        
+        <div class="range">
+            <div class="row">
+                <div class="col-md-5">
+                    <p class="display"><?= $this->Czas->dataSlownie($timerange['labels']['min']) ?> <span
+                            class="separator">&mdash;</span> <?= $this->Czas->dataSlownie($timerange['labels']['max']) ?>
+                    </p>
+                </div>
+                <div class="col-md-7">
+                    <a href="#" class="switcher hidden"
+                       data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
+                        <span class="icon" data-icon="&#xe604;"></span>
+                        Zastosuj
+                    </a>
+                    <a href="#" class="cancel hidden"
+                       data-type="<? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo $twitterAccountType; ?>">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Anuluj
+                    </a>
+                </div>
+            </div>
+        </div>
 
     </div>
+	
+	
+	
+	<div class="row">
+
+		<div class="col-md-8">
+			
+			<?
+			if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
+		        
+		        if ($timerange['init']) {
+		            $docs = array();
+		            foreach ($hits as $hit)
+		                $docs[$hit['fields']['date'][0]] = $hit;
+		
+		            unset($hits);
+		            krsort($docs);
+		            $docs = array_values($docs);
+		        } else {
+		            $docs = $hits;
+		        }
+		        
+	        ?>
+	        <div class="block">
+	            <header>Najbardziej angażujące tweety</header>
+	            <section class="content">
+		            
+		            <div class="block-bg-area">
+			            <p class="p">Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy.</p>
+		            </div>
+		            
+	                <div class="dataAggs">
+	                    <div class="agg agg-Dataobjects">
+	                        <ul class="dataobjects">
+	                            <? foreach ($docs as $doc) { ?>
+	                                <li>
+	                                    <?= $this->Dataobject->render($doc, 'default') ?>
+	                                </li>
+	                            <? } ?>
+	                        </ul>
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+		    <? } ?>
+			
+		</div>
+		
+		<div class="col-md-4">
+			
+			<?
+			if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) {
+			?>
+	        <div class="block bgA">
+	            <header>Najbardziej angażujące profile</header>
+	            <section class="aggs-init">
+	                
+	                <div class="block-bg-area">
+			            <p class="p">Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy.</p>
+		            </div>
+	                
+	                <div class="dataAggs">
+	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
+	                         data-image_field="image_url" data-label_field="name"
+	                         data-counter_field="engagement_count"
+	                         data-choose-request="/dane/twitter_accounts/"
+	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
+	                        <div class="chart">
+	                            <div class="spinner grey">
+	                                <div class="bounce1"></div>
+	                                <div class="bounce2"></div>
+	                                <div class="bounce3"></div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+		    <? } ?>
+		    
+		    <?
+		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets']['buckets']) {
+		    ?>
+	        <div class="block bgA">
+	            <header>Najwięcej tweetów napisali</header>
+	            <section class="aggs-init">
+	                <div class="dataAggs">
+	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
+	                         data-image_field="image_url" data-label_field="name"
+	                         data-choose-request="/dane/twitter_accounts/"
+	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets'])) ?>">
+	                        <div class="chart">
+	                            <div class="spinner grey">
+	                                <div class="bounce1"></div>
+	                                <div class="bounce2"></div>
+	                                <div class="bounce3"></div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+		    <? } ?>
+		    
+		    <?
+		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets']['buckets']) {
+		    ?>
+	        <div class="block bgA">
+	            <header>Najwięcej zaangażowania w przeliczeniu na 1 tweeta</header>
+	            <section class="aggs-init">
+	                
+	                <div class="block-bg-area">
+			            <p class="p">Profile, które uzyskały najwięcej retweetów, polubień i komentarzy, w przeliczeniu na 1 tweeta.</p>
+		            </div>
+	                
+	                <div class="dataAggs">
+	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
+	                         data-image_field="image_url" data-label_field="name" data-counter_field="engagement_count"
+	                         data-choose-request="/dane/twitter_accounts/"
+	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets'])) ?>">
+	                        <div class="chart">
+	                            <div class="spinner grey">
+	                                <div class="bounce1"></div>
+	                                <div class="bounce2"></div>
+	                                <div class="bounce3"></div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+		    <? } ?>
+		    
+		    <?
+		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids']['buckets']) {
+		    ?>
+	        <div class="block bgA">
+	            <header>Najczęściej wzmiankowani</header>
+	            <section class="aggs-init">
+		            
+		            <div class="block-bg-area">
+			            <p class="p">Profile, które były najczęściej wzmiankowane w innych tweetach i ich retweetach.</p>
+		            </div>
+		            
+	                <div class="dataAggs">
+	                    <div class="agg agg-ColumnsHorizontal"
+	                         data-chart-height="1500"
+	                         data-label-width="150"
+	                         data-label_field="name"
+	                         data-image_field="photo"
+	                         data-choose-request="/dane/twitter_accounts/"
+	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids'])) ?>">
+	                        <div class="chart">
+	                            <div class="spinner grey">
+	                                <div class="bounce1"></div>
+	                                <div class="bounce2"></div>
+	                                <div class="bounce3"></div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+		    <? } ?>
+		    
+		    <?
+		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']) {
+		    ?>
+	        <div class="block bgA">
+	            <header>Najczęściej używane aplikacje:</header>
+	            <section class="aggs-init margin-sides-10">
+	                <div class="pie"
+	                     data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'
+	                     data-parms="<?
+	                     $parms = '';
+	
+	                     if (isset($timerange["range"])) {
+	                         $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
+	                     }
+	                     if (isset($twitterAccountType) && $twitterAccountType !== '0') {
+	                         $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
+	                     }
+	                     echo $parms;
+	                     ?>">
+	                    <div class="spinner grey">
+	                        <div class="bounce1"></div>
+	                        <div class="bounce2"></div>
+	                        <div class="bounce3"></div>
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+		    <? } ?>
+			
+		</div>
+		
+	</div>
+	
+	<?
+	if ($tags = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']['tags']['buckets']) {
+
+	    $max = 0;
+	    foreach ($tags as $t)
+	        if ($t['rn']['engagement_count']['value'] > $max)
+	            $max = $t['rn']['engagement_count']['value'];
+	
+	    if (!$max)
+	        $max = 1;
+    ?>
+    <div class="block">
+        <header>Najbardziej angażujące hashtagi</header>
+		<section class="aggs-init">
+		    
+		    <? /*
+		    <div class="block-bg-area">
+	            <p class="p">Hashatagi osadzone w tweetach, które osiągneły największą liczbę retweetów, polubień i komentarzy.</p>
+            </div>
+            */ ?>
+		    
+		    <ul id="tagsCloud">
+		        <? foreach ($tags as $tag) { ?>
+		            <li style="font-size: <?= 20 + (70 * $tag['rn']['engagement_count']['value'] / $max) ?>px;">
+		                <a href="/media/tweety?conditions[twitter.tags]=<?
+		                $parms = $tag['key'];
+		                if (isset($timerange["range"])) {
+		                    $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
+		                }
+		                if (isset($twitterAccountType) && $twitterAccountType !== '0') {
+		                    $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
+		                }
+		                echo $parms;
+		                ?>">
+		                    <?= $tag['label']['buckets'][0]['key'] ?>
+		                </a>
+		            </li>
+		        <? } ?>
+		    </ul>
+		</section>
+	</div>
+	<? } ?>
+	
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
