@@ -1,13 +1,13 @@
 <div class="app-sidebar<? if (empty($app_chapters['items'])) {
     echo ' app-sidebar-oneline';
 } ?>">
-    <? if (!empty($_app)) { ?>
+    <? if (!empty($_app)) {
+        $path = (isset($_app['path']) && !empty($_app['path'])) ? $_app['path'] : $_app['id'];
+        ?>
         <div class="app-logo">
 
             <a href="/<?= $_app['id'] ?>" target="_self">
-                <img class="icon"
-                     src="<? $path = (isset($_app['path']) && !empty($_app['path'])) ? $_app['path'] : $_app['id'];
-                     echo '/' . $path ?>/icon/icon_<?= $_app['id'] ?>.svg">
+                <img class="icon" src="<?= '/' . $path ?>/icon/icon_<?= $_app['id'] ?>.svg">
                 <p><?= $_app['name'] ?></p>
             </a>
 
@@ -23,7 +23,7 @@
         if (@$app_chapters['items']) {
             foreach ($app_chapters['items'] as $a) {
                 ?>
-                <li class="<? if (isset($app_chapters['selected']) && ($app_chapters['selected'] == $a['id'])) { ?>active <? } ?><? if (isset($a['submenu']) && $a['submenu']) { ?>sub<? } ?>">
+                <li class="<? if (isset($app_chapters['selected']) && !empty($app_chapters['selected']) && (isset($a['id'])) && ($app_chapters['selected'] == $a['id'])) { ?>active <? } ?><? if (isset($a['submenu']) && $a['submenu']) { ?>sub<? } ?>">
                     <? if (isset($a['href'])) {
                         echo '<a href="' . $a['href'] . '" target="_self">';
                     } else {
@@ -43,4 +43,9 @@
         }
         ?>
     </ul>
+    <?
+    /*if ($this->_getElementFilename($_app['id'] . '.aftermenu')) {
+        echo $this->Element($_app['id'] . '.aftermenu');
+    }*/
+    ?>
 </div>
