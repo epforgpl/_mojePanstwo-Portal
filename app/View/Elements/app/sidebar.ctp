@@ -17,35 +17,38 @@
 
         </div>
     <? } ?>
-
-    <ul class="app-list">
-        <?
-        if (@$app_chapters['items']) {
-            foreach ($app_chapters['items'] as $a) {
-                ?>
-                <li class="<? if (isset($app_chapters['selected']) && !empty($app_chapters['selected']) && (isset($a['id'])) && ($app_chapters['selected'] == $a['id'])) { ?>active <? } ?><? if (isset($a['submenu']) && $a['submenu']) { ?>sub<? } ?>">
-                    <? if (isset($a['href'])) {
-                        echo '<a href="' . $a['href'] . '" target="_self">';
-                    } else {
-                        echo '<div class="blank">';
-                    }
+    <div class="app-sidebar-scroll">
+        <ul class="app-list">
+            <?
+            if (@$app_chapters['items']) {
+                foreach ($app_chapters['items'] as $a) {
                     ?>
-                    <span class="icon <?= $a['icon'] ?>"></span>
-                    <strong><?= $a['label'] ?></strong>
-                    <? if (isset($a['href'])) {
-                        echo '</a>';
-                    } else {
-                        echo '</div>';
-                    } ?>
-                </li>
-                <?
+                    <li class="<? if (isset($app_chapters['selected']) && !empty($app_chapters['selected']) && (isset($a['id'])) && ($app_chapters['selected'] == $a['id'])) { ?>active <? } ?><? if (isset($a['submenu']) && $a['submenu']) { ?>sub<? } ?>">
+                        <? if (isset($a['href'])) {
+                            echo '<a href="' . $a['href'] . '" target="_self">';
+                        } else {
+                            echo '<div class="blank">';
+                        }
+                        ?>
+                        <span class="icon <?= $a['icon'] ?>"></span>
+                        <strong><?= $a['label'] ?></strong>
+                        <? if (isset($a['href'])) {
+                            echo '</a>';
+                        } else {
+                            echo '</div>';
+                        } ?>
+                    </li>
+                    <?
+                }
             }
+            ?>
+        </ul>
+        <?
+        if (!empty($_app) && $this->_getElementFilename($path . '.aftermenu')) {
+            echo '<div class="hidden-xs">';
+            echo $this->Element($path . '.aftermenu');
+            echo '</div>';
         }
         ?>
-    </ul>
-    <?
-    /*if ($this->_getElementFilename($_app['id'] . '.aftermenu')) {
-        echo $this->Element($_app['id'] . '.aftermenu');
-    }*/
-    ?>
+    </div>
 </div>

@@ -12,7 +12,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 		<h1 class="appTitle">Organizacje pozarządowe</h1>
         <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
-		
+
         <div class="appSearch form-group">
 			<div class="input-group">
 				<input class="form-control" placeholder="Szukaj w NGO..." type="text">
@@ -23,12 +23,12 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 				</span>
 			</div>
         </div>
-        
+
     </div>
 
 	<div class="row">
 		<div class="col-md-8">
-			
+
 			<? if( $docs = @$dataBrowser['aggs']['konkursy']['top']['hits']['hits'] ) {?>
 			<div class="block">
 		        <header>Konkursy dla organizacji pozarządowych:</header>
@@ -51,10 +51,10 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 		        </section>
 			</div>
 			<? } ?>
-		
-		</div><div class="col-md-4">
-			
-			<div class="block bgA">
+
+        </div><div class="col-md-4">
+
+            <div class="block bgA">
 		        <header>Najnowsze zbiórki publiczne:</header>
 		        <section class="content">
 			        <div class="agg agg-Dataobjects">
@@ -74,8 +74,8 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                     </div>
 		        </section>
 			</div>
-			
-			<div class="block bgA">
+
+            <div class="block bgA">
 		        <header>Sprawozdania OPP:</header>
 		        <section class="content">
 			        <div class="agg agg-Dataobjects">
@@ -95,14 +95,14 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                     </div>
 		        </section>
 			</div>
-			
-		</div>
+
+        </div>
 	</div>
-	
-	
-	<div id="actions-newest" class="block block-simple">
+
+
+    <div id="actions-newest" class="block block-simple">
         <header>Najnowsze działania organizacji pozarządowych:</header>
-        <section class="content" style="margin: 10px 20px; float: none; width: inherit;">
+        <section class="content">
             <div class="row">
                 <? foreach ($dataBrowser['aggs']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
                     <div class="action col-sm-4">
@@ -131,7 +131,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
             </div>
         </section>
     </div>
-    
+
     <? if( $docs = @$dataBrowser['aggs']['pisma']['top']['hits']['hits'] ) {?>
 	<div class="block block-simple">
         <header class="nopadding">Pisma:</header>
@@ -155,11 +155,11 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         </section>
     </div>
     <? } ?>
-    
+
     <div id="accountsSwitcher" class="appMenuStrip">
         <? if (isset($twitterTimeranges) && isset($twitterTimerange)) { ?>
             <div class="appSwitchers">
-                
+
                 <div class="pull-left">
                     <p class="_label">Analizowany okres:</p>
                     <ul class="nav nav-pills">
@@ -206,7 +206,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
             </div>
         <? } ?>
     </div>
-		
+
     <div class="mediaHighstockPicker">
         <div class="chart"
              data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['selected_accounts']['histogram']) ?>'
@@ -218,7 +218,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                 <div class="bounce3"></div>
             </div>
         </div>
-	        
+
         <div class="range">
             <div class="row">
                 <div class="col-md-5">
@@ -242,38 +242,37 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         </div>
 
     </div>
-	
-	
-	
-	<div class="row">
+
+
+    <div class="row">
 
 		<div class="col-md-8">
-			
-			<?
+
+            <?
 			if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
-		        
-		        if ($timerange['init']) {
+
+                if ($timerange['init']) {
 		            $docs = array();
 		            foreach ($hits as $hit)
 		                $docs[$hit['fields']['date'][0]] = $hit;
-		
-		            unset($hits);
+
+                    unset($hits);
 		            krsort($docs);
 		            $docs = array_values($docs);
 		        } else {
 		            $docs = $hits;
 		        }
-		        
-	        ?>
+
+                ?>
 	        <div class="block">
 	            <header>Najbardziej angażujące tweety</header>
 	            <section class="content">
-		            
-		            <div class="block-bg-area">
+
+                    <div class="block-bg-area">
 			            <p class="p">Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy.</p>
 		            </div>
-		            
-	                <div class="dataAggs">
+
+                    <div class="dataAggs">
 	                    <div class="agg agg-Dataobjects">
 	                        <ul class="dataobjects">
 	                            <? foreach ($docs as $doc) { ?>
@@ -287,23 +286,23 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	            </section>
 	        </div>
 		    <? } ?>
-			
-		</div>
-		
-		<div class="col-md-4">
-			
-			<?
+
+        </div>
+
+        <div class="col-md-4">
+
+            <?
 			if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) {
 			?>
 	        <div class="block bgA">
 	            <header>Najbardziej angażujące profile</header>
 	            <section class="aggs-init">
-	                
-	                <div class="block-bg-area">
+
+                    <div class="block-bg-area">
 			            <p class="p">Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy.</p>
 		            </div>
-	                
-	                <div class="dataAggs">
+
+                    <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
 	                         data-image_field="image_url" data-label_field="name"
 	                         data-counter_field="engagement_count"
@@ -321,8 +320,8 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	            </section>
 	        </div>
 		    <? } ?>
-		    
-		    <?
+
+            <?
 		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets']['buckets']) {
 		    ?>
 	        <div class="block bgA">
@@ -345,19 +344,19 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	            </section>
 	        </div>
 		    <? } ?>
-		    
-		    <?
+
+            <?
 		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets']['buckets']) {
 		    ?>
 	        <div class="block bgA">
 	            <header>Najwięcej zaangażowania w przeliczeniu na 1 tweeta</header>
 	            <section class="aggs-init">
-	                
-	                <div class="block-bg-area">
+
+                    <div class="block-bg-area">
 			            <p class="p">Profile, które uzyskały najwięcej retweetów, polubień i komentarzy, w przeliczeniu na 1 tweeta.</p>
 		            </div>
-	                
-	                <div class="dataAggs">
+
+                    <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
 	                         data-image_field="image_url" data-label_field="name" data-counter_field="engagement_count"
 	                         data-choose-request="/dane/twitter_accounts/"
@@ -374,19 +373,19 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	            </section>
 	        </div>
 		    <? } ?>
-		    
-		    <?
+
+            <?
 		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids']['buckets']) {
 		    ?>
 	        <div class="block bgA">
 	            <header>Najczęściej wzmiankowani</header>
 	            <section class="aggs-init">
-		            
-		            <div class="block-bg-area">
+
+                    <div class="block-bg-area">
 			            <p class="p">Profile, które były najczęściej wzmiankowane w innych tweetach i ich retweetach.</p>
 		            </div>
-		            
-	                <div class="dataAggs">
+
+                    <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal"
 	                         data-chart-height="1500"
 	                         data-label-width="150"
@@ -406,8 +405,8 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	            </section>
 	        </div>
 		    <? } ?>
-		    
-		    <?
+
+            <?
 		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']) {
 		    ?>
 	        <div class="block bgA">
@@ -417,8 +416,8 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	                     data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'
 	                     data-parms="<?
 	                     $parms = '';
-	
-	                     if (isset($timerange["range"])) {
+
+                         if (isset($timerange["range"])) {
 	                         $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
 	                     }
 	                     if (isset($twitterAccountType) && $twitterAccountType !== '0') {
@@ -435,33 +434,33 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	            </section>
 	        </div>
 		    <? } ?>
-			
-		</div>
-		
-	</div>
-	
-	<?
+
+        </div>
+
+    </div>
+
+    <?
 	if ($tags = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']['tags']['buckets']) {
 
 	    $max = 0;
 	    foreach ($tags as $t)
 	        if ($t['rn']['engagement_count']['value'] > $max)
 	            $max = $t['rn']['engagement_count']['value'];
-	
-	    if (!$max)
+
+        if (!$max)
 	        $max = 1;
     ?>
     <div class="block">
         <header>Najbardziej angażujące hashtagi</header>
 		<section class="aggs-init">
-		    
-		    <? /*
+
+            <? /*
 		    <div class="block-bg-area">
 	            <p class="p">Hashatagi osadzone w tweetach, które osiągneły największą liczbę retweetów, polubień i komentarzy.</p>
             </div>
             */ ?>
-		    
-		    <ul id="tagsCloud">
+
+            <ul id="tagsCloud">
 		        <? foreach ($tags as $tag) { ?>
 		            <li style="font-size: <?= 20 + (70 * $tag['rn']['engagement_count']['value'] / $max) ?>px;">
 		                <a href="/media/tweety?conditions[twitter.tags]=<?
@@ -482,7 +481,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 		</section>
 	</div>
 	<? } ?>
-	
+
 </div>
 
 

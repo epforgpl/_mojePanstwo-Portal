@@ -344,6 +344,7 @@ class AppController extends Controller
             'href' => '/ngo',
             'tag' => 1,
             'icon' => '&#xe614;',
+            'path' => 'Ngo'
         ),
         'podatki' => array(
             'name' => 'Jak są wydawane moje podatki?',
