@@ -1,4 +1,4 @@
-/*global jQuery*/
+/*global $,jQuery,window,document*/
 (function ($) {
 	var _mPCockpit = $('#portal-header'),
 		login = _mPCockpit.find('.user-icons li.login'),
@@ -7,14 +7,20 @@
 		appList = apps.find('.appsList');
 
 	_mPCockpit.find('._mPSearch').click(function (e) {
-		var suggesterBlockModal = $('.suggesterBlockModal');
+		var _mPSearchOutside = $('._mPSearchOutside'),
+			suggesterBlockModal = $('.suggesterBlockModal');
 
 		e.preventDefault();
 
-		if ($('._mPSearchOutside').length) {
-			$('._mPSearchOutside input').focus();
+		if (_mPSearchOutside.length) {
+			_mPSearchOutside.find('input').focus();
+			if ($(window).scrollTop() > _mPSearchOutside.position().top) {
+				$('html, body').animate({
+					scrollTop: Math.floor(_mPSearchOutside.position().top)
+				}, 500);
+			}
 		} else {
-			$('.suggesterBlockModal').modal('toggle');
+			_mPSearchOutside.modal('toggle');
 		}
 
 		suggesterBlockModal.on('shown.bs.modal', function () {
@@ -33,6 +39,7 @@
 			if (appList.is(':visible')) {
 				appList.hide();
 				appList.find('.appListMore').show();
+				appList.find('.appListLess').hide();
 				appList.find('.appListUl.moreList').hide();
 			}
 		}
@@ -44,6 +51,7 @@
 
 		if (appList.is(':hidden')) {
 			appList.find('.appListMore').show();
+			appList.find('.appListLess').hide();
 			appList.find('.appListUl.moreList').hide();
 		}
 		if (loginOption.is(':visible')) {
@@ -54,6 +62,28 @@
 		e.preventDefault();
 
 		$(this).hide();
+		appList.find('.appListLess').show();
 		appList.find('.appListUl.moreList').show();
+	});
+	appList.find('.appListLess').click(function (e) {
+		e.preventDefault();
+
+		$(this).hide();
+		appList.find('.appListMore').show();
+		appList.find('.appListUl.moreList').hide();
+	});
+
+	$(document).mouseup(function (e) {
+		if (appList.is(':visible')) {
+			if (!appList.is(e.target) && appList.has(e.target).length === 0) {
+				appList.hide();
+				appList.find('.appListMore').show();
+				appList.find('.appListLess').hide();
+				appList.find('.appListUl.moreList').hide();
+			}
+		}
+		if (loginOption.is(':visible')) {
+			loginOption.hide();
+		}
 	});
 })(jQuery);

@@ -3,7 +3,7 @@
     echo $this->Element('Paszport.modal_login');
     echo $this->Element('modals/suggester', array(
         'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
-        'action' => '/dane',
+        'action' => '/',
     ));
     ?>
 
@@ -57,9 +57,10 @@
                 <div class="appsList">
                     <ul class="appListUl">
                         <? $i = 0;
-                        foreach ($_applications as $app) {
+                        foreach ($_applications as $app_id => $app) {
                             if ($app['tag'] == 1) {
-                                $icon_link = $app['href'] . '/icon/icon_' . str_replace("/", "", $app['href']) . '.svg';
+                                $path = (isset($app['path']) && !empty($app['path'])) ? $app['path'] : $app_id;
+                                $icon_link = '/' . $path . '/icon/icon_' . $app_id . '.svg';
 
                                 if ($i == 9) {
                                     echo '</ul><a href="#appsMore" class="btn btn-link appListMore">Więcej</a><ul class="appListUl moreList">';
@@ -73,9 +74,34 @@
                                         <p class="_mPAppLabel"><?= $app['name'] ?></p>
                                     </a>
                                 </li>
-                            <? }
-                        } ?>
+                                <?
+                            }
+                        }
+                        foreach ($_applications as $app_id => $app) {
+                            if ($app['tag'] == 2) {
+                                $path = (isset($app['path']) && !empty($app['path'])) ? $app['path'] : $app_id;
+                                $icon_link = '/' . $path . '/icon/icon_' . $app_id . '.svg';
+
+                                if ($i == 9) {
+                                    echo '</ul><a href="#appsMore" class="btn btn-link appListMore">Więcej</a><ul class="appListUl moreList">';
+                                }
+                                $i++;
+                                ?>
+                                <li>
+                                    <a target="_self" href="<?= $app['href'] ?>"
+                                       class="_mPAppsList _appBlock _appBlockBackground text-center">
+                                        <img src="<?= $icon_link ?>" class="_mPAppIcon icon"/>
+                                        <p class="_mPAppLabel"><?= $app['name'] ?></p>
+                                    </a>
+                                </li>
+                                <?
+                            }
+                        }
+                        ?>
                     </ul>
+                    <? if ($i >= 9) {
+                        echo '<a href="#appsLess" class="btn btn-link appListLess">Mniej</a>';
+                    } ?>
                 </div>
             </li>
         </ul>
@@ -127,20 +153,3 @@
         </ul>
     </div>
 </div>
-
-
-<? /* if (isset($this->request->query['q']) && @isset($app_menu)) { ?>
-    <div class="apps-menu">
-        <div class="container">
-            <ul>
-                <? foreach ($app_menu[0] as $a) { ?>
-                    <li>
-                        <a<? if (isset($a['tooltip'])) { ?> data-toggle="tooltip" data-placement="bottom" title="<?= htmlspecialchars($a['tooltip']) ?>"<? } ?> <? if (isset($a['active']) && $a['active']) { ?> class="active"<? } ?>
-                            href="<?= $a['href'] ?>"><? if (isset($a['glyphicon'])) { ?><span
-                                class="glyphicon glyphicon-<?= $a['glyphicon'] ?>"></span> <? } ?><?= $a['title'] ?></a>
-                    </li>
-                <? } ?>
-            </ul>
-        </div>
-    </div>
-<? } */ ?>
