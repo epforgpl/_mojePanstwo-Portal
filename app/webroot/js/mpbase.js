@@ -212,7 +212,7 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 		trimTitle();
 	}
 
-	/**/
+	/*STICKY ENGINE*/
 	var $mpSticky = $('.mp-sticky');
 
 	function mp_sticky_resize() {
@@ -264,19 +264,4 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 			}
 		});
 	}
-
-	/*MOBILE MENU*/
-	$('.app-sidebar ._mobile').click(function (e) {
-		var that = $(this);
-
-		e.preventDefault();
-
-		if (that.hasClass('_mobile-show')) {
-			that.removeClass('_mobile-show');
-			that.parents('.app-sidebar').find('.app-list').hide();
-		} else {
-			that.addClass('_mobile-show');
-			that.parents('.app-sidebar').find('.app-list').show();
-		}
-	});
 })(jQuery);

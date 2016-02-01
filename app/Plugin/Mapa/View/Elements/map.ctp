@@ -43,37 +43,37 @@ echo $this->element('headers/main');
             <div class="bounce3"></div>
         </div>
     </div>
+    <div class="app-sidebar-scroll">
+        <ul class="app-list">
+            <?
+            if (@$app_chapters['items']) {
 
-    <ul class="app-list">
-        <?
-        if (@$app_chapters['items']) {
-
-            foreach ($app_chapters['items'] as $a) {
-                ?>
-                <li<? if ($layers == $a['id']) {
-                    echo ' class="active"';
-                } ?>>
-                    <? if (isset($a['href'])) {
-                        echo '<a href="' . $a['href'] . '" data-href="' . $a['href'] . '" target="_self">';
-                    } else {
-                        echo '<div class="blank">';
-                    }
+                foreach ($app_chapters['items'] as $a) {
                     ?>
-                    <span class="icon <?= $a['icon'] ?>"></span>
-                    <strong><?= $a['label'] ?></strong>
-                    <? if (isset($a['href'])) {
-                        echo '</a>';
-                    } else {
-                        echo '</div>';
-                    } ?>
-                    <? /* <ul class="sub-list"><li><li></ul> */ ?>
-                </li>
-                <?
+                    <li<? if ($layers == $a['id']) {
+                        echo ' class="active"';
+                    } ?>>
+                        <? if (isset($a['href'])) {
+                            echo '<a href="' . $a['href'] . '" data-href="' . $a['href'] . '" target="_self">';
+                        } else {
+                            echo '<div class="blank">';
+                        }
+                        ?>
+                        <span class="icon <?= $a['icon'] ?>"></span>
+                        <strong><?= $a['label'] ?></strong>
+                        <? if (isset($a['href'])) {
+                            echo '</a>';
+                        } else {
+                            echo '</div>';
+                        } ?>
+                        <? /* <ul class="sub-list"><li><li></ul> */ ?>
+                    </li>
+                    <?
+                }
             }
-        }
-        ?>
-    </ul>
-
+            ?>
+        </ul>
+    </div>
 </div>
 <div class="app-content-wrap">
     <div class="objectsPage">

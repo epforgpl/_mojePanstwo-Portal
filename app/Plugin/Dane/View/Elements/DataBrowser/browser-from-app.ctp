@@ -1,5 +1,6 @@
 <?
 echo $this->Html->css($this->Less->css('app'));
+$this->Combinator->add_libs('js', 'app');
 
 $displayAggs = isset($displayAggs) ? (boolean)$displayAggs : true;
 $columns = isset($columns) ? $columns : array(9, 3);
@@ -12,7 +13,7 @@ echo $this->element('app/sidebar');
         <div class="dataBrowser upper margin-top-0<? if (isset($class)) echo " " . $class; ?>">
             <div class="container">
                 <div class="dataBrowserContent">
-	                	                
+
                     <?
                     $options = array(
                         'displayAggs' => false,
