@@ -400,7 +400,7 @@ class AppController extends Controller
             'subname' => 'Twórz i wysyłaj wnioski o dostęp do informacji publicznej',
             'desc' => 'Dowiedz się, w jakich przypadkach możesz wysłać wniosek o dostęp do informacji publicznej oraz jakie prawa Ci przysługują, jeśli urząd nie wypełni prawa w tym zakresie.',
             'href' => '/dostep_do_informacji_publicznej',
-            'tag' => 2,
+            'tag' => 1,
             'icon' => '&#xe60e;',
             'path' => 'RaportyDostepDoInformacjiPublicznej',
         ),

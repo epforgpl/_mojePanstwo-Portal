@@ -305,7 +305,7 @@ class ApplicationsController extends AppController
 				'id' => '_results',
 				'label' => 'Szukaj',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
-				'icon' => '_app',
+				'icon' => 'icon-search',
 				'class' => '_label',
 			);
 
@@ -333,29 +333,10 @@ class ApplicationsController extends AppController
 
 				);
 
-				if( $mode == 'results' ) {
+				
 
-					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
+				$items[] = $item;
 
-					foreach( $datasets as $d ) {
-
-						if( $d['key']==$key ) {
-
-							if( $d['doc_count'] ) {
-								$item['count'] = $d['doc_count'];
-								$items[] = $item;
-							}
-
-							break;
-
-						}
-					}
-
-				} else {
-
-					$items[] = $item;
-
-				}
 
 			}
 
