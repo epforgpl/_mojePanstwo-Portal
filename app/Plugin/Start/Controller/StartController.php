@@ -58,8 +58,8 @@ class StartController extends ApplicationsController
 			if( @$this->viewVars['dataBrowser']['aggs'] ) {
 				
 				$items[] = array(
-					'id' => 'label',
-					'icon' => false,
+					'id' => 'search',
+					'icon' => 'icon-search',
 					'label' => 'Szukaj w aplikacjach:',
 				);
 				
@@ -75,7 +75,7 @@ class StartController extends ApplicationsController
 						$items[] = array(
 							'id' => $app_id,
 							'label' => $app['name'],
-							'icon' => false,
+							'icon' => 'icon-applications-' . $app_id,
 							'count' => $v['doc_count'],
 							'href' => $app['href'] . '?q=' . urlencode( $this->request->query['q'] ),
 						);
@@ -86,6 +86,7 @@ class StartController extends ApplicationsController
 			
 			return array(
 				'items' => $items,
+				'selected' => 'search',
 			);
 			
 			
