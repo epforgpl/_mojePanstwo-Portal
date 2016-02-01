@@ -1,6 +1,8 @@
 .appHeader {
     width: 100%;
     min-height: 38px;
+    float: left;
+    display: inline-block;
 
     &.app {
         height: 66px;
@@ -32,6 +34,10 @@
     }
     &.dataobject {
         background: #F1F2F3;
+
+        > .container {
+            margin-top: 10px;
+        }
 
         .holder {
             > .row {
