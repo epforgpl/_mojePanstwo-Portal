@@ -12,6 +12,7 @@
         background-color: #29292f;
         position: relative;
         min-height: 52px;
+        z-index: 1;
 
         ._mobile {
             position: absolute;
@@ -69,92 +70,97 @@
         }
     }
 
-    .app-list {
-        background-color: #34343d;
-        list-style: none;
-        padding: 0;
-        float: left;
+    .app-sidebar-scroll {
         width: 100%;
-        display: none;
+        float: left;
 
-        li {
-            display: block;
-            min-height: 42px;
-            padding: 0 30px;
-            font-size: 10px;
+        .app-list {
+            background-color: #34343d;
+            list-style: none;
+            padding: 0;
+            float: left;
+            width: 100%;
+            display: none;
 
-            &, .blank, a {
+            li {
                 display: block;
-                width: 100%;
-                float: left;
-                position: relative;
-            }
+                min-height: 42px;
+                padding: 0 30px;
+                font-size: 10px;
 
-            .blank, a {
-                padding-top: 13px;
-                padding-bottom: 13px;
-            }
-
-            .icon {
-                margin-right: 5px;
-                font-size: 2em;
-                position: absolute;
-                top: 50%;
-                left: 0;
-                -webkit-transform: translate(0, -50%);
-                -moz-transform: translate(0, -50%);
-                -ms-transform: translate(0, -50%);
-                -o-transform: translate(0, -50%);
-                transform: translate(0, -50%);
-
-                &.glyphicon {
-                    font-size: 1.9em;
+                &, .blank, a {
+                    display: block;
+                    width: 100%;
+                    float: left;
+                    position: relative;
                 }
-            }
 
-            strong {
-                float: left;
-                padding-left: 30px;
-            }
-        }
-
-        > li {
-            text-transform: uppercase;
-
-            &.sub {
-                // background-color: #3A3A3A;
-                padding-left: 34px;
-                text-transform: inherit;
-                font-size: 11px;
-
-            }
-
-            &.active {
-                &, a {
-                    color: #3b83c5;
+                .blank, a {
+                    padding-top: 13px;
+                    padding-bottom: 13px;
                 }
-                background-color: #29292f;
 
                 .icon {
-                    color: #3b83c5;
+                    margin-right: 5px;
+                    font-size: 2em;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    -webkit-transform: translate(0, -50%);
+                    -moz-transform: translate(0, -50%);
+                    -ms-transform: translate(0, -50%);
+                    -o-transform: translate(0, -50%);
+                    transform: translate(0, -50%);
+
+                    &.glyphicon {
+                        font-size: 1.9em;
+                    }
+                }
+
+                strong {
+                    float: left;
+                    padding-left: 30px;
                 }
             }
 
-            &, .blank, > a {
-                color: #999999;
-            }
-            .sub-list {
-                padding-top: 12px;
-                padding-left: 20px;
-                background-color: #323239;
+            > li {
+                text-transform: uppercase;
 
-                li {
-                    text-transform: lowercase;
-                    min-height: 0;
-                    padding: 9px 14px;
+                &.sub {
+                    // background-color: #3A3A3A;
+                    padding-left: 34px;
+                    text-transform: inherit;
+                    font-size: 11px;
 
-                    &, > a {
-                        color: #cccccc;
+                }
+
+                &.active {
+                    &, a {
+                        color: #3b83c5;
+                    }
+                    background-color: #29292f;
+
+                    .icon {
+                        color: #3b83c5;
+                    }
+                }
+
+                &, .blank, > a {
+                    color: #999999;
+                }
+                .sub-list {
+                    padding-top: 12px;
+                    padding-left: 20px;
+                    background-color: #323239;
+
+                    li {
+                        text-transform: lowercase;
+                        min-height: 0;
+                        padding: 9px 14px;
+
+                        &, > a {
+                            color: #cccccc;
+                        }
                     }
                 }
             }
