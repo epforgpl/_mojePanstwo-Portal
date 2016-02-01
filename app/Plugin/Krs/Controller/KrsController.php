@@ -183,7 +183,7 @@ class KrsController extends ApplicationsController
                 ),
             ),
             'apps' => true,
-            'browserTitle' => 'Wyniki wyszukiwania w Krajowym Rejestrze Sądowym',
+            'browserTitle' => 'Wyniki wyszukiwania w Krajowym Rejestrze Sądowym:',
         );
 		
 		$this->set('forms', $this->forms);

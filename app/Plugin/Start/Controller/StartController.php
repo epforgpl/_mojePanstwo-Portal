@@ -47,41 +47,86 @@ class StartController extends ApplicationsController
 
     public function getChapters()
     {
+				
+		if( 
+			( $this->request->params['action'] == 'view' ) && 
+			isset( $this->request->query['q'] )
+		) {
+			
+			$items = array();
 
-        return array(
-		    'items' => array(
-			    array(
-				    'id' => 'powiadomienia',
-				    'label' => 'Moje powiadomienia',
-                    'icon' => 'icon-applications-powiadomienia',
-				    'href' => 'moje-powiadomienia',
+			if( @$this->viewVars['dataBrowser']['aggs'] ) {
+				
+				$items[] = array(
+					'id' => 'label',
+					'icon' => false,
+					'label' => 'Szukaj w aplikacjach:',
+				);
+				
+				foreach( @$this->viewVars['dataBrowser']['aggs'] as $k => $v ) {
+					if( 
+						( strpos($k, 'app_')===0 ) && 
+						@$v['doc_count']
+					) {
+						
+						$app_id = substr($k, 4);
+						$app = $this->getApplication( $app_id );
+												
+						$items[] = array(
+							'id' => $app_id,
+							'label' => $app['name'],
+							'icon' => false,
+							'count' => $v['doc_count'],
+							'href' => $app['href'] . '?q=' . urlencode( $this->request->query['q'] ),
+						);
+					
+					}
+				}
+			}
+			
+			return array(
+				'items' => $items,
+			);
+			
+			
+		} else {
+		
+	        return array(
+			    'items' => array(
+				    array(
+					    'id' => 'powiadomienia',
+					    'label' => 'Moje powiadomienia',
+	                    'icon' => 'icon-applications-powiadomienia',
+					    'href' => 'moje-powiadomienia',
+				    ),
+				    array(
+					    'id' => 'pisma',
+					    'label' => 'Moje pisma',
+	                    'icon' => 'icon-datasets-pisma',
+					    'href' => 'moje-pisma',
+				    ),
+				    array(
+					    'id' => 'kolekcje',
+					    'label' => 'Moje kolekcje',
+	                    'icon' => 'glyphicon glyphicon-folder-open',
+					    'href' => 'moje-kolekcje',
+				    ),
+				    array(
+					    'id' => 'konto',
+					    'label' => 'Ustawienia konta',
+	                    'icon' => 'icon-datasets-users',
+					    'href' => 'konto',
+				    ),
+				    array(
+					    'id' => 'strony',
+					    'label' => 'Strony, którymi zarządzam',
+	                    'icon' => 'icon-datasets-strony',
+					    'href' => 'moje-strony',
+				    ),
 			    ),
-			    array(
-				    'id' => 'pisma',
-				    'label' => 'Moje pisma',
-                    'icon' => 'icon-datasets-pisma',
-				    'href' => 'moje-pisma',
-			    ),
-			    array(
-				    'id' => 'kolekcje',
-				    'label' => 'Moje kolekcje',
-                    'icon' => 'glyphicon glyphicon-folder-open',
-				    'href' => 'moje-kolekcje',
-			    ),
-			    array(
-				    'id' => 'konto',
-				    'label' => 'Ustawienia konta',
-                    'icon' => 'icon-datasets-users',
-				    'href' => 'konto',
-			    ),
-			    array(
-				    'id' => 'strony',
-				    'label' => 'Strony, którymi zarządzam',
-                    'icon' => 'icon-datasets-strony',
-				    'href' => 'moje-strony',
-			    ),
-		    ),
-	    );
+		    );
+	    
+	    }
 
     }
 

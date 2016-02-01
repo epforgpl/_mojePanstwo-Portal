@@ -1,4 +1,10 @@
 <?
+	
+echo $this->Html->css($this->Less->css('app'));
+
+echo $this->element('headers/main');
+echo $this->element('app/sidebar');
+	
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 /** @var Object $object */

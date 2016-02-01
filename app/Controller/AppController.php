@@ -881,7 +881,13 @@ class AppController extends Controller
     public function addAppBreadcrumb($app_id = false)
     {
         if ($app = $this->getApplication($app_id)) {
-
+			
+			$this->set('_app', array(
+	            'id' => $app['id'],
+	            'name' => $app['name'],
+	            'href' => $app['href'],
+            ));
+			
             $this->addBreadcrumb(array(
                 'label' => $app['name'],
                 'icon' => '<i class="glyphicon" data-icon-applications="' . $app['icon'] . '"></i>',

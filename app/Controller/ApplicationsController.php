@@ -303,7 +303,7 @@ class ApplicationsController extends AppController
 						
 			$items[] = array(
 				'id' => '_results',
-				'label' => isset($this->settings['shortTitle']) ? 'Szukaj w ' . $this->settings['shortTitle'] . ':' : 'Szukaj:',
+				'label' => 'Szukaj',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
 				'icon' => '_app',
 				'class' => '_label',

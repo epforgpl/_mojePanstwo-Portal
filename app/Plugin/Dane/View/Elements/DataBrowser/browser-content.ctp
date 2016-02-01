@@ -89,140 +89,239 @@ if ($dataBrowser['mode'] == 'cover') {
     <? } ?>
     <? */ ?>
     
-    <? if( @$forceHideAggs ) { ?>
+    <div class="row">
     
     	<div class="col-xs-12">
-    	
-    <? } else { ?>
-    
-    	<div class="col-xs-12">
-    
-    <? } ?>
-
-        <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">
-						
-			<? if( isset($dataBrowser['browserTitleElement']) && $dataBrowser['browserTitleElement'] ) { ?>
-				<?= $this->element($dataBrowser['browserTitleElement']) ?>
-			<? } elseif( isset($dataBrowser['browserTitle']) ) { ?>
-				<h1 class="smaller"><?= $dataBrowser['browserTitle'] ?></h1>
-			<? } ?>
-			
-			
-			<div class="appBanner margin-top-20">
-				<div class="appSearch form-group margin-top-20">
-			        <form action="/" method="get">
-			            <div class="input-group">
-			                <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text" <? if( isset($this->request->query['q']) ) {?>value="<?= $this->request->query['q'] ?>"<? } ?> />
-							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary input-md">
-			                        <span class="glyphicon glyphicon-search"></span>
-			                    </button>
-							</span>
-			            </div>
-			        </form>
-		        </div>
-			</div>
-			
-			<div class="row">
-				<div class="col-md-8">
-			
-		            <?
-		            if (isset($dataBrowser['beforeBrowserElement']))
-		                echo $this->element($dataBrowser['beforeBrowserElement']);
-		            ?>
-					
-		            <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
-		                'paging' => $params,
-		                'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
-		                'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
-		                'searcher' => isset($searcher) ? (boolean) $searcher : true,
-		            )) ?>
-					
-					<?
-		            if (isset($dataBrowser['beforeBrowserElements']))
-		                echo $this->element($dataBrowser['beforeBrowserElements']);
-		            ?>
-			
-			
-			
-		            <div class="dataObjects">
-		
-		                <div class="innerContainer update-objects">
-		
-		                    <?
-		                    if (isset($dataBrowser['hits'])) {
-		                        if (empty($dataBrowser['hits'])) {
-		                            echo '<p class="noResults">' . __d('dane', isset($noResultsPhrase) ? $noResultsPhrase : 'LC_DANE_BRAK_WYNIKOW') . '</p>';
-		                        } else {
-		                            ?>
-		                            <ul class="list-group list-dataobjects">
-		                                <?
-		
-		                                $params = array();
-		                                if (isset($truncate))
-		                                    $params['truncate'] = $truncate;
-		
-		                                foreach ($dataBrowser['hits'] as $object) {
-		
-		                                    if (isset($beforeItemElement))
-		                                        echo $this->element($beforeItemElement, array(
-		                                            'object' => $object,
-		                                            'innerParams' => @$innerParams,
-		                                        ));
-		
-		                                    echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
-		
-		                                    if (isset($afterItemElement))
-		                                        echo $this->element($afterItemElement, array(
-		                                            'object' => $object,
-		                                            'innerParams' => @$innerParams,
-		                                        ));
-		                                }
-		                                ?>
-		                            </ul>
-		                        <?
-		                        }
-		                    }
-		                    ?>
-		
-		                </div>
-		
-		            </div>
-		            
+	
+	        <div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">
+							
+				<? if( isset($dataBrowser['browserTitleElement']) && $dataBrowser['browserTitleElement'] ) { ?>
+					<?= $this->element($dataBrowser['browserTitleElement']) ?>
+				<? } elseif( isset($dataBrowser['browserTitle']) ) { ?>
+					<h1 class="smaller"><?= $dataBrowser['browserTitle'] ?></h1>
+				<? } ?>
 				
-
-		            <div class="dataPagination">
-		                <ul class="pagination">
-		                    <?php
+				
+				<div class="appBanner margin-top-20 margin-bottom-30">
+					<div class="appSearch form-group margin-top-20">
+				        <form action="/" method="get">
+				            <div class="input-group">
+				                <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text" <? if( isset($this->request->query['q']) ) {?>value="<?= $this->request->query['q'] ?>"<? } ?> />
+								<span class="input-group-btn">
+									<button type="submit" class="btn btn-primary input-md">
+				                        <span class="glyphicon glyphicon-search"></span>
+				                    </button>
+								</span>
+				            </div>
+				        </form>
+			        </div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+				
+			            <?
+			            if (isset($dataBrowser['beforeBrowserElement']))
+			                echo $this->element($dataBrowser['beforeBrowserElement']);
+			            ?>
+						
+			            <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
+			                'paging' => $params,
+			                'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : false,
+			                'nopaging' => isset($nopaging) ? (boolean) $nopaging : false,
+			                'searcher' => isset($searcher) ? (boolean) $searcher : true,
+			            )) ?>
+						
+						<?
+			            if (isset($dataBrowser['beforeBrowserElements']))
+			                echo $this->element($dataBrowser['beforeBrowserElements']);
+			            ?>
+			            
+					</div>
+				</div>
+	        </div>
 		
-		                    $this->MPaginator->options['url'] = array('alias' => 'prawo');
-		                    $this->MPaginator->options['paramType'] = 'querystring';
-		
-		                    echo $this->MPaginator->first('<span data-icon="&#xe627;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe627;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => true));
-		                    echo $this->MPaginator->prev('<span data-icon="&#xe626;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe626;"></span></i></a>' , array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => true));
-		//
-		                    ?></ul>
-		                <ul class="pagination"><?
-		                    echo $this->MPaginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
-		                    ?></ul>
-		                <ul class="pagination"><?
-		                    echo $this->MPaginator->next('<span data-icon="&#xe625;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe625;"></span></a>', array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => false));
-		                    echo $this->MPaginator->last('<span data-icon="&#xe628;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe628;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
-		                    ?>
-		                </ul>
-		            </div>
-		
-		            <?
-		            if (isset($dataBrowser['afterBrowserElement']))
-		                echo $this->element($dataBrowser['afterBrowserElement']);
-		            ?>
-            
-	            </div>
-			</div>
-
-        </div>
-
+    	</div>
+    	
     </div>
+    
+    
+</div>
+</div>
+</div>
+
+<div class="dataBrowser margin-top-0 lower">
+<div class="container">
+<div class="dataBrowserContent">
+		
+	<div class="row">
+		<div class="col-xs-8">
+			<div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">	
+				
+				
+				
+				<div class="row">
+					<div class="col-md-12">
+				
+						
+						<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
+	
+					    <? if (isset($paging['count']) && $paging['count'] && (!isset($nopaging) || !$nopaging)) { ?>
+					        <li>
+					            <div class="dataCounter">
+					                <span><?= pl_dopelniacz($paging['count'], $phrases[0], $phrases[1], $phrases[2]) ?></span>
+					            </div>
+					        </li>
+					    <? } ?>
+								
+				        <? if (isset($dataBrowser['sort']) && $dataBrowser['sort'] && (!isset($nopaging) || !$nopaging)) { ?>
+				            <li role="presentation" class="dropdown dataAggsDropdown splitDropdownMenu pull-right">
+				                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+				                   aria-expanded="false">Sortowanie <span class="caret"></span></a>
+				                <ul class="dropdown-menu modal-sort">
+				                    <?php
+				                    $order_key = false;
+				                    $order_value = false;
+				                    if (isset($this->request->query['order'])) {
+				                        $order_query_parts = explode(' ', $this->request->query('order'));
+				                        $order_key = $order_query_parts[0];
+				                        $order_value = $order_query_parts[1];
+				                    } else {
+										$order_key = 'score';
+										$order_value = 'desc';
+				                    }
+				
+				                    foreach ($dataBrowser['sort'] as $sortKey => $sortValue) {
+				                                                
+				                        $sort = '<li>';
+				                        $sort .= '<span>' . $sortValue['label'] . '</span>';
+				                        $sort .= '<ul>';
+				
+				                        foreach ($sortValue['options'] as $sortOptionsKey => $sortOptionsValue) {
+				                            
+				                            if( $sortKey=='score' )
+					                            $query = array_merge($this->request->query, array(
+					                                'order' => null,
+					                            ));
+					                        else
+					                        	$query = array_merge($this->request->query, array(
+					                                'order' => $sortKey . ' ' . $sortOptionsKey,
+					                            ));
+				
+				
+				                            $sort .= '<li' . (($order_key == $sortKey && $order_value == $sortOptionsKey) ? ' class="active"' : '') . '><a href="/' . $this->request->url . '?' . http_build_query($query) . '">' . $sortOptionsValue . '</a></li>';
+				                        }
+				
+				                        $sort .= '</ul>';
+				                        $sort .= '</li>';
+																
+				                        echo $sort;
+				                    }
+				                    ?>
+				                </ul>
+				            </li>
+				        <? } ?>
+					
+					</ul>
+						
+				
+			            <div class="dataObjects">
+			
+			                <div class="innerContainer update-objects">
+			
+			                    <?
+			                    if (isset($dataBrowser['hits'])) {
+			                        if (empty($dataBrowser['hits'])) {
+			                            echo '<p class="noResults">' . __d('dane', isset($noResultsPhrase) ? $noResultsPhrase : 'LC_DANE_BRAK_WYNIKOW') . '</p>';
+			                        } else {
+			                            ?>
+			                            <ul class="list-group list-dataobjects">
+			                                <?
+			
+			                                $params = array();
+			                                if (isset($truncate))
+			                                    $params['truncate'] = $truncate;
+			
+			                                foreach ($dataBrowser['hits'] as $object) {
+			
+			                                    if (isset($beforeItemElement))
+			                                        echo $this->element($beforeItemElement, array(
+			                                            'object' => $object,
+			                                            'innerParams' => @$innerParams,
+			                                        ));
+			
+			                                    echo $this->Dataobject->render($object, $dataBrowser['renderFile'], $params);
+			
+			                                    if (isset($afterItemElement))
+			                                        echo $this->element($afterItemElement, array(
+			                                            'object' => $object,
+			                                            'innerParams' => @$innerParams,
+			                                        ));
+			                                }
+			                                ?>
+			                            </ul>
+			                        <?
+			                        }
+			                    }
+			                    ?>
+			
+			                </div>
+			
+			            </div>
+			            
+
+	            
+		            </div>
+				</div>
+	
+	        </div>
+	
+	    </div>
+	</div>
+	
+	
+</div>
+</div>
+</div>
+
+<div class="dataBrowser upper margin-top-0">
+<div class="container">
+<div class="dataBrowserContent">
+	
+	
+	
+
+	<div class="row">
+		<div class="col-md-8">
+
+			<div class="dataPagination margin-top-25">
+			    <ul class="pagination">
+			        <?php
+			
+			        $this->MPaginator->options['url'] = array('alias' => 'prawo');
+			        $this->MPaginator->options['paramType'] = 'querystring';
+			
+			        echo $this->MPaginator->first('<span data-icon="&#xe627;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe627;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => true));
+			        echo $this->MPaginator->prev('<span data-icon="&#xe626;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe626;"></span></i></a>' , array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => true));
+			//
+			        ?></ul>
+			    <ul class="pagination"><?
+			        echo $this->MPaginator->numbers(array('separator' => '', 'tag' => 'li', 'currentLink' => true, 'currentClass' => 'active', 'currentTag' => 'a'));
+			        ?></ul>
+			    <ul class="pagination"><?
+			        echo $this->MPaginator->next('<span data-icon="&#xe625;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe625;"></span></a>', array('class' => 'prev disabled hidden', 'tag' => 'li', 'escape' => false));
+			        echo $this->MPaginator->last('<span data-icon="&#xe628;"></span>', array('tag' => 'li', 'escape' => false), '<a href="#"><span data-icon="&#xe628;"></span></a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+			        ?>
+			    </ul>
+			</div>
+			
+			<?
+			if (isset($dataBrowser['afterBrowserElement']))
+			    echo $this->element($dataBrowser['afterBrowserElement']);
+			?>
+			
+		</div>
+	</div>
 
 
 <? } ?>

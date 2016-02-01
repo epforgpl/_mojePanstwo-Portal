@@ -13,22 +13,31 @@ a.link-api-call {
 }
 
 .dataBrowser, .dataFeed, .dataobjects {
+	
+	&.upper {
+		.dataBrowserContent {
+			min-height: inherit;
+			> div {
+				width: 100%;
+			}
+		}
+	}
+	
+	&.lower {
+		background-color: #FFF;
+		border-top: 1px solid #EAEAEA;
+		border-bottom: 1px solid #EAEAEA;
+		padding-top: 10px;
+	}
 
     .dataAggsDropdownListContainer {
-        background-color: #f8f9fa;
         color: #789;
-        border: 1px solid #eee;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -o-border-radius: 5px;
-        margin-top: 25px;
-        margin-bottom: 15px;
+        margin-top: 5px;
+        margin-bottom: 5px;
 
         .dataAggsDropdownList {
 
-            margin: 0 10px;
-            border-bottom: 1px solid #EEE;
+            margin: 0;
 
             &:last-child {
                 border-bottom: none;
@@ -47,7 +56,7 @@ a.link-api-call {
             .dataAggsDropdown {
                 a {
                     font-size: 12px !important;
-                    color: #789;
+                    color: #555;
                 }
                 > a:hover {
                     color: #157ab5;
@@ -58,7 +67,7 @@ a.link-api-call {
                 float: right;
                 a {
                     font-size: 12px !important;
-                    color: #789;
+                    color: #555;
                     background: inherit;
                     &:hover {
                         background: inherit;
@@ -690,7 +699,16 @@ a.link-api-call {
             float: left;
             width: 100%;
             min-height: 95vh;
-
+			
+			h1 {
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+			
+			> div {
+				width: 100%;
+			}
+			
             > div.col-xs-12, > div.col-md-1-5 {
                 flex-direction: column;
 

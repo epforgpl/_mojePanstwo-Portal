@@ -16,17 +16,20 @@ $options = array(
     <div class="appBanner">
         <h1 class="appTitle">Krajowy Rejestr Sądowy</h1>
         <p class="appSubtitle">Przeglądaj informacje o organizacjach gospodarczych.</p>
-
-        <div class="appSearch form-group">
-			<div class="input-group">
-				<input class="form-control" placeholder="Szukaj organizacji i osób..." type="text">
-				<span class="input-group-btn">
-					<button type="submit" class="btn btn-primary input-md">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-				</span>
-			</div>
-        </div>
+		
+		
+		<form action="/krs" method="get">
+	        <div class="appSearch form-group">
+				<div class="input-group">
+					<input name="q" class="form-control" placeholder="Szukaj organizacji i osób..." type="text">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-primary input-md">
+	                        <span class="glyphicon glyphicon-search"></span>
+	                    </button>
+					</span>
+				</div>
+	        </div>
+		</form>
     </div>
 
 	<div class="row">
@@ -52,7 +55,7 @@ $options = array(
 
                                 <? if( $organizacje = $forma['organizacje']['hits']['hits'] ) { ?>
 
-                                    <p class="p"><?= $data['latest'] ?>:</p>
+                                    <p class="p text-center"><?= $data['latest'] ?>:</p>
 
                                     <div class="agg agg-Dataobjects">
 					                    <ul class="dataobjects" style="margin: 0 20px;">

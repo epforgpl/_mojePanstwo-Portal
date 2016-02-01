@@ -1,5 +1,10 @@
 <?
 
+echo $this->Html->css($this->Less->css('app'));
+
+echo $this->element('headers/main');
+echo $this->element('app/sidebar');
+
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 /** @var Object $object */
@@ -14,13 +19,15 @@ if (!isset($renderFile) || !$renderFile)
 ?>
 
 <div
-    class="appHeader dataobject"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
+    class="appHeader objectRender prawo dataobject"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
     data-url="<?= urlencode($object->getUrl()) ?>" data-dataset="<?= $object->getDataset() ?>"
     data-object_id="<?= $object->getId() ?>" data-global-id="<?= $object->getGlobalId() ?>">
     <div class="container">
         <div class="holder">
             <div class="row">
                 <div class="col-md-10">
+                    
+                    <? /*
                     <ul class="breadcrumb">
                         <?php foreach ($_breadcrumbs as $bread) { ?>
                             <li><? if (isset($bread['href'])) { ?><a href="<?= $bread['href'] ?>"
@@ -28,6 +35,7 @@ if (!isset($renderFile) || !$renderFile)
                             </li>
                         <? } ?>
                     </ul>
+                    */ ?>
 
 					<? if( !isset($objectOptions['renderTitle']) || $objectOptions['renderTitle'] ) { ?>
 	                    <div class="title<? if (isset($treeList)) echo ' hide'; ?>">

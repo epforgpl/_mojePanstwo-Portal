@@ -637,11 +637,11 @@ class DataobjectsController extends AppController
                 ($this->request->params['controller'] == 'Datasets') &&
                 ($breadcrumbs_data = $this->getDataset($this->object->getData('slug')))
             ) {
-
+				
                 $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
 
             } elseif ($breadcrumbs_data = $this->getDataset($this->object->getDataset())) {
-
+								
                 $this->addAppBreadcrumb($breadcrumbs_data['app_id']);
 
                 if ($this->addDatasetBreadcrumb)
@@ -723,7 +723,11 @@ class DataobjectsController extends AppController
             $this->set('_collectionsOptions', $this->collectionsOptions);
             $this->set('_manageOptions', (boolean) count($object_editable));
             $this->set('_manageOptionsModals', $object_editable); // alias
-
+            
+            $this->set('app_chapters', array(
+	            'items' => array(),
+            ));
+            
             $this->prepareMetaTags();
         }
 
