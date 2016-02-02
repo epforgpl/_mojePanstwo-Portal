@@ -261,7 +261,7 @@ class PrawoController extends DataobjectsController
 	        	'label' => 'Uchylenia wynikające z',
 	        	'count' => $this->object_aggs['prawo']['uchylenia_wynikajace_z']['doc_count'],
         	);
-        
+                
         return $menu;
 	}
 	

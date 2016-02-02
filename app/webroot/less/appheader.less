@@ -1,8 +1,8 @@
 .appHeader {
     width: 100%;
     min-height: 38px;
-    float: left;
     display: inline-block;
+    padding: 5px 0;
 
     &.app {
         height: 66px;
@@ -32,6 +32,15 @@
             }
         }
     }
+    
+    .object-description {
+	    color: #678;
+	    margin-bottom: 15px;
+	    margin-left: 43px;
+	    margin-top: -3px;
+	    font-size: 13px;
+    }
+    
     &.dataobject {
         background: #F1F2F3;
 
@@ -367,15 +376,14 @@
             }
 
             i.object-icon, span.object-icon {
-                margin-top: -8px;
+                margin-top: -4px;
                 margin-right: 10px;
-                background-color: #89A;
                 color: #FFF;
                 display: block;
                 float: left;
-                font-size: 28px;
-                height: 40px;
-                width: 40px;
+                font-size: 23px;
+                height: 32px;
+                width: 32px;
                 line-height: 1.35em;
                 text-align: center;
                 border-radius: 20px;
@@ -402,8 +410,8 @@
 
 .appMenu {
     background: #FFF;
-    border-bottom: 1px solid #eaeaea;
-    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #E3E3E3;
+    border-top: 1px solid #E3E3E3;
 
     ul {
         overflow: hidden;
@@ -423,7 +431,7 @@
                 margin: 0 10px;
                 display: inline-block;
                 font-size: 13px;
-                color: #666;
+                color: #678;
                 border-bottom: 2px solid #FFF;
                 &:hover {
                     color: #157AB5;
@@ -439,9 +447,9 @@
             }
 
             &.active a {
-                color: #dc4a38;
+                color: #053f69;
                 font-weight: bold;
-                border-bottom-color: #dc4a38;
+                border-bottom-color: #053f69;
             }
         }
     }
@@ -469,6 +477,7 @@
         padding: 5px 0;
         display: block;
         position: relative;
+        margin-bottom: 5px;
 
         &.show_hide_status {
             position: absolute;
@@ -515,7 +524,7 @@
             margin: 3px 0 6px;
             font-weight: 600;
             text-transform: uppercase;
-            color: #666;
+            color: #789;
 
             &.label {
                 color: #fff;
@@ -527,7 +536,6 @@
             font-size: 13px;
             line-height: 1.65em;
             margin: -3px 0 0;
-            color: green;
 
             img {
                 float: left;

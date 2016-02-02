@@ -2,7 +2,12 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters-moje', array('plugin' => 'Start'))) ?>
 <?php $this->Combinator->add_libs('js', 'Start.letters-my.js') ?>
 
-<?= $this->element('Start.pageBegin'); ?>
+<?
+	echo $this->Html->css($this->Less->css('app'));
+
+	echo $this->element('headers/main');
+	echo $this->element('app/sidebar');
+?>
 
 <div class="overflow-auto">
 	<h1 class="pull-left">Moje pisma</h1>
@@ -178,5 +183,3 @@
         </div>
     </div>
 </div>
-
-<?= $this->element('Start.pageEnd'); ?>

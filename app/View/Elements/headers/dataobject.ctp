@@ -19,7 +19,7 @@ if (!isset($renderFile) || !$renderFile)
 ?>
 
 <div
-    class="appHeader objectRender prawo dataobject"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
+    class="appHeader objectRender <?= $object->getDataset() ?> dataobject"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
     data-url="<?= urlencode($object->getUrl()) ?>" data-dataset="<?= $object->getDataset() ?>"
     data-object_id="<?= $object->getId() ?>" data-global-id="<?= $object->getGlobalId() ?>">
     <div class="container">
@@ -77,8 +77,8 @@ if (!isset($renderFile) || !$renderFile)
             </div>
             <div class="row">
                 <div class="col-xs-10">
-                    <div class="status">
-                        <?= @$this->element('status_bar/' . $object->getDataset(), array('plugin' => 'Dane')) ?>
+                    <div class="object-description">
+	                    <?= $object->getMetaDescription('page'); ?>
                     </div>
                 </div>
             </div>

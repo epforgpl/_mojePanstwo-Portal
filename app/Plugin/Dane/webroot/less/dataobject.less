@@ -1852,16 +1852,32 @@
 
 .DataObjectOptions {
     text-align: right;
-	margin-top: 35px;
+	margin-top: 3px;
+	
+	
 
     .option {
         text-align: left;
         display: inline-block;
         margin-left: 5px;
+        
+        .btn.optionBtn {
+	        padding: 0;
+        }
+        
+        .btn-primary {
+	        background-color: inherit;
+	        color: #2e6da4;
+        }
+        
+        .btn-danger {
+	        background-color: inherit;
+	        color: #d9534f;
+        }
 
         .btn.optionBtn {
             border-radius: 20px;
-            padding: 7px 10px;
+            padding: 5px 8px;
         }
 
         .modal {

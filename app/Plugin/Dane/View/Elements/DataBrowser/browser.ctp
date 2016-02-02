@@ -2,7 +2,7 @@
 $displayAggs = isset($displayAggs) ? (boolean) $displayAggs : true;
 $columns = isset($columns) ? $columns : array(9, 3);
 ?>
-<div class="dataBrowser<? if (isset($class)) echo " " . $class; ?>">
+<div class="dataBrowser upper<? if (isset($class)) echo " " . $class; ?>">
 
     <div class="row dataBrowserContent">
 
