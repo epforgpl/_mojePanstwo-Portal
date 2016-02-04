@@ -200,12 +200,12 @@ class PaszportController extends ApplicationsController
 
     public function login()
     {
-        $this->setLayout(array(
+        /*$this->setLayout(array(
             'header' => false,
             'body' => array(
                 'theme' => 'wallpaper',
             )
-        ));
+        ));*/
         $this->setMenuSelected();
 
         if ($this->Auth->loggedIn()) {
@@ -243,11 +243,11 @@ class PaszportController extends ApplicationsController
 
     public function register()
     {
-	    
-	    if( $this->Auth->user() ) {
+
+        if( $this->Auth->user() ) {
 		    return $this->redirect('/');
 	    }
-	    
+
         $this->setLayout(array(
             'header' => false,
             'body' => array(

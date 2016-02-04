@@ -1,7 +1,9 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close<? if (isset($close) && !$close) {
+                echo ' hidden';
+            } ?>" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title"
                 id="modalPaszportLoginFormLabel"><?php echo __d('paszport', 'LC_PASZPORT_PROJECT_MOTTO'); ?></h4>
         </div>
@@ -21,18 +23,17 @@
 
             <div class="slide loginEmailForm col-xs-12">
                 <?php echo $this->Form->input('User.email', array(
-                    'class' => 'input-xlarge',
+                    'class' => 'form-control input-xlarge',
                     'type' => 'email',
                     'label' => __d('paszport', "LC_PASZPORT_CREATE_EMAIL", true),
                     'autocomplete' => 'off',
                     'data-validation-required-message' => __d('paszport', "LC_PASZPORT_EMAIL_REQUIRED", true),
                     'required' => 'required',
                     'data-validation-email-message' => __d('paszport', "LC_PASZPORT_NOT_A_VALID_EMAIL", true),
-                    'after' => '<span class="help-block"></span>',
-                    'class' => 'form-control'
+                    'after' => '<span class="help-block"></span>'
                 )); ?>
                 <?php echo $this->Form->input('User.password', array(
-                    'class' => 'input-xlarge',
+                    'class' => 'form-control input-xlarge',
                     'type' => 'password',
                     'label' => __d('paszport', "LC_PASZPORT_CREATE_PASSWORD", true),
                     'autocomplete' => 'off',
@@ -40,8 +41,7 @@
                     'required' => 'required',
                     'data-validation-minlength-message' => __d('paszport', "LC_PASZPORT_PASSWORD_MIN_6_CHAR", true),
                     'minlength' => '6',
-                    'after' => '<span class="help-block"></span>',
-                    'class' => 'form-control'
+                    'after' => '<span class="help-block"></span>'
                 )); ?>
             </div>
 
