@@ -72,7 +72,9 @@ class PaszportController extends ApplicationsController
     public function forgot()
     {
         $this->setLayout(array(
-            'header' => false,
+            'header' => array(
+	            'element' => 'main',
+            ),
             'body' => array(
                 'theme' => 'wallpaper',
             )
@@ -245,13 +247,15 @@ class PaszportController extends ApplicationsController
 
     public function register()
     {
-	    
-	    if( $this->Auth->user() ) {
+
+        if( $this->Auth->user() ) {
 		    return $this->redirect('/');
 	    }
-	    
+
         $this->setLayout(array(
-            'header' => false,
+            'header' => array(
+	            'element' => 'main',
+            ),
             'body' => array(
                 'theme' => 'wallpaper',
             )
