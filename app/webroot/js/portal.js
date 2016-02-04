@@ -20,7 +20,7 @@
 				}, 500);
 			}
 		} else {
-			_mPSearchOutside.modal('toggle');
+			suggesterBlockModal.modal('toggle');
 		}
 
 		suggesterBlockModal.on('shown.bs.modal', function () {
@@ -29,11 +29,9 @@
 			suggesterBlockModal.find('input').val('');
 		});
 	});
-	login.click(function (e) {
+	login.click(function () {
 		var el = $(this);
 		if (el.find('._specialCaseLoginButton').length === 0) {
-			e.preventDefault();
-
 			loginOption.toggle();
 
 			if (appList.is(':visible')) {
