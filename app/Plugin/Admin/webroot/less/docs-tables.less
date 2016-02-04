@@ -1,0 +1,184 @@
+
+.user-select (@val) {
+  -webkit-touch-callout:  @val;
+  -webkit-user-select:    @val;
+  -khtml-user-select:     @val;
+  -moz-user-select:       @val;
+  -ms-user-select:        @val;
+  user-select:            @val;
+}
+
+body {
+
+  margin: 0;
+  padding: 0;
+
+  background: #eee;
+
+  .doctable {
+
+    .preview {
+      padding: 5px 5px 50px;
+
+      .page {
+        border: 1px solid #ccc;
+        background: #fff;
+        margin: 10px auto 10px;
+
+        &:hover {
+          cursor: crosshair;
+        }
+
+        &.active {
+          border-color: #5d7eac;
+          box-shadow: 0 0 10px 0 #5f87ac;
+        }
+
+        .createdTable {
+          border: 1px dashed #051185;
+          width: 1px;
+          background: rgba(20, 0, 144, 0.07);
+          height: 1px;
+        }
+
+        .table {
+          z-index: 5;
+          background: rgba(51,122,183, 0.05);
+          position: absolute;
+          border: 1px solid #337ab7;
+
+          .row {
+            position: absolute;
+            height: 1px;
+            background: #337ab7;
+            margin: 0;
+            padding: 0;
+
+            .opt {
+              display: none;
+              margin-top: -10px;
+              margin-left: -19px;
+              button {
+                padding: 0 3px;
+              }
+            }
+          }
+
+          .col {
+            position: absolute;
+            width: 1px;
+            background: #337ab7;
+            margin: 0;
+            padding: 0;
+
+            .opt {
+              display: none;
+              margin-left: -7px;
+              padding-top: 3px;
+              width: 17px;
+              button {
+                padding: 0 3px;
+              }
+            }
+          }
+
+          .line {
+            position: absolute;
+            display: none;
+            background: #337ab7;
+          }
+
+          &:hover {
+            .options {
+              display: block;
+            }
+
+            .row {
+              .opt {
+                display: block;
+              }
+            }
+
+            .col {
+              .opt {
+                display: block;
+              }
+            }
+          }
+
+          .options {
+            display: none;
+            overflow: hidden;
+            margin-top: -35px;
+            margin-left: -2px;
+            padding-bottom: 5px;
+            button {
+              float: left;
+              width: 50px;
+            }
+
+            input {
+              float: left;
+              margin-left: 5px;
+            }
+          }
+
+        }
+
+        .text {
+          background: #eee;
+          color: #666;
+          position: absolute;
+          font-size: 12px;
+          .user-select(none);
+          border: 1px dotted #aaa;
+        }
+
+        .line {
+
+          position: absolute;
+          margin: 0;
+          padding: 0;
+
+        }
+      }
+
+      .container {
+        .panel {
+          .panel-heading {
+            padding: 5px;
+          }
+
+          table {
+            tr {
+              td {
+                padding: 0;
+                margin: 0;
+                input {
+                  border: none;
+                  margin: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .toolbar {
+      z-index: 20;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      position: fixed;
+      height: 40px;
+      background: #ddd;
+      box-shadow: 0 0 15px 0 #666;
+      .container {
+        padding: 5px 0;
+      }
+    }
+
+  }
+
+}

@@ -15,7 +15,7 @@ echo $this->Element('dataobject/pageBegin');
             </div>
             <div class="row">
                 <div class="col-lg-6 col-lg-offset-3">
-                    <p style="font-size: 11px; margin-bottom: 20px;" class="chart-desc text-center">Dane za 2014 r. są
+                    <p style="font-size: 11px; margin-bottom: 20px;" class="chart-desc text-center">Dane za 2015 r. są
                         wstępne i dotyczą pierwszych trzech kwartałów.</p>
                 </div>
             </div>
@@ -45,7 +45,7 @@ echo $this->Element('dataobject/pageBegin');
     <script type="text/javascript">
         var _chartImpEksData = <? echo json_encode($object->getLayer('stats')); ?>;
         var _objectData = <? echo json_encode($object->getData()); ?>;
-        var _year = '<? echo isset($_GET['y']) ? (int)$_GET['y'] : 2014; ?>';
+        var _year = '<? echo isset($_GET['y']) ? (int)$_GET['y'] : 2015; ?>';
     </script>
 
 <?= $this->Element('dataobject/pageEnd'); ?>
