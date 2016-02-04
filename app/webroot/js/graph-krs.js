@@ -48,7 +48,7 @@
 				links = [],
 				root;
 
-			connectionGraph.removeClass('loading');
+			connectionGraph.find('.spinner').remove();
 
 			if (nodes.length === 0) {
 				connectionGraph.remove();
