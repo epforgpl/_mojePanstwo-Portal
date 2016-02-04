@@ -18,9 +18,13 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
                         </button>
 					</span>
                 </div>
-            </form>
+            </form>     
+            <p class="text-center margin-top-10"><a href="/dane">Zobacz jakie dane przeszukujemy &raquo;</a></p>       
         </div>
+        
     </div>
+    
+    
 
     <div class="appContent row">
         <div class="appsList">
