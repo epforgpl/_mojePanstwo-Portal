@@ -1,6 +1,11 @@
-<div class="app-sidebar<? if (empty($app_chapters['items'])) {
+<div class="app-sidebar
+<? if (empty($app_chapters['items'])) {
     echo ' app-sidebar-oneline';
-} ?>">
+} ?>
+<? if (!empty($_breadcrumbs)) {
+    echo ' has-breadcrumbs';
+} ?>
+">
     <? if (!empty($_app)) {
         $path = (isset($_app['path']) && !empty($_app['path'])) ? $_app['path'] : $_app['id'];
         ?>
@@ -10,7 +15,16 @@
                 <img class="icon" src="<?= '/' . $path ?>/icon/icon_<?= $_app['id'] ?>.svg">
                 <p><?= $_app['name'] ?></p>
             </a>
-
+			
+			<? if( !empty($_breadcrumbs) ) {?>
+				<div class="breadcrumbs">
+				<? foreach($_breadcrumbs as $bc) {?>
+					<span class="separator">/</span>
+					<a href="<?= $bc['href'] ?>"><?= $bc['label'] ?></a>
+				<? } ?>
+				</div>
+			<? } ?>
+			
             <? if (!empty($app_chapters['items'])) { ?>
                 <div class="_mobile btn btn-link btn-sm"></div>
             <? } ?>

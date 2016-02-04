@@ -11,6 +11,7 @@ class PagesController extends StartAppController {
         $this->title = 'Strony, którymi zarządzam';
 
         $options = array(
+            'browserTitle' => 'Strony, którymi zarządzam:',
             'conditions' => array(
                 'user-pages' => true,
             ),

@@ -10,27 +10,22 @@ echo $this->element('app/sidebar');
 ?>
 <div class="app-content-wrap">
     <div class="objectsPage">
-        <div class="dataBrowser upper margin-top-0<? if (isset($class)) echo " " . $class; ?>">
-            <div class="container">
-                <div class="dataBrowserContent">
+        
+        <?
+        $options = array(
+            'displayAggs' => false,
+            'columns' => $columns,
+            'searcher' => true,
+        );
 
-                    <?
-                    $options = array(
-                        'displayAggs' => false,
-                        'columns' => $columns,
-                        'searcher' => true,
-                    );
+        /*
+        if(isset($menu)) {
+            $options['menu'] = $menu;
+        }
+        */
 
-                    /*
-                    if(isset($menu)) {
-                        $options['menu'] = $menu;
-                    }
-                    */
-
-                    echo $this->element('Dane.DataBrowser/browser-content', $options);
-                    ?>
-                </div>
-            </div>
-        </div>
+        echo $this->element('Dane.DataBrowser/browser-content', $options);
+        ?>
+                
     </div>
 </div>

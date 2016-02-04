@@ -1,14 +1,3 @@
-<?
-$phrases = array('wynik', 'wyniki', 'wyników');
-
-if (@isset($dataBrowser['phrases']['paginator']) && $dataBrowser['phrases']['paginator'])
-    $phrases = $dataBrowser['phrases']['paginator'];
-
-if (isset($paginatorPhrases) && $paginatorPhrases)
-    $phrases = $paginatorPhrases;
-    
-?>
-
 <? if( (!isset($nopaging) || !$nopaging) ) {?>
 <div class="dataAggsDropdownListContainer<? if( isset($class) ) echo ' ' . $class; ?>">
 	

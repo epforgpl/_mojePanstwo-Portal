@@ -75,7 +75,7 @@ class StartController extends ApplicationsController
 						$items[] = array(
 							'id' => $app_id,
 							'label' => $app['name'],
-							'icon' => 'icon-applications-' . $app_id,
+							'icon' => 'icon-application icon-applications-' . $app_id,
 							'count' => $v['doc_count'],
 							'href' => $app['href'] . '?q=' . urlencode( $this->request->query['q'] ),
 						);
@@ -109,7 +109,7 @@ class StartController extends ApplicationsController
 				    array(
 					    'id' => 'kolekcje',
 					    'label' => 'Moje kolekcje',
-	                    'icon' => 'glyphicon glyphicon-folder-open',
+	                    'icon' => 'icon-datasets-kolekcje',
 					    'href' => 'moje-kolekcje',
 				    ),
 				    array(

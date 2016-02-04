@@ -13,7 +13,8 @@ $object_id = $object->getId();
     data-toggle="modal"
     data-target="#collectionsModal"
     class="btn optionBtn btn-primary">
-    <i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>
+    <span class="icon"
+          data-icon-applications="&#xe618;"></span>
 </div>
 
 <div class="modal fade" id="collectionsModal" tabindex="-1" role="dialog" aria-labelledby="collectionsModalLabel"

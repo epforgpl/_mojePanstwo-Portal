@@ -4,7 +4,14 @@
     z-index: 1;
     float: left;
     width: 100%;
-
+	
+	&.has-breadcrumbs {
+		background-color: #29292f;
+		.app-logo, .app-logo > a {
+			width: auto;
+		}
+	}
+	
     .app-logo {
         padding: 20px 40px 20px 20px;
         font-size: 10px;
@@ -13,7 +20,28 @@
         position: relative;
         min-height: 52px;
         z-index: 1;
-
+		
+		.breadcrumbs {
+			float: left;
+			.separator {
+				color: #bbb;
+			    float: left;
+			    font-size: 13px;
+			    margin-left: 9px;
+			    margin-top: -8px;
+			    position: relative;
+			    top: 5px;
+			}
+			a { 
+				color: #fff;
+			    float: left;
+			    margin-left: 7px;
+			    margin-top: -3px;
+			    position: relative;
+			    top: 2px;
+			}
+		}
+		
         ._mobile {
             position: absolute;
             right: 10px;

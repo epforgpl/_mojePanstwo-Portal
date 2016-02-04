@@ -8,7 +8,7 @@ class LettersController extends StartAppController
     public $chapter_selected = 'letters';
 	
     public $settings = array(
-        'id' => 'pisma',
+        'id' => '',
         'title' => 'Pisma',
         'subtitle' => 'Wysyłaj pisma urzędowe do instytucje publicznych',
     );

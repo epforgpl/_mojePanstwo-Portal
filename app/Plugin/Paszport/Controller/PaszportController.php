@@ -201,7 +201,9 @@ class PaszportController extends ApplicationsController
     public function login()
     {
         $this->setLayout(array(
-            'header' => false,
+            'header' => array(
+	            'element' => 'main',
+            ),
             'body' => array(
                 'theme' => 'wallpaper',
             )

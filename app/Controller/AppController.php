@@ -442,7 +442,7 @@ class AppController extends Controller
         ),
 
         'dane' => array(
-            'name' => 'Szukaj...',
+            'name' => 'Dane publiczne',
             'href' => '/dane',
             'tag' => 0,
             'icon' => '&#xe616;',
@@ -464,13 +464,6 @@ class AppController extends Controller
             'tag' => 1,
         ),
         */
-        'dane' => array(
-            'name' => 'Szukaj...',
-            'href' => '/dane',
-            'tag' => 0,
-            'icon' => '&#xe616;',
-        ),
-
         /*
         'mapa_prawa' => array(
             'name' => 'Mapa prawa',
@@ -888,11 +881,6 @@ class AppController extends Controller
 	            'href' => $app['href'],
             ));
 			
-            $this->addBreadcrumb(array(
-                'label' => $app['name'],
-                'icon' => '<i class="glyphicon" data-icon-applications="' . $app['icon'] . '"></i>',
-                'href' => $app['href'],
-            ));
         }
     }
 
