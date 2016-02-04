@@ -5,11 +5,11 @@
 
 	var d3Data = {
 			'color': {
-				'links': '#333333',
-				'osoba': "#D3D6DB",
-				'podmiot': "#95C4E4",
-				'osobaDisabled': "#EFF0F2",
-				'podmiotDisabled': "#B4D4EA"
+				'links': '#666',
+				'osoba': "#00983e",
+				'podmiot': "#C95318",
+				'osobaDisabled': "#EEE",
+				'podmiotDisabled': "#EEE"
 			},
 			size: {
 				'distance': 900,
@@ -281,7 +281,7 @@
 								return (d.id === root.id) ? '3em' : '1.8em';
 							})
 							.attr('fill', function (d) {
-								return (d.label === 'osoba') ? '#000000' : '#ffffff';
+								return (d.label === 'osoba') ? '#FFFFFF' : '#ffffff';
 							})
 							.text(function (d) {
 								return (d.label === 'osoba') ? '\ue627' : '\ue62a';

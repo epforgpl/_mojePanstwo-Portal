@@ -4,9 +4,10 @@ namespace MP\Lib;
 
 class Krs_osoby extends DataObject
 {
-
+	
+	public $_pageDescription = false;
     protected $tiny_label = 'Osoba';
-
+	
     protected $schema = array(
         array('powiazania', 'Związany z'),
     );

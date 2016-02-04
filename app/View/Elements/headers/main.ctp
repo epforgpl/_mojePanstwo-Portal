@@ -44,12 +44,14 @@
                     <span class="_mPAppIcon" data-icon="&#xe600;"></span>
                 </a>
             </li>
+            <? /*
             <li>
                 <a class="_mPAppsList _appBlock _appBlockBackground" href="/moje-powiadomienia" target="_self">
                     <span class="_mPAppIcon" data-icon-applications="&#xe60a;"></span>
-                    <? /* <span class="_mPAppBadge badge">0</span> */ ?>
+                    <span class="_mPAppBadge badge">0</span>
                 </a>
             </li>
+            */ ?>
             <li class="apps">
                 <a class="_mPAppsList _appBlock _appBlockBackground" href="/#aplikacje" target="_self">
                     <span class="_mPAppIcon glyphicon glyphicon-th"></span>

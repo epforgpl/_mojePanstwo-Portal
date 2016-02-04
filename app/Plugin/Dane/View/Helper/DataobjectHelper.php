@@ -73,22 +73,20 @@ class DataobjectHelper extends AppHelper
             $file = APPLIBS . 'Dataobject/' . $class . '.php';
             
             $data = array();
-            $_data = $object['_source']['data'];
-            
+            $_data = $object['fields']['source'][0]['data'];
+                       
             foreach( $_data as $k => $d )
-            	foreach( $d as $dk => $dv )
-            		$data[ $k . '.' . $dk ] = $dv;
-            									
+        		$data[ $dataset . '.' . $k ] = $d;
+                       					
             $object = array(
-                'dataset' => $object['fields']['dataset'][0],
+                'dataset' => $dataset,
                 'global_id' => $object['_id'],
-                'id' => $object['fields']['id'][0],
+                'id' => $object['fields']['id'][0][0],
                 'data' => $data,
-                'static' => isset($object['_source']['static']) ? $object['_source']['static'] : false,
+                'static' => isset($object['fields']['static']) ? $object['fields']['static'] : false,
                 'slug' => false,
             );
-            
-                        
+                    
 			require_once( APPLIBS . 'Dataobject.php' );
             if (file_exists($file)) {
                 require_once($file);

@@ -20,6 +20,7 @@ class Dataobject
     public $inner_hits = array();
     public $options = array();
     public $page = array();
+    public $_pageDescription = true;
     public $collection = array();
     protected $schema = array();
     protected $_routes = array(
@@ -395,6 +396,10 @@ class Dataobject
 
     public function getDefaultColumnsSizes() {
 	    return array(2, 10);
+    }
+    
+    public function getPageDescription() {
+	    return $this->_pageDescription ? $this->getMetaDescription('page') : false;
     }
 
 }

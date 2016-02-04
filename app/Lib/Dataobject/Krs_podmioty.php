@@ -47,7 +47,7 @@ class Krs_podmioty extends DataObject
     {
 
         parent::__construct($params);
-
+				
         if( !$this->getData('nazwa') )
 			$this->data['nazwa'] = $this->data['firma'];
 

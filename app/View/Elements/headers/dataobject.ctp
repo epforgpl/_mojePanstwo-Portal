@@ -75,13 +75,15 @@ if (!isset($renderFile) || !$renderFile)
 
                 </div>
             </div>
+            <? if( $desc = $object->getPageDescription() ) {?>
             <div class="row">
                 <div class="col-xs-10">
                     <div class="object-description">
-	                    <?= $object->getMetaDescription('page'); ?>
+	                    <?= $desc; ?>
                     </div>
                 </div>
             </div>
+            <? } ?>
         </div>
     </div>
 </div>
