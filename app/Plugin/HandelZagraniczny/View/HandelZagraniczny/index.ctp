@@ -30,7 +30,7 @@ echo $this->element('app/sidebar');
                             <select class="form-control hzYearSelect">
                                 <?php
                                 $startYear = 2005;
-                                $endYear = date("Y");
+                                $endYear = 2015;
 
                                 for ($x = $startYear; $x <= $endYear; $x++) {
                                     $option = '<option value="' . $x . '"';
@@ -87,7 +87,7 @@ echo $this->element('app/sidebar');
             </div>
         </div>
         <div class="src text-center" style="color: #666; font-size: 12px; margin-top: 20px;">
-            <p>Dane za 2014 r. są wstępne i dotyczą pierwszych trzech kwartałów.</p>
+            <p>Dane za 2015 r. są wstępne i dotyczą pierwszych trzech kwartałów.</p>
 
             <p>Źródło: <a href="http://hinex.stat.gov.pl/hinex/aspx/index.aspx" target="_blank">hinex.stat.gov.pl/hinex/aspx/index.aspx</a>
             </p>
