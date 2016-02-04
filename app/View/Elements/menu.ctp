@@ -1,10 +1,15 @@
-<? if(isset($header_vote) && is_array($header_vote)) {
-    echo $this->element('Dane.header_vote');
-} ?>
-
-<div class="appMenu">
-    <div class="container">
-        <? if (isset($_menu) && isset($_menu['items'])) {?>
+<?
+	
+	if(isset($header_vote) && is_array($header_vote)) {
+	    echo $this->element('Dane.header_vote');
+	} 
+	
+	$empty = !( isset($_menu) && isset($_menu['items']) );
+	
+?>
+<div class="appMenu<? if($empty) echo " empty"; ?>">
+    <? if (!$empty) {?>
+	    <div class="container">
             <ul>
                 <?
                 foreach ($_menu['items'] as $m) {
@@ -91,6 +96,6 @@
                     <? }
                 } ?>
             </ul>
-        <? } ?>
-    </div>
+	    </div>
+    <? } ?>
 </div>
