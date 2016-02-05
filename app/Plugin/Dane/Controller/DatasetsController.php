@@ -35,7 +35,7 @@ class DatasetsController extends DataobjectsController
                 'layers' => $layers,
             ))
             ) {
-
+								
                 $this->set('object', $this->object);
                 $this->set('objectOptions', $this->objectOptions);
                 $this->set('microdata', $this->microdata);

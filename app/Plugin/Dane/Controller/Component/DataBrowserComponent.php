@@ -133,6 +133,48 @@ class DataBrowserComponent extends Component
 
     private $aggs_presets = array(
         'gminy' => array(
+            'wojewodztwo_id' => array(
+                'terms' => array(
+                    'field' => 'gminy.wojewodztwo_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'wojewodztwa.nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Województwa',
+                    'skin' => 'list',
+                    'field' => 'gminy.wojewodztwo_id',
+                    'all' => 'Wszystkie województwa',
+                ),
+            ),
+            'powiat_id' => array(
+                'terms' => array(
+                    'field' => 'gminy.powiat_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'powiaty.nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Powiaty',
+                    'skin' => 'pie_chart',
+                    'field' => 'gminy.powiat_id',
+                    'all' => 'Wszystkie powiaty',
+                ),
+            ),
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'gminy.typ_id',
@@ -150,6 +192,7 @@ class DataBrowserComponent extends Component
                         '3' => 'Gmina miejsko-wiejska',
                         '4' => 'Miasto stołeczne',
                     ),
+                    'all' => 'Wszystkie typy gmin',
                 ),
             ),
         ),
