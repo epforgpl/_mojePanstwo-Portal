@@ -101,20 +101,15 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 		};
 	});
 
-	var jsDate = new Date(),
-		modalPaszportLoginForm = $('#modalPaszportLoginForm'),
+	var modalPaszportLoginForm = $('#modalPaszportLoginForm'),
 		selectPickers = $('.selectpicker'),
 		fbScript = document.createElement("script"),
 		scriptsPos = document.getElementsByTagName("script")[0],
-		jsHour,
-		cookieBackgroundLimit = 4,
 		mPCookie = {};
 
 	if (Cookies.get('mojePanstwo') !== undefined) {
 		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 	}
-
-	$('#_main').css('margin-bottom', $('footer.footer').outerHeight());
 
 	/*FACEBOOK API - ONLY WHEN DIV ID:FB-ROOT EXIST*/
 	if ($('#fb-root').length > 0 && $('#facebook-jssdk').length === 0) {
