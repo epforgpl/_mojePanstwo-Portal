@@ -143,7 +143,7 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'data.bdl_wskazniki_kategorie.tytul',
+                            'field' => 'data.bdl_wskazniki_grupy.tytul',
                         ),
                     ),
                 ),
@@ -1324,7 +1324,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Liczba udzielonych dotacji w czasie',
                     'skin' => 'date_histogram',
                     'field' => 'date',
-                    'all' => 'Kiedykolwiek',
+                    'all' => 'Udzielone kiedykolwiek',
                 ),
             ),
         ),

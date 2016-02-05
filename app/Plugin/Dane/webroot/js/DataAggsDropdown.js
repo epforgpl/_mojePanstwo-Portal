@@ -755,11 +755,15 @@ DataAggsDropdown.prototype.createList = function() {
 		
 		if(this.labelDictionary.hasOwnProperty(label))
 			label = this.labelDictionary[label];
-
+			
+		var label_short = label.substring(0, 50);
+		if( label_short.length < label.length )
+			label_short += '...';
+		
 		dropdownList += [
 			'<li' + (this.isSelected && this.selected == this.aggs.buckets[i].key ? ' class="active"' : '') + '>',
-				'<a href="' + this.chooseRequest + this.aggs.buckets[i].key + '">',
-					label + '<span class="badge pull-right">' + this.aggs.buckets[i].doc_count + '</span>',
+				'<a title="' + label + '" href="' + this.chooseRequest + this.aggs.buckets[i].key + '">',
+					label_short + '<span class="badge pull-right">' + this.aggs.buckets[i].doc_count + '</span>',
 				'</a>',
 			'</li>'
 		].join('');
