@@ -115,8 +115,12 @@ class DaneController extends ApplicationsController
 	            	            
 	            $this->title = $dataset->getData('nazwa');
 	            $this->setMetaDescription($dataset->getData('opis'));
-	            $this->_app['name'] = $dataset->getData('nazwa');
-	            $this->_app['href'] = '/dane/' . $dataset->getData('slug');
+	            $this->addBreadcrumb(array(
+		            'label' => $dataset->getData('nazwa'),
+		            'href' => '/dane/' . $dataset->getData('slug'),
+	            ));
+	            // $this->_app['name'] = $dataset->getData('nazwa');
+	            // $this->_app['href'] = '/dane/' . $dataset->getData('slug');
 	            
             }
 

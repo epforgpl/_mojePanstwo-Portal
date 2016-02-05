@@ -34,5 +34,18 @@ class Powiaty extends DataObject
     {
         return false;
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array();
+		
+		
+		if( $w = $this->getData('wojewodztwa.nazwa') )
+			$output[] = 'Województwo ' . mb_strtolower(mb_substr($w, 0, 1)) . mb_substr($w, 1);
+	
+		return $output;
+		
+	}
 
 }

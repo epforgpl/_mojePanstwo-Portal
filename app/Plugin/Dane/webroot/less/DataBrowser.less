@@ -56,7 +56,6 @@ a.link-api-call {
             .dataAggsDropdown {
                 a {
                     font-size: 12px !important;
-                    color: #555;
                 }
                 > a:hover {
                     color: #157ab5;
@@ -94,7 +93,15 @@ a.link-api-call {
 
 		.dropdown-menu {
 			margin-top: 0;
-
+			min-width: 250px;
+			
+			> li > a {
+				white-space: normal;
+				.badge {
+					font-size: 10px;
+				}
+			}
+			
             li.desc {
                 padding: 5px 10px;
             }
@@ -550,6 +557,10 @@ a.link-api-call {
                 li.active, li:hover {
                     a {
                         color: #fff;
+                        .badge {
+	                        background-color: #FFF;
+	                        color: #789;
+                        }
                     }
                 }
             }

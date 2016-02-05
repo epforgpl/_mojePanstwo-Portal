@@ -11,7 +11,7 @@
 			<? } ?>
 			
 			
-			<div class="appBanner margin-top-20 margin-bottom-35">
+			<div class="appBanner margin-top-20 margin-bottom-30">
 				<div class="appSearch form-group margin-top-20">
 			        <form action="" method="get">
 			            <div class="input-group">

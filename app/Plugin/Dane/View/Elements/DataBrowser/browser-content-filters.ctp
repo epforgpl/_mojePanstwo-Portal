@@ -4,32 +4,15 @@
 	
 	
 	
-	<? 
-		/*
-		$searcher = isset($searcher) ? $searcher : true;
-		if( $searcher && (!isset($nopaging) || !$nopaging) ) {
-	?>
-	<div class="dataAggsDropdownList nopadding search">
-		<?= $this->element('Dane.DataBrowser/browser-searcher', array(
-			'searcher' => true,
-		)); ?>
-	</div>
-	<? } */ ?>
-	
-	
-	
-	
 	<? if (isset($dataBrowser['aggs_visuals_map']) && (count($dataBrowser['aggs_visuals_map']) > 0)) {
 	    $selected = false; ?>
 	<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 	
 	
-        
-	
 	        <?
 	        foreach ($dataBrowser['aggs_visuals_map'] as $name => $map) {
             ?>
-	
+			
 	            <?
 	            if (($name != 'dataset') && isset($map['target']) && ($map['target'] == 'filters')) {
 	
