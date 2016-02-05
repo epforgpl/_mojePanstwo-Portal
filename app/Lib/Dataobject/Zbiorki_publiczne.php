@@ -8,11 +8,6 @@ class Zbiorki_publiczne extends DocDataObject
 	
 	protected $tiny_label = 'Zbiórki publiczne';
 	
-    protected $routes = array(
-        'title' => 'prawo.tytul',
-        'shortTitle' => 'prawo.tytul',
-    );
-	
 	public function getShortTitle() {
 		return $this->getData('nazwa_zbiorki');
 	}
@@ -20,13 +15,25 @@ class Zbiorki_publiczne extends DocDataObject
 	public function getTitle() {
 		return $this->getShortTitle();
 	}
-
-    public function getTitleAddon() {
-        return $this->getData('stan_zbiorki');
+    
+    public function getDescription() {
+	    return $this->getData('dane_opis_celu');
     }
 	
     public function getLabel() {
         return 'Zbiórki publiczne';
     }
+    
+    public function getMetaDescriptionParts($preset = false)
+	{
+				
+		$output = array();
+		
+		if( $date = $this->getData('data_wplywu') )
+			$output[] = dataSlownie( $date );
+	
+		return $output;
+		
+	}
 		
 }
