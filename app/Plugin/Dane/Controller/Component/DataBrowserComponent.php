@@ -132,6 +132,50 @@ class DataBrowserComponent extends Component
 	);
 
     private $aggs_presets = array(
+        'bdl_wskazniki' => array(
+            'kategoria_id' => array(
+                'terms' => array(
+                    'field' => 'bdl_wskazniki.kategoria_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.bdl_wskazniki.kategoria_tytul',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kategorie',
+                    'skin' => 'list',
+                    'field' => 'bdl_wskazniki.kategoria_id',
+                    'all' => 'Wszystkie kategorie',
+                ),
+            ),
+            'grupa_id' => array(
+                'terms' => array(
+                    'field' => 'bdl_wskazniki.grupa_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.bdl_wskazniki.grupa_tytul',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Grupy',
+                    'skin' => 'list',
+                    'field' => 'bdl_wskazniki.grupa_id',
+                    'all' => 'Wszystkie grupy',
+                ),
+            ),
+        ),
         'bdl_wskazniki_grupy' => array(
             'kategoria_id' => array(
                 'terms' => array(

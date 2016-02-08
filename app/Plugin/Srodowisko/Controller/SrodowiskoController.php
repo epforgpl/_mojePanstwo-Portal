@@ -29,40 +29,76 @@ class SrodowiskoController extends ApplicationsController
                     'element' => 'cover',
                 ),
                 'aggs' => array(
-	                'pomiary' => array(
-		                'nested' => array(
-			                'path' => 'stacje_pomiarowe-pomiary',
-		                ),
-		                'aggs' => array(
-			                'best' => array(
-				                'terms' => array(
-					                'field' => 'stacje_pomiarowe-pomiary.station_id',
-					                'order' => array(
-						                'value' => 'desc',
-					                ),
-					                'size' => 5,
-				                ),
-				                'aggs' => array(
-					                'value' => array(
-						                'sum' => array(
-							                'field' => 'stacje_pomiarowe-pomiary.value',
-						                ),
-					                ),
-					                'reverse' => array(
-						                'reverse_nested' => '_empty',
-						                'aggs' => array(
-							                'label' => array(
-								                'terms' => array(
-									                'field' => 'data.srodowisko_stacje_pomiarowe.nazwa',
-									                'size' => 1,
-								                ),
-							                ),
-						                ),
-					                ),
-				                ),
-			                ),
-		                ),
-	                ),	                
+	            	'pomiary' => array(
+		            	'nested' => array(
+			            	'path' => 'stacje_pomiarowe-pomiary',
+		            	),
+		            	'aggs' => array(
+			            	'filtered' => array(
+				            	'filter' => array(
+					            	'term' => array(
+						            	'stacje_pomiarowe-pomiary.param' => 'CO',
+					            	),
+				            	),
+				            	'aggs' => array(
+					            	'worst' => array(
+						            	'terms' => array(
+							            	'field' => 'stacje_pomiarowe-pomiary.station_id',
+							            	'order' => array(
+								            	'value' => 'desc',
+							            	),
+							            	'size' => 3,
+						            	),
+						            	'aggs' => array(
+							            	'value' => array(
+								            	'sum' => array(
+									            	'field' => 'stacje_pomiarowe-pomiary.value'
+								            	),
+							            	),
+							            	'stacje' => array(
+								            	'reverse_nested' => '_empty',
+								            	'aggs' => array(
+									            	'label' => array(
+										            	'terms' => array(
+											            	'field' => 'data.srodowisko_stacje_pomiarowe.nazwa',
+											            	'size' => 1,
+										            	),
+									            	),
+								            	),
+							            	),
+						            	),
+					            	),
+					            	'best' => array(
+						            	'terms' => array(
+							            	'field' => 'stacje_pomiarowe-pomiary.station_id',
+							            	'order' => array(
+								            	'value' => 'asc',
+							            	),
+							            	'size' => 3,
+						            	),
+						            	'aggs' => array(
+							            	'value' => array(
+								            	'sum' => array(
+									            	'field' => 'stacje_pomiarowe-pomiary.value'
+								            	),
+							            	),
+							            	'stacje' => array(
+								            	'reverse_nested' => '_empty',
+								            	'aggs' => array(
+									            	'label' => array(
+										            	'terms' => array(
+											            	'field' => 'data.srodowisko_stacje_pomiarowe.nazwa',
+											            	'size' => 1,
+										            	),
+									            	),
+								            	),
+							            	),
+						            	),
+					            	),
+				            	),
+			            	),
+		            	),
+	            	),               
                 ),
             ),
             'aggs' => array(
