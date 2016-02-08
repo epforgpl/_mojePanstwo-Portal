@@ -17,7 +17,7 @@ echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
 
 <h2>Dodaj aktualność</h2>
 
-<form action="/admin/news/add/<?= isset($crawlerPage) ? $crawlerPage['CrawlerPage']['id'] : '' ?>" method="POST">
+<form enctype="multipart/form-data" action="/admin/news/add/<?= isset($crawlerPage) ? $crawlerPage['CrawlerPage']['id'] : '' ?>" method="POST">
     <? if (isset($crawlerPage)) { ?>
         <input type="hidden" name="crawler_page_id" value="<?= $crawlerPage['CrawlerPage']['id'] ?>"/>
     <? } ?>
@@ -81,6 +81,22 @@ echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
             </div>
         </div>
     </div>
+
+    <div class="row margin-top-10">
+        <div class="col-md-6">
+            <label>Obrazek</label>
+            <input type="file" name="image"/>
+            <p class="help-block">
+                Tylko pliki graficzne *.jpg, *.jpeg, *.png.
+                Zalecane jest aby nie były mniejsze niż 900x576 px.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label>Źródło</label>
+            <input type="text" name="image_source" value="" class="form-control" placeholder="Źródło http://...."/>
+        </div>
+    </div>
+
     <button type="submit" class="btn btn-default margin-top-10">Zapisz</button>
 </form>
 
