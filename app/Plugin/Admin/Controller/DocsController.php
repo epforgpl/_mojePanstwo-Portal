@@ -6,14 +6,25 @@ class DocsController extends AdminAppController {
 
     public $components = array('RequestHandler', 'S3');
 
-    public function tables($id) {
+    public function tables($document_id) {
         $this->layout = false;
-        $this->set('docJSON', $this->getDocJSON($id));
+        $this->set('document_id', $document_id);
+        $this->set('docJSON', $this->getDocJSON($document_id));
     }
 
-    private function getDocJSON($id) {
+    public function saveTables($document_id) {
+        $this->loadModel('Admin.DocTable');
+        $this->setSerialized('response',
+            $this->DocTable->saveTables(
+                $document_id,
+                $this->request->data['tables']
+            )
+        );
+    }
+
+    private function getDocJSON($document_id) {
         $xml = @$this->S3->getObject(
-            'docs.sejmometr.pl', 'xml/' . $id . '.xml');
+            'docs.sejmometr.pl', 'xml/' . $document_id . '.xml');
 
         $doc = new stdClass;
         $doc->pages = array();

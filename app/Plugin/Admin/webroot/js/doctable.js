@@ -4,6 +4,8 @@ $(document).ready(function() {
     var DocTable = function($$) {
         this.$$ = $$;
         this.doc = this.$$.data('doc');
+        this.documentId = this.$$.data('document-id');
+        this.view = 'document';
         this.$preview = this.$$.find('.preview').first();
         this.$toolbar = this.$$.find('.toolbar').first();
         this.$activePage = false;
@@ -185,8 +187,10 @@ $(document).ready(function() {
             var $radio = $(e.target).find('input').first();
             if($radio.val() == 'document') {
                 self.$preview.html(self.getPreviewDOM());
+                self.view = 'document';
             } else {
                 self.$preview.html(self.getDataDOM());
+                self.view = 'data';
             }
         });
 
@@ -195,6 +199,20 @@ $(document).ready(function() {
             if(self.tables.hasOwnProperty(tableIndex)) {
                 self.tables[tableIndex].name = $(this).val();
             }
+        });
+
+        this.$toolbar.find('.saveDocTables').click(function() {
+            if(self.view == 'document') {
+                $.post('/admin/docs/saveTables/' + self.documentId + '.json', {
+                    tables: self.tables
+                }, function(res) {
+                    console.log(res);
+                });
+            } else {
+                // save only latest data
+            }
+
+            return false;
         });
     };
 
