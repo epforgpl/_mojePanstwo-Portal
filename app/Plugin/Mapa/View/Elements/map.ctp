@@ -49,26 +49,27 @@ echo $this->element('headers/main');
             if (@$app_chapters['items']) {
 
                 foreach ($app_chapters['items'] as $a) {
-                    ?>
-                    <li<? if ($layers == $a['id']) {
-                        echo ' class="active"';
-                    } ?>>
-                        <? if (isset($a['href'])) {
-                            echo '<a href="' . $a['href'] . '" data-href="' . $a['href'] . '" target="_self">';
-                        } else {
-                            echo '<div class="blank">';
-                        }
+                    if ($a['id'] !== ('adm') && $a['id'] !== ('wojewodztwa') && $a['id'] !== ('powiaty') && $a['id'] !== ('gminy')) {
                         ?>
-                        <span class="icon <?= $a['icon'] ?>"></span>
-                        <strong><?= $a['label'] ?></strong>
-                        <? if (isset($a['href'])) {
-                            echo '</a>';
-                        } else {
-                            echo '</div>';
-                        } ?>
-                        <? /* <ul class="sub-list"><li><li></ul> */ ?>
-                    </li>
-                    <?
+                        <li<? if ($layers == $a['id']) {
+                            echo ' class="active"';
+                        } ?>>
+                            <? if (isset($a['href'])) {
+                                echo '<a href="' . $a['href'] . '" data-href="' . $a['href'] . '" target="_self">';
+                            } else {
+                                echo '<div class="blank">';
+                            }
+                            ?>
+                            <span class="icon <?= $a['icon'] ?>"></span>
+                            <strong><?= $a['label'] ?></strong>
+                            <? if (isset($a['href'])) {
+                                echo '</a>';
+                            } else {
+                                echo '</div>';
+                            } ?>
+                        </li>
+                        <?
+                    }
                 }
             }
             ?>

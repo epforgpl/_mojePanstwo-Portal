@@ -1,9 +1,9 @@
 #_wrapper {
-	
-	#_main {
-		margin-bottom: 0;
-	}
-	
+
+    #_main {
+        margin-bottom: 0;
+    }
+
     .dataBrowser > .container {
         position: relative;
         width: 100%;
@@ -11,6 +11,8 @@
         padding-right: 0;
 
         .appBanner {
+            display: none;
+
             margin: 0;
             padding: 0;
             position: absolute;
@@ -580,14 +582,23 @@
     text-align: center;
     padding: 6px;
     font-size: 11px;
-    min-width: 20px;
-    min-height: 20px;
-    background-color: rgba(51, 122, 183, 0.7);
+    min-width: 15px;
+    min-height: 15px;
     border: none;
 
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
+
+    &.btn-default {
+        background-color: rgba(200, 200, 200, 0.7);
+    }
+    &.btn-primary {
+        background-color: rgba(51, 122, 183, 0.7);
+    }
+    &.btn-danger {
+        background-color: rgba(217, 83, 79, 0.7);
+    }
 }
 
 .infoWindowNgo {
