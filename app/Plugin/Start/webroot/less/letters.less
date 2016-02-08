@@ -975,10 +975,9 @@
 .collection-header {
 
     .object-icon {
-        background-color: inherit !important;
-        color: #456 !important;
-        font-size: 28px !important;
-        margin-top: -10px !important;
+        font-size: 22px !important;
+        top: 5px !important;
+        position: relative !important;
     }
 
     .content {
@@ -998,6 +997,11 @@
             margin-top: 15px;
             color: #456;
             font-size: 24px;
+            
+            .form-control {
+	            background-color: inherit;
+	            border-color: #f4f5f6;
+            }
         }
     }
 
@@ -1052,9 +1056,9 @@
 }
 
 .collection-meta {
-    font-size: 12px;
+    font-size: 13px;
     color: #789;
-    margin: -5px 38px 15px;
+    margin: -15px 38px 10px;
     overflow: auto;
     list-style: none;
     padding: 0;
@@ -1126,10 +1130,6 @@
             }
         }
 
-        .text {
-            margin: 20px 0;
-        }
-
         &.sent {
             background-color: #F3F3F3;
             font-size: 12px;
@@ -1140,6 +1140,17 @@
             }
         }
     }
+}
+
+.objectsPage .text {
+	font-size: 15px;
+	line-height: 22px;
+}
+
+.objectsPage .dataWrap {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .createBtn {

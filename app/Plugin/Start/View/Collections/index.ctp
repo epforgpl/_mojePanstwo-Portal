@@ -7,12 +7,14 @@
 	echo $this->element('app/sidebar');
 ?>
 
+
 <div class="app-content-wrap">
     <div class="objectsPage">		
+		
 		<div class="container">
 
-			<div class="overflow-auto">
-				<h1 class="pull-left">Moje Kolekcje</h1>
+			<div class="header-wrap">
+				<h1 class="pull-left smaller">Moje Kolekcje</h1>
 				<a
 			        href="#"
 			        class="btn btn-primary btn-icon submit width-auto pull-right margin-top-20"
@@ -71,14 +73,16 @@
 					</div>
 				</div>
 			</div>
-			
-			<?= $this->element('Dane.DataBrowser/browser-content', array(
-				'displayAggs' => false,
-				'app_chapters' => false,
-				'forceHideAggs' => true,
-				'noResultsPhrase' => 'Nie stworzyłeś jeszcze żadnych kolekcji',
-			)); ?>
-		
+					
 		</div>
+		
+		<?= $this->element('Dane.DataBrowser/browser-content', array(
+			'displayAggs' => false,
+			'app_chapters' => false,
+			'forceHideAggs' => true,
+			'noResultsPhrase' => 'Nie stworzyłeś jeszcze żadnych kolekcji',
+			'paginatorPhrases' => array('kolekcja', 'kolekcje', 'kolekcji'),
+		)); ?>
+		
     </div>
 </div>

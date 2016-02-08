@@ -204,6 +204,10 @@ class AppController extends Controller
                 'label' => 'Tematy',
                 'menu_id' => 'tematy',
             ),
+            'ngo_konkursy' => array(
+                'label' => 'Konkursy',
+                'menu_id' => 'konkursy',
+            ),
         ),
         'zamowienia_publiczne' => array(
             'zamowienia_publiczne' => array(
@@ -405,7 +409,7 @@ class AppController extends Controller
             'subname' => 'Dane o jakości powietrza w Polsce',
             'desc' => 'Poznaj dane o jakości powietrza w Polsce',
             'href' => '/srodowisko',
-            'tag' => 1,
+            'tag' => 3,
             'icon' => '&#xe605;',
         ),
         'dostep_do_informacji_publicznej' => array(

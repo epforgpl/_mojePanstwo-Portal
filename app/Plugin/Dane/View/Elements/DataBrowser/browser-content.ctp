@@ -33,7 +33,7 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 			        );
 			
 			    $dataWrap = false;
-			    
+			    			    
 			    echo $this->element('Dane.DataBrowser/browser-content-header', array(
 				    'dataWrap' => $dataWrap,
 				    'params' => $this->Paginator->params(),
@@ -46,6 +46,7 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 	</div>
 	
 	<?
+	
 	if( $dataBrowser['mode'] != 'cover' ) {
 	
 		echo $this->element('Dane.DataBrowser/browser-content-list', array(

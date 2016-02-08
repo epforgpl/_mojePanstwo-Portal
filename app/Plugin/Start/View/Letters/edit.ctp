@@ -1,12 +1,17 @@
 <?php
 $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start')));
 $this->Combinator->add_libs('js', 'Start.letters.js');
+?>
+<?
+	echo $this->Html->css($this->Less->css('app'));
 
+	echo $this->element('headers/main');
+	echo $this->element('app/sidebar');
+?>
+<?
 /* tinymce */
 echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
-
-echo $this->element('Start.pageBegin'); ?>
-
+?>
 <? if (!$this->Session->read('Auth.User.id')) { ?>
     <div class="col-xs-12 nopadding">
         <div class="alert-identity alert alert-dismissable alert-success">
@@ -20,134 +25,146 @@ echo $this->element('Start.pageBegin'); ?>
     </div>
 <? } ?>
 
-<ul class="breadcrumb">
-  <li><a href="/moje-pisma">Moje Pisma</a></li>
-  <li class="active">Tworzenie nowego pisma</li>
-</ul>
 
-<div class="well bs-component mp-form mp-form-letter">
-  <form action="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" method="post" class="form-horizontal">
-  <input type="hidden" name="edit_from_inputs" value="1" />
-      <fieldset>
-       <legend>Wpisz treść pisma:</legend>
+<div class="app-content-wrap">
+    <div class="objectsPage">		
+		<div class="container">
+			
+			<div class="overflow-auto">
+				<h1 class="pull-left">Tworzenie nowego pisma:</h1>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-9">
+			
+					<div class="well bs-component mp-form mp-form-letter">
+					  <form action="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" method="post" class="form-horizontal">
+					  <input type="hidden" name="edit_from_inputs" value="1" />
+					      <fieldset>
+					       <legend>Wpisz treść pisma:</legend>
+					
+					      <? if( $pismo['template_id'] ) {?>
+					      <div class="form-group form-row sm">
+					        <label class="col-lg-2 control-label">Szablon</label>
+					        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['template_name'] ?></p></div>
+					      </div>
+					      <? } ?>
+					
+					      <? if( $pismo['to_name'] ) {?>
+					      <div class="form-group form-row sm">
+					        <label for="inputEmail" class="col-lg-2 control-label">Adresat</label>
+					        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['to_name'] ?></p></div>
+					      </div>
+					      <? } ?>
+					
+					      <hr/>
+					
+					          <?
+						  if( $pismo['_inputs'] ) {
+						      if( $inputs = $pismo['_inputs'] ) {
+							      foreach( $inputs as $input ) {
+					
+								      $full = true;
+									  $v = '';
+									  if( $input['value'] )
+									  	$v = $input['value'];
+									  elseif( $input['default_value'] ) {
+					
+									  	$v = $input['default_value'];
+					
+					                      if (
+					                          $v &&
+					                          ($v[0] == '$') &&
+									  		preg_match('/^\$session\[(.*?)\]$/i', $v, $match)
+					                      )
+					                          $v = $this->Session->read($match[1]);
+					
+					                  }
+					
+									  if( $input['type']=='richtext' ) {
+					                      ?>
+								      <div class="form-group form-row">
+								        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
+										<div class="col-lg-12">
+					                        <textarea class="form-control tinymceField" rows="20" id="inp<?= $input['id'] ?>"
+					                                  name="inp<?= $input['id'] ?>"><?= $v ?></textarea>
+								          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
+								        </div>
+					                  </div>
+					                      <?
+									  } elseif( $input['type']=='text' ) {
+					                      ?>
+									  <div class="form-group form-row">
+								        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
+										<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
+								          <input value="<?= $v ?>" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+								          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
+								        </div>
+								      </div>
+					                      <?
+									  } elseif( $input['type']=='date' ) {
+					                      ?>
+									  <div class="form-group form-row">
+								        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
+										<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
+								          <input value="<?= $v ?>" style="max-width: 130px;" maxlength="10" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+								          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
+								        </div>
+								      </div>
+					                      <?
+									  } elseif( $input['type']=='email' ) {
+					                      ?>
+									  <div class="form-group form-row">
+								        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
+										<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
+								          <input value="<?= $v ?>" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
+								          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
+								        </div>
+								      </div>
+					                      <?
+									  }
+					
+					              }
+							  }
+						  } else {
+							  
+							  $full = true;
+							  $v = '';
+							  		  
+						  ?>
+						  	
+						  	  <div class="form-group form-row">
+						        <label for="inp0" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>">Treść pisma</label>
+								<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
+						          <textarea class="form-control tinymceField" rows="10" id="inp0" name="inp0"><?= $v ?></textarea>
+						        </div>
+						      </div>
+						  	
+						  <?
+					      }
+					          ?>
+					
+					      <div class="form-group form-row">
+					          <div class="col-lg-12 text-center">
+						          <? if($pismo['saved']) {?>
+							          <a href="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" class="btn btn-md btn-default">Anuluj</a>
+							          <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+							            class="icon icon-applications-pisma"></i>Zapisz
+								      </button>
+							      <? } else { ?>
+							      	<button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+							            class="icon icon-applications-pisma"></i>Zapisz i zobacz podgląd pisma
+								      </button>
+							      <? } ?>
+					        </div>
+					      </div>
+					    </fieldset>
+					  </form>
+					</div>
+					
+				</div>
+			</div>
 
-      <? if( $pismo['template_id'] ) {?>
-      <div class="form-group form-row sm">
-        <label class="col-lg-2 control-label">Szablon</label>
-        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['template_name'] ?></p></div>
-      </div>
-      <? } ?>
-
-      <? if( $pismo['to_name'] ) {?>
-      <div class="form-group form-row sm">
-        <label for="inputEmail" class="col-lg-2 control-label">Adresat</label>
-        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['to_name'] ?></p></div>
-      </div>
-      <? } ?>
-
-      <hr/>
-
-          <?
-	  if( $pismo['_inputs'] ) {
-	      if( $inputs = $pismo['_inputs'] ) {
-		      foreach( $inputs as $input ) {
-
-			      $full = true;
-				  $v = '';
-				  if( $input['value'] )
-				  	$v = $input['value'];
-				  elseif( $input['default_value'] ) {
-
-				  	$v = $input['default_value'];
-
-                      if (
-                          $v &&
-                          ($v[0] == '$') &&
-				  		preg_match('/^\$session\[(.*?)\]$/i', $v, $match)
-                      )
-                          $v = $this->Session->read($match[1]);
-
-                  }
-
-				  if( $input['type']=='richtext' ) {
-                      ?>
-			      <div class="form-group form-row">
-			        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
-					<div class="col-lg-12">
-                        <textarea class="form-control tinymceField" rows="20" id="inp<?= $input['id'] ?>"
-                                  name="inp<?= $input['id'] ?>"><?= $v ?></textarea>
-			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
-			        </div>
-                  </div>
-                      <?
-				  } elseif( $input['type']=='text' ) {
-                      ?>
-				  <div class="form-group form-row">
-			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
-					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
-			          <input value="<?= $v ?>" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
-			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
-			        </div>
-			      </div>
-                      <?
-				  } elseif( $input['type']=='date' ) {
-                      ?>
-				  <div class="form-group form-row">
-			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
-					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
-			          <input value="<?= $v ?>" style="max-width: 130px;" maxlength="10" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
-			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
-			        </div>
-			      </div>
-                      <?
-				  } elseif( $input['type']=='email' ) {
-                      ?>
-				  <div class="form-group form-row">
-			        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
-					<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
-			          <input value="<?= $v ?>" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
-			          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
-			        </div>
-			      </div>
-                      <?
-				  }
-
-              }
-		  }
-	  } else {
-		  
-		  $full = true;
-		  $v = '';
-		  		  
-	  ?>
-	  	
-	  	  <div class="form-group form-row">
-	        <label for="inp0" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>">Treść pisma</label>
-			<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
-	          <textarea class="form-control tinymceField" rows="10" id="inp0" name="inp0"><?= $v ?></textarea>
-	        </div>
-	      </div>
-	  	
-	  <?
-      }
-          ?>
-
-      <div class="form-group form-row">
-          <div class="col-lg-12 text-center">
-	          <? if($pismo['saved']) {?>
-		          <a href="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" class="btn btn-md btn-default">Anuluj</a>
-		          <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
-		            class="icon icon-applications-pisma"></i>Zapisz
-			      </button>
-		      <? } else { ?>
-		      	<button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
-		            class="icon icon-applications-pisma"></i>Zapisz i zobacz podgląd pisma
-			      </button>
-		      <? } ?>
-        </div>
-      </div>
-    </fieldset>
-  </form>
+		</div>
+    </div>
 </div>
-
-<?= $this->element('Start.pageEnd'); ?>
