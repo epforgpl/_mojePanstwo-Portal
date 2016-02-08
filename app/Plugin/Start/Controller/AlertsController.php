@@ -28,6 +28,7 @@ class AlertsController extends StartAppController {
 		$this->title = 'Sprawy, które obserwuję';
 
         $options = array(
+	        'browserTitle' => 'Sprawy, które obserwuję:',
             'conditions' => array(
 	            'subscribtions' => true,
             ),

@@ -88,6 +88,37 @@ echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
         <button type="submit" class="btn btn-default margin-top-10">Zapisz</button>
     </form>
 
+    <form style="padding: 10px;" enctype="multipart/form-data" action="/admin/news/edit/<?= $news['News']['id'] ?>" method="POST">
+        <div class="row margin-top-10">
+            <div class="col-md-6">
+                <? if($news['News']['is_image'] == '1') { ?>
+                    <label>Obrazek</label>
+                    <div class="margin-top-5">
+                        <a href="http://sds.tiktalik.com/portal/ngo_konkursy/<?= $news['News']['id'] ?>_0.jpg" target="_blank">
+                            <img src="http://sds.tiktalik.com/portal/ngo_konkursy/<?= $news['News']['id'] ?>_1.jpg"/>
+                        </a>
+                    </div>
+                    <div class="checkbox margin-top-5">
+                        <input id="removeImageCheckbox" name="remove_image" type="checkbox" value="1" />
+                        <label for="removeImageCheckbox">Usuń obrazek</label>
+                    </div>
+                <? } else { ?>
+                    <label>Obrazek</label>
+                    <input type="file" name="image"/>
+                    <p class="help-block">
+                        Tylko pliki graficzne *.jpg, *.jpeg, *.png.
+                        Zalecane jest aby nie były mniejsze niż 900x576 px.
+                    </p>
+                <? } ?>
+            </div>
+            <div class="col-md-6">
+                <label>Źródło</label>
+                <input type="text" name="image_source" value="<?= $news['News']['image_source'] ?>" class="form-control" placeholder="Źródło http://...."/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default margin-top-10">Zmień obrazek</button>
+    </form>
+
 <? if(isset($crawlerPage)) { ?>
     <iframe style="border: none; width: 100%; height: 500px;" src="/admin/news/iframe/<?= $crawlerPage['CrawlerPage']['id'] ?>"></iframe>
     <a href="<?= $crawlerPage['CrawlerPage']['url'] ?>" target="_blank" class="btn btn-link">Otwórz stronę w nowej karcie</a>

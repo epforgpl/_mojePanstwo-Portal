@@ -1,17 +1,21 @@
 <?
 
-$this->Combinator->add_libs('js', 'Start.collections-view.js');
-$this->Combinator->add_libs('css', $this->Less->css('collections-view', array('plugin' => 'Start')));
+	$this->Combinator->add_libs('js', 'Start.collections-view.js');
+	$this->Combinator->add_libs('css', $this->Less->css('collections-view', array('plugin' => 'Start')));
+	
+	/* tinymce */
+	echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
 
-/* tinymce */
-echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('block' => 'scriptBlock'));
+	echo $this->Html->css($this->Less->css('app'));
 
-echo $this->element('Start.pageBegin');
-
-$accessDict = array(
-    'prywatna',
-    'publiczna'
-);
+	echo $this->element('headers/main');
+	echo $this->element('app/sidebar');
+	
+	
+	$accessDict = array(
+	    'prywatna',
+	    'publiczna'
+	);
 
 ?>
 
@@ -170,5 +174,3 @@ if($item->getData('object_id')) {
     </div>
 
 </div>
-
-<?= $this->element('Start.pageEnd'); ?>

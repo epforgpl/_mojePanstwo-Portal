@@ -15,13 +15,15 @@ class WebsitesController extends AdminAppController {
             'conditions' => array(
                 'dataset' => 'webpages',
                 'webpages.status' => '0',
+                'websites.id!=' => '48',
                 'qs' => array(
-	                'konkurs',
-	                'grant',
-	                'dofinansowanie',
-	                'dotacja',
-	                'zlecenie zadania publicznego'
+                    'konkurs',
+                    'grant',
+                    'dofinansowanie',
+                    'dotacja',
+                    'zlecenie zadania publicznego'
                 ),
+                'q' => '2016',
             ),
             'beforeBrowserElement' => 'Admin.websitesBeforeBrowser'
         ));
@@ -37,6 +39,19 @@ class WebsitesController extends AdminAppController {
         ));
 
         $this->redirect('/admin/websites');
+    }
+
+    public function ignoreMultiples() {
+        $this->loadModel('Admin.CrawlerPage');
+        foreach(@$this->request->data['ids'] as $id) {
+            $this->CrawlerPage->save(array(
+                'id' => (int) $id,
+                'status' => '2'
+            ));
+        }
+
+        $this->set('response', true);
+        $this->set('_serialize', array('response'));
     }
 
 }

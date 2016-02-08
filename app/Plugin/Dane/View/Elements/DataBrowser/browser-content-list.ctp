@@ -21,11 +21,15 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 						
 								
 								<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
-			
-							    <? if (isset($params['count']) && $params['count'] && (!isset($nopaging) || !$nopaging)) { ?>
+																						
+							    <? if (isset($params['count']) && (!isset($nopaging) || !$nopaging)) { ?>
 							        <li>
 							            <div class="dataCounter">
+								            <? if( $params['count'] ) {?>
 							                <span><?= pl_dopelniacz($params['count'], $phrases[0], $phrases[1], $phrases[2]) ?></span>
+							                <? } else { ?>
+							                <span><?= __d('dane', isset($noResultsPhrase) ? $noResultsPhrase : 'LC_DANE_BRAK_WYNIKOW') ?></span>
+							                <? } ?>
 							            </div>
 							        </li>
 							    <? } ?>
@@ -87,9 +91,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 					
 					                    <?
 					                    if (isset($dataBrowser['hits'])) {
-					                        if (empty($dataBrowser['hits'])) {
-					                            echo '<p class="noResults">' . __d('dane', isset($noResultsPhrase) ? $noResultsPhrase : 'LC_DANE_BRAK_WYNIKOW') . '</p>';
-					                        } else {
+					                        if (!empty($dataBrowser['hits'])) {
 					                            ?>
 					                            <ul class="list-group list-dataobjects">
 					                                <?
