@@ -114,6 +114,7 @@ $plugin_definitions =
 		'Api'           => array( 'routes' => true, 'bootstrap' => false ),
 		'Pisma'         => array( 'routes' => true, 'bootstrap' => false ),
 		'MojaGmina'     => array( 'routes' => true, 'bootstrap' => false ),
+		'Srodowisko'     => array( 'routes' => true, 'bootstrap' => false ),
 		'Powiadomienia' => array( 'routes' => true, 'bootstrap' => false ),
         'Orzecznictwo' => array('routes' => true, 'bootstrap' => false),
         'Ngo' => array('routes' => true, 'bootstrap' => false),

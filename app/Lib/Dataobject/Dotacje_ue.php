@@ -49,6 +49,7 @@ class Dotacje_ue extends DataObject
 	{
 		
 		$output = array(
+			dataSlownie( $this->getDate() ),
 			$this->getData('dotacje_ue.beneficjent_nazwa'),
 		);
 		

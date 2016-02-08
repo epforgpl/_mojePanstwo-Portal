@@ -14,6 +14,21 @@ class NgoController extends ApplicationsController
     );
     
     public $menu = array(
+		'konkursy' => array(
+			'menu_id' => 'konkursy',
+			'label' => 'Konkursy',
+			'icon' => 'ngo_konkursy',
+		),
+		'zbiorki_publiczne' => array(
+			'menu_id' => 'zbiorki',
+			'label' => 'Zbiórki publiczne',
+			'icon' => 'zbiorki_publiczne',
+		),
+		'sprawozdania_opp' => array(
+			'menu_id' => 'sprawozdania_opp',
+			'label' => 'Sprawozdania OPP',
+			'icon' => 'sprawozdania_opp',
+		),
 		'dzialania' => array(
 			'menu_id' => 'dzialania',
 			'label' => 'Działania',
@@ -262,7 +277,49 @@ class NgoController extends ApplicationsController
 				        'aggs' => array(
 				            'top' => array(
 				                'top_hits' => array(
-				                    'size' => 6,
+				                    'size' => 8,
+				                    'fielddata_fields' => array('dataset', 'id'),
+				                    'sort' => array(
+				                        'date' => array(
+				                            'order' => 'desc',
+				                        ),
+				                    ),
+				                ),
+				            ),
+				        ),
+				    ),
+				    'zbiorki' => array(
+				        'scope' => 'global',
+				        'filter' => array(
+				            'term' => array(
+	                            'dataset' => 'zbiorki_publiczne',
+	                        ),
+				        ),
+				        'aggs' => array(
+				            'top' => array(
+				                'top_hits' => array(
+				                    'size' => 3,
+				                    'fielddata_fields' => array('dataset', 'id'),
+				                    'sort' => array(
+				                        'date' => array(
+				                            'order' => 'desc',
+				                        ),
+				                    ),
+				                ),
+				            ),
+				        ),
+				    ),
+				    'sprawozdania_opp' => array(
+				        'scope' => 'global',
+				        'filter' => array(
+				            'term' => array(
+	                            'dataset' => 'sprawozdania_opp',
+	                        ),
+				        ),
+				        'aggs' => array(
+				            'top' => array(
+				                'top_hits' => array(
+				                    'size' => 3,
 				                    'fielddata_fields' => array('dataset', 'id'),
 				                    'sort' => array(
 				                        'date' => array(
@@ -561,8 +618,9 @@ class NgoController extends ApplicationsController
 
     public function dzialania()
     {
-	    $this->title = 'Działania organizacji społecznych';
+	    $this->title = 'Działania organizacji pozarządowych | NGO';
         $this->loadDatasetBrowser('dzialania', array(
+            'browserTitle' => 'Działania organizacji pozarządowych:',
             'conditions' => array(
                 'dataset' => 'dzialania',
                 'dzialania.status' => '1',
@@ -627,15 +685,41 @@ class NgoController extends ApplicationsController
         ));
     }
     
+    public function konkursy()
+    {
+        $this->loadDatasetBrowser('ngo_konkursy', array(
+            'browserTitle' => 'Konkursy dla organizacji pozarządowych:',
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'konkursy',
+                'base' => '/ngo'
+            ))
+        ));
+        $this->set('title_for_layout', 'Konkursy | NGO');
+
+    }
+    
     public function zbiorki()
     {
+	    $this->title = 'Zbiórki publiczne | NGO';
         $this->loadDatasetBrowser('zbiorki_publiczne', array(
+            'browserTitle' => 'Zbiórki publiczne:',
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'zbiorki',
                 'base' => '/ngo'
             ))
         ));
-        $this->set('title_for_layout', 'Fundacje | NGO');
+    }
+    
+    public function sprawozdania_opp()
+    {
+        $this->loadDatasetBrowser('sprawozdania_opp', array(
+            'browserTitle' => 'Sprawozdania organizacji pożytku publicznego:',
+           'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'sprawozdania_opp',
+                'base' => '/ngo'
+            ))
+        ));
+        $this->set('title_for_layout', 'Sprawozdania organizacji pożytku publicznego | NGO');
 
     }
 

@@ -132,7 +132,116 @@ class DataBrowserComponent extends Component
 	);
 
     private $aggs_presets = array(
+        'bdl_wskazniki' => array(
+            'kategoria_id' => array(
+                'terms' => array(
+                    'field' => 'bdl_wskazniki.kategoria_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.bdl_wskazniki.kategoria_tytul',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kategorie',
+                    'skin' => 'list',
+                    'field' => 'bdl_wskazniki.kategoria_id',
+                    'all' => 'Wszystkie kategorie',
+                ),
+            ),
+            'grupa_id' => array(
+                'terms' => array(
+                    'field' => 'bdl_wskazniki.grupa_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.bdl_wskazniki.grupa_tytul',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Grupy',
+                    'skin' => 'list',
+                    'field' => 'bdl_wskazniki.grupa_id',
+                    'all' => 'Wszystkie grupy',
+                ),
+            ),
+        ),
+        'bdl_wskazniki_grupy' => array(
+            'kategoria_id' => array(
+                'terms' => array(
+                    'field' => 'bdl_wskazniki_grupy.kategoria_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.bdl_wskazniki_grupy.tytul',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Kategorie',
+                    'skin' => 'list',
+                    'field' => 'bdl_wskazniki_grupy.kategoria_id',
+                    'all' => 'Wszystkie kategorie',
+                ),
+            ),
+        ),
         'gminy' => array(
+            'wojewodztwo_id' => array(
+                'terms' => array(
+                    'field' => 'gminy.wojewodztwo_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.wojewodztwa.nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Województwa',
+                    'skin' => 'list',
+                    'field' => 'gminy.wojewodztwo_id',
+                    'all' => 'Wszystkie województwa',
+                ),
+            ),
+            'powiat_id' => array(
+                'terms' => array(
+                    'field' => 'gminy.powiat_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.powiaty.nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Powiaty',
+                    'skin' => 'list',
+                    'field' => 'gminy.powiat_id',
+                    'all' => 'Wszystkie powiaty',
+                ),
+            ),
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'gminy.typ_id',
@@ -142,7 +251,7 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Typy gmin',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'gminy.typ_id',
                     'dictionary' => array(
                         '1' => 'Gmina miejska',
@@ -150,10 +259,36 @@ class DataBrowserComponent extends Component
                         '3' => 'Gmina miejsko-wiejska',
                         '4' => 'Miasto stołeczne',
                     ),
+                    'all' => 'Wszystkie typy gmin',
                 ),
             ),
         ),
         'powiaty' => array(
+            'wojewodztwo_id' => array(
+                'terms' => array(
+                    'field' => 'powiaty.wojewodztwo_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.wojewodztwa.nazwa',
+                            'size' => '1',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Województwo',
+                    'skin' => 'list',
+                    'params' => array(
+                        'unit' => 'wojewodztwa',
+                    ),
+                    'all' => 'Wszystkie województwa',
+                    'field' => 'powiaty.wojewodztwo_id',
+                ),
+            ),
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'powiaty.typ_id',
@@ -163,8 +298,9 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Typy powiatów',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'powiaty.typ_id',
+                    'all' => 'Wszystkie typy powiatów',
                     'dictionary' => array(
                         '1' => 'Powiat',
                         '2' => 'Miasto na prawach powiatu',
@@ -172,22 +308,7 @@ class DataBrowserComponent extends Component
                     ),
                 ),
             ),
-            'wojewodztwo_id' => array(
-                'terms' => array(
-                    'field' => 'powiaty.wojewodztwo_id',
-                    'exclude' => array(
-                        'pattern' => '0'
-                    ),
-                ),
-                'visual' => array(
-                    'label' => 'Województwo',
-                    'skin' => 'geo_pl',
-                    'params' => array(
-                        'unit' => 'wojewodztwa',
-                    ),
-                    'field' => 'powiaty.wojewodztwo_id',
-                ),
-            ),
+            
         ),
         'miejscowosci' => array(
             'typ_id' => array(
@@ -1247,7 +1368,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Liczba udzielonych dotacji w czasie',
                     'skin' => 'date_histogram',
                     'field' => 'date',
-                    'all' => 'Kiedykolwiek',
+                    'all' => 'Udzielone kiedykolwiek',
                 ),
             ),
         ),

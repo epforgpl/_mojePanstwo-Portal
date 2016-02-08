@@ -138,6 +138,11 @@ class AppController extends Controller
                 'menu_id' => 'msig',
             ),
         ),
+        'srodowisko' => array(
+            'srodowisko_stacje_pomiarowe' => array(
+                'label' => 'Stacje pomiarowe'
+            ),
+        ),
         'bdl' => array(
             'bdl_wskazniki' => array(
                 'label' => 'Wskaźniki'
@@ -394,6 +399,14 @@ class AppController extends Controller
             'href' => '/media',
             'tag' => 1,
             'icon' => '&#xe608;',
+        ),
+        'srodowisko' => array(
+            'name' => 'Środowisko',
+            'subname' => 'Dane o jakości powietrza w Polsce',
+            'desc' => 'Poznaj dane o jakości powietrza w Polsce',
+            'href' => '/srodowisko',
+            'tag' => 1,
+            'icon' => '&#xe605;',
         ),
         'dostep_do_informacji_publicznej' => array(
             'name' => 'Dostęp do Informacji Publicznej',

@@ -6,7 +6,7 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
 <div id="homepage" class="col-xs-12">
     <div class="appBanner">
         <h1 class="appTitle">mojePaństwo</h1>
-        <p class="appSubtitle">Lorem ipsum placeholder</p>
+        <p class="appSubtitle">Fundament działalności aktywnego obywatela i działacza</p>
 
         <div class="_mPSearchOutside appSearch form-group">
             <form action="/" method="get">
@@ -18,9 +18,13 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
                         </button>
 					</span>
                 </div>
-            </form>
+            </form>     
+            <p class="text-center margin-top-10"><a href="/dane">Zobacz jakie dane przeszukujemy &raquo;</a></p>       
         </div>
+        
     </div>
+    
+    
 
     <div class="appContent row">
         <div class="appsList">

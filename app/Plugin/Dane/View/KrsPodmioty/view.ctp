@@ -543,33 +543,36 @@ $description =
                                 <a class="list-group-item row" href="/dane/krs_podmioty/<?= $osoba['krs_id'] ?>">
                                     <? } elseif (@$osoba['gmina_id']) {
                                     $class = "Organization"; ?>
-                                    <a class="list-group-item row" href="/dane/gminy/<?= $osoba['gmina_id'] ?>,<?= $osoba['gmina_slug'] ?>">
+                                    <a class="list-group-item row"
+                                       href="/dane/gminy/<?= $osoba['gmina_id'] ?>,<?= $osoba['gmina_slug'] ?>">
                                         <? } elseif (@$osoba['powiat_id']) {
                                         $class = "Organization"; ?>
-                                        <a class="list-group-item row" href="/dane/powiaty/<?= $osoba['powiat_id'] ?>,<?= $osoba['powiat_slug'] ?>">
+                                        <a class="list-group-item row"
+                                           href="/dane/powiaty/<?= $osoba['powiat_id'] ?>,<?= $osoba['powiat_slug'] ?>">
                                             <? } else {
-                                    $class = "Intangible"; ?>
-                                    <div class="list-group-item row">
-                                        <? } ?>
+                                            $class = "Intangible"; ?>
+                                            <div class="list-group-item row">
+                                                <? } ?>
 
-                                        <h4 class="list-group-item-heading col-xs-6" itemprop="member" itemscope
-                                            itemtype="http://schema.org/Organization<?= $class ?>">
-                                            <span itemprop="name"><?= $osoba['nazwa'] ?></span>
-                                            <? if (($osoba['privacy_level'] != '1') && $osoba['data_urodzenia'] && $osoba['data_urodzenia'] != '0000-00-00') { ?>
-                                                <span itemprop="birthDate"
-                                                      datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
-                                                      class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>'</span>
-                                            <? } ?>
-                                        </h4>
+                                                <h4 class="list-group-item-heading col-xs-6" itemprop="member" itemscope
+                                                    itemtype="http://schema.org/Organization<?= $class ?>">
+                                                    <span itemprop="name"><?= $osoba['nazwa'] ?></span>
+                                                    <? if (($osoba['privacy_level'] != '1') && $osoba['data_urodzenia'] && $osoba['data_urodzenia'] != '0000-00-00') { ?>
+                                                        <span itemprop="birthDate"
+                                                              datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
+                                                              class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>
+                                                            '</span>
+                                                    <? } ?>
+                                                </h4>
 
-                                        <? if (isset($osoba['funkcja']) && $osoba['funkcja']) { ?>
-                                            <p itemprop="namedPosition"
-                                               class="list-group-item-text normalizeText col-xs-6"><?= $osoba['funkcja'] ?></p>
-                                        <? } ?>
+                                                <? if (isset($osoba['funkcja']) && $osoba['funkcja']) { ?>
+                                                    <p itemprop="namedPosition"
+                                                       class="list-group-item-text normalizeText col-xs-6"><?= $osoba['funkcja'] ?></p>
+                                                <? } ?>
 
-                                        <? if (@$osoba['osoba_id'] || @$osoba['krs_id'] || @$osoba['gmina_id'] || @$osoba['powiat_id']) { ?>
-                                </a>
-                                <? } else { ?>
+                                                <? if (@$osoba['osoba_id'] || @$osoba['krs_id'] || @$osoba['gmina_id'] || @$osoba['powiat_id']) { ?>
+                                        </a>
+                                        <? } else { ?>
                     </div>
                     <? } ?>
                     </span>
@@ -621,8 +624,13 @@ $description =
 </div></div>
 
 <div class="powiazania block block-simple col-xs-12">
-    <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
-             data-url="krs_podmioty"></section>
+    <section id="connectionGraph" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty">
+        <div class="spinner grey">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </section>
     <div class="detailInfoWrapper"></div>
 </div>
 

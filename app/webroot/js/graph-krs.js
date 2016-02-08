@@ -48,7 +48,7 @@
 				links = [],
 				root;
 
-			connectionGraph.removeClass('loading');
+			connectionGraph.find('.spinner').remove();
 
 			if (nodes.length === 0) {
 				connectionGraph.remove();
@@ -341,8 +341,24 @@
 						}, []);
 					};
 
-					var pathLink = [];
+					var arrowLink = [];
+					arrowLine.classed("link-active", function (o) {
+						console.log(o);
+						(o.source === d) ? arrowLink.push(o.target.id) : ((o.target === d) ? arrowLink.push(o.source.id) : false);
 
+						arrowLink = arrayUnique(arrowLink);
+
+						console.log(arrowLink);
+
+						this.setAttribute('opacity', !!(o.source === d || o.target === d) ? 1 : opacity);
+						for (var j = 0; j < arrowLink.length; j++) {
+							$('[id^="arrowLine-' + root.id + '-' + arrowLink[j] + '"],[id^="arrowLine-' + arrowLink[j] + '-' + root.id + '"]').addClass('link-active').attr('opacity', 1);
+						}
+
+						return false;
+					});
+
+					var pathLink = [];
 					path.classed("link-active", function (o) {
 						(o.source === d) ? pathLink.push(o.target.id) : ((o.target === d) ? pathLink.push(o.source.id) : false);
 
@@ -379,6 +395,10 @@
 						circleText.classed("text-active", function () {
 							$(this).css('opacity', 1);
 						});
+						return false;
+					});
+					arrowLine.classed('link-active', function () {
+						this.setAttribute('opacity', 1);
 						return false;
 					});
 					path.classed('link-active', function () {

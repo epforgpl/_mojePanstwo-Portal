@@ -21,13 +21,18 @@ $this->Combinator->add_libs('js', 'graph-krs');
         </div>
     </div>
 
-    
+
 
 </div></div>
 
     <div class="powiazania block block-simple col-md-12 margin-bottom-30">
-        <section id="connectionGraph" class="loading" data-id="<?php echo $object->getId() ?>"
-                 data-url="krs_osoby"></section>
+        <section id="connectionGraph" data-id="<?php echo $object->getId() ?>" data-url="krs_osoby">
+            <div class="spinner grey">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </section>
         <div class="detailInfoWrapper"></div>
     </div>
 

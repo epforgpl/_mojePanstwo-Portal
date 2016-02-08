@@ -7,7 +7,7 @@ function CustomMarker(mapaWarstwy, latlng, map, args) {
 	this.latlng = latlng;
 	this.args = args;
 	this.setMap(map);
-	this.maxZoom = 17;
+	this.maxZoom = 20;
 }
 
 CustomMarker.prototype = new google.maps.OverlayView();
@@ -116,9 +116,8 @@ var MapBrowser = Class.extend({
 	retina: false,
 	map: false,
 	fitBounds: false,
-	points: [],
 	mapOptions: {
-		maxZoom: 18,
+		maxZoom: 20,
 		panControl: false,
 		zoomControl: true,
 		mapTypeControl: true,
@@ -206,6 +205,15 @@ var MapBrowser = Class.extend({
 		wybory: {}
 	},
 	cacheAjax: {},
+	cacheAjaxPoints: {},
+	data: {
+		'points': {
+			'loaded': false
+		},
+		'layers': {
+			'loaded' : false
+		}
+	},
 
 	init: function () {
 		// SETUP
@@ -286,7 +294,43 @@ var MapBrowser = Class.extend({
 		}
 
 		window.location.hash = '?' + param;
+		
+		
+		// load points
+		if( zoom > 15 ) {			
+			self.pendingAreaPoints = self.getArea();
 
+			window.clearTimeout(self.loadTimerPoints);
+			self.loadTimerPoints = window.setTimeout(function () {
+				var area = self.getArea();
+
+				if ((area.tl === self.pendingAreaPoints.tl) && (area.br === self.pendingAreaPoints.br) && (area.zoom === self.pendingAreaPoints.zoom)) {
+					var params = {
+						tl: area.tl,
+						br: area.br,
+						zoom: area.zoom
+					};
+
+					
+					self.spinnerOn();
+
+					var checkParams = $.param(params);
+
+					if (checkParams in self.cacheAjaxPoints) {
+						self.render(self.cacheAjaxPoints[checkParams], area, params.layer);
+					} else {
+						self.xhr = $.get('/mapa/points.json', params, function (data) {
+							self.cacheAjaxPoints[checkParams] = data;
+							self.renderPoints(data, area);
+						}, 'json');
+					}
+
+				}
+			}, self.loadDelay);
+		}
+		
+		
+		
 		// load data in separate API calls (one call for one layer)
 		if (self.layers.length) {
 			self.pendingArea = self.getArea();
@@ -386,9 +430,19 @@ var MapBrowser = Class.extend({
 						};
 					})(marker, content, self.infowindow));
 				} else {
-					var inner_center = Geohash.decode(cell.inner_key),
-						centerLat = center.lat + (inner_center.lat - center.lat) * f,
-						centerLng = center.lon + (inner_center.lon - center.lon) * f;
+					
+					if( cell.inner_key ) {
+					
+						var inner_center = Geohash.decode(cell.inner_key),
+							centerLat = center.lat + (inner_center.lat - center.lat) * 0.7,
+							centerLng = center.lon + (inner_center.lon - center.lon) * 0.7;
+						
+					} else {
+						
+						var centerLat = center.lat,
+							centerLng = center.lon;
+						
+					}
 
 					this.markers[layer][term] = new CustomMarker(self, new google.maps.LatLng(centerLat, centerLng), self.map, {
 						title: cell.doc_count,
@@ -434,7 +488,7 @@ var MapBrowser = Class.extend({
 			sw_lng = bounds.getSouthWest().lng(),
 			sw_lat = bounds.getSouthWest().lat(),
 			ne_lng = bounds.getNorthEast().lng(),
-			f = 0.1,
+			f = .1,
 			ne_lat_fixed = ne_lat + ((ne_lat - sw_lat) * f),
 			ne_lng_fixed = ne_lng + ((ne_lng - sw_lng) * f),
 			sw_lat_fixed = sw_lat - ((ne_lat - sw_lat) * f),

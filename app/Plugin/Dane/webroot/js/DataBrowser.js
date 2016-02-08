@@ -22,8 +22,9 @@ var DataBrowser = Class.extend({
 
 		var lis = this.div.find('.dataAggs .agg');
 		for (var i = 0; i < lis.length; i++) {
+					
 			var li = $(lis[i]);
-
+			
 			if (li.hasClass('agg-PieChart')) {
 				this.initAggPieChart(li);
 			} else if (li.hasClass('agg-DateHistogram')) {

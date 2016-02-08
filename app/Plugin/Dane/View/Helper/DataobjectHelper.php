@@ -95,7 +95,7 @@ class DataobjectHelper extends AppHelper
 	
 	            $class = ucfirst($dataset);
 	            $file = APPLIBS . 'Dataobject/' . $class . '.php';
-	            
+	            	            
 	            $data = array();
 	            $_data = $object['_source']['data'];
 	            

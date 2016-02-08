@@ -34,6 +34,31 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 		        <header>Konkursy dla organizacji pozarządowych:</header>
 		        <section class="content">
 			        <div class="agg agg-Dataobjects">
+	                    <ul class="dataobjects img-nopadding" style="margin: 0 20px;">
+	                        <? foreach ($docs as $doc) { ?>
+	                            <li class="margin-top-10">
+	                                <?
+	                                echo $this->Dataobject->render($doc, 'default');
+	                                ?>
+	                            </li>
+	                        <? } ?>
+	                    </ul>
+	                </div>
+
+                    <div class="buttons">
+		                <a href="/ngo/konkursy" class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+                    </div>
+		        </section>
+			</div>
+			<? } ?>
+
+        </div><div class="col-md-4">
+			
+			<? if( $docs = @$dataBrowser['aggs']['zbiorki']['top']['hits']['hits'] ) {?>
+            <div class="block bgA">
+		        <header>Najnowsze zbiórki publiczne:</header>
+		        <section class="content">
+			        <div class="agg agg-Dataobjects">
 	                    <ul class="dataobjects" style="margin: 0 20px;">
 	                        <? foreach ($docs as $doc) { ?>
 	                            <li class="margin-top-10">
@@ -46,55 +71,34 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	                </div>
 
                     <div class="buttons">
-		                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+		                <a href="/ngo/zbiorki" class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
                     </div>
 		        </section>
 			</div>
 			<? } ?>
-
-        </div><div class="col-md-4">
-
+			
+			<? if( $docs = @$dataBrowser['aggs']['sprawozdania_opp']['top']['hits']['hits'] ) {?>
             <div class="block bgA">
-		        <header>Najnowsze zbiórki publiczne:</header>
+		        <header>Sprawozdania organizacji pożytku publicznego:</header>
 		        <section class="content">
 			        <div class="agg agg-Dataobjects">
-	                    <ul class="dataobjects" style="margin: 0 20px;">
-	                        <? /* foreach ($organizacje as $doc) { ?>
+	                    <ul class="dataobjects img-nopadding" style="margin: 0 20px;">
+	                        <? foreach ($docs as $doc) { ?>
 	                            <li class="margin-top-10">
 	                                <?
 	                                echo $this->Dataobject->render($doc, 'default');
 	                                ?>
 	                            </li>
-	                        <? } */ ?>
+	                        <? } ?>
 	                    </ul>
 	                </div>
 
                     <div class="buttons">
-		                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+		                <a href="/ngo/sprawozdania_opp" class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
                     </div>
 		        </section>
 			</div>
-
-            <div class="block bgA">
-		        <header>Sprawozdania OPP:</header>
-		        <section class="content">
-			        <div class="agg agg-Dataobjects">
-	                    <ul class="dataobjects" style="margin: 0 20px;">
-	                        <? /* foreach ($organizacje as $doc) { ?>
-	                            <li class="margin-top-10">
-	                                <?
-	                                echo $this->Dataobject->render($doc, 'default');
-	                                ?>
-	                            </li>
-	                        <? } */ ?>
-	                    </ul>
-	                </div>
-
-                    <div class="buttons">
-		                <a class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
-                    </div>
-		        </section>
-			</div>
+			<? } ?>
 
         </div>
 	</div>

@@ -1,0 +1,36 @@
+<?
+
+namespace MP\Lib;
+
+class Ngo_konkursy extends DataObject
+{
+			
+    protected $routes = array(
+        'title' => 'tytul',
+        'shortTitle' => 'tytul',
+        'date' => 'czas_utowrzenia',
+        'description' => false,
+    );
+    
+    protected $hl_fields =array(
+    	'symbol', 'beneficjent_nazwa', 'wartosc_ogolem', 'dofinansowanie_ue'
+    );
+		
+    public function getMetaDescriptionParts($preset = false)
+	{
+		
+		$output = array();
+		
+		if( $date = $this->getData('ngo_konkursy.czas_utowrzenia') )
+			$output[] = dataSlownie( substr($date, 0, 10) );
+	
+		return $output;
+		
+	}
+	
+	public function getThumbnailUrl($size = false)
+    {
+        return 'http://resources.sejmometr.pl/ngo_konkursy/img/' . 'default' . '-1.jpg';
+    }
+    
+}
