@@ -4,6 +4,7 @@ App::uses('AdminAppController', 'Admin.Controller');
 
 class NewsController extends AdminAppController {
 
+    public $components = array('Admin.NewsImage');
     private static $perPage = 20;
     private static $areas = array(
         'działalność charytatywna',
@@ -111,8 +112,39 @@ class NewsController extends AdminAppController {
             $news = $this->News->save($this->request->data);
             if($news) {
                 $this->Session->setFlash('Aktualność została poprawnie zapisana', 'default');
-                $this->redirect('/admin/news');
+                $this->redirect('/admin/news/edit/' . $id);
             }
+        } elseif(isset($this->request->data['image_source'])) {
+
+            $data = array(
+                'id' => $id,
+                'is_image' => '0',
+                'image_source' => $this->request->data['image_source']
+            );
+
+            try {
+                if(isset($this->request->data['remove_image']) && $this->request->data['remove_image'] == '1') {
+                    $this->NewsImage->remove($id);
+                    $data['is_image'] = '0';
+                } elseif(isset($this->request->params['form']['image'])) {
+                    $this->NewsImage->upload($this->request->params['form']['image'], $id);
+                    $data['is_image'] = '1';
+                }
+            } catch(NewsImageComponentException $e) {
+                $this->Session->setFlash($e->getMessage(), 'default');
+                $this->redirect('/admin/news/edit/' . $id);
+            }
+
+            $news = $this->News->save($data);
+
+            $this->Session->setFlash(
+                $news ?
+                    'Obrazek został poprawnie ' . ($data['is_image'] == '0' ? 'usunięty' : 'zapisany') :
+                    'Wystąpił błąd podczas zapisywania obrazka',
+                'default'
+            );
+
+            $this->redirect('/admin/news/edit/' . $id);
         }
 
         if($news['News']['crawler_page_id'] > 0) {
@@ -203,6 +235,10 @@ class NewsController extends AdminAppController {
         $data = curl_exec($ch);
         curl_close($ch);
         echo $data;
+    }
+
+    private function uploadImage($image, $id) {
+        $this->S3 = $this->Components->load('S3');
     }
 
 }
