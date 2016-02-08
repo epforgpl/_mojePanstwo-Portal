@@ -15,13 +15,15 @@ class WebsitesController extends AdminAppController {
             'conditions' => array(
                 'dataset' => 'webpages',
                 'webpages.status' => '0',
+                'websites.id!=' => '48',
                 'qs' => array(
-	                'konkurs',
-	                'grant',
-	                'dofinansowanie',
-	                'dotacja',
-	                'zlecenie zadania publicznego'
+                    'konkurs',
+                    'grant',
+                    'dofinansowanie',
+                    'dotacja',
+                    'zlecenie zadania publicznego'
                 ),
+                'q' => '2016',
             ),
             'beforeBrowserElement' => 'Admin.websitesBeforeBrowser'
         ));
