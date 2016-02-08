@@ -91,22 +91,68 @@ a.link-api-call {
         margin-top: 10px;
         margin-bottom: 10px;
 
-		.dropdown-menu {
-			margin-top: 0;
-			min-width: 250px;
-			
-			> li > a {
-				white-space: normal;
-				padding-right: 30px;
-				.badge {
-					font-size: 10px;
-					position: absolute;
-					right: 0;
-					margin-right: 10px;
-					margin-top: 1px;
-				}
-			}
-			
+        .dropdown-menu {
+            margin-top: 0;
+            margin-left: -16px;
+            min-width: 250px;
+
+            > li {
+                > a {
+                    @linkPaddingBorder: 30px;
+
+                    white-space: normal;
+                    padding-right: @linkPaddingBorder;
+                    padding-left: @linkPaddingBorder;
+
+                    .badge {
+                        font-size: 10px;
+                        position: absolute;
+                        right: 0;
+                        margin-right: 10px;
+                        margin-top: 1px;
+                    }
+
+                    &:hover, &:focus {
+                        background: #f1f1f1;
+                        color: inherit;
+                        padding-right: @linkPaddingBorder;
+                        padding-left: @linkPaddingBorder;
+                    }
+                }
+
+                &.active {
+                    position: relative;
+
+                    &:before {
+                        content: "\e013";
+
+                        position: absolute;
+                        top: 50%;
+                        left: 10px;
+                        display: inline-block;
+                        font-family: 'Glyphicons Halflings';
+                        font-size: 0.85em;
+                        font-style: normal;
+                        font-weight: normal;
+                        line-height: 1;
+
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+
+                        -webkit-transform: translate(0, -50%);
+                        -moz-transform: translate(0, -50%);
+                        -ms-transform: translate(0, -50%);
+                        -o-transform: translate(0, -50%);
+                        transform: translate(0, -50%);
+                    }
+
+                    > a {
+                        background: inherit;
+                        color: inherit;
+                    }
+                }
+            }
+
             li.desc {
                 padding: 5px 10px;
             }
@@ -180,12 +226,12 @@ a.link-api-call {
                 top: -2px;
             }
             .glyphicon {
-                top: 0px;
+                top: 0;
             }
         }
 
         .hasclear:not(:valid) ~ a .clearer {
-            display: none !important; /*TODO:check if it REALLY need*/
+            display: none;
         }
     }
 
@@ -536,18 +582,6 @@ a.link-api-call {
 
             a {
                 color: #23527C;
-            }
-
-            ul {
-                li.active, li:hover {
-                    a {
-                        color: #fff;
-                        .badge {
-	                        background-color: #FFF;
-	                        color: #789;
-                        }
-                    }
-                }
             }
 
             &.active > a {
