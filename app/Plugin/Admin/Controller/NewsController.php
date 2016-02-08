@@ -62,9 +62,26 @@ class NewsController extends AdminAppController {
     public function add($crawler_page_id = 0) {
         if(isset($this->request->data['name'])) {
             $this->loadModel('Admin.News');
+
+            if(isset($this->request->params['form']['image']))
+                $this->request->data['is_image'] = '1';
+
             $news = $this->News->save($this->request->data);
             if($news) {
-                $this->Session->setFlash('Aktualność została poprawnie zapisana', 'default');
+                $err = false;
+
+                try {
+                    if(isset($this->request->params['form']['image'])) {
+                        $this->NewsImage->upload($this->request->params['form']['image'], $news['News']['id']);
+                    }
+                } catch(NewsImageComponentException $e) {
+                    $err = $r;
+                }
+
+                $this->Session->setFlash(
+                    'Aktualność została poprawnie zapisana' .
+                    ($err ? ' ale ' . $err : '')
+                    , 'default');
                 $this->redirect('/admin/news');
             }
         }
@@ -195,6 +212,7 @@ class NewsController extends AdminAppController {
         if(!$news)
             throw new NotFoundException;
 
+        $this->NewsImage->remove($id);
         $this->News->delete($id);
         $this->Session->setFlash('Aktualność została poprawnie usunięta', 'default');
         $this->redirect('/admin/news');
@@ -235,10 +253,6 @@ class NewsController extends AdminAppController {
         $data = curl_exec($ch);
         curl_close($ch);
         echo $data;
-    }
-
-    private function uploadImage($image, $id) {
-        $this->S3 = $this->Components->load('S3');
     }
 
 }
