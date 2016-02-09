@@ -5,6 +5,7 @@ $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $this->Combinator->add_libs('css', $this->Less->css('icon-dzialy', array('plugin' => 'Finanse')));
+$this->Combinator->add_libs('css', $this->Less->css('budzety-gminy', array('plugin' => 'Finanse')));
 $this->Combinator->add_libs('css', $this->Less->css('sections', array('plugin' => 'FinanseGmin')));
 $this->Combinator->add_libs('css', $this->Less->css('mp-sections', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
