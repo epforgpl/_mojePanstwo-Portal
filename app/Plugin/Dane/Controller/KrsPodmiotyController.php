@@ -566,23 +566,27 @@ class KrsPodmiotyController extends DataobjectsController
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-            $umowa = $this->Dataobject->find('first', array(
+            $sprawozdanie = $this->Dataobject->find('first', array(
 	            'conditions' => array(
-		            'dataset' => 'umowy',
+		            'dataset' => 'sprawozdania_opp',
 		            'id' => $this->request->params['subid'],
 	            ),
             ));
 
-            $this->set('umowa', $umowa);
-            $this->set('title_for_layout', $umowa->getTitle());
-            $this->render('umowa');
+            $this->set('sprawozdanie', $sprawozdanie);
+            $this->set('title_for_layout', $sprawozdanie->getTitle());
+            $this->render('sprawozdanie');
 
         } else {
 
             $this->_prepareView();
 	        $this->Components->load('Dane.DataBrowser', array(
 	            'conditions' => array(
-	                'dataset' => 'umowy',
+	                'dataset' => 'sprawozdania_opp',
+	                'sprawozdania_opp.krs_id' => $this->object->getId(),
+	            ),
+	            'objectOptions' => array(
+		            'view' => 'from_parent',
 	            ),
 	        ));
 
