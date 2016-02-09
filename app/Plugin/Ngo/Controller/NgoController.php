@@ -129,7 +129,7 @@ class NgoController extends ApplicationsController
 	    );
     }
 
-    public $components = array('RequestHandler');
+    public $components = array('RequestHandler', 'Media.Twitter');
 
     public $submenus = array(
         'ngo' => array(
@@ -154,6 +154,19 @@ class NgoController extends ApplicationsController
         )
     );
 
+	private $twitterAccountType = '9';
+	private $twitterTimerange = '1D';
+
+	private $accounts_map = array(
+		'politycy' => array(7, 'Politycy na Twitterze'),
+		'ngo' => array(9, 'Organizacje pozarządowe na Twitterze'),
+		'komentatorzy' => array(2, 'Komentatorzy na Twitterze'),
+		'urzedy' => array(3, 'Urzędy na Twitterze'),
+		'miasta' => array(10, 'Miasta na Twitterze'),
+		'media' => array(6, 'Media na Twitterze'),
+		'partie' => array(8, 'Partie polityczne na Twitterze'),
+	);
+
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -176,6 +189,240 @@ class NgoController extends ApplicationsController
 	
     public function view()
     {
+
+		$this->set('last_month_report', $this->Twitter->getLastMonthReport());
+		$this->set('dropdownRanges', $this->Twitter->getDropdownRanges());
+
+		$timerange = false;
+		$init = false;
+
+		if(isset($this->request->query['t']))
+			$this->set('t', $this->request->query['t']);
+
+		if( !isset($this->request->query['t']) ) {
+			$this->request->query['t'] = '1D';
+			$init = true;
+		}
+
+		$date_histogram = array(
+			'field' => 'date',
+			'interval' => 'day',
+			'format' => 'yyyy-MM-dd',
+		);
+
+		if( $this->twitterTimerange = $this->request->query['t'] ) {
+			$timerange = $this->Twitter->getTimerange($this->twitterTimerange);
+			if(!$timerange)
+				$this->redirect('/media');
+		}
+
+		$timerange['init'] = $init;
+
+		$selectedAccountsFilter = array(
+			'term' => array(
+				'data.twitter.konto_obserwowane' => '1',
+			),
+		);
+
+		$mentions_accounts_filter = array(
+			'bool' => array(
+				'must_not' => array(
+					'term' => array(
+						'twitter-mentions.account_id' => '0',
+					),
+				),
+			),
+		);
+
+		if(
+			@$this->request->params['id'] &&
+			array_key_exists($this->request->params['id'], $this->accounts_map)
+		) {
+			$item = $this->accounts_map[ $this->request->params['id'] ];
+			$this->request->query['a'] = $item[0];
+			$this->chapter_selected = $this->request->params['id'];
+			$this->title = $item[1];
+			$this->set('accountTypeLabel', $item[1]);
+		}
+
+		$selectedAccountsFilter['term'] = array(
+			'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
+		);
+
+		$mentions_accounts_filter = array(
+			'bool' => array(
+				'must' => array(
+					'term' => array(
+						'twitter-mentions.account_type_id' => '9',
+					),
+				),
+			),
+		);
+
+		$this->set('twitterAccountTypes', $this->Twitter->twitterAccountTypes);
+		$this->set('twitterAccountType', $this->twitterAccountType);
+
+		$this->set('twitterTimeranges', $this->Twitter->twitterTimeranges);
+		$this->set('twitterTimerange', $this->twitterTimerange);
+
+		$this->set('timerange', $timerange);
+
+		$selectedAccountsAggs = array(
+			'top' => array(
+				'top_hits' => array(
+					'sort' => array(
+						'data.twitter.liczba_zaangazowan' => array(
+							'order' => 'desc',
+						),
+					),
+					'fielddata_fields' => array('id', 'date', 'dataset'),
+					'size' => 20,
+				),
+			),
+			'accounts_engagement' => array(
+				'terms' => array(
+					'field' => 'data.twitter.twitter_account_id',
+					'order' => array(
+						'engagement_count' => 'desc',
+					),
+					'size' => 10,
+				),
+				'aggs' => array(
+					'name' => array(
+						'terms' => array(
+							'field' => 'data.twitter_accounts.name',
+							'size' => 1,
+						),
+					),
+					'image_url' => array(
+						'terms' => array(
+							'field' => 'data.twitter_accounts.profile_image_url_https',
+							'size' => 1,
+						),
+					),
+					'account_type' => array(
+						'terms' => array(
+							'field' => 'data.twitter.twitter_account_type_id',
+							'size' => 1,
+						),
+					),
+					'engagement_count' => array(
+						'sum' => array(
+							'field' => 'data.twitter.liczba_zaangazowan',
+						),
+					),
+				),
+			),
+			'accounts_tweets' => array(
+				'terms' => array(
+					'field' => 'data.twitter.twitter_account_id',
+					'size' => 10,
+				),
+				'aggs' => array(
+					'name' => array(
+						'terms' => array(
+							'field' => 'data.twitter_accounts.name',
+							'size' => 1,
+						),
+					),
+					'image_url' => array(
+						'terms' => array(
+							'field' => 'data.twitter_accounts.profile_image_url_https',
+							'size' => 1,
+						),
+					),
+					'account_type' => array(
+						'terms' => array(
+							'field' => 'data.twitter.twitter_account_type_id',
+							'size' => 1,
+						),
+					),
+				),
+			),
+			'accounts_engagement_tweets' => array(
+				'terms' => array(
+					'field' => 'data.twitter.twitter_account_id',
+					'size' => 10,
+					'order' => array(
+						'engagement_count' => 'desc',
+					),
+				),
+				'aggs' => array(
+					'name' => array(
+						'terms' => array(
+							'field' => 'data.twitter_accounts.name',
+							'size' => 1,
+						),
+					),
+					'image_url' => array(
+						'terms' => array(
+							'field' => 'data.twitter_accounts.profile_image_url_https',
+							'size' => 1,
+						),
+					),
+					'account_type' => array(
+						'terms' => array(
+							'field' => 'data.twitter.twitter_account_type_id',
+							'size' => 1,
+						),
+					),
+					'engagement_count' => array(
+						'avg' => array(
+							'field' => 'data.twitter.liczba_zaangazowan',
+						),
+					),
+				),
+			),
+			'tags' => array(
+				'nested' => array(
+					'path' => 'twitter-tags',
+
+				),
+				'aggs' => array(
+					'tags' => array(
+						'terms' => array(
+							'field' => 'twitter-tags.id',
+							'size' => 20,
+							'order' => array(
+								'rn' => 'desc',
+							),
+						),
+						'aggs' => array(
+							'label' => array(
+								'terms' => array(
+									'field' => 'twitter-tags.name',
+									'size' => 1,
+								),
+							),
+							'rn' => array(
+								'reverse_nested' => '_empty',
+								'aggs' => array(
+									'engagement_count' => array(
+										'sum' => array(
+											'field' => 'data.twitter.liczba_zaangazowan',
+										),
+									),
+								),
+							),
+						),
+					),
+				),
+			),
+			'sources' => array(
+				'terms' => array(
+					'field' => 'data.twitter.source_id',
+					'size' => 5,
+				),
+				'aggs' => array(
+					'label' => array(
+						'terms' => array(
+							'field' => 'data.twitter.source',
+							'size' => 1,
+						),
+					),
+				),
+			),
+		);
 
         $options = array(
             'searchTag' => array(
@@ -328,282 +575,102 @@ class NgoController extends ApplicationsController
 				            ),
 				        ),
 				    ),
-                    'tweets' => array(
-                        'scope' => 'global',
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'twitter',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.twitter.retweet' => '0',
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                        'aggs' => array(
-                            'global_timerange' => array(
-                                'filter' => array(
-                                    'range' => array(
-                                        'date' => array(
-                                            'gte' => 'now-26d'
-                                        ),
-                                    ),
-                                ),
-                                'aggs' => array(
-                                    'selected_accounts' => array(
-                                        'filter' => array(
-                                            'term' => array(
-                                                'data.twitter.twitter_account_type_id' => 9
-                                            )
-                                        ),
-                                        'aggs' => array(
-                                            'histogram' => array(
-                                                'date_histogram' => array(
-                                                    'field' => 'date',
-                                                    'interval' => 'day',
-                                                    'format' => 'yyyy-MM-dd'
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                    'target_timerange' => array(
-                                        'filter' => array(
-                                            'range' => array(
-                                                'date' => array(
-                                                    'gte' => 'now-1w'
-                                                ),
-                                            ),
-                                        ),
-                                        'aggs' => array(
-                                            'accounts' => array(
-                                                'filter' => array(
-                                                    'term' => array(
-                                                        'data.twitter.twitter_account_type_id' => 9
-                                                    )
-                                                ),
-                                                'aggs' => array(
-                                                    'top' => array(
-                                                        'top_hits' => array(
-                                                            'sort' => array(
-                                                                'data.twitter.liczba_zaangazowan' => array(
-                                                                    'order' => 'desc',
-                                                                ),
-                                                            ),
-                                                            'fielddata_fields' => array('id', 'date', 'dataset'),
-                                                            'size' => 7,
-                                                        ),
-                                                    ),
-                                                    'accounts_engagement' => array(
-                                                        'terms' => array(
-                                                            'field' => 'data.twitter.twitter_account_id',
-                                                            'order' => array(
-                                                                'engagement_count' => 'desc',
-                                                            ),
-                                                            'size' => 10,
-                                                        ),
-                                                        'aggs' => array(
-                                                            'name' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter_accounts.name',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'image_url' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter_accounts.profile_image_url_https',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'account_type' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter.twitter_account_type_id',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'engagement_count' => array(
-                                                                'sum' => array(
-                                                                    'field' => 'data.twitter.liczba_zaangazowan',
-                                                                ),
-                                                            ),
-                                                        ),
-                                                    ),
-                                                    'accounts_tweets' => array(
-                                                        'terms' => array(
-                                                            'field' => 'data.twitter.twitter_account_id',
-                                                            'size' => 10,
-                                                        ),
-                                                        'aggs' => array(
-                                                            'name' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter_accounts.name',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'image_url' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter_accounts.profile_image_url_https',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'account_type' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter.twitter_account_type_id',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                        ),
-                                                    ),
-                                                    'accounts_engagement_tweets' => array(
-                                                        'terms' => array(
-                                                            'field' => 'data.twitter.twitter_account_id',
-                                                            'size' => 10,
-                                                            'order' => array(
-                                                                'engagement_count' => 'desc',
-                                                            ),
-                                                        ),
-                                                        'aggs' => array(
-                                                            'name' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter_accounts.name',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'image_url' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter_accounts.profile_image_url_https',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'account_type' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter.twitter_account_type_id',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                            'engagement_count' => array(
-                                                                'avg' => array(
-                                                                    'field' => 'data.twitter.liczba_zaangazowan',
-                                                                ),
-                                                            ),
-                                                        ),
-                                                    ),
-                                                    'tags' => array(
-                                                        'nested' => array(
-                                                            'path' => 'twitter-tags',
-
-                                                        ),
-                                                        'aggs' => array(
-                                                            'tags' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'twitter-tags.id',
-                                                                    'size' => 20,
-                                                                    'order' => array(
-                                                                        'rn' => 'desc',
-                                                                    ),
-                                                                ),
-                                                                'aggs' => array(
-                                                                    'label' => array(
-                                                                        'terms' => array(
-                                                                            'field' => 'twitter-tags.name',
-                                                                            'size' => 1,
-                                                                        ),
-                                                                    ),
-                                                                    'rn' => array(
-                                                                        'reverse_nested' => '_empty',
-                                                                        'aggs' => array(
-                                                                            'engagement_count' => array(
-                                                                                'sum' => array(
-                                                                                    'field' => 'data.twitter.liczba_zaangazowan',
-                                                                                ),
-                                                                            ),
-                                                                        ),
-                                                                    ),
-                                                                ),
-                                                            ),
-                                                        ),
-                                                    ),
-                                                    'sources' => array(
-                                                        'terms' => array(
-                                                            'field' => 'data.twitter.source_id',
-                                                            'size' => 5,
-                                                        ),
-                                                        'aggs' => array(
-                                                            'label' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'data.twitter.source',
-                                                                    'size' => 1,
-                                                                ),
-                                                            ),
-                                                        ),
-                                                    ),
-                                                ),
-                                            ),
-                                            'mentions' => array(
-                                                'nested' => array(
-                                                    'path' => 'twitter-mentions',
-                                                ),
-                                                'aggs' => array(
-                                                    'accounts' => array(
-                                                        'filter' => array(
-                                                            'bool' => array(
-                                                                'must_not' => array(
-                                                                    'term' => array(
-                                                                        'twitter-mentions.account_id' => '0',
-                                                                    ),
-                                                                ),
-                                                            ),
-                                                        ),
-                                                        'aggs' => array(
-                                                            'ids' => array(
-                                                                'terms' => array(
-                                                                    'field' => 'twitter-mentions.account_id',
-                                                                    'size' => 10,
-                                                                ),
-                                                                'aggs' => array(
-                                                                    'screen_name' => array(
-                                                                        'terms' => array(
-                                                                            'field' => 'twitter-mentions.screen_name',
-                                                                            'size' => 1,
-                                                                        ),
-                                                                    ),
-                                                                    'name' => array(
-                                                                        'terms' => array(
-                                                                            'field' => 'twitter-mentions.name',
-                                                                            'size' => 1,
-                                                                        ),
-                                                                    ),
-                                                                    'photo' => array(
-                                                                        'terms' => array(
-                                                                            'field' => 'twitter-mentions.account_photo_url',
-                                                                            'size' => 1,
-                                                                        ),
-                                                                    ),
-                                                                )
-                                                            ),
-                                                        ),
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
+					'tweets' => array(
+						'scope' => 'global',
+						'filter' => array(
+							'bool' => array(
+								'must' => array(
+									array(
+										'term' => array(
+											'dataset' => 'twitter',
+										),
+									),
+									array(
+										'term' => array(
+											'data.twitter.retweet' => '0',
+										),
+									),
+								),
+							),
+						),
+						'aggs' => array(
+							'global_timerange' => array(
+								'filter' => array(
+									'range' => array(
+										'date' => $timerange['histogram_filter'],
+									),
+								),
+								'aggs' => array(
+									'selected_accounts' => array(
+										'filter' => $selectedAccountsFilter,
+										'aggs' => array(
+											'histogram' => array(
+												'date_histogram' => $date_histogram,
+											),
+										),
+									),
+									'target_timerange' => array(
+										'filter' => array(
+											'range' => array(
+												'date' => $timerange['target_filter'],
+											),
+										),
+										'aggs' => array(
+											'accounts' => array(
+												'filter' => $selectedAccountsFilter,
+												'aggs' => $selectedAccountsAggs,
+											),
+											'mentions' => array(
+												'nested' => array(
+													'path' => 'twitter-mentions',
+												),
+												'aggs' => array(
+													'accounts' => array(
+														'filter' => $mentions_accounts_filter,
+														'aggs' => array(
+															'ids' => array(
+																'terms' => array(
+																	'field' => 'twitter-mentions.account_id',
+																	'size' => 10,
+																),
+																'aggs' => array(
+																	'screen_name' => array(
+																		'terms' => array(
+																			'field' => 'twitter-mentions.screen_name',
+																			'size' => 1,
+																		),
+																	),
+																	'name' => array(
+																		'terms' => array(
+																			'field' => 'twitter-mentions.name',
+																			'size' => 1,
+																		),
+																	),
+																	'photo' => array(
+																		'terms' => array(
+																			'field' => 'twitter-mentions.account_photo_url',
+																			'size' => 1,
+																		),
+																	),
+																)
+															),
+														),
+													),
+												),
+											),
+										),
+									),
+								),
+							),
+						),
+					),
 				),
             ),
             'aggs' => $this->_aggs,
         );
-		
-		$timerange['init'] = false;
-		$this->set('timerange', $timerange);
-		
+
+
+
         $this->set('_submenu', array_merge($this->submenus['ngo'], array(
             'selected' => '',
         )));

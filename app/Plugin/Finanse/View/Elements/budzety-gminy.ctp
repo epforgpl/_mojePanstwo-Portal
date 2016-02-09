@@ -93,7 +93,7 @@ $options = array(
                              data-histogram='<?= json_encode($global['histogram']) ?>'>
                         </div>
                     </div>
-                    <div class="gradient_cont" style="top: -35px;">
+                    <div class="gradient_cont" style="top: 57px;">
                         <span class="gradient"></span>
                         <ul class="addons">
                             <li class="min">

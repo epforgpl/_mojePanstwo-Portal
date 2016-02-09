@@ -1,8 +1,10 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('warstwy', array('plugin' => 'Mapa')));
 $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ngo')));
+$this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Ngo.ngo');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+
 ?>
 
 
@@ -171,7 +173,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                     <ul class="nav nav-pills">
                         <? foreach ($twitterTimeranges as $key => $value) { ?>
                             <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
-                                <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
+                                <a href="/ngo?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
                                     <?= $value ?>
                                 </a>
                             </li>
@@ -181,7 +183,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                 <div class="pull-right">
                     <ul class="nav nav-pills">
                         <li<? if (isset($this->request->query['t']) && ($this->request->query['t'] == $last_month_report['param'])) echo ' class="active"' ?>>
-                            <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
+                            <a href="/ngo?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
                         </li>
 
                         <? if (isset($dropdownRanges)) { ?>
@@ -196,7 +198,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                                             <li class="dropdown-title"><?= $dropdown['title'] ?></li>
                                             <? foreach ($dropdown['ranges'] as $range) { ?>
                                                 <li<? if ($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                    <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
+                                                    <a href="/ngo?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
                                                         <?= $range['label'] ?>
                                                     </a>
                                                 </li>
@@ -212,8 +214,6 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
             </div>
         <? } ?>
     </div>
-	
-	<? debug($timerange); ?>
 	
     <div class="mediaHighstockPicker">
         <div class="chart"

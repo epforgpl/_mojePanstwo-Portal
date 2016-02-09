@@ -1,4 +1,5 @@
 .banner {
+
     .img-cog {
         border-radius: 5px;
         margin-left: 15px;
@@ -25,22 +26,6 @@
     }
 }
 
-.mapSpinner {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-
-    > div {
-        width: 10px;
-        height: 10px;
-    }
-}
-
-#map {
-    height: 460px;
-}
-
 #actions-newest {
     padding: 10px 20px;
     float: none;
@@ -65,4 +50,130 @@
             width: 100%;
         }
     }
+}
+
+// skopiowane z media-cover.less
+
+.highcharts-axis-labels.highcharts-xaxis-labels > span {
+    left: 10px !important;
+}
+
+.block-source {
+    .label {
+        display: inline-block;
+        font-size: 12px;
+        margin-bottom: 7px;
+    }
+    .list-group {
+        margin-bottom: 20px !important;
+    }
+}
+
+#tagsCloud {
+    width: 100%;
+    list-style: none;
+    overflow: hidden;
+    li {
+        list-style: none;
+    }
+}
+
+.mediaHighstockPicker {
+    margin-top: 15px;
+
+    .spinner {
+        position: absolute;
+        left: 50%;
+        margin-left: -35px;
+        margin-top: 65px;
+    }
+
+    .chart {
+        min-height: 160px;
+    }
+
+    .text-center {
+        a {
+            visibility: hidden;
+            span {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .range {
+        margin-left: 10px;
+        margin-right: 10px;
+        .display {
+            font-style: italic;
+            font-size: 12px;
+            margin-top: 2px;
+            color: #666;
+            .separator {
+                color: #666;
+            }
+        }
+
+        .switcher {
+            i, > span {
+                margin-right: 5px;
+            }
+
+            margin-right: 10px;
+        }
+
+        .cancel {
+            span {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.appSwitchers {
+    background-color: #F4F5F6;
+
+    .pull-left {
+        margin-bottom: 5px;
+    }
+
+    .dropdown-menu {
+        left: -108px;
+        min-width: 180px;
+
+        li {
+            &.dropdown-title {
+                font-size: 13px;
+                font-weight: normal;
+                color: #666;
+                margin: 15px 10px 3px;
+                border-bottom: 1px solid #F5f5f5;
+                padding-bottom: 5px;
+
+                &:first-child {
+                    margin-top: 3px;
+                }
+            }
+        }
+    }
+}
+
+.twitter-accounts {
+    p {
+        margin-left: 20px;
+    }
+    ul {
+        li {
+            margin: 5px 5px;
+        }
+    }
+}
+
+.dataBrowserContent .dataAggs .chart {
+    min-height: 400px;
+}
+
+.glyphicon.glyphicon-question-sign {
+    margin-left: 4px;
+    color: #789;
 }
