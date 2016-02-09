@@ -206,7 +206,11 @@ $(document).ready(function() {
                 $.post('/admin/docs/saveTables/' + self.documentId + '.json', {
                     tables: self.tables
                 }, function(res) {
-                    console.log(res);
+                    if(res === true) {
+                        alert('Zapisano poprawnie');
+                    } else {
+                        alert('Wystąpił błąd podczas zapisywania');
+                    }
                 });
             } else {
                 // save only latest data
