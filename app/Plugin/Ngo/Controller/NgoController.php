@@ -34,16 +34,11 @@ class NgoController extends ApplicationsController
 			'label' => 'Działania',
 			'icon' => 'dzialania',
 		),
+		/*
 		'pisma' => array(
 			'menu_id' => 'pisma',
 			'label' => 'Pisma',
 			'icon' => 'pisma',
-		),
-		/*
-		'zbiorki_publiczne' => array(
-			'menu_id' => 'zbiorki',
-			'label' => 'Zbiórki publiczne',
-			'separator' => 'bottom',
 		),
 		*/
 		'krs_podmioty' => array(
@@ -194,6 +189,9 @@ class NgoController extends ApplicationsController
 	            'dataset' => array(
 		            'dzialania', 
 		            'pisma', 
+		            'ngo_konkursy',
+		            'sprawozdania_opp',
+		            'zbiorki_publiczne',
 		            'krs_podmioty{krs_podmioty.forma_prawna_typ_id:2}',
 	            ),	            
             ),
@@ -277,7 +275,7 @@ class NgoController extends ApplicationsController
 				        'aggs' => array(
 				            'top' => array(
 				                'top_hits' => array(
-				                    'size' => 8,
+				                    'size' => 9,
 				                    'fielddata_fields' => array('dataset', 'id'),
 				                    'sort' => array(
 				                        'date' => array(

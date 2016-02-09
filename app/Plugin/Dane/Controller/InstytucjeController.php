@@ -1829,6 +1829,7 @@ class InstytucjeController extends DataobjectsController
 	    if( $this->object->getId()=='3214' ) { // Sejm
 		    
 		    $this->Components->load('Dane.DataBrowser', array(
+	            'browserTitle' => 'Posłowie',
 	            'conditions' => array(
 	                'dataset' => 'poslowie',
 	                'poslowie.kadencja' => 8,
@@ -1846,6 +1847,7 @@ class InstytucjeController extends DataobjectsController
 	    if( $this->object->getId()=='3214' ) { // Sejm
 		    
 		    $this->Components->load('Dane.DataBrowser', array(
+	            'browserTitle' => 'Wystąpienia posłów',
 	            'conditions' => array(
 	                'dataset' => 'sejm_wystapienia',
 	            ),
@@ -1880,6 +1882,7 @@ class InstytucjeController extends DataobjectsController
 		    } else {
 		    
 			    $this->Components->load('Dane.DataBrowser', array(
+		            'browserTitle' => 'Druki sejmowe',
 		            'conditions' => array(
 		                'dataset' => 'sejm_druki',
 		            ),
@@ -1913,6 +1916,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Interpelacje',
                     'conditions' => array(
                         'dataset' => 'sejm_interpelacje',
                     ),
@@ -1963,6 +1967,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Kluby sejmowe',
                     'conditions' => array(
                         'dataset' => 'sejm_kluby',
                     ),
@@ -1995,6 +2000,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Komisje sejmowe',
                     'conditions' => array(
                         'dataset' => 'sejm_komisje',
                     ),
@@ -2029,6 +2035,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Rejestr korzyści posłów',
                     'conditions' => array(
                         'dataset' => 'poslowie_rejestr_korzysci',
                     ),
@@ -2062,6 +2069,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Dezyderaty komisji sejmowych',
                     'conditions' => array(
                         'dataset' => 'sejm_dezyderaty',
                     ),
@@ -2096,6 +2104,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Opinie komisji sejmowych',
                     'conditions' => array(
                         'dataset' => 'sejm_komisje_opinie',
                     ),
@@ -2128,6 +2137,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Uchwały komisji sejmowych',
                     'conditions' => array(
                         'dataset' => 'sejm_komisje_uchwaly',
                     ),
@@ -2164,6 +2174,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Komunikaty Kancelarii Sejmu',
                     'conditions' => array(
                         'dataset' => 'sejm_komunikaty',
                     ),
@@ -2215,6 +2226,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Okręgi wyborcze',
                     'conditions' => array(
                         'dataset' => 'sejm_okregi_wyborcze',
                     ),
@@ -2250,6 +2262,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Oświadczenia majątkowe posłów',
                     'conditions' => array(
                         'dataset' => 'poslowie_oswiadczenia_majatkowe',
                     ),
@@ -2294,6 +2307,7 @@ class InstytucjeController extends DataobjectsController
 
             } else {
                 $this->Components->load('Dane.DataBrowser', array(
+                    'browserTitle' => 'Współpracownicy posłów',
                     'conditions' => array(
                         'dataset' => 'poslowie_wspolpracownicy',
                     ),
