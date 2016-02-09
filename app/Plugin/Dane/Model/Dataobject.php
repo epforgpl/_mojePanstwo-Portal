@@ -26,7 +26,7 @@ class Dataobject extends AppModel
         for ($i = 0; $i < count($results); $i++) {
 			
 			if( !isset($results[$i]['_type']) || ($results[$i]['_type']=='objects') ) {
-			
+								
 	            $class = ucfirst($results[$i]['dataset']);
 	            $file = APPLIBS . 'Dataobject/' . $class . '.php';
 	

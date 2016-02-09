@@ -51,13 +51,13 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                 <? } ?>
                 <div class="holderBlock col-xs-9">
 
-                    <? if( $_breadcrumbs ) { ?>
+                    <? /* if( $_breadcrumbs ) { ?>
                         <ul class="breadcrumb">
                             <?php foreach ($_breadcrumbs as $bread) { ?>
                                 <li><a href="<?= $bread['href'] ?>" target="_self"><?= $bread['label'] ?></a></li>
                             <? } ?>
                         </ul>
-                    <? } ?>
+                    <? } */ ?>
 
                     <div class="title<? if (isset($treeList)) echo ' hide'; ?>">
                         <h1>

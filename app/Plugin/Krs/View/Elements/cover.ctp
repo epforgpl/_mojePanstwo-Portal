@@ -1,13 +1,15 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plugin' => 'Dane')));
+// $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
+$this->Combinator->add_libs('js', 'graph-krs');
 
 echo $this->Html->css($this->Less->css('krs-cover', array('plugin' => 'Krs')));
 
 $options = array(
     'mode' => 'init',
 );
+echo $this->Html->script('Dane.d3/d3', array('block' => 'scriptBlock'));
 ?>
 
 
@@ -15,7 +17,7 @@ $options = array(
 
     <div class="appBanner">
         <h1 class="appTitle">Krajowy Rejestr Sądowy</h1>
-        <p class="appSubtitle">Przeglądaj informacje o organizacjach gospodarczych.</p>
+        <p class="appSubtitle">Przeglądaj powiązania pomiędzy organizacjami i osobami.</p>
 		
 		
 		<form action="/krs" method="get">
@@ -31,23 +33,46 @@ $options = array(
 	        </div>
 		</form>
     </div>
+</div>
+</div>
+<p class="powiazania-label">Przykładowe powiązania dla <a href="<?= $init_object->getUrl() ?>"><?= $init_object->getTitle() ?></a>:</p>
+</div>
 
+
+<div class="powiazania block block-simple">
+    <section id="connectionGraph" data-id="<?= $init_data[1] ?>" data-url="<?= $init_data[0] ?>" style="min-height: 500px;">
+        <div class="spinner grey">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </section>
+    <div class="detailInfoWrapper"></div>
+</div>
+
+
+<div class="container">
+	<p class="powiazania-label text-center margin-bottom--10"><a href="<?= $init_object->getUrl() ?>/graph">Więcej &raquo;</a></p>
+
+<div class="dataBrowserContent">
+<div class="col-xs-12">
 	<div class="row">
-
-		<div class="col-md-8">
-
-			<h2 class="appInnerTitle">Jakie organizacje są zarejestrowane w KRS?</h2>
+	
+		<? /*
+		<div class="col-md-7" id="blocks">
 
             <?
 				if( $formy = @$dataBrowser['aggs']['krs_podmioty']['formy']['buckets'] ) {
+					$f = 0;
                     foreach ($formy as $forma) {
+	                    $f++;
 						$data = $forms[ $forma['key'] ];
 			?>
 
-                        <div class="block">
-				        <header><?= $data['title'] ?></header>
+                        <div class="block<? if( $f===1 ) {?> active<? } ?>">
+				        <header><a href="#"><?= $data['title'] ?></a></header>
 
-                            <section class="content">
+                            <section class="content<? if( $f>1 ) {?> hidden<? } ?>">
 
                                 <div class="block-bg-area">
 					                <?= $data['desc'] ?>
@@ -55,7 +80,7 @@ $options = array(
 
                                 <? if( $organizacje = $forma['organizacje']['hits']['hits'] ) { ?>
 
-                                    <p class="p text-center"><?= $data['latest'] ?>:</p>
+                                    <p class="p subtitle"><?= $data['latest'] ?>:</p>
 
                                     <div class="agg agg-Dataobjects">
 					                    <ul class="dataobjects" style="margin: 0 20px;">
@@ -84,30 +109,30 @@ $options = array(
 					}
 				}
 			?>
-
+			
             <p class="appInnerP margin-bottom-20">
 				<a href="/krs/formy_prane">Zobacz wszystkie formy prawne &raquo;</a>
 			</p>
 
         </div>
-
+		*/ ?>
 
         <? if( $dzialalnosci = $dataBrowser['aggs']['krs_podmioty']['dzialalnosci']['sekcja']['buckets'] ) { ?>
-			<div class="col-md-4">
+			<div class="col-md-12">
 				<div class="block nobg">
 			        <header>Przeglądaj według działalności:</header>
 
                     <section class="aggs-init">
-			            <ul class="pkd-list">
+			            <div class="pkd-list row">
 			            <? foreach( $dzialalnosci as $d ) { ?>
-			            	<li class="pkd-item">
+			            	<div class="pkd-item col-sm-4">
 			            		<a href="/krs/pkd/<?= $d['key'] ?>">
                                     <i class="pkd-icon icon-krs-<?= $d['key'] ?>"></i>
-				            		<p class="pkd-title normalizeText"><?= $this->Text->truncate($d['nazwa']['buckets'][0]['key'], 40) ?></p>
+				            		<p class="pkd-title normalizeText"><?= $this->Text->truncate($d['nazwa']['buckets'][0]['key'], 60) ?></p>
 			            		</a>
-			            	</li>
+			            	</div>
 			            <? } ?>
-			            </ul>
+			            </div>
 			        </section>
 				</div>
 		    </div>

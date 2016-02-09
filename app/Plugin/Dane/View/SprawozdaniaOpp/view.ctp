@@ -1,5 +1,5 @@
 <?
-	echo $this->Combinator->add_libs('css', $this->Less->css('ngo_konkursy', array('plugin' => 'Dane')));
+	// echo $this->Combinator->add_libs('css', $this->Less->css('ngo_konkursy', array('plugin' => 'Dane')));
 ?>
 
 <?= $this->Element('dataobject/pageBegin'); ?>

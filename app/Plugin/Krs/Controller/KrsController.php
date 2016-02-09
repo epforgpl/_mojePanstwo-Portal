@@ -4,7 +4,13 @@ App::uses('ApplicationsController', 'Controller');
 
 class KrsController extends ApplicationsController
 {
-
+	
+	public $init_data = array(
+		array('krs_podmioty', '388899'),
+		array('krs_podmioty', '10186'),
+		array('krs_podmioty', '100679'),
+	);
+	
     public $settings = array(
         'id' => 'krs',
         'title' => 'Krajowy Rejestr Sądowy',
@@ -57,7 +63,40 @@ class KrsController extends ApplicationsController
 		    'latest' => 'Ostatnio zarejestrowane związki zawodowe',
 	    ),
     );
+    
+    public function getChapters() {
 
+		$mode = false;
+		$items = array(
+			array(
+				'id' => 'organizacje',
+				'href' => '/krs/organizacje',
+				'label' => 'Organizacje',
+				'icon' => 'icon-datasets-krs_podmioty',
+			),
+			array(
+				'id' => 'osoby',
+				'href' => '/krs/osoby',
+				'label' => 'Osoby',
+				'icon' => 'icon-datasets-krs_osoby',
+			),
+			array(
+				'id' => 'msig',
+				'href' => '/krs/msig',
+				'label' => 'Monitor Sądowy i Gospodarczy',
+				'icon' => 'icon-datasets-msig',
+			),
+		);
+
+        $output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
+	
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -66,6 +105,19 @@ class KrsController extends ApplicationsController
 
     public function view()
     {
+		
+		$r = rand(0, count($this->init_data)-1);
+		$init_data = $this->init_data[ $r ];
+		$this->set('init_data', $init_data);
+				
+		$this->loadModel('Dane.Dataobject');
+		$object = $this->Dataobject->find('first', array(
+			'conditions' => array(
+				'dataset' => $init_data[0],
+				'id' => $init_data[1],
+			),
+		));
+		$this->set('init_object', $object);
 
         $datasets = $this->getDatasets('krs');
 
@@ -114,6 +166,7 @@ class KrsController extends ApplicationsController
 		                            ),
 	                            ),
                             ),
+                            /*
                             'formy' => array(
                                 'terms' => array(
                                     'field' => 'data.krs_podmioty.forma_prawna_id',
@@ -154,6 +207,7 @@ class KrsController extends ApplicationsController
                                     'format' => 'yyyy-MM-dd',
                                 ),
                             ),
+                            */
                         ),
                     ),
                     'dataset' => array(
@@ -191,6 +245,29 @@ class KrsController extends ApplicationsController
         $this->title = 'Krajowy Rejestr Sądowy';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
+    }
+    
+    public function pkd()
+    {
+	    
+	    if( @$this->request->params['id'] ) {
+	    	
+	    	$this->loadModel('Krs.Krs');
+	    	$sekcja = $this->Krs->getPKDSection( $this->request->params['id'] );
+	    	
+		    $this->title = $sekcja['nazwa'] . ' | KRS';
+	        $this->loadDatasetBrowser('krs_podmioty', array(
+	            'browserTitle' => 'Organizacje w sekcji "' . $sekcja['nazwa'] . '"',
+	            'conditions' => array(
+	                'dataset' => 'krs_podmioty',
+	                '>krs_podmioty-dzialalnosci' => array(
+		                'przewazajaca' => true,
+		                'pkd2007.sekcja.symbol' => $this->request->params['id']
+	                )
+	            ),
+	        ));
+        
+        }
     }
 
 } 

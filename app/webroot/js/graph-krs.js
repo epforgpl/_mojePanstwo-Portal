@@ -7,7 +7,7 @@
 			'color': {
 				'links': '#666',
 				'osoba': "#00983e",
-				'podmiot': "#C95318",
+				'podmiot': "#7f76A9",
 				'osobaDisabled': "#EEE",
 				'podmiotDisabled': "#EEE"
 			},

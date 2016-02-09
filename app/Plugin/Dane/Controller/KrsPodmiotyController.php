@@ -339,6 +339,36 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
                 'scope' => 'global',
             ),
+            'sprawozdania_opp' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'sprawozdania_opp',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+                                    'data.sprawozdania_opp.krs_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+                    'top' => array(
+                        'top_hits' => array(
+                            'fielddata_fields' => array('dataset', 'id'),
+	                        'size' => 3,
+	                        'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
             'pisma' => array(
                 'filter' => array(
                     'bool' => array(
@@ -528,6 +558,40 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
+	public function sprawozdania_opp()
+    {
+
+        $this->_prepareView();
+
+
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            $umowa = $this->Dataobject->find('first', array(
+	            'conditions' => array(
+		            'dataset' => 'umowy',
+		            'id' => $this->request->params['subid'],
+	            ),
+            ));
+
+            $this->set('umowa', $umowa);
+            $this->set('title_for_layout', $umowa->getTitle());
+            $this->render('umowa');
+
+        } else {
+
+            $this->_prepareView();
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'umowy',
+	            ),
+	        ));
+
+	        $this->set('title_for_layout', 'Umowy cywilnoprawne podpisane przez ' . $this->object->getData('nazwa'));
+
+        }
+
+    }
+	
     public function umowy()
     {
 
@@ -697,6 +761,16 @@ class KrsPodmiotyController extends DataobjectsController
                 'id' => 'dzialania',
                 'label' => 'Działania',
                 'count' => @$this->object_aggs['dzialania']['doc_count'],
+            );
+        }
+                
+        if(
+        	@$this->object_aggs['sprawozdania_opp']['doc_count']
+        ) {
+            $menu['items'][] = array(
+                'id' => 'sprawozdania_opp',
+                'label' => 'Sprawozdania',
+                'count' => @$this->object_aggs['sprawozdania_opp']['doc_count'],
             );
         }
         

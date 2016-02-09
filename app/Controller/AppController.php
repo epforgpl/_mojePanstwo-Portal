@@ -208,6 +208,14 @@ class AppController extends Controller
                 'label' => 'Konkursy',
                 'menu_id' => 'konkursy',
             ),
+            'zbiorki_publiczne' => array(
+                'label' => 'Zbiórki publiczne',
+                'menu_id' => 'zbiorki_publiczne',
+            ),
+            'sprawozdania_opp' => array(
+                'label' => 'Sprawozdania Organizacji Pożytku Publicznego',
+                'menu_id' => 'sprawozdania_opp',
+            ),
         ),
         'zamowienia_publiczne' => array(
             'zamowienia_publiczne' => array(

@@ -19,6 +19,10 @@ class Zbiorki_publiczne extends DocDataObject
     public function getDescription() {
 	    return $this->getData('dane_opis_celu');
     }
+    
+    public function getPageDescription() {
+	    return $this->getDescription();
+    }
 	
     public function getLabel() {
         return 'Zbiórki publiczne';

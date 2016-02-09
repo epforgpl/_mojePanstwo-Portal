@@ -12,6 +12,10 @@ class Sprawozdania_opp extends DocDataObject
 		return $this->getData('krs_podmioty.nazwa');
 	}
 	
+	public function getUrl() {
+		return '/dane/krs_podmioty/' . $this->getData('krs_podmioty.id') . '/sprawozdania_opp/' . $this->getId();
+	}
+	
 	public function getTitle() {
 		return $this->getShortTitle();
 	}    

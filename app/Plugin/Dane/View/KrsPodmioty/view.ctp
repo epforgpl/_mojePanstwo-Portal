@@ -615,12 +615,6 @@ $description =
 
 </div>
 
-<div class="powiazania block block-simple col-xs-12">
-    <header>
-        <div class="sm">Powiązania</div>
-    </header>
-</div>
-
 </div></div>
 
 <div class="powiazania block block-simple col-xs-12">
