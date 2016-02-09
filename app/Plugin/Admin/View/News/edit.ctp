@@ -34,6 +34,10 @@ echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
             <label>Treść</label>
             <textarea name="content" class="form-control tinymceField" rows="8" title="Treść" placeholder="Treść"><?= $news['News']['content'] ?></textarea>
         </div>
+        <div class="form-group">
+            <label>Źródło</label>
+            <input value="<?= $news['News']['source_url'] ?>" type="text" name="source_url" class="form-control" placeholder="Źródło http://...."/>
+        </div>
         <? if (isset($crawlerPage)) { ?>
             <div class="form-group">
                 <label>Organizator</label>
@@ -112,7 +116,7 @@ echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
                 <? } ?>
             </div>
             <div class="col-md-6">
-                <label>Źródło</label>
+                <label>Źródło obrazka</label>
                 <input type="text" name="image_source" value="<?= $news['News']['image_source'] ?>" class="form-control" placeholder="Źródło http://...."/>
             </div>
         </div>

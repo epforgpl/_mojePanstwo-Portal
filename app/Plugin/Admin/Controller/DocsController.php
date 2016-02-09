@@ -7,7 +7,9 @@ class DocsController extends AdminAppController {
     public $components = array('RequestHandler', 'S3');
 
     public function tables($document_id) {
+        $this->loadModel('Admin.DocTable');
         $this->layout = false;
+        $this->set('tables', $this->DocTable->getTables($document_id));
         $this->set('document_id', $document_id);
         $this->set('docJSON', $this->getDocJSON($document_id));
     }

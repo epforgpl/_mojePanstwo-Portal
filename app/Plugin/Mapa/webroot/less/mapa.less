@@ -580,18 +580,23 @@
     position: absolute;
     cursor: pointer;
     text-align: center;
-    padding: 6px;
     font-size: 11px;
-    min-width: 15px;
-    min-height: 15px;
     border: none;
 
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
 
+    &.btn-primary, &.btn-danger {
+        min-width: 15px;
+        min-height: 15px;
+        padding: 6px;
+    }
+
     &.btn-default {
-        background-color: rgba(200, 200, 200, 0.7);
+        background-color: rgba(150, 150, 150, 0.7);
+        min-width: 10px;
+        min-height: 10px;
     }
     &.btn-primary {
         background-color: rgba(51, 122, 183, 0.7);
