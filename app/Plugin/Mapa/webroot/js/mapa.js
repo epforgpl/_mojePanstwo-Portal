@@ -38,14 +38,17 @@ CustomMarker.prototype.draw = function () {
 		}
 
 		google.maps.event.addDomListener(div, "click", function () {
+			var ngoPlaceBlock, infoWindowBlock;
+
 			if (self.map.getZoom() >= self.maxZoom) {
-				var p = self.args.data,
-					ngoPlaceBlock = (self.args.count > 0) ? '<div class="title">Ilość NGO: ' + self.args.count + '</div>' : '',
-					infoWindowBlock = '<div class="infoWindowNgo"><div class="ngoPlace">' +
-						'<div class="title">Ulica: ' + p.miejsce.ulica + '</div>' +
-						'<div class="title">Numer: ' + p.numer + '</div>' +
-						ngoPlaceBlock +
-						'</div></div>';
+				var p = self.args.data;
+
+				ngoPlaceBlock = (self.args.count > 0) ? '<div class="title">Ilość NGO: ' + self.args.count + '</div>' : '';
+				infoWindowBlock = '<div class="infoWindowNgo"><div class="ngoPlace">' +
+					'<div class="title">Ulica: ' + p.miejsce.ulica + '</div>' +
+					'<div class="title">Numer: ' + p.numer + '</div>' +
+					ngoPlaceBlock +
+					'</div></div>';
 
 				if (self.mapaWarstwy.infowindow) {
 					self.mapaWarstwy.infowindow.close();
@@ -57,8 +60,7 @@ CustomMarker.prototype.draw = function () {
 				self.mapaWarstwy.infowindow.open(self.map);
 			} else {
 				if (self.args.mode === 'warstwa' && self.args.count === 1) {
-					var infoWindowBlock,
-						ngoPlaceBlock = '';
+					ngoPlaceBlock = '';
 
 					$.get('/dane/krs_podmioty.json?limit=20&conditions[-adres.punkt_id]=' + self.args.data, function (data) {
 						$.each(data.hits, function () {
