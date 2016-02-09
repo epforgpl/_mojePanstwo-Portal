@@ -213,7 +213,7 @@ class NgoController extends ApplicationsController
 		if( $this->twitterTimerange = $this->request->query['t'] ) {
 			$timerange = $this->Twitter->getTimerange($this->twitterTimerange);
 			if(!$timerange)
-				$this->redirect('/media');
+				$this->redirect('/ngo');
 		}
 
 		$timerange['init'] = $init;

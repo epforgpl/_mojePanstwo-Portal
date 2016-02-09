@@ -65,9 +65,9 @@ $(document).ready(function() {
 			aggs = chart.data('aggs'),
 			range = chart.data('range'),
 			xmax = chart.data('xmax'),
-			switcher = main.find('.dataWrap a.switcher').first(),
-			cancel = main.find('.dataWrap a.cancel').first(),
-			display = main.find('.dataWrap .display').first(),
+			switcher = main.find('a.switcher').first(),
+			cancel = main.find('a.cancel').first(),
+			display = main.find('.display').first(),
 			data = [],
 			highchart,
 			appPie,
@@ -149,6 +149,7 @@ $(document).ready(function() {
 				events: {
 					setExtremes: function (e) {
 						if (e.trigger === 'navigator') {
+							console.log(switcher);
 							switcher.removeClass('hidden');
 							cancel.removeClass('hidden');
 
