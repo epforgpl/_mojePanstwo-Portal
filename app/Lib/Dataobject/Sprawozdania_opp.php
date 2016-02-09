@@ -9,7 +9,11 @@ class Sprawozdania_opp extends DocDataObject
 	protected $tiny_label = 'Sprawozdanie OPP';
 	
 	public function getShortTitle() {
-		return $this->getData('krs_podmioty.nazwa');
+		if( $this->getOptions('view') == 'from_parent' ) {
+			return "Sprawozdanie za rok " . $this->getData('rocznik');
+		} else {
+			return $this->getData('krs_podmioty.nazwa');
+		}
 	}
 	
 	public function getUrl() {
@@ -26,9 +30,12 @@ class Sprawozdania_opp extends DocDataObject
     
     public function getMetaDescriptionParts($preset = false)
 	{
-				
-		$output = array('Za rok ' . $this->getData('rocznik'));
 		
+		$output = array();
+		
+		if( $this->getOptions('view') != 'from_parent' ) {
+			$output[] = 'Za rok ' . $this->getData('rocznik');
+		}
 		
 		if( $date = $this->getData('data_min') )
 			$output[] = 'Złożono ' . dataSlownie( $date );

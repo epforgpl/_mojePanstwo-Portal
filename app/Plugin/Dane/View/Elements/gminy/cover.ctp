@@ -9,7 +9,7 @@ $options = array(
     'mode' => 'init',
 );
 ?>
-
+<div class="row">
 <div class="col-md-9">
 	
 	<?= $this->element('Dane.DataBrowser/browser-content-filters', array(
@@ -33,7 +33,7 @@ $options = array(
     <? } */ ?>
     <? if ($object->getId() == 903) { ?>
 		
-        <div class="block block-simple block-size-sm col-xs-12">
+        <div class="block  block-size-sm col-xs-12 margin-top--10">
             <header>Najnowsze projekty legislacyjne pod obrady rady</header>
 
             <section class="aggs-init">
@@ -59,7 +59,7 @@ $options = array(
             </section>
         </div>
 
-        <div class="block block-simple block-size-sm col-xs-12">
+        <div class="block  block-size-sm col-xs-12">
             <header>Najnowsze uchwały Rady</header>
 
             <section class="aggs-init">
@@ -90,7 +90,7 @@ $options = array(
             <? } ?>
         </div>
 
-        <div class="block block-simple block-size-sm col-xs-12">
+        <div class="block  block-size-sm col-xs-12">
             <header>Najnowsze interpelacje radnych</header>
 
             <section class="aggs-init">
@@ -125,7 +125,7 @@ $options = array(
     <? } else { ?>
 
 		<? if (@$dataBrowser['aggs']['prawo']['top']['hits']['hits']) { ?>
-        <div class="block block-simple block-size-sm col-xs-12">
+        <div class="block  block-size-sm col-xs-12">
             <header>Najnowsze prawo lokalne</header>
 
             <section class="aggs-init">
@@ -154,7 +154,7 @@ $options = array(
     <? } ?>
 
     <? if( @$dataBrowser['aggs']['dzialania']['top']['hits']['hits'] ) {?>
-        <div class="block block-simple col-xs-12 dzialania">
+        <div class="block  col-xs-12 dzialania">
             <header>Działania</header>
             <section class="content">
                 <? foreach ($dataBrowser['aggs']['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
@@ -183,7 +183,7 @@ $options = array(
     <? } ?>
 
     <? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
-        <div class="block block-simple block-size-sm col-xs-12">
+        <div class="block  block-size-sm col-xs-12">
             <header>Rozstrzygnięcia zamówień publicznych:</header>
             <section>
                 <?= $this->element('Dane.zamowienia_publiczne', array(
@@ -203,8 +203,8 @@ $options = array(
 
     <? $udzialy = $object->getLayer('udzialy');
     if(is_array($udzialy) && count($udzialy) > 0) { ?>
-        <div class="block block-simple col-xs-12">
-            <header>Udziały</header>
+        <div class="block  col-xs-12">
+            <header>Udziały miasta w spółkach</header>
             <section class="aggs-init margin-sides-20 margin-top-10">
                 <? foreach($udzialy as $udzial) { ?>
                     <div class="row">
@@ -223,7 +223,8 @@ $options = array(
             </section>
         </div>
     <? } ?>
-
+	
+	<? /*
     <div class="block block-simple col-xs-12">
         <header>Typy zarejestrowanych organizacji<? if ($object->getId() == 903) { ?> w Krakowie<? } ?></header>
 
@@ -266,6 +267,7 @@ $options = array(
             </div>
         </section>
     </div>
+    */ ?>
 
 </div>
 <div class="col-md-3 sidebar">
@@ -388,4 +390,5 @@ if( $object->getId()!=903 ) {
 
     <? } ?>
 
+</div>
 </div>
