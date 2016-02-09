@@ -43,19 +43,42 @@ CustomMarker.prototype.draw = function () {
 			if (self.map.getZoom() >= self.maxZoom) {
 				var p = self.args.data;
 
-				ngoPlaceBlock = (self.args.count > 0) ? '<div class="title">Ilość NGO: ' + self.args.count + '</div>' : '';
-				infoWindowBlock = '<div class="infoWindowNgo"><div class="ngoPlace">' +
-					'<div class="title">Ulica: ' + p.miejsce.ulica + '</div>' +
-					'<div class="title">Numer: ' + p.numer + '</div>' +
-					ngoPlaceBlock +
-					'</div></div>';
+				ngoPlaceBlock = '';
+
+				$.get('/dane/krs_podmioty.json?limit=20&conditions[-adres.punkt_id]=' + self.args.data.key, function (data) {
+					$.each(data.hits, function () {
+						var info = this;
+
+						ngoPlaceBlock += '<div class="ngoPlace">' +
+							'<div class="title">' +
+							'<a href="/dane/krs_podmioty/' + info.id + ',' + info.slug + '">' +
+							'<span class="object-icon icon-datasets-krs_podmioty"></span>' +
+							'<div itemprop="name" class="titleName">' + info.data.nazwa + '</div>' +
+							'</a>' +
+							'</div>' +
+							'</div>';
+					});
+					infoWindowBlock = '<div class="infoWindowNgo"><div class="ngoPlace">' +
+						'<div class="margin-bottom-20">' +
+						'<div class="title">Ulica: ' + p.miejsce.ulica + '</div>' +
+						'<div class="title">Numer: ' + p.numer + '</div>' +
+						'</div>' +
+						ngoPlaceBlock +
+						'</div></div>';
+
+					self.mapaWarstwy.infowindow.setContent(infoWindowBlock);
+				});
 
 				if (self.mapaWarstwy.infowindow) {
 					self.mapaWarstwy.infowindow.close();
 				}
 				self.mapaWarstwy.infowindow = new google.maps.InfoWindow({
 					position: self.latlng,
-					content: infoWindowBlock
+					content: '<div class="spinner grey">' +
+					'<div class="bounce1"></div>' +
+					'<div class="bounce2"></div>' +
+					'<div class="bounce3"></div>' +
+					'</li>'
 				});
 				self.mapaWarstwy.infowindow.open(self.map);
 			} else {
@@ -432,33 +455,36 @@ var MapBrowser = Class.extend({
 			clickZoom = 16;
 
 		$.each(self.markers, function (key, val) {
-			if ($.inArray(key, self.layers) === -1) {
-				$.each(val, function (k, v) {
-					$('[data-marker_id*="' + k + '"]').remove();
-				});
-				self.markers[key] = {};
-			} else {
-				$.each(val, function (k, v) {
-					if (!(k.startsWith('marker-' + zoom))) {
-						$('[data-marker_id*="' + k + '"]').remove();
-						delete self.markers[key][k];
-					}
-				});
-			}
-			if (!$.isEmptyObject(self.markers.adres)) {
-				if (zoom >= clickZoom) {
+			if (key !== 'adres') {
+				if ($.inArray(key, self.layers) === -1) {
 					$.each(val, function (k, v) {
-						if (!(k.startsWith('adres-' + zoom))) {
-							$('[data-marker_id="' + k + '"]').remove();
-							delete self.markers.adres[k];
+						$('[data-marker_id*="' + k + '"]').remove();
+					});
+					self.markers[key] = {};
+				} else {
+					$.each(val, function (k, v) {
+						if (!(k.startsWith('marker-' + zoom))) {
+							$('[data-marker_id*="' + k + '"]').remove();
+							delete self.markers[key][k];
 						}
 					});
-				} else {
-					$('[data-marker_id^="adres-"]').remove();
-					self.markers.adres = {};
 				}
 			}
 		});
+
+		if (!$.isEmptyObject(self.markers.adres)) {
+			if (zoom >= clickZoom) {
+				$.each(self.markers.adres, function (k, v) {
+					if (!(k.startsWith('adres-' + zoom))) {
+						$('[data-marker_id="' + k + '"]').remove();
+						delete self.markers.adres[k];
+					}
+				});
+			} else {
+				$('[data-marker_id^="adres-"]').remove();
+				self.markers.adres = {};
+			}
+		}
 	},
 
 	showPlaces: function (mode, data, layer) {
@@ -494,12 +520,14 @@ var MapBrowser = Class.extend({
 							centerLng = center.lon;
 						}
 
-						this.markers[layer][term] = new CustomMarker(self, new google.maps.LatLng(centerLat, centerLng), self.map, {
-							mode: 'warstwa',
-							count: cell.doc_count,
-							marker_id: layer + '-' + zoom + '-' + term,
-							data: cell
-						});
+						if (self.markers[layer][term] == null) {
+							self.markers[layer][term] = new CustomMarker(self, new google.maps.LatLng(centerLat, centerLng), self.map, {
+								mode: 'warstwa',
+								count: cell.doc_count,
+								marker_id: layer + '-' + zoom + '-' + term,
+								data: cell
+							});
+						}
 					}
 				}
 			}
@@ -532,15 +560,18 @@ var MapBrowser = Class.extend({
 							});
 						}
 
-						this.markers.adres['adres-' + zoom + '-' + p.id] = new CustomMarker(self, new google.maps.LatLng(p.lat, p.lon), self.map, {
-							mode: 'adres',
-							marker_id: 'adres-' + zoom,
-							count: (count.length) ? count[0].doc_count : 0,
-							data: {
-								'miejsce': m,
-								'numer': p.numer
-							}
-						});
+						if (self.markers.adres['adres-' + zoom + '-' + p.id] == null) {
+							self.markers.adres['adres-' + zoom + '-' + p.id] = new CustomMarker(self, new google.maps.LatLng(p.lat, p.lon), self.map, {
+								mode: 'adres',
+								marker_id: 'adres-' + zoom + '-' + p.id,
+								count: (count.length) ? count[0].doc_count : 0,
+								data: {
+									'miejsce': m,
+									'numer': p.numer,
+									'key': (count.length) ? count[0].key : ''
+								}
+							});
+						}
 					}
 				}
 			}
