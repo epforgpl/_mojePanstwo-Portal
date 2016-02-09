@@ -288,6 +288,8 @@ class FinanseController extends ApplicationsController
                 'histogram' => array(
                     'field' => 'gminy-wydatki-dzialy.' . $field,
                     'interval' => $interval,
+                    'min_doc_count' => 1,
+
                 ),
             );
         }
@@ -467,6 +469,11 @@ class FinanseController extends ApplicationsController
                                                     'top' => array(
                                                         'top_hits' => array(
                                                             'size' => 1,
+                                                            '_source' => array(
+	                                                            'include' => array(
+		                                                            'data.*'
+	                                                            ),
+                                                            ),
                                                         ),
                                                     ),
                                                 ),
@@ -488,6 +495,11 @@ class FinanseController extends ApplicationsController
                                                     'top' => array(
                                                         'top_hits' => array(
                                                             'size' => 1,
+                                                            '_source' => array(
+	                                                            'include' => array(
+		                                                            'data.*'
+	                                                            ),
+                                                            ),
                                                         ),
                                                     ),
                                                 ),
@@ -565,6 +577,11 @@ class FinanseController extends ApplicationsController
                                                             'top' => array(
                                                                 'top_hits' => array(
                                                                     'size' => 1,
+                                                                    '_source' => array(
+			                                                            'include' => array(
+				                                                            'data.*'
+			                                                            ),
+		                                                            ),
                                                                 ),
                                                             ),
                                                         ),
@@ -586,6 +603,11 @@ class FinanseController extends ApplicationsController
                                                             'top' => array(
                                                                 'top_hits' => array(
                                                                     'size' => 1,
+                                                                    '_source' => array(
+			                                                            'include' => array(
+				                                                            'data.*'
+			                                                            ),
+		                                                            ),
                                                                 ),
                                                             ),
                                                         ),
@@ -623,11 +645,11 @@ class FinanseController extends ApplicationsController
                                     'dataset' => 'gminy',
                                 ),
                             ),
-                            /*array(
+                            array(
                                 'term' => array(
                                     'id' => 903,
                                 ),
-                            ),*/
+                            ),
                         ),
                     ),
                 ),
@@ -842,22 +864,23 @@ class FinanseController extends ApplicationsController
         if($this->request->params['action'] == 'gminy') {
 
             $aggs = $this->viewVars['dataBrowser']['aggs'];
-
-            debug($aggs); die();
-
+            
             $this->viewVars['dataBrowser']['aggs']['gminy'] = null;
             $this->viewVars['dataBrowser']['aggs']['gmina'] = null;
-
+			
+			
+			// debug( $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0] );  die();
+			
             $global = array(
                 'min' => array(
                     'value' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['key'],
-                    'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                    'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                    'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                    'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                 ),
                 'max' => array(
                     'value' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['key'],
-                    'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                    'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                    'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                    'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                 ),
                 //'cur' => $aggs['gmina']['sumy']['timerange']['wydatki']['value'],
                 'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
@@ -903,13 +926,13 @@ class FinanseController extends ApplicationsController
                         $dzial['global'] = array(
                             'min' => array(
                                 'value' => $d['min']['buckets'][0]['key'],
-                                'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                                'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                                'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                                'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                             ),
                             'max' => array(
                                 'value' => $d['max']['buckets'][0]['key'],
-                                'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                                'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                                'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                                'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                             ),
                             'cur' => $b['wydatki']['value'],
                             'median' => $d['percentiles']['values']['50.0'],
