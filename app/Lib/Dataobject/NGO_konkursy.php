@@ -30,7 +30,7 @@ class Ngo_konkursy extends DataObject
 	
 	public function getThumbnailUrl($size = false)
     {
-        return 'http://resources.sejmometr.pl/ngo_konkursy/img/' . 'default' . '-1.jpg';
+	    return 'http://sds.tiktalik.com/portal/ngo_konkursy/' . $this->getId() . '_1.jpg';
     }
     
 }

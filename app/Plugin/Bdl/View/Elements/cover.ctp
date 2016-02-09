@@ -88,7 +88,7 @@ $colors['diff'] = array(
                                                                           href="/dane/bdl_wskazniki/<?= $wskaznik['bdl_wskazniki']['id'] ?>"><?= $wskaznik['bdl_wskazniki']['tytul'] ?></span>
                                                                 </div>
                                                                 <div class="col-xs-1">
-                                                                    <?= @$wskaznik['bdl_wskazniki']['liczba_ostatni_rok'] ?>
+                                                                    <?= @$wskaznik['bdl_wskazniki']['liczba_ostatni_rok'] ? $wskaznik['bdl_wskazniki']['liczba_ostatni_rok'] : '' ?>
                                                                 </div>
                                                                 <div class="col-xs-3 col-md-2">
                                                                     <?= @$wskaznik['bdl_wskazniki']['poziom_str'] ?>

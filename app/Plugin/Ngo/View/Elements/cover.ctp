@@ -12,17 +12,19 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 		<h1 class="appTitle">Organizacje pozarządowe</h1>
         <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
-
-        <div class="appSearch form-group">
-			<div class="input-group">
-				<input class="form-control" placeholder="Szukaj w NGO..." type="text">
-				<span class="input-group-btn">
-					<button type="submit" class="btn btn-primary input-md">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-				</span>
-			</div>
-        </div>
+		
+		<form action="/ngo" method="get">
+	        <div class="appSearch form-group">
+				<div class="input-group">
+					<input name="q" class="form-control" placeholder="Szukaj w NGO..." type="text">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-primary input-md">
+	                        <span class="glyphicon glyphicon-search"></span>
+	                    </button>
+					</span>
+				</div>
+	        </div>
+		</form>
 
     </div>
 
@@ -210,7 +212,9 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
             </div>
         <? } ?>
     </div>
-
+	
+	<? debug($timerange); ?>
+	
     <div class="mediaHighstockPicker">
         <div class="chart"
              data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['selected_accounts']['histogram']) ?>'
