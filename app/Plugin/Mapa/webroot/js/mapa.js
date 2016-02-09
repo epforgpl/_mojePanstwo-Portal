@@ -26,7 +26,9 @@ CustomMarker.prototype.draw = function () {
 				div.className += ' btn-default';
 			} else {
 				div.className += ' btn-primary';
-				div.innerHTML = pl_number_format(self.args.count, 1);
+				if (self.args.count > 1) {
+					div.innerHTML = pl_number_format(self.args.count, 1);
+				}
 			}
 		} else {
 			div.className += ' btn-primary';
@@ -45,41 +47,55 @@ CustomMarker.prototype.draw = function () {
 
 				ngoPlaceBlock = '';
 
-				$.get('/dane/krs_podmioty.json?limit=20&conditions[-adres.punkt_id]=' + self.args.data.key, function (data) {
-					$.each(data.hits, function () {
-						var info = this;
+				if (self.args.data.key !== '') {
+					$.get('/dane/krs_podmioty.json?limit=20&conditions[-adres.punkt_id]=' + self.args.data.key, function (data) {
+						$.each(data.hits, function () {
+							var info = this;
 
-						ngoPlaceBlock += '<div class="ngoPlace">' +
-							'<div class="title">' +
-							'<a href="/dane/krs_podmioty/' + info.id + ',' + info.slug + '">' +
-							'<span class="object-icon icon-datasets-krs_podmioty"></span>' +
-							'<div itemprop="name" class="titleName">' + info.data.nazwa + '</div>' +
-							'</a>' +
+							ngoPlaceBlock += '<div class="ngoPlace">' +
+								'<div class="title">' +
+								'<a href="/dane/krs_podmioty/' + info.id + ',' + info.slug + '">' +
+								'<span class="object-icon icon-datasets-krs_podmioty"></span>' +
+								'<div itemprop="name" class="titleName">' + info.data.nazwa + '</div>' +
+								'</a>' +
+								'</div>' +
+								'</div>';
+						});
+						infoWindowBlock = '<div class="infoWindowNgo"><div class="ngoPlace">' +
+							'<div class="margin-bottom-20">' +
+							'<div class="title">Ulica: ' + p.miejsce.ulica + '</div>' +
+							'<div class="title">Numer: ' + p.numer + '</div>' +
 							'</div>' +
-							'</div>';
+							ngoPlaceBlock +
+							'</div></div>';
+
+						self.mapaWarstwy.infowindow.setContent(infoWindowBlock);
 					});
+
+					self.mapaWarstwy.infowindow = new google.maps.InfoWindow({
+						position: self.latlng,
+						content: '<div class="spinner grey">' +
+						'<div class="bounce1"></div>' +
+						'<div class="bounce2"></div>' +
+						'<div class="bounce3"></div>' +
+						'</li>'
+					});
+				} else {
 					infoWindowBlock = '<div class="infoWindowNgo"><div class="ngoPlace">' +
-						'<div class="margin-bottom-20">' +
 						'<div class="title">Ulica: ' + p.miejsce.ulica + '</div>' +
 						'<div class="title">Numer: ' + p.numer + '</div>' +
-						'</div>' +
-						ngoPlaceBlock +
 						'</div></div>';
 
-					self.mapaWarstwy.infowindow.setContent(infoWindowBlock);
-				});
+					self.mapaWarstwy.infowindow = new google.maps.InfoWindow({
+						position: self.latlng,
+						content: infoWindowBlock
+					});
+				}
 
 				if (self.mapaWarstwy.infowindow) {
 					self.mapaWarstwy.infowindow.close();
 				}
-				self.mapaWarstwy.infowindow = new google.maps.InfoWindow({
-					position: self.latlng,
-					content: '<div class="spinner grey">' +
-					'<div class="bounce1"></div>' +
-					'<div class="bounce2"></div>' +
-					'<div class="bounce3"></div>' +
-					'</li>'
-				});
+
 				self.mapaWarstwy.infowindow.open(self.map);
 			} else {
 				if (self.args.mode === 'warstwa' && self.args.count === 1) {
