@@ -3,6 +3,10 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
 
+$sprawozdanie->setOptions(array(
+	'view' => 'from_parent',
+));
+
 echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $sprawozdanie,
     'objectOptions' => array(
