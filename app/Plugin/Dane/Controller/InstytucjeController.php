@@ -1115,6 +1115,7 @@ class InstytucjeController extends DataobjectsController
 	        } else {
 		        
 		        $this->Components->load('Dane.DataBrowser', array(
+		            'browserTitle' => 'Posiedzenia Sejmu:',
 		            'conditions' => array(
 		                'dataset' => 'sejm_posiedzenia',
 		            ),

@@ -40,7 +40,7 @@ $colors['diff'] = array(
             <div class="content col-xs-12 row">
                 <?
                 if ($count = count($tree)) {
-
+										
                     $count--;
                     $i = 0;
 
