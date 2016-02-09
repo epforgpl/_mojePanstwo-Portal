@@ -166,7 +166,7 @@ class TwitterComponent extends Component {
                 ),
             );
 
-        } elseif( preg_match('/^\[([0-9]{4})-([0-9]{2})-([0-9]{2}) TO ([0-9]{4})-([0-9]{2})-([0-9]{2})\]$/i', $twitterTimerange, $match) ) {
+        } elseif( preg_match('/^\[([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) TO ([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})\]$/i', $twitterTimerange, $match) ) {
 
             $min = mktime(0, 0, 0, $match[2], $match[3], $match[1]);
             $max = mktime(0, 0, 0, $match[5], $match[6], $match[4]);
