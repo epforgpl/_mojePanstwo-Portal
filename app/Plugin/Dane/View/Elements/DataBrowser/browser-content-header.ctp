@@ -6,7 +6,7 @@
 						
 			<? if( isset($dataBrowser['browserTitleElement']) && $dataBrowser['browserTitleElement'] ) { ?>
 				<?= $this->element($dataBrowser['browserTitleElement']) ?>
-			<? } elseif( isset($dataBrowser['browserTitle']) ) { ?>
+			<? } elseif( isset($dataBrowser['browserTitle']) && $dataBrowser['browserTitle'] ) { ?>
 				<h1 class="smaller"><?= $dataBrowser['browserTitle'] ?></h1>
 			<? } ?>
 			

@@ -3,6 +3,13 @@
     min-height: 54px;
     display: inline-block;
     margin-bottom: -4px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    
+    &.dataobject-cover {
+	    padding-bottom: 0;
+	    padding-top: 0;
+    }
 
     &.app {
         height: 66px;
@@ -102,6 +109,10 @@
 
             &, & a, & .title, & .title a {
                 color: #ffffff;
+            }
+            
+            ._value {
+	            color: #789;
             }
 
             .headlineBar {
@@ -235,7 +246,7 @@
                         height: @logoHeaderSize;
 
                         .holder .holderBlock .title {
-                            height: @logoHeaderSize - 32;
+                            height: @logoHeaderSize;
                         }
                     }
                 }
@@ -370,12 +381,10 @@
         h1.smaller, h1.smaller a {
             font-size: 20px;
             font-weight: 400;
-            float: left;
             margin: 3px 0;
 
             .titleName {
-                display: table;
-                float: left;
+	            margin-bottom: 15px;
             }
 
             i.object-icon, span.object-icon {
@@ -469,7 +478,6 @@
 .dataHighlights {
     padding: 10px 0 0;
     margin: 0;
-    color: #789;
 
     &.rightColumn {
         float: left;

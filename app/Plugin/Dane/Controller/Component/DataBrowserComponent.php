@@ -1319,7 +1319,7 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Formy prawne organizacji',
                     'all' => 'Wszystkie formy prawne',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'krs_podmioty.forma_prawna_id',
                 ),
             ),

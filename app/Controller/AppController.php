@@ -204,6 +204,18 @@ class AppController extends Controller
                 'label' => 'Tematy',
                 'menu_id' => 'tematy',
             ),
+            'ngo_konkursy' => array(
+                'label' => 'Konkursy',
+                'menu_id' => 'konkursy',
+            ),
+            'zbiorki_publiczne' => array(
+                'label' => 'Zbiórki publiczne',
+                'menu_id' => 'zbiorki_publiczne',
+            ),
+            'sprawozdania_opp' => array(
+                'label' => 'Sprawozdania Organizacji Pożytku Publicznego',
+                'menu_id' => 'sprawozdania_opp',
+            ),
         ),
         'zamowienia_publiczne' => array(
             'zamowienia_publiczne' => array(
@@ -405,7 +417,7 @@ class AppController extends Controller
             'subname' => 'Dane o jakości powietrza w Polsce',
             'desc' => 'Poznaj dane o jakości powietrza w Polsce',
             'href' => '/srodowisko',
-            'tag' => 1,
+            'tag' => 3,
             'icon' => '&#xe605;',
         ),
         'dostep_do_informacji_publicznej' => array(

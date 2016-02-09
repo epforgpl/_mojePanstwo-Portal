@@ -2,13 +2,12 @@
 
 App::uses('DataobjectsController', 'Dane.Controller');
 
-class ZbiorkiPubliczneController extends DataobjectsController
+class SprawozdaniaOppController extends DataobjectsController
 {
-
+    
     public function view() {
         $this->_prepareView();
+        return $this->redirect( $this->object->getUrl() );
     }
-
-    
 
 }
