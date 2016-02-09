@@ -27,9 +27,9 @@ $(document).ready(function () {
 	(function () {
 		function dateToYYYYMMDD(date) {
 			var d = date,
-				month = (d.getMonth() + 1),
-				day = d.getDate(),
-				year = d.getFullYear();
+				month = String(d.getMonth() + 1),
+				day = String(d.getDate()),
+				year = String(d.getFullYear());
 
 			if (month.length < 2) {
 				month = '0' + month;
@@ -78,9 +78,9 @@ $(document).ready(function () {
 			aggs = chart.data('aggs'),
 			range = chart.data('range'),
 			xmax = chart.data('xmax'),
-			switcher = main.find('.dataWrap a.switcher').first(),
-			cancel = main.find('.dataWrap a.cancel').first(),
-			display = main.find('.dataWrap .display').first(),
+			switcher = main.find('.range a.switcher').first(),
+			cancel = main.find('.range a.cancel').first(),
+			display = main.find('.range .display').first(),
 			data = [],
 			highchart,
 			appPie,
@@ -170,8 +170,9 @@ $(document).ready(function () {
 								end = new Date(extremes.max),
 								parms = '?t=[' + dateToYYYYMMDD(start) + ' TO ' + dateToYYYYMMDD(end) + ']';
 
-							if (switcher.attr('data-type') !== '')
+							if (switcher.attr('data-type') !== '') {
 								parms += '&a=' + switcher.attr('data-type');
+							}
 
 							switcher.attr('href', parms);
 
