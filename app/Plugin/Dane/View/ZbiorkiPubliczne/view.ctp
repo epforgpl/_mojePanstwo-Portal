@@ -53,6 +53,13 @@
                 </li>
             <? } ?>
         </ul>
+
+        <div class="margin-top-10">
+            <p class="_src text-left">
+                <a href="http://zbiorki.gov.pl/zbiorki/zbiorki/szczegoly-zbiorki.xhtml?zbiorka_nazwa=<?= urlencode($object->getData('nazwa_zbiorki')) ?>" target="_blank">
+                    <span class="glyphicon glyphicon-link"></span> Źródło</a>
+            </p>
+        </div>
     </div>
     <div class="col-xs-12 col-md-9 objectMain">
 		
