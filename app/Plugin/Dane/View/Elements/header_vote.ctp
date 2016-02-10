@@ -56,7 +56,7 @@
                 if ($vote['vote'] === false) { /* Głosowanie */ ?>
 
                     <div class="row">
-                        <div class="hidden-xs col-sm-5 col-md-8">
+                        <div class="hidden-xs col-sm-5 col-md-7">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar"
                                      aria-valuenow="<?= $header_vote_progress; ?>" aria-valuemin="0" aria-valuemax="100"
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-7 col-md-4">
+                        <div class="col-xs-12 col-sm-7 col-md-5">
                             <form
                                 action="<?= (isset($domainMode) && $domainMode == 'MP' ? '/dane/gminy/903,krakow/glosuj' : '/glosuj') ?>"
                                 method="post">
