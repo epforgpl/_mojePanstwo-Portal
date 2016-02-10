@@ -259,4 +259,14 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 			}
 		});
 	}
+
+
+	/* MAIN - FOOTER SETUP*/
+	var _main = $('#_main'),
+		_footer = $('footer.footer');
+
+	if (parseInt(_main.css('margin-bottom'), 0) < _footer.outerHeight(true)) {
+		_main.css('margin-bottom', _footer.outerHeight(true));
+	}
+
 })(jQuery);
