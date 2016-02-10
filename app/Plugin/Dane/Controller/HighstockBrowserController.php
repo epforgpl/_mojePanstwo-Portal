@@ -12,7 +12,7 @@ class HighstockBrowserController extends AppController {
 			'limit' => 0,
 			'conditions' => array(
 				'dataset' => 'krakow_umowy',
-				'date' => '[' . $date_min . ' TO ' . $date_max . ' ]',
+				'date' => '[' . $date_min . ' TO ' . $date_max . ']',
 			),
 			'aggs' => array(
 				'stats' => array(

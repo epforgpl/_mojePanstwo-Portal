@@ -34,7 +34,7 @@ if (!isset($mode))
     class="mp-zamowienia_publiczne" <?= printf('data-histogram="%s"', htmlspecialchars(json_encode($output), ENT_QUOTES, 'UTF-8')) ?> <?= printf('data-request="%s"', htmlspecialchars(json_encode($request), ENT_QUOTES, 'UTF-8')) ?>>
 
     <div class="highstock"></div>
-    <div class="dataAggs">
+    <div class="dataAggs margin-sides-10 smaller">
         <?
         switch ($mode) {
             case 'medium': {
@@ -54,7 +54,7 @@ if (!isset($mode))
                                      data-agg_id="dokumenty" <?= printf('data-agg_params="%s"', htmlspecialchars(json_encode($aggs['dokumenty']), ENT_QUOTES, 'UTF-8')) ?>></div>
                                 <div class="buttons" style="display: none;">
                                     <a <?= printf('data-more="%s"', htmlspecialchars(json_encode($more), ENT_QUOTES, 'UTF-8')) ?>
-                                        href="#" class="btn btn-primary btn-xs btn-more">Zobacz więcej</a>
+                                        href="#" class="btn btn-default btn-xs btn-more">Zobacz więcej</a>
                                 </div>
                             </section>
 
@@ -88,7 +88,7 @@ if (!isset($mode))
                 }
                 ?>
                 <div class="buttons" style="display: none;">
-                    <a data-href="<?= $more ?>" href="<?= $more ?>" class="btn btn-primary btn-xs btn-more">Zobacz
+                    <a data-href="<?= $more ?>" href="<?= $more ?>" class="btn btn-default btn-xs btn-more">Zobacz
                         więcej</a>
                 </div>
                 <?

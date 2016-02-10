@@ -21,17 +21,20 @@ $colors['diff'] = array(
     <div class="appBanner">
         <h1 class="appTitle">Bank danych lokalnych</h1>
         <p class="appSubtitle">Przeglądaj wskaźniki dotyczące sytuacji społecznej i ekonomicznej Polski.</p>
-
-        <div class="appSearch form-group">
-			<div class="input-group">
-				<input class="form-control" placeholder="Szukaj wskaźników..." type="text">
-				<span class="input-group-btn">
-					<button type="submit" class="btn btn-primary input-md">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-				</span>
-			</div>
-        </div>
+		
+		<form method="get" action="/bdl">
+	        <div class="appSearch form-group">
+				<div class="input-group">
+					<input name="q" class="form-control" placeholder="Szukaj wskaźników..." type="text">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-primary input-md">
+	                        <span class="glyphicon glyphicon-search"></span>
+	                    </button>
+					</span>
+				</div>
+	        </div>
+		</form>
+		
     </div>
 
 

@@ -892,7 +892,7 @@ class GminyController extends DataobjectsController
                     'aggs' => array(
                         'typ_id' => array(
                             'terms' => array(
-                                'field' => 'krs_podmioty.forma_prawna_id',
+                                'field' => 'data.krs_podmioty.forma_prawna_id',
                                 'exclude' => array(
                                     'pattern' => '0'
                                 ),
@@ -908,7 +908,7 @@ class GminyController extends DataobjectsController
                         ),
                         'kapitalizacja' => array(
                             'range' => array(
-                                'field' => 'krs_podmioty.wartosc_kapital_zakladowy',
+                                'field' => 'data.krs_podmioty.wartosc_kapital_zakladowy',
                                 'ranges' => array(
                                     array('from' => 1, 'to' => 5000),
                                     array('from' => 5000, 'to' => 10000),
@@ -2903,8 +2903,8 @@ class GminyController extends DataobjectsController
                                         'size' => 3,
                                         'fielddata_fields' => array('dataset', 'id'),
                                         'sort' => array(
-                                            'krakow_posiedzenia.data' => 'desc',
-                                            'krakow_posiedzenia_wystapienia._ord' => 'desc',
+                                            'date' => 'desc',
+                                            'data.krakow_posiedzenia_wystapienia._ord' => 'desc',
                                         ),
                                     ),
                                 ),
@@ -2934,7 +2934,7 @@ class GminyController extends DataobjectsController
                                         'size' => 3,
                                         'fielddata_fields' => array('dataset', 'id'),
                                         'sort' => array(
-                                            'radni_gmin_oswiadczenia_majatkowe.rok' => 'desc',
+                                            'data.radni_gmin_oswiadczenia_majatkowe.rok' => 'desc',
                                         ),
                                     ),
                                 ),
@@ -3042,7 +3042,7 @@ class GminyController extends DataobjectsController
                                         ),
                                         array(
                                             'term' => array(
-                                                'radni_gmin.id' => $radny->getId(),
+                                                'data.radni_gmin.id' => $radny->getId(),
                                             ),
                                         ),
                                     ),
@@ -3150,6 +3150,7 @@ class GminyController extends DataobjectsController
                 case 'wystapienia': {
 
                     $this->Components->load('Dane.DataBrowser', array(
+                        'browserTitle' => 'Wystąpienia radnego',
                         'conditions' => array(
                             'dataset' => 'krakow_posiedzenia_wystapienia',
                             'krakow_posiedzenia_wystapienia.radny_id' => $radny->getData('id'),
@@ -4657,6 +4658,7 @@ class GminyController extends DataobjectsController
                 'histogram' => array(
                     'field' => 'gminy-'. $dataset . '-dzialy.' . $field,
                     'interval' => $interval,
+                    'min_doc_count' => 1,
                 ),
             );
         }
@@ -4863,6 +4865,9 @@ class GminyController extends DataobjectsController
                                                     'top' => array(
                                                         'top_hits' => array(
                                                             'size' => 1,
+                                                            '_source' => array(
+	                                                            'include' => 'data.*',
+                                                            ),
                                                         ),
                                                     ),
                                                 ),
@@ -4884,6 +4889,9 @@ class GminyController extends DataobjectsController
                                                     'top' => array(
                                                         'top_hits' => array(
                                                             'size' => 1,
+                                                            '_source' => array(
+	                                                            'include' => 'data.*',
+                                                            ),
                                                         ),
                                                     ),
                                                 ),
@@ -4905,12 +4913,14 @@ class GminyController extends DataobjectsController
                                         'histogram' => array(
                                             'field' => 'gminy-' . $dataset . '-okresy.' . $field,
                                             'interval' => $histogram_interval,
+                                            'min_doc_count' => 1
                                         ),
                                     ),
                                 ),
                             ),
                         ),
                     ),
+                    
                     'dzialy' => array(
                         'nested' => array(
                             'path' => 'gminy-' . $dataset . '-dzialy',
@@ -4961,6 +4971,9 @@ class GminyController extends DataobjectsController
                                                             'top' => array(
                                                                 'top_hits' => array(
                                                                     'size' => 1,
+                                                                    '_source' => array(
+			                                                            'include' => 'data.*',
+		                                                            ),
                                                                 ),
                                                             ),
                                                         ),
@@ -4982,6 +4995,9 @@ class GminyController extends DataobjectsController
                                                             'top' => array(
                                                                 'top_hits' => array(
                                                                     'size' => 1,
+                                                                    '_source' => array(
+			                                                            'include' => 'data.*',
+		                                                            ),
                                                                 ),
                                                             ),
                                                         ),
@@ -5256,6 +5272,9 @@ class GminyController extends DataobjectsController
                                 'top_hits' => array(
                                     'size' => 100,
                                     'fielddata_fields' => array('dataset', 'id'),
+                                    '_source' => array(
+                                        'include' => 'data.*',
+                                    ),
                                 ),
                             ),
                         ),
@@ -5725,17 +5744,18 @@ class GminyController extends DataobjectsController
                 $dataset = 'wydatki';
                 if(empty($aggs['gmina']['sumy']['timerange'][$dataset]))
                     $dataset = 'dochody';
-
+						
+								
                 $global = array(
                     'min' => array(
                         'value' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['key'],
-                        'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                        'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                        'label' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                        'id' => $aggs['gminy']['sumy']['timerange']['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                     ),
                     'max' => array(
                         'value' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['key'],
-                        'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                        'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                        'label' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                        'id' => $aggs['gminy']['sumy']['timerange']['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                     ),
                     'cur' => $aggs['gmina']['sumy']['timerange'][$dataset]['value'],
                     'median' => $aggs['gminy']['sumy']['timerange']['percentiles']['values']['50.0'],
@@ -5781,13 +5801,13 @@ class GminyController extends DataobjectsController
                             $dzial['global'] = array(
                                 'min' => array(
                                     'value' => $d['min']['buckets'][0]['key'],
-                                    'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                                    'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                                    'label' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                                    'id' => $d['min']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                                 ),
                                 'max' => array(
                                     'value' => $d['max']['buckets'][0]['key'],
-                                    'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.nazwa'],
-                                    'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['fields']['source'][0]['data']['gminy.id'],
+                                    'label' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['nazwa'],
+                                    'id' => $d['max']['buckets'][0]['reverse']['top']['hits']['hits'][0]['_source']['data']['gminy']['id'],
                                 ),
                                 'cur' => $b[$dataset]['value'],
                                 'median' => $d['percentiles']['values']['50.0'],

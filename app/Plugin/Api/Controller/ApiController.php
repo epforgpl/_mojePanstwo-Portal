@@ -42,14 +42,6 @@ class ApiController extends ApplicationsController
 		$mode = false;
 		$items = array();
 		$app = $this->getApplication( $this->settings['id'] );
-				
-		$items[] = array(
-			'label' => 'API',
-			'href' => '/' . $this->settings['id'],
-			'class' => '_label',
-			'icon' => 'appIcon',
-			'appIcon' => $app['icon'],
-		);
 		
 		$items[] = array(
 			'label' => 'Bank Danych Lokalnych',

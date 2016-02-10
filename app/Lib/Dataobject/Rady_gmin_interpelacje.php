@@ -32,9 +32,9 @@ class Rady_gmin_interpelacje extends DocDataObject
 	{
 		
 		if( stripos($this->getData('tytul'), 'w sprawie')===0 )
-			return $this->getData('tytul');
+			return 'Interpelacja' . $this->getData('tytul');
 		else
-			return 'w sprawie ' . lcfirst($this->getData('tytul'));
+			return 'Interpelacja w sprawie ' . lcfirst($this->getData('tytul'));
 	}
 	
 	public function getShortLabel(){
@@ -43,7 +43,7 @@ class Rady_gmin_interpelacje extends DocDataObject
 	
     public function getLabel()
     {
-        return 'Interpelacja';
+        return false;
     }
     
     public function getFullLabel()

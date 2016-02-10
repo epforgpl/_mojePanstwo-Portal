@@ -13,7 +13,7 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 		<div class="dataBrowserContent">
 				
 			<div class="row">
-				<div class="col-xs-8">
+				<div class="col-xs-8 dataBrowser-wrap">
 					<div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">	
 												
 						<div class="row">

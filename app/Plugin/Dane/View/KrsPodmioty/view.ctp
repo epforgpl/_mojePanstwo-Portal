@@ -279,7 +279,7 @@ $description =
             <? } ?>
 
             <? if ($description) { ?>
-            <div class="block block-simple col-xs-12">
+            <div class="block block-simple nobg col-xs-12">
                 <header>Misja</header>
                 <section class="content textBlock descBlock">
                     <div class="text"
@@ -291,31 +291,35 @@ $description =
             <? if( @$object_aggs['dzialania']['top']['hits']['hits'] ) {?>
             <div class="block block-simple col-xs-12 dzialania">
                 <header>Działania</header>
-                <section class="content">
-                    <? foreach ($object_aggs['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
-                        <div class="col-xs-12 col-sm-6 col-md-4">
-                            <h4>
-                                <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">
-                                    <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.tytul'], 55); ?>
-                                </a>
-                            </h4>
-
-                            <? if ($dzialanie['fields']['source'][0]['data']['dzialania.photo'] == '1') { ?>
-                                <div class="photo col-xs-4 col-sm-12">
-                                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
-                                            alt="<?= $dzialanie['fields']['source'][0]['data']['dzialania.tytul']; ?>"
-                                            src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
-                                </div>
-                            <? } ?>
-
-                            <div class="desc col-xs-8 col-sm-12">
-                                <?= $this->Text->truncate($dzialanie['fields']['source'][0]['data']['dzialania.podsumowanie'], 200) ?>
-                            </div>
-                        </div>
-                    <? } ?>
-                </section>
-                <div class="linkmore text-center">
-                    <a href="<?= $object->getUrl() . '/dzialania' ?>" class="btn btn-primary btn-xs"">więcej</a>
+                <div class="margin-sides-5">
+	                <section class="content">
+	                    <? foreach ($object_aggs['dzialania']['top']['hits']['hits'] as $dzialanie) { ?>
+	                        <div class="col-xs-12 col-sm-6 col-md-4">
+	                            <h4>
+	                                <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>">	                                
+	                                    <?= $this->Text->truncate($dzialanie['_source']['data']['dzialania']['tytul'], 55); ?>
+	                                </a>
+	                            </h4>
+	
+	                            <? if ($dzialanie['_source']['data']['dzialania']['photo'] == '1') { ?>
+	                                <div class="photo col-xs-4 col-sm-12">
+	                                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['_source']['data']['dzialania']['id']; ?>"><img
+	                                            alt="<?= $dzialanie['_source']['data']['dzialania']['tytul']; ?>"
+	                                            src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
+	                                </div>
+	                            <? } ?>
+	
+	                            <div class="desc col-xs-8 col-sm-12">
+	                                <?= $this->Text->truncate($dzialanie['_source']['data']['dzialania']['podsumowanie'], 200) ?>
+	                            </div>
+	                        </div>
+	                    <? } ?>
+	                </section>
+                </div>
+                <div class="dataAggs">
+	                <div class="buttons">
+	                    <a href="<?= $object->getUrl() . '/dzialania' ?>" class="btn btn-default btn-xs">Więcej</a>
+	                </div>
                 </div>
             </div>
             <? } ?>
@@ -377,7 +381,7 @@ $description =
             $adres .= ', Polska';
 
             if (($object->getData('adres_ulica')) && ($object->getData('adres_numer')) && ($object->getData('adres_miejscowosc'))) { ?>
-            <div class="block col-xs-12 adres<? if (!$object->getData('cel_dzialania')) { ?> block-simple<? } ?>">
+            <div class="block block-simple nobg col-xs-12 adres<? if (!$object->getData('cel_dzialania')) { ?> block-simple<? } ?>">
                 <header>
                     <div class="sm">Adres</div>
                     <div class="mapsOptions pull-right">
@@ -435,12 +439,12 @@ $description =
             <?php }
 
             if ($object->getData('sposob_reprezentacji')) { ?>
-            <div class="reprezentacja block col-xs-12">
+            <div class="reprezentacja block block-simple nobg col-xs-12">
                 <header>
                     <div class="sm">Sposób reprezentacji</div>
                 </header>
 
-                <section class="content normalizeText textBlock">
+                <section class="content normalizeText textBlock margin-sides-5 margin-bottom-10">
                     <?= $object->getData('sposob_reprezentacji') ?>
                 </section>
             </div>

@@ -10,10 +10,13 @@
                 <span class="separator">&mdash;</span>
                 <?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self', 'class' => '')); ?>
                 <span class="separator">&mdash;</span>
+                <?php echo $this->Html->link('Pomoc', '/pomoc', array('target' => '_self', 'class' => '')); ?>
+                <span class="separator">&mdash;</span>
+                <?php echo $this->Html->link(__('LC_FOOTER_REPORT_BUG'), '/pomoc/zglos_blad', array('target' => '_self', 'class' => '')); ?>
+
+                <span class="separator">&mdash;</span>
                 <?php echo $this->Html->link(__('LC_FOOTER_REGULATIONS'), '/regulamin', array('target' => '_self', 'class' => '')); ?>
-                <span class="separator">&mdash;</span>
-                <?php echo $this->Html->link(__('LC_FOOTER_REPORT_BUG'), '/zglosblad', array('target' => '_self', 'class' => '')); ?>
-                <span class="separator">&mdash;</span>
+                                <span class="separator">&mdash;</span>
                 <?php echo $this->Html->link(__('LC_FOOTER_API'), '/api', array('target' => '_self', 'class' => '')); ?>
             </div>
         </div>

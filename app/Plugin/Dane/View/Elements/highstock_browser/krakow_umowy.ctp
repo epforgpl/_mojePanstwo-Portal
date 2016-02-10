@@ -9,15 +9,15 @@
 			
 		</div><div class="col-md-12">
 			
-			<div class="block block-size-sm block-simple col-xs-12">
+			<div class="block block-size-sm block-simple col-xs-12 margin-top-15">
 				<header>Największe umowy:</header>
-				<section>
+				<section class="margin-sides-10">
 					<div class="agg" data-agg_id="dokumenty" <? printf('data-agg_params="%s"', htmlspecialchars(json_encode($options['aggs']['umowy']), ENT_QUOTES, 'UTF-8')) ?>></div>
-					<div class="buttons" style="display: none;">
-				        <a <?= printf('data-more="%s"', htmlspecialchars(json_encode($options['more']), ENT_QUOTES, 'UTF-8')) ?> href="#" class="btn btn-primary btn-xs btn-more">Zobacz więcej</a>
-				    </div>
+					
 				</section>
-				
+				<div class="buttons" style="display: none;">
+			        <a <?= printf('data-more="%s"', htmlspecialchars(json_encode($options['more']), ENT_QUOTES, 'UTF-8')) ?> href="#" class="btn btn-default btn-xs btn-more">Zobacz więcej</a>
+			    </div>
 				
 			</div>
 			
@@ -25,9 +25,9 @@
 			
 		</div><div class="col-md-12">
 			
-			<div class="block block-size-sm block-simple col-xs-12">
+			<div class="block block-size-sm block-simple col-xs-12 margin-top-15">
 				<header>Główni wykonawcy:</header>
-				<section>
+				<section class="margin-sides-10">
 					<div class="agg" data-agg_id="wykonawcy" <? printf('data-agg_params="%s"', htmlspecialchars(json_encode($options['aggs']['wykonawcy']), ENT_QUOTES, 'UTF-8')) ?>></div>
 				</section>
 			</div>	
@@ -45,7 +45,7 @@
 		    }
 		?>
 			<div class="buttons" style="display: none;">
-		        <a data-href="<?= $more ?>" href="<?= $more ?>" class="btn btn-primary btn-xs btn-more">Zobacz więcej</a>
+		        <a data-href="<?= $more ?>" href="<?= $more ?>" class="btn btn-default btn-xs btn-more">Zobacz więcej</a>
 		    </div>
 		<?
 		}

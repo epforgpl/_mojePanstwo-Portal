@@ -68,12 +68,14 @@ class PagesController extends AppController
 
         if ($page == 'home' || $page == 'about_us' || $page == 'regulations' || $page == 'report_bug') {
             $this->setLayout(array(
-                'header' => false,
+                'header' => array(
+	                'element' => 'main',
+                ),
                 'body' => array(
                     'theme' => 'wallpaper'
                 ),
                 'footer' => array(
-                    'element' => 'minimal'
+                    'element' => 'default'
                 )
             ));
         }

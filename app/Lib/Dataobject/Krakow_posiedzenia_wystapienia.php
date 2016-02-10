@@ -49,8 +49,12 @@ class Krakow_posiedzenia_wystapienia extends DataObject
 		if( $date = $this->getDate() )
 			$output[] = dataSlownie($date);
 			
-		if( $txt = $this->getData('krakow_posiedzenia_punkty.tytul') )
-			$output[] = $txt;
+		if( $txt = $this->getData('krakow_posiedzenia_punkty.tytul') ) {
+			$trim_txt = mb_substr($txt, 0, 70);
+			if( strlen($trim_txt) < strlen($txt) )
+				$trim_txt .= '...';
+			$output[] =  $trim_txt;
+		}
 				
         return $output;
 

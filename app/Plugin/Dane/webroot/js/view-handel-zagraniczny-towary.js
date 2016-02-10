@@ -5,23 +5,23 @@ $(document).ready(function () {
     var series;
     var seriesImportData = [];
     var seriesExportData = [];
-    var seriesImport2014Data = [];
-    var seriesExport2014Data = [];
+    var seriesImport2015Data = [];
+    var seriesExport2015Data = [];
 
     for (var i = 0; i < data.length; i++) {
         $('#selectYear').append('<option value="' + data[i].rocznik + '">' + data[i].rocznik + '</option>');
         categories.push(parseInt(data[i].rocznik));
-        if (parseInt(data[i].rocznik) === 2014 || parseInt(data[i].rocznik) === 2013) {
-            seriesImport2014Data.push(parseInt(data[i].import_pln));
-            seriesExport2014Data.push(parseInt(data[i].eksport_pln));
-            if (parseInt(data[i].rocznik) === 2013) {
+        if (parseInt(data[i].rocznik) === 2015 || parseInt(data[i].rocznik) === 2014) {
+            seriesImport2015Data.push(parseInt(data[i].import_pln));
+            seriesExport2015Data.push(parseInt(data[i].eksport_pln));
+            if (parseInt(data[i].rocznik) === 2014) {
                 seriesImportData.push(parseInt(data[i].import_pln));
                 seriesExportData.push(parseInt(data[i].eksport_pln));
             }
             continue;
         }
-        seriesImport2014Data.push(null);
-        seriesExport2014Data.push(null);
+        seriesImport2015Data.push(null);
+        seriesExport2015Data.push(null);
         seriesImportData.push(parseInt(data[i].import_pln));
         seriesExportData.push(parseInt(data[i].eksport_pln));
     }
@@ -38,14 +38,14 @@ $(document).ready(function () {
         {
             name: 'Import (dane wstępne)',
             dashStyle: 'shortdot',
-            data: seriesImport2014Data,
+            data: seriesImport2015Data,
             color: '#7cb5ec',
             showInLegend: false
         },
         {
             name: 'Export (dane wstępne)',
             dashStyle: 'shortdot',
-            data: seriesExport2014Data,
+            data: seriesExport2015Data,
             color: '#434348',
             showInLegend: false
         }

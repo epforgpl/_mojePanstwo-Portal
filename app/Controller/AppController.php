@@ -545,7 +545,7 @@ class AppController extends Controller
             'icon' => '&#xe610;',
         ),
         'pomoc' => array(
-            'name' => 'Centrum pomocy',
+            'name' => 'Pomoc',
             'href' => '/pomoc',
             'tag' => 3,
             'icon' => '&#xe903;',

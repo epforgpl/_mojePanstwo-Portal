@@ -8,7 +8,7 @@ $(function () {
 		hz_type = 'import',
 		hz_countries_data = [],
 		hz_top_symbols_data = [],
-		hz_year = 2014,
+		hz_year = 2015,
 		hz_type_last,
 		hz_year_last,
 		hz_map_data;
