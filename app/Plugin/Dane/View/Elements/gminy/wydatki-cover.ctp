@@ -82,7 +82,7 @@ $options = array(
                     <div class="histogram" data-mode="<?= $mode; ?>" data-median="<?= $global['median'] ?>" data-title="<?= $main_chart['title'] ?>" data-subtitle="<?= $main_chart['subtitle'] ?>" data-interval="<?= $histogram_interval; ?>" data-histogram='<?= json_encode($global['histogram']) ?>'>
                     </div>
                 </div>
-                <div class="gradient_cont">
+                <div class="gradient_cont" style="padding-top: 92px;">
                     <span class="gradient"></span>
                     <ul class="addons">
                         <li class="min">
