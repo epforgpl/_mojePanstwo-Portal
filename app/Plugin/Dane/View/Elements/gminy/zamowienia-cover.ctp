@@ -13,7 +13,7 @@ $options = array(
     <div class="blocks">
 
 		<? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
-            <div class="block block-simple block-size-sm col-xs-12">
+            <div class="block block-simple nobg block-size-sm col-xs-12">
                 <header>Rozstrzygnięcia zamówień publicznych:</header>
                 <section>
                     <?= $this->element('Dane.zamowienia_publiczne', array(

@@ -8,36 +8,34 @@ $options = array(
 
 ?>
 
-
-<div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
-	<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
-
-	    <? if(isset($_submenu) && isset($_submenu['items'])) {
+<div class="row">
+	<div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
+		<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 	
-	        if (!isset($_submenu['base']))
-	            $_submenu['base'] = $object->getUrl();
-	
-	        echo $this->Element('Dane.DataBrowser/browser-menu', array(
-	            'menu' => $_submenu,
-	        ));
-	
-	    } ?>
-    
-	</div>
-</div>
-<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
-    
-    <div class="dataWrap">
+		    <? if(isset($_submenu) && isset($_submenu['items'])) {
 		
+		        if (!isset($_submenu['base']))
+		            $_submenu['base'] = $object->getUrl();
+		
+		        echo $this->Element('Dane.DataBrowser/browser-menu', array(
+		            'menu' => $_submenu,
+		        ));
+		
+		    } ?>
+	    
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+	    
+			
 		<h1 class="smaller margin-top-15">Umowy zawierane przez Urząd Miasta Kraków</h1>
 	    
 	    <div class="row">
 	        <div class="col-sm-12">
 	
-	            <div class="blocks">
 	
 	                <? if (@$dataBrowser['aggs']['umowy']['dni']['buckets']) { ?>
-	                    <div class="block block-simple block-size-sm col-xs-12">
+	                    <div class="block block-simple nobg">
 	                        <header>Wartość brutto podpisywanych umów:</header>
 	                        <section>
 	                            <?= $this->element('Dane.highstock_browser', array(
@@ -61,11 +59,10 @@ $options = array(
 	                    </div>
 	                <? } ?>
 	
-	            </div>
 	
 	        </div>
 	    </div>
-    
-    </div>
-    
+	    
+	    
+	</div>
 </div>

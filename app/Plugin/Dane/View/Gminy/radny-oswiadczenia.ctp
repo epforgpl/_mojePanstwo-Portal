@@ -21,60 +21,61 @@ echo $this->Element('Dane.dataobject/subobject', array(
     )
 ));
 
-if ($subsubid && $oswiadczenie && $oswiadczenie->getData('dokument_id')) {
+
+if (!isset($_submenu['base']))
+    $_submenu['base'] = $radny->getUrl();
+
 ?>
 
-    <div class="dataBrowser margin-top--5">
-    <div class="row">
-        <div class="dataBrowserContent">
-            <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
-				<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
+<div class="row">
+	<div class="col-md-2">
+		<div class="dataBrowser">
+		<?
+			echo $this->Element('Dane.DataBrowser/browser-menu', array(
+                'menu' => $_submenu,
+                'pills' => isset($pills) ? $pills : null
+            ));
+        ?>
+		</div>
+	</div>
+	<div class="col-md-10 nocontainer">
 
-                    <? if (isset($_submenu) && isset($_submenu['items'])) {
+		<?
+		if ($subsubid && $oswiadczenie && $oswiadczenie->getData('dokument_id')) {
+		?>
+		
+		
+            <h1 class="smaller">Oświadczenie majątkowe radnego za rok <?= $oswiadczenie->getData('rok') ?></h1>
 
-                        $_submenu['selected'] = 'oswiadczenia';
-                    if (!isset($_submenu['base']))
-                        $_submenu['base'] = $radny->getUrl();
+            <div class="margin-top-15">
+		    <?= $this->Document->place($oswiadczenie->getData('dokument_id'), array(
+		    	'toolbar' => false,
+		    )); ?>
+			</div>
 
-                    echo $this->Element('Dane.DataBrowser/browser-menu', array(
-                        'menu' => $_submenu,
-                    ));
+		
+		
+		<?
+		} else {
+		
+		    if (!isset($_submenu['base']))
+			    $_submenu['base'] = $radny->getUrl();
+		
+		    echo $this->Element('Dane.DataBrowser/browser', array(
+			    'menu' => $_submenu,
+				'class' => 'margin-top--5',
+		    ));
+		
+		}
+		?>
 
-                } ?>
-
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
-
-                <div class="dataWrap">
-
-                    <h1 class="smaller">Oświadczenie majątkowe radnego za rok <?= $oswiadczenie->getData('rok') ?></h1>
-
-                    <div class="margin-top-15">
-				    <?= $this->Document->place($oswiadczenie->getData('dokument_id'), array(
-				    	'toolbar' => false,
-				    )); ?>
-					</div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+	</div>
 </div>
 
 
+
+
+
+
 <?
-} else {
-
-    if (!isset($_submenu['base']))
-	    $_submenu['base'] = $radny->getUrl();
-
-    echo $this->Element('Dane.DataBrowser/browser', array(
-	    'menu' => $_submenu,
-		'class' => 'margin-top--5',
-    ));
-
-}
-
 echo $this->Element('dataobject/pageEnd');

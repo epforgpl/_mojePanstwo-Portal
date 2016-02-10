@@ -45,6 +45,10 @@
     margin-bottom: 10px;
     width: 100%;
     
+    &.border-bottom {
+	    border-bottom: 1px solid #DDD;
+    }
+    
     &.bgA {
 	    background-color: #F9F9F9;
 	    .objectRender .title {
@@ -69,13 +73,20 @@
     
     .buttons {
 	    text-align: center;
-	    margin-bottom: 15px;
+        background-color: #F6F6F6;
+        padding: 10px;
+        margin: -10px 0px 0px 0 !important;
+        clear: both;
     }
 }
 
 .block.nobg {
 	border-color: transparent !important;
 	background-color: transparent !important;
+}
+
+.block.border-bottom {
+    border-bottom: 1px solid #CCC !important;
 }
 
 .block.block-highlightedA {
@@ -167,11 +178,6 @@ h2.appInnerTitle {
         }
 
         .sm {
-            color: #333;
-            font-weight: 400;
-            font-size: 16px;
-            white-space: normal;
-            line-height: 24px;
             text-align: left;
             word-spacing: 3px;
             width: auto;

@@ -1,11 +1,11 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('about_us')) ?>
 
 <div id="aboutUs" class="container">
-    <div class="col-xs-12 col-md-10 col-md-offset-1">
+    <div class="col-md-8">
         <div class="block">
             <header>O portalu</header>
             <section>
-                <div class="col-xs-12 col-md-8">
+
                     <div class="mainContent">
                         <div class="sector">
                             <a target="_blank" href="http://epf.org.pl">
@@ -141,21 +141,22 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-4">
-                    <div class="sideContent loading hidden-xs hidden-sm">
-                        <div id="fb-root"></div>
-                        <div class="fb-like-box" data-href="https://www.facebook.com/epanstwo"
-                             data-height="620" data-show-faces="true" data-stream="true"
-                             data-border-color="#FFFFFF" data-header="true"></div>
-                        <script>
-                            var height = document.getElementsByClassName('mainContent')[0].clientHeight;
-                            document.getElementsByClassName('fb-like-box')[0].setAttribute('data-width', document.getElementsByClassName('fb-like-box')[0].parentElement.clientWidth);
-                            document.getElementsByClassName('fb-like-box')[0].setAttribute('data-height', (height < 620) ? 620 : height);
-                        </script>
-                    </div>
-                </div>
+
             </section>
         </div>
+    </div><div class="col-md-4">
+    
+    	<div class="sideContent loading hidden-xs hidden-sm">
+            <div id="fb-root"></div>
+            <div class="fb-like-box" data-href="https://www.facebook.com/epanstwo"
+                 data-height="820" data-show-faces="true" data-stream="true"
+                 data-border-color="#FFFFFF" data-header="true"></div>
+            <script>
+                var height = document.getElementsByClassName('mainContent')[0].clientHeight;
+                document.getElementsByClassName('fb-like-box')[0].setAttribute('data-width', document.getElementsByClassName('fb-like-box')[0].parentElement.clientWidth);
+                document.getElementsByClassName('fb-like-box')[0].setAttribute('data-height', (height < 620) ? 620 : height);
+            </script>
+        </div>
+    
     </div>
 </div>

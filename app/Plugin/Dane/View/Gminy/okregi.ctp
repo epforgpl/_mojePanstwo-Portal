@@ -21,10 +21,9 @@ echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 )); ?>
 
-    <div class="dataBrowser margin-top--5">
         <div class="row">
-            <div class="dataBrowserContent">
-                <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
+                <div class="col-md-2">
+					<div class="dataBrowser">
 
                     <? if (isset($_submenu) && isset($_submenu['items'])) {
 
@@ -36,9 +35,10 @@ echo $this->Element('dataobject/pageBegin', array(
                         ));
 
                     } ?>
-
+                    
+					</div>
                 </div>
-                <div class="col-xs-12 col-sm-8 col-md-4-5 norightpadding">
+                <div class="col-md-10 nocontainer">
 
                     <h1 class="smaller margin-top-15">Okręgi wyborcze w Krakowie</h1>
 
@@ -50,9 +50,7 @@ echo $this->Element('dataobject/pageBegin', array(
                     <? } ?>
 
                 </div>
-            </div>
         </div>
-    </div>
 
 
 <?= $this->Element('dataobject/pageEnd');

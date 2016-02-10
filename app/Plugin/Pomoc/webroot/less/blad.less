@@ -1,0 +1,53 @@
+.theme-default .block:not(.daneOsobowe) {
+
+    &:first-child > header:before {
+        display: none;
+    }
+
+    > header {
+        background: none;
+        font-size: 24px;
+        position: relative;
+
+        &::before {
+            background-color: #00659d;
+            content: " ";
+            display: block;
+            height: 2px;
+            left: 10px;
+            position: absolute;
+            top: 0;
+            width: 40px;
+        }
+    }
+}
+
+.reportBug {
+    p:last-child {
+        margin-bottom: 20px;
+    }
+
+    .sliceBtn {
+        width: 330px;
+        margin: 10px auto;
+
+        &.btn-github {
+            display: block;
+        }
+
+        &.emailBtn .form-control {
+            margin-top: 1px;
+        }
+    }
+}
+
+.text {
+	padding: 20px;
+	font-size: 15px;
+	strong {
+		 display: block;
+	    font-size: 17px;
+	    margin-bottom: -10px;
+	    margin-top: 35px;
+	}
+}

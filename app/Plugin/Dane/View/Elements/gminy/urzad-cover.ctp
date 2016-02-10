@@ -8,6 +8,7 @@ $options = array(
 );
 ?>
 
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
 	<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 
@@ -73,29 +74,33 @@ $options = array(
                     </div>
                 </div>
 
-                <div class="databrowser-panel">
-                    <h2>Najnowsze zarządzenia Prezydenta:</h2>
-
-                    <div class="aggs-init">
-                        <div class="dataAggs">
-                            <div class="agg agg-Dataobjects">
-                                <? if ($dataBrowser['aggs']['zarzadzenia']['top']['hits']['hits']) { ?>
-                                    <ul class="dataobjects">
-                                        <? foreach ($dataBrowser['aggs']['zarzadzenia']['top']['hits']['hits'] as $doc) { ?>
-                                            <li>
-                                                <?
-                                                echo $this->Dataobject->render($doc, 'default');
-                                                ?>
-                                            </li>
-                                        <? } ?>
-                                    </ul>
-                                    <div class="buttons">
-                                        <a href="<?= $object->getUrl() ?>/zarzadzenia" class="btn btn-primary btn-xs">Zobacz
-                                            więcej</a>
-                                    </div>
-                                <? } ?>
-                            </div>
-                        </div>
+                <div class="block">
+                    <header>Najnowsze zarządzenia Prezydenta:</header>
+					
+					<section class="content">
+	                    <div class="aggs-init">
+	                        <div class="dataAggs">
+	                            <div class="agg agg-Dataobjects">
+	                                <? if ($dataBrowser['aggs']['zarzadzenia']['top']['hits']['hits']) { ?>
+	                                    <ul class="dataobjects">
+	                                        <? foreach ($dataBrowser['aggs']['zarzadzenia']['top']['hits']['hits'] as $doc) { ?>
+	                                            <li>
+	                                                <?
+	                                                echo $this->Dataobject->render($doc, 'default');
+	                                                ?>
+	                                            </li>
+	                                        <? } ?>
+	                                    </ul>
+	                                    
+	                                <? } ?>
+	                            </div>
+	                        </div>
+	                    </div>
+					</section>
+					
+					<div class="buttons">
+                        <a href="<?= $object->getUrl() ?>/zarzadzenia" class="btn btn-default btn-xs">Zobacz
+                            więcej</a>
                     </div>
                 </div>
             <? } ?>
@@ -103,4 +108,5 @@ $options = array(
         </div>
 
     </div>
+</div>
 </div>

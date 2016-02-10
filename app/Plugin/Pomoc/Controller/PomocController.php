@@ -26,6 +26,11 @@ class PomocController extends ApplicationsController
         $this->set('epfRSSFeed', $epfRSSFeed);
         $this->set('ytPlaylist', $playListItems);
     }
+    
+    public function blad()
+    {
+        $this->title = 'Centrum pomocy';
+    }
 
     public function epfRSSFeed()
     {
@@ -93,14 +98,6 @@ class PomocController extends ApplicationsController
         $app = $this->getApplication($this->settings['id']);
 
         $items[] = array(
-            'label' => 'Pomoc',
-            'href' => '/' . $this->settings['id'],
-            'class' => '_label',
-            'icon' => 'appIcon',
-            'appIcon' => $app['icon'],
-        );
-
-        $items[] = array(
             'label' => 'Instrukcje',
             'href' => '/pomoc/instrukcje',
             'id' => 'instrukcje',
@@ -111,6 +108,13 @@ class PomocController extends ApplicationsController
             'label' => 'Tutoriale video',
             'href' => '/pomoc/filmy',
             'id' => 'filmy',
+            'icon' => 'icon-datasets-dot',
+        );
+        
+        $items[] = array(
+            'label' => 'Zgłoś błąd',
+            'href' => '/pomoc/zglos_blad',
+            'id' => 'blad',
             'icon' => 'icon-datasets-dot',
         );
 

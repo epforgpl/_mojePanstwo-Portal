@@ -1,6 +1,6 @@
 <?
 $displayAggs = isset($displayAggs) ? (boolean) $displayAggs : true;
-$columns = isset($columns) ? $columns : array(9, 3);
+$columns = isset($columns) ? $columns : array(10, 2);
 ?>
 <div class="dataBrowser upper<? if (isset($class)) echo " " . $class; ?>">
 
