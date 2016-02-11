@@ -235,10 +235,30 @@ $(document).ready(function() {
         });
 
         this.$toolbar.find('.importDocTables').click(function() {
+            var fileInput = $('#importLocalFile');
+            fileInput.change(function() {
+                if(this.files.hasOwnProperty(0)) {
+                    var file = this.files[0];
+                    var fr = new FileReader();
+                    fr.onload = function(e) {
+                        self.tables = JSON.parse(e.target.result);
+                        self.view = 'document';
+                        self.$preview.html(self.getPreviewDOM());
+                        return false;
+                    };
+                    fr.readAsText(file);
+                }
+            });
+            fileInput.click();
+            return false;
+        });
+
+        this.$toolbar.find('.exportDocTables').click(function() {
             var a = document.getElementById('forceDownloadFile');
             a.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(self.tables)));
             a.setAttribute('download', 'doc_' + self.documentId + '_data.json');
             a.click();
+            return false;
         });
     };
 
