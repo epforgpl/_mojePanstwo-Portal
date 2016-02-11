@@ -1,4 +1,4 @@
-<div id="portal-header" class="mp-sticky">
+<div id="portal-header"<? if( !isset($this->request->query['_screenshoot']) ) {?> class="mp-sticky"<? } else { ?> style="position: static;"<? } ?>>
     <?php
     echo $this->Element('Paszport.modal_login');
     echo $this->Element('modals/suggester', array(

@@ -71,7 +71,7 @@ class TwitterAccountsController extends DataobjectsController
 
 		$selectedAccountsFilter = array(
 			'term' => array(
-				'data.twitter_accounts.id' => $this->object->getId(),
+				'data.twitter.twitter_account_id' => $this->object->getId(),
 			),
 		);
 

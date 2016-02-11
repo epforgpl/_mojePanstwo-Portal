@@ -581,19 +581,34 @@ class KrsPodmiotyController extends DataobjectsController
 				'base' => '/',
 			);
 			
-			foreach( $sprawozdanie->getLayer('czesci') as $c ) {
+			$czesci = $sprawozdanie->getLayer('czesci');
+			$czesc = false;
+			$selected_id = false;
+			$document_id = false;
+			
+			foreach( $czesci as $c ) {
 				
 				$menu['items'][] = array(
 					'id' => $c['id'],
 					'label' => $c['nazwa'],
-					'href' => 'asd',
+					'href' => '?c=' . $c['id'],
 				);
+				
+				if(
+					isset( $this->request->query['c'] ) &&
+					( $this->request->query['c'] == $c['id'] )
+				)
+					$czesc = $c;
 				
 			}
 			
-			$menu['selected'] = $c['id'];
+			if( !$czesc )
+				$czesc = $czesci[0];
+			
+			$menu['selected'] = $czesc['id'];
 			
             $this->set('_submenu', $menu);
+            $this->set('czesc', $czesc);
             $this->set('sprawozdanie', $sprawozdanie);
             $this->set('title_for_layout', $sprawozdanie->getTitle());
             $this->render('sprawozdanie');

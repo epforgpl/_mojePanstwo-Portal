@@ -45,25 +45,26 @@ if (!isset($mode))
                         <div class="agg" data-agg_id="stats"></div>
 
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-8">
 
-                        <div class="block block-size-sm block-simple col-xs-12">
+                        <div class="block block-size-sm block-simple col-xs-12 margin-top-15">
                             <header>Największe zamówienia:</header>
-                            <section>
+                            <section class="margin-sides-10">
                                 <div class="agg"
                                      data-agg_id="dokumenty" <?= printf('data-agg_params="%s"', htmlspecialchars(json_encode($aggs['dokumenty']), ENT_QUOTES, 'UTF-8')) ?>></div>
-                                <div class="buttons" style="display: none;">
-                                    <a <?= printf('data-more="%s"', htmlspecialchars(json_encode($more), ENT_QUOTES, 'UTF-8')) ?>
-                                        href="#" class="btn btn-default btn-xs btn-more">Zobacz więcej</a>
-                                </div>
+                                
                             </section>
+                            <div class="buttons" style="display: none;">
+                                <a <?= printf('data-more="%s"', htmlspecialchars(json_encode($more), ENT_QUOTES, 'UTF-8')) ?>
+                                    href="#" class="btn btn-default btn-xs btn-more">Zobacz więcej</a>
+                            </div>
 
 
                         </div>
 
 
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4 margin-top-15">
 
                         <div class="block block-size-sm block-simple col-xs-12">
                             <header>Największe zamówienia otrzymali:</header>

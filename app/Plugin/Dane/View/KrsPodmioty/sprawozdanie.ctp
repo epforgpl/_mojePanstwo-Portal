@@ -1,4 +1,6 @@
 <?
+
+$this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin' => 'Dane')));
 echo $this->Element('dataobject/pageBegin', array(
     'titleTag' => 'p',
 ));
@@ -28,7 +30,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 	</div>
 	<div class="col-md-10 nocontainer">
 
-		<?= $this->Document->place($sprawozdanie->getData('dokument_id')) ?>
+		<?= $this->Document->place( $czesc['dokument_id'] ) ?>
 
 	</div>
 </div>

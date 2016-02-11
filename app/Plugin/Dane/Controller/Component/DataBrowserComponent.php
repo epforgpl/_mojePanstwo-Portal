@@ -375,7 +375,7 @@ class DataBrowserComponent extends Component
                 'terms' => array(
                     'field' => 'twitter_accounts.id',
                     'exclude' => array(
-                        'pattern' => '(0|)'
+                        'pattern' => '0'
                     ),
                 ),
                 'aggs' => array(
@@ -389,7 +389,7 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Konta',
                     'all' => 'Wszystkie konta',
-                    'skin' => 'columns_horizontal',
+                    'skin' => 'list',
                     'field' => 'twitter_accounts.id',
                 ),
             ),
@@ -397,13 +397,13 @@ class DataBrowserComponent extends Component
                 'terms' => array(
                     'field' => 'twitter_accounts.typ_id',
                     'exclude' => array(
-                        'pattern' => '(0|)'
+                        'pattern' => '0'
                     ),
                 ),
                 'visual' => array(
                     'label' => 'Typy kont',
                     'all' => 'Wszystkie typy kont',
-                    'skin' => 'columns_horizontal',
+                    'skin' => 'list',
                     'field' => 'twitter_accounts.typ_id',
                     'dictionary' => array(
                         '2' => 'Komentatorzy polityczni',
@@ -412,6 +412,7 @@ class DataBrowserComponent extends Component
                         '7' => 'Politycy',
                         '8' => 'Partie polityczne',
                         '9' => 'NGO',
+                        '10' => 'Miasta',
                     ),
                 ),
             ),
