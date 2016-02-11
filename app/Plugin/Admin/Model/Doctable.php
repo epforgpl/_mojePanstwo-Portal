@@ -2,6 +2,6 @@
 
 App::uses('AdminModel', 'Admin.Model');
 
-class DocTable extends AdminModel {
+class Doctable extends AdminModel {
 
 }

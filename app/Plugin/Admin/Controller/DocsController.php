@@ -7,17 +7,41 @@ class DocsController extends AdminAppController {
     public $components = array('RequestHandler', 'S3');
 
     public function tables($document_id) {
-        $this->loadModel('Admin.DocTable');
+        $this->loadModel('Admin.Doctable');
         $this->layout = false;
-        $this->set('tables', $this->DocTable->getTables($document_id));
+
+        $data = $this->Doctable->getTables($document_id);
+        $tables = array();
+        foreach($data as $row) {
+            $table = new stdClass();
+            $table->id = (int) $row['doctables']['id'];
+            $table->name = $row['doctables']['name'];
+            $table->pageIndex = (int) $row['doctables']['page_index'];
+            $table->x = (int) $row['doctables']['x'];
+            $table->y = (int) $row['doctables']['y'];
+            $table->width = (int) $row['doctables']['width'];
+            $table->height = (int) $row['doctables']['height'];
+
+            $table->rows = array_map(function($e) {
+                return (int) $e;
+            }, explode(';', $row[0]['r']));
+
+            $table->cols = array_map(function($e) {
+                return (int) $e;
+            }, explode(';', $row[0]['c']));
+
+            $tables[] = $table;
+        }
+
+        $this->set('tables', $tables);
         $this->set('document_id', $document_id);
         $this->set('docJSON', $this->getDocJSON($document_id));
     }
 
     public function saveTables($document_id) {
-        $this->loadModel('Admin.DocTable');
+        $this->loadModel('Admin.Doctable');
         $this->setSerialized('response',
-            $this->DocTable->saveTables(
+            $this->Doctable->saveTables(
                 $document_id,
                 $this->request->data['tables']
             )

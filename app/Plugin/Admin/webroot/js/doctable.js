@@ -10,7 +10,7 @@ $(document).ready(function() {
         this.$toolbar = this.$$.find('.toolbar').first();
         this.$activePage = false;
         this.$viewSelect = this.$toolbar.find('.viewSelect').first();
-        this.tables = [];
+        this.tables = this.$$.data('tables');
         this.values = [];
         this.$preview.html(this.getPreviewDOM());
         this.mouseX = 0;
@@ -194,10 +194,25 @@ $(document).ready(function() {
             }
         });
 
-        this.$preview.on('change', 'input.tableNameInput', function(e) {
+        this.$preview.on('change', 'input.tableNameInput', function() {
             var tableIndex = $(this).data('table-index');
             if(self.tables.hasOwnProperty(tableIndex)) {
                 self.tables[tableIndex].name = $(this).val();
+            }
+        });
+
+        this.$preview.on('change', 'input.singleDataValue', function() {
+            var table = $(this).closest('table').first(),
+                tableIndex = table.data('table-index'),
+                rowIndex = $(this).data('row-index'),
+                colIndex = $(this).data('col-index');
+
+            if(
+                self.tables.hasOwnProperty(tableIndex) &&
+                self.tables[tableIndex].data.hasOwnProperty(rowIndex) &&
+                self.tables[tableIndex].data[rowIndex].hasOwnProperty(colIndex)
+            ) {
+                self.tables[tableIndex].data[rowIndex][colIndex] = $(this).val();
             }
         });
 
@@ -218,6 +233,13 @@ $(document).ready(function() {
 
             return false;
         });
+
+        this.$toolbar.find('.importDocTables').click(function() {
+            var a = document.getElementById('forceDownloadFile');
+            a.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(self.tables)));
+            a.setAttribute('download', 'doc_' + self.documentId + '_data.json');
+            a.click();
+        });
     };
 
     DocTable.prototype = {
@@ -227,6 +249,11 @@ $(document).ready(function() {
         getDataDOM: function() {
             var dom = ['<div class="container"><h1 class="text-muted">Dane</h1>'];
 
+            this.tables.sort(function(a, b) {
+                return a.pageIndex == b.pageIndex ? 0 :
+                    (a.pageIndex < b.pageIndex) ? -1 : 1;
+            });
+
             for(var tt = 0; tt < this.tables.length; tt++) {
                 var table = this.tables[tt];
                 if(table === false)
@@ -235,7 +262,7 @@ $(document).ready(function() {
                 dom.push('<small class="text-muted">Strona ' + (table.pageIndex + 1) + '</small>');
                 dom.push('<div class="panel panel-default">');
                 dom.push('<div class="panel-heading"><input class="form-control tableNameInput" data-table-index="' + tt + '" type="text" placeholder="Nazwa tabeli" value="' + table.name + '"></div>');
-                dom.push('<table class="table table-bordered">');
+                dom.push('<table data-table-index="' + tt + '" class="table table-bordered">');
 
                 var data = [];
 
@@ -329,38 +356,48 @@ $(document).ready(function() {
                         });
                     }
 
-                    for(r = 0; r < _rows.length; r++) {
-                        var values = [];
-                        for(c = 0; c < _cols.length; c++) {
-                            var value = '';
-                            for(var t = 0; t < texts.length; t++) {
-                                var text = texts[t],
-                                    textRowFrom = parseInt(text.top),
-                                    textRowTo = parseInt(text.top) + parseInt(text.height),
-                                    textColFrom = parseInt(text.left),
-                                    textColTo = parseInt(text.left) + parseInt(text.width);
-                                if(
-                                    textRowFrom >= (table.y + _rows[r].from) &&
-                                    textRowTo <= (table.y + _rows[r].to) &&
-                                    textColFrom >= (table.x + _cols[c].from) &&
-                                    textColTo <= (table.x + _cols[c].to)
-                                ) {
-                                    value += ' ' + text.content;
+                    if(
+                        typeof this.tables[tt].data !== 'undefined' &&
+                        this.tables[tt].data.length == _rows.length &&
+                        this.tables[tt].data[0].length == _cols.length
+                    ) {
+                        data = this.tables[tt].data;
+                    } else {
+
+                        for (r = 0; r < _rows.length; r++) {
+                            var values = [];
+                            for (c = 0; c < _cols.length; c++) {
+                                var value = '';
+                                for (var t = 0; t < texts.length; t++) {
+                                    var text = texts[t],
+                                        textRowFrom = parseInt(text.top),
+                                        textRowTo = parseInt(text.top) + parseInt(text.height),
+                                        textColFrom = parseInt(text.left),
+                                        textColTo = parseInt(text.left) + parseInt(text.width);
+                                    if (
+                                        textRowFrom >= (table.y + _rows[r].from) &&
+                                        textRowTo <= (table.y + _rows[r].to) &&
+                                        textColFrom >= (table.x + _cols[c].from) &&
+                                        textColTo <= (table.x + _cols[c].to)
+                                    ) {
+                                        value += ' ' + text.content;
+                                    }
+
                                 }
 
+                                values.push(value);
                             }
-
-                            values.push(value);
+                            data.push(values);
                         }
-                        data.push(values);
-                    }
 
+                        this.tables[tt].data = data;
+                    }
                 }
 
                 for(r = 0; r < data.length; r++) {
                     dom.push('<tr>');
                     for(c = 0; c < data[r].length; c++) {
-                        dom.push('<td><input type="text" class="form-control" value="' + data[r][c] + '"/></td>');
+                        dom.push('<td><input type="text" data-row-index="' + r + '" data-col-index="' + c + '" class="form-control singleDataValue" value="' + data[r][c] + '"/></td>');
                     }
                     dom.push('</tr>');
                 }
@@ -393,11 +430,13 @@ $(document).ready(function() {
 
                             for(var r = 0; r < table.rows.length; r++) {
                                 var row = table.rows[r];
+                                if(row === 0 || row === false) continue;
                                 dom.push('<div data-index="' + r + '" style="width: ' + (table.width - 2) + 'px; margin-top: ' + row + 'px;" class="row"><div class="opt"><button type="button" class="btn btn-danger btn-xs removeRowAction"><span aria-hidden="true" class="removeRowActionSpan">&times;</span></button></div></div>');
                             }
 
                             for(var c = 0; c < table.cols.length; c++) {
                                 var col = table.cols[c];
+                                if(col === 0 || col === false) continue;
                                 dom.push('<div data-index="' + c + '" style="height: ' + (table.height - 2) + 'px; margin-left: ' + col + 'px;" class="col"><div class="opt" style="margin-top: ' + (table.height - 2) + 'px;"><button type="button" class="btn btn-danger btn-xs removeColAction"><span aria-hidden="true" class="removeColActionSpan">&times;</span></button></div></div>');
                             }
 
