@@ -49,7 +49,6 @@
     }
 
     &.dataobject {
-        background: #F1F2F3;
 
         > .container {
             margin-top: 10px;
@@ -385,6 +384,7 @@
 
             .titleName {
 	            margin-bottom: 15px;
+	            margin-left: 44px;
             }
 
             i.object-icon, span.object-icon {
@@ -432,7 +432,11 @@
     background: #FFF;
     border-bottom: 1px solid #E3E3E3;
     border-top: 1px solid #E3E3E3;
-
+	
+	&.empty {
+		display: none;
+	}
+	
     ul {
         overflow: hidden;
         height: 50px;

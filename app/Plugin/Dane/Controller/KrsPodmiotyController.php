@@ -571,8 +571,29 @@ class KrsPodmiotyController extends DataobjectsController
 		            'dataset' => 'sprawozdania_opp',
 		            'id' => $this->request->params['subid'],
 	            ),
+	            'layers' => array(
+		            'czesci'
+	            ),
             ));
-
+			
+			$menu = array(
+				'items' => array(),
+				'base' => '/',
+			);
+			
+			foreach( $sprawozdanie->getLayer('czesci') as $c ) {
+				
+				$menu['items'][] = array(
+					'id' => $c['id'],
+					'label' => $c['nazwa'],
+					'href' => 'asd',
+				);
+				
+			}
+			
+			$menu['selected'] = $c['id'];
+			
+            $this->set('_submenu', $menu);
             $this->set('sprawozdanie', $sprawozdanie);
             $this->set('title_for_layout', $sprawozdanie->getTitle());
             $this->render('sprawozdanie');

@@ -6,7 +6,28 @@
     background-color: #F4F5F6;
 }
 
+.img-block-cont {
+	width: 100%;
+	border: 1px solid #ddd;
+	border-bottom-style: none;
+	height: 300px;
+	overflow: hidden;
+	img {
+		width: 100%;
+		position: relative;
+		top: -125px;
+	}
+}
+
 .block {
+	
+	&.after-img {
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		margin-top: 0;
+		border-top-style: none !important;
+	}
+	
     padding: 0;
     display: inline-block;
     margin-top: 10px;
@@ -30,6 +51,12 @@
             list-style: none;
         }
     }
+}
+
+.text-typo {
+	font-size: 15px;
+    line-height: 23px;
+    padding: 0 20px;
 }
 
 .theme-default .block-group,

@@ -1804,7 +1804,6 @@ class GminyController extends DataobjectsController
 
             }
 
-
             $this->set('_submenu', $_submenu);
             $this->render($render_view);
 
@@ -3382,15 +3381,20 @@ class GminyController extends DataobjectsController
                                 'top' => array(
                                     'top_hits' => array(
                                         'size' => 100,
+                                        /*
                                         'script_fields' => array(
                                             'komisje' => array(
                                                 'script' => "_source['radni_gmin-komisje']",
                                             ),
                                         ),
+                                        */
                                         'fielddata_fields' => array('dataset', 'id'),
                                         'sort' => array(
                                             'data.radni_gmin.funkcja_id' => 'desc',
                                             'data.radni_gmin.nazwisko' => 'asc',
+                                        ),
+                                        '_source' => array(
+	                                        'include' => array('data.*', 'radni_gmin-komisje'),
                                         ),
                                     ),
                                 ),

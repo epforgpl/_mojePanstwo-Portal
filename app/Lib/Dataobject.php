@@ -98,7 +98,11 @@ class Dataobject
         // debug( $this->getData() );
 
     }
-
+	
+	public function getPageThumbnailUrl() {
+		return false;
+	}
+	
 	public function getSubscribtion() {
 		return (boolean) $this->subscribtion;
 	}
@@ -401,5 +405,9 @@ class Dataobject
     public function getPageDescription() {
 	    return $this->_pageDescription ? $this->getMetaDescription('page') : false;
     }
-
+	
+	public function getImgPageDescription() {
+	    return false;
+    }
+	
 }

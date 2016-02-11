@@ -33,4 +33,19 @@ class Ngo_konkursy extends DataObject
 	    return 'http://sds.tiktalik.com/portal/ngo_konkursy/' . $this->getId() . '_1.jpg';
     }
     
+    public function getPageThumbnailUrl()
+    {
+	    return 'http://sds.tiktalik.com/portal/ngo_konkursy/' . $this->getId() . '_3.jpg';
+    }
+    
+    public function getImgPageDescription()
+    {
+	    return $this->getData('opis');
+    }
+    
+    public function getPageDescription()
+    {
+	    return false;
+    }
+    
 }

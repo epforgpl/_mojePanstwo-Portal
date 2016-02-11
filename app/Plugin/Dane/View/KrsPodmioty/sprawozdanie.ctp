@@ -16,12 +16,23 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
 
 <div class="row">
-	<div class="col-sm-9">
+	<div class="col-md-2">
+		<div class="dataBrowser">
+		<?
+			echo $this->Element('Dane.DataBrowser/browser-menu', array(
+                'menu' => $_submenu,
+                'pills' => isset($pills) ? $pills : null
+            ));
+        ?>
+		</div>
+	</div>
+	<div class="col-md-10 nocontainer">
 
-        <?= $this->Document->place($sprawozdanie->getData('dokument_id')) ?>
+		<?= $this->Document->place($sprawozdanie->getData('dokument_id')) ?>
 
-    </div>
+	</div>
 </div>
+
 
 <?
 echo $this->Element('dataobject/pageEnd');
