@@ -1,25 +1,38 @@
 <?
-$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-$this->Combinator->add_libs('js', '../plugins/highstock/locals');
-
-$counter_field = 'suma';
-
-if( $data ) {
-	foreach( $data['buckets'] as &$b ) {
-
+if ($data) {
+    foreach ($data['buckets'] as &$b) {
         $b['label'] = $b['nazwa'];
-
     }
 }
-
 ?>
 
 <? if (!isset($this->request->query['conditions'][$map['field']])) { ?>
-    <div class="agg agg-ColumnsHorizontal"<? if( isset($id) ){?> data-agg_id=<?= $id ?><? } ?> data-choose-request="<?= $map['chooseRequest']; ?>"
-         data-chart="<?= htmlentities(json_encode($data)) ?>" data-counter_field="<?= $counter_field ?>">
-        <div class="chart"></div>
+    <div class="agg agg-Dataobjects"<? if (isset($id)) {
+        echo ' data-agg_id=' . $id;
+    } ?>>
+        <ul class="dataobjects col-xs-12 nopadding">
+            <li class="col-xs-12 nopadding">
+                <? foreach ($data['buckets'] as $bucket) { ?>
+                    <div class="objectRender readed objclass zamowienia_publiczne_wykonawcy col-xs-12">
+                        <div class="data col-xs-12 nopadding">
+                            <div class="content">
+                                <span class="object-icon icon-datasets-zamowienia_publiczne_wykonawcy"></span>
+                                <div class="object-icon-side ">
+                                    <p class="title">
+                                        <a href="/dane/krs_podmioty/{id}"
+                                           title="<?= $bucket['nazwa']['buckets'][0]['key'] ?>"><?= $bucket['nazwa']['buckets'][0]['key'] ?></a>
+                                    </p>
+                                    <p class="meta meta-desc"><?= $bucket['suma']['value'] ?> zł</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <? } ?>
+            </li>
+        </ul>
     </div>
 <? } else { ?>
+    asd2
     <p class="label-browser">
         <a href="<?= $map['cancelRequest']; ?>" aria-label="Close">
             <span class="label label-primary">

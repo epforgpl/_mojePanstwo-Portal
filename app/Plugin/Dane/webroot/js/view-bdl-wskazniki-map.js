@@ -638,7 +638,7 @@
                 var value = point[colorKey],
                     color;
 
-                color = value === null ? nullColor : (colorAxis && value !== undefined) ? colorAxis.toColor(value, point) : point.color || series.color;
+				color = value == null ? nullColor : (colorAxis && value !== undefined) ? colorAxis.toColor(value, point) : point.color || series.color;
 
                 if (color) {
                     point.color = color;
@@ -911,7 +911,7 @@
     });
 
 
-// The vector-effect attribute is not supported in IE <= 11 (at least), so we need 
+// The vector-effect attribute is not supported in IE <= 11 (at least), so we need
 // diffent logic (#3218)
     var supportsVectorEffect = document.documentElement.style.vectorEffect !== undefined;
 
@@ -1236,7 +1236,7 @@
             var options = this.options,
                 mapData = options.mapData,
                 joinBy = options.joinBy,
-                joinByNull = joinBy === null,
+				joinByNull = joinBy == null,
                 dataUsed = [],
                 mapPoint,
                 transform,

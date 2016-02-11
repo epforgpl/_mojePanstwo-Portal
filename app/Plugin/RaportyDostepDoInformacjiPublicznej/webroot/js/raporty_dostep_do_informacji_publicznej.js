@@ -1178,7 +1178,7 @@ InfoGraph.prototype = {
 
             var rad = (this._Ang / 75) * PI;
 
-            if (this.cvO === null) {
+			if (this.cvO == null) {
                 return;
             }
             if (_isIE && !_Support_Canvas) {

@@ -501,6 +501,8 @@ var MapBrowser = Class.extend({
 				self.markers.adres = {};
 			}
 		}
+
+		console.log(self.markers);
 	},
 
 	showPlaces: function (mode, data, layer) {

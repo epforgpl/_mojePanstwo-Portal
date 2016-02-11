@@ -145,7 +145,7 @@ $(document).ready(function () {
             return false;
         },
         select: function (event, ui) {
-            if (ui.item.value === null)
+			if (ui.item.value == null)
                 return false;
 
             $("#teryt_search_input").val(ui.item.name);

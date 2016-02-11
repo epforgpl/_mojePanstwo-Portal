@@ -353,7 +353,7 @@ DataAggsDropdown.prototype.createDateHistogram = function() {
 
 		dropdownStr += [
 			'<li', ((option.value == null && !this.isSelected) || (this.isSelected && option.value == this.selected)) ? ' class="active"' : '' ,'>',
-				'<a href="', (option.value === null) ? _this.cancelRequest : _this.chooseRequest + option.value ,'">',
+			'<a href="', (option.value == null) ? _this.cancelRequest : _this.chooseRequest + option.value, '">',
 					option.label,
 				'</a>',
 			'</li>'
@@ -735,31 +735,31 @@ DataAggsDropdown.prototype.createColumnsHorizontal = function() {
 };
 
 DataAggsDropdown.prototype.createList = function() {
-	
+
 	console.log('createList', this.aggs);
-	
+
 	var dropdownMenu = this.li.find('ul.dropdown-menu'),
 		dropdownList = '';
 
 	for(var i = 0; i < this.aggs.buckets.length; i++) {
-		
+
 		var label = this.aggs.buckets[i].key;
-				
+
 		if(
-			this.aggs.buckets[i].hasOwnProperty('label') && 
-			this.aggs.buckets[i].label.hasOwnProperty('buckets') && 
-			this.aggs.buckets[i].label.buckets.length && 
+			this.aggs.buckets[i].hasOwnProperty('label') &&
+			this.aggs.buckets[i].label.hasOwnProperty('buckets') &&
+			this.aggs.buckets[i].label.buckets.length &&
 			this.aggs.buckets[i].label.buckets[0].hasOwnProperty('key')
-		) 
+		)
 			label = this.aggs.buckets[i].label.buckets[0].key;
-		
+
 		if(this.labelDictionary.hasOwnProperty(label))
 			label = this.labelDictionary[label];
-			
+
 		var label_short = label.substring(0, 50);
 		if( label_short.length < label.length )
 			label_short += '...';
-		
+
 		dropdownList += [
 			'<li' + (this.isSelected && this.selected == this.aggs.buckets[i].key ? ' class="active"' : '') + '>',
 				'<a title="' + label + '" href="' + this.chooseRequest + this.aggs.buckets[i].key + '">',
