@@ -10,12 +10,13 @@ echo $this->element('app/sidebar');
 ?>
 <div class="app-content-wrap">
     <div class="objectsPage">
-        
+                
         <?
         $options = array(
             'displayAggs' => false,
             'columns' => $columns,
             'searcher' => true,
+            'datasetsFilter' => true,
         );
 
         /*
@@ -23,7 +24,7 @@ echo $this->element('app/sidebar');
             $options['menu'] = $menu;
         }
         */
-
+		
         echo $this->element('Dane.DataBrowser/browser-content', $options);
         ?>
                 

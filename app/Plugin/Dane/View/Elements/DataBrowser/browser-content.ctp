@@ -37,6 +37,7 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 			    echo $this->element('Dane.DataBrowser/browser-content-header', array(
 				    'dataWrap' => $dataWrap,
 				    'params' => $this->Paginator->params(),
+				    'datasetsFilter' => isset( $datasetsFilter ) ? $datasetsFilter : false,
 			    ));
 			
 			}

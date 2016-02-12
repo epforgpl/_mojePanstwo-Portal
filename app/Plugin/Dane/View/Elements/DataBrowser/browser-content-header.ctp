@@ -33,6 +33,33 @@
 		            if (isset($dataBrowser['beforeBrowserElement']))
 		                echo $this->element($dataBrowser['beforeBrowserElement']);
 		            ?>
+		            
+		            <?
+			            $datasetsFilter = isset( $datasetsFilter ) ? $datasetsFilter : false;
+			            if(
+			            	$datasetsFilter && 
+			            	$dataBrowser['aggs']['dataset'] && 
+			            	!empty( $dataBrowser['aggs']['dataset']['buckets'] )
+		            	) {
+				    ?>        
+						<ul class="datasetsFilter">
+					        <? foreach ($dataBrowser['aggs']['dataset']['buckets'] as $name => $map) { ?>
+								<?
+									if( isset( $map['app_id'] ) ) {
+										$href = '/' . $map['app_id'] . '/' . $map['menu_id'] . '?q=' . $this->request->query['q'];
+								?>								
+					            <li>
+				                    <a href="<?= $href ?>">
+				                        <?= $map['label'] ?>
+				                        <span class="badge"><?= $map['doc_count'] ?></span>
+				                    </a>
+				                </li>
+					            <? } ?>
+					        <? } ?>								
+						</ul>						
+					<? } ?>
+
+				    
 					
 		            <?= $this->element('Dane.DataBrowser/browser-content-filters', array(
 		                'paging' => $params,

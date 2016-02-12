@@ -1570,6 +1570,7 @@ class DataBrowserComponent extends Component
 		if( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['apps']) && $this->settings['apps'] ) {
 			
 			$apps = $controller->getDatasets();
+			
 	        $aggs = array();
 	        foreach ($apps as $app_id => $datasets) {
 	            $aggs['app_' . $app_id] = array(
@@ -1672,6 +1673,7 @@ class DataBrowserComponent extends Component
             
             if( $dataBrowser['aggs'] ) {
 	            foreach( $dataBrowser['aggs'] as $k => $v ) {
+		            
 		            if( 
 		            	( strpos($k, 'app_')===0 ) && 
 		            	( $v['doc_count'] ) && 
@@ -1687,7 +1689,21 @@ class DataBrowserComponent extends Component
 		                
 		                $app_menu_counters[] = $v['doc_count'];
 			            
+		            } elseif( 
+		            	( $k == 'dataset' ) && 
+		            	( !empty($v['buckets']) )
+	            	) {
+			            foreach( $v['buckets'] as $i => $b ) {
+				            
+				            $d = $controller->getDataset($b['key']);
+				            $b = array_merge($b, $d['dataset_name']);
+				            $b['app_id'] = $d['app_id'];
+				            
+				            $dataBrowser['aggs'][ $k ]['buckets'][ $i ] = $b;
+				            
+			            }			            
 		            }
+		            
 	            }
             }
             
