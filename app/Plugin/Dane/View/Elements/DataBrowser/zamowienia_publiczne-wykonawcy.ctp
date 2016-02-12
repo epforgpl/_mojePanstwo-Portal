@@ -22,7 +22,7 @@ if ($data) {
                                         <a href="/dane/krs_podmioty/{id}"
                                            title="<?= $bucket['nazwa']['buckets'][0]['key'] ?>"><?= $bucket['nazwa']['buckets'][0]['key'] ?></a>
                                     </p>
-                                    <p class="meta meta-desc"><?= $bucket['suma']['value'] ?> zł</p>
+                                    <p class="meta meta-desc"><?= number_format_h($bucket['suma']['value']) ?> zł</p>
                                 </div>
                             </div>
                         </div>
