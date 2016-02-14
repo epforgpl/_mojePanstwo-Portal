@@ -21,73 +21,78 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
         <div class="row">
             <div class="col-md-9">
                 <div class="object">
-                    <div class="block block-simple col-xs-12 margin-top-5">
-
-                        <? if( $headline = $dzialanie->getData('podsumowanie') ) {?>
-                            <div class="headline">
-                                <?= $headline ?>
-                            </div>
-                        <? } ?>
-
-                        <div class="meta">
-						<span class="date">
-			                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                            <?= $this->Czas->dataSlownie(
-                                $dzialanie->getData('data_utworzenia')
-                            ); ?>
-			            </span>
-                        </div>
-
-                        <? if ($dzialanie->getData('photo') == '1') { ?>
-                            <div class="photo">
-                                <img alt="<?= $dzialanie->getData('tytul'); ?>" src="http://sds.tiktalik.com/portal/1/pages/dzialania/<?= $dzialanie->getData('id'); ?>.jpg"/>
-                            </div>
-                        <? } ?>
-
-                        <div class="opis">
-                            <?
-                            $output = $dzialanie->getData('opis');
-                            $output = preg_replace_callback('/\{\$dokument (.*?)\}/i', function($matches){
-
-                                $dokument_id = false;
-                                preg_match_all('/(.*?)\=\"(.*?)\"/i', $matches[1], $m);
-                                for( $i=0; $i<count($m[0]); $i++ ) {
-
-                                    if( ($m[1][$i]=='id') && is_numeric($m[2][$i]) )
-                                        $dokument_id = $m[2][$i];
-
-                                }
-
-                                if( $dokument_id )
-                                    return $this->Document->place($dokument_id);
-                                else
-                                    return '';
-
-                            }, $output);
-
-                            $output = preg_replace_callback('/\{\$mailing_button (.*?)\}/i', function($matches){
-
-                                $label = 'Wyślij pismo do posła teraz!';
-
-                                preg_match_all('/(.*?)\=\"(.*?)\"/i', $matches[1], $m);
-                                for( $i=0; $i<count($m[0]); $i++ ) {
-                                    if( ($m[1][$i]=='label') && isset($m[2][$i]) )
-                                        $label = $m[2][$i];
-                                }
-
-                                return '<div class="text-center margin-top-10">
-                                                <div class="btn mailingBtn width-auto btn-md btn-primary btn-icon">
-                                                    <span class="icon glyphicon glyphicon-envelope"></span>
-                                                    ' . $label . '
-                                                </div>
-                                            </div>';
-
-                            }, $output);
-
-                            echo $output;
-                            ?>
-                        </div>
-
+                    <div class="block block-simple col-xs-12 margin-top-5 margin-bottom-20">
+						
+						<section class="text-typo margin-bottom-20">
+	                        <? if( $headline = $dzialanie->getData('podsumowanie') ) {?>
+	                            <div class="headline">
+	                                <?= $headline ?>
+	                            </div>
+	                        <? } ?>
+							
+	                        <div class="meta margin-sides-20">
+							<span class="date">
+				                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+	                            <?= $this->Czas->dataSlownie(
+	                                $dzialanie->getData('data_utworzenia')
+	                            ); ?>
+				            </span>
+	                        </div>
+	
+	                        <? if ($dzialanie->getData('photo') == '1') { ?>
+	                            <div class="photo">
+	                                <img alt="<?= $dzialanie->getData('tytul'); ?>" src="http://sds.tiktalik.com/portal/1/pages/dzialania/<?= $dzialanie->getData('id'); ?>.jpg"/>
+	                            </div>
+	                        <? } ?>
+	
+	                        <div class="opis margin-sides-20">
+	                            <?
+	                            $output = $dzialanie->getData('opis');
+	                            $output = preg_replace_callback('/\{\$dokument (.*?)\}/i', function($matches){
+	
+	                                $dokument_id = false;
+	                                preg_match_all('/(.*?)\=\"(.*?)\"/i', $matches[1], $m);
+	                                for( $i=0; $i<count($m[0]); $i++ ) {
+	
+	                                    if( ($m[1][$i]=='id') && is_numeric($m[2][$i]) )
+	                                        $dokument_id = $m[2][$i];
+	
+	                                }
+	
+	                                if( $dokument_id )
+	                                    return $this->Document->place($dokument_id);
+	                                else
+	                                    return '';
+	
+	                            }, $output);
+	
+	                            $output = preg_replace_callback('/\{\$mailing_button (.*?)\}/i', function($matches){
+	
+	                                $label = 'Wyślij pismo do posła teraz!';
+	
+	                                preg_match_all('/(.*?)\=\"(.*?)\"/i', $matches[1], $m);
+	                                for( $i=0; $i<count($m[0]); $i++ ) {
+	                                    if( ($m[1][$i]=='label') && isset($m[2][$i]) )
+	                                        $label = $m[2][$i];
+	                                }
+	
+	                                return '<div class="text-center margin-top-10">
+	                                                <div class="btn mailingBtn width-auto btn-md btn-primary btn-icon">
+	                                                    <span class="icon glyphicon glyphicon-envelope"></span>
+	                                                    ' . $label . '
+	                                                </div>
+	                                            </div>';
+	
+	                            }, $output);
+	
+	                            echo $output;
+	                            ?>
+	                        </div>
+                        
+						</section>
+						
+						
+						<div class="margin-sides-20">
                         <? if($features = $dzialanie->getLayer('features')) { ?>
 
                             <? if($dzialanie->getData('zakonczone') == '1') { ?>
@@ -232,7 +237,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 
                         <? if(isset($files) && count($files)) { ?>
 
-                            <h4>Załączniki</h4>
+                            <h4 class="">Załączniki</h4>
 
                             <div class="files">
                                 <? foreach($files as $file) { ?>
@@ -246,6 +251,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
                             </div>
 
                         <? } ?>
+						</div>
 
                     </div>
                 </div>
