@@ -2,7 +2,6 @@
 
 <div class="searcher form-group has-feedback">
     <div class="col-md-12">
-        <div class="input-group">
             <input class="form-control hasclear input-md<? if (isset($url) && !empty($q)) {
                 echo ' clearer-on';
             } ?>"
@@ -21,11 +20,5 @@
                     <span class="form-control-feedback" aria-hidden="true">&times;</span>
                 </a>
             <? } ?>
-            <div class="input-group-btn">
-                <button class="btn btn-success input-md" type="submit">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </div>
         </div>
-    </div>
 </div>

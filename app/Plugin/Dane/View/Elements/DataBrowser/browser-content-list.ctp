@@ -6,9 +6,35 @@ if (@isset($dataBrowser['phrases']['paginator']) && $dataBrowser['phrases']['pag
 
 if (isset($paginatorPhrases) && $paginatorPhrases)
     $phrases = $paginatorPhrases;
+    
+$_manage = isset( $manage ) ? $manage: false;
+
 ?>
 
-<div class="dataBrowser margin-top-0 lower">
+<div class="dataBrowser margin-top-0 lower<? if($_manage) {?> manage<? } ?>">
+	
+    <? if ($_manage) {?>
+	<div class="manage-display" style="display: none;">
+		<div class="container">
+			
+			<form action="/moje-pisma/moje" method="post">
+				<div class="inputs">
+				</div>
+				<p class="display pull-left"></p>
+				<ul class="actions pull-right">
+					<li class="p">
+						<p>Zaznaczone: </p>
+					</li>
+					<li>
+						<input type="submit" class="btn btn-default btn-sm" name="delete" value="Usuń">
+					</li>
+				</ul>
+			</form>
+
+		</div>
+	</div>
+	<? } ?>
+	
 	<div class="container">
 		<div class="dataBrowserContent">
 				
@@ -96,7 +122,9 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 					                            <ul class="list-group list-dataobjects">
 					                                <?
 					
-					                                $params = array();
+					                                $params = array(
+						                                'manage' => $_manage,
+					                                );
 					                                if (isset($truncate))
 					                                    $params['truncate'] = $truncate;
 					
@@ -125,19 +153,18 @@ if (isset($paginatorPhrases) && $paginatorPhrases)
 					
 					                </div>
 					
-					            </div>
-					            
-		
+					            </div>			
 			            
 				            </div>
 						</div>
-			
+										
 			        </div>
 			
 			    </div>
 			</div>
 			
-			
 		</div>
 	</div>
+		
+	
 </div>

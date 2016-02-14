@@ -92,6 +92,7 @@ class LettersController extends StartAppController
     {
         if ($pismo = $this->load($id, array(
 	        'inputs' => true,
+	        'template' => true,
         ))) {
 			
 			// debug($pismo);
@@ -300,8 +301,7 @@ class LettersController extends StartAppController
             }
 
         } elseif (
-            isset($this->request->data['action']) &&
-            ($this->request->data['action'] == 'delete')
+            isset($this->request->data['delete']) 
         ) {
 
             $this->Pismo->documents_delete($this->request->data['id']);
@@ -347,7 +347,8 @@ class LettersController extends StartAppController
         $this->set('pismo_init', $pismo);
         $this->title = 'Nowe pismo';
     }
-
+	
+	/*
     public function my()
     {
         $q = false;
@@ -446,6 +447,18 @@ class LettersController extends StartAppController
         $this->set('filters_selected', $filters_selected);
 
         $this->title = 'Moje Pisma';
+    }
+    */
+    
+    public function my()
+    {
+
+        $this->title = 'Moje Pisma';
+
+        $this->Components->load('Dane.DataBrowser', array(
+            '_type' => 'letters'
+        ));
+
     }
 
     public function templates()

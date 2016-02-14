@@ -67,7 +67,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
     </div>
 <? } ?>
 
-    <div class="dataBrowser">
+    <div class="dataBrowser margin-top-15">
 		
 		<div class="row">
 			<?

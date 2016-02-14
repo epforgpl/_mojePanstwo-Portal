@@ -17,7 +17,7 @@
 				<h1 class="pull-left smaller">Moje Kolekcje</h1>
 				<a
 			        href="#"
-			        class="btn btn-primary btn-icon submit width-auto pull-right margin-top-20"
+			        class="btn-success btn-xs mp-btn-sm btn-icon submit width-auto pull-left"
 			        data-toggle="modal"
 			        data-target="#createCollection">
 			        <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>

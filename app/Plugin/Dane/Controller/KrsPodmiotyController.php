@@ -989,7 +989,7 @@ class KrsPodmiotyController extends DataobjectsController
 
         $selectedAccountsFilter = array(
             'term' => array(
-                'data.twitter_accounts.id' => $id,
+                'data.twitter.twitter_account_id' => $id,
             ),
         );
 

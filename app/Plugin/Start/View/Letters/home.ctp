@@ -32,14 +32,14 @@
 			</div>
 			
 			<div class="row">
-				<div class="col-md-9">
-					<div class="well bs-component mp-form">
+				<div class="col-md-8">
+					<div class="bs-component mp-form">
 					    <form action="/moje-pisma" method="post" class="form-horizontal">
 					        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
 					            echo ' value="' . $pismo['adresat_id'] . '"';
 					        } ?>>
 					        <fieldset>
-					            <legend>Wybierz szablon i adresata nowego pisma:</legend>
+
 					            <div class="form-group form-row">
 					                <label class="col-lg-2 control-label">Szablon</label>
 					
@@ -118,7 +118,7 @@
 					            <? } ?>
 					            <div class="form-group form-row">
 					                <div class="col-lg-10 col-lg-offset-2">
-					                    <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+					                    <button type="submit" class="createBtn btn btn-md btn-success btn-icon"><i
 					                            class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
 					                    </button>
 					                </div>

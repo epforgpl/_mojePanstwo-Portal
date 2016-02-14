@@ -11,8 +11,59 @@ var DataBrowser = Class.extend({
 		});
 
 		this.initAggs();
+		
+		if( this.div.hasClass('manage') )
+			this.initManage();
+
 	},
 
+	initManage: function() {
+		
+		var that = this;
+		this.div.find('.manage-checkbox').prop('checked', false).change(function(event){
+			that.manageUpdateDisplay();
+		});
+			
+	},
+	
+	manageUpdateDisplay: function() {
+
+		this.div.find('.manage-display .inputs').html('');
+		var inputs_html = '';
+
+		var cbx = this.div.find('.manage-checkbox:checked');
+		if( cbx.length ) {
+			
+			for( var i=0; i<cbx.length; i++ ) {
+				
+				var obj = $(cbx[i]).parents('.objectRender');
+				
+				if( obj.length ) {
+					
+					obj = $(obj[0]);
+					inputs_html += '<input type="hidden" name="id[]" value="' + obj.attr('gid')  + '" />';
+				
+				}
+				
+			}
+			
+			this.div.find('.manage-display .inputs').html(inputs_html);
+			
+			var txt = cbx.length + ' zaznaczonych pism';
+			this.div.find('.manage-display .display').text( txt )
+			
+			this.div.find('.manage-display').show();
+			this.div.find('.dataAggsDropdownList.nav').hide();
+						
+			
+		} else {
+			
+			this.div.find('.manage-display').hide();
+			this.div.find('.dataAggsDropdownList.nav').show();
+			
+		}
+	},
+	
 	initAggs: function () {
 		this.aggsDiv = this.div.find('.dataAggsContainer .dataAggs');
 

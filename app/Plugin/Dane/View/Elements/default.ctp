@@ -18,15 +18,24 @@ if (!isset($truncate))
     $truncate = 150;
 
 $this->Dataobject->setObject($object);
+
+$_manage = isset( $manage ) ? $manage: false;
 ?>
 <div class="objectRender<? echo ($alertsStatus) ? " unreaded" : " readed";
 if ($classes = $object->getClasses()) {
     echo " " . implode(' ', $classes);
-} ?>" oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
-
+} ?><? if($object->getOptions('manage')) {?> manage<?}?>" oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
+		
     <div class="row">
         <div class="data col-xs-12">
-            <div>
+            
+            <? if($object->getOptions('manage')) {?>
+        		
+        		<input class="manage-checkbox" type="checkbox" name="id" value="<?= $object->getId() ?>" />
+        		
+        	<? } ?>
+            
+            <div class="main_content<? if($object->getOptions('manage')) {?> manage<? } ?>">
                 <?
                 if ($object->getPosition()) {
                     ?>
@@ -36,6 +45,9 @@ if ($classes = $object->getClasses()) {
                     <?
                 }
                 ?>
+                
+            	
+
 
                 <? if ($object->getThumbnailUrl($thumbSize)) {
 

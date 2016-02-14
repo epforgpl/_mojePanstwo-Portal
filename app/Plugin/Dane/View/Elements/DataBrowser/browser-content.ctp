@@ -10,6 +10,7 @@ $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 
+$_manage = isset( $manage ) ? $manage: false;
 ?>
 
 <div class="dataBrowser upper margin-top-0<? if (isset($class)) echo " " . $class; ?>">
@@ -53,6 +54,7 @@ $this->Combinator->add_libs('js', 'Dane.DataAggsDropdown.js');
 		echo $this->element('Dane.DataBrowser/browser-content-list', array(
 		    'dataWrap' => $dataWrap,
 		    'params' => $this->Paginator->params(),
+		    'manage' => $_manage,
 	    ));
 		echo $this->element('Dane.DataBrowser/browser-content-pagination', array(
 		    'dataWrap' => $dataWrap,

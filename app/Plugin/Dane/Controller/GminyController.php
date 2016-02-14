@@ -1936,7 +1936,7 @@ class GminyController extends DataobjectsController
                                 ),
                                 array(
                                     'term' => array(
-                                        'data.krakow_posiedzenia_punkty.id' => $this->request->params['subid'],
+                                        'data.krakow_posiedzenia_wystapienia.punkt_id' => $this->request->params['subid'],
                                     ),
                                 ),
                             ),
@@ -2910,6 +2910,7 @@ class GminyController extends DataobjectsController
                             ),
                             'scope' => 'global'
                         ),
+                        /*
                         'oswiadczenia' => array(
                             'filter' => array(
                                 'bool' => array(
@@ -2940,6 +2941,7 @@ class GminyController extends DataobjectsController
                             ),
                             'scope' => 'global'
                         ),
+                        */
                         'interpelacje' => array(
                             'filter' => array(
                                 'bool' => array(
@@ -3041,7 +3043,7 @@ class GminyController extends DataobjectsController
                                         ),
                                         array(
                                             'term' => array(
-                                                'data.radni_gmin.id' => $radny->getId(),
+                                                'data.krakow_glosowania_glosy.radny_id' => $radny->getId(),
                                             ),
                                         ),
                                     ),
@@ -3054,6 +3056,9 @@ class GminyController extends DataobjectsController
                                         'fielddata_fields' => array('dataset', 'id'),
                                         'sort' => array(
                                             'date' => 'desc',
+                                        ),
+                                        '_source' => array(
+	                                        'include' => array('data.*'),
                                         ),
                                     ),
                                 ),
@@ -3086,6 +3091,9 @@ class GminyController extends DataobjectsController
                                             'date' => array(
                                                 'order' => 'desc',
                                             ),
+                                        ),
+                                        '_source' => array(
+	                                        'include' => array('data.*'),
                                         ),
                                     ),
                                 ),

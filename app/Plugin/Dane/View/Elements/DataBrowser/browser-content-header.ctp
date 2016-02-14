@@ -15,7 +15,7 @@
 				<div class="appSearch form-group margin-top-20">
 			        <form action="" method="get">
 			            <div class="input-group">
-			                <input name="q" class="form-control" placeholder="Szukaj..." type="text" <? if( isset($this->request->query['q']) ) {?>value="<?= $this->request->query['q'] ?>"<? } ?> />
+			                <input name="q" class="form-control" placeholder="Szukaj..." type="text" value="<?= @$this->request->query['q'] ?>" />
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-primary input-md">
 			                        <span class="glyphicon glyphicon-search"></span>
@@ -38,7 +38,7 @@
 			            $datasetsFilter = isset( $datasetsFilter ) ? $datasetsFilter : false;
 			            if(
 			            	$datasetsFilter && 
-			            	$dataBrowser['aggs']['dataset'] && 
+			            	isset( $dataBrowser['aggs']['dataset'] ) && 
 			            	!empty( $dataBrowser['aggs']['dataset']['buckets'] )
 		            	) {
 				    ?>        

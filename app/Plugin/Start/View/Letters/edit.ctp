@@ -1,5 +1,6 @@
 <?php
 $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start')));
+$this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Start.letters.js');
 ?>
 <?
@@ -28,36 +29,43 @@ echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('blo
 
 <div class="app-content-wrap">
     <div class="objectsPage">		
+		
+		<?= $this->element('letters/header') ?>
+		
+		<?= $this->element('letters/menu', array(
+			'plugin' => 'Start',
+			'active' => 'edit',
+		)); ?>
+		
 		<div class="container">
-			
-			<div class="overflow-auto">
-				<h1 class="pull-left">Tworzenie nowego pisma:</h1>
-			</div>
-			
+						
 			<div class="row">
-				<div class="col-md-9">
-			
-					<div class="well bs-component mp-form mp-form-letter">
+				<div class="col-md-9 margin-top-15">
+					
+					<? if( @$pismo['_template'][0]['opis'] ) {?>
+					<div class="alert alert-info margin-top-15 margin-sides-20">
+					
+					   <?= $pismo['_template'][0]['opis'] ?>
+					   
+					</div>
+					<? } ?>
+					
+					<? if( @$pismo['_template'][0]['podstawa_prawna'] ) {?>
+					<div class="margin-sides-20">
+						<div class="block block-simple nobg margin-top-0">
+							<header>Do Twojego pisma zostanie dołączona następująca podstawa prawna:</header>
+							<section class="content">
+								<div><?= $pismo['_template'][0]['podstawa_prawna'] ?></div>
+							</section>
+						</div>
+					</div>
+					<? } ?>
+					
+					<div class="bs-component mp-form nobg mp-form-letter">
 					  <form action="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>" method="post" class="form-horizontal">
 					  <input type="hidden" name="edit_from_inputs" value="1" />
 					      <fieldset>
-					       <legend>Wpisz treść pisma:</legend>
 					
-					      <? if( $pismo['template_id'] ) {?>
-					      <div class="form-group form-row sm">
-					        <label class="col-lg-2 control-label">Szablon</label>
-					        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['template_name'] ?></p></div>
-					      </div>
-					      <? } ?>
-					
-					      <? if( $pismo['to_name'] ) {?>
-					      <div class="form-group form-row sm">
-					        <label for="inputEmail" class="col-lg-2 control-label">Adresat</label>
-					        <div class="col-lg-10"><p class="form-value hl"><?= $pismo['to_name'] ?></p></div>
-					      </div>
-					      <? } ?>
-					
-					      <hr/>
 					
 					          <?
 						  if( $pismo['_inputs'] ) {
@@ -84,7 +92,7 @@ echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('blo
 									  if( $input['type']=='richtext' ) {
 					                      ?>
 								      <div class="form-group form-row">
-								        <label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label>
+								        <? if( $input['label'] ) {?><label for="inp<?= $input['id'] ?>" class="col-lg-12 control-label control-label-full"><?= $input['label'] ?></label><? } ?>
 										<div class="col-lg-12">
 					                        <textarea class="form-control tinymceField" rows="20" id="inp<?= $input['id'] ?>"
 					                                  name="inp<?= $input['id'] ?>"><?= $v ?></textarea>
@@ -95,7 +103,7 @@ echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('blo
 									  } elseif( $input['type']=='text' ) {
 					                      ?>
 									  <div class="form-group form-row">
-								        <label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label>
+								        <? if( $input['label'] ) {?><label for="inp<?= $input['id'] ?>" class="<?if($full) {?>col-lg-12 control-label-full<?}else{?>col-lg-2 control-label<?}?>"><?= $input['label'] ?></label><? } ?>
 										<div class="<?if($full) {?>col-lg-12<?}else{?>col-lg-10<?}?>">
 								          <input value="<?= $v ?>" type="text" class="form-control" id="inp<?= $input['id'] ?>" name="inp<?= $input['id'] ?>"<? if( @$input['placeholder'] ) {?> placeholder="<?= $input['placeholder'] ?>"<? } ?>>
 								          <? if( @$input['desc'] ) {?><span class="help-block"><?= $input['desc'] ?></span><? } ?>
@@ -152,7 +160,7 @@ echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('blo
 							            class="icon icon-applications-pisma"></i>Zapisz
 								      </button>
 							      <? } else { ?>
-							      	<button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+							      	<button type="submit" class="createBtn btn btn-md btn-success btn-icon"><i
 							            class="icon icon-applications-pisma"></i>Zapisz i zobacz podgląd pisma
 								      </button>
 							      <? } ?>
@@ -161,9 +169,18 @@ echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('blo
 					    </fieldset>
 					  </form>
 					</div>
+						
+											
+				</div><div class="col-md-3">
+					
+					
+					<?= $this->element('letters/side', array('plugin' => 'Start',)); ?>	
+					
 					
 				</div>
 			</div>
+			
+			
 
 		</div>
     </div>

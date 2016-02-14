@@ -265,7 +265,9 @@ $options = array(
 	
 	                    </div>
 	                <? } ?>
-	
+					
+					<? debug($dataBrowser['aggs']['oswiadczenia']); ?>
+					
 	                <? if (@$dataBrowser['aggs']['oswiadczenia']['top']['hits']['hits']) { ?>
 	                    <div class="databrowser-panel margin-top-20">
 	                        <h2>Oświadczenia majątkowe:</h2>

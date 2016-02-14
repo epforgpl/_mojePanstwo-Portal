@@ -3,6 +3,7 @@
 // APP::uses('MP\Lib\Dataobject', 'Lib');
 require_once(APPLIBS . 'Dataobject.php');
 require_once(APPLIBS . 'Collection.php');
+require_once(APPLIBS . 'Letter.php');
 
 class Dataobject extends AppModel
 {
@@ -40,6 +41,10 @@ class Dataobject extends AppModel
             } elseif( $results[$i]['_type']=='collections' ) {
 	            
 	            $obj = new MP\Lib\Collection($results[$i]);
+	            
+            } elseif( $results[$i]['_type']=='letters' ) {
+	            
+	            $obj = new MP\Lib\Letter($results[$i]);
 	            
             }
 						
