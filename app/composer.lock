@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "7450f649e8747bf609488f28fade038e",
+    "content-hash": "7664d654d95f7ba7829cd6596c18cb64",
     "packages": [
         {
             "name": "composer/installers",
@@ -747,12 +748,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "7ca4086194a9633a72c95ee6984267ab9e5c8cdd"
+                "reference": "7271b28e04ebc1fbec31b31f6ae22ad478425156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/7ca4086194a9633a72c95ee6984267ab9e5c8cdd",
-                "reference": "7ca4086194a9633a72c95ee6984267ab9e5c8cdd",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/7271b28e04ebc1fbec31b31f6ae22ad478425156",
+                "reference": "7271b28e04ebc1fbec31b31f6ae22ad478425156",
                 "shasum": ""
             },
             "require": {
@@ -770,7 +771,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -816,7 +817,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-01-11 04:32:15"
+            "time": "2016-01-18 05:26:11"
         },
         {
             "name": "symfony/yaml",
@@ -824,12 +825,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "085a1eb51738ffd3f299590c30eaf1aaf0a5501e"
+                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/085a1eb51738ffd3f299590c30eaf1aaf0a5501e",
-                "reference": "085a1eb51738ffd3f299590c30eaf1aaf0a5501e",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/34c8a4b51e751e7ea869b8262f883d008a2b81b8",
+                "reference": "34c8a4b51e751e7ea869b8262f883d008a2b81b8",
                 "shasum": ""
             },
             "require": {
@@ -865,7 +866,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-04 16:50:38"
+            "time": "2016-01-13 10:28:07"
         }
     ],
     "aliases": [],
