@@ -210,7 +210,7 @@ class AppController extends Controller
             ),
             'zbiorki_publiczne' => array(
                 'label' => 'Zbiórki publiczne',
-                'menu_id' => 'zbiorki_publiczne',
+                'menu_id' => 'zbiorki',
             ),
             'sprawozdania_opp' => array(
                 'label' => 'Sprawozdania Organizacji Pożytku Publicznego',

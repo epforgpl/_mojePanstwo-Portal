@@ -343,7 +343,7 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Typy obserwowanych kont',
                     'all' => 'Wszystkie obserwowane konta',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'twitter_accounts.typ_id',
                     'dictionary' => array(
                         '2' => 'Komentatorzy polityczni',
@@ -373,7 +373,7 @@ class DataBrowserComponent extends Component
             ),
             'account_id' => array(
                 'terms' => array(
-                    'field' => 'twitter_accounts.id',
+                    'field' => 'twitter.twitter_account_id',
                     'exclude' => array(
                         'pattern' => '0'
                     ),
@@ -381,7 +381,7 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'twitter_accounts.name',
+                            'field' => 'data.twitter_accounts.name',
                             'size' => 1,
                         ),
                     ),
@@ -390,7 +390,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Konta',
                     'all' => 'Wszystkie konta',
                     'skin' => 'list',
-                    'field' => 'twitter_accounts.id',
+                    'field' => 'twitter.twitter_account_id',
                 ),
             ),
             'typ_id' => array(
@@ -1223,10 +1223,65 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'zbiorki_publiczne' => array(
+            'stan' => array(
+                'terms' => array(
+                    'field' => 'zbiorki_publiczne.stan_zbiorki',
+                    'exclude' => array(
+                        'pattern' => ''
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Stan zbiórki',
+                    'skin' => 'list',
+                    'field' => 'zbiorki_publiczne.stan_zbiorki',
+                    'dictionary' => array(
+                        'Realizowana' => 'Realizowane',
+                        'Zakończona' => 'Zakończone',
+                        'Planowana' => 'Planowane',
+                    ),
+                    'all' => 'Wszystkie zbiórki',
+                ),
+            ),
+            'status' => array(
+                'terms' => array(
+                    'field' => 'zbiorki_publiczne.spr_przeprowadzenia_status',
+                    'exclude' => array(
+                        'pattern' => ''
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Stan zbiórki',
+                    'skin' => 'list',
+                    'field' => 'zbiorki_publiczne.spr_przeprowadzenia_status',
+                    'dictionary' => array(
+                    ),
+                    'all' => 'Wszystkie statusy',
+                ),
+            ),  
+            'cel_religijny' => array(
+                'terms' => array(
+                    'field' => 'zbiorki_publiczne.dane_cel_religijny',
+                    'exclude' => array(
+                        'pattern' => ''
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Cel religijny',
+                    'skin' => 'list',
+                    'field' => 'zbiorki_publiczne.dane_cel_religijny',
+                    'dictionary' => array(
+	                    'tak' => 'Cele religijne',
+	                    'nie' => 'Cele niereligijne',
+                    ),
+                    'all' => 'Wszystkie cele',
+                ),
+            ),            
+        ),
         'zamowienia_publiczne' => array(
             'wartosc_cena' => array(
                 'sum' => array(
-                    'field' => 'zamowienia_publiczne.wartosc_cena',
+                    'field' => 'data.zamowienia_publiczne.wartosc_cena',
                 ),
                 'visual' => array(
                     'label' => 'Wartość zamówień',
@@ -1488,9 +1543,22 @@ class DataBrowserComponent extends Component
         if(
 	        isset($settings['aggsPreset']) &&
             array_key_exists($settings['aggsPreset'], $this->aggs_presets)
-        )
+        ) {
+	        
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
-
+			
+			if( isset($settings['aggsPresetExclude']) ) {
+				
+				if( !is_array($settings['aggsPresetExclude']) )
+					$settings['aggsPresetExclude'] = array( $settings['aggsPresetExclude'] );
+					
+				foreach( $settings['aggsPresetExclude'] as $e )
+					unset( $settings['aggs'][$e] );
+				
+			}
+						
+        }
+        
         if(
 	        isset($settings['sortPreset']) &&
             array_key_exists($settings['sortPreset'], $this->sort_presets)

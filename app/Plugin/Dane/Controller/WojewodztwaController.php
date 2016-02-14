@@ -15,6 +15,7 @@ class WojewodztwaController extends DataobjectsController
                 'gminy.wojewodztwo_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'gminy',
+            'aggsPresetExclude' => array('wojewodztwo_id'),
         ));
         $this->set('title_for_layout', __d('dane', 'LC_DANE_GMINY_W_WOJEWODZTWIE') . ' ' . $this->object->getData('nazwa'));
         $this->render('Dane.DataBrowser/browser');
@@ -31,6 +32,7 @@ class WojewodztwaController extends DataobjectsController
                 'powiaty.wojewodztwo_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'powiaty',
+            'aggsPresetExclude' => array('wojewodztwo_id'),
         ));
         $this->set('title_for_layout', 'Powiaty w województwie ' . $this->object->getData('nazwa'));
         $this->render('Dane.DataBrowser/browser');
@@ -47,6 +49,7 @@ class WojewodztwaController extends DataobjectsController
                 'miejscowosci.wojewodztwo_id' => $this->object->getId(),
             ),
             'aggsPreset' => 'miejscowosci',
+            'aggsPresetExclude' => array('wojewodztwo_id'),
         ));
         $this->set('title_for_layout', 'Powiaty w województwie ' . $this->object->getData('nazwa'));
         $this->render('Dane.DataBrowser/browser');

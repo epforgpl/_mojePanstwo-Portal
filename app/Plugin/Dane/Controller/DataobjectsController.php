@@ -651,7 +651,9 @@ class DataobjectsController extends AppController
                     ));
 
             } elseif( $dataset = $this->object->getLayer('dataset') ) {
-
+				
+				$this->addAppBreadcrumb('dane');
+				
 	            $this->addBreadcrumb(array(
                     'href' => '/dane/' . $dataset['Dataset']['alias'],
                     'label' => $dataset['Dataset']['name'],
