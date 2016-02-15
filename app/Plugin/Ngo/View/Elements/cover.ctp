@@ -38,7 +38,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 			$this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 			?>
 			
-			<div class="banner block margin-top-10">
+			<div class="banner block nobg margin-top-0">
 			    <div>
 			        <div class="img-cog pull-left">
 			            <span class="object-icon icon-datasets-strony"></span>
@@ -48,13 +48,13 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 			    <div class="description margin-top-10">
 			        <p class="min-height">Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane! Aby zacząć, znajdź organizację, korzystając z wyszukiwarki, przejdź na jej profil i poproś o
 			            uprawnienia do zarządzania jej profilem.</p>
-			        <div class="text-center"><a href="/ngo/organizacje" class="btn btn-xs btn-primary szukajOrganizajiBtn">Znajdź organizację &raquo;</a></div>
+			        <div class="text-left"><a href="/ngo/organizacje" class="btn btn-xs btn-primary szukajOrganizajiBtn">Znajdź organizację &raquo;</a></div>
 			    </div>
 			</div>
 			
 		</div><div class="col-md-6">
 			
-			<div class="banner block margin-top-10">
+			<div class="banner block nobg margin-top-0">
 			    <div>
 			        <div class="img-cog pull-left">
 			            <span class="object-icon icon-datasets-miejsca"></span>
@@ -63,7 +63,7 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 			    </div>
 			    <div class="description margin-top-10">			
 			        <p class="min-height">Zobacz gdzie w Polsce działają organizacje pozarządowe. Znajdź organizacje w swojej okolicy.</p>
-			        <div class="text-center"><a href="/mapa/ngo" class="btn btn-xs btn-primary">Przejdź do mapy &raquo;</a></div>
+			        <div class="text-left"><a href="/mapa/ngo" class="btn btn-xs btn-primary">Przejdź do mapy &raquo;</a></div>
 			    </div>
 			</div>
 			
