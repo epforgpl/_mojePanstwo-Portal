@@ -714,6 +714,24 @@ class NgoController extends ApplicationsController
                 'base' => '/ngo'
             )),
             'aggs' => $this->getSubAggs(),
+            'aggsPresetExclude' => array('kapitalizacja', 'typ_id'),
+        ));
+    }
+    
+    public function organizacje()
+    {
+	    $this->title = 'Baza organizacji pozarządowych | NGO';
+        $this->loadDatasetBrowser('krs_podmioty', array(
+            'browserTitle' => 'Baza organizacji pozarządowych',
+            'conditions' => array(
+                'krs_podmioty.forma_prawna_typ_id' => '2',
+            ),
+            'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'organizacje',
+                'base' => '/ngo'
+            )),
+            'aggs' => $this->getSubAggs(),
+            'aggsPresetExclude' => array('kapitalizacja'),
         ));
     }
     
@@ -725,6 +743,7 @@ class NgoController extends ApplicationsController
                 'krs_podmioty.forma_prawna_id' => '18',
             ),
             'aggs' => $this->getSubAggs(),
+            'aggsPresetExclude' => array('kapitalizacja', 'typ_id'),
         ));
     }
     
@@ -736,6 +755,7 @@ class NgoController extends ApplicationsController
                 'krs_podmioty.forma_prawna_id' => '9',
             ),
             'aggs' => $this->getSubAggs(),
+            'aggsPresetExclude' => array('kapitalizacja', 'typ_id'),
         ));
     }
     
@@ -799,6 +819,7 @@ class NgoController extends ApplicationsController
                 'krs_podmioty.forma_prawna_id' => '15',
             ),
             'aggs' => $this->getSubAggs(),
+            'aggsPresetExclude' => array('kapitalizacja', 'typ_id'),
             'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'stowarzyszenia',
                 'base' => '/ngo'

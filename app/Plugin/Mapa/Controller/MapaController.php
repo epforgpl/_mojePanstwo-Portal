@@ -98,6 +98,7 @@ class MapaController extends ApplicationsController
 				'label' => 'NGO',
 				'icon' => 'icon-datasets-krs_podmioty',
 			),
+			/*
 			array(
 				'id' => 'instytucje',
 				'href' => '/mapa/instytucje',
@@ -110,6 +111,7 @@ class MapaController extends ApplicationsController
 				'label' => 'Komisje wyborcze',
 				'icon' => 'icon-datasets-krs_podmioty',
 			),
+			*/
 		);
 
         $output = array(

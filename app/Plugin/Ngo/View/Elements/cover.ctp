@@ -30,6 +30,46 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
     </div>
 
+	
+	<div class="row">
+		<div class="col-md-6">
+			
+			<?
+			$this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+			?>
+			
+			<div class="banner block margin-top-10">
+			    <div>
+			        <div class="img-cog pull-left">
+			            <span class="object-icon icon-datasets-strony"></span>
+			        </div>
+			        <p class="headline margin-top-20"><strong>Zarządzaj profilem</strong> <br/>swojej organizacji!</p>
+			    </div>
+			    <div class="description margin-top-10">
+			        <p class="min-height">Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane! Aby zacząć, znajdź organizację, korzystając z wyszukiwarki, przejdź na jej profil i poproś o
+			            uprawnienia do zarządzania jej profilem.</p>
+			        <div class="text-center"><a href="/ngo/organizacje" class="btn btn-xs btn-primary szukajOrganizajiBtn">Znajdź organizację &raquo;</a></div>
+			    </div>
+			</div>
+			
+		</div><div class="col-md-6">
+			
+			<div class="banner block margin-top-10">
+			    <div>
+			        <div class="img-cog pull-left">
+			            <span class="object-icon icon-datasets-miejsca"></span>
+			        </div>
+			        <p class="headline margin-top-20"><strong>Zobacz mapę</strong> <br/> organizacji pozarządowych</p>
+			    </div>
+			    <div class="description margin-top-10">			
+			        <p class="min-height">Zobacz gdzie w Polsce działają organizacje pozarządowe. Znajdź organizacje w swojej okolicy.</p>
+			        <div class="text-center"><a href="/mapa/ngo" class="btn btn-xs btn-primary">Przejdź do mapy &raquo;</a></div>
+			    </div>
+			</div>
+			
+		</div>
+	</div>
+	
 	<div class="row">
 		<div class="col-md-8">
 
@@ -106,7 +146,9 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
         </div>
 	</div>
-
+	
+	
+	
 
     <div id="actions-newest" class="block block-simple">
         <header>Najnowsze działania organizacji pozarządowych:</header>
@@ -124,6 +166,12 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
                                 <a href="/dane/<?= $dzialanie['_source']['data']['dzialania']['dataset']; ?>/<?= $dzialanie['_source']['data']['dzialania']['object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
                                         alt="<?= $dzialanie['_source']['data']['dzialania']['tytul']; ?>"
                                         src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
+                            </div>
+                        <? } else { ?>
+                        	<div class="photo">
+                                <a href="/dane/<?= $dzialanie['_source']['data']['dzialania']['dataset']; ?>/<?= $dzialanie['_source']['data']['dzialania']['object_id']; ?>/dzialania/<?= $dzialanie['fields']['id'][0]; ?>"><img
+                                        alt="<?= $dzialanie['_source']['data']['dzialania']['tytul']; ?>"
+                                        src="/Ngo/icon/side_ngo.svg"/></a>
                             </div>
                         <? } ?>
                         <p class="owner"><?= @$dzialanie['_source']['data']['dzialania']['owner_name'] ?></p>
@@ -163,7 +211,9 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
         </section>
     </div>
     <? } ?>
-
+	
+	<h2 class="appInnerTitle">Działania organizacji pozarządowych na Twitterze:</h2>
+	
     <div id="accountsSwitcher" class="appMenuStrip">
         <? if (isset($twitterTimeranges) && isset($twitterTimerange)) { ?>
             <div class="appSwitchers">
