@@ -463,7 +463,7 @@ $description =
                 }
 
                 foreach ($organy as $organ) { ?>
-                <div class="block col-xs-12 col-sm-<?= $column_width ?>">
+                <div class="block noborder col-xs-12 col-sm-<?= $column_width ?>">
                     <header>
                         <div class="sm normalizeText" id="<?= $organ['idTag'] ?>"><?= $organ['title'] ?></div>
                     </header>
