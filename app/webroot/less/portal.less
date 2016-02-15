@@ -27,13 +27,17 @@
 
         li {
             list-style: none;
-            padding: 9px 10px;
             float: right;
             margin: 0;
 
             &, a {
                 color: @backgroundTextColor;
                 font-size: 18px;
+            }
+
+            > a {
+                padding: 9px 10px;
+                float: left;
             }
 
             &.apps {

@@ -25,23 +25,28 @@ var PISMO = Class.extend({
 		var self = this;
 		$('.h1-editable').each(function () {
 			if ($(this).attr('contenteditable')) {
-				$(this).blur(function () {
+				$(this).bind('blur keyup', function (e) {
+					if (e.type === 'keyup' && e.keyCode !== 10 && e.keyCode !== 13) {
+						return;
+					}
+					$(this).text($.trim($(this).text()));
 					$.post($(this).data('url') + '.json', {
 						nazwa: $(this).text(),
 						edit_from_inputs: 1
 					}, function (res) {
-						// @todo error handler
-						console.log(res);
+						//todo: error handler
+						//console.log(res);
 					});
 				});
 			} else {
 				$(this).change(function () {
+					$(this).val($.trim($(this).val()));
 					$.post($(this).data('url') + '.json', {
 						nazwa: $(this).val(),
 						edit_from_inputs: 1
 					}, function (res) {
-						// @todo error handler
-						console.log(res);
+						//todo: error handler
+						//console.log(res);
 					});
 					$(this).blur();
 				});
@@ -110,14 +115,14 @@ var PISMO = Class.extend({
 
 		tinymce.init({
 			selector: ".tinymceField",
-			language : 'pl',
+			language: 'pl',
 			menubar: false,
-			statusbar : false,
+			statusbar: false,
 			content_css: [
 				"/libs/bootstrap/3.3.4/css/bootstrap.min.css",
 				"/css/main.css"
 			],
-			valid_elements : "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
+			valid_elements: "@[id|class|style|title|dir<ltr?rtl|lang|xml::lang|onclick|ondblclick|"
 			+ "onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|"
 			+ "onkeydown|onkeyup],a[rel|rev|charset|hreflang|tabindex|accesskey|type|"
 			+ "name|href|target|title|class|onfocus|onblur],strong/b,em/i,strike,u,"
@@ -215,7 +220,7 @@ var PISMO = Class.extend({
 				].join('')
 			});
 
-			$(this).submit(function() {
+			$(this).submit(function () {
 
 				tinyMCE.triggerSave();
 
