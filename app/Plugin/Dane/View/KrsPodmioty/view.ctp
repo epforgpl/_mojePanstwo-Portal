@@ -32,7 +32,7 @@ $description =
 
 ?>
 
-<div class="krsPodmioty">
+<div class="krsPodmioty margin-top--25">
     <div class="col-xs-12 col-md-3 objectSide">
         <? if (($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www'))) { ?>
             <div class="iconsList">
