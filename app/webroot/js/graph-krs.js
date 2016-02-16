@@ -62,6 +62,7 @@
 				return e.id === graph.root;
 			})[0];
 			if (root) {
+
 				root.fixed = true;
 				root.x = (width / 2);
 				root.y = d3Data.size.rootSize;
@@ -343,13 +344,8 @@
 
 					var arrowLink = [];
 					arrowLine.classed("link-active", function (o) {
-						console.log(o);
 						(o.source === d) ? arrowLink.push(o.target.id) : ((o.target === d) ? arrowLink.push(o.source.id) : false);
-
 						arrowLink = arrayUnique(arrowLink);
-
-						console.log(arrowLink);
-
 						this.setAttribute('opacity', !!(o.source === d || o.target === d) ? 1 : opacity);
 						for (var j = 0; j < arrowLink.length; j++) {
 							$('[id^="arrowLine-' + root.id + '-' + arrowLink[j] + '"],[id^="arrowLine-' + arrowLink[j] + '-' + root.id + '"]').addClass('link-active').attr('opacity', 1);

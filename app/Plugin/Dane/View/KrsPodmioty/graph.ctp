@@ -18,14 +18,14 @@ $this->Combinator->add_libs('css', $this->Less->css('view-krs-graph', array('plu
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
 $this->Combinator->add_libs('js', 'graph-krs');
 ?>
-
-<div id="connectionGraph" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty">
-    <div class="spinner grey">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
+<div class="powiazania">
+    <div id="connectionGraph" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty">
+        <div class="spinner grey">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
     </div>
+    <div class="detailInfoWrapper"></div>
 </div>
-<div class="detailInfoWrapper"></div>
-
 <?= $this->Element('dataobject/pageEnd'); ?>
