@@ -1,7 +1,8 @@
-<div id="portal-header"<? if( !isset($this->request->query['_screenshoot']) ) {?> class="mp-sticky"<? } else { ?> style="position: static;"<? } ?>>
+<div
+    id="portal-header"<? if (!isset($this->request->query['_screenshoot'])) { ?> class="mp-sticky"<? } else { ?> style="position: static;"<? } ?>>
     <?php
     echo $this->Element('Paszport.modal_login');
-    echo $this->Element('modals/suggester', array(
+    echo $this->Element('headers/searchbox', array(
         'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
         'action' => '/',
     ));
@@ -108,7 +109,9 @@
             </li>
         </ul>
         <ul class="user-icons pull-right">
-            <li class="login">
+            <li class="login<?php if ($this->Session->read('Auth.User.id')) {
+                echo ' logged';
+            } ?>">
                 <?php if ($this->Session->read('Auth.User.id')) { ?>
                     <?php if ($this->Session->read('Auth.User.username')) {
                         $name = $this->Session->read('Auth.User.username');

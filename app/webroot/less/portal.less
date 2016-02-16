@@ -30,7 +30,7 @@
             float: right;
             margin: 0;
 
-            &, a {
+            &, > a {
                 color: @backgroundTextColor;
                 font-size: 18px;
             }
@@ -134,6 +134,10 @@
                 cursor: pointer;
                 position: relative;
 
+                &.logged {
+                    padding: 9px 10px;
+                }
+
                 .avatar {
                     width: 30px;
                     margin: 0;
@@ -178,7 +182,7 @@
                         width: 100%;
                         float: left;
 
-                        a {
+                        > a {
                             display: block;
                             line-height: 1em;
                             padding: 8px 10px;

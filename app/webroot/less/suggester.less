@@ -2,7 +2,48 @@
 @searchColor: #333333;
 @searchColorPlaceholder: #AAAAAA;
 
+.suggesterModal() {
+    background-color: #e7e8e9;
+    padding: 5px;
+    border: 1px solid #eee;
+    color: #789;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 .suggesterBlockModal {
+    &.directBlock {
+        @backgroundColor: #3b83c5;
+        @backgroundTextColor: #FFF;
+
+        .suggesterModal();
+
+        width: 80%;
+        max-width: 1065px;
+        position: absolute;
+        left: 200px;
+        top: 55px;
+
+        background-color: @backgroundColor;
+        border: 1px solid darken(@backgroundColor, 10%);
+        display: none;
+        padding: 10px 15px;
+
+        &::before {
+            @size: 12px;
+
+            content: ' ';
+            position: absolute;
+            top: -@size;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: @size solid transparent;
+            border-right: @size solid transparent;
+            border-bottom: @size solid @backgroundColor;
+        }
+    }
     .modal-dialog {
         width: inherit;
         margin-left: 230px;
@@ -18,13 +59,7 @@
             margin-top: 30px;
 
             .modal-body {
-                background-color: #e7e8e9;
-                padding: 5px;
-                border: 1px solid #eee;
-                color: #789;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
+                .suggesterModal();
             }
         }
     }
@@ -101,12 +136,10 @@
     }
 }
 
-.theme-wallpaper, .modal-open {
-    .autocompleteSuggester {
-        box-shadow: none;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-    }
+.modal-open .autocompleteSuggester {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 .autocompleteSuggester {

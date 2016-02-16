@@ -23,11 +23,11 @@
         'applicationCrumbs' => @$statusbarCrumbs,
         'streams' => $this->Session->read('Auth.User.streams'),
     ));
-    echo $this->Element('Paszport.modal_login');
+    /*echo $this->Element('Paszport.modal_login');
     echo $this->Element('modals/suggester', array(
         'placeholder' => __("LC_SEARCH_PUBLIC_DATA_PLACEHOLDER"),
         'action' => '/dane',
-    ));
+    ));*/
     ?>
 
     <? if (isset($crossdomain_login_token) || isset($crossdomain_logout)) { ?>

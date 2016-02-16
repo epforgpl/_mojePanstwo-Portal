@@ -4,7 +4,8 @@
 		login = _mPCockpit.find('.user-icons li.login'),
 		loginOption = login.find('#mPUserOptions'),
 		apps = _mPCockpit.find('.app-icons li.apps'),
-		appList = apps.find('.appsList');
+		appList = apps.find('.appsList'),
+		_mPSearch = $('.suggesterBlockModal.directBlock');
 
 	_mPCockpit.find('._mPSearch').click(function (e) {
 		var _mPSearchOutside = $('._mPSearchOutside'),
@@ -20,14 +21,31 @@
 				}, 500);
 			}
 		} else {
-			suggesterBlockModal.modal('toggle');
-		}
+			if (_mPSearch.length) {
+				if (appList.is(':visible')) {
+					appList.hide();
+					appList.find('.appListMore').show();
+					appList.find('.appListLess').hide();
+					appList.find('.appListUl.moreList').hide();
+				}
+				if (loginOption.is(':visible')) {
+					loginOption.hide();
+				}
+				_mPSearch.toggle();
+				_mPSearch.find('input').val('');
+				_mPSearch.find('input').focus();
+			} else {
+				suggesterBlockModal.modal('toggle');
+			}
 
-		suggesterBlockModal.on('shown.bs.modal', function () {
-			suggesterBlockModal.find('input').focus();
-		}).on('hidden.bs.modal', function () {
-			suggesterBlockModal.find('input').val('');
-		});
+		}
+		if (!(_mPSearch.length)) {
+			suggesterBlockModal.on('shown.bs.modal', function () {
+				suggesterBlockModal.find('input').focus();
+			}).on('hidden.bs.modal', function () {
+				suggesterBlockModal.find('input').val('');
+			});
+		}
 	});
 	login.click(function () {
 		var el = $(this);
@@ -39,6 +57,10 @@
 				appList.find('.appListMore').show();
 				appList.find('.appListLess').hide();
 				appList.find('.appListUl.moreList').hide();
+			}
+
+			if (_mPSearch.is(':visible')) {
+				_mPSearch.hide();
 			}
 		}
 	});
@@ -54,6 +76,10 @@
 		}
 		if (loginOption.is(':visible')) {
 			loginOption.hide();
+		}
+
+		if (_mPSearch.is(':visible')) {
+			_mPSearch.hide();
 		}
 	});
 	appList.find('.appListMore').click(function (e) {
@@ -82,6 +108,10 @@
 		}
 		if (loginOption.is(':visible')) {
 			loginOption.hide();
+		}
+
+		if (_mPSearch.is(':visible')) {
+			_mPSearch.hide();
 		}
 	});
 })(jQuery);
