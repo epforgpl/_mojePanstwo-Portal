@@ -579,6 +579,10 @@ class AppController extends Controller
 	    
 	    if( defined("PORTAL_UNAVAILABLE") && PORTAL_UNAVAILABLE ) {
 		    
+		    header('Content-Type: text/html; charset=utf-8');
+		    header('HTTP/1.1 503 Service Temporarily Unavailable');
+			header('Status: 503 Service Temporarily Unavailable');
+			
 		    print("<br/><br/><br/><br/><br/><center><p>Przenosiny portal mojePaństwo na nower serwery.</p><p>Zapraszamy po godzine 12.</p><p><a target=\"_blank\" href=\"http://epf.org.pl\">Fundacja ePaństwo</a></p></center>"); die();
 		    
 	    } else {
