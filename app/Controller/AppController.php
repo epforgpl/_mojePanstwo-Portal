@@ -583,7 +583,7 @@ class AppController extends Controller
 		    header('HTTP/1.1 503 Service Temporarily Unavailable');
 			header('Status: 503 Service Temporarily Unavailable');
 			
-		    print("<br/><br/><br/><br/><br/><center><p>Przenosimy portal mojePaństwo na nower serwery.</p><p>Zapraszamy po godzine 12.</p><p><a target=\"_blank\" href=\"http://epf.org.pl\">Fundacja ePaństwo</a></p></center>"); die();
+		    print("<br/><br/><br/><br/><br/><center><p>Przenosimy portal mojePaństwo na nowe serwery.</p><p>Zapraszamy po godzine 12.</p><p><a target=\"_blank\" href=\"http://epf.org.pl\">Fundacja ePaństwo</a></p></center>"); die();
 		    
 	    } else {
 		    
