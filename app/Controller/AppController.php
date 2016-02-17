@@ -573,10 +573,25 @@ class AppController extends Controller
             'icon' => '&#xe612;',
         ),
     );
-
+	
+	public function __construct($request = null, $response = null)
+    {
+	    
+	    if( defined("PORTAL_UNAVAILABLE") && PORTAL_UNAVAILABLE ) {
+		    
+		    print("<br/><br/><br/><br/><br/><center><p>Przenosiny portal mojePaństwo na nower serwery.</p><p>Zapraszamy po godzine 12.</p><p><a target=\"_blank\" href=\"http://epf.org.pl\">Fundacja ePaństwo</a></p></center>"); die();
+		    
+	    } else {
+		    
+		    parent::__construct ($request, $response);
+		    
+	    }
+	    
+    }
+	
     public function beforeFilter()
     {
-
+				
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
 
@@ -715,6 +730,7 @@ class AppController extends Controller
         }
 
         $this->set('isAdmin', $this->hasUserRole('2'));
+    
     }
 
     /**
