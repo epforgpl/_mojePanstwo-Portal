@@ -39,7 +39,12 @@ $(document).ready(function () {
     tinymce.init({
 		selector: ".tinymceField",
         language : 'pl',
-        plugins: "media image sentencecase",
+        plugins: "media image sentencecase paste",
+        paste_auto_cleanup_on_paste : true,
+        paste_remove_styles: true,
+        paste_remove_styles_if_webkit: true,
+        paste_strip_class_attributes: true,
+        paste_as_text: true,
         toolbar: 'undo redo | bold italic underline | bullist numlist',
         menubar: false,
         statusbar : false,
