@@ -34,6 +34,7 @@ class DocsController extends AdminAppController {
         }
 
         $this->set('tables', $tables);
+        $this->set('tablesData', $this->Doctable->getTablesData($document_id));
         $this->set('document_id', $document_id);
         $this->set('docJSON', $this->getDocJSON($document_id));
     }
@@ -44,6 +45,16 @@ class DocsController extends AdminAppController {
             $this->Doctable->saveTables(
                 $document_id,
                 $this->request->data['tables']
+            )
+        );
+    }
+
+    public function saveTablesData($document_id) {
+        $this->loadModel('Admin.Doctable');
+        $this->setSerialized('response',
+            $this->Doctable->saveTablesData(
+                $document_id,
+                $this->request->data
             )
         );
     }
