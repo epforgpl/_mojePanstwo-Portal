@@ -179,7 +179,12 @@ $(document).ready(function () {
 
 	tinymce.init({
 		language: 'pl',
-		plugins: "media image link code",
+		plugins: "media image link code paste",
+		paste_auto_cleanup_on_paste : true,
+		paste_remove_styles: true,
+		paste_remove_styles_if_webkit: true,
+		paste_strip_class_attributes: true,
+		paste_as_text: true,
 		menubar: "edit format insert tools",
 		statusbar: false,
 		inline_styles: false,
