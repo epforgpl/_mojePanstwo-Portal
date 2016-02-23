@@ -11,6 +11,7 @@ $(document).ready(function() {
         this.$activePage = false;
         this.$viewSelect = this.$toolbar.find('.viewSelect').first();
         this.tables = this.$$.data('tables');
+        this.tablesData = this.$$.data('tables-data');
         this.values = [];
         this.$preview.html(this.getPreviewDOM());
         this.mouseX = 0;
@@ -228,7 +229,17 @@ $(document).ready(function() {
                     }
                 });
             } else {
-                // save only latest data
+                var name = prompt('Podaj opcjonalną nazwę zapisywanych danych');
+                $.post('/admin/docs/saveTablesData/' + self.documentId + '.json', {
+                    tables: self.tables,
+                    name: name
+                }, function(res) {
+                    if(res === true) {
+                        alert('Zapisano poprawnie');
+                    } else {
+                        alert('Wystąpił błąd podczas zapisywania');
+                    }
+                });
             }
 
             return false;
@@ -268,6 +279,37 @@ $(document).ready(function() {
 
         getDataDOM: function() {
             var dom = ['<div class="container"><h1 class="text-muted">Dane</h1>'];
+
+            dom.push('<h2 class="text-muted">Archiwum</h2>');
+
+            if(this.tablesData.length === 0) {
+                dom.push('<div class="alert alert-info" role="alert">Brak danych w archiwum</div>');
+            } else {
+                dom.push('<ul class="list-group">');
+                for(var td = 0; td < this.tablesData.length; td++) {
+                    dom.push([
+                        '<li class="list-group-item">',
+                            '<span class="badge"><abbr title="Ilość tabel">', this.tablesData[td]['0']['tables'] ,'</abbr></span>',
+                            '<a href="/admin/docs/tableData/', this.tablesData[td]['doctable_data']['id'] ,'">',
+                            this.tablesData[td]['doctable_data']['name'] != '' ? this.tablesData[td]['doctable_data']['name'] : 'Brak nazwy',
+                            '</a>',
+                            ' zapisano dnia ',
+                            this.tablesData[td]['doctable_data']['created_at'],
+                            ' przez ',
+                            '<a href="/dane/uzytkownicy/', this.tablesData[td]['doctable_data']['user_id'] ,'">',
+                            this.tablesData[td]['users']['username'],
+                            '</a>',
+                        '</li>'
+                    ].join(''));
+                }
+                dom.push('</ul>');
+            }
+
+            dom.push('<h2 class="text-muted">Nowe dane</h2>');
+
+            if(this.tables.length === 0) {
+                dom.push('<div class="alert alert-warning" role="alert">Nie utworzyłeś/aś jeszcze żadnej tabeli w widoku <em>Dokument</em></div>');
+            }
 
             this.tables.sort(function(a, b) {
                 return a.pageIndex == b.pageIndex ? 0 :

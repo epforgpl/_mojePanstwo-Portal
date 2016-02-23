@@ -8,7 +8,10 @@ $this->Combinator->add_libs('js', 'Admin.doctable');
     <?= $this->Html->css($this->Less->css('docs-tables', array('plugin' => 'Admin'))); ?>
 </head>
 <body>
-<div class="doctable" data-tables="<?= htmlspecialchars(json_encode($tables)) ?>" data-document-id="<?= $document_id ?>"
+<div class="doctable"
+     data-tables="<?= htmlspecialchars(json_encode($tables)) ?>"
+     data-tables-data="<?= htmlspecialchars(json_encode($tablesData)) ?>"
+     data-document-id="<?= $document_id ?>"
      data-doc="<?= htmlspecialchars($docJSON) ?>">
     <div class="preview"></div>
     <div class="toolbar">
