@@ -90,21 +90,9 @@ class AppController extends Controller
     public $statusbarMode = false;
     public $meta = array();
 
-    /**
-     * Obiekt określający układ oraz styl dla poszczegółnych stron
-     *  header => array(
-     *      element => ‘app’ , 'dataset', 'dataobject', 'pk', false
-     *  ),
-     *  body => array(
-     *      theme => ‘default’, 'simple', 'wallpaper'
-     *  ),
-     *  footer => array(
-     *      element => ‘default’, 'minimal;
-     *  )
-     */
     public $_layout = array(
         'header' => array(
-            'element' => 'app',
+            'element' => 'main',
         ),
         'body' => array(
             'theme' => 'default',
@@ -207,6 +195,14 @@ class AppController extends Controller
             'ngo_konkursy' => array(
                 'label' => 'Konkursy',
                 'menu_id' => 'konkursy',
+            ),
+            'dzialania' => array(
+                'label' => 'Działania',
+                'menu_id' => 'dzialania',
+            ),
+            'pisma' => array(
+                'label' => 'Pisma',
+                'menu_id' => 'pisma',
             ),
             'zbiorki_publiczne' => array(
                 'label' => 'Zbiórki publiczne',
@@ -843,6 +839,10 @@ class AppController extends Controller
             $this->set('_observeOptions', $this->observeOptions);
             $this->set('_domainMode', $this->domainMode);
             $this->set('appSelected', $this->appSelected);
+            
+            if( $this->name == 'CakeError' ) {
+	            $this->set('title_for_layout', 'Błąd');
+            }
 
         }
 

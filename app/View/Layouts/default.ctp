@@ -166,6 +166,7 @@
     <?php echo $this->Element('flash'); ?>
     <?php // echo $this->Element('cockpit'); ?>
     <div id="_main">
+        
         <?php
         if ($domainMode == 'PK')
             echo $this->Element('PrzejrzystyKrakow.pkrk-header');

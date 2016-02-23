@@ -118,7 +118,7 @@
 					            <? } ?>
 					            <div class="form-group form-row">
 					                <div class="col-lg-10 col-lg-offset-2">
-					                    <button type="submit" class="createBtn btn btn-md btn-success btn-icon"><i
+					                    <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
 					                            class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
 					                    </button>
 					                </div>

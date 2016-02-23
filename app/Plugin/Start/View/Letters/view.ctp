@@ -1,4 +1,5 @@
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start'))) ?>
+<?php $this->Combinator->add_libs('css', $this->Less->css('letter', array('plugin' => 'Start'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane'))) ?>
 <?php $this->Combinator->add_libs('css', $this->Less->css('letters-responses', array('plugin' => 'Start'))); ?>
 	
@@ -57,19 +58,56 @@ if ($pismo['object_id']) {
 	    
 	    <div class="container">
 			
-			
-			
-			
 			<div class="row">
 				<div class="col-md-9">
 						
-						<? if( $pismo['content'] ) {?>
 						<div class="block">
-		                    <section class="content text">
-					            <?= $pismo['content'] ?>
+		                    <section class="content">
+					            					            
+					            <div class="letter-render">
+					            
+						            <div class="row">
+							            <div class="col-md-8">
+								            
+								            <div class="nadawca"><?= nl2br($pismo['from_str']);  ?></div>
+								            
+							            </div><div class="col-md-4">
+								            
+								            <?
+									            $parts = array();
+									            if( $pismo['miejscowosc'] )
+									            	$parts[] = $pismo['miejscowosc'];
+									            if( $pismo['data_pisma'] )
+									            	$parts[] = dataSlownie($pismo['data_pisma']);
+								            ?>
+								            
+								            <div class="miejsce_data"><?= implode(', ', $parts) ?></div>
+								            
+							            </div>
+						            </div>
+						            
+						            <div class="row">
+							            <div class="col-md-5 col-md-offset-7">
+								            
+								            <div class="adresat"><?= $pismo['to_str'];  ?></div>
+								            
+							            </div>
+						            </div> 
+						            					            
+						            <h2 class="tytul"><?= $pismo['title'];  ?></h2>
+						            <div class="tresc"><?= $pismo['content'];  ?></div>
+						            
+						            <div class="row">
+							            <div class="col-md-5 col-md-offset-7">
+								            <div class="podpis"><?= nl2br($pismo['podpis']);  ?></div>
+							            </div>
+						            </div>
+					            
+					            </div>
+					            
 					        </section>
 						</div>
-						<? } ?>
+
 						
 						<div class="lettersResponses">
 						    <div class="row margin-top-20">

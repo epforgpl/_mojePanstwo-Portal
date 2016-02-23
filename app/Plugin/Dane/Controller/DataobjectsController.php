@@ -151,7 +151,7 @@ class DataobjectsController extends AppController
                 'layers' => $layers,
                 'aggs' => $this->initAggs,
             ));
-            
+                        
             $code = (int)$this->Dataobject->getDataSource()->getLastResponseCode();
 
             if ($code >= 400) {

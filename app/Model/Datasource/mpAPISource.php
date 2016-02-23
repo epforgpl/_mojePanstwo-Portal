@@ -185,7 +185,7 @@ class mpAPISource extends DataSource {
         }
                                 
 		$base_url = implode('/', $endpoint_parts) . '.' . $this->config['ext'];
-		
+				
 		$public_query = $queryData;
 		if( isset($public_query['aggs']) )
 			unset( $public_query['aggs'] );
@@ -196,7 +196,7 @@ class mpAPISource extends DataSource {
 	        'data' => $queryData,
 	        'method' => $method,
         ));
-                                
+                             
         $code = (int) $this->Http->response->code;
         
         if( $code >= 400 ) {
@@ -310,7 +310,7 @@ class mpAPISource extends DataSource {
 	    'GET', 'POST', 'DELETE', 'PATCH', 'PUT'
     );
     
-    public function request($endpoint, $params = array(), $nastyHackToPassFollowingHttpErrors = array()) {
+    public function request($endpoint, $params = array()) {
 	    
 	    $path = $this->getPath($endpoint);
 	    $method = ( isset($params['method']) && in_array($params['method'], $this->allowed_methods) ) ? $params['method'] : 'GET';
@@ -334,16 +334,9 @@ class mpAPISource extends DataSource {
 		    	'response' => $response,
 		    ));
 	    }
-
-        if (!$response->isOk() && !in_array($response->code, $nastyHackToPassFollowingHttpErrors)) {
-            // don't hide HTTP errors, they are serious fellas!
-            throw new CakeException("Got HTTP error ". $response->code);
-
-        } else if ($response->isRedirect()) {
-            throw new CakeException("API should not do redirects!");
-        }
 	    	    
 	    $res = json_decode($response, true);
+	    	    
         if (is_null($res)) {
             $error = json_last_error();
             throw new CakeException($error);
@@ -369,7 +362,7 @@ class mpAPISource extends DataSource {
                 'password' => $password
             ),
             'method' => 'POST'
-        ), array(400, 403, 404));
+        ));
 
         $code = $this->Http->response->code;
 

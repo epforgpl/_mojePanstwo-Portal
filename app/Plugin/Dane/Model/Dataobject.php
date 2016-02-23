@@ -23,7 +23,7 @@ class Dataobject extends AppModel
 
     public function afterFind($results = array(), $primary = false)
     {
-						
+							
         for ($i = 0; $i < count($results); $i++) {
 			
 			if( !isset($results[$i]['_type']) || ($results[$i]['_type']=='objects') ) {

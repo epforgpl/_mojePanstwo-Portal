@@ -1635,21 +1635,38 @@ class DataBrowserComponent extends Component
     public function beforeRender($controller)
     {
 				
-		if( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['apps']) && $this->settings['apps'] ) {
-			
-			$apps = $controller->getDatasets();
-			
+		if( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['perApps']) && $this->settings['perApps'] ) {
+					        
 	        $aggs = array();
-	        foreach ($apps as $app_id => $datasets) {
-	            $aggs['app_' . $app_id] = array(
-	                'filter' => array(
-	                    'terms' => array(
-	                        'dataset' => array_keys($datasets),
-	                    ),
-	                ),
-	                'scope' => 'query_main',
-	            );
-	        }
+	        $aggs['apps'] = array(
+		        'terms' => array(
+			        'size' => 10,
+			        'script' => array(
+				        'lang' => 'groovy',
+		            	'id' => 'app',
+			        ),
+			        'order' => array(
+				        'score' => 'desc',
+			        ),
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+		            	'top_hits' => array(
+			            	'size' => 3,
+			            	'_source' => array('data', 'static'),
+			            	'fielddata_fields' => array('dataset', 'id'),
+		            	),
+	            	),
+	            	'score' => array(
+		            	'max' => array(
+			            	'script' => array(
+				            	'lang' => 'groovy',
+				            	'id' => 'score',
+			            	),			            	
+		            	),
+	            	),
+		        ),
+	        );
 
 	        if( isset($this->settings['aggs']) )
 		        $this->settings['aggs'] = array_merge($this->settings['aggs'], $aggs);
@@ -1856,7 +1873,7 @@ class DataBrowserComponent extends Component
             if ($this->cover) {
 
                 $settings = $this->getSettings();
-                                
+                                         
                 $params = array(
                     'limit' => 0,
                     'conditions' => $settings['conditions'],
@@ -1875,9 +1892,10 @@ class DataBrowserComponent extends Component
 
                 $controller->Dataobject->find('all', $params);
 	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
-	            	            
+	            	            	            
 				$dataBrowser = array(
                     'aggs' => $controller->Dataobject->getAggs(),
+                    'took' => $controller->Dataobject->getPerformance(),
 	                'sort' => $this->settings['sort'],
                     'cover' => $this->cover,
                     'cancel_url' => false,

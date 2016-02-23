@@ -64,7 +64,7 @@ class DataobjectHelper extends AppHelper
 
     public function render($object, $theme = 'default', $options = array())
     {
-						
+					
         if (is_array($object)) {
 			
 			if( isset($object['fields']['source']) ) {
@@ -100,8 +100,10 @@ class DataobjectHelper extends AppHelper
 	            $_data = $object['_source']['data'];
 	            
 	            foreach( $_data as $k => $d )
-	            	foreach( $d as $dk => $dv )
-	            		$data[ $k . '.' . $dk ] = $dv;
+	            	if( is_array($d) )
+		            	if( !empty($d) )
+			            	foreach( $d as $dk => $dv )
+			            		$data[ $k . '.' . $dk ] = $dv;
 	            									
 	            $object = array(
 	                'dataset' => $object['fields']['dataset'][0],

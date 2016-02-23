@@ -1,95 +1,28 @@
-.container {
-    .informationBlock {
-        background-color: #FFFFFF;
-        padding-top: 3em;
-        padding-bottom: 4em;
-        border-bottom: 14px solid #157AB5;
-        margin-top: 2em;
-        margin-bottom: 4em;
-
-        &.missing {
-            .mathFunction {
-                font-weight: 500;
-                float: left;
-                text-align: center;
-                color: #AAA;
-                padding-right: 8em;
-            }
-
-            .information {
-                @color: #ffa302;
-                text-align: center;
-
-                h4 {
-                    font-family: "Lato", Arial, sans-serif;
-                    font-size: 130px;
-                    font-weight: 700;
-                    color: @color;
-                    margin: 0;
-                    padding: 0;
-                }
-
-                h2 {
-                    font-family: "Lato", Arial, sans-serif;
-                    font-size: 18px;
-                    font-weight: 400;
-                    line-height: 30px;
-                    color: @color;
-                    text-transform: uppercase;
-                    margin: 0;
-                    padding: 0;
-
-                    strong {
-                        display: inline-block;
-                        width: 100%;
-                        font-size: 48px;
-                        font-weight: 400;
-                    }
-                }
-
-                h3 {
-                    font-family: "Lato", Arial, sans-serif;
-                    font-size: 24px;
-                    font-weight: 300;
-                    color: #157AB5;
-                    margin: 2em 0;
-                    padding: 0;
-                }
-                a {
-                    font-family: "Lato", Arial, sans-serif;
-                    font-size: 16px;
-                    font-weight: 400;
-                    background-color: #157AB5;
-                    border-color: #157AB5;
-                }
-            }
-        }
-        &.needLogin {
-            .icon {
-                font-size: 90px;
-                color: #3498DB;
-            }
-            .info {
-                text-align: center;
-
-                .lead {
-                    font-family: "Lato", Arial, sans-serif;
-                    font-size: 20px;
-                    font-weight: 300;
-                }
-            }
-
-            a {
-                margin-top: 2em;
-            }
-
-        }
-    }
-}
-
-@media (max-width: 991px) {
-    .container .missing .mathFunction .result strong {
-        text-align: center;
-        width: 100%;
-    }
+.missing-msg {
+	
+	width: 600px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -65%);
+	text-align: center;
+	padding: 20px;
+	
+	.msg {
+		font-size: 24px;
+		margin: 10px 10px 40px;
+		color: #666;
+	}
+	
+	.links {
+		margin-top: 20px;
+	}
+	
+	img {
+		width: 70px;
+		height: 70px;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	
 }
