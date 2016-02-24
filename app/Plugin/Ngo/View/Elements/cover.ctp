@@ -97,6 +97,8 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 			<? } ?>
 
         </div><div class="col-md-4">
+
+			<?= $this->Element('Ngo.ngo-email-subscription') ?>
 			
 			<? if( $docs = @$dataBrowser['aggs']['zbiorki']['top']['hits']['hits'] ) {?>
             <div class="block bgA">

@@ -4,9 +4,9 @@ $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin
 $this->Combinator->add_libs('css', $this->Less->css('twitter-account-suggestion', array('plugin' => 'Media')));
 ?>
 
-<div class="banner twitter block">
+<div class="banner twitter block margin-top-10">
     <?php echo $this->Html->image('Dane.banners/twitter_banner.png', array(
-        'width' => '32',
+        'width' => '64',
         'alt' => 'Twitter',
         'class' => 'pull-left'
     )); ?>

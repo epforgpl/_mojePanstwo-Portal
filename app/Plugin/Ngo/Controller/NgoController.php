@@ -1038,4 +1038,15 @@ class NgoController extends ApplicationsController
 	    
     }
 
+	public function newsletter() {
+		$results = $this->Ngo->newsletter($this->request->data);
+
+		if($results)
+			$this->Session->setFlash($results, null, array('class' => 'alert-success'));
+		else
+			$this->Session->setFlash('Wystąpił błąd. Spróbuj ponownie później.', null, array('class' => 'alert-error'));
+
+		$this->redirect('/ngo');
+	}
+
 }
