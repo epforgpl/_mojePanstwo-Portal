@@ -15,4 +15,11 @@ class Ngo extends AppModel
 
     }
 
+    public function newsletter($data) {
+        return $this->getDataSource()->request('ngo/newsletter', array(
+            'method' => 'POST',
+            'data' => $data,
+        ));
+    }
+
 }

@@ -19,14 +19,6 @@ $options = array(
     )); ?>
 <? } ?>
 
-<? /* if (isset($twitterAccountTypes)) { ?>
-    <?= $this->Element('Media.twitter-account-suggestion', array(
-        'types' => $twitterAccountTypes
-    )); ?>
-<? } */ ?>
-
-
-
 <div class="col-xs-12">
 
     <div class="appBanner">
@@ -180,6 +172,13 @@ $options = array(
 		</div>
 		
 		<div class="col-md-4">
+
+
+			<? if (isset($twitterAccountTypes)) {
+				echo $this->Element('Media.twitter-account-suggestion', array(
+				'types' => $twitterAccountTypes
+				));
+			} ?>
 			
 			<?
 			if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) {

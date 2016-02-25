@@ -157,6 +157,20 @@ $description =
                 </div>
             </div>
         <? } ?>
+
+
+        <? if (!$object->getData('wykreslony')) {
+
+            $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+
+            $bankAccount = $object->getLayer('bank_account');
+            if ($bankAccount && $bankAccount['status'] == '1') {
+                $this->Combinator->add_libs('js', 'Dane.transferuj');
+                echo $this->element('tools/transferuj');
+            }
+
+        } ?>
+
         <ul class="dataHighlights overflow-auto">
             <?
             $nip = $object->getData('nip');
@@ -235,6 +249,7 @@ $description =
             <? } ?>
         <? } ?>
         <? if (!$object->getData('wykreslony')) {
+
             $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 
             echo '<div class="bannerCol col-xs-6 col-md-12">';
@@ -251,13 +266,6 @@ $description =
                     'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
                 ));
                 echo '</div>';
-            }
-
-            $bankAccount = $object->getLayer('bank_account');
-            if ($bankAccount && $bankAccount['status'] == '1') {
-                /*TODO: sprawdzic czy ustawiono opcje darowizny i podać id z tranferuj.pl*/
-                $this->Combinator->add_libs('js', 'Dane.transferuj');
-                echo $this->element('tools/transferuj');
             }
 
             $page = $object->getLayer('page');
