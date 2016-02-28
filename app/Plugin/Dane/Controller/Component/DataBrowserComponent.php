@@ -1889,14 +1889,50 @@ class DataBrowserComponent extends Component
 
                 if (isset($this->cover['conditions']))
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
-
-                $controller->Dataobject->find('all', $params);
-	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
-	            	            	            
-				$dataBrowser = array(
-                    'aggs' => $controller->Dataobject->getAggs(),
-                    'took' => $controller->Dataobject->getPerformance(),
-	                'sort' => $this->settings['sort'],
+				
+								
+				if( empty($params['aggs']) ) {
+					
+					$dataBrowser = array(
+	                    'aggs' => array(),
+	                    'took' => false,
+	                );
+					
+				} else {
+				
+					if( isset($this->cover['cache']) ) {
+											
+						$cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-' . md5( serialize( $params ) );
+											
+						$aggs = Cache::read($cache_id, 'long');
+											
+				        if( $aggs===false ) {
+					        
+					        $controller->Dataobject->find('all', $params);
+					        $aggs = $controller->Dataobject->getAggs();
+				            Cache::write($cache_id, $aggs, 'long');
+				            
+				        }					
+						
+						$dataBrowser = array(
+		                    'aggs' => $aggs,
+		                    'took' => false,
+		                );
+						
+					} else {
+						
+						$controller->Dataobject->find('all', $params);
+						$dataBrowser = array(
+		                    'aggs' => $controller->Dataobject->getAggs(),
+		                    'took' => $controller->Dataobject->getPerformance(),
+		                );
+						
+					}
+				
+				}
+				
+				$dataBrowser = array_merge($dataBrowser, array(
+					'sort' => $this->settings['sort'],
                     'cover' => $this->cover,
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
@@ -1910,8 +1946,11 @@ class DataBrowserComponent extends Component
                     'mode' => 'cover',
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
-                );
-
+				));
+				
+                
+	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
+	            	            	            
                 foreach( $this->routes as $key => $value ) {
 
 		            $parts = explode('/', $key);
