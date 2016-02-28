@@ -200,6 +200,7 @@ class ApplicationsController extends AppController
 
 			$fields = array('searchTitle', 'order', 'autocompletion');
 			$params = array(
+				/*
 				'aggs' => array(
 					'filter' => array(
 						'filter' => array(
@@ -224,7 +225,7 @@ class ApplicationsController extends AppController
 						),
 					),
 				),
-				'apps' => true,
+				*/
 				'routes' => array(
 					'filter/dataset' => 'dataset',
 				),

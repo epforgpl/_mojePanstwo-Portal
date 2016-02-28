@@ -194,6 +194,7 @@ class PrawoController extends ApplicationsController
             ),
             'aggs' => $this->_aggs,
             'cover' => array(
+                'cache' => true,
                 'view' => array(
                     'plugin' => 'Prawo',
                     'element' => 'cover',

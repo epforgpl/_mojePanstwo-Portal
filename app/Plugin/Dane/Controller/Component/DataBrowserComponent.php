@@ -1542,7 +1542,7 @@ class DataBrowserComponent extends Component
 
         if(
 	        isset($settings['aggsPreset']) &&
-            array_key_exists($settings['aggsPreset'], $this->aggs_presets)
+            array_key_exists($settings['aggsPreset'], $this->aggs_presets) 
         ) {
 	        
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
@@ -1900,19 +1900,22 @@ class DataBrowserComponent extends Component
 					
 				} else {
 				
-					if( isset($this->cover['cache']) ) {
-											
+					if( 
+						isset( $this->cover['cache'] ) && 
+						!isset($controller->request->query['nocache'])
+					) {
+									
 						$cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-' . md5( serialize( $params ) );
-											
-						$aggs = Cache::read($cache_id, 'long');
-											
+																
+						$aggs = Cache::read($cache_id, 'short');
+															
 				        if( $aggs===false ) {
 					        
 					        $controller->Dataobject->find('all', $params);
 					        $aggs = $controller->Dataobject->getAggs();
-				            Cache::write($cache_id, $aggs, 'long');
+				            Cache::write($cache_id, $aggs, 'short');
 				            
-				        }					
+				        }			
 						
 						$dataBrowser = array(
 		                    'aggs' => $aggs,
@@ -1926,6 +1929,13 @@ class DataBrowserComponent extends Component
 		                    'aggs' => $controller->Dataobject->getAggs(),
 		                    'took' => $controller->Dataobject->getPerformance(),
 		                );
+		                
+		                if( isset( $this->cover['cache'] ) ) {
+			                
+			                $cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-' . md5( serialize( $params ) );
+			                Cache::write($cache_id, $dataBrowser['aggs'], 'short');
+			                
+		                }
 						
 					}
 				

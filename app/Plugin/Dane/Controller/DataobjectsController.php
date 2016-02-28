@@ -16,6 +16,7 @@ class DataobjectsController extends AppController
 
     public $object = false;
     public $initLayers = array();
+    public $forceLayers = false;
     public $initAggs = array();
     public $objectOptions = array(
         'hlFields' => false,
@@ -130,18 +131,27 @@ class DataobjectsController extends AppController
             is_numeric($id)
         ) {
 
-            if (@$this->request->params['ext'] == 'json') {
-                $layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : $this->initLayers;
+
+			if( empty($this->forceLayers) ) {
+
+	            if (@$this->request->params['ext'] == 'json') {
+	                $layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : $this->initLayers;
+	            } else {
+	                $layers = $this->initLayers;
+	            }
+				
+	            if ($this->observeOptions) {
+	                $layers[] = 'channels';
+	            }
+	
+	            $layers[] = 'dataset';
+	            $layers[] = 'page';
+            
             } else {
-                $layers = $this->initLayers;
+	            	            
+	            $layers = $this->forceLayers;
+	            
             }
-
-            if ($this->observeOptions) {
-                $layers[] = 'channels';
-            }
-
-            $layers[] = 'dataset';
-            $layers[] = 'page';
 
             $this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(

@@ -443,6 +443,7 @@ class NgoController extends ApplicationsController
 	            ),	            
             ),
             'cover' => array(
+                'cache' => true,
                 'view' => array(
                     'plugin' => 'Ngo',
                     'element' => 'cover',

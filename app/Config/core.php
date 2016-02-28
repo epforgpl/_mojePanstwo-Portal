@@ -161,7 +161,7 @@ Configure::write( 'App.encoding', 'UTF-8' );
  * Turn off all caching application-wide.
  *
  */
-Configure::write( 'Cache.disable', true );
+Configure::write( 'Cache.disable', false );
 
 /**
  * Enable cache checking.

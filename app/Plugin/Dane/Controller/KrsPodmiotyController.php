@@ -498,8 +498,8 @@ class KrsPodmiotyController extends DataobjectsController
     {
         if (@$this->request->params['ext'] == 'json') {
 						
-            $this->addInitLayers('graph');
-            $this->_prepareView();
+            $this->forceLayers = array('graph');
+            parent::_prepareView();
             
             // var_export( $this->object->layers ); die();
             

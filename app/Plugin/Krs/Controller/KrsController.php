@@ -133,6 +133,7 @@ class KrsController extends ApplicationsController
                 'dataset' => array_keys($datasets)
             ),
             'cover' => array(
+                'cache' => true,
                 'view' => array(
                     'plugin' => 'Krs',
                     'element' => 'cover',

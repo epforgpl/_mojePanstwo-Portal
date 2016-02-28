@@ -38,6 +38,7 @@ class KtoTuRzadziController extends ApplicationsController
                 'dataset' => array_keys($datasets)
             ),
             'cover' => array(
+	            'cache' => true,
                 'view' => array(
                     'plugin' => 'KtoTuRzadzi',
                     'element' => 'cover',
