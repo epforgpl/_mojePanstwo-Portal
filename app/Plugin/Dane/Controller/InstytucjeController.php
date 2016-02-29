@@ -498,6 +498,7 @@ class InstytucjeController extends DataobjectsController
                 '_object' => 'gminy.' . $this->object->getId(),
             ),
             'cover' => array(
+                'cache' => true,
                 'view' => array(
                     'plugin' => 'Dane',
                     'element' => 'instytucje/' . $cover,
