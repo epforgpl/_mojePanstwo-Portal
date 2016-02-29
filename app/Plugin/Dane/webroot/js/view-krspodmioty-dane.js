@@ -101,4 +101,46 @@ $(document).ready(function () {
 
     $('.sticky').sticky();
 
+    /* Tags autocomplete input */
+    $(function () {
+
+        var elements = $('.tags input.tagit');
+        for (var i = 0; i < elements.length; i++) {
+
+            var el = $(elements[i]);
+
+            el.tagit({
+                allowSpaces: true,
+                removeConfirmation: true,
+                beforeTagAdded: function (event, ui) {
+
+                    if (ui.duringInitialization)
+                        return false;
+
+                    return (ui.tagLabel.length >= 2);
+                },
+                autocomplete: {
+                    source: function (request, response) {
+                        $.getJSON("/dane/suggest.json?q=" + request.term + "&dataset[]=tematy", function (res) {
+                            var data = [];
+                            for (var i = 0; i < res.options.length; i++)
+                                data.push(res.options[i].text);
+
+                            response(data);
+                        });
+                    },
+                    minLength: 1
+                }
+            }).tagit('removeAll');
+
+            var data = el.data('value');
+            if (data && data.length) {
+                for (var j = 0; j < data.length; j++) {
+                    el.tagit('createTag', data[j]);
+                }
+            }
+
+        }
+    });
+
 });
