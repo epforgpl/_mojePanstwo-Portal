@@ -19,7 +19,7 @@ class TransactionsController extends AppController
 
     public function getTransactionStatus() {
         $results = $this->Transaction->save($this->request->data);
-        if($results['transaction']) {
+        if(isset($results['Transaction'])) {
             $this->autoRender = false;
             echo "TRUE";
         } else
