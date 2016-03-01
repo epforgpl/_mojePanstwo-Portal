@@ -1,4 +1,7 @@
 <? $this->Combinator->add_libs('css', $this->Less->css('admin', array('plugin' => 'Admin'))); ?>
+
+<? echo $this->Element('headers/main'); ?>
+
 <header>
     <a href="/admin"><h1>Admin</h1></a>
 </header>

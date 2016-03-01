@@ -90,8 +90,10 @@ class DataobjectsController extends AppController
 
         $this->addInitLayers('page');
 
-        if(@$this->request->params['controller'] == 'krs_podmioty')
+        if(@$this->request->params['controller'] == 'krs_podmioty') {
             $this->addInitLayers('bank_account');
+            $this->addInitLayers('tags');
+        }
 
         $this->_prepareView();
         if(!$this->_canEdit())

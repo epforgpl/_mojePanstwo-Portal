@@ -11,7 +11,17 @@ echo $this->Html->script('../plugins/tinymce/js/tinymce/tinymce.min', array('blo
 /* page script */
 $this->Combinator->add_libs('js', 'Dane.view-krspodmioty-dane');
 
+/* tag-it */
+echo $this->Html->script('../plugins/tag-it/js/tag-it.min', array('block' => 'scriptBlock'));
+echo $this->Html->css('../plugins/tag-it/css/jquery.tagit.css');
+echo $this->Html->css('../plugins/tag-it/css/tagit.ui-zendesk.css');
+
 $page = $object->getLayer('page');
+
+$tagsLayer = $object->getLayer('tags');
+$tags = false;
+if($tagsLayer)
+	$tags = @array_column($tagsLayer, 'q');
 
 $description =
     (isset($page['description']) && strlen($page['description']) > 0)
@@ -72,7 +82,19 @@ echo $this->Element('dataobject/pageBegin'); ?>
                         </div>
 
 
-                        <div class="form-group form-row">
+					<div class="form-group form-row">
+						<label class="col-lg-12 control-label control-label-full" for="tags">Słowa kluczowe:</label>
+						<div class="col-lg-12 tags">
+							<input
+								id="tags"
+								type="text"
+								class="form-control tagit"
+								name="tagi"
+								<? if (isset($tags) && is_array($tags) && count($tags)) printf('data-value="%s"', htmlspecialchars(json_encode($tags), ENT_QUOTES, 'UTF-8')) ?>/>
+						</div>
+					</div>
+
+					<div class="form-group form-row">
                         <label class="col-lg-12 control-label control-label-full" for="phoneNumber">Numer telefonu:</label>
                         <div class="col-lg-12"><input maxlength="195" type="text" class="form-control" id="phoneNumber" name="phone" <? if($object->getPage('phone')) echo 'value="'.$object->getPage('phone').'"'; ?>/></div>
                     </div>
