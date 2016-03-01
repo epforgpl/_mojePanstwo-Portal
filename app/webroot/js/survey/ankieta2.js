@@ -89,9 +89,7 @@ $(window).load(function () {
 		});
 
 		if (typeof mPCookie.survey.ankieta2 === "undefined" || !(mPCookie.survey.ankieta2 === 'toSend' || mPCookie.survey.ankieta2 === 'sended')) {
-			
-			alert(10);
-			
+						
 			if (mPCookie.survey.ankieta2 > 120) {
 				surveyAnkieta2.modal('show');
 			} else {
