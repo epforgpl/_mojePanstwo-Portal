@@ -1905,7 +1905,12 @@ class DataBrowserComponent extends Component
 						!isset($controller->request->query['nocache'])
 					) {
 									
-						$cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-' . md5( serialize( $params ) );
+						$cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-';
+						
+						if( isset($controller->request->params['id']) )
+							$cache_id .= $controller->request->params['id'] . '-';
+							
+						$cache_id .= md5( serialize( $params ) );
 																
 						$aggs = Cache::read($cache_id, 'short');
 															

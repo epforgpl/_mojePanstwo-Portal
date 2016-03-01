@@ -646,76 +646,76 @@
 
 				var linkEl = $('<a></a>').attr({
 					'href': '#',
-					'target': '_self'
+					'target': '_self',
+					'class': 'btn btn-xs btn-primary'
 				}).text(mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_LINK);
-
+				
+								
+				if (node.label === "podmiot") {
+					linkEl.attr('href', '/dane/krs_podmioty/' + node.id.replace(/\D/g, ''));
+				} else if (node.label === "osoba") {
+					linkEl.attr('href', '/dane/krs_osoby/' + node.id.replace(/\D/g, ''));
+				}
+				
+				console.log('loop start');
+								
 				$.each(node.data, function (label, value) {
-					if (label === 'mp_id') {
-						if (node.label === "podmiot") {
-							linkEl.attr('href', '/dane/krs_podmioty/' + value);
-						} else if (node.label === "osoba") {
-							linkEl.attr('href', '/dane/krs_osoby/' + value);
-						}
-					} else {
-						var tr = $('<li></li>').append(
-							$('<div></div>').addClass('row')
-						);
+				
+					console.log('label', label);
+					
+					var tr = $('<li></li>').append(
+						$('<div></div>').addClass('row')
+					);
 
-						if (label === 'privacy_level' && Number(value) === 1) {
-							birthdayPrivacy = true;
-						}
+					if (label === 'privacy_level' && Number(value) === 1) {
+						birthdayPrivacy = true;
+					}
 
-						if (label === 'data_urodzenia') {
-							if (birthdayPrivacy) {
-								return;
-							}
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
-							value = ((value) ? value.split("-")[0] : ' - ');
-						} else if (label === 'plec') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;
-							if (value === 'K') {
-								value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KOBIETA;
-							} else if (value === 'M') {
-								value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA;
-							}
-						}
-						else if (label === 'nazwisko') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO;
-						} else if (label === 'imiona') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_IMIONA;
-						} else if (label === 'krs') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KRS;
-						} else if (label === 'kapital_zakladowy') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY;
-						} else if (label === 'miejscowosc') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MIEJSCOWOSC;
-						} else if (label === 'data_rejestracji') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_REJESTRACJI;
-						} else if (label === 'forma') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_FORMA_PRAWNA;
-						} else if (label === 'nazwa') {
-							label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWA;
-						} else {
+					if (label === 'data_urodzenia') {
+						if (birthdayPrivacy) {
 							return;
 						}
-						tr.find('.row').append($('<div></div>').addClass('col-xs-5').text(label));
-						tr.find('.row').append($('<div></div>').addClass('col-xs-7').text((value) ? value : ' - '));
-						dataContent.find('.wskazniki').append(tr);
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
+						value = ((value) ? value.split("-")[0] : ' - ');
+					} else if (label === 'plec') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;
+						if (value === 'K') {
+							value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KOBIETA;
+						} else if (value === 'M') {
+							value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA;
+						}
 					}
+					else if (label === 'nazwisko') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO;
+					} else if (label === 'imiona') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_IMIONA;
+					} else if (label === 'krs') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KRS;
+					} else if (label === 'kapital_zakladowy') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY;
+					} else if (label === 'miejscowosc') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MIEJSCOWOSC;
+					} else if (label === 'data_rejestracji') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_REJESTRACJI;
+					} else if (label === 'forma') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_FORMA_PRAWNA;
+					} else if (label === 'nazwa') {
+						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWA;
+					} else {
+						return;
+					}
+											
+					tr.find('.row').append($('<div></div>').addClass('col-xs-5').text(label));
+					tr.find('.row').append($('<div></div>').addClass('col-xs-7').text((value) ? value : ' - '));
+					dataContent.find('.wskazniki').append(tr);
+
 				});
-
-				if (linkEl.attr('href') === "#") {
-					if (node.label === "podmiot") {
-						linkEl.attr('href', '/dane/krs_podmioty/' + node.id.replace(/\D/g, ''));
-					} else if (node.label === "osoba") {
-						linkEl.attr('href', '/dane/krs_osoby/' + node.id.replace(/\D/g, ''));
-					}
-				}
-
-				var link = $('<tr></tr>').append(
-					$('<td></td>').attr('colspan', 2).append(linkEl)
+				
+											
+				
+				dataContent.find('.wskazniki').append(
+					$('<li class="text-center"></li>').html(linkEl)
 				);
-				dataContent.find('table').append(link);
 
 				detailInfoWrapper.append(dataContent);
 

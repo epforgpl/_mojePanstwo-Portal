@@ -183,6 +183,20 @@
     echo $this->Element('footers/cookie'); ?>
 </div>
 
+<?
+if ($domainMode == "MP") {
+    if (isset($_COOKIE["mojePanstwo"])) {
+        $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
+
+        if (!isset($mojePanstwo->survey->ankieta2->complete)) {
+            echo $this->Element('survey/ankieta2');
+        }
+    } else {
+        echo $this->Element('survey/ankieta2');
+    }
+}
+?>
+
 <?php /* GOOGLE ANALYTIC */ ?>
 <script>
     (function (i, s, o, g, r, a, m) {

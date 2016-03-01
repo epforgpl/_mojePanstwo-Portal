@@ -1,13 +1,11 @@
 /*global window, document, $, Cookies, mPCookie, mPHeart*/
 
 $(window).load(function () {
-
-	return false;
-
+	
 	var mPCookie = mPCookie || {},
 		surveyAnkieta2 = $('#surveyAnkieta2'),
 		ankieta2Interval,
-		ankieta2EndDate = new Date(Date.parse("13 Dec 2015"));
+		ankieta2EndDate = new Date(Date.parse("30 March 2016"));
 
 	mPCookie.survey = {};
 	mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
@@ -91,6 +89,9 @@ $(window).load(function () {
 		});
 
 		if (typeof mPCookie.survey.ankieta2 === "undefined" || !(mPCookie.survey.ankieta2 === 'toSend' || mPCookie.survey.ankieta2 === 'sended')) {
+			
+			alert(10);
+			
 			if (mPCookie.survey.ankieta2 > 120) {
 				surveyAnkieta2.modal('show');
 			} else {
