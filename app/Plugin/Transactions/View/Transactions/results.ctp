@@ -1,6 +1,6 @@
 
 <div class="container">
-    <? if(isset($transaction) && $transaction['Transaction']['res_status'] == 'TRUE') { ?>
+    <? if(isset($transaction)) { ?>
         <h2>Dziękujemy!</h2>
         <p>message</p>
     <? } else { ?>
