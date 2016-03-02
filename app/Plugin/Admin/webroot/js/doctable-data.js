@@ -71,6 +71,20 @@ $(document).ready(function() {
             return false;
         });
 
+        this.$toolbar.find('.exportMySQL').click(function() {
+            var sql = self.getTablesAsSQL();
+            $.post('/admin/docs/exportMySQL', {
+                sql: sql.replace(/(\r\n|\n|\r|\t)/gm, '')
+            }, function(res) {
+                if(res == true) {
+                    alert('Dane zostały poprawnie dodane do MySQL');
+                } else {
+                    alert('Wystąpił błąd');
+                }
+            }, 'json');
+            return false;
+        });
+
     };
 
     DocTableData.prototype = {
@@ -123,7 +137,7 @@ $(document).ready(function() {
 
             for(var t = 0; t < this.tables.length; t++) {
                 var table = this.tables[t];
-                s.push('CREATE TABLE IF NOT EXISTS `' + table.dbName + '` (');
+                s.push('CREATE TABLE IF NOT EXISTS `docd_' + table.dbName + '` (');
                 s.push('\t`id` INT(11) UNSIGNED AUTO_INCREMENT,');
                 s.push('\t`parent_id` INT(11) UNSIGNED DEFAULT 0,');
 
@@ -136,7 +150,7 @@ $(document).ready(function() {
                 s.push(');\n');
 
 
-                s.push('INSERT INTO `' + table.dbName + '` (');
+                s.push('INSERT INTO `docd_' + table.dbName + '` (');
                 s.push('\t`id`,');
                 s.push('\t`parent_id`,');
                 for(c = 0; c < table.cols.length; c++) {

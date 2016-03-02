@@ -15,11 +15,11 @@ $this->Combinator->add_libs('js', 'Admin.doctable-data');
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <!--<button type="button" class="btn btn-sm btn-primary saveDocTables">
-                        Zapisz
-                    </button>-->
+                    <button type="button" class="btn btn-sm btn-primary exportMySQL">
+                        Eksportuj do MySQL
+                    </button>
                     <button type="button" class="btn btn-sm btn-default exportSQL">
-                        Eksportuj SQL
+                        Pobierz SQL
                     </button>
                 </div>
             </div>
