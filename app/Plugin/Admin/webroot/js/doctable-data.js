@@ -63,11 +63,11 @@ $(document).ready(function() {
         });
 
         this.$toolbar.find('.exportSQL').click(function() {
-            console.log(self.getTablesAsSQL());
-            /* var a = document.getElementById('forceDownloadFile');
-            a.setAttribute('href', 'data:application/octet-stream;charset=utf-8,' + encodeURIComponent(self.getTablesAsSQL()));
-            a.setAttribute('download', 'doc.sql');
-            a.click(); */
+            var sql = self.getTablesAsSQL();
+            var a = document.getElementById('forceDownloadFile');
+            a.setAttribute('href', 'data:application/octet-stream;charset=utf-8,' + encodeURIComponent(sql));
+            a.setAttribute('download', self.doc['document_id'] + ' - ' + self.doc['name'] + '.sql');
+            a.click();
             return false;
         });
 
@@ -101,15 +101,30 @@ $(document).ready(function() {
             '#222'
         ],
 
+        prepareValue: function(val, type) {
+            switch(type)
+            {
+                case 'VARCHAR':
+                    val = '"' + val.trim() + '"';
+                break;
+
+                case 'INT':
+                    val = val.replace(/[^\/\d]/g, '');
+                break;
+
+                default: break;
+            }
+
+            return val;
+        },
+
         getTablesAsSQL: function() {
             var s = ['/* SQL */\n'];
-
-            console.log(this.tables);
 
             for(var t = 0; t < this.tables.length; t++) {
                 var table = this.tables[t];
                 s.push('CREATE TABLE IF NOT EXISTS `' + table.dbName + '` (');
-                s.push('\t`id` INT(11) UNSIGNED PRIMARY KEY AUTOINCREMENT,');
+                s.push('\t`id` INT(11) UNSIGNED AUTO_INCREMENT,');
                 s.push('\t`parent_id` INT(11) UNSIGNED DEFAULT 0,');
 
                 for(var c = 0; c < table.cols.length; c++) {
@@ -119,6 +134,41 @@ $(document).ready(function() {
 
                 s.push('\tPRIMARY KEY (`id`)');
                 s.push(');\n');
+
+
+                s.push('INSERT INTO `' + table.dbName + '` (');
+                s.push('\t`id`,');
+                s.push('\t`parent_id`,');
+                for(c = 0; c < table.cols.length; c++) {
+                    col = table.cols[c];
+                    s.push('\t`' + col.name + '`' + (c + 1 == table.cols.length ? '': ','));
+                }
+                s.push(') VALUES');
+
+                for(var r = 0; r < table.rows.length; r++) {
+                    var row = table.rows[r];
+                    var parent_id = 0;
+
+                    if(r > 0 && table.rowParents[r] > 0)
+                    {
+                        var rr = r;
+                        do {
+                            rr--;
+                        } while(table.rowParents[r] - 1 != table.rowParents[rr]);
+                        parent_id = rr + 1;
+                    }
+
+                    s.push('(');
+                    s.push('\t"",');
+                    s.push('\t' + parent_id + ',');
+                    for(var v = 0; v < row.length; v++) {
+                        var type = table.cols[v].type;
+                        var value = this.prepareValue(row[v], type);
+                        s.push('\t' + value + (v + 1 == row.length ? '' : ','));
+                    }
+                    s.push(')' + (r + 1 == table.rows.length ? ';' : ','));
+                }
+                s.push('');
             }
 
             return s.join('\n');
@@ -189,7 +239,8 @@ $(document).ready(function() {
         },
 
         getTablesDOM: function() {
-            var dom = ['<div class="container"><h1 class="text-muted">Tabele</h1>'];
+            var dom = ['<div class="container">'];
+            dom.push('<h2 class="text-muted">' + this.doc['name'] + ' <small>' + this.doc['created_at'] +'</small></h2>');
             dom.push('<a target="_blank" href="/admin/docs/tables/' + this.doc['document_id'] +'">Dokument źródłowy</a>');
 
             for(var t = 0; t < this.tables.length; t++) {
