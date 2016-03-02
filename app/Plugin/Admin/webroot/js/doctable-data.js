@@ -253,11 +253,14 @@ $(document).ready(function() {
 
         tableDataToTables: function(tableData) {
             var tables = [];
-
             if(tableData.hasOwnProperty('doctable_data_tables')) {
                 for(var t = 0; t < tableData['doctable_data_tables'].length; t++) {
-                    var docTable = tableData['doctable_data_tables'][t],
-                        values = docTable[0]['values'].split('[{~}]'),
+
+                    var docTable = tableData['doctable_data_tables'][t];
+                    if(parseInt(docTable[0]['values_count']) == 0)
+                        continue;
+
+                    var values = docTable[0]['values'].split('[{~}]'),
                         data = docTable['doctable_data_table'],
                         table = {
                             name: data['name'],
