@@ -36,6 +36,44 @@ $(document).ready(function() {
             self.$preview.html(self.getTablesDOM());
         });
 
+        self.$preview.on('click', 'button.useDict', function() {
+            var selfButton = $(this);
+            var tableIndex = $(this).data('tableIndex');
+            selfButton.text('Pobieranie..');
+            $.get('/admin/docs/getDict', function(res) {
+                selfButton.text('Zamiana...').change();
+                for(var r = 0; r < res.length; r++) {
+                    var from = res[r]['doctable_dict']['from'];
+                    var to = res[r]['doctable_dict']['to'];
+                    for(var rr = 0; rr < self.tables[tableIndex].rows.length; rr++) {
+                        for(var v = 0; v < self.tables[tableIndex].rows[rr].length; v++) {
+                            var type = self.tables[tableIndex].cols[v].type;
+                            if(['VARCHAR','CHAR','TEXT'].indexOf(type) !== -1)
+                            {
+                                var value = self.tables[tableIndex].rows[rr][v],
+                                    lowerValue = value.toLowerCase(),
+                                    pos = lowerValue.search(from.toLowerCase());
+
+                                if(pos !== -1) {
+                                    var vvv = value.substring(pos, from.length);
+                                    if(vvv.toUpperCase() == vvv) {
+                                        to = to.toUpperCase();
+                                    } else if(vvv.toLowerCase() == vvv) {
+                                        to = to.toLowerCase();
+                                    } else if(vvv.charAt(0).toUpperCase() == vvv.charAt(0) && vvv.charAt(1).toLowerCase() == vvv.charAt(1)) {
+                                        to = to.charAt(0).toUpperCase() + to.slice(1);
+                                    }
+                                    self.tables[tableIndex].rows[rr][v] = value.substring(0, pos) + to + value.substring(pos + from.length, value.length);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                self.$preview.html(self.getTablesDOM());
+            }, 'json');
+        });
+
         self.$preview.on('change', 'input.tableName', function() {
             var tableIndex = $(this).data('tableIndex');
             self.tables[tableIndex].dbName = $(this).val();
@@ -119,6 +157,14 @@ $(document).ready(function() {
             switch(type)
             {
                 case 'VARCHAR':
+                    val = '"' + val.trim() + '"';
+                break;
+
+                case 'CHAR':
+                    val = '"' + val.trim() + '"';
+                break;
+
+                case 'TEXT':
                     val = '"' + val.trim() + '"';
                 break;
 
@@ -260,7 +306,7 @@ $(document).ready(function() {
             for(var t = 0; t < this.tables.length; t++) {
                 var table = this.tables[t];
                 dom.push('<div style="margin-top: 15px;" class="panel panel-default">');
-                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-6"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"></div><div class="clear col-sm-3"><select data-table-index="' + t + '" class="form-control">');
+                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-6"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-3"><select data-table-index="' + t + '" class="form-control">');
 
                 for(var tt = 0; tt < this.tables.length; tt++) {
                     if(tt == t) continue;

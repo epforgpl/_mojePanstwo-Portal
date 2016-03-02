@@ -26,7 +26,7 @@ $(document).ready(function() {
                 fromTxt = res['DoctableDict']['from'],
                 toTxt = res['DoctableDict']['to'];
 
-            $('#mainTable tr:last').before('<tr><td><input type="text" name="from" data-id="' + id + '" class="form-control editable" value="' + fromTxt + '"></td><td><input type="text" name="to" data-id="' + id + '" class="form-control editable" value="' + toTxt + '"></td><td><button data-id="' + id + '" class="btn btn-danger removeDict">Usuń</button></td></tr>');
+            $('#mainTable tr:last').before('<tr data-id="' + id + '"><td><input type="text" name="from" data-id="' + id + '" class="form-control editable" value="' + fromTxt + '"></td><td><input type="text" name="to" data-id="' + id + '" class="form-control editable" value="' + toTxt + '"></td><td><button data-id="' + id + '" class="btn btn-danger removeDict">Usuń</button></td></tr>');
         }, 'json');
 
         from.val('');

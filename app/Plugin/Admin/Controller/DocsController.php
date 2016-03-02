@@ -107,6 +107,10 @@ class DocsController extends AdminAppController {
         $this->set('dict', $this->Doctable->getDict(0));
     }
 
+    public function getDict() {
+        $this->setSerialized('response', $this->Doctable->getDict(0));
+    }
+
     public function removeDict() {
         $this->setSerialized('response',
             $this->DoctableDict->delete(
