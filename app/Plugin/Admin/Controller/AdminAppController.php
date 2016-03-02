@@ -102,6 +102,11 @@ class AdminAppController extends AppController
             'label' => 'NGO Newsletter',
             'href'  => '/admin/newsletter',
         ),
+        array(
+            'id'    => 'hurtownia',
+            'label' => 'Hurtownia danych',
+            'href'  => '/admin/docs/hurtownia',
+        ),
     );
 
     public function beforeFilter() {

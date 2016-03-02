@@ -127,4 +127,26 @@ class DocsController extends AdminAppController {
         );
     }
 
+    public function hurtownia() {
+        $rows = $this->DoctableDict->query('SELECT * FROM hurtownia_danych_map');
+
+        $map = array(
+            'categories' => array()
+        );
+
+        foreach($rows as $row) {
+            $row = $row['hurtownia_danych_map'];
+            if(!isset($map['categories'][$row['cat']])) {
+                $map['categories'][$row['cat']] = array(
+                    'rows' => array(),
+                    'sub' => array()
+                );
+            }
+
+            $map['categories'][$row['cat']]['rows'][] = $row;
+        }
+
+        $this->set('map', $map);
+    }
+
 }
