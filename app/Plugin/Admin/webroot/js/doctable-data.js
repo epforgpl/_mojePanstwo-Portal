@@ -108,6 +108,8 @@ $(document).ready(function() {
                                 }
 
                                 value = value.replace(' ', '');
+                                if(value == '')
+                                    value = '0';
                                 self.tables[tableIndex].rows[rr][v] = value;
                             }
                         }
@@ -236,6 +238,11 @@ $(document).ready(function() {
                     } else {
                         val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
                     }
+                break;
+
+                case 'FLOAT':
+                    if(val == '')
+                        val = 0.0;
                 break;
 
                 default: break;
