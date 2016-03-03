@@ -27,6 +27,12 @@ $this->Combinator->add_libs('js', 'Admin.doctable');
                     <button type="button" class="btn btn-sm btn-default importDocTables">
                         Wczytaj
                     </button>
+                    <button type="button" class="btn btn-sm btn-default increaseTextFont">
+                        +
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default decreaseTextFont">
+                        -
+                    </button>
                     <div class="btn-group pull-right viewSelect" data-toggle="buttons">
                         <label class="btn btn-sm btn-default active">
                             <input type="radio" name="view" value="document" autocomplete="off" checked> Dokument

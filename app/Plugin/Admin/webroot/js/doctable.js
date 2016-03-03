@@ -271,6 +271,20 @@ $(document).ready(function() {
             a.click();
             return false;
         });
+
+        this.$toolbar.find('.increaseTextFont').click(function() {
+            var font = parseInt(self.$preview.find('.text').css("font-size"));
+            self.$preview.find('.text').css({
+                'font-size': (font + 1) + 'px'
+            });
+        });
+
+        this.$toolbar.find('.decreaseTextFont').click(function() {
+            var font = parseInt(self.$preview.find('.text').css("font-size"));
+            self.$preview.find('.text').css({
+                'font-size': (font - 1) + 'px'
+            });
+        });
     };
 
     DocTable.prototype = {
