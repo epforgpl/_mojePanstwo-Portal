@@ -11,9 +11,7 @@ $(document).ready(function() {
 
         var self = this;
 
-        self.$preview.html(
-            self.getTablesDOM()
-        );
+        self.refresh();
 
         self.$preview.on('click', 'button.margeTablesUp', function() {
             var tableToIndex = $(this).data('tableIndex');
@@ -21,7 +19,7 @@ $(document).ready(function() {
             if(tableToIndex > 0) {
                 if(self.tables.hasOwnProperty(tableToIndex - 1)) {
                     self.mergeTables(tableToIndex - 1, tableToIndex);
-                    self.$preview.html(self.getTablesDOM());
+                    self.refresh();
                 }
             }
         });
@@ -32,19 +30,19 @@ $(document).ready(function() {
                 tableFromIndex = select.find(':selected').data('tableIndex');
 
             self.mergeTables(tableToIndex, tableFromIndex);
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('click', 'button.decreaseParentAction', function() {
             var row = $(this).closest('tr').first().data();
             self.tables[row['tableIndex']]['rowParents'][row['rowIndex']]--;
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('click', 'button.increaseParentAction', function() {
             var row = $(this).closest('tr').first().data();
             self.tables[row['tableIndex']]['rowParents'][row['rowIndex']]++;
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('click', 'button.useDict', function() {
@@ -59,10 +57,10 @@ $(document).ready(function() {
                     for(var rr = 0; rr < self.tables[tableIndex].rows.length; rr++) {
                         for(var v = 0; v < self.tables[tableIndex].rows[rr].length; v++) {
                             var type = self.tables[tableIndex].cols[v].type;
+                            var value = self.tables[tableIndex].rows[rr][v];
                             if(['VARCHAR','CHAR','TEXT'].indexOf(type) !== -1)
                             {
-                                var value = self.tables[tableIndex].rows[rr][v],
-                                    lowerValue = value.toLowerCase(),
+                                var lowerValue = value.toLowerCase(),
                                     pos = lowerValue.search(from.toLowerCase());
 
                                 if(pos !== -1) {
@@ -76,19 +74,45 @@ $(document).ready(function() {
                                     }
                                     self.tables[tableIndex].rows[rr][v] = value.substring(0, pos) + to + value.substring(pos + from.length, value.length);
                                 }
+                            } else if(type == 'FLOAT') {
+
+                                if(
+                                    value.indexOf(',') !== -1 &&
+                                    value.split(',').length - 1 == 1 &&
+                                    value.indexOf('.') == -1)
+                                {
+                                    value = value.replace(',', '.');
+                                } else if(
+                                    value.indexOf(',') !== -1 &&
+                                    value.indexOf('.') !== -1 &&
+                                    value.split(',').length - 1 == 1 &&
+                                    value.split('.').length - 1 == 1
+                                )
+                                {
+                                    var dotPos = value.indexOf('.'),
+                                        comPos = value.indexOf(',');
+                                    if(dotPos > comPos) {
+                                        value = value.replace(',', '');
+                                    } else {
+                                        value = value.replace('.', '');
+                                        value = value.replace(',', '.');
+                                    }
+                                }
+
+                                self.tables[tableIndex].rows[rr][v] = value;
                             }
                         }
                     }
                 }
 
-                self.$preview.html(self.getTablesDOM());
+                self.refresh();
             }, 'json');
         });
 
         self.$preview.on('change', 'input.tableName', function() {
             var tableIndex = $(this).data('tableIndex');
             self.tables[tableIndex].dbName = $(this).val();
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('change', 'input.tableColName', function() {
@@ -101,14 +125,14 @@ $(document).ready(function() {
             var tableIndex = $(this).data('tableIndex'),
                 colIndex = $(this).data('colIndex');
             self.tables[tableIndex].cols[colIndex].size = $(this).val();
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('change', 'select.tableColType', function() {
             var tableIndex = $(this).data('tableIndex'),
                 colIndex = $(this).data('colIndex');
             self.tables[tableIndex].cols[colIndex].type = $(this).find(':selected').first().html();
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         this.$toolbar.find('.exportSQL').click(function() {
@@ -139,6 +163,10 @@ $(document).ready(function() {
     DocTableData.prototype = {
 
         constructor: DocTableData,
+
+        refresh: function() {
+            this.$preview.html(this.getTablesDOM());
+        },
 
         TYPES: [
             'VARCHAR',
@@ -330,15 +358,15 @@ $(document).ready(function() {
                     for(var cc = 0; cc < table.cols.length; cc++) {
                         dom.push('<td><div class="row clear">');
 
-                        dom.push('<div class="col-sm-6 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColName" value="' + table.cols[cc].name + '"/></div>');
+                        dom.push('<div class="col-sm-12 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColName" value="' + table.cols[cc].name + '"/></div></div><div class="row clear">');
 
-                        dom.push('<div class="col-sm-4 clear"><select class="form-control input-sm tableColType" data-table-index="' + t + '" data-col-index="' + cc + '">');
+                        dom.push('<div class="col-sm-8 clear"><select class="form-control input-sm tableColType" data-table-index="' + t + '" data-col-index="' + cc + '">');
                         for(var ty = 0; ty < this.TYPES.length; ty++) {
                             dom.push('<option' + (this.TYPES[ty] == table.cols[cc].type ? ' selected' : '') + '>' + this.TYPES[ty] + '</option>');
                         }
                         dom.push('</select></div>');
 
-                        dom.push('<div class="col-sm-2 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColTypeSize" value="' + table.cols[cc].size + '"/></div>');
+                        dom.push('<div class="col-sm-4 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColTypeSize" value="' + table.cols[cc].size + '"/></div>');
 
                         dom.push('</div></td>');
                     }

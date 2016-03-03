@@ -1,4 +1,5 @@
 <?
+$this->Combinator->add_libs('js', 'Admin.colResizable-1.5.min');
 $this->Combinator->add_libs('js', 'Admin.doctable-data');
 ?><!DOCTYPE HTML>
 <html lang="en">
