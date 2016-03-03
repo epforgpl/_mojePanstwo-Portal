@@ -444,7 +444,7 @@ $(document).ready(function() {
                             var values = [];
                             for (c = 0; c < _cols.length; c++) {
                                 var value = '';
-                                var margin = 10;
+                                var margin = 5;
                                 for (var t = 0; t < texts.length; t++) {
                                     var text = texts[t],
                                         textRowFrom = parseInt(text.top),
