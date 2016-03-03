@@ -169,7 +169,7 @@ $(document).ready(function() {
                 break;
 
                 case 'INT':
-                    val = val.replace(/[^\/\d]/g, '');
+                    val = val.replace(/[^\/\d]/g, '') || 0;
                 break;
 
                 default: break;
