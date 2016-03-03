@@ -5,7 +5,7 @@ App::uses('AdminAppController', 'Admin.Controller');
 class DocsController extends AdminAppController {
 
     public $components = array('RequestHandler', 'S3');
-    public $uses = array('Admin.Doctable');
+    public $uses = array('Admin.Doctable', 'Admin.DoctableDict');
 
     public function tables($document_id) {
         $this->layout = false;
@@ -92,6 +92,61 @@ class DocsController extends AdminAppController {
         }
 
         return json_encode($doc);
+    }
+
+    public function exportMySQL() {
+        $this->setSerialized('response',
+            $this->Doctable->exportMySQL(
+                $this->request->data
+            )
+        );
+    }
+
+    public function dict() {
+        $this->layout = false;
+        $this->set('dict', $this->Doctable->getDict(0));
+    }
+
+    public function getDict() {
+        $this->setSerialized('response', $this->Doctable->getDict(0));
+    }
+
+    public function removeDict() {
+        $this->setSerialized('response',
+            $this->DoctableDict->delete(
+                $this->request->data['id']
+            )
+        );
+    }
+
+    public function addDict() {
+        $this->setSerialized('response',
+            $this->DoctableDict->save(
+                $this->request->data
+            )
+        );
+    }
+
+    public function hurtownia() {
+        $rows = $this->DoctableDict->query('SELECT * FROM hurtownia_danych_map WHERE `enabled` = 1');
+
+        $map = array(
+            'categories' => array()
+        );
+
+        foreach($rows as $row) {
+            $row = $row['hurtownia_danych_map'];
+            if(!isset($map['categories'][$row['cat']])) {
+                $map['categories'][$row['cat']] = array(
+                    'rows' => array(),
+                    'sub' => array()
+                );
+            }
+
+            $map['categories'][$row['cat']]['rows'][] = $row;
+        }
+
+        $this->set('map', $map);
     }
 
 }

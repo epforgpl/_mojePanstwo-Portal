@@ -430,6 +430,7 @@ $(document).ready(function() {
                             var values = [];
                             for (c = 0; c < _cols.length; c++) {
                                 var value = '';
+                                var margin = 10;
                                 for (var t = 0; t < texts.length; t++) {
                                     var text = texts[t],
                                         textRowFrom = parseInt(text.top),
@@ -437,10 +438,10 @@ $(document).ready(function() {
                                         textColFrom = parseInt(text.left),
                                         textColTo = parseInt(text.left) + parseInt(text.width);
                                     if (
-                                        textRowFrom >= (table.y + _rows[r].from) &&
-                                        textRowTo <= (table.y + _rows[r].to) &&
-                                        textColFrom >= (table.x + _cols[c].from) &&
-                                        textColTo <= (table.x + _cols[c].to)
+                                        textRowFrom + margin >= (table.y + _rows[r].from) &&
+                                        textRowTo - margin <= (table.y + _rows[r].to) &&
+                                        textColFrom + margin >= (table.x + _cols[c].from) &&
+                                        textColTo - margin <= (table.x + _cols[c].to)
                                     ) {
                                         value += ' ' + text.content;
                                     }
