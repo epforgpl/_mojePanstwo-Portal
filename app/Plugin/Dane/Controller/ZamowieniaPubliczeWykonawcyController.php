@@ -2,7 +2,7 @@
 
 App::uses('DataobjectsController', 'Dane.Controller');
 
-class ZamowieniaPubliczneWykonawcyController extends DataobjectsController
+class ZamowieniaPubliczeWykonawcyController extends DataobjectsController
 {
 
     public function view()

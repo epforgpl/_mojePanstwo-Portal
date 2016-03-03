@@ -19,7 +19,16 @@ if ($data) {
                                 <span class="object-icon icon-datasets-zamowienia_publiczne_wykonawcy"></span>
                                 <div class="object-icon-side ">
                                     <p class="title">
-                                        <a href="/dane/krs_podmioty/{id}"
+	                                    <?
+		                                    		                                    
+		                                    if( $bucket['krs_id']['buckets'][0]['key'] )
+		                                    	$url = '/dane/krs_podmioty/' . $bucket['krs_id']['buckets'][0]['key'];
+		                                    else
+		                                    	$url = '/dane/zamowienia_publicze_wykonawcy/' . $bucket['key'];
+		                                    
+	                                    ?>
+	                                    
+                                        <a href="<?= $url ?>"
                                            title="<?= $bucket['nazwa']['buckets'][0]['key'] ?>"><?= $bucket['nazwa']['buckets'][0]['key'] ?></a>
                                     </p>
                                     <p class="meta meta-desc"><?= number_format_h($bucket['suma']['value']) ?> zł</p>
@@ -32,7 +41,6 @@ if ($data) {
         </ul>
     </div>
 <? } else { ?>
-    asd2
     <p class="label-browser">
         <a href="<?= $map['cancelRequest']; ?>" aria-label="Close">
             <span class="label label-primary">
