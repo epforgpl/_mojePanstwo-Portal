@@ -128,13 +128,14 @@ class DocsController extends AdminAppController {
     }
 
     public function hurtownia() {
-        $rows = $this->DoctableDict->query('SELECT * FROM hurtownia_danych_map WHERE `enabled` = "1"');
+        $rows = $this->DoctableDict->query('SELECT `hurtownia_danych_map`.*, COUNT(`doctable_data`.`document_id`) as `count` FROM hurtownia_danych_map LEFT JOIN `doctable_data` ON `doctable_data`.`document_id` = hurtownia_danych_map.document_id  WHERE `enabled` = "1" GROUP BY hurtownia_danych_map.document_id');
 
         $map = array(
             'categories' => array()
         );
 
         foreach($rows as $row) {
+            $row['hurtownia_danych_map']['count'] = @$row[0]['count'];
             $row = $row['hurtownia_danych_map'];
             if(!isset($map['categories'][$row['cat']])) {
                 $map['categories'][$row['cat']] = array(

@@ -7,7 +7,7 @@
     <? if(count($cat['rows'])) { ?>
         <ul>
         <? foreach($cat['rows'] as $row) { ?>
-            <li><a href="/admin/docs/tables/<?= $row['document_id'] ?>"><?= $row['year'] ?> <?= $row['filename'] ?></a></li>
+            <li><a href="/admin/docs/tables/<?= $row['document_id'] ?>"><?= $row['year'] ?> <?= $row['filename'] ?></a> (<?= $row['count'] ?>)</li>
         <? } ?>
         </ul>
     <? } ?>
