@@ -15,6 +15,17 @@ $(document).ready(function() {
             self.getTablesDOM()
         );
 
+        self.$preview.on('click', 'button.margeTablesUp', function() {
+            var tableToIndex = $(this).data('tableIndex');
+
+            if(tableToIndex > 0) {
+                if(self.tables.hasOwnProperty(tableToIndex - 1)) {
+                    self.mergeTables(tableToIndex, tableToIndex - 1);
+                    self.$preview.html(self.getTablesDOM());
+                }
+            }
+        });
+
         self.$preview.on('click', 'button.mergeTableAction', function() {
             var tableToIndex = $(this).data('tableIndex'),
                 select = $('select[data-table-index="' + tableToIndex + '"]').first(),
@@ -309,14 +320,8 @@ $(document).ready(function() {
             for(var t = 0; t < this.tables.length; t++) {
                 var table = this.tables[t];
                 dom.push('<div style="margin-top: 15px;" class="panel panel-default">');
-                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-6"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-3"><select data-table-index="' + t + '" class="form-control">');
-
-                for(var tt = 0; tt < this.tables.length; tt++) {
-                    if(tt == t) continue;
-                    dom.push('<option data-table-index="' + tt + '">' + this.tables[tt].dbName + '</option>');
-                }
-
-                dom.push('</select></div><div class="clear col-sm-2"><button class="btn btn-default btn-block mergeTableAction" data-table-index="' + t + '">Dodaj na koniec</button></div></div></div>');
+                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-10"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block margeTablesUp">&uarr;</button>');
+                dom.push('</div></div></div>');
                 dom.push('<table data-table-index="' + t + '" class="table table-bordered">');
 
                 if(table.rows.length > 0) {
