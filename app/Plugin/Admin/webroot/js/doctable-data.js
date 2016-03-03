@@ -13,6 +13,14 @@ $(document).ready(function() {
 
         self.refresh();
 
+        self.$preview.on('change', 'input.singleDataValue', function() {
+            self.tables
+                [$(this).data('tableIndex')]
+                ['rows']
+                [$(this).data('rowIndex')]
+                [$(this).data('colIndex')] = $(this).val();
+        });
+
         self.$preview.on('click', 'button.margeTablesUp', function() {
             var tableToIndex = $(this).data('tableIndex');
 
@@ -99,6 +107,7 @@ $(document).ready(function() {
                                     }
                                 }
 
+                                value = value.replace(' ', '');
                                 self.tables[tableIndex].rows[rr][v] = value;
                             }
                         }
@@ -166,6 +175,10 @@ $(document).ready(function() {
 
         refresh: function() {
             this.$preview.html(this.getTablesDOM());
+
+            /* this.$preview.find('table').each(function() {
+                $(this).colResizable();
+            }); */
         },
 
         TYPES: [
@@ -208,7 +221,21 @@ $(document).ready(function() {
                 break;
 
                 case 'INT':
-                    val = val.replace(/[^\/\d]/g, '') || 0;
+                    if(val.charAt(0) == '-') {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                        val = -val;
+                    } else {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                    }
+                break;
+
+                case 'BIGINT':
+                    if(val.charAt(0) == '-') {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                        val = -val;
+                    } else {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                    }
                 break;
 
                 default: break;
@@ -350,6 +377,8 @@ $(document).ready(function() {
                 dom.push('<div style="margin-top: 15px;" class="panel panel-default">');
                 dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-10"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block margeTablesUp">&uarr;</button>');
                 dom.push('</div></div></div>');
+
+
                 dom.push('<table data-table-index="' + t + '" class="table table-bordered">');
 
                 if(table.rows.length > 0) {
@@ -382,7 +411,7 @@ $(document).ready(function() {
                     for(var c = 0; c < row.length; c++) {
                         dom.push([
                             '<td>',
-                            '<input type="text" data-row-index="' + r + '" data-col-index="' + c + '" class="form-control singleDataValue" value="' + row[c] + '"/>',
+                            '<input type="text" data-table-index="' + t + '" data-row-index="' + r + '" data-col-index="' + c + '" class="form-control singleDataValue" value="' + row[c] + '"/>',
                             '</td>'
                         ].join(''));
                     }
@@ -390,6 +419,8 @@ $(document).ready(function() {
                 }
 
                 dom.push('</table>');
+
+
                 dom.push('</div>');
             }
 
