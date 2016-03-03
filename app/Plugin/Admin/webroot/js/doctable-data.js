@@ -20,7 +20,7 @@ $(document).ready(function() {
 
             if(tableToIndex > 0) {
                 if(self.tables.hasOwnProperty(tableToIndex - 1)) {
-                    self.mergeTables(tableToIndex, tableToIndex - 1);
+                    self.mergeTables(tableToIndex - 1, tableToIndex);
                     self.$preview.html(self.getTablesDOM());
                 }
             }
