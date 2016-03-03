@@ -128,7 +128,7 @@ class DocsController extends AdminAppController {
     }
 
     public function hurtownia() {
-        $rows = $this->DoctableDict->query('SELECT * FROM hurtownia_danych_map WHERE `enabled` = 1');
+        $rows = $this->DoctableDict->query('SELECT * FROM hurtownia_danych_map WHERE `enabled` = "1"');
 
         $map = array(
             'categories' => array()
