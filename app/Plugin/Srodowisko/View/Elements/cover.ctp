@@ -41,9 +41,9 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
 				<div class="map"></div>
 			</div>
 			
-		</div><div class="col-md-5">
-			
-			
+		</div>
+		<div class="col-md-5">
+			<div class="stationContent"></div>
 		</div>
 	</div>
 	

@@ -8,6 +8,10 @@ var MapBrowser = Class.extend({
 	spinnerCounter: 0,
 	retina: false,
 	map: false,
+    options: [],
+	$station: false,
+    selectedOption: false,
+	selectedStation: false,
 	fitBounds: false,
 	mapOptions: {
 		panControl: false,
@@ -87,21 +91,48 @@ var MapBrowser = Class.extend({
 	plZoom: 6,
 	loadDelay: 400,
 
-	init: function () {
-		// SETUP
-		
-		console.log('init');
-		
+	init: function ($menu, $station) {
+
 		var self = this,
 			center = self.plCenter,
 			zoom = self.plZoom;
+
+		self.$station = $station;
+
+        $menu.find('li a').each(function() {
+            var href = $(this).attr('href'),
+                text = $(this).text();
+
+            self.options.push({
+                $a: $(this),
+                short: href.substr(1),
+                text: text.trim(),
+				stations: []
+            });
+        });
+
+		$menu.find('li a').click(function() {
+			for(var o = 0; o < self.options.length; o++) {
+				var href = $(this).attr('href'),
+					short = href.substr(1);
+				if(self.options[o].short == short) {
+					self.setSelectedOption(o);
+					return false;
+				}
+			}
+
+			return false;
+		});
+
+        self.setSelectedOption(0);
+		self.setStation(-1);
 
 		self.div = $('#mapBrowser');
 		self.map_div = self.div.find('.map');
 		self.sidebar = $('.app-sidebar');
 		self.menu = self.sidebar.find('.app-list');
 
-		
+
 		self.mapOptions.center = new google.maps.LatLng(center[0], center[1]);
 		self.mapOptions.zoom = zoom;
 
@@ -113,52 +144,176 @@ var MapBrowser = Class.extend({
 		if (window.devicePixelRatio > 1.5) {
 			self.retina = true;
 		}
-		
-		
-		
+
 		this.loadStations();
-		
-		this.loadData();
-		
-		
 	},
-	
+
+    setSelectedOption: function(optionIndex) {
+        var self = this;
+
+        if(self.selectedOption !== false) {
+            if(self.options.hasOwnProperty(self.selectedOption)) {
+                self.options[self.selectedOption].$a.parent().removeClass('active');
+            }
+        }
+
+        if(self.options.hasOwnProperty(optionIndex)) {
+			var option = self.options[optionIndex];
+			option.$a.parent().addClass('active');
+
+			if(option.stations.length === 0) {
+				$.get('/srodowisko/dane.json?param=' + option.short, function(res) {
+					self.options[optionIndex].stations = res.stations;
+					self.setOptionMarkers(optionIndex);
+				});
+			} else {
+				self.setOptionMarkers(optionIndex);
+			}
+
+            self.selectedOption = optionIndex;
+        }
+    },
+
+	setOptionMarkers: function(optionIndex) {
+		var self = this;
+		if(self.options.hasOwnProperty(optionIndex)) {
+			var option = self.options[optionIndex],
+				min = Number.MAX_VALUE,
+				max = Number.MIN_VALUE;
+
+			for(var o = 0; o < option.stations.length; o++) {
+				if(option.stations[o].value < min)
+					min = option.stations[o].value;
+				if(option.stations[o].value > max)
+					max = option.stations[o].value;
+			}
+
+			var diff = max - min,
+				per = diff / 100;
+
+			for(var s = 0; s < stations.length; s++) {
+				var found = false;
+				for(o = 0; o < option.stations.length; o++) {
+					if(stations[s].id == option.stations[o].id) {
+						stations[s].marker.setIcon(
+							self.getIcon(
+								3,
+								Math.ceil(option.stations[o].value / per)
+							)
+						);
+
+						stations[s].color = Math.ceil(option.stations[o].value / per);
+
+						found = true;
+						break;
+					}
+				}
+
+				if(found === false) {
+					stations[s].marker.setIcon(self.getIcon(3));
+					stations[s].color = false;
+				}
+			}
+		}
+	},
+
 	loadStations: function() {
-		
-		for( var i=0; i<stations.length; i++ ) {
-			
+
+		var self = this;
+
+		for (var i = 0; i < stations.length; i++) {
+
 			var s = stations[i];
-			console.log('s', s);
-			
-			var myLatLng = {lat: Number(s.lat), lng: Number(s.lng)};
-			
-			stations[i]['marker'] = new google.maps.Marker({
-				position: myLatLng,
-				icon: {
-					path: google.maps.SymbolPath.CIRCLE,
-				    scale: 3,
-					fillColor: '#3b83c5',
-					strokeColor: '#666',
-					strokeWeight: 1,
-					fillOpacity: 1
+
+			var marker = new google.maps.Marker({
+				title: i.toString(),
+				position: {
+					lat: Number(s.lat),
+					lng: Number(s.lng)
 				},
+				icon: self.getIcon(3),
 				map: this.map
 			});
-			
-		}	
-		
+
+			marker.addListener('click', function() {
+				var index = parseInt(this.title);
+				self.setStation(index);
+			});
+
+			stations[i]['marker'] = marker;
+
+		}
+
 	},
-	
-	loadData: function() {
-		
-		$.get('/srodowisko/dane.json', function(data){
-			
-			console.log('data', data);
-			
-		});
-		
+
+	setStation: function(stationIndex) {
+		var self = this;
+		if(stationIndex === -1) {
+			self.$station.html([
+				'<h2>',
+					'Wybierz stacje na mapie aby zobaczyć więcej szczegółów',
+				'</h2>'
+			].join(''));
+		} else if(stations.hasOwnProperty(stationIndex)) {
+
+			if(self.selectedStation !== false) {
+				var color = undefined;
+				if(typeof stations[self.selectedStation].color !== 'undefined') {
+					if(stations[self.selectedStation].color !== false) {
+						color = stations[self.selectedStation].color;
+					}
+				}
+
+				stations[self.selectedStation].marker.setIcon(
+					self.getIcon(3, color)
+				);
+			}
+
+			var station = stations[stationIndex];
+
+			var col = undefined;
+			if(typeof stations[stationIndex].color !== 'undefined') {
+				if(stations[stationIndex].color !== false) {
+					col = stations[stationIndex].color;
+				}
+			}
+
+			stations[stationIndex].marker.setIcon(
+				self.getIcon(5, col)
+			);
+
+			self.$station.html([
+				'<h1 class="text-muted">',
+					station.nazwa,
+				'</h1>'
+			].join(''));
+
+			self.selectedStation = stationIndex;
+		}
 	},
-	
+
+
+	getGreenToRed: function(percent){
+		var r = percent<50 ? 255 : Math.floor(255-(percent*2-100)*255/100);
+		var g = percent>50 ? 255 : Math.floor((percent*2)*255/100);
+		return 'rgb('+r+','+g+',0)';
+	},
+
+	getIcon: function(scale, color) {
+		if(typeof color !== 'undefined') {
+			color = this.getGreenToRed(color);
+		}
+
+		return {
+			path: google.maps.SymbolPath.CIRCLE,
+			scale: scale,
+			fillColor: color || '#3b83c5',
+			strokeColor: '#666',
+			strokeWeight: 1,
+			fillOpacity: 1
+		};
+	},
+
 
 	spinnerOn: function () {
 		this.spinnerCounter++;
@@ -185,15 +340,17 @@ var MapBrowser = Class.extend({
 	spinnerReset: function () {
 		this.spinnerCounter = 0;
 		this.spinnerUpdate();
-	},
+	}
 
-	
 });
 
 var mapBrowser;
 
 $(document).ready(function () {
 
-	mapBrowser = new MapBrowser();
+	mapBrowser = new MapBrowser(
+        $('ul.app-list').first(),
+		$('.stationContent').first()
+    );
 
 });

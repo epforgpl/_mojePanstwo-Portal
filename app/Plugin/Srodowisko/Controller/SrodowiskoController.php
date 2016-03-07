@@ -106,14 +106,15 @@ class SrodowiskoController extends ApplicationsController
     }
     
     public function getChapters() {
-	    
-	    $items = array();
-	    $items[] = array(
-			'id' => 'id',
-			'label' => 'Opcja',
-			'href' => '#',
-			'icon' => 'dot',
-		); 
+		$items = array();
+		foreach($this->params as $short => $name) {
+			$items[] = array(
+				'id' => 'id',
+				'label' => $name,
+				'href' => '#' . $short,
+				'icon' => 'dot',
+			);
+		}
 		
 		return array(
 			'items' => $items
