@@ -1,6 +1,16 @@
 <?php
-$this->Combinator->add_libs('css', $this->Less->css('view', array('plugin' => 'Srodowisko')));
+$this->Combinator->add_libs('css', $this->Less->css('srodowisko', array('plugin' => 'Srodowisko')));
 $this->Combinator->add_libs('js', 'Srodowisko.view.js');
+
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 
 <div class="col-xs-12">
@@ -23,7 +33,20 @@ $this->Combinator->add_libs('js', 'Srodowisko.view.js');
 	        </div>
 		</form>
     </div>
-
+	
+	<div class="row">
+		<div class="col-md-7">
+			
+			<div id="mapBrowser">
+				<div class="map"></div>
+			</div>
+			
+		</div><div class="col-md-5">
+			
+			
+		</div>
+	</div>
+	
     <script type="text/javascript">
 	    var stations = <?= json_encode(array_column(array_column(array_column($dataBrowser['aggs']['stacje']['top']['hits']['hits'], '_source'), 'data'), 'srodowisko_stacje_pomiarowe')) ?>;
     </script>

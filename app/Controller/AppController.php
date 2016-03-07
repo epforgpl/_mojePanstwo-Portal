@@ -692,7 +692,7 @@ class AppController extends Controller
 
 
         # assigning translations for javascript use
-        if ($this->params->plugin) {
+        if (@$this->params->plugin) {
             $path = ROOT . DS . APP_DIR . DS . 'Plugin' . DS . Inflector::camelize($this->params->plugin) . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . Inflector::underscore($this->params->plugin) . '.po';
         } else {
             $path = ROOT . DS . APP_DIR . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . 'default.po';
