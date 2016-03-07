@@ -87,4 +87,6 @@
     </nav>
 <? } ?>
 
+<a href="/admin/transactions/getMassCSV" class="btn btn-default">Pobierz CSV masowych (nie przekazanych) transakcji i oznacz je jako przekazane</a>
+
 <?= $this->element('Admin.footer'); ?>

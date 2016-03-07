@@ -271,6 +271,20 @@ $(document).ready(function() {
             a.click();
             return false;
         });
+
+        this.$toolbar.find('.increaseTextFont').click(function() {
+            var font = parseInt(self.$preview.find('.text').css("font-size"));
+            self.$preview.find('.text').css({
+                'font-size': (font + 1) + 'px'
+            });
+        });
+
+        this.$toolbar.find('.decreaseTextFont').click(function() {
+            var font = parseInt(self.$preview.find('.text').css("font-size"));
+            self.$preview.find('.text').css({
+                'font-size': (font - 1) + 'px'
+            });
+        });
     };
 
     DocTable.prototype = {
@@ -430,7 +444,7 @@ $(document).ready(function() {
                             var values = [];
                             for (c = 0; c < _cols.length; c++) {
                                 var value = '';
-                                var margin = 10;
+                                var margin = 5;
                                 for (var t = 0; t < texts.length; t++) {
                                     var text = texts[t],
                                         textRowFrom = parseInt(text.top),

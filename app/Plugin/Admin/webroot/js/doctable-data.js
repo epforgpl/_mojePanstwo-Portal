@@ -11,9 +11,26 @@ $(document).ready(function() {
 
         var self = this;
 
-        self.$preview.html(
-            self.getTablesDOM()
-        );
+        self.refresh();
+
+        self.$preview.on('change', 'input.singleDataValue', function() {
+            self.tables
+                [$(this).data('tableIndex')]
+                ['rows']
+                [$(this).data('rowIndex')]
+                [$(this).data('colIndex')] = $(this).val();
+        });
+
+        self.$preview.on('click', 'button.margeTablesUp', function() {
+            var tableToIndex = $(this).data('tableIndex');
+
+            if(tableToIndex > 0) {
+                if(self.tables.hasOwnProperty(tableToIndex - 1)) {
+                    self.mergeTables(tableToIndex - 1, tableToIndex);
+                    self.refresh();
+                }
+            }
+        });
 
         self.$preview.on('click', 'button.mergeTableAction', function() {
             var tableToIndex = $(this).data('tableIndex'),
@@ -21,19 +38,19 @@ $(document).ready(function() {
                 tableFromIndex = select.find(':selected').data('tableIndex');
 
             self.mergeTables(tableToIndex, tableFromIndex);
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('click', 'button.decreaseParentAction', function() {
             var row = $(this).closest('tr').first().data();
             self.tables[row['tableIndex']]['rowParents'][row['rowIndex']]--;
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('click', 'button.increaseParentAction', function() {
             var row = $(this).closest('tr').first().data();
             self.tables[row['tableIndex']]['rowParents'][row['rowIndex']]++;
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('click', 'button.useDict', function() {
@@ -48,10 +65,10 @@ $(document).ready(function() {
                     for(var rr = 0; rr < self.tables[tableIndex].rows.length; rr++) {
                         for(var v = 0; v < self.tables[tableIndex].rows[rr].length; v++) {
                             var type = self.tables[tableIndex].cols[v].type;
+                            var value = self.tables[tableIndex].rows[rr][v];
                             if(['VARCHAR','CHAR','TEXT'].indexOf(type) !== -1)
                             {
-                                var value = self.tables[tableIndex].rows[rr][v],
-                                    lowerValue = value.toLowerCase(),
+                                var lowerValue = value.toLowerCase(),
                                     pos = lowerValue.search(from.toLowerCase());
 
                                 if(pos !== -1) {
@@ -65,19 +82,48 @@ $(document).ready(function() {
                                     }
                                     self.tables[tableIndex].rows[rr][v] = value.substring(0, pos) + to + value.substring(pos + from.length, value.length);
                                 }
+                            } else if(type == 'FLOAT') {
+
+                                if(
+                                    value.indexOf(',') !== -1 &&
+                                    value.split(',').length - 1 == 1 &&
+                                    value.indexOf('.') == -1)
+                                {
+                                    value = value.replace(',', '.');
+                                } else if(
+                                    value.indexOf(',') !== -1 &&
+                                    value.indexOf('.') !== -1 &&
+                                    value.split(',').length - 1 == 1 &&
+                                    value.split('.').length - 1 == 1
+                                )
+                                {
+                                    var dotPos = value.indexOf('.'),
+                                        comPos = value.indexOf(',');
+                                    if(dotPos > comPos) {
+                                        value = value.replace(',', '');
+                                    } else {
+                                        value = value.replace('.', '');
+                                        value = value.replace(',', '.');
+                                    }
+                                }
+
+                                value = value.replace(' ', '');
+                                if(value == '')
+                                    value = '0';
+                                self.tables[tableIndex].rows[rr][v] = value;
                             }
                         }
                     }
                 }
 
-                self.$preview.html(self.getTablesDOM());
+                self.refresh();
             }, 'json');
         });
 
         self.$preview.on('change', 'input.tableName', function() {
             var tableIndex = $(this).data('tableIndex');
             self.tables[tableIndex].dbName = $(this).val();
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('change', 'input.tableColName', function() {
@@ -90,14 +136,14 @@ $(document).ready(function() {
             var tableIndex = $(this).data('tableIndex'),
                 colIndex = $(this).data('colIndex');
             self.tables[tableIndex].cols[colIndex].size = $(this).val();
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         self.$preview.on('change', 'select.tableColType', function() {
             var tableIndex = $(this).data('tableIndex'),
                 colIndex = $(this).data('colIndex');
             self.tables[tableIndex].cols[colIndex].type = $(this).find(':selected').first().html();
-            self.$preview.html(self.getTablesDOM());
+            self.refresh();
         });
 
         this.$toolbar.find('.exportSQL').click(function() {
@@ -128,6 +174,14 @@ $(document).ready(function() {
     DocTableData.prototype = {
 
         constructor: DocTableData,
+
+        refresh: function() {
+            this.$preview.html(this.getTablesDOM());
+
+            /* this.$preview.find('table').each(function() {
+                $(this).colResizable();
+            }); */
+        },
 
         TYPES: [
             'VARCHAR',
@@ -169,7 +223,26 @@ $(document).ready(function() {
                 break;
 
                 case 'INT':
-                    val = val.replace(/[^\/\d]/g, '');
+                    if(val.charAt(0) == '-') {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                        val = -val;
+                    } else {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                    }
+                break;
+
+                case 'BIGINT':
+                    if(val.charAt(0) == '-') {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                        val = -val;
+                    } else {
+                        val = parseInt(val.replace(/[^\/\d]/g, '') || 0);
+                    }
+                break;
+
+                case 'FLOAT':
+                    if(val == '')
+                        val = 0.0;
                 break;
 
                 default: break;
@@ -309,14 +382,10 @@ $(document).ready(function() {
             for(var t = 0; t < this.tables.length; t++) {
                 var table = this.tables[t];
                 dom.push('<div style="margin-top: 15px;" class="panel panel-default">');
-                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-6"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-3"><select data-table-index="' + t + '" class="form-control">');
+                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-10"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block margeTablesUp">&uarr;</button>');
+                dom.push('</div></div></div>');
 
-                for(var tt = 0; tt < this.tables.length; tt++) {
-                    if(tt == t) continue;
-                    dom.push('<option data-table-index="' + tt + '">' + this.tables[tt].dbName + '</option>');
-                }
 
-                dom.push('</select></div><div class="clear col-sm-2"><button class="btn btn-default btn-block mergeTableAction" data-table-index="' + t + '">Dodaj na koniec</button></div></div></div>');
                 dom.push('<table data-table-index="' + t + '" class="table table-bordered">');
 
                 if(table.rows.length > 0) {
@@ -325,15 +394,15 @@ $(document).ready(function() {
                     for(var cc = 0; cc < table.cols.length; cc++) {
                         dom.push('<td><div class="row clear">');
 
-                        dom.push('<div class="col-sm-6 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColName" value="' + table.cols[cc].name + '"/></div>');
+                        dom.push('<div class="col-sm-12 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColName" value="' + table.cols[cc].name + '"/></div></div><div class="row clear">');
 
-                        dom.push('<div class="col-sm-4 clear"><select class="form-control input-sm tableColType" data-table-index="' + t + '" data-col-index="' + cc + '">');
+                        dom.push('<div class="col-sm-8 clear"><select class="form-control input-sm tableColType" data-table-index="' + t + '" data-col-index="' + cc + '">');
                         for(var ty = 0; ty < this.TYPES.length; ty++) {
                             dom.push('<option' + (this.TYPES[ty] == table.cols[cc].type ? ' selected' : '') + '>' + this.TYPES[ty] + '</option>');
                         }
                         dom.push('</select></div>');
 
-                        dom.push('<div class="col-sm-2 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColTypeSize" value="' + table.cols[cc].size + '"/></div>');
+                        dom.push('<div class="col-sm-4 clear"><input type="text" data-table-index="' + t + '" data-col-index="' + cc + '" class="form-control input-sm tableColTypeSize" value="' + table.cols[cc].size + '"/></div>');
 
                         dom.push('</div></td>');
                     }
@@ -349,7 +418,7 @@ $(document).ready(function() {
                     for(var c = 0; c < row.length; c++) {
                         dom.push([
                             '<td>',
-                            '<input type="text" data-row-index="' + r + '" data-col-index="' + c + '" class="form-control singleDataValue" value="' + row[c] + '"/>',
+                            '<input type="text" data-table-index="' + t + '" data-row-index="' + r + '" data-col-index="' + c + '" class="form-control singleDataValue" value="' + row[c] + '"/>',
                             '</td>'
                         ].join(''));
                     }
@@ -357,6 +426,8 @@ $(document).ready(function() {
                 }
 
                 dom.push('</table>');
+
+
                 dom.push('</div>');
             }
 
