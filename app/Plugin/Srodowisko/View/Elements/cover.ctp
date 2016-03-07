@@ -1,4 +1,6 @@
 <?php
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('css', $this->Less->css('srodowisko', array('plugin' => 'Srodowisko')));
 $this->Combinator->add_libs('js', 'Srodowisko.view.js');
 

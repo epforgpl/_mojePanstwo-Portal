@@ -40,6 +40,12 @@ class SrodowiskoController extends ApplicationsController
 		$this->set('_serialize', 'data');
 		
 	}
+
+	public function chart()
+	{
+		$this->set('data', $this->Srodowisko->getChartData($this->request->query));
+		$this->set('_serialize', 'data');
+	}
 	
     public function view()
     {

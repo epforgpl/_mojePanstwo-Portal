@@ -10,8 +10,9 @@ var MapBrowser = Class.extend({
 	map: false,
     options: [],
 	$station: false,
+	chartDataCache: {},
     selectedOption: false,
-	selectedStation: false,
+	selectedStation: -1,
 	fitBounds: false,
 	mapOptions: {
 		panControl: false,
@@ -125,7 +126,6 @@ var MapBrowser = Class.extend({
 		});
 
         self.setSelectedOption(0);
-		self.setStation(-1);
 
 		self.div = $('#mapBrowser');
 		self.map_div = self.div.find('.map');
@@ -195,14 +195,20 @@ var MapBrowser = Class.extend({
 				var found = false;
 				for(o = 0; o < option.stations.length; o++) {
 					if(stations[s].id == option.stations[o].id) {
+						var color = Math.ceil(option.stations[o].value / per);
 						stations[s].marker.setIcon(
 							self.getIcon(
 								3,
-								Math.ceil(option.stations[o].value / per)
+								color
 							)
 						);
 
-						stations[s].color = Math.ceil(option.stations[o].value / per);
+						stations[s].color = color;
+						stations[s].stat = {
+							min: min,
+							max: max,
+							value: option.stations[o].value
+						};
 
 						found = true;
 						break;
@@ -212,8 +218,11 @@ var MapBrowser = Class.extend({
 				if(found === false) {
 					stations[s].marker.setIcon(self.getIcon(3));
 					stations[s].color = false;
+					stations[s].stat = undefined;
 				}
 			}
+
+			self.setStation(self.selectedStation);
 		}
 	},
 
@@ -250,15 +259,18 @@ var MapBrowser = Class.extend({
 		var self = this;
 		if(stationIndex === -1) {
 			self.$station.html([
-				'<h2>',
-					'Wybierz stacje na mapie aby zobaczyć więcej szczegółów',
-				'</h2>'
+				'<h1>',
+					'Wybierz stacje pomiarową na mapie aby zobaczyć szczegóły',
+				'</h1>',
+				'<h3>',
+					'Po lewej stronie mapy możesz wybrać konkretny związek chemiczny',
+				'</h3>'
 			].join(''));
 		} else if(stations.hasOwnProperty(stationIndex)) {
 
-			if(self.selectedStation !== false) {
+			if(self.selectedStation !== false && self.selectedStation !== -1) {
 				var color = undefined;
-				if(typeof stations[self.selectedStation].color !== 'undefined') {
+				if(typeof stations[self.selectedStation].color != 'undefined') {
 					if(stations[self.selectedStation].color !== false) {
 						color = stations[self.selectedStation].color;
 					}
@@ -282,18 +294,156 @@ var MapBrowser = Class.extend({
 				self.getIcon(5, col)
 			);
 
-			self.$station.html([
+			var option = self.options[self.selectedOption];
+
+			var h = [
 				'<h1 class="text-muted">',
-					station.nazwa,
+				station.nazwa,
 				'</h1>'
-			].join(''));
+			];
+
+			if(typeof station.stat != 'undefined' && station.stat !== false) {
+
+				var colValue = Math.ceil(
+					station.stat.value / ((station.stat.max - station.stat.min) / 100)
+				);
+
+				h.push([
+					'<div class="row">',
+						'<div class="col-md-12">',
+							'<div class="greenToRedBar">',
+								'<div class="dot" style="background: ',
+									self.getGreenToRed(100 - colValue),
+								';"></div>',
+							'</div>',
+						'</div>',
+					'</div>'
+				].join(''));
+
+				h.push([
+					'<div class="row">',
+						'<div class="col-md-6">',
+							'<ul style="display: block;" class="dataHighlights overflow-auto">',
+								'<li class="dataHighlight col-xs-12">',
+									'<p class="_label">Nazwa wybranego związku chemicznego</p>',
+									'<p class="_value">',
+										option.text, ' ',
+										'(', option.short, ') ',
+									'</p>',
+								'</li>',
+								'<li class="dataHighlight col-xs-12">',
+									'<p class="_label">Ostatni pomiar wybranej stacji pomiarowej</p>',
+									'<p class="_value">',
+										station.stat.value,
+									'</p>',
+								'</li>',
+							'</ul>',
+						'</div>',
+						'<div class="col-md-6">',
+							'<ul style="display: block;" class="dataHighlights overflow-auto">',
+								'<li class="dataHighlight col-xs-12">',
+									'<p class="_label">Minimum dla wszystkich stacji pomiarowych</p>',
+									'<p class="_value">',
+										station.stat.min,
+									'</p>',
+								'</li>',
+								'<li class="dataHighlight col-xs-12">',
+									'<p class="_label">Maksimum dla wszystkich stacji pomiarowych</p>',
+									'<p class="_value">',
+										station.stat.max,
+									'</p>',
+								'</li>',
+							'</ul>',
+						'</div>',
+					'</div>',
+					'<div class="chart"></div>'
+				].join(''));
+			} else {
+				h.push([
+					'<p class="help-block">',
+						'Brak danych',
+					'</p>'
+				].join(''));
+			}
+
+
+			self.$station.html(h.join(''));
+			var w = parseInt(self.$station.find('.greenToRedBar').first().width());
+			var marginLeft = Math.ceil(colValue * (w / 100));
+			if(marginLeft > w)
+				marginLeft = w;
+			self.$station.find('.greenToRedBar .dot').first().css({
+				'margin-left': marginLeft + 'px'
+			});
+
+			self.getChartData(station.id, option.short, function(data) {
+				var $chart = self.$station.find('.chart').first();
+				$chart.highcharts({
+					chart: {
+						animation: false,
+						backgroundColor: null,
+						height: 200
+					},
+					title: {
+						text: 'Średnia wartość ' + option.short + ' w ciągu doby'
+					},
+					credits: {
+						enabled: false
+					},
+					xAxis: {
+						type: 'datetime'
+					},
+					yAxis: {
+						title: {
+							text: null
+						}
+					},
+					legend: {
+						enabled: false
+					},
+					series: [{
+						type: 'area',
+						name: option.short,
+						data: data,
+						tooltip: {
+							valueDecimals: 5
+						},
+						animation: false
+					}]
+				});
+			});
 
 			self.selectedStation = stationIndex;
 		}
 	},
 
+	getChartData: function(station_id, param, success) {
+		var key = station_id + '_' + param,
+			self = this;
+		if(this.chartDataCache.hasOwnProperty(key)) {
+			success(this.chartDataCache[key]);
+		} else {
+			$.get('/srodowisko/chart.json?station_id=' + station_id + '&param=' + param, function(res) {
 
-	getGreenToRed: function(percent){
+				var data = [];
+				for(var r = 0; r < res.length; r++) {
+					var s = res[r]['srodowisko_pomiary']['timestamp'],
+						ss = s.split(' '),
+						d = ss[0].split('-');
+
+					data.push([
+						Date.UTC(d[0], parseInt(d[1]) - 1, d[2]),
+						parseFloat(res[r][0].avg)
+					]);
+				}
+
+				self.chartDataCache[key] = data;
+				success(self.chartDataCache[key]);
+			});
+		}
+	},
+
+	getGreenToRed: function(percent) {
 		var r = percent<50 ? 255 : Math.floor(255-(percent*2-100)*255/100);
 		var g = percent>50 ? 255 : Math.floor((percent*2)*255/100);
 		return 'rgb('+r+','+g+',0)';
@@ -301,7 +451,7 @@ var MapBrowser = Class.extend({
 
 	getIcon: function(scale, color) {
 		if(typeof color !== 'undefined') {
-			color = this.getGreenToRed(color);
+			color = this.getGreenToRed(100 - color);
 		}
 
 		return {

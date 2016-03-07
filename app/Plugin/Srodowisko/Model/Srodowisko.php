@@ -11,4 +11,12 @@ class Srodowisko extends AppModel
         return $data;
     }
 
+    public function getChartData($data)
+    {
+        return $this->getDataSource()->request('srodowisko/srodowisko/getData', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+    }
+
 }
