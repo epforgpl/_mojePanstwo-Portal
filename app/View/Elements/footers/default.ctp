@@ -6,7 +6,7 @@
     <section class="standard">
         <div class="container">
             <div class="col-xs-12 text-center">
-                <a class="" href="/dane/krs_podmioty/359730,fundacja-epanstwo">&copy; 2016 Fundacja ePaństwo</a>
+                <a class="" href="/fundacja-epanstwo">&copy; 2016 Fundacja ePaństwo</a>
                 <span class="separator">&mdash;</span>
                 <?php echo $this->Html->link(__('LC_FOOTER_ABOUT_US'), '/oportalu', array('target' => '_self', 'class' => '')); ?>
                 <span class="separator">&mdash;</span>

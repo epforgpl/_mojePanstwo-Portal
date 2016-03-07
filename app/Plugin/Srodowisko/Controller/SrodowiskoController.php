@@ -29,6 +29,23 @@ class SrodowiskoController extends ApplicationsController
                     'element' => 'cover',
                 ),
                 'aggs' => array(
+	            	'stacje' => array(
+		            	'filter' => array(
+			            	'term' => array(
+				            	'dataset' => 'srodowisko_stacje_pomiarowe',
+			            	),
+		            	),
+		            	'scope' => 'global',
+		            	'aggs' => array(
+			            	'top' => array(
+				            	'top_hits' => array(
+					            	'size' => 10,
+					            	'_source' => array('data'),
+				            	),
+			            	),
+		            	),
+	            	),
+	            	/*
 	            	'pomiary' => array(
 		            	'nested' => array(
 			            	'path' => 'stacje_pomiarowe-pomiary',
@@ -98,7 +115,8 @@ class SrodowiskoController extends ApplicationsController
 				            	),
 			            	),
 		            	),
-	            	),               
+	            	), 
+	            	*/              
                 ),
             ),
             'aggs' => array(

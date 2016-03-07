@@ -124,8 +124,8 @@ class DataobjectsController extends AppController
         $dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
         $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
         $slug = isset($this->request->params['slug']) ? $this->request->params['slug'] : '';
-
-        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
+				
+        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug)); die();
 
         if (
             $dataset &&
@@ -185,9 +185,13 @@ class DataobjectsController extends AppController
 
             $this->object_aggs = $this->Dataobject->getAggs();
             $this->set('object_aggs', $this->object_aggs);
-
+						
             if (
-                ($this->domainMode == 'MP') &&
+                ($this->domainMode == 'MP') && 
+                (
+	                !isset($this->request->params['from_slug']) || 
+	                !$this->request->params['from_slug']
+                ) && 
                 (
                     !isset($this->request->params['ext']) ||
                     !in_array($this->request->params['ext'], array('json', 'html'))

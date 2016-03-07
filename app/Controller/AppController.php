@@ -221,6 +221,10 @@ class AppController extends Controller
                 'label' => 'Zamawiający',
                 'menu_id' => 'zamawiajacy',
             ),
+            'zamowienia_publiczne_wykonawcy' => array(
+                'label' => 'Wykonawcy',
+                'menu_id' => 'wykonawcy',
+            ),
         ),
         /*
         'moja_gmina' => array(

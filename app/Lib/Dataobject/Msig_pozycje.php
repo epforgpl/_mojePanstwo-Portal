@@ -7,7 +7,7 @@ class Msig_pozycje extends DataObject
 		
 	public function getUrl() {
 		
-		return '/dane/krs_podmioty/' . $this->getData('krs_id') . '/msig/' . $this->getId();
+		return '/dane/krs_podmioty/' . $this->getData('krs_id') . '/ogloszenia/' . $this->getId();
 		
 	}
 	

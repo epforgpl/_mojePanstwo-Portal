@@ -70,7 +70,7 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function view()
     {
-
+				
         $this->addInitLayers(array(
             'channels',
             'subscription',
@@ -439,9 +439,53 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
                 'scope' => 'global',
             ),
+            /*
+            'ogloszenia' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'msig_pozycje',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+	                                'data.msig_pozycje.krs_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'aggs' => array(
+	                'top' => array(
+		                'top_hits' => array(
+			                'size' => 1,
+			                'sort' => array(
+		                        'date' => 'desc',
+	                        ),
+		                ),
+	                ),
+                ),
+                'scope' => 'global',
+            ),
+            */
         ));
-
+		
         parent::_prepareView();
+                        
+        if( preg_match('/^\/dane\/krs_podmioty\/([^\/]+)(\/*)(.*?)$/i', $this->request->here, $match) ) {
+	        
+	        $url = $this->object->getUrl();
+	        if( $match[3] )
+	        	$url .= '/' . $match[3];
+	        	        
+	        return $this->redirect( $url );
+	        
+        }
+                
+        // debug( $this->object->getSlug() );
+        // debug( $this->request );
 
         if (defined('PK_DOMAIN')) {
 
@@ -541,6 +585,21 @@ class KrsPodmiotyController extends DataobjectsController
         ));
 
         $this->set('title_for_layout', 'Zamówienia publiczne dla ' . $this->object->getData('nazwa'));
+
+    }
+    
+    public function ogloszenia()
+    {
+
+        $this->_prepareView();
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'msig_pozycje',
+                'msig_pozycje.krs_id' => $this->object->getId(),
+            ),
+        ));
+
+        $this->set('title_for_layout', 'Ogłoszenia ' . $this->object->getData('nazwa'));
 
     }
 
@@ -792,7 +851,7 @@ class KrsPodmiotyController extends DataobjectsController
             ),
             'base' => $this->object->getUrl(),
         );
-
+				
         if(
         	@$this->object_aggs['dzialania']['doc_count'] ||
         	$this->_canEdit()
@@ -831,6 +890,19 @@ class KrsPodmiotyController extends DataobjectsController
 	            'label' => 'Kolekcje',
 	        );
         }
+        
+        /*
+        if(
+        	@$this->object_aggs['ogloszenia']['doc_count'] ||
+        	$this->_canEdit()
+        ) {
+            $menu['items'][] = array(
+                'id' => 'ogloszenia',
+                'label' => 'Ogłoszenia',
+                'count' => @$this->object_aggs['zmiany']['doc_count'],
+            );
+        }
+        */
 		
 		if($this->object->getData('twitter_account_id')) {
             $menu['items'][] = array(

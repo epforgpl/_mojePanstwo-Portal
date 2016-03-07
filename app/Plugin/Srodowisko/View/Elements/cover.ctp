@@ -1,6 +1,6 @@
 <?php
-// $this->Combinator->add_libs('css', $this->Less->css('view', array('plugin' => 'Srodowisko')));
-// $this->Combinator->add_libs('js', 'Srodowisko.view.js');
+$this->Combinator->add_libs('css', $this->Less->css('view', array('plugin' => 'Srodowisko')));
+$this->Combinator->add_libs('js', 'Srodowisko.view.js');
 ?>
 
 <div class="col-xs-12">
@@ -24,6 +24,8 @@
 		</form>
     </div>
 
-    <? debug($dataBrowser['aggs']); ?>
+    <script type="text/javascript">
+	    var stations = <?= json_encode(array_column(array_column(array_column($dataBrowser['aggs']['stacje']['top']['hits']['hits'], '_source'), 'data'), 'srodowisko_stacje_pomiarowe')) ?>;
+    </script>
 
 </div>

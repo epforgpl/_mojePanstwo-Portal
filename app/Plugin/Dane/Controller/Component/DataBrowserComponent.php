@@ -1653,7 +1653,7 @@ class DataBrowserComponent extends Component
 			        'top' => array(
 		            	'top_hits' => array(
 			            	'size' => 3,
-			            	'_source' => array('data', 'static'),
+			            	'_source' => array('data', 'static', 'slug'),
 			            	'fielddata_fields' => array('dataset', 'id'),
 		            	),
 	            	),
