@@ -370,9 +370,7 @@ class TwitterAccountsController extends DataobjectsController
 
     public function getMenu()
     {
-	    
-	    debug( $this->dataBrowser ); die();
-	    
+	    	    
         return array(
             'items' => array(
                 array(
