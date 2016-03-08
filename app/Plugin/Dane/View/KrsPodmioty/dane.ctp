@@ -32,7 +32,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 <div class="row">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
 		<div class="well bs-component mp-form">
-			<form action="<?= $object->getUrl(); ?>.json" method="post" class="dzialanie form-horizontal">
+			<form action="/dane/krs_podmioty/<?= $object->getId() ?>.json" method="post" class="dzialanie form-horizontal">
 			    <input type="hidden" name="_action" value="save_edit_data_form"/>
                 <fieldset>
 					<legend>Edytuj dane <?= $object->getDataset() == 'krs_podmioty' ? 'organizacji' : 'urzędu gminy'; ?>:</legend>

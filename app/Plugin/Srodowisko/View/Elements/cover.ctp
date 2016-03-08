@@ -1,6 +1,18 @@
 <?php
-$this->Combinator->add_libs('css', $this->Less->css('view', array('plugin' => 'Srodowisko')));
+$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+$this->Combinator->add_libs('css', $this->Less->css('srodowisko', array('plugin' => 'Srodowisko')));
 $this->Combinator->add_libs('js', 'Srodowisko.view.js');
+
+switch (Configure::read('Config.language')) {
+    case 'pol':
+        $lang = "pl-PL";
+        break;
+    case 'eng':
+        $lang = "en-EN";
+        break;
+};
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 
 <div class="col-xs-12">
@@ -23,7 +35,44 @@ $this->Combinator->add_libs('js', 'Srodowisko.view.js');
 	        </div>
 		</form>
     </div>
-
+	
+	<div class="row">
+		<div class="col-md-6">
+			
+			<div id="mapBrowser">
+				<div class="map"></div>
+			</div>
+			
+		</div>
+		<div class="col-md-6">
+			<div class="stationContent"></div>
+		</div>
+	</div>
+	
+	
+	<div class="row margin-top-30">
+		<div class="col-md-6">
+			
+			<div id="worst-places" class="block places">
+				<header>Najbardziej zanieczyszone miejsca:</header>
+				<section class="content">
+					
+				</section>
+			</div>
+			
+		</div><div class="col-md-6">
+			
+			<div id="best-places" class="block places">
+				<header>Najmniej zanieczyszone miejsca:</header>
+				<section class="content">
+					
+				</section>
+			</div>
+			
+		</div>
+	</div>
+	
+	
     <script type="text/javascript">
 	    var stations = <?= json_encode(array_column(array_column(array_column($dataBrowser['aggs']['stacje']['top']['hits']['hits'], '_source'), 'data'), 'srodowisko_stacje_pomiarowe')) ?>;
     </script>

@@ -5,11 +5,48 @@ App::uses('ApplicationsController', 'Controller');
 class SrodowiskoController extends ApplicationsController
 {
 
+	public $components = array('RequestHandler');
+	
     public $settings = array(
         'id' => 'srodowisko',
         'title' => 'Środowisko',
     );    
+	
+	public $params = array(
+		'C6H6' => 'Benzen', 
+		'CO' => 'Czad', 
+		'NO2' => 'Dwutlenek azotu', 
+		'O3' => 'Ozon', 
+		'PM10' => 'Pył PM10', 
+		'PM2.5' => 'Pył PM2.5',
+		'SO2' => 'Dwutlenek siarki',
+	);
+	
+	public function dane()
+	{
+		
+		$data = array();
+		
+		if(
+			isset( $this->request->query['param'] ) && 
+			in_array($this->request->query['param'], array_keys($this->params))
+		) {
+		
+			$data = $this->Srodowisko->getData( $this->request->query['param'] );
+		
+		}
+		
+		$this->set('data', $data);
+		$this->set('_serialize', 'data');
+		
+	}
 
+	public function chart()
+	{
+		$this->set('data', $this->Srodowisko->getChartData($this->request->query));
+		$this->set('_serialize', 'data');
+	}
+	
     public function view()
     {
 
@@ -39,84 +76,12 @@ class SrodowiskoController extends ApplicationsController
 		            	'aggs' => array(
 			            	'top' => array(
 				            	'top_hits' => array(
-					            	'size' => 10,
+					            	'size' => 500,
 					            	'_source' => array('data'),
 				            	),
 			            	),
 		            	),
 	            	),
-	            	/*
-	            	'pomiary' => array(
-		            	'nested' => array(
-			            	'path' => 'stacje_pomiarowe-pomiary',
-		            	),
-		            	'aggs' => array(
-			            	'filtered' => array(
-				            	'filter' => array(
-					            	'term' => array(
-						            	'stacje_pomiarowe-pomiary.param' => 'CO',
-					            	),
-				            	),
-				            	'aggs' => array(
-					            	'worst' => array(
-						            	'terms' => array(
-							            	'field' => 'stacje_pomiarowe-pomiary.station_id',
-							            	'order' => array(
-								            	'value' => 'desc',
-							            	),
-							            	'size' => 3,
-						            	),
-						            	'aggs' => array(
-							            	'value' => array(
-								            	'sum' => array(
-									            	'field' => 'stacje_pomiarowe-pomiary.value'
-								            	),
-							            	),
-							            	'stacje' => array(
-								            	'reverse_nested' => '_empty',
-								            	'aggs' => array(
-									            	'label' => array(
-										            	'terms' => array(
-											            	'field' => 'data.srodowisko_stacje_pomiarowe.nazwa',
-											            	'size' => 1,
-										            	),
-									            	),
-								            	),
-							            	),
-						            	),
-					            	),
-					            	'best' => array(
-						            	'terms' => array(
-							            	'field' => 'stacje_pomiarowe-pomiary.station_id',
-							            	'order' => array(
-								            	'value' => 'asc',
-							            	),
-							            	'size' => 3,
-						            	),
-						            	'aggs' => array(
-							            	'value' => array(
-								            	'sum' => array(
-									            	'field' => 'stacje_pomiarowe-pomiary.value'
-								            	),
-							            	),
-							            	'stacje' => array(
-								            	'reverse_nested' => '_empty',
-								            	'aggs' => array(
-									            	'label' => array(
-										            	'terms' => array(
-											            	'field' => 'data.srodowisko_stacje_pomiarowe.nazwa',
-											            	'size' => 1,
-										            	),
-									            	),
-								            	),
-							            	),
-						            	),
-					            	),
-				            	),
-			            	),
-		            	),
-	            	), 
-	            	*/              
                 ),
             ),
             'aggs' => array(
@@ -144,6 +109,23 @@ class SrodowiskoController extends ApplicationsController
     {
 	    $this->title = 'Stacje pomiarowe | Środowisko';
         $this->loadDatasetBrowser('srodowisko_stacje_pomiarowe', array());
+    }
+    
+    public function getChapters() {
+		$items = array();
+		foreach($this->params as $short => $name) {
+			$items[] = array(
+				'id' => 'id',
+				'label' => $name,
+				'href' => '#' . $short,
+				'icon' => 'dot',
+			);
+		}
+		
+		return array(
+			'items' => $items
+		);
+	    
     }
 
 }
