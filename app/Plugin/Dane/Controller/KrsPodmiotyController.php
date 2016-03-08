@@ -592,14 +592,32 @@ class KrsPodmiotyController extends DataobjectsController
     {
 
         $this->_prepareView();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'msig_pozycje',
-                'msig_pozycje.krs_id' => $this->object->getId(),
-            ),
-        ));
+        
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-        $this->set('title_for_layout', 'Ogłoszenia ' . $this->object->getData('nazwa'));
+            $ogloszenie = $this->Dataobject->find('first', array(
+	            'conditions' => array(
+		            'dataset' => 'msig_pozycje',
+		            'id' => $this->request->params['subid'],
+	            ),
+            ));
+
+            $this->set('ogloszenie', $ogloszenie);
+            $this->set('title_for_layout', $ogloszenie->getTitle());
+            $this->render('ogloszenie');
+
+        } else {
+        
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'msig_pozycje',
+	                'msig_pozycje.krs_id' => $this->object->getId(),
+	            ),
+	        ));
+	
+	        $this->set('title_for_layout', 'Ogłoszenia ' . $this->object->getData('nazwa'));
+        
+        }
 
     }
 
