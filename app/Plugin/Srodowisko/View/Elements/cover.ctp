@@ -37,17 +37,41 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
     </div>
 	
 	<div class="row">
-		<div class="col-md-7">
+		<div class="col-md-6">
 			
 			<div id="mapBrowser">
 				<div class="map"></div>
 			</div>
 			
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-6">
 			<div class="stationContent"></div>
 		</div>
 	</div>
+	
+	
+	<div class="row margin-top-30">
+		<div class="col-md-6">
+			
+			<div id="worst-places" class="block places">
+				<header>Najbardziej zanieczyszone miejsca:</header>
+				<section class="content">
+					
+				</section>
+			</div>
+			
+		</div><div class="col-md-6">
+			
+			<div id="best-places" class="block places">
+				<header>Najmniej zanieczyszone miejsca:</header>
+				<section class="content">
+					
+				</section>
+			</div>
+			
+		</div>
+	</div>
+	
 	
     <script type="text/javascript">
 	    var stations = <?= json_encode(array_column(array_column(array_column($dataBrowser['aggs']['stacje']['top']['hits']['hits'], '_source'), 'data'), 'srodowisko_stacje_pomiarowe')) ?>;
