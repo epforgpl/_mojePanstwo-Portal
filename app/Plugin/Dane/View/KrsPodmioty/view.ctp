@@ -93,7 +93,12 @@ $description =
                                onclick="return false;"><span class="fa fa-twitter"></span></a>
                         </div>
                     <? } ?>
-                    <? if (($www = $object->getData('www')) || ($www = $object->getPage('www'))) { ?>
+                    <? if (($www = $object->getData('www')) || ($www = $object->getPage('www'))) {
+	                    
+	                    if( stripos($www, 'http')!==0 )
+	                    	$www = 'http://' . $www;
+	                    
+	                ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="<?= $www; ?>"
                                target="_blank"><span class="glyphicon glyphicon-link"></span></a>
