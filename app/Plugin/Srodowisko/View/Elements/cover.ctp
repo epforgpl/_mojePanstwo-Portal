@@ -53,8 +53,25 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 		</div>
 	</div>
 	
-	
 	<div class="row margin-top-30">
+		<div class="col-md-12">
+			<div class="ranking-buttons">
+				<ul class="nav nav-tabs">
+					<?php foreach(array(
+						'latest' => 'Bieżące odczyty',
+						'1d' => 'Ostatnie 3 dni',
+						'1w' => 'Ostatni tydzień',
+						'1m' => 'Ostatni miesiąc') as $option => $name) { ?>
+						<li<? if($option == 'latest') echo ' class="active"'; ?>>
+							<a href="#<?= $option ?>" data-option-value="<?= $option ?>" data-toggle="tab"><?= $name ?></a>
+						</li>
+					<? } ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="row margin-top-10">
 		<div class="col-md-6">
 			
 			<div id="worst-places" class="block places">

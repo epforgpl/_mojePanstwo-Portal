@@ -92,9 +92,10 @@ var MapBrowser = Class.extend({
 	}),
 	plCenter: [51.986797406813125, 19.32958984375001],
 	plZoom: 6,
+	rankingOption: 'latest',
 	loadDelay: 400,
 
-	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal) {
+	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal, $rankingButtons) {
 
 		var self = this,
 			center = self.plCenter,
@@ -104,6 +105,12 @@ var MapBrowser = Class.extend({
 		self.$worstPlaces = $worstPlaces;
 		self.$bestPlaces = $bestPlaces;
 		self.$dateRangeChartModal = $dateRangeChartModal;
+		self.$rankingButtons = $rankingButtons;
+
+		self.$rankingButtons.on('click', 'a', function() {
+			self.rankingOption = $(this).data('optionValue');
+			self.updatePlaces(self.selectedOption);
+		});
 
         $menu.find('li a').each(function() {
             var href = $(this).attr('href'),
@@ -238,7 +245,7 @@ var MapBrowser = Class.extend({
 			s, h, m,
 			optStations, station;
 
-		if(self.options.hasOwnProperty(optionIndex)) {
+		if(self.rankingOption == 'latest' && self.options.hasOwnProperty(optionIndex)) {
 			optStations = self.options[optionIndex]['stations'];
 			optStations.sort(function(a, b) {
 				return a.value == b.value ? 0 : a.value > b.value ? 1 : -1;
@@ -272,11 +279,57 @@ var MapBrowser = Class.extend({
 
 			self.$worstPlaces.html(h.join(''));
 
-			$('body').on('click', '.setStationAction', function() {
-				self.setStation(parseInt($(this).data('stationIndex')));
-				return false;
-			});
+		} else {
+
+			if(self.options.hasOwnProperty(self.selectedOption)) {
+
+				var rankingOptions = [{
+					key: 'most',
+					list: self.$bestPlaces
+				}, {
+					key: 'least',
+					list: self.$worstPlaces
+				}];
+
+				for(var rrr = 0; rrr < rankingOptions.length; rrr++) {
+					rankingOptions[rrr].list.html('<div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
+				}
+
+				$.get('/srodowisko/ranking.json?param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption, function(res) {
+
+					for(var rOpt = 0; rOpt < rankingOptions.length; rOpt++) {
+
+						if(res.hasOwnProperty(rankingOptions[rOpt]['key'])) {
+							var rankingOption = rankingOptions[rOpt],
+								data = res[rankingOption['key']],
+								html = [];
+
+							if(data.length == 0) {
+								rankingOption.list.html('<p class="help-block margin-sides-15">Brak danych</p>');
+								continue;
+							}
+
+							for(var d = 0; d < data.length; d++) {
+								for(m = 0; m < stations.length; m++) {
+									if(data[d]['srodowisko_pomiary']['station_id'] == stations[m].id) {
+										var v = Math.round( parseFloat(data[d]['srodowisko_pomiary']['value']) * 100 ) / 100;
+										html.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+										break;
+									}
+								}
+							}
+
+							rankingOption.list.html(html.join(''));
+						}
+					}
+				});
+			}
 		}
+
+		$('body').on('click', '.setStationAction', function() {
+			self.setStation(parseInt($(this).data('stationIndex')));
+			return false;
+		});
 
 	},
 
@@ -587,7 +640,8 @@ $(document).ready(function () {
 		$('.stationContent').first(),
 		$('#worst-places').find('section').first(),
 		$('#best-places').find('section').first(),
-		$('#dateRangeChartModal')
+		$('#dateRangeChartModal'),
+		$('.ranking-buttons').first()
     );
 
 });
