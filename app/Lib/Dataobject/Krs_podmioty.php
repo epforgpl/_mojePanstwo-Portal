@@ -103,7 +103,10 @@ class Krs_podmioty extends DataObject
     
     public function getUrl()
     {
-	    return '/' . $this->getSlug();
+	    if( $slug = $this->getSlug() )
+		    return '/' . $slug;
+		else
+			return '/dane/krs_podmioty/' . $this->getId();
     }
 
 }

@@ -600,6 +600,7 @@ class KrsPodmiotyController extends DataobjectsController
 		            'dataset' => 'msig_pozycje',
 		            'id' => $this->request->params['subid'],
 	            ),
+	            'layers' => array('data'),
             ));
 
             $this->set('ogloszenie', $ogloszenie);
