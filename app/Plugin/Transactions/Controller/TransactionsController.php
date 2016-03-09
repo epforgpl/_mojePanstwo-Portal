@@ -31,7 +31,12 @@ class TransactionsController extends AppController
         $transaction = false;
         if(isset($results['Transaction']))
             $transaction = $results;
-        $this->set('transaction', $transaction);
+
+        if($transaction['Transaction']['user_id'] == AuthComponent::user('id')) {
+            $this->Session->setFlash('Dziękujemy za dokonanie wpłaty', 'default');
+            $this->redirect('/dane/krs_podmioty/' . $transaction['Transaction']['krs_pozycje_id']);
+        } else
+            throw new NotFoundException;
     }
 
 }
