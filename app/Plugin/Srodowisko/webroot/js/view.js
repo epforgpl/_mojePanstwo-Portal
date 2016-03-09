@@ -94,13 +94,15 @@ var MapBrowser = Class.extend({
 	plZoom: 6,
 	loadDelay: 400,
 
-	init: function ($menu, $station) {
+	init: function ($menu, $station, $worstPlaces, $bestPlaces) {
 
 		var self = this,
 			center = self.plCenter,
 			zoom = self.plZoom;
 
 		self.$station = $station;
+		self.$worstPlaces = $worstPlaces;
+		self.$bestPlaces = $bestPlaces;
 
         $menu.find('li a').each(function() {
             var href = $(this).attr('href'),
@@ -167,46 +169,11 @@ var MapBrowser = Class.extend({
 				$.get('/srodowisko/dane.json?param=' + option.short, function(res) {
 					self.options[optionIndex].stations = res.stations;
 					self.setOptionMarkers(optionIndex);
-					
-					
-					// najbardziej zanieczyszczone
-					
-					$('#worst-places section').html('');
-					for( var i=0; i<5; i++ ) {
-						
-						var r = getRandomInt(0, stations.length);
-						var s = stations[r];
-						var v = Math.round( Math.random() * 100 ) / 100;
-						var unit = 'mg/m<sup>3</sup>';
-												
-						var html = '<div class="place"><a href="#" class="title"><span class="glyphicon glyphicon-map-marker"></span>' + s.nazwa + '<span class="v">' + v + ' ' + unit + '</span></a></div>';
-						
-						$('#worst-places section').append( html );
-						
-					}
-					
-					
-					
-					// najmniej zanieczyszczone
-					
-					$('#best-places section').html('');
-					for( var i=0; i<5; i++ ) {
-						
-						var r = getRandomInt(0, stations.length);
-						var s = stations[r];
-						var v = Math.round( Math.random() * 100 ) / 100;
-						var unit = 'mg/m<sup>3</sup>';
-												
-						var html = '<div class="place"><a href="#" class="title"><span class="glyphicon glyphicon-map-marker"></span>' + s.nazwa + '<span class="v">' + v + ' ' + unit + '</span></a></div>';
-						
-						$('#best-places section').append( html );
-						
-					}
-					
-					
+					self.updatePlaces(optionIndex);
 				});
 			} else {
 				self.setOptionMarkers(optionIndex);
+				self.updatePlaces(optionIndex);
 			}
 
             self.selectedOption = optionIndex;
@@ -263,6 +230,53 @@ var MapBrowser = Class.extend({
 
 			self.setStation(self.selectedStation);
 		}
+	},
+
+	updatePlaces: function(optionIndex) {
+		var self = this,
+			s, h, m,
+			optStations, station;
+
+		if(self.options.hasOwnProperty(optionIndex)) {
+			optStations = self.options[optionIndex]['stations'];
+			optStations.sort(function(a, b) {
+				return a.value == b.value ? 0 : a.value > b.value ? 1 : -1;
+			});
+
+			h = [];
+			for(s = 0; s < 5; s++) {
+				station = optStations[s];
+				for(m = 0; m < stations.length; m++) {
+					if(stations[m].id == station.id) {
+						var v = Math.round( station.value * 100 ) / 100;
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+						break;
+					}
+				}
+			}
+
+			self.$bestPlaces.html(h.join(''));
+
+			h = [];
+			for(s = optStations.length - 1; s > optStations.length - 6; s--) {
+				station = optStations[s];
+				for(m = 0; m < stations.length; m++) {
+					if(stations[m].id == station.id) {
+						var v = Math.round( station.value * 100 ) / 100;
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+						break;
+					}
+				}
+			}
+
+			self.$worstPlaces.html(h.join(''));
+
+			$('body').on('click', '.setStationAction', function() {
+				self.setStation(parseInt($(this).data('stationIndex')));
+				return false;
+			});
+		}
+
 	},
 
 	loadStations: function() {
@@ -343,9 +357,6 @@ var MapBrowser = Class.extend({
 
 			if(typeof station.stat != 'undefined' && station.stat !== false) {
 				
-				
-				console.log('station', station);
-				
 				var v = Math.round( station.stat.value * 100 ) / 100;
 				var unit = 'mg/m<sup>3</sup>';
 				var t = '8 marca 2016 - 10:00';
@@ -355,70 +366,9 @@ var MapBrowser = Class.extend({
 				h.push('<p class="value">' + v + ' <span class="unit">' + unit + '</span></p>');
 				h.push('<p class="desc">Stan na ' + t + '</p>');
 				
-				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#home" data-toggle="tab">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
+				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#home" data-toggle="tab">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
 				h.push('<div class="chart"></div>');
 				h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
-				
-				
-				
-				/*				
-				var colValue = Math.ceil(
-					station.stat.value / ((station.stat.max - station.stat.min) / 100)
-				);
-
-				
-				h.push([
-					'<div class="row">',
-						'<div class="col-md-12">',
-							'<div class="greenToRedBar">',
-								'<div class="dot" style="background: ',
-									self.getGreenToRed(100 - colValue),
-								';"></div>',
-							'</div>',
-						'</div>',
-					'</div>'
-				].join(''));
-
-				h.push([
-					'<div class="row">',
-						'<div class="col-md-6">',
-							'<ul style="display: block;" class="dataHighlights overflow-auto">',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Nazwa wybranego związku chemicznego</p>',
-									'<p class="_value">',
-										option.text, ' ',
-										'(', option.short, ') ',
-									'</p>',
-								'</li>',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Ostatni pomiar wybranej stacji pomiarowej</p>',
-									'<p class="_value">',
-										station.stat.value,
-									'</p>',
-								'</li>',
-							'</ul>',
-						'</div>',
-						'<div class="col-md-6">',
-							'<ul style="display: block;" class="dataHighlights overflow-auto">',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Minimum dla wszystkich stacji pomiarowych</p>',
-									'<p class="_value">',
-										station.stat.min,
-									'</p>',
-								'</li>',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Maksimum dla wszystkich stacji pomiarowych</p>',
-									'<p class="_value">',
-										station.stat.max,
-									'</p>',
-								'</li>',
-							'</ul>',
-						'</div>',
-					'</div>',
-					
-				].join(''));
-				*/
-				
 				
 			} else {
 				h.push([
@@ -430,17 +380,6 @@ var MapBrowser = Class.extend({
 
 
 			self.$station.html(h.join(''));
-			
-			
-			/*
-			var w = parseInt(self.$station.find('.greenToRedBar').first().width());
-			var marginLeft = Math.ceil(colValue * (w / 100));
-			if(marginLeft > w)
-				marginLeft = w;
-			self.$station.find('.greenToRedBar .dot').first().css({
-				'margin-left': marginLeft + 'px'
-			});
-			*/
 			
 			self.getChartData(station.id, option.short, function(data) {
 				var $chart = self.$station.find('.chart').first();
@@ -566,7 +505,9 @@ $(document).ready(function () {
 
 	mapBrowser = new MapBrowser(
         $('ul.app-list').first(),
-		$('.stationContent').first()
+		$('.stationContent').first(),
+		$('#worst-places').find('section').first(),
+		$('#best-places').find('section').first()
     );
 
 });
