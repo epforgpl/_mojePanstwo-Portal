@@ -94,7 +94,7 @@ var MapBrowser = Class.extend({
 	plZoom: 6,
 	loadDelay: 400,
 
-	init: function ($menu, $station, $worstPlaces, $bestPlaces) {
+	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal) {
 
 		var self = this,
 			center = self.plCenter,
@@ -103,6 +103,7 @@ var MapBrowser = Class.extend({
 		self.$station = $station;
 		self.$worstPlaces = $worstPlaces;
 		self.$bestPlaces = $bestPlaces;
+		self.$dateRangeChartModal = $dateRangeChartModal;
 
         $menu.find('li a').each(function() {
             var href = $(this).attr('href'),
@@ -310,25 +311,29 @@ var MapBrowser = Class.extend({
 
 	setStation: function(stationIndex) {
 		var self = this;
+
+		if(self.selectedStation !== false && self.selectedStation !== -1) {
+			var color = undefined;
+			if(typeof stations[self.selectedStation].color != 'undefined') {
+				if(stations[self.selectedStation].color !== false) {
+					color = stations[self.selectedStation].color;
+				}
+			}
+
+			stations[self.selectedStation].marker.setIcon(
+				self.getIcon(3, color)
+			);
+		}
+
 		if(stationIndex === -1) {
 			
 			self.$station.html('<p class="blank_msg">Wybierz stacje pomiarową na mapie aby zobaczyć szczegóły</p>');
+
+			self.map.setZoom(self.plZoom);
+			self.map.setCenter(new google.maps.LatLng(self.plCenter[0], self.plCenter[1]));
+			self.selectedStation = -1;
 			
 		} else if(stations.hasOwnProperty(stationIndex)) {
-			
-			
-			if(self.selectedStation !== false && self.selectedStation !== -1) {
-				var color = undefined;
-				if(typeof stations[self.selectedStation].color != 'undefined') {
-					if(stations[self.selectedStation].color !== false) {
-						color = stations[self.selectedStation].color;
-					}
-				}
-
-				stations[self.selectedStation].marker.setIcon(
-					self.getIcon(3, color)
-				);
-			}
 
 			var station = stations[stationIndex];
 			
@@ -350,8 +355,9 @@ var MapBrowser = Class.extend({
 
 			var h = [
 				'<h1>',
-				'<span class="glyphicon glyphicon-map-marker"></span>',
-				station.nazwa,
+					'<span class="glyphicon glyphicon-map-marker"></span>',
+					'<button type="button" class="close pull-right resetSelectedStation" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
+					station.nazwa,
 				'</h1>'
 			];
 
@@ -366,7 +372,7 @@ var MapBrowser = Class.extend({
 				h.push('<p class="value">' + v + ' <span class="unit">' + unit + '</span></p>');
 				h.push('<p class="desc">Stan na ' + t + '</p>');
 				
-				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#home" data-toggle="tab">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
+				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
 				h.push('<div class="chart"></div>');
 				h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
 				
@@ -380,66 +386,137 @@ var MapBrowser = Class.extend({
 
 
 			self.$station.html(h.join(''));
-			
-			self.getChartData(station.id, option.short, function(data) {
-				var $chart = self.$station.find('.chart').first();
-				$chart.highcharts({
-					chart: {
-						animation: false,
-						backgroundColor: null,
-						height: 230
-					},
-					title: {
-						text: ''
-					},
-					credits: {
-						enabled: false
-					},
-					xAxis: {
-						type: 'datetime'
-					},
-					yAxis: {
-						title: {
-							text: null
-						}
-					},
-					legend: {
-						enabled: false
-					},
-					series: [{
-						type: 'area',
-						name: option.short,
-						data: data,
-						tooltip: {
-							valueDecimals: 5
-						},
-						animation: false
-					}]
-				});
+
+			self.$station.find('.resetSelectedStation').click(function() {
+				self.setStation(-1);
 			});
 
+			self.$station.find('ul.nav.nav-tabs li a').click(function() {
+				var timestamp = $(this).data('timestamp');
+				if(typeof timestamp == 'undefined') {
+
+					$('#datepicker').bootstrapDP({
+						language: 'pl',
+						orientation: 'auto top',
+						format: "yyyy-mm-dd",
+						autoclose: true
+					});
+
+					self.$dateRangeChartModal.modal('show');
+					self.$station.find('.chart').first().html('');
+					self.$dateRangeChartModal.find('.applyDateRange').click(function() {
+						var dateFrom = $('#datepicker input[name="start"]').first().val(),
+							dateTo = $('#datepicker input[name="end"]').first().val(),
+							timestamp = dateFrom + '_' + dateTo;
+
+						self.updateChart(station.id, option.short, timestamp);
+						self.$dateRangeChartModal.modal('hide');
+					});
+
+				} else {
+					self.updateChart(station.id, option.short, timestamp);
+				}
+			});
+
+			self.updateChart(station.id, option.short, 'd');
 			self.selectedStation = stationIndex;
 		}
 	},
 
-	getChartData: function(station_id, param, success) {
-		var key = station_id + '_' + param,
+	updateChart: function(station_id, short, timestamp) {
+		var self = this;
+
+		self.getChartData(station_id, short, timestamp, function(data) {
+
+			var $chart = self.$station.find('.chart').first();
+
+			if(data.length === 0) {
+				$chart.html('<p class="help-block">Brak danych</p>');
+				return true;
+			}
+
+			$chart.highcharts({
+				chart: {
+					animation: false,
+					backgroundColor: null,
+					height: 230
+				},
+				title: {
+					text: ''
+				},
+				credits: {
+					enabled: false
+				},
+				xAxis: {
+					type: 'datetime'
+				},
+				yAxis: {
+					title: {
+						text: null
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				series: [{
+					type: 'area',
+					name: short,
+					data: data,
+					tooltip: {
+						valueDecimals: 5
+					},
+					animation: false
+				}]
+			});
+		});
+	},
+
+	getChartData: function(station_id, param, timestamp, success, empty) {
+		var key = station_id + '_' + param + '_' + timestamp,
 			self = this;
 		if(this.chartDataCache.hasOwnProperty(key)) {
 			success(this.chartDataCache[key]);
 		} else {
-			$.get('/srodowisko/chart.json?station_id=' + station_id + '&param=' + param, function(res) {
-
+			$.get('/srodowisko/chart.json?station_id=' + station_id + '&param=' + param + '&timestamp=' + timestamp, function(res) {
 				var data = [];
 				for(var r = 0; r < res.length; r++) {
 					var s = res[r]['srodowisko_pomiary']['timestamp'],
 						ss = s.split(' '),
-						d = ss[0].split('-');
+						d = ss[0].split('-'),
+						value = 0;
 
-					data.push([
-						Date.UTC(d[0], parseInt(d[1]) - 1, d[2]),
-						parseFloat(res[r][0].avg)
-					]);
+					if(typeof res[r][0] == 'undefined') {
+						value = res[r]['srodowisko_pomiary']['avg'];
+					} else {
+						value = res[r][0].avg;
+					}
+
+					value = parseFloat(value);
+
+					if(timestamp == 'd') {
+
+						data.push([
+							Date.UTC(d[0], parseInt(d[1]) - 1, d[2]),
+							value
+						]);
+
+					} else if(timestamp == 'h') {
+
+						var hours = ss[1].split(':');
+
+						data.push([
+							Date.UTC(d[0], parseInt(d[1]) - 1, d[2], parseInt(hours[0])),
+							value
+						]);
+
+					} else {
+
+						data.push([
+							Date.UTC(d[0], parseInt(d[1]) - 1, d[2]),
+							value
+						]);
+
+					}
 				}
 
 				self.chartDataCache[key] = data;
@@ -503,11 +580,14 @@ var mapBrowser;
 
 $(document).ready(function () {
 
+	$.fn.bootstrapDP = $.fn.datepicker.noConflict();
+
 	mapBrowser = new MapBrowser(
         $('ul.app-list').first(),
 		$('.stationContent').first(),
 		$('#worst-places').find('section').first(),
-		$('#best-places').find('section').first()
+		$('#best-places').find('section').first(),
+		$('#dateRangeChartModal')
     );
 
 });
