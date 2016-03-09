@@ -143,8 +143,8 @@ Router::connect( '/sitemaps/:dataset-:page', array( 'controller' => 'sitemaps', 
 
 if(
 	( $host != PK_DOMAIN ) && 
-	(preg_match('/^\/([a-zA-Z0-9\-\_]+)$/i', $_SERVER['REQUEST_URI'], $match)) || 
-	(preg_match('/^\/([a-zA-Z0-9\-\_]+)\/(.*?)$/i', $_SERVER['REQUEST_URI'], $match))
+	(preg_match('/^\/([a-zA-Z0-9\-\_]+)([\.json]*)$/i', $_SERVER['REQUEST_URI'], $match)) || 
+	(preg_match('/^\/([a-zA-Z0-9\-\_]+)\/(.*?)([\.json]*)$/i', $_SERVER['REQUEST_URI'], $match))
 ) {
 		
 	App::uses('ConnectionManager', 'Model');
