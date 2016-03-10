@@ -156,16 +156,22 @@ $(document).ready(function() {
         });
 
         this.$toolbar.find('.exportMySQL').click(function() {
-            var sql = self.getTablesAsSQL();
-            $.post('/admin/docs/exportMySQL', {
-                sql: sql.replace(/(\r\n|\n|\r|\t)/gm, '')
+            $.post('/admin/docs/exportMySQL.json', {
+                tables: self.tables,
             }, function(res) {
                 if(res == true) {
                     alert('Dane zostały poprawnie dodane do MySQL');
                 } else {
-                    alert('Wystąpił błąd');
+                    if(res instanceof Array) {
+                        var errors = res.join('\n');
+                        alert(errors);
+                    } else {
+                        console.log(res);
+                        alert('Wystąpił nieznany błąd: ' + res);
+                    }
                 }
             }, 'json');
+
             return false;
         });
 
