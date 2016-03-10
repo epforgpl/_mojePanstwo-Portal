@@ -47,6 +47,10 @@ CustomMarker.prototype.draw = function () {
 
 				ngoPlaceBlock = '';
 
+				if (self.mapaWarstwy.infowindow) {
+					self.mapaWarstwy.infowindow.close();
+				}
+
 				if (self.args.data.key !== '') {
 					$.get('/dane/krs_podmioty.json?limit=20&conditions[-adres.punkt_id]=' + self.args.data.key, function (data) {
 						$.each(data.hits, function () {
@@ -92,14 +96,14 @@ CustomMarker.prototype.draw = function () {
 					});
 				}
 
-				if (self.mapaWarstwy.infowindow) {
-					self.mapaWarstwy.infowindow.close();
-				}
-
 				self.mapaWarstwy.infowindow.open(self.map);
 			} else {
 				if (self.args.mode === 'warstwa' && self.args.count === 1) {
 					ngoPlaceBlock = '';
+
+					if (self.mapaWarstwy.infowindow) {
+						self.mapaWarstwy.infowindow.close();
+					}
 
 					$.get('/dane/krs_podmioty.json?limit=20&conditions[-adres.punkt_id]=' + self.args.data, function (data) {
 						$.each(data.hits, function () {
@@ -129,6 +133,7 @@ CustomMarker.prototype.draw = function () {
 						'<div class="bounce3"></div>' +
 						'</li>'
 					});
+
 					self.mapaWarstwy.infowindow.open(self.map);
 					self.map.setCenter(self.latlng);
 					google.maps.event.addListener(self.mapaWarstwy.infowindow, 'domready', function () {
@@ -501,8 +506,6 @@ var MapBrowser = Class.extend({
 				self.markers.adres = {};
 			}
 		}
-
-		console.log(self.markers);
 	},
 
 	showPlaces: function (mode, data, layer) {
