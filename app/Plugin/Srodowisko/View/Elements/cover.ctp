@@ -1,8 +1,12 @@
 <?php
+
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
 $this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('css', $this->Less->css('srodowisko', array('plugin' => 'Srodowisko')));
 $this->Combinator->add_libs('js', 'Srodowisko.view.js');
+
+$this->Html->css(array('../plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min'), array('inline' => 'false', 'block' => 'cssBlock'));
+$this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', '../plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pl.min'), array('inline' => 'false', 'block' => 'scriptBlock'));
 
 switch (Configure::read('Config.language')) {
     case 'pol':
@@ -12,7 +16,7 @@ switch (Configure::read('Config.language')) {
         $lang = "en-EN";
         break;
 };
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geometry&sensor=false&language=' . $lang, array('block' => 'scriptBlock'));
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geometry&language=' . $lang, array('block' => 'scriptBlock'));
 ?>
 
 <div class="col-xs-12">
@@ -49,8 +53,25 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
 		</div>
 	</div>
 	
-	
 	<div class="row margin-top-30">
+		<div class="col-md-12">
+			<div class="ranking-buttons">
+				<ul class="nav nav-tabs">
+					<?php foreach(array(
+						'latest' => 'Bieżące odczyty',
+						'1d' => 'Ostatnie 3 dni',
+						'1w' => 'Ostatni tydzień',
+						'1m' => 'Ostatni miesiąc') as $option => $name) { ?>
+						<li<? if($option == 'latest') echo ' class="active"'; ?>>
+							<a href="#<?= $option ?>" data-option-value="<?= $option ?>" data-toggle="tab"><?= $name ?></a>
+						</li>
+					<? } ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="row margin-top-10">
 		<div class="col-md-6">
 			
 			<div id="worst-places" class="block places">
@@ -77,4 +98,26 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=geo
 	    var stations = <?= json_encode(array_column(array_column(array_column($dataBrowser['aggs']['stacje']['top']['hits']['hits'], '_source'), 'data'), 'srodowisko_stacje_pomiarowe')) ?>;
     </script>
 
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="dateRangeChartModal" tabindex="-1" role="dialog" aria-labelledby="dateRangeChartModal">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 id="exampleModalLabel">Wybierz zakres</h4>
+			</div>
+			<div class="modal-body">
+				<div class="input-daterange input-group" id="datepicker">
+					<input type="text" value="<?= date('Y-m-d', time() - 2592000) ?>" class="input-sm form-control" name="start" />
+					<span class="input-group-addon">do</span>
+					<input type="text" value="<?= date('Y-m-d') ?>" class="input-sm form-control" name="end" />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+				<button type="button" class="btn btn-primary applyDateRange">Zastosuj</button>
+			</div>
+		</div>
+	</div>
 </div>

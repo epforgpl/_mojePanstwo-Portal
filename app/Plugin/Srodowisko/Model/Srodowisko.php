@@ -19,4 +19,12 @@ class Srodowisko extends AppModel
         ));
     }
 
+    public function getRankingData($data)
+    {
+        return $this->getDataSource()->request('srodowisko/srodowisko/getRankingData', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+    }
+
 }

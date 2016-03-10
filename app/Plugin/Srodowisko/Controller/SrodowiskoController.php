@@ -41,6 +41,12 @@ class SrodowiskoController extends ApplicationsController
 		
 	}
 
+	public function ranking()
+	{
+		$this->set('data', $this->Srodowisko->getRankingData($this->request->query));
+		$this->set('_serialize', 'data');
+	}
+
 	public function chart()
 	{
 		$this->set('data', $this->Srodowisko->getChartData($this->request->query));

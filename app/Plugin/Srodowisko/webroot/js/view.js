@@ -92,15 +92,25 @@ var MapBrowser = Class.extend({
 	}),
 	plCenter: [51.986797406813125, 19.32958984375001],
 	plZoom: 6,
+	rankingOption: 'latest',
 	loadDelay: 400,
 
-	init: function ($menu, $station) {
+	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal, $rankingButtons) {
 
 		var self = this,
 			center = self.plCenter,
 			zoom = self.plZoom;
 
 		self.$station = $station;
+		self.$worstPlaces = $worstPlaces;
+		self.$bestPlaces = $bestPlaces;
+		self.$dateRangeChartModal = $dateRangeChartModal;
+		self.$rankingButtons = $rankingButtons;
+
+		self.$rankingButtons.on('click', 'a', function() {
+			self.rankingOption = $(this).data('optionValue');
+			self.updatePlaces(self.selectedOption);
+		});
 
         $menu.find('li a').each(function() {
             var href = $(this).attr('href'),
@@ -167,46 +177,11 @@ var MapBrowser = Class.extend({
 				$.get('/srodowisko/dane.json?param=' + option.short, function(res) {
 					self.options[optionIndex].stations = res.stations;
 					self.setOptionMarkers(optionIndex);
-					
-					
-					// najbardziej zanieczyszczone
-					
-					$('#worst-places section').html('');
-					for( var i=0; i<5; i++ ) {
-						
-						var r = getRandomInt(0, stations.length);
-						var s = stations[r];
-						var v = Math.round( Math.random() * 100 ) / 100;
-						var unit = 'mg/m<sup>3</sup>';
-												
-						var html = '<div class="place"><a href="#" class="title"><span class="glyphicon glyphicon-map-marker"></span>' + s.nazwa + '<span class="v">' + v + ' ' + unit + '</span></a></div>';
-						
-						$('#worst-places section').append( html );
-						
-					}
-					
-					
-					
-					// najmniej zanieczyszczone
-					
-					$('#best-places section').html('');
-					for( var i=0; i<5; i++ ) {
-						
-						var r = getRandomInt(0, stations.length);
-						var s = stations[r];
-						var v = Math.round( Math.random() * 100 ) / 100;
-						var unit = 'mg/m<sup>3</sup>';
-												
-						var html = '<div class="place"><a href="#" class="title"><span class="glyphicon glyphicon-map-marker"></span>' + s.nazwa + '<span class="v">' + v + ' ' + unit + '</span></a></div>';
-						
-						$('#best-places section').append( html );
-						
-					}
-					
-					
+					self.updatePlaces(optionIndex);
 				});
 			} else {
 				self.setOptionMarkers(optionIndex);
+				self.updatePlaces(optionIndex);
 			}
 
             self.selectedOption = optionIndex;
@@ -265,6 +240,99 @@ var MapBrowser = Class.extend({
 		}
 	},
 
+	updatePlaces: function(optionIndex) {
+		var self = this,
+			s, h, m,
+			optStations, station;
+
+		if(self.rankingOption == 'latest' && self.options.hasOwnProperty(optionIndex)) {
+			optStations = self.options[optionIndex]['stations'];
+			optStations.sort(function(a, b) {
+				return a.value == b.value ? 0 : a.value > b.value ? 1 : -1;
+			});
+
+			h = [];
+			for(s = 0; s < 5; s++) {
+				station = optStations[s];
+				for(m = 0; m < stations.length; m++) {
+					if(stations[m].id == station.id) {
+						var v = Math.round( station.value * 100 ) / 100;
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+						break;
+					}
+				}
+			}
+
+			self.$bestPlaces.html(h.join(''));
+
+			h = [];
+			for(s = optStations.length - 1; s > optStations.length - 6; s--) {
+				station = optStations[s];
+				for(m = 0; m < stations.length; m++) {
+					if(stations[m].id == station.id) {
+						var v = Math.round( station.value * 100 ) / 100;
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+						break;
+					}
+				}
+			}
+
+			self.$worstPlaces.html(h.join(''));
+
+		} else {
+
+			if(self.options.hasOwnProperty(self.selectedOption)) {
+
+				var rankingOptions = [{
+					key: 'most',
+					list: self.$bestPlaces
+				}, {
+					key: 'least',
+					list: self.$worstPlaces
+				}];
+
+				for(var rrr = 0; rrr < rankingOptions.length; rrr++) {
+					rankingOptions[rrr].list.html('<div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
+				}
+
+				$.get('/srodowisko/ranking.json?param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption, function(res) {
+
+					for(var rOpt = 0; rOpt < rankingOptions.length; rOpt++) {
+
+						if(res.hasOwnProperty(rankingOptions[rOpt]['key'])) {
+							var rankingOption = rankingOptions[rOpt],
+								data = res[rankingOption['key']],
+								html = [];
+
+							if(data.length == 0) {
+								rankingOption.list.html('<p class="help-block margin-sides-15">Brak danych</p>');
+								continue;
+							}
+
+							for(var d = 0; d < data.length; d++) {
+								for(m = 0; m < stations.length; m++) {
+									if(data[d]['srodowisko_pomiary']['station_id'] == stations[m].id) {
+										var v = Math.round( parseFloat(data[d]['srodowisko_pomiary']['value']) * 100 ) / 100;
+										html.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+										break;
+									}
+								}
+							}
+
+							rankingOption.list.html(html.join(''));
+						}
+					}
+				});
+			}
+		}
+
+		$('body').on('click', '.setStationAction', function() {
+			self.setStation(parseInt($(this).data('stationIndex')));
+			return false;
+		});
+
+	},
+
 	loadStations: function() {
 
 		var self = this;
@@ -296,25 +364,29 @@ var MapBrowser = Class.extend({
 
 	setStation: function(stationIndex) {
 		var self = this;
+
+		if(self.selectedStation !== false && self.selectedStation !== -1) {
+			var color = undefined;
+			if(typeof stations[self.selectedStation].color != 'undefined') {
+				if(stations[self.selectedStation].color !== false) {
+					color = stations[self.selectedStation].color;
+				}
+			}
+
+			stations[self.selectedStation].marker.setIcon(
+				self.getIcon(3, color)
+			);
+		}
+
 		if(stationIndex === -1) {
 			
 			self.$station.html('<p class="blank_msg">Wybierz stacje pomiarową na mapie aby zobaczyć szczegóły</p>');
+
+			self.map.setZoom(self.plZoom);
+			self.map.setCenter(new google.maps.LatLng(self.plCenter[0], self.plCenter[1]));
+			self.selectedStation = -1;
 			
 		} else if(stations.hasOwnProperty(stationIndex)) {
-			
-			
-			if(self.selectedStation !== false && self.selectedStation !== -1) {
-				var color = undefined;
-				if(typeof stations[self.selectedStation].color != 'undefined') {
-					if(stations[self.selectedStation].color !== false) {
-						color = stations[self.selectedStation].color;
-					}
-				}
-
-				stations[self.selectedStation].marker.setIcon(
-					self.getIcon(3, color)
-				);
-			}
 
 			var station = stations[stationIndex];
 			
@@ -336,15 +408,13 @@ var MapBrowser = Class.extend({
 
 			var h = [
 				'<h1>',
-				'<span class="glyphicon glyphicon-map-marker"></span>',
-				station.nazwa,
+					'<span class="glyphicon glyphicon-map-marker"></span>',
+					'<button type="button" class="close pull-right resetSelectedStation" aria-label="Close"><span aria-hidden="true">&times;</span></button>',
+					station.nazwa,
 				'</h1>'
 			];
 
 			if(typeof station.stat != 'undefined' && station.stat !== false) {
-				
-				
-				console.log('station', station);
 				
 				var v = Math.round( station.stat.value * 100 ) / 100;
 				var unit = 'mg/m<sup>3</sup>';
@@ -355,70 +425,9 @@ var MapBrowser = Class.extend({
 				h.push('<p class="value">' + v + ' <span class="unit">' + unit + '</span></p>');
 				h.push('<p class="desc">Stan na ' + t + '</p>');
 				
-				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#home" data-toggle="tab">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
+				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
 				h.push('<div class="chart"></div>');
 				h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
-				
-				
-				
-				/*				
-				var colValue = Math.ceil(
-					station.stat.value / ((station.stat.max - station.stat.min) / 100)
-				);
-
-				
-				h.push([
-					'<div class="row">',
-						'<div class="col-md-12">',
-							'<div class="greenToRedBar">',
-								'<div class="dot" style="background: ',
-									self.getGreenToRed(100 - colValue),
-								';"></div>',
-							'</div>',
-						'</div>',
-					'</div>'
-				].join(''));
-
-				h.push([
-					'<div class="row">',
-						'<div class="col-md-6">',
-							'<ul style="display: block;" class="dataHighlights overflow-auto">',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Nazwa wybranego związku chemicznego</p>',
-									'<p class="_value">',
-										option.text, ' ',
-										'(', option.short, ') ',
-									'</p>',
-								'</li>',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Ostatni pomiar wybranej stacji pomiarowej</p>',
-									'<p class="_value">',
-										station.stat.value,
-									'</p>',
-								'</li>',
-							'</ul>',
-						'</div>',
-						'<div class="col-md-6">',
-							'<ul style="display: block;" class="dataHighlights overflow-auto">',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Minimum dla wszystkich stacji pomiarowych</p>',
-									'<p class="_value">',
-										station.stat.min,
-									'</p>',
-								'</li>',
-								'<li class="dataHighlight col-xs-12">',
-									'<p class="_label">Maksimum dla wszystkich stacji pomiarowych</p>',
-									'<p class="_value">',
-										station.stat.max,
-									'</p>',
-								'</li>',
-							'</ul>',
-						'</div>',
-					'</div>',
-					
-				].join(''));
-				*/
-				
 				
 			} else {
 				h.push([
@@ -430,77 +439,137 @@ var MapBrowser = Class.extend({
 
 
 			self.$station.html(h.join(''));
-			
-			
-			/*
-			var w = parseInt(self.$station.find('.greenToRedBar').first().width());
-			var marginLeft = Math.ceil(colValue * (w / 100));
-			if(marginLeft > w)
-				marginLeft = w;
-			self.$station.find('.greenToRedBar .dot').first().css({
-				'margin-left': marginLeft + 'px'
-			});
-			*/
-			
-			self.getChartData(station.id, option.short, function(data) {
-				var $chart = self.$station.find('.chart').first();
-				$chart.highcharts({
-					chart: {
-						animation: false,
-						backgroundColor: null,
-						height: 230
-					},
-					title: {
-						text: ''
-					},
-					credits: {
-						enabled: false
-					},
-					xAxis: {
-						type: 'datetime'
-					},
-					yAxis: {
-						title: {
-							text: null
-						}
-					},
-					legend: {
-						enabled: false
-					},
-					series: [{
-						type: 'area',
-						name: option.short,
-						data: data,
-						tooltip: {
-							valueDecimals: 5
-						},
-						animation: false
-					}]
-				});
+
+			self.$station.find('.resetSelectedStation').click(function() {
+				self.setStation(-1);
 			});
 
+			self.$station.find('ul.nav.nav-tabs li a').click(function() {
+				var timestamp = $(this).data('timestamp');
+				if(typeof timestamp == 'undefined') {
+
+					$('#datepicker').bootstrapDP({
+						language: 'pl',
+						orientation: 'auto top',
+						format: "yyyy-mm-dd",
+						autoclose: true
+					});
+
+					self.$dateRangeChartModal.modal('show');
+					self.$station.find('.chart').first().html('');
+					self.$dateRangeChartModal.find('.applyDateRange').click(function() {
+						var dateFrom = $('#datepicker input[name="start"]').first().val(),
+							dateTo = $('#datepicker input[name="end"]').first().val(),
+							timestamp = dateFrom + '_' + dateTo;
+
+						self.updateChart(station.id, option.short, timestamp);
+						self.$dateRangeChartModal.modal('hide');
+					});
+
+				} else {
+					self.updateChart(station.id, option.short, timestamp);
+				}
+			});
+
+			self.updateChart(station.id, option.short, 'd');
 			self.selectedStation = stationIndex;
 		}
 	},
 
-	getChartData: function(station_id, param, success) {
-		var key = station_id + '_' + param,
+	updateChart: function(station_id, short, timestamp) {
+		var self = this;
+
+		self.getChartData(station_id, short, timestamp, function(data) {
+
+			var $chart = self.$station.find('.chart').first();
+
+			if(data.length === 0) {
+				$chart.html('<p class="help-block">Brak danych</p>');
+				return true;
+			}
+
+			$chart.highcharts({
+				chart: {
+					animation: false,
+					backgroundColor: null,
+					height: 230
+				},
+				title: {
+					text: ''
+				},
+				credits: {
+					enabled: false
+				},
+				xAxis: {
+					type: 'datetime'
+				},
+				yAxis: {
+					title: {
+						text: null
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				series: [{
+					type: 'area',
+					name: short,
+					data: data,
+					tooltip: {
+						valueDecimals: 5
+					},
+					animation: false
+				}]
+			});
+		});
+	},
+
+	getChartData: function(station_id, param, timestamp, success, empty) {
+		var key = station_id + '_' + param + '_' + timestamp,
 			self = this;
 		if(this.chartDataCache.hasOwnProperty(key)) {
 			success(this.chartDataCache[key]);
 		} else {
-			$.get('/srodowisko/chart.json?station_id=' + station_id + '&param=' + param, function(res) {
-
+			$.get('/srodowisko/chart.json?station_id=' + station_id + '&param=' + param + '&timestamp=' + timestamp, function(res) {
 				var data = [];
 				for(var r = 0; r < res.length; r++) {
 					var s = res[r]['srodowisko_pomiary']['timestamp'],
 						ss = s.split(' '),
-						d = ss[0].split('-');
+						d = ss[0].split('-'),
+						value = 0;
 
-					data.push([
-						Date.UTC(d[0], parseInt(d[1]) - 1, d[2]),
-						parseFloat(res[r][0].avg)
-					]);
+					if(typeof res[r][0] == 'undefined') {
+						value = res[r]['srodowisko_pomiary']['avg'];
+					} else {
+						value = res[r][0].avg;
+					}
+
+					value = parseFloat(value);
+
+					if(timestamp == 'd') {
+
+						data.push([
+							Date.UTC(d[0], parseInt(d[1]) - 1, d[2]),
+							value
+						]);
+
+					} else if(timestamp == 'h') {
+
+						var hours = ss[1].split(':');
+
+						data.push([
+							Date.UTC(d[0], parseInt(d[1]) - 1, d[2], parseInt(hours[0])),
+							value
+						]);
+
+					} else {
+
+						data.push([
+							Date.UTC(d[0], parseInt(d[1]) - 1, d[2]),
+							value
+						]);
+
+					}
 				}
 
 				self.chartDataCache[key] = data;
@@ -564,9 +633,15 @@ var mapBrowser;
 
 $(document).ready(function () {
 
+	$.fn.bootstrapDP = $.fn.datepicker.noConflict();
+
 	mapBrowser = new MapBrowser(
         $('ul.app-list').first(),
-		$('.stationContent').first()
+		$('.stationContent').first(),
+		$('#worst-places').find('section').first(),
+		$('#best-places').find('section').first(),
+		$('#dateRangeChartModal'),
+		$('.ranking-buttons').first()
     );
 
 });
