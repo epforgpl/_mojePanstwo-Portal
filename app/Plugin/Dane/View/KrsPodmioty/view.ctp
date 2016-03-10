@@ -454,7 +454,7 @@ $description =
 			<div data-url="/<?= $object->getSlug() ?>/notowania.json" class="block block-simple nobg gpw">
 				<header><div class="sm">Kurs akcji na GPW:</div></header>
 				<section style="height: 300px;">
-					
+                    <div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
 				</section>
 			</div>
 			

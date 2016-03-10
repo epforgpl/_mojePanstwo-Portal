@@ -572,7 +572,7 @@ class KrsPodmiotyController extends DataobjectsController
 		 	foreach( $this->Dataobject->getDataSource()->Aggs['notowania']['top']['hits']['hits'] as $d ) {
 			 	
 			 	$data[] = array(
-				 	strtotime($d['_source']['date'])*1000, (float) $d['_source']['c']
+                    $d['_source']['date'], (float) $d['_source']['c']
 			 	);
 			 	
 		 	}

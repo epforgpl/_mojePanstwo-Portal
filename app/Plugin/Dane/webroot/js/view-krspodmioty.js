@@ -188,9 +188,20 @@ jQuery(document).ready(function () {
 	    
 	    var url = notowania_div.data('url');
 	    
-	    $.getJSON(url, function (data) {
+	    $.getJSON(url, function (res) {
 		    
-		    console.log('data', data);
+		    var data = [];
+            for(var r = 0; r < res.length; r++) {
+                var d = res[r][0].split('-');
+                data.push([
+                    Date.UTC(
+                        parseInt(d[0]),
+                        parseInt(d[1]) - 1,
+                        parseInt(d[2])
+                    ),
+                    res[r][1]
+                ]);
+            }
 		    
 	        notowania_div.find('section').highcharts('StockChart', {
 	
