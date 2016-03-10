@@ -10,16 +10,15 @@
 			'href' => $pismo['alphaid'] . ',' . $pismo['slug'] . '/edit',
 			'label' => 'Edycja pisma',
 		),
-		/*
-		array(
+
+        array(
 			'id' => 'anonymize',
 			'href' => $pismo['alphaid'] . ',' . $pismo['slug'] . '/anonymize',
 			'label' => 'Anonimizacja pisma',
 		),
-		*/
 	);
-	
-	if( !isset($active) )
+
+if (!isset($active))
 		$active = false;
 ?>
 
@@ -33,7 +32,7 @@
 	            <a href="/moje-pisma/<?= $item['href'] ?>"><?= $item['label'] ?></a>
             </li>
 		<? } ?>
-	                                                
+
         </ul>
     </div>
 </div>

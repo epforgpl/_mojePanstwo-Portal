@@ -44,8 +44,9 @@ echo $this->element('app/sidebar');
             <div class="row">
                 <div class="col-md-9">
                     <div class="col-xs-12 alert alert-info margin-top-15 margin-sides-20">
-                        <p>Zaznacz fragmenty pisma, których nie chcesz ujawnić publicznie. Gdy będziesz gotowy, naciśnij
-                            przycisk "Opublikuj pismo" na dole ekranu.</p>
+                        <p>Zaznacz fragmenty pisma, których nie chcesz ujawnić publicznie. Wciśnij na wyciemnione polę
+                            aby ponownie były widoczne.<br/>Gdy będziesz gotowy, naciśnij
+                            przycisk "Anonimizuj i publikuj pismo" na dole ekranu.</p>
                     </div>
 
                     <form id="anonimizePublicForm" method="post" class="margin-sides-20"
