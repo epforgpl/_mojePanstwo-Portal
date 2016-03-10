@@ -357,7 +357,7 @@ $description =
 
                 </section>
                 <div class="linkmore text-center">
-                    <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-primary btn-xs"">więcej</a>
+                    <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-primary btn-xs">więcej</a>
                 </div>
             </div>
             <? } ?>
@@ -442,6 +442,27 @@ $description =
             </div>
             <? }
 
+			
+			if( $object->getData('gpw_spolka_id') ) {
+				
+				$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+				$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+			?>
+			
+			
+			
+			<div data-url="/<?= $object->getSlug() ?>/notowania.json" class="block block-simple nobg gpw">
+				<header><div class="sm">Kurs akcji na GPW:</div></header>
+				<section style="height: 300px;">
+					
+				</section>
+			</div>
+			
+				
+			<?	
+			}
+			
+			
             if ($object->getId() == '481129') { ?>
             <div class="special banner">
                 <a title="Zobacz umowy podpisywane przez Komitet Konkursowy Kraków 2022"

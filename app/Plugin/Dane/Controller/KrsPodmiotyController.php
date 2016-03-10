@@ -537,6 +537,51 @@ class KrsPodmiotyController extends DataobjectsController
         $this->_prepareView();
 
     }
+    
+    public function notowania()
+    {
+	 		 	
+	 	$data = $this->Dataobject->find('first', array(
+		 	'conditions' => array(
+			 	'dataset' => 'krs_podmioty',
+			 	'id' => $this->request->params['id'],
+		 	),
+		 	'limit' => 0,
+		 	'aggs' => array(
+			 	'notowania' => array(
+				 	'nested' => array(
+					 	'path' => 'gpw_notowania_dzienne',
+				 	),
+				 	'aggs' => array(
+					 	'top' => array(
+						 	'top_hits' => array(
+							 	'size' => 1000,
+							 	'sort' => array(
+								 	'gpw_notowania_dzienne.date' => 'asc',
+							 	),
+						 	),
+					 	),
+				 	),
+			 	),
+		 	),
+	 	));
+	 	
+	 	
+	 	$data = array();
+	 	if( @$this->Dataobject->getDataSource()->Aggs['notowania']['top']['hits']['hits'] ) {
+		 	foreach( $this->Dataobject->getDataSource()->Aggs['notowania']['top']['hits']['hits'] as $d ) {
+			 	
+			 	$data[] = array(
+				 	strtotime($d['_source']['date'])*1000, (float) $d['_source']['c']
+			 	);
+			 	
+		 	}
+	 	}	 		 	
+	 	   
+	    $this->set('data', $data);
+	    $this->set('_serialize', 'data');
+	    
+    }
 
     public function graph()
     {

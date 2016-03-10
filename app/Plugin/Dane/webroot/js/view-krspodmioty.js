@@ -179,10 +179,45 @@ jQuery(document).ready(function () {
             }
         });
     }
-
+	
     /*STICKY MENU*/
 	$("#stickyMenu").sticky();
-
+	
+	var notowania_div = $('.block.gpw');
+    if( notowania_div.length ) {
+	    
+	    var url = notowania_div.data('url');
+	    
+	    $.getJSON(url, function (data) {
+		    
+		    console.log('data', data);
+		    
+	        notowania_div.find('section').highcharts('StockChart', {
+	
+	            rangeSelector : {
+	                selected : 1
+	            },
+	
+	            title : {
+	                text : ''
+	            },
+	
+	            series : [{
+	                name : 'Kurs zamknięcia',
+	                data : data,
+	                tooltip: {
+	                    valueDecimals: 2
+	                }
+	            }],
+	            
+	            credits: {
+		            enabled: false
+	            }
+	        });
+	    });
+	    
+    }
+	
     menu.find('.nav a').click(function (event) {
         var target = jQuery(this).attr('href'),
             padding = 10;
@@ -253,4 +288,8 @@ jQuery(document).ready(function () {
 
 		main.html(main.attr('data-desc'));
     });
+    
+    
+    
+    
 });
