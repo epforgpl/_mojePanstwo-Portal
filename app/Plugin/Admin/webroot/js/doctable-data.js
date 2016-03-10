@@ -157,7 +157,7 @@ $(document).ready(function() {
 
         this.$toolbar.find('.exportMySQL').click(function() {
             $.post('/admin/docs/exportMySQL.json', {
-                tables: self.tables,
+                tables: self.tables
             }, function(res) {
                 if(res == true) {
                     alert('Dane zostały poprawnie dodane do MySQL');

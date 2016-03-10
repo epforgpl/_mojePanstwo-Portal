@@ -92,6 +92,18 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 			
 		</div>
 	</div>
+
+	<div class="row margin-top-20">
+		<div class="col-md-12 text-center">
+			<p class="text-muted">
+				Aplikacja powstaje we współpracy z <a href="/fundacja-clientearth-poland" title="Fundacja ClientEarth Poland">Fundacją ClientEarth Poland</a>
+				<br/>
+				<a href="/fundacja-clientearth-poland" title="Fundacja ClientEarth Poland">
+					<img class="image margin-top-5" src="/img/partnerzy/client-earth-logo.png" alt="Fundacja ClientEarth Poland"/>
+				</a>
+			</p>
+		</div>
+	</div>
 	
 	
     <script type="text/javascript">
@@ -117,6 +129,21 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
 				<button type="button" class="btn btn-primary applyDateRange">Zastosuj</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="morePlacesModal" tabindex="-1" role="dialog" aria-labelledby="morePlacesModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3 class="margin-top-0"></h3>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
 			</div>
 		</div>
 	</div>
