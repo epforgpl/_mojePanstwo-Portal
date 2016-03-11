@@ -31,16 +31,14 @@ if( $html )
     <div class="object col-md-9">
         
         <div class="block margin-top-25">
-	        <section class="content">
+	        <section class="content text-typo">
 		        
 		        <?= $html ?>
 		        
 	        </section>
         </div>
         
-    </div><div class="col-md-3">
-
-        <ul class="dataHighlights overflow-auto margin-top-10">
+        <ul class="dataHighlights overflow-auto margin-sides-20">
     		
     		<? if( @$data['sad'] ) {?>
     		<li class="dataHighlight col-xs-12">
@@ -55,15 +53,16 @@ if( $html )
 	            <p class="_value"><?= $data['symbol'] ?></p>
 	        </li>
 	        <? } ?>
-    		
-    		<li class="dataHighlight col-xs-12">
-	            <p class="_label">Wydanie MSiG</p>
-	            <p class="_value"><a href="/dane/msig/<?= $ogloszenie->getData('wydanie_id') ?>"><?= dataSlownie( $ogloszenie->getData('msig.data') ); ?></a></p>
-	        </li>
+	        
+        </ul>
+        
+    </div><div class="col-md-3">
+
+        <ul class="dataHighlights overflow-auto margin-top-10">    		
 	        
 	        <li class="dataHighlight col-xs-12">
-	            <p class="_label">Dział MSiG</p>
-	            <p class="_value"><a href="/dane/msig/<?= $ogloszenie->getData('wydanie_id') ?>/dzialy/<?= $ogloszenie->getData('dzial_id') ?>"><?= $ogloszenie->getData('msig_dzialy.nazwa') ?></a></p>
+	            <p class="_label">Monitor Sądowy i Gospodarczy</p>
+	            <p class="_value"><a href="/dane/msig/<?= $ogloszenie->getData('wydanie_id') ?>"><?= dataSlownie( $ogloszenie->getData('msig.data') ); ?></a> &mdash; <a href="/dane/msig/<?= $ogloszenie->getData('wydanie_id') ?>/dzialy/<?= $ogloszenie->getData('dzial_id') ?>"><?= $ogloszenie->getData('msig_dzialy.nazwa') ?></a></p>
 	        </li>
 	        
 	        <li class="dataHighlight col-xs-12">
