@@ -95,11 +95,11 @@ $(window).load(function () {
 
 		if (typeof mPCookie.survey.ankieta2 === "undefined" || !(mPCookie.survey.ankieta2 === 'toSend' || mPCookie.survey.ankieta2 === 'sended')) {
 
-			if (mPCookie.survey.ankieta2 > 60) {
+			if (mPCookie.survey.ankieta2 > 30) {
 				surveyAnkieta2.modal('show');
 			} else {
 				ankieta2Interval = setInterval(function () {
-					if (mPCookie.survey.ankieta2 > 60) {
+					if (mPCookie.survey.ankieta2 > 30) {
 						surveyAnkieta2.modal('show');
 						clearInterval(ankieta2Interval);
 					}
