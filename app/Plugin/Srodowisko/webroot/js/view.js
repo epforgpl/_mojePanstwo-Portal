@@ -7,7 +7,6 @@ function getRandomInt(min, max) {
 }
 
 var MapBrowser = Class.extend({
-	spinnerCounter: 0,
 	retina: false,
 	map: false,
     options: [],
@@ -95,7 +94,7 @@ var MapBrowser = Class.extend({
 	rankingOption: 'latest',
 	loadDelay: 400,
 
-	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal, $rankingButtons) {
+	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal, $rankingButtons, $appLogo, $morePlacesModal) {
 
 		var self = this,
 			center = self.plCenter,
@@ -105,11 +104,33 @@ var MapBrowser = Class.extend({
 		self.$worstPlaces = $worstPlaces;
 		self.$bestPlaces = $bestPlaces;
 		self.$dateRangeChartModal = $dateRangeChartModal;
+		self.$morePlacesModal = $morePlacesModal;
 		self.$rankingButtons = $rankingButtons;
+		self.$appLogo = $appLogo;
+
+		self.$appLogo.append('<div class="spinner" style="display: none;"><div class="bounce1"></div> <div class="bounce2"></div><div class="bounce3"></div></div>');
+
+		self.$spinner = self.$appLogo.find('.spinner').first();
 
 		self.$rankingButtons.on('click', 'a', function() {
 			self.rankingOption = $(this).data('optionValue');
 			self.updatePlaces(self.selectedOption);
+		});
+
+		self.$worstPlaces.on('click', 'a.showMorePlaces', function() {
+			self.showMorePlacesModal(
+				$(this).data()
+			);
+
+			return false;
+		});
+
+		self.$bestPlaces.on('click', 'a.showMorePlaces', function() {
+			self.showMorePlacesModal(
+				$(this).data()
+			);
+
+			return false;
 		});
 
         $menu.find('li a').each(function() {
@@ -160,6 +181,92 @@ var MapBrowser = Class.extend({
 		this.loadStations();
 	},
 
+	showMorePlacesModal: function(data) {
+		var self = this,
+			headers = {
+				'worst': 'Najbardziej',
+				'most': 'Najmniej',
+				'best': 'Najmniej',
+				'least': 'Najbardziej'
+			},
+			$h3 = self.$morePlacesModal.find('.modal-header h3').first(),
+			$body = self.$morePlacesModal.find('.modal-body').first(),
+			text = headers[data['placesType']];
+
+		$body.html(self.getSpinnerDOM());
+		$h3.html(text + ' zanieczyszczone miejsca');
+
+		if(self.rankingOption == 'latest') {
+
+			var h = ['<div class="block places"><section class="content">'];
+
+			var optStations = self.options[self.selectedOption]['stations'];
+			optStations.sort(function(a, b) {
+				return a.value == b.value ? 0 : a.value > b.value ? 1 : -1;
+			});
+
+			if(text == 'Najbardziej') {
+
+				for(var s = optStations.length - 1; s >= 0; s--) {
+					var station = optStations[s];
+					for(var m = 0; m < stations.length; m++) {
+						if(stations[m].id == station.id) {
+							var v = Math.round( station.value * 100 ) / 100;
+							h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+							break;
+						}
+					}
+				}
+
+			} else {
+
+				for(var s = 0; s < optStations.length; s++) {
+					var station = optStations[s];
+					for(var m = 0; m < stations.length; m++) {
+						if(stations[m].id == station.id) {
+							var v = Math.round( station.value * 100 ) / 100;
+							h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+							break;
+						}
+					}
+				}
+
+			}
+
+			h.push('</section></div>');
+			$body.html(h.join(''));
+
+		} else {
+
+			$.get('/srodowisko/ranking.json?param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption + '&limit=x', function(res) {
+
+				var h = ['<div class="block places"><section class="content">'],
+					key = (text == 'Najbardziej' ? 'least' : 'most'),
+					data = res[key];
+
+				if(data.length == 0) {
+					h.push('<div class="place text-center">Brak danych</div>');
+ 				} else {
+					for (var d = 0; d < data.length; d++) {
+						for (var m = 0; m < stations.length; m++) {
+							if (data[d]['srodowisko_pomiary']['station_id'] == stations[m].id) {
+								var v = Math.round(parseFloat(data[d]['srodowisko_pomiary']['value'] || data[d][0]['val']) * 100) / 100;
+								h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+								break;
+							}
+						}
+					}
+				}
+
+				h.push('</section></div>');
+				$body.html(h.join(''));
+			});
+
+		}
+
+		self.$morePlacesModal.modal('show');
+	},
+
     setSelectedOption: function(optionIndex) {
         var self = this;
 
@@ -174,10 +281,12 @@ var MapBrowser = Class.extend({
 			option.$a.parent().addClass('active');
 
 			if(option.stations.length === 0) {
+				self.$spinner.show();
 				$.get('/srodowisko/dane.json?param=' + option.short, function(res) {
 					self.options[optionIndex].stations = res.stations;
 					self.setOptionMarkers(optionIndex);
 					self.updatePlaces(optionIndex);
+					self.$spinner.hide();
 				});
 			} else {
 				self.setOptionMarkers(optionIndex);
@@ -217,6 +326,9 @@ var MapBrowser = Class.extend({
 							)
 						);
 
+						if(stations[s].marker.map === null)
+							stations[s].marker.setMap(self.map);
+
 						stations[s].color = color;
 						stations[s].stat = {
 							min: min,
@@ -231,6 +343,7 @@ var MapBrowser = Class.extend({
 
 				if(found === false) {
 					stations[s].marker.setIcon(self.getIcon(3));
+					stations[s].marker.setMap(null);
 					stations[s].color = false;
 					stations[s].stat = undefined;
 				}
@@ -252,30 +365,34 @@ var MapBrowser = Class.extend({
 			});
 
 			h = [];
-			for(s = 0; s < 5; s++) {
+			for(s = 0; s < 10; s++) {
 				station = optStations[s];
 				for(m = 0; m < stations.length; m++) {
 					if(stations[m].id == station.id) {
 						var v = Math.round( station.value * 100 ) / 100;
-						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
 						break;
 					}
 				}
 			}
+
+			h.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="best" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
 
 			self.$bestPlaces.html(h.join(''));
 
 			h = [];
-			for(s = optStations.length - 1; s > optStations.length - 6; s--) {
+			for(s = optStations.length - 1; s > optStations.length - 11; s--) {
 				station = optStations[s];
 				for(m = 0; m < stations.length; m++) {
 					if(stations[m].id == station.id) {
 						var v = Math.round( station.value * 100 ) / 100;
-						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
 						break;
 					}
 				}
 			}
+
+			h.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="worst" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
 
 			self.$worstPlaces.html(h.join(''));
 
@@ -312,12 +429,14 @@ var MapBrowser = Class.extend({
 							for(var d = 0; d < data.length; d++) {
 								for(m = 0; m < stations.length; m++) {
 									if(data[d]['srodowisko_pomiary']['station_id'] == stations[m].id) {
-										var v = Math.round( parseFloat(data[d]['srodowisko_pomiary']['value']) * 100 ) / 100;
-										html.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' mg/m<sup>3</sup></span></a></div>');
+										var v = Math.round( parseFloat(data[d]['srodowisko_pomiary']['value'] || data[d][0]['val']) * 100 ) / 100;
+										html.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
 										break;
 									}
 								}
 							}
+
+							html.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="' + rankingOptions[rOpt]['key'] + '" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
 
 							rankingOption.list.html(html.join(''));
 						}
@@ -360,6 +479,10 @@ var MapBrowser = Class.extend({
 
 		}
 
+	},
+
+	getSpinnerDOM: function() {
+		return '<div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
 	},
 
 	setStation: function(stationIndex) {
@@ -417,16 +540,16 @@ var MapBrowser = Class.extend({
 			if(typeof station.stat != 'undefined' && station.stat !== false) {
 				
 				var v = Math.round( station.stat.value * 100 ) / 100;
-				var unit = 'mg/m<sup>3</sup>';
+				var unit = self.getUnitDOMByShort(option['short']);
 				var t = '8 marca 2016 - 10:00';
 				
-				h.push('<p class="param">Stężenie benzenu w powietrzu:</p>');
+				h.push('<p class="param">Stężenie ' + self.getDopelniaczbyShort(option['short']) + ' w powietrzu:</p>');
 				
 				h.push('<p class="value">' + v + ' <span class="unit">' + unit + '</span></p>');
 				h.push('<p class="desc">Stan na ' + t + '</p>');
 				
 				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
-				h.push('<div class="chart"></div>');
+				h.push('<div class="chart">' + self.getSpinnerDOM() + '</div>');
 				h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
 				
 			} else {
@@ -456,7 +579,7 @@ var MapBrowser = Class.extend({
 					});
 
 					self.$dateRangeChartModal.modal('show');
-					self.$station.find('.chart').first().html('');
+					self.$station.find('.chart').first().html(self.getSpinnerDOM());
 					self.$dateRangeChartModal.find('.applyDateRange').click(function() {
 						var dateFrom = $('#datepicker input[name="start"]').first().val(),
 							dateTo = $('#datepicker input[name="end"]').first().val(),
@@ -476,12 +599,49 @@ var MapBrowser = Class.extend({
 		}
 	},
 
+	getUnitDOMByShort: function(short) {
+		return (short == 'CO' ? 'm' : '&micro;') + 'g/m<sup>3</sup>';
+	},
+
+	getDopelniaczbyShort: function(short) {
+		switch(short) {
+			case 'C6H6':
+				return 'benzenu';
+			break;
+
+			case 'NO2':
+				return 'dwutlenku azotu';
+			break;
+
+			case 'O3':
+				return 'ozonu';
+			break;
+
+			case 'PM10':
+				return 'pyłu PM10';
+			break;
+
+			case 'PM2.5':
+				return 'pyłu PM2.5';
+			break;
+
+			case 'SO2':
+				return 'dwutlenku siarki';
+			break;
+
+			default:
+				return 'czadu';
+			break;
+		}
+	},
+
 	updateChart: function(station_id, short, timestamp) {
 		var self = this;
 
-		self.getChartData(station_id, short, timestamp, function(data) {
+		var $chart = self.$station.find('.chart').first();
+		$chart.html(self.getSpinnerDOM());
 
-			var $chart = self.$station.find('.chart').first();
+		self.getChartData(station_id, short, timestamp, function(data) {
 
 			if(data.length === 0) {
 				$chart.html('<p class="help-block">Brak danych</p>');
@@ -599,34 +759,6 @@ var MapBrowser = Class.extend({
 		};
 	},
 
-
-	spinnerOn: function () {
-		this.spinnerCounter++;
-		this.spinnerUpdate();
-	},
-
-	spinnerOff: function () {
-		this.spinnerCounter--;
-		this.spinnerUpdate();
-	},
-
-	spinnerUpdate: function () {
-		var self = this,
-			spinner = self.sidebar.find('.app-logo .spinner');
-
-		if (self.spinnerCounter) {
-			if (spinner.is(':hidden')) {
-				spinner.show();
-			}
-		} else {
-			spinner.hide();
-		}
-	},
-	spinnerReset: function () {
-		this.spinnerCounter = 0;
-		this.spinnerUpdate();
-	}
-
 });
 
 var mapBrowser;
@@ -641,7 +773,9 @@ $(document).ready(function () {
 		$('#worst-places').find('section').first(),
 		$('#best-places').find('section').first(),
 		$('#dateRangeChartModal'),
-		$('.ranking-buttons').first()
+		$('.ranking-buttons').first(),
+		$('.app-logo').first(),
+		$('#morePlacesModal')
     );
 
 });
