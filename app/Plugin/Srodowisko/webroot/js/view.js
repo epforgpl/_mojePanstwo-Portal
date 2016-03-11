@@ -467,7 +467,7 @@ var MapBrowser = Class.extend({
 					lng: Number(s.lng)
 				},
 				icon: self.getIcon(3),
-				map: this.map
+				map: null
 			});
 
 			marker.addListener('click', function() {
@@ -538,10 +538,25 @@ var MapBrowser = Class.extend({
 			];
 
 			if(typeof station.stat != 'undefined' && station.stat !== false) {
-				
+
+
+				var date = '';
+				for(var s = 0; s < option.stations.length; s++) {
+					if(option.stations[s].id == station.id) {
+						date = option.stations[s].time;
+						break;
+					}
+				}
+
+				if(date == '')
+					date = '2016-03-07T09:00:00';
+
+				var dates = date.split('T');
+				date = dates[0] + ' ' + dates[1];
+
 				var v = Math.round( station.stat.value * 100 ) / 100;
 				var unit = self.getUnitDOMByShort(option['short']);
-				var t = '8 marca 2016 - 10:00';
+				var t = date;
 				
 				h.push('<p class="param">Stężenie ' + self.getDopelniaczbyShort(option['short']) + ' w powietrzu:</p>');
 				
