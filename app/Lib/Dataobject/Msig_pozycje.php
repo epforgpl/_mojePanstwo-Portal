@@ -12,7 +12,8 @@ class Msig_pozycje extends DataObject
 	}
 	
 	public $routes = array(
-		'desc' => 'skrot'
+		'desc' => 'skrot',
+		'date' => 'msig.data',
 	);
 	
 	public function getShortTitle() {
