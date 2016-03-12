@@ -1,8 +1,6 @@
 <?
 
 $this->Combinator->add_libs('css', $this->Less->css('zamowienia', array('plugin' => 'ZamowieniaPubliczne')));
-//$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
-//$this->Combinator->add_libs('js', '../plugins/highstock/locals');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 $options = array(
