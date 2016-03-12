@@ -28,7 +28,7 @@
 Cache::config( 'default', array( 'engine' => 'File' ) );
 Cache::config( 'short', array(
 	'engine'   => 'File',
-	'duration' => '+3 hours',
+	'duration' => '+1 hours',
 	'path'     => CACHE,
 	'prefix'   => 'cake_short_'
 ) );

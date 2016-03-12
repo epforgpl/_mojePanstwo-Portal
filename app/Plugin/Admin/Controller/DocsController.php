@@ -5,9 +5,9 @@ App::uses('AdminAppController', 'Admin.Controller');
 class DocsController extends AdminAppController {
 
     public $components = array('RequestHandler', 'S3');
+    public $uses = array('Admin.Doctable', 'Admin.DoctableDict');
 
     public function tables($document_id) {
-        $this->loadModel('Admin.Doctable');
         $this->layout = false;
 
         $data = $this->Doctable->getTables($document_id);
@@ -34,18 +34,33 @@ class DocsController extends AdminAppController {
         }
 
         $this->set('tables', $tables);
+        $this->set('tablesData', $this->Doctable->getTablesData($document_id));
         $this->set('document_id', $document_id);
         $this->set('docJSON', $this->getDocJSON($document_id));
     }
 
     public function saveTables($document_id) {
-        $this->loadModel('Admin.Doctable');
         $this->setSerialized('response',
             $this->Doctable->saveTables(
                 $document_id,
                 $this->request->data['tables']
             )
         );
+    }
+
+    public function saveTablesData($document_id) {
+        $this->setSerialized('response',
+            $this->Doctable->saveTablesData(
+                $document_id,
+                $this->request->data
+            )
+        );
+    }
+
+    public function tableData($doctable_data_id) {
+        $this->layout = false;
+        $tableData = $this->Doctable->getTableData($doctable_data_id);
+        $this->set('tableData', $tableData);
     }
 
     private function getDocJSON($document_id) {
@@ -77,6 +92,62 @@ class DocsController extends AdminAppController {
         }
 
         return json_encode($doc);
+    }
+
+    public function exportMySQL() {
+        $this->setSerialized('response',
+            $this->Doctable->exportMySQL(
+                $this->request->data
+            )
+        );
+    }
+
+    public function dict() {
+        $this->layout = false;
+        $this->set('dict', $this->Doctable->getDict(0));
+    }
+
+    public function getDict() {
+        $this->setSerialized('response', $this->Doctable->getDict(0));
+    }
+
+    public function removeDict() {
+        $this->setSerialized('response',
+            $this->DoctableDict->delete(
+                $this->request->data['id']
+            )
+        );
+    }
+
+    public function addDict() {
+        $this->setSerialized('response',
+            $this->DoctableDict->save(
+                $this->request->data
+            )
+        );
+    }
+
+    public function hurtownia() {
+        $rows = $this->DoctableDict->query('SELECT `hurtownia_danych_map`.*, COUNT(`doctable_data`.`document_id`) as `count` FROM hurtownia_danych_map LEFT JOIN `doctable_data` ON `doctable_data`.`document_id` = hurtownia_danych_map.document_id  WHERE `enabled` = "1" GROUP BY hurtownia_danych_map.document_id');
+
+        $map = array(
+            'categories' => array()
+        );
+
+        foreach($rows as $row) {
+            $row['hurtownia_danych_map']['count'] = @$row[0]['count'];
+            $row = $row['hurtownia_danych_map'];
+            if(!isset($map['categories'][$row['cat']])) {
+                $map['categories'][$row['cat']] = array(
+                    'rows' => array(),
+                    'sub' => array()
+                );
+            }
+
+            $map['categories'][$row['cat']]['rows'][] = $row;
+        }
+
+        $this->set('map', $map);
     }
 
 }

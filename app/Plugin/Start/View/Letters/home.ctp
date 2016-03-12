@@ -8,19 +8,6 @@
 	echo $this->element('app/sidebar');
 ?>
 
-<? if (!$this->Session->read('Auth.User.id')) { ?>
-    <div class="col-xs-12 nopadding">
-        <div class="alert-identity alert alert-dismissable alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <h4>Uwaga!</h4>
-
-            <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
-                    class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
-                swoim koncie.</p>
-        </div>
-    </div>
-<? } ?>
-
 
 
 <div class="app-content-wrap">
@@ -30,6 +17,19 @@
 			<div class="overflow-auto">
 				<h1 class="pull-left">Tworzenie nowego pisma:</h1>
 			</div>
+			
+			<? if (!$this->Session->read('Auth.User.id')) { ?>
+			    <div class="col-xs-12 nopadding">
+			        <div class="alert-identity alert alert-dismissable alert-success">
+			            <button type="button" class="close" data-dismiss="alert">×</button>
+			            <h4>Uwaga!</h4>
+			
+			            <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
+			                    class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
+			                swoim koncie.</p>
+			        </div>
+			    </div>
+			<? } ?>
 			
 			<div class="row">
 				<div class="col-md-8">
@@ -118,7 +118,7 @@
 					            <? } ?>
 					            <div class="form-group form-row">
 					                <div class="col-lg-10 col-lg-offset-2">
-					                    <button type="submit" class="createBtn btn btn-md btn-success btn-icon"><i
+					                    <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
 					                            class="icon glyphicon glyphicon-pencil"></i>Stwórz pismo
 					                    </button>
 					                </div>

@@ -35,12 +35,30 @@ class StartController extends ApplicationsController
                 'aggs' => array(
                 ),
             ),
-            'apps' => true,
-            'browserTitle' => 'Wyniki wyszukiwania:',
         );
+        
+        if( isset($this->request->query['q']) ) {
+        	
+        	$options['cover'] = array(
+	        	'view' => array(
+		        	'plugin' => 'Start',
+		        	'element' => 'search',
+	        	),
+	        	'force' => true,
+	        	'aggs' => array(),
+        	);
+        	
+        	$options['perApps'] = true;
+        	$options['browserTitle'] = 'Wyniki wyszukiwania w danych publicznych:';
+	        $this->title = $this->request->query['q'] . ' | mojePaństwo';
+        
+        } else {
+	        
+	        $this->title = 'mojePaństwo';
+	        
+        }
 
         $this->Components->load('Dane.DataBrowser', $options);
-        $this->title = 'mojePaństwo';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
@@ -53,41 +71,7 @@ class StartController extends ApplicationsController
 			isset( $this->request->query['q'] )
 		) {
 			
-			$items = array();
-
-			if( @$this->viewVars['dataBrowser']['aggs'] ) {
-				
-				$items[] = array(
-					'id' => 'search',
-					'icon' => 'icon-search',
-					'label' => 'Szukaj w aplikacjach:',
-				);
-				
-				foreach( @$this->viewVars['dataBrowser']['aggs'] as $k => $v ) {
-					if( 
-						( strpos($k, 'app_')===0 ) && 
-						@$v['doc_count']
-					) {
-						
-						$app_id = substr($k, 4);
-						$app = $this->getApplication( $app_id );
-												
-						$items[] = array(
-							'id' => $app_id,
-							'label' => $app['name'],
-							'icon' => 'icon-application icon-applications-' . $app_id,
-							'count' => $v['doc_count'],
-							'href' => $app['href'] . '?q=' . urlencode( $this->request->query['q'] ),
-						);
-					
-					}
-				}
-			}
-			
-			return array(
-				'items' => $items,
-				'selected' => 'search',
-			);
+			return array();
 			
 			
 		} else {
@@ -140,6 +124,44 @@ class StartController extends ApplicationsController
 	    
 	    }
 
+    }
+    
+    public function beforeRender() {
+	    
+	    if( isset($this->request->query['q']) ) {
+		    
+		    $this->settings['id'] = 'dane';
+		    $this->addBreadcrumb(array(
+			    'label' => 'Wyniki wyszukiwania',
+			    'href' => '/?q=' . $this->request->query['q'],
+		    ));
+		    		    
+	    }
+	    
+	    parent::beforeRender();
+	    
+	    if( isset($this->request->query['q']) ) {
+		    		    
+		    if( $apps = @$this->viewVars['dataBrowser']['aggs']['apps']['buckets'] ) {
+			    
+			    foreach( $apps as &$a ) {
+				    
+			    	$a['app'] = $this->getApplication($a['key']);
+			    	
+			    	$path = (isset($a['app']['path']) && !empty($a['app']['path'])) ? $a['app']['path'] : $a['app']['id'];
+                    $icon_link = '/' . $path . '/icon/icon_' . $a['app']['id'] . '.svg';
+                    
+                    $a['icon_path'] = $icon_link;
+			    		
+			    }
+			    	
+			    unset($this->viewVars['dataBrowser']['aggs']['apps']);
+			    $this->set('apps', $apps);
+			    
+		    }
+		    		    
+	    }
+	    
     }
 
 }

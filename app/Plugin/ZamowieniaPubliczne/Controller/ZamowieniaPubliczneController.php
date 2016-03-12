@@ -54,6 +54,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
                 'dataset' => array_keys($datasets)
             ),
             'cover' => array(
+	            'cache' => true,
                 'view' => array(
                     'plugin' => 'ZamowieniaPubliczne',
                     'element' => 'cover',
@@ -170,6 +171,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
 		    'method' => 'GET',
 		    'data' => $this->request->query,
 	    ));
+	    	    
 	    $this->set('data', $data);
 	    
 	    if( @$this->request->params['ext']=='html' ) {

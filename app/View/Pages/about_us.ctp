@@ -74,7 +74,7 @@
                             </p>
                         </div>
 
-                        <h2>Projekt Systemowy Fundacji im. Stefana Batorego:</h2>
+                        <h2>Projekt Systemowy:</h2>
                         <h3>Numer wniosku: S/257</h3>
                         <h4>Tytuł projektu systemowego: Grywalizacja prac na rzecz dobra publicznego</h4>
                         <p>Celem projektu jest stworzenie i spopularyzowanie internetowej platformy "grywalizacyjnej"
@@ -145,8 +145,8 @@
             </section>
         </div>
     </div><div class="col-md-4">
-    
-    	<div class="sideContent loading hidden-xs hidden-sm">
+
+        <div class="sideContent loading hidden-xs hidden-sm">
             <div id="fb-root"></div>
             <div class="fb-like-box" data-href="https://www.facebook.com/epanstwo"
                  data-height="820" data-show-faces="true" data-stream="true"
@@ -157,6 +157,6 @@
                 document.getElementsByClassName('fb-like-box')[0].setAttribute('data-height', (height < 620) ? 620 : height);
             </script>
         </div>
-    
+
     </div>
 </div>

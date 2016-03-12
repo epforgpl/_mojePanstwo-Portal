@@ -1,6 +1,6 @@
 
 <div class="banner transferuj block<? if (isset($class)) echo " " . $class; ?>">
-    <?php echo $this->Html->image('Dane.banners/pisma.svg', array('width' => '92', 'alt' => 'Stwórz pismo do organizacji', 'class' => 'pull-right')); ?>
+    <?php echo $this->Html->image('Dane.banners/money.svg', array('width' => '82', 'alt' => 'Wesprzyj darowizną organizację', 'class' => 'pull-right')); ?>
     <p><?= isset($label) ? $label : '<strong>Wesprzyj</strong> darowizną organizację'; ?></p>
     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#transferujModal">Wyślij
         darowiznę

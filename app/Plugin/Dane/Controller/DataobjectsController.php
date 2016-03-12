@@ -16,6 +16,7 @@ class DataobjectsController extends AppController
 
     public $object = false;
     public $initLayers = array();
+    public $forceLayers = false;
     public $initAggs = array();
     public $objectOptions = array(
         'hlFields' => false,
@@ -89,8 +90,10 @@ class DataobjectsController extends AppController
 
         $this->addInitLayers('page');
 
-        if(@$this->request->params['controller'] == 'krs_podmioty')
+        if(@$this->request->params['controller'] == 'krs_podmioty') {
             $this->addInitLayers('bank_account');
+            $this->addInitLayers('tags');
+        }
 
         $this->_prepareView();
         if(!$this->_canEdit())
@@ -121,8 +124,8 @@ class DataobjectsController extends AppController
         $dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
         $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
         $slug = isset($this->request->params['slug']) ? $this->request->params['slug'] : '';
-
-        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug, )); die();
+				
+        // debug(array('dataset' => $dataset, 'id' => $id, 'slug' => $slug)); die();
 
         if (
             $dataset &&
@@ -130,18 +133,27 @@ class DataobjectsController extends AppController
             is_numeric($id)
         ) {
 
-            if (@$this->request->params['ext'] == 'json') {
-                $layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : $this->initLayers;
+
+			if( empty($this->forceLayers) ) {
+
+	            if (@$this->request->params['ext'] == 'json') {
+	                $layers = isset($this->request->query['layers']) ? $this->request->query['layers'] : $this->initLayers;
+	            } else {
+	                $layers = $this->initLayers;
+	            }
+				
+	            if ($this->observeOptions) {
+	                $layers[] = 'channels';
+	            }
+	
+	            $layers[] = 'dataset';
+	            $layers[] = 'page';
+            
             } else {
-                $layers = $this->initLayers;
+	            	            
+	            $layers = $this->forceLayers;
+	            
             }
-
-            if ($this->observeOptions) {
-                $layers[] = 'channels';
-            }
-
-            $layers[] = 'dataset';
-            $layers[] = 'page';
 
             $this->object = $this->Dataobject->find('first', array(
                 'conditions' => array(
@@ -151,7 +163,7 @@ class DataobjectsController extends AppController
                 'layers' => $layers,
                 'aggs' => $this->initAggs,
             ));
-            
+                        
             $code = (int)$this->Dataobject->getDataSource()->getLastResponseCode();
 
             if ($code >= 400) {
@@ -173,9 +185,13 @@ class DataobjectsController extends AppController
 
             $this->object_aggs = $this->Dataobject->getAggs();
             $this->set('object_aggs', $this->object_aggs);
-
+						
             if (
-                ($this->domainMode == 'MP') &&
+                ($this->domainMode == 'MP') && 
+                (
+	                !isset($this->request->params['from_slug']) || 
+	                !$this->request->params['from_slug']
+                ) && 
                 (
                     !isset($this->request->params['ext']) ||
                     !in_array($this->request->params['ext'], array('json', 'html'))

@@ -16,20 +16,64 @@ class MSiGController extends DataobjectsController
 
     public function view($package = 1)
     {
-
+				
         $this->_prepareView();
         
-        /*
-        debug( $this->object->getLayer('toc') ); die();
-
-        if ($this->object->getLayer('toc')) {
-            $this->render('toc');
-        } else {
-            $this->render('view');
-        }
-        */
-    }
-
+        $this->Components->load('Dane.DataBrowser', array(
+            'browserTitle' => 'Wystąpienia radnego',
+            'conditions' => array(
+                'dataset' => 'msig_pozycje',
+                'msig_pozycje.wydanie_id' => $this->object->getId(),
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Dane',
+                    'element' => 'msig_pozycje/cover',
+                ),
+                'aggs' => array(
+	                'dzialy' => array(
+			            'terms' => array(
+				            'field' => 'msig_pozycje.dzial_id',
+				            'order' => array(
+					            'pozycja' => 'asc',
+				            ),
+			            ),
+			            'aggs' => array(
+				            'pozycja' => array(
+					            'min' => array(
+						            'field' => 'data.msig_pozycje.pozycja',
+					            ),
+				            ),
+				            'nazwa' => array(
+					            'terms' => array(
+						            'field' => 'data.msig_dzialy.nazwa',
+						            'size' => 1,
+					            ),
+				            ),
+				            'top' => array(
+					            'top_hits' => array(
+						            'size' => 3,
+						            'sort' => array(
+							            'data.msig_pozycje.pozycja' => array(
+								            'order' => 'asc',
+							            ),
+						            ),
+						            'fields' => array('dataset', 'id'),
+						            '_source' => true,
+					            ),
+				            ),
+			            ),
+		            ),
+                ),
+            ),
+            // 'aggsPreset' => 'rady_gmin_wystapienia',
+            // 'renderFile' => 'radni_gmin/rady_gmin_wystapienia',
+        ));
+        
+        $this->render('Dane.DataBrowser/browser');
+    
+    }	
+	
     public function dokument()
     {
 
@@ -77,41 +121,24 @@ class MSiGController extends DataobjectsController
         // PREPARE MENU
         $href_base = '/dane/msig/' . $this->request->params['id'];
 
-        $item = array(
-            'id' => '',
-            'label' => 'Dokument',
-        );
-
-        if ($dzialy = $this->object->getLayer('toc')) {
-
-            $item['label'] = 'Spis treści';
-
-            foreach ($dzialy as $dzial_id => $dzial) {
-
-                $item['dropdown']['items'][] = array(
-                    'id' => $dzial_id,
-                    'label' => $dzial['nazwa'],
-                    'href' => $href_base . '/dzialy/' . $dzial_id,
-                );
-
-            }
-        }
-
         $menu = array(
             'items' => array(
-                $item
+                array(
+	                'id' => '',
+	                'label' => 'Ogłoszenia',
+                ),
+                array(
+	                'id' => 'indeks',
+	                'label' => 'Indeks',
+	                'href' => $href_base . '/indeks'
+                ),
+                array(
+	                'id' => 'dokument',
+	                'label' => 'Dokument',
+	                'href' => $href_base . '/dokument'
+                ),
             )
         );
-
-        if ($dzialy = $this->object->getLayer('toc')) {
-
-            $menu['items'][] = array(
-                'id' => 'dokument',
-                'label' => 'Dokument',
-                'href' => $href_base . '/dokument',
-            );
-
-        }
 
         $this->menu = $menu;
         parent::beforeRender();

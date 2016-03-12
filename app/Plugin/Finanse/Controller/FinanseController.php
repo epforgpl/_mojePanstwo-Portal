@@ -33,6 +33,7 @@ class FinanseController extends ApplicationsController
                 'dataset' => 'budzety',
             ),
             'cover' => array(
+	            // 'cache' => true,
                 'view' => array(
                     'plugin' => 'Finanse',
                     'element' => 'cover',

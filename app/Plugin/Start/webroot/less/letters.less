@@ -720,20 +720,43 @@
             }
         }
     }
-
-    .form-group {
-        label {
-            font-weight: 400;
-        }
-        .desc {
-            color: #666;
-            font-family: "Lato", Arial, sans-serif;
-            font-size: 13px;
-            margin: 5px 13px;
-        }
-        .help-block {
-            margin: 10px 15px;
-        }
+	
+	.form-letter {
+		.mp-form {
+			
+			h2 {
+				border-bottom: 1px solid #BCD;
+			    font-size: 22px;
+			    font-weight: 300;
+			    padding-bottom: 10px;
+			    margin-bottom: 20px;
+			    margin-top: 10px;
+			}
+			
+			.input-fake {
+				cursor: pointer;
+			}
+			
+			#letter-date {
+				background-color: #FFF;
+			}
+			
+		    .form-group {
+		        label {
+		            font-weight: 600;
+		            font-size: 16px;
+		        }
+		        .desc {
+		            color: #666;
+		            font-family: "Lato", Arial, sans-serif;
+		            font-size: 13px;
+		            margin: 5px 13px;
+		        }
+		        .help-block {
+		            margin: 10px 3px;
+		        }
+		    }
+	    }
     }
 
     .edit {
@@ -1110,37 +1133,33 @@
     }
 }
 
-.letter-table {
-    margin: 30px 0;
-    > .row {
-        border-bottom: 1px solid #DDD;
-        margin: 0;
-        padding: 5px;
 
-        &:last-child {
-            border-bottom: none;
-        }
 
-        p {
-            margin: 3px;
-            padding: 3px;
-
-            &._label {
-                color: #789;
-            }
-        }
-
-        &.sent {
-            background-color: #F3F3F3;
-            font-size: 12px;
-            text-align: center;
-
-            p {
-                color: #789;
-            }
-        }
-    }
+.meta-fields {
+	background-color: #EEE;
+	border: 1px solid #BBB;
+	border-left-style: none;
+	border-right-style: none;
+	
+	-webkit-box-shadow: inset 0px 10px 10px -10px rgba(0,0,0,0.3);
+	-moz-box-shadow: inset 0px 10px 10px -10px rgba(0,0,0,0.3);
+	box-shadow: inset 0px 10px 10px -10px rgba(0,0,0,0.3);
+	
+	.meta-fields-inner {
+		-webkit-box-shadow: inset 0px -10px 10px -10px rgba(0,0,0,0.3);
+		-moz-box-shadow: inset 0px -10px 10px -10px rgba(0,0,0,0.3);
+		box-shadow: inset 0px -10px 10px -10px rgba(0,0,0,0.3);
+		padding: 10px 0;
+	}
+	
+	h2 {
+		font-weight: 200;
+		font-size: 18px;
+		margin: 0;
+		padding: 0;
+	}
 }
+
 
 .objectsPage .text {
 	font-size: 15px;

@@ -11,59 +11,51 @@ var DataBrowser = Class.extend({
 		});
 
 		this.initAggs();
-		
-		if( this.div.hasClass('manage') )
+
+		if (this.div.hasClass('manage')) {
 			this.initManage();
-
-	},
-
-	initManage: function() {
-		
-		var that = this;
-		this.div.find('.manage-checkbox').prop('checked', false).change(function(event){
-			that.manageUpdateDisplay();
-		});
-			
-	},
-	
-	manageUpdateDisplay: function() {
-
-		this.div.find('.manage-display .inputs').html('');
-		var inputs_html = '';
-
-		var cbx = this.div.find('.manage-checkbox:checked');
-		if( cbx.length ) {
-			
-			for( var i=0; i<cbx.length; i++ ) {
-				
-				var obj = $(cbx[i]).parents('.objectRender');
-				
-				if( obj.length ) {
-					
-					obj = $(obj[0]);
-					inputs_html += '<input type="hidden" name="id[]" value="' + obj.attr('gid')  + '" />';
-				
-				}
-				
-			}
-			
-			this.div.find('.manage-display .inputs').html(inputs_html);
-			
-			var txt = cbx.length + ' zaznaczonych pism';
-			this.div.find('.manage-display .display').text( txt )
-			
-			this.div.find('.manage-display').show();
-			this.div.find('.dataAggsDropdownList.nav').hide();
-						
-			
-		} else {
-			
-			this.div.find('.manage-display').hide();
-			this.div.find('.dataAggsDropdownList.nav').show();
-			
 		}
 	},
-	
+
+	initManage: function () {
+		var that = this;
+
+		this.div.find('.manage-checkbox').prop('checked', false).change(function (event) {
+			that.manageUpdateDisplay();
+		});
+	},
+
+	manageUpdateDisplay: function () {
+		var inputs_html = '',
+			cbx = this.div.find('.manage-checkbox:checked');
+
+		this.div.find('.manage-display .inputs').html('');
+
+		if (cbx.length) {
+			for (var i = 0; i < cbx.length; i++) {
+				var obj = $(cbx[i]).parents('.objectRender');
+
+				if (obj.length) {
+					obj = $(obj[0]);
+					inputs_html += '<input type="hidden" name="id[]" value="' + obj.attr('gid') + '" />';
+				}
+			}
+
+			this.div.find('.manage-display .inputs').html(inputs_html);
+
+			var txt = cbx.length + ' zaznaczonych pism';
+			this.div.find('.manage-display .display').text(txt);
+
+			this.div.find('.manage-display').show();
+			this.div.find('.manage-display').sticky({topSpacing: 44});
+			this.div.find('.dataAggsDropdownList.nav').hide();
+		} else {
+			this.div.find('.manage-display').hide();
+			this.div.find('.manage-display').unstick();
+			this.div.find('.dataAggsDropdownList.nav').show();
+		}
+	},
+
 	initAggs: function () {
 		this.aggsDiv = this.div.find('.dataAggsContainer .dataAggs');
 
@@ -72,10 +64,10 @@ var DataBrowser = Class.extend({
 		}
 
 		var lis = this.div.find('.dataAggs .agg');
+
 		for (var i = 0; i < lis.length; i++) {
-					
 			var li = $(lis[i]);
-			
+
 			if (li.hasClass('agg-PieChart')) {
 				this.initAggPieChart(li);
 			} else if (li.hasClass('agg-DateHistogram')) {
@@ -92,6 +84,7 @@ var DataBrowser = Class.extend({
 
 	initAggGeoPL: function (li) {
 		li = $(li);
+
 		var data = $.parseJSON(li.attr('data-chart'));
 		var geo_keys = [];
 		var choose_request = li.attr('data-choose-request');
@@ -312,7 +305,6 @@ var DataBrowser = Class.extend({
 			};
 
 		} else {
-
 			options.legend = {
 				useHTML: true,
 				labelFormatter: function () {
@@ -329,9 +321,7 @@ var DataBrowser = Class.extend({
 			};
 
 		}
-
 		li.find('.chart').highcharts(options);
-
 	},
 
 	getFormattedDate: function (date) {
@@ -345,7 +335,6 @@ var DataBrowser = Class.extend({
 	},
 
 	initAggDateHistogram: function (li) {
-
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
 		var histogram_keys = [];
@@ -476,7 +465,6 @@ var DataBrowser = Class.extend({
 		});
 
 		try {
-
 			var datepicker = $.fn.datepicker.noConflict();
 			$.fn.bootstrapDP = datepicker;
 
@@ -516,11 +504,9 @@ var DataBrowser = Class.extend({
 		}
 		catch (err) {
 		}
-
 	},
 
 	initAggColumnsVertical: function (li) {
-
 		li = $(li);
 		var data = $.parseJSON(li.attr('data-chart'));
 

@@ -23,14 +23,14 @@ class Dataobject extends AppModel
 
     public function afterFind($results = array(), $primary = false)
     {
-						
+							
         for ($i = 0; $i < count($results); $i++) {
 			
 			if( !isset($results[$i]['_type']) || ($results[$i]['_type']=='objects') ) {
 								
 	            $class = ucfirst($results[$i]['dataset']);
 	            $file = APPLIBS . 'Dataobject/' . $class . '.php';
-	
+								
 	            if (file_exists($file)) {
 	                require_once($file);
 	                $class = 'MP\\Lib\\' . $class;

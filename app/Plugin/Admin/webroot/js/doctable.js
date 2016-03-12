@@ -11,6 +11,7 @@ $(document).ready(function() {
         this.$activePage = false;
         this.$viewSelect = this.$toolbar.find('.viewSelect').first();
         this.tables = this.$$.data('tables');
+        this.tablesData = this.$$.data('tables-data');
         this.values = [];
         this.$preview.html(this.getPreviewDOM());
         this.mouseX = 0;
@@ -228,7 +229,17 @@ $(document).ready(function() {
                     }
                 });
             } else {
-                // save only latest data
+                var name = prompt('Podaj opcjonalną nazwę zapisywanych danych');
+                $.post('/admin/docs/saveTablesData/' + self.documentId + '.json', {
+                    tables: self.tables,
+                    name: name
+                }, function(res) {
+                    if(res === true) {
+                        alert('Zapisano poprawnie');
+                    } else {
+                        alert('Wystąpił błąd podczas zapisywania');
+                    }
+                });
             }
 
             return false;
@@ -260,6 +271,20 @@ $(document).ready(function() {
             a.click();
             return false;
         });
+
+        this.$toolbar.find('.increaseTextFont').click(function() {
+            var font = parseInt(self.$preview.find('.text').css("font-size"));
+            self.$preview.find('.text').css({
+                'font-size': (font + 1) + 'px'
+            });
+        });
+
+        this.$toolbar.find('.decreaseTextFont').click(function() {
+            var font = parseInt(self.$preview.find('.text').css("font-size"));
+            self.$preview.find('.text').css({
+                'font-size': (font - 1) + 'px'
+            });
+        });
     };
 
     DocTable.prototype = {
@@ -268,6 +293,37 @@ $(document).ready(function() {
 
         getDataDOM: function() {
             var dom = ['<div class="container"><h1 class="text-muted">Dane</h1>'];
+
+            dom.push('<h2 class="text-muted">Archiwum</h2>');
+
+            if(this.tablesData.length === 0) {
+                dom.push('<div class="alert alert-info" role="alert">Brak danych w archiwum</div>');
+            } else {
+                dom.push('<ul class="list-group">');
+                for(var td = 0; td < this.tablesData.length; td++) {
+                    dom.push([
+                        '<li class="list-group-item">',
+                            '<span class="badge"><abbr title="Ilość tabel">', this.tablesData[td]['0']['tables'] ,'</abbr></span>',
+                            '<a href="/admin/docs/tableData/', this.tablesData[td]['doctable_data']['id'] ,'">',
+                            this.tablesData[td]['doctable_data']['name'] != '' ? this.tablesData[td]['doctable_data']['name'] : 'Brak nazwy',
+                            '</a>',
+                            ' zapisano dnia ',
+                            this.tablesData[td]['doctable_data']['created_at'],
+                            ' przez ',
+                            '<a href="/dane/uzytkownicy/', this.tablesData[td]['doctable_data']['user_id'] ,'">',
+                            this.tablesData[td]['users']['username'],
+                            '</a>',
+                        '</li>'
+                    ].join(''));
+                }
+                dom.push('</ul>');
+            }
+
+            dom.push('<h2 class="text-muted">Nowe dane</h2>');
+
+            if(this.tables.length === 0) {
+                dom.push('<div class="alert alert-warning" role="alert">Nie utworzyłeś/aś jeszcze żadnej tabeli w widoku <em>Dokument</em></div>');
+            }
 
             this.tables.sort(function(a, b) {
                 return a.pageIndex == b.pageIndex ? 0 :
@@ -388,6 +444,7 @@ $(document).ready(function() {
                             var values = [];
                             for (c = 0; c < _cols.length; c++) {
                                 var value = '';
+                                var margin = 5;
                                 for (var t = 0; t < texts.length; t++) {
                                     var text = texts[t],
                                         textRowFrom = parseInt(text.top),
@@ -395,10 +452,10 @@ $(document).ready(function() {
                                         textColFrom = parseInt(text.left),
                                         textColTo = parseInt(text.left) + parseInt(text.width);
                                     if (
-                                        textRowFrom >= (table.y + _rows[r].from) &&
-                                        textRowTo <= (table.y + _rows[r].to) &&
-                                        textColFrom >= (table.x + _cols[c].from) &&
-                                        textColTo <= (table.x + _cols[c].to)
+                                        textRowFrom + margin >= (table.y + _rows[r].from) &&
+                                        textRowTo - margin <= (table.y + _rows[r].to) &&
+                                        textColFrom + margin >= (table.x + _cols[c].from) &&
+                                        textColTo - margin <= (table.x + _cols[c].to)
                                     ) {
                                         value += ' ' + text.content;
                                     }

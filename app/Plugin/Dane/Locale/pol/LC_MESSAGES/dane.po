@@ -485,7 +485,7 @@ msgid "LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY"
 msgstr "Kapitał zakładowy"
 
 msgid "LC_DANE_VIEW_KRSPODMIOTY_LINK"
-msgstr "Przejdź do elementu"
+msgstr "Zobacz więcej"
 
 msgid "LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE"
 msgstr "Brak dostępnego zdjęcia Street View"

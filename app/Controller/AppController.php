@@ -90,21 +90,9 @@ class AppController extends Controller
     public $statusbarMode = false;
     public $meta = array();
 
-    /**
-     * Obiekt określający układ oraz styl dla poszczegółnych stron
-     *  header => array(
-     *      element => ‘app’ , 'dataset', 'dataobject', 'pk', false
-     *  ),
-     *  body => array(
-     *      theme => ‘default’, 'simple', 'wallpaper'
-     *  ),
-     *  footer => array(
-     *      element => ‘default’, 'minimal;
-     *  )
-     */
     public $_layout = array(
         'header' => array(
-            'element' => 'app',
+            'element' => 'main',
         ),
         'body' => array(
             'theme' => 'default',
@@ -208,6 +196,14 @@ class AppController extends Controller
                 'label' => 'Konkursy',
                 'menu_id' => 'konkursy',
             ),
+            'dzialania' => array(
+                'label' => 'Działania',
+                'menu_id' => 'dzialania',
+            ),
+            'pisma' => array(
+                'label' => 'Pisma',
+                'menu_id' => 'pisma',
+            ),
             'zbiorki_publiczne' => array(
                 'label' => 'Zbiórki publiczne',
                 'menu_id' => 'zbiorki',
@@ -224,6 +220,10 @@ class AppController extends Controller
             'zamowienia_publiczne_zamawiajacy' => array(
                 'label' => 'Zamawiający',
                 'menu_id' => 'zamawiajacy',
+            ),
+            'zamowienia_publiczne_wykonawcy' => array(
+                'label' => 'Wykonawcy',
+                'menu_id' => 'wykonawcy',
             ),
         ),
         /*
@@ -573,10 +573,29 @@ class AppController extends Controller
             'icon' => '&#xe612;',
         ),
     );
-
+	
+	public function __construct($request = null, $response = null)
+    {
+	    
+	    if( defined("PORTAL_UNAVAILABLE") && PORTAL_UNAVAILABLE ) {
+		    
+		    header('Content-Type: text/html; charset=utf-8');
+		    header('HTTP/1.1 503 Service Temporarily Unavailable');
+			header('Status: 503 Service Temporarily Unavailable');
+			
+		    print("<br/><br/><br/><br/><br/><center><p>Przenosimy portal mojePaństwo na nowe serwery.</p><p>Zapraszamy po godzine 12.</p><p><a target=\"_blank\" href=\"http://epf.org.pl\">Fundacja ePaństwo</a></p></center>"); die();
+		    
+	    } else {
+		    
+		    parent::__construct ($request, $response);
+		    
+	    }
+	    
+    }
+	
     public function beforeFilter()
     {
-
+				
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
 
@@ -673,7 +692,7 @@ class AppController extends Controller
 
 
         # assigning translations for javascript use
-        if ($this->params->plugin) {
+        if (@$this->params->plugin) {
             $path = ROOT . DS . APP_DIR . DS . 'Plugin' . DS . Inflector::camelize($this->params->plugin) . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . Inflector::underscore($this->params->plugin) . '.po';
         } else {
             $path = ROOT . DS . APP_DIR . DS . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MESSAGES' . DS . 'default.po';
@@ -715,6 +734,7 @@ class AppController extends Controller
         }
 
         $this->set('isAdmin', $this->hasUserRole('2'));
+    
     }
 
     /**
@@ -823,6 +843,10 @@ class AppController extends Controller
             $this->set('_observeOptions', $this->observeOptions);
             $this->set('_domainMode', $this->domainMode);
             $this->set('appSelected', $this->appSelected);
+            
+            if( $this->name == 'CakeError' ) {
+	            $this->set('title_for_layout', 'Błąd');
+            }
 
         }
 

@@ -97,6 +97,16 @@ class AdminAppController extends AppController
             'label' => 'Transakcje',
             'href'  => '/admin/transactions',
         ),
+        array(
+            'id'    => 'newsletter',
+            'label' => 'NGO Newsletter',
+            'href'  => '/admin/newsletter',
+        ),
+        array(
+            'id'    => 'hurtownia',
+            'label' => 'Hurtownia danych',
+            'href'  => '/admin/docs/hurtownia',
+        ),
     );
 
     public function beforeFilter() {

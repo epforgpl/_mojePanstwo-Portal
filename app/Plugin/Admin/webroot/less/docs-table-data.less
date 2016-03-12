@@ -1,0 +1,92 @@
+
+body {
+
+  margin: 0;
+  padding: 0;
+
+  background: #eee;
+
+  #forceDownloadFile {
+    display: none;
+  }
+
+  .clear {
+    margin: 0;
+    padding: 0;
+  }
+
+  .doctableData {
+
+    .preview {
+      padding: 5px 5px 50px;
+
+      .container {
+        .panel {
+          .panel-heading {
+            padding: 5px;
+          }
+
+          table {
+            tr {
+              td {
+                padding: 0;
+                margin: 0;
+                input {
+                  border: none;
+                  margin: 0;
+                  &.tableColName {
+                    font-weight: bold;
+                  }
+                }
+
+                select {
+                  border: none;
+                }
+
+                &.arrows {
+                  background: #EEE;
+                  width: 60px;
+                  text-align: center;
+                  padding-top: 6px;
+                  button {
+                    &:first-child {
+                      margin-right: 3px;
+                    }
+                  }
+                }
+              }
+              &.types {
+                background: #ddd;
+                td {
+                  input {
+                    background: #eee;
+                  }
+
+                  select {
+                    background: #eee;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .toolbar {
+      z-index: 20;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      position: fixed;
+      height: 40px;
+      background: #ddd;
+      box-shadow: 0 0 15px 0 #666;
+      .container {
+        padding: 5px 0;
+      }
+    }
+
+  }
+
+}

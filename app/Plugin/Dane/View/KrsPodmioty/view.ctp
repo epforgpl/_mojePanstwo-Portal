@@ -93,7 +93,12 @@ $description =
                                onclick="return false;"><span class="fa fa-twitter"></span></a>
                         </div>
                     <? } ?>
-                    <? if (($www = $object->getData('www')) || ($www = $object->getPage('www'))) { ?>
+                    <? if (($www = $object->getData('www')) || ($www = $object->getPage('www'))) {
+	                    
+	                    if( stripos($www, 'http')!==0 )
+	                    	$www = 'http://' . $www;
+	                    
+	                ?>
                         <div class="option pull-left">
                             <a data-toggle="tooltip" data-placement="bottom" title="WWW" href="<?= $www; ?>"
                                target="_blank"><span class="glyphicon glyphicon-link"></span></a>
@@ -157,6 +162,20 @@ $description =
                 </div>
             </div>
         <? } ?>
+
+
+        <? if (!$object->getData('wykreslony')) {
+
+            $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
+
+            $bankAccount = $object->getLayer('bank_account');
+            if ($bankAccount && $bankAccount['status'] == '1') {
+                $this->Combinator->add_libs('js', 'Dane.transferuj');
+                echo $this->element('tools/transferuj');
+            }
+
+        } ?>
+
         <ul class="dataHighlights overflow-auto">
             <?
             $nip = $object->getData('nip');
@@ -235,6 +254,7 @@ $description =
             <? } ?>
         <? } ?>
         <? if (!$object->getData('wykreslony')) {
+
             $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 
             echo '<div class="bannerCol col-xs-6 col-md-12">';
@@ -251,13 +271,6 @@ $description =
                     'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
                 ));
                 echo '</div>';
-            }
-
-            $bankAccount = $object->getLayer('bank_account');
-            if ($bankAccount && $bankAccount['status'] == '1') {
-                /*TODO: sprawdzic czy ustawiono opcje darowizny i podać id z tranferuj.pl*/
-                $this->Combinator->add_libs('js', 'Dane.transferuj');
-                echo $this->element('tools/transferuj');
             }
 
             $page = $object->getLayer('page');
@@ -344,7 +357,7 @@ $description =
 
                 </section>
                 <div class="linkmore text-center">
-                    <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-primary btn-xs"">więcej</a>
+                    <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-primary btn-xs">więcej</a>
                 </div>
             </div>
             <? } ?>
@@ -429,6 +442,27 @@ $description =
             </div>
             <? }
 
+			
+			if( $object->getData('gpw_spolka_id') ) {
+				
+				$this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
+				$this->Combinator->add_libs('js', '../plugins/highstock/locals');
+			?>
+			
+			
+			
+			<div data-url="/<?= $object->getSlug() ?>/notowania.json" class="block block-simple nobg gpw">
+				<header><div class="sm">Kurs akcji na GPW:</div></header>
+				<section style="height: 300px;">
+                    <div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+				</section>
+			</div>
+			
+				
+			<?	
+			}
+			
+			
             if ($object->getId() == '481129') { ?>
             <div class="special banner">
                 <a title="Zobacz umowy podpisywane przez Komitet Konkursowy Kraków 2022"

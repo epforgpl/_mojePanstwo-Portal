@@ -15,7 +15,7 @@ class WebsitesController extends AdminAppController {
             'conditions' => array(
                 'dataset' => 'webpages',
                 'webpages.status' => '0',
-                'websites.id!=' => '48',
+                'websites.site_id!=' => '48',
                 'qs' => array(
                     'konkurs',
                     'grant',

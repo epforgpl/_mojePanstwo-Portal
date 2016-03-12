@@ -21,3 +21,102 @@ msgstr "Zobacz więcej"
 
 msgid "LC_KRS_BRAK_WYNIKOW"
 msgstr "Brak wyników dla frazy"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_INFORMACJE"
+msgstr "Informacje podstawowe"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_FIRMA"
+msgstr "Firma"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KRS"
+msgstr "KRS"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_SIEDZIBA"
+msgstr "Siedziba"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_NAZWA"
+msgstr "Nazwa (nazwa skrócona)"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_FORMA_PRAWNA"
+msgstr "Forma prawna"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_STATUS"
+msgstr "Status"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_REJESTRACJI"
+msgstr "Data rejestracji"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_WPIS"
+msgstr "Data dokonania wpisu"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_SPRAWDZENIA"
+msgstr "Data sprawdzenia"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KONTAKT"
+msgstr "Dane kontaktowe"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_ADRES"
+msgstr "Adres"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KOD"
+msgstr "Kod pocztowy"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_MIEJSCOWOSC"
+msgstr "Miejscowość"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_GMINA"
+msgstr "Gmina"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_POWIAT"
+msgstr "Powiat"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_WOJEWODZTWO"
+msgstr "Województwo"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_EMAIL"
+msgstr "E-mail"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_WWW"
+msgstr "WWW"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_SADOWE"
+msgstr "Dane sądowe"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_OZNACZENIA"
+msgstr "Oznaczenie sądu"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_SYGNATURA"
+msgstr "Sygnatura akt"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE"
+msgstr "Mapa Google"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_OTWORZ_MAPE_STREET"
+msgstr "Street View"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA"
+msgstr "Data urodzenia"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_PLEC"
+msgstr "Płeć"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KOBIETA"
+msgstr "Kobieta"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA"
+msgstr "Mężczyzna"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_IMIONA"
+msgstr "Imiona"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO"
+msgstr "Nazwisko"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_KAPITAL_ZAKLADOWY"
+msgstr "Kapitał zakładowy"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_LINK"
+msgstr "Zobacz więcej"
+
+msgid "LC_DANE_VIEW_KRSPODMIOTY_NO_STREETVIEW_PICTURE_AVAILABLE"
+msgstr "Brak dostępnego zdjęcia Street View"

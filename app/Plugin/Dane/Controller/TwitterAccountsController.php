@@ -82,6 +82,22 @@ class TwitterAccountsController extends DataobjectsController
         );
 
         $selectedAccountsAggs = array(
+	        /*
+	        'deleted' => array(
+		        'filter' => array(
+			        'term' => array(
+				        'data.twitter.usuniety' => '1',
+			        ),
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+				        'top_hits' => array(
+					        'size' => 1,
+				        ),
+			        ),
+		        ),
+	        ),
+	        */
 	        'top' => array(
 	            'top_hits' => array(
 	                'sort' => array(
@@ -354,6 +370,7 @@ class TwitterAccountsController extends DataobjectsController
 
     public function getMenu()
     {
+	    	    
         return array(
             'items' => array(
                 array(

@@ -1542,7 +1542,7 @@ class DataBrowserComponent extends Component
 
         if(
 	        isset($settings['aggsPreset']) &&
-            array_key_exists($settings['aggsPreset'], $this->aggs_presets)
+            array_key_exists($settings['aggsPreset'], $this->aggs_presets) 
         ) {
 	        
         	$settings['aggs'] = array_merge($this->aggs_presets[$settings['aggsPreset']], $settings['aggs']);
@@ -1635,21 +1635,38 @@ class DataBrowserComponent extends Component
     public function beforeRender($controller)
     {
 				
-		if( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['apps']) && $this->settings['apps'] ) {
-			
-			$apps = $controller->getDatasets();
-			
+		if( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['perApps']) && $this->settings['perApps'] ) {
+					        
 	        $aggs = array();
-	        foreach ($apps as $app_id => $datasets) {
-	            $aggs['app_' . $app_id] = array(
-	                'filter' => array(
-	                    'terms' => array(
-	                        'dataset' => array_keys($datasets),
-	                    ),
-	                ),
-	                'scope' => 'query_main',
-	            );
-	        }
+	        $aggs['apps'] = array(
+		        'terms' => array(
+			        'size' => 10,
+			        'script' => array(
+				        'lang' => 'groovy',
+		            	'id' => 'app',
+			        ),
+			        'order' => array(
+				        'score' => 'desc',
+			        ),
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+		            	'top_hits' => array(
+			            	'size' => 3,
+			            	'_source' => array('data', 'static', 'slug'),
+			            	'fielddata_fields' => array('dataset', 'id'),
+		            	),
+	            	),
+	            	'score' => array(
+		            	'max' => array(
+			            	'script' => array(
+				            	'lang' => 'groovy',
+				            	'id' => 'score',
+			            	),			            	
+		            	),
+	            	),
+		        ),
+	        );
 
 	        if( isset($this->settings['aggs']) )
 		        $this->settings['aggs'] = array_merge($this->settings['aggs'], $aggs);
@@ -1856,7 +1873,7 @@ class DataBrowserComponent extends Component
             if ($this->cover) {
 
                 $settings = $this->getSettings();
-                                
+                                         
                 $params = array(
                     'limit' => 0,
                     'conditions' => $settings['conditions'],
@@ -1872,13 +1889,65 @@ class DataBrowserComponent extends Component
 
                 if (isset($this->cover['conditions']))
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
-
-                $controller->Dataobject->find('all', $params);
-	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
-	            	            
-				$dataBrowser = array(
-                    'aggs' => $controller->Dataobject->getAggs(),
-	                'sort' => $this->settings['sort'],
+				
+								
+				if( empty($params['aggs']) ) {
+					
+					$dataBrowser = array(
+	                    'aggs' => array(),
+	                    'took' => false,
+	                );
+					
+				} else {
+				
+					if( 
+						isset( $this->cover['cache'] ) && 
+						!isset($controller->request->query['nocache'])
+					) {
+									
+						$cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-';
+						
+						if( isset($controller->request->params['id']) )
+							$cache_id .= $controller->request->params['id'] . '-';
+							
+						$cache_id .= md5( serialize( $params ) );
+																
+						$aggs = Cache::read($cache_id, 'short');
+															
+				        if( $aggs===false ) {
+					        
+					        $controller->Dataobject->find('all', $params);
+					        $aggs = $controller->Dataobject->getAggs();
+				            Cache::write($cache_id, $aggs, 'short');
+				            
+				        }			
+						
+						$dataBrowser = array(
+		                    'aggs' => $aggs,
+		                    'took' => false,
+		                );
+						
+					} else {
+						
+						$controller->Dataobject->find('all', $params);
+						$dataBrowser = array(
+		                    'aggs' => $controller->Dataobject->getAggs(),
+		                    'took' => $controller->Dataobject->getPerformance(),
+		                );
+		                
+		                if( isset( $this->cover['cache'] ) ) {
+			                
+			                $cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-' . md5( serialize( $params ) );
+			                Cache::write($cache_id, $dataBrowser['aggs'], 'short');
+			                
+		                }
+						
+					}
+				
+				}
+				
+				$dataBrowser = array_merge($dataBrowser, array(
+					'sort' => $this->settings['sort'],
                     'cover' => $this->cover,
                     'cancel_url' => false,
                     'chapters' => $this->chapters,
@@ -1892,8 +1961,11 @@ class DataBrowserComponent extends Component
                     'mode' => 'cover',
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
-                );
-
+				));
+				
+                
+	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
+	            	            	            
                 foreach( $this->routes as $key => $value ) {
 
 		            $parts = explode('/', $key);

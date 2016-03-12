@@ -64,7 +64,7 @@ class DataobjectHelper extends AppHelper
 
     public function render($object, $theme = 'default', $options = array())
     {
-						
+				
         if (is_array($object)) {
 			
 			if( isset($object['fields']['source']) ) {
@@ -79,20 +79,20 @@ class DataobjectHelper extends AppHelper
 	                       
 	            foreach( $_data as $k => $d )
 	        		$data[ $dataset . '.' . $k ] = $d;
-	                       					
+	            	            	
 	            $object = array(
 	                'dataset' => $dataset,
 	                'global_id' => $object['_id'],
 	                'id' => $object['fields']['id'][0][0],
 	                'data' => $data,
 	                'static' => isset($object['fields']['static']) ? $object['fields']['static'] : false,
-	                'slug' => false,
+	                'slug' => isset($object['fields']['slug']) ? $object['fields']['slug'] : false,
 	            );
 				
 			} else {
 			
 	            $dataset = $object['fields']['dataset'][0];
-	
+								
 	            $class = ucfirst($dataset);
 	            $file = APPLIBS . 'Dataobject/' . $class . '.php';
 	            	            
@@ -100,8 +100,10 @@ class DataobjectHelper extends AppHelper
 	            $_data = $object['_source']['data'];
 	            
 	            foreach( $_data as $k => $d )
-	            	foreach( $d as $dk => $dv )
-	            		$data[ $k . '.' . $dk ] = $dv;
+	            	if( is_array($d) )
+		            	if( !empty($d) )
+			            	foreach( $d as $dk => $dv )
+			            		$data[ $k . '.' . $dk ] = $dv;
 	            									
 	            $object = array(
 	                'dataset' => $object['fields']['dataset'][0],
@@ -109,7 +111,7 @@ class DataobjectHelper extends AppHelper
 	                'id' => $object['fields']['id'][0],
 	                'data' => $data,
 	                'static' => isset($object['_source']['static']) ? $object['_source']['static'] : false,
-	                'slug' => false,
+	                'slug' => isset($object['_source']['slug']) ? $object['_source']['slug'] : false,
 	            );
             
             }

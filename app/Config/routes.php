@@ -138,6 +138,167 @@ Router::parseExtensions( 'rss', 'xml', 'json', 'html' );
 Router::connect( '/sitemap', array( 'controller' => 'sitemaps', 'action' => 'index' ) );
 Router::connect( '/sitemaps/:dataset-:page', array( 'controller' => 'sitemaps', 'action' => 'dataset' ) );
 
+
+
+
+if(
+	( $host != PK_DOMAIN ) && 
+	(
+		(preg_match('/^\/([a-zA-Z0-9\-\_]+)([\.json]*)$/i', $_SERVER['REQUEST_URI'], $match)) || 
+		(preg_match('/^\/([a-zA-Z0-9\-\_]+)\/(.*?)([\.json]*)$/i', $_SERVER['REQUEST_URI'], $match)) 
+	) && 
+	!in_array($match[1], array('krs', 'ngo', 'podatki', 'mapa', 'prawo', 'bdl', 'kto_tu_rzadzi', 'media', 'srodowisko', 'dostep_do_informacji_publicznej', 'finanse', 'handel_zagraniczny', 'zamowienia_publiczne', 'handel_zagraniczny', 'api', 'dane', 'paszport', 'pisma', 'orzecznictwo', 'sejmometr', 'pomoc', 'powiadomienia', 'wydatki_poslow', 'wyjazdy_poslow', 'moje-pisma', 'moje-kolekcje', 'moje-powiadomienia', 'oportalu', 'regulamin', 'konto', 'login', 'logout', 'admin'))
+) {
+		
+	App::uses('ConnectionManager', 'Model');
+	$api = ConnectionManager::getDataSource('mpAPI');
+	$object_slug = $api->request('dane/objectFromSlug/' . $match[1]);
+	
+	if( 
+		$object_slug && 
+		@$object_slug['dataset'] && 
+		@$object_slug['object_id']
+	) {
+			
+	
+		$pass = array('controller', 'id');			
+		
+		Router::connect('/' . $match[1], array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	        'action' => 'post',
+	        '[method]' => 'POST'
+	    ), array(
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1], array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	        'action' => 'view',
+	    ), array(
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/dzialania/nowe', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	        'action' => 'dzialania_nowe',
+	    ), array(
+	        'pass' => $pass,
+	    ));
+				
+	    Router::connect('/' . $match[1] . '/:action', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/:action/:subid', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'subid' => '([a-zA-Z0-9]+)',
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/:action/:subid,', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'subid' => '([0-9]+)',
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/:action/:subid,:subslug', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'subid' => '([0-9]+)',
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/:action/:subid/:subaction', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'subaction' => '([a-zA-Z\_]+)',
+	        'subid' => '([0-9]+)',
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/:action/:subid/:subaction/:subsubid', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'subaction' => '([a-zA-Z\_]+)',
+	        'subid' => '([0-9]+)',
+	        'subsubid' => '([0-9]+)',
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/:action/:subid/:subaction/:subsubid,', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'subaction' => '([a-zA-Z\_]+)',
+	        'subid' => '([0-9]+)',
+	        'subsubid' => '([0-9]+)',
+	        'pass' => $pass,
+	    ));
+	
+	    Router::connect('/' . $match[1] . '/:action/:subid/:subaction/:subsubid,:subsubslug', array(
+	        'plugin' => 'Dane',
+	        'controller' => $object_slug['dataset'],
+			'id' => $object_slug['object_id'],
+			'from_slug' => true,
+	    ), array(
+	        'action' => '([a-zA-Z\_]+)',
+	        'subaction' => '([a-zA-Z\_]+)',
+	        'subid' => '([0-9]+)',
+	        'subsubid' => '([0-9]+)',
+	        'pass' => $pass,
+	    ));
+
+		
+	
+	}
+	
+}
+
+
+
+
+
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

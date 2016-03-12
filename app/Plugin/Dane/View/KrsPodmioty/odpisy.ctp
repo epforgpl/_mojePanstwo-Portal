@@ -27,7 +27,7 @@ $status_dict = array(
 
                 <div class="row">
 
-                    <div class="block block-simple col-md-12">
+                    <div class="block nobg block-simple col-md-12">
                         <header>
                             <div class="sm">Pobrane odpisy</div>
                         </header>

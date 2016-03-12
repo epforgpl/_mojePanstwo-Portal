@@ -443,6 +443,7 @@ class NgoController extends ApplicationsController
 	            ),	            
             ),
             'cover' => array(
+                'cache' => true,
                 'view' => array(
                     'plugin' => 'Ngo',
                     'element' => 'cover',
@@ -1037,5 +1038,16 @@ class NgoController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 	    
     }
+
+	public function newsletter() {
+		$results = $this->Ngo->newsletter($this->request->data);
+
+		if($results)
+			$this->Session->setFlash($results, null, array('class' => 'alert-success'));
+		else
+			$this->Session->setFlash('Wystąpił błąd. Spróbuj ponownie później.', null, array('class' => 'alert-error'));
+
+		$this->redirect('/ngo');
+	}
 
 }

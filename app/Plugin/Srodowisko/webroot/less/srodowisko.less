@@ -1,0 +1,166 @@
+
+#mapBrowser {
+	.map {
+		width: 100%;
+		height: 500px;
+	}
+}
+
+.stationContent {
+	
+	margin-right: 5px;
+	min-height: 330px;
+	
+	.blank_msg {
+		color: #aaa;
+	    font-size: 20px;
+	    margin: 195px 70px 0;
+	    text-align: center;
+	}
+	
+	h1 {
+		margin: 0 0 25px;
+		color: #053f69;
+		font-size: 24px;
+		padding: 0 0 10px !important;
+		border-bottom: 1px solid #DDD;
+		.glyphicon {
+			margin-right: 10px;
+		}
+	}
+	
+	.value {
+		text-align: center;
+		font-size: 36px;
+		font-weight: 300;
+		.unit {
+			font-size: 20px;
+		}
+	}
+	
+	.chart {
+		min-height: 230px;
+		margin-top: 13px;
+
+		.spinner {
+			position: absolute;
+			left: 0;
+			right: 0;
+			margin: 90px auto 0;
+		}
+	}
+	
+	.desc {
+		text-align: center;
+		color: #666;
+		font-size: 12px;
+	}
+	
+	.param {
+		text-align: center;
+		color: #666;
+	}
+	
+	.param-desc {
+		font-size: 12px;
+		margin: 7px 0 0;
+		padding: 0;
+		text-align: center;
+	}
+	
+	.buttons {
+		margin-top: 20px;
+		text-align: center;
+	}
+	
+	.chart-buttons {
+		display: block;
+		margin: 30px 10px 10px;
+		
+		.btn-group-xs > .btn, .btn-xs {
+			padding: 2px 15px;
+		}
+	}
+
+}
+
+.ranking-buttons {
+	display: block;
+	//margin: 30px 10px 10px;
+
+	.btn-group-xs > .btn, .btn-xs {
+		padding: 2px 15px;
+	}
+
+	.nav-tabs > li > a {
+		padding: 5px 10px;
+	}
+
+	.nav-tabs > li.active:first-child > a {
+		background-color: #157ab5;
+		cursor: inherit;
+		margin-left: inherit;
+	}
+}
+
+.objectsPage .stationContent .nav-tabs > li > a {
+	padding: 5px 10px;
+}
+
+.objectsPage .stationContent .nav-tabs > li.active:first-child > a {
+	background-color: #157ab5;
+	cursor: inherit;
+	margin-left: inherit;
+}
+
+.places {
+	.place {
+		
+		margin: 0 15px;
+		border-bottom: 1px solid #DDD;
+		
+		&:last-child {
+			border-bottom: none;
+		}
+		
+		a {
+			display: block;
+			outline: none;
+			padding: 10px 0;
+			
+			.glyphicon {
+				margin-right: 5px;
+			}
+			
+			.v {
+				float: right;
+				color: #444;
+			}
+		}
+		
+		.title {
+			
+		}
+	}
+}
+
+.app-sidebar {
+	.spinner {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		margin: 0;
+
+		-webkit-transform: translate(0, -50%);
+		-moz-transform: translate(0, -50%);
+		-ms-transform: translate(0, -50%);
+		-o-transform: translate(0, -50%);
+		transform: translate(0, -50%);
+
+		> div {
+			width: 10px;
+			height: 10px;
+			background-color: #999;
+		}
+	}
+}

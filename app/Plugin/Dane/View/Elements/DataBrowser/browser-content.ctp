@@ -49,7 +49,14 @@ $_manage = isset( $manage ) ? $manage: false;
 	
 	<?
 	
-	if( $dataBrowser['mode'] != 'cover' ) {
+	if( $dataBrowser['mode'] == 'cover' ) {
+		
+		echo @$this->element($dataBrowser['cover']['view']['plugin'] . '.' . $dataBrowser['cover']['view']['element'] . '-post', array(
+		    'params' => $this->Paginator->params(),
+		    'manage' => $_manage,
+	    ));
+		
+	} else {
 	
 		echo $this->element('Dane.DataBrowser/browser-content-list', array(
 		    'dataWrap' => $dataWrap,

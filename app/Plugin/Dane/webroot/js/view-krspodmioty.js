@@ -179,10 +179,56 @@ jQuery(document).ready(function () {
             }
         });
     }
-
+	
     /*STICKY MENU*/
 	$("#stickyMenu").sticky();
-
+	
+	var notowania_div = $('.block.gpw');
+    if( notowania_div.length ) {
+	    
+	    var url = notowania_div.data('url');
+	    
+	    $.getJSON(url, function (res) {
+		    
+		    var data = [];
+            for(var r = 0; r < res.length; r++) {
+                var d = res[r][0].split('-');
+                data.push([
+                    Date.UTC(
+                        parseInt(d[0]),
+                        parseInt(d[1]) - 1,
+                        parseInt(d[2])
+                    ),
+                    res[r][1]
+                ]);
+            }
+		    
+	        notowania_div.find('section').highcharts('StockChart', {
+	
+	            rangeSelector : {
+	                selected : 1
+	            },
+	
+	            title : {
+	                text : ''
+	            },
+	
+	            series : [{
+	                name : 'Kurs zamknięcia',
+	                data : data,
+	                tooltip: {
+	                    valueDecimals: 2
+	                }
+	            }],
+	            
+	            credits: {
+		            enabled: false
+	            }
+	        });
+	    });
+	    
+    }
+	
     menu.find('.nav a').click(function (event) {
         var target = jQuery(this).attr('href'),
             padding = 10;
@@ -253,4 +299,8 @@ jQuery(document).ready(function () {
 
 		main.html(main.attr('data-desc'));
     });
+    
+    
+    
+    
 });

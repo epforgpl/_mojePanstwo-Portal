@@ -2,16 +2,14 @@
 
 $(window).load(function () {
 
-	return false;
-
 	var mPCookie = mPCookie || {},
 		surveyAnkieta2 = $('#surveyAnkieta2'),
 		ankieta2Interval,
-		ankieta2EndDate = new Date(Date.parse("13 Dec 2015"));
+		ankieta2EndDate = new Date(Date.parse("30 March 2016"));
 
 	mPCookie.survey = {};
 	mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
-	if (typeof mPHeart.user_id !== "undefined" && (new Date() <= ankieta2EndDate)) {
+	if ((typeof mPHeart.user_id !== "undefined" && mPHeart.user_id !== "") && (new Date() <= ankieta2EndDate)) {
 		surveyAnkieta2.find('.modal-footer .submitBtn').click(function (e) {
 			var that = $(this),
 				data = surveyAnkieta2.find('form').serializeArray();
@@ -26,6 +24,7 @@ $(window).load(function () {
 			}
 
 			if (data.length === 0) {
+				mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 				mPCookie.survey.Ankieta2 = 'sended';
 				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 				surveyAnkieta2.addClass('finished');
@@ -38,6 +37,7 @@ $(window).load(function () {
 						that.addClass('disabled loading');
 					},
 					complete: function () {
+						mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 						mPCookie.survey.ankieta2 = 'sended';
 						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 						surveyAnkieta2.addClass('finished');
@@ -71,9 +71,11 @@ $(window).load(function () {
 				}
 
 				if (data.length === 0) {
+					mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 					mPCookie.survey.ankieta2 = 'sended';
 					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 				} else {
+					mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 					mPCookie.survey.ankieta2 = 'toSend';
 					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 
@@ -82,6 +84,7 @@ $(window).load(function () {
 						url: '/survey.json',
 						data: data,
 						complete: function () {
+							mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 							mPCookie.survey.ankieta2 = 'sended';
 							Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 						}
@@ -91,14 +94,16 @@ $(window).load(function () {
 		});
 
 		if (typeof mPCookie.survey.ankieta2 === "undefined" || !(mPCookie.survey.ankieta2 === 'toSend' || mPCookie.survey.ankieta2 === 'sended')) {
-			if (mPCookie.survey.ankieta2 > 120) {
+
+			if (mPCookie.survey.ankieta2 > 30) {
 				surveyAnkieta2.modal('show');
 			} else {
 				ankieta2Interval = setInterval(function () {
-					if (mPCookie.survey.ankieta2 > 120) {
+					if (mPCookie.survey.ankieta2 > 30) {
 						surveyAnkieta2.modal('show');
 						clearInterval(ankieta2Interval);
 					}
+					mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 					mPCookie.survey.ankieta2 = (typeof mPCookie.survey.ankieta2 !== "undefined") ? mPCookie.survey.ankieta2 + 1 : 1;
 					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 				}, 1000);
@@ -114,6 +119,7 @@ $(window).load(function () {
 			}
 
 			if (data.length === 0) {
+				mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 				mPCookie.survey.ankieta2 = 'sended';
 				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 			} else {
@@ -122,6 +128,7 @@ $(window).load(function () {
 					url: '/survey.json',
 					data: data,
 					complete: function () {
+						mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 						mPCookie.survey.ankieta2 = 'sended';
 						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 					}
