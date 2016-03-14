@@ -286,7 +286,7 @@ $description =
         <div class="object">
 
             <? if ($object->getData('wykreslony')) { ?>
-            <div class="alert alert-danger margin-top-10 margin-bottom-0">
+            <div class="alert alert-danger margin-top-30 margin-bottom-0">
                 Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
             </div>
             <? } ?>
