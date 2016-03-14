@@ -158,7 +158,7 @@ var MapBrowser = Class.extend({
 			return false;
 		});
 
-        self.setSelectedOption(0);
+        //self.setSelectedOption(0);
 
 		self.div = $('#mapBrowser');
 		self.map_div = self.div.find('.map');
@@ -282,7 +282,8 @@ var MapBrowser = Class.extend({
 
 			if(option.stations.length === 0) {
 				self.$spinner.show();
-				$.get('/srodowisko/dane.json?param=' + option.short, function(res) {
+				var short = option.short.replace('_', '.');
+				$.get('/srodowisko/dane.json?param=' + short, function(res) {
 					self.options[optionIndex].stations = res.stations;
 					self.setOptionMarkers(optionIndex);
 					self.updatePlaces(optionIndex);
@@ -480,31 +481,57 @@ var MapBrowser = Class.extend({
 		}
 		
 		if( location.hash.length ) {
-			
+
 			var hash = location.hash.substr(1);
-			
-			if( !isNaN(hash) ) {
-				
-				var index = false;
-				
-				for( var i=0; i<stations.length; i++ ) {
-					if ( stations[i]['id'] == hash ) {
-						
-						index = i;
+			var params = hash.split('&'),
+				options = {},
+				index = false;
+
+			for(var p = 0; p < params.length; p++) {
+				var parts = params[p].split('=');
+				if(parts.length === 2) {
+					options[parts[0]] = parts[1];
+				}
+			}
+
+			var def = true;
+			if(options.hasOwnProperty('param')) {
+				var param = options['param'];
+				index = false;
+
+				for(var o = 0; o < self.options.length; o++) {
+					if(self.options[o]['short'] == param) {
+						index = o;
 						break;
-						
 					}
 				}
-						
-				
-				if( index )
+
+				if(index) {
+					self.setSelectedOption(index);
+					def = false;
+				}
+			}
+
+			if(def === true) {
+				self.setSelectedOption(0);
+			}
+
+			if(options.hasOwnProperty('station_id')) {
+				var station_id = parseInt(options['station_id']);
+				index = false;
+
+				for(var _s = 0; _s < stations.length; _s++) {
+					if(stations[_s]['id'] == station_id) {
+						index = _s;
+						break;
+					}
+				}
+
+				if(index)
 					this.setStation(index);
-			
 			}
 			
 		}
-		
-		
 
 	},
 
@@ -529,8 +556,10 @@ var MapBrowser = Class.extend({
 		}
 
 		if(stationIndex === -1) {
-			
-			location.hash = '';
+
+			var short = self.options[self.selectedOption]['short'];
+			short = short.replace('.', '_');
+			location.hash = '#param=' + short;
 			
 			self.$station.html('<p class="blank_msg">Wybierz stacje pomiarową na mapie aby zobaczyć szczegóły</p>');
 
@@ -541,9 +570,8 @@ var MapBrowser = Class.extend({
 		} else if(stations.hasOwnProperty(stationIndex)) {
 
 			var station = stations[stationIndex];
-			
-			console.log('station', station);
-			location.hash = station.id;
+
+			location.hash = '#param=' + self.options[self.selectedOption]['short'] + '&station_id=' + station.id;
 			
 			this.map.setZoom(10);
 		    this.map.setCenter(station.marker.getPosition());
@@ -668,7 +696,7 @@ var MapBrowser = Class.extend({
 				return 'pyłu PM10';
 			break;
 
-			case 'PM2.5':
+			case 'PM2_5':
 				return 'pyłu PM2.5';
 			break;
 
@@ -737,6 +765,7 @@ var MapBrowser = Class.extend({
 		if(this.chartDataCache.hasOwnProperty(key)) {
 			success(this.chartDataCache[key]);
 		} else {
+			param = param.replace('_', '.');
 			$.get('/srodowisko/chart.json?station_id=' + station_id + '&param=' + param + '&timestamp=' + timestamp, function(res) {
 				var data = [];
 				for(var r = 0; r < res.length; r++) {

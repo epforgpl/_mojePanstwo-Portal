@@ -14,7 +14,7 @@ class SrodowiskoController extends ApplicationsController
 	
 	public $params = array(
 		'PM10' => 'Pył PM10', 
-		'PM2.5' => 'Pył PM2.5',
+		'PM2_5' => 'Pył PM2.5',
 		'O3' => 'Ozon', 
 		'CO' => 'Czad', 
 		'C6H6' => 'Benzen', 
@@ -26,13 +26,19 @@ class SrodowiskoController extends ApplicationsController
 	{
 		
 		$data = array();
+
+		$param = false;
+		if(isset($this->request->query['param'])) {
+			$param = $this->request->query['param'];
+			$param = str_replace('.', '_', $param);
+		}
 		
 		if(
-			isset( $this->request->query['param'] ) && 
-			in_array($this->request->query['param'], array_keys($this->params))
+			$param &&
+			in_array($param, array_keys($this->params))
 		) {
 		
-			$data = $this->Srodowisko->getData( $this->request->query['param'] );
+			$data = $this->Srodowisko->getData($this->request->query['param']);
 		
 		}
 		

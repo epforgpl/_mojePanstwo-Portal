@@ -41,7 +41,7 @@ class Srodowisko_stacje_pomiarowe extends DataObject
     
     public function getUrl()
     {
-	    return '/srodowisko#' . $this->getId();
+	    return '/srodowisko#param=PM10&station_id=' . $this->getId();
     }
 
 }
