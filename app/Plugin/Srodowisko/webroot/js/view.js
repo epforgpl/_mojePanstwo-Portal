@@ -478,6 +478,33 @@ var MapBrowser = Class.extend({
 			stations[i]['marker'] = marker;
 
 		}
+		
+		if( location.hash.length ) {
+			
+			var hash = location.hash.substr(1);
+			
+			if( !isNaN(hash) ) {
+				
+				var index = false;
+				
+				for( var i=0; i<stations.length; i++ ) {
+					if ( stations[i]['id'] == hash ) {
+						
+						index = i;
+						break;
+						
+					}
+				}
+						
+				
+				if( index )
+					this.setStation(index);
+			
+			}
+			
+		}
+		
+		
 
 	},
 
@@ -503,15 +530,20 @@ var MapBrowser = Class.extend({
 
 		if(stationIndex === -1) {
 			
+			location.hash = '';
+			
 			self.$station.html('<p class="blank_msg">Wybierz stacje pomiarową na mapie aby zobaczyć szczegóły</p>');
 
 			self.map.setZoom(self.plZoom);
 			self.map.setCenter(new google.maps.LatLng(self.plCenter[0], self.plCenter[1]));
-			self.selectedStation = -1;
+			self.selectedStation = -1;			
 			
 		} else if(stations.hasOwnProperty(stationIndex)) {
 
 			var station = stations[stationIndex];
+			
+			console.log('station', station);
+			location.hash = station.id;
 			
 			this.map.setZoom(10);
 		    this.map.setCenter(station.marker.getPosition());
@@ -563,7 +595,7 @@ var MapBrowser = Class.extend({
 				h.push('<p class="value">' + v + ' <span class="unit">' + unit + '</span></p>');
 				h.push('<p class="desc">Stan na ' + t + '</p>');
 				
-				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
+				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li class="active"><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
 				h.push('<div class="chart">' + self.getSpinnerDOM() + '</div>');
 				h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
 				
@@ -766,11 +798,11 @@ var MapBrowser = Class.extend({
 
 		return {
 			path: google.maps.SymbolPath.CIRCLE,
-			scale: scale,
+			scale: scale * 2.5,
 			fillColor: color || '#3b83c5',
-			strokeColor: '#666',
+			strokeColor: '#AAA',
 			strokeWeight: 1,
-			fillOpacity: 1
+			fillOpacity: 0.7
 		};
 	},
 

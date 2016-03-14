@@ -128,8 +128,9 @@ class AppController extends Controller
         ),
         'srodowisko' => array(
             'srodowisko_stacje_pomiarowe' => array(
-                'label' => 'Stacje pomiarowe'
-            ),
+                'label' => 'Stacje pomiarowe',
+                'menu_id' => '',
+           ),
         ),
         'bdl' => array(
             'bdl_wskazniki' => array(

@@ -13,12 +13,12 @@ class SrodowiskoController extends ApplicationsController
     );    
 	
 	public $params = array(
-		'C6H6' => 'Benzen', 
-		'CO' => 'Czad', 
-		'NO2' => 'Dwutlenek azotu', 
-		'O3' => 'Ozon', 
 		'PM10' => 'Pył PM10', 
 		'PM2.5' => 'Pył PM2.5',
+		'O3' => 'Ozon', 
+		'CO' => 'Czad', 
+		'C6H6' => 'Benzen', 
+		'NO2' => 'Dwutlenek azotu', 
 		'SO2' => 'Dwutlenek siarki',
 	);
 	
@@ -59,6 +59,7 @@ class SrodowiskoController extends ApplicationsController
         $datasets = $this->getDatasets('srodowisko');
 
         $options = array(
+	        'browserTitle' => 'Stacje pomiarowe:',
             'searchTitle' => 'Szukaj stacji pomiarowych...',
             'autocompletion' => array(
                 'dataset' => implode(',', array_keys($datasets)),

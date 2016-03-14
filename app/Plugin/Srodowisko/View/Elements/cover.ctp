@@ -29,7 +29,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 		<form action="/srodowisko" method="get">
 	        <div class="appSearch form-group">
 	            <div class="input-group">
-	                <input class="form-control" placeholder="Szukaj stacji pomiarowych..." type="text">
+	                <input name="q" class="form-control" placeholder="Szukaj stacji pomiarowych..." type="text">
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-md">
 	                        <span class="glyphicon glyphicon-search"></span>
@@ -53,6 +53,13 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 		</div>
 	</div>
 	
+	
+	<div class="margin-top-10">
+		<h2 class="appInnerTitle">Ranking stacji pomiarowych</h2>
+		<h3 class="appInnerSubTitle">Wybrany parametr: <strong>Pył PM10</strong></h3>
+	</div>
+	
+	
 	<div class="row margin-top-30">
 		<div class="col-md-12">
 			<div class="ranking-buttons">
@@ -70,7 +77,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 			</div>
 		</div>
 	</div>
-
+	
 	<div class="row margin-top-10">
 		<div class="col-md-6">
 			
