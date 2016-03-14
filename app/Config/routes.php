@@ -111,7 +111,22 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
 
 } else {
-	Router::connect( '/', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'view' ) );
+		
+	if( 
+		( $_SERVER['REQUEST_METHOD']=='GET' ) && 
+		preg_match('/^\/dane\/gminy\/903(\,krakow|\,krakow|\,|)(.*?)$/i', $_SERVER['REQUEST_URI'], $match)
+	) {
+				
+		$url = URL_PROTOCOL . PK_DOMAIN . $match[2];
+		header('Location: ' . $url, true, 302);
+		exit();
+		 	
+	} else {
+		
+		Router::connect( '/', array('plugin' => 'Start', 'controller' => 'Start', 'action' => 'view' ) );
+	
+	}
+
 }
 
 /**
