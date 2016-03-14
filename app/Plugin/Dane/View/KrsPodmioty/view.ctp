@@ -231,8 +231,8 @@ $description =
                     <? } ?>
                 </div>
                 <div class="dataHighlight-hidden-button text-center">
-                    <button class="dataHighlight-hidden-button-show btn btn-link btn-sm">Więcej</button>
-                    <button class="dataHighlight-hidden-button-hide btn btn-link btn-sm">Mniej</button>
+                    <button class="dataHighlight-hidden-button-show btn btn-link btn-sm">Więcej &darr;</button>
+                    <button class="dataHighlight-hidden-button-hide btn btn-link btn-sm">Mniej &uarr;</button>
                 </div>
             </div>
         </ul>

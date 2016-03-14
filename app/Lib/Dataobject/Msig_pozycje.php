@@ -7,7 +7,10 @@ class Msig_pozycje extends DataObject
 		
 	public function getUrl() {
 		
-		return '/dane/krs_podmioty/' . $this->getData('krs_id') . '/ogloszenia/' . $this->getId();
+		if( $this->getData('krs_slug') )
+			return '/' . $this->getData('krs_slug') . '/ogloszenia/' . $this->getId();
+		else
+			return '/dane/krs_podmioty/' . $this->getData('krs_id') . '/ogloszenia/' . $this->getId();
 		
 	}
 	
@@ -17,16 +20,27 @@ class Msig_pozycje extends DataObject
 	);
 	
 	public function getShortTitle() {
-				
-		switch( $this->getData('msig_dzialy.typ_id') ) {
-			case '3': return 'Ogłoszenie handlowe';
-			case '4': return 'Ogłoszenie w sprawie upadłości';
-			case '5': return 'Ogłoszenie w sprawie cywilnej';
-			case '6': return 'Zmiana adresu siedziby';
-			case '7': return 'Zmiana organu sprawującego nadzór';
-			case '8': return 'Zmiana danych rejestrowych';
-			case '12': return 'Zmiana celu działania organizacji';
-			default: return 'Ogłoszenie';
+		
+		if( 
+			$this->getOptions('from_msig') && 
+			$this->getData('nazwa')
+		) {
+			
+			return $this->getData('nazwa');
+			
+		} else {
+		
+			switch( $this->getData('msig_dzialy.typ_id') ) {
+				case '3': return 'Ogłoszenie handlowe';
+				case '4': return 'Ogłoszenie w sprawie upadłości';
+				case '5': return 'Ogłoszenie w sprawie cywilnej';
+				case '6': return 'Zmiana adresu siedziby';
+				case '7': return 'Zmiana organu sprawującego nadzór';
+				case '8': return 'Zmiana danych rejestrowych';
+				case '12': return 'Zmiana celu działania organizacji';
+				default: return 'Ogłoszenie';
+			}
+		
 		}
 		
 	}
@@ -36,7 +50,7 @@ class Msig_pozycje extends DataObject
 	}
 	
 	public function getDescription() {
-		
+				
 		if( $this->getOptions('fromObject') )
 			return false;
 		else
@@ -49,9 +63,21 @@ class Msig_pozycje extends DataObject
 		
 		$output = array();
 		
-		if( $this->getDate() )
-			$output[] = dataSlownie( $this->getDate() );
+		if( $this->getOptions('from_msig') ) {
+							
+			if( $this->getData('krs_id') )
+				$output[] = 'KRS ' . str_pad($this->getData('krs_id'), '10', '0', 0);
 				
+			if( $this->getData('pozycja') )
+				$output[] = 'Pozycja ' . $this->getData('pozycja');
+			
+		} else {
+		
+			if( $this->getDate() )
+				$output[] = dataSlownie( $this->getDate() );
+		
+		}
+		
         return $output;
 
     }

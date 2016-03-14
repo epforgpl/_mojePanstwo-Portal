@@ -37,24 +37,7 @@ if( $html )
 		        
 	        </section>
         </div>
-        
-        <ul class="dataHighlights overflow-auto margin-sides-20">
-    		
-    		<? if( @$data['sad'] ) {?>
-    		<li class="dataHighlight col-xs-12">
-	            <p class="_label">Sąd</p>
-	            <p class="_value"><?= $data['sad'] ?></p>
-	        </li>
-	        <? } ?>
-	        
-	        <? if( @$data['symbol'] ) {?>
-	        <li class="dataHighlight col-xs-12">
-	            <p class="_label">Symbol sprawy</p>
-	            <p class="_value"><?= $data['symbol'] ?></p>
-	        </li>
-	        <? } ?>
-	        
-        </ul>
+       
         
     </div><div class="col-md-3">
 
@@ -69,8 +52,37 @@ if( $html )
 	            <p class="_label">Pozycja</p>
 	            <p class="_value"><?= $ogloszenie->getData('pozycja') ?></p>
 	        </li>
+	        
+	        <? if( @$data['sad'] || @$data['symbol'] ) {?>
+	        <div class="dataHighlight-hidden">
+	            <div class="dataHighlight-content">
+	                
+	                <? if( @$data['sad'] ) {?>
+		    		<li class="dataHighlight col-xs-12">
+			            <p class="_label">Sąd</p>
+			            <p class="_value"><?= $data['sad'] ?></p>
+			        </li>
+			        <? } ?>
+			        
+			        <? if( @$data['symbol'] ) {?>
+			        <li class="dataHighlight col-xs-12">
+			            <p class="_label">Symbol sprawy</p>
+			            <p class="_value"><?= $data['symbol'] ?></p>
+			        </li>
+			        <? } ?>
+	                
+	            </div>
+	            <div class="dataHighlight-hidden-button text-center">
+	                <button class="dataHighlight-hidden-button-show btn btn-link btn-sm">Więcej &darr;</button>
+	                <button class="dataHighlight-hidden-button-hide btn btn-link btn-sm">Mniej &uarr;</button>
+	            </div>
+	        </div>
+	        <? } ?>
 		    		    
         </ul>
+        
+        
+        
         
     </div>
         

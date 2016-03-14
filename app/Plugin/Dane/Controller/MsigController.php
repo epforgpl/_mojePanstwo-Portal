@@ -19,8 +19,8 @@ class MSiGController extends DataobjectsController
 				
         $this->_prepareView();
         
-        $this->Components->load('Dane.DataBrowser', array(
-            'browserTitle' => 'Wystąpienia radnego',
+        $this->DataBrowser = $this->Components->load('Dane.DataBrowser', array(
+            'browserTitle' => 'Wyniki wyszukiwania w ogłoszeniach:',
             'conditions' => array(
                 'dataset' => 'msig_pozycje',
                 'msig_pozycje.wydanie_id' => $this->object->getId(),
@@ -33,7 +33,7 @@ class MSiGController extends DataobjectsController
                 'aggs' => array(
 	                'dzialy' => array(
 			            'terms' => array(
-				            'field' => 'msig_pozycje.dzial_id',
+				            'field' => 'msig_dzialy.typ_id',
 				            'order' => array(
 					            'pozycja' => 'asc',
 				            ),
@@ -44,30 +44,42 @@ class MSiGController extends DataobjectsController
 						            'field' => 'data.msig_pozycje.pozycja',
 					            ),
 				            ),
-				            'nazwa' => array(
+				            'formy' => array(
 					            'terms' => array(
-						            'field' => 'data.msig_dzialy.nazwa',
-						            'size' => 1,
+						            'field' => 'data.msig_pozycje.krs_forma_prawna_id',
+						            'size' => 100,
 					            ),
 				            ),
-				            'top' => array(
-					            'top_hits' => array(
-						            'size' => 3,
-						            'sort' => array(
-							            'data.msig_pozycje.pozycja' => array(
-								            'order' => 'asc',
-							            ),
-						            ),
-						            'fields' => array('dataset', 'id'),
-						            '_source' => true,
+			            ),
+		            ),
+		            'formy' => array(
+			            'terms' => array(
+				            'field' => 'msig_pozycje.krs_forma_prawna_id',
+				            'order' => array(
+					            'pozycja' => 'asc',
+				            ),
+			            ),
+			            'aggs' => array(
+				            'pozycja' => array(
+					            'min' => array(
+						            'field' => 'data.msig_pozycje.pozycja',
+					            ),
+				            ),
+				            'dzialy' => array(
+					            'terms' => array(
+						            'field' => 'data.msig_dzialy.typ_id',
+						            'size' => 1,
 					            ),
 				            ),
 			            ),
 		            ),
                 ),
             ),
-            // 'aggsPreset' => 'rady_gmin_wystapienia',
-            // 'renderFile' => 'radni_gmin/rady_gmin_wystapienia',
+            'objectOptions' => array(
+	            'from_msig' => true,
+            ),
+            'phrasesPreset' => 'msig_pozycje',
+            'aggsPreset' => 'msig_pozycje',
         ));
         
         $this->render('Dane.DataBrowser/browser');
@@ -128,11 +140,6 @@ class MSiGController extends DataobjectsController
 	                'label' => 'Ogłoszenia',
                 ),
                 array(
-	                'id' => 'indeks',
-	                'label' => 'Indeks',
-	                'href' => $href_base . '/indeks'
-                ),
-                array(
 	                'id' => 'dokument',
 	                'label' => 'Dokument',
 	                'href' => $href_base . '/dokument'
@@ -142,7 +149,62 @@ class MSiGController extends DataobjectsController
 
         $this->menu = $menu;
         parent::beforeRender();
+        
+        $set = array(
+	        'dzialy' => array(),
+	        'formy' => array(),
+        );
 
+        if( $_dzialy = @$this->viewVars['dataBrowser']['aggs']['dzialy']['buckets'] ) {
+	       foreach( $_dzialy as $d ) {
+		       
+		       $formy = array();
+		       if( $_formy = @$d['formy']['buckets'] )
+			       foreach( $_formy as $f )
+						$formy[] = array(
+							'id' => $f['key'],
+							'title' => $this->DataBrowser->dict('krs_formy_prawne', $f['key'], 'plural'),
+							'count' => $f['doc_count'],
+						);
+			       		       
+		       $set['dzialy'][] = array(
+			       'id' => $d['key'],
+			       'title' => $this->DataBrowser->dict('msig_dzialy_typy', $d['key'], 'plural'),
+			       'count' => $d['doc_count'],
+			       'formy' => $formy,
+		       );
+		       
+	       }
+        }
+        
+        if( $_formy = @$this->viewVars['dataBrowser']['aggs']['formy']['buckets'] ) {
+	       foreach( $_formy as $f ) {
+		       
+		       $dzialy = array();
+		       if( $_dzialy = @$f['dzialy']['buckets'] )
+			       foreach( $_dzialy as $d )
+						$dzialy[] = array(
+							'id' => $d['key'],
+							'title' => $this->DataBrowser->dict('msig_dzialy_typy', $d['key'], 'plural'),
+							'count' => $d['doc_count'],
+						);
+			       		       
+		       $set['formy'][] = array(
+			       'id' => $f['key'],
+			       'title' => $this->DataBrowser->dict('krs_formy_prawne', $f['key'], 'plural'),
+			       'count' => $f['doc_count'],
+			       'dzialy' => $dzialy,
+		       );
+		       
+	       }
+        }
+        
+        
+        unset( $this->viewVars['dataBrowser']['aggs']['dzialy'] );
+        unset( $this->viewVars['dataBrowser']['aggs']['formy'] );
+        $this->set('_dzialy', $set['dzialy']);
+        $this->set('_formy', $set['formy']);
+        
     }
 
 } 

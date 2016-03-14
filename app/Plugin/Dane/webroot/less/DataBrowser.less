@@ -76,6 +76,17 @@ a.link-api-call {
 }
 
 .dataBrowser, .dataFeed, .dataobjects {
+    
+    &.border-bottom {
+	    > li {
+		    border-bottom: 1px solid #DDD;
+		    
+		    &:last-child {
+			    border-bottom: none;
+		    }
+	    }
+    }
+    
     &.upper .dataBrowserContent {
         min-height: inherit;
 

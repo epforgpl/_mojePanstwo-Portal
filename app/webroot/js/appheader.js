@@ -8,7 +8,17 @@
 
 	if (dataHighlightHidden.length) {
 		dataHighlightHidden.find('.dataHighlight-hidden-button > .btn').click(function () {
-			dataHighlightHidden.toggleClass('visible')
+			
+			if( dataHighlightHidden.hasClass('_visible') ) {
+				dataHighlightHidden.removeClass('_visible').find('.dataHighlight-content').slideUp();
+				dataHighlightHidden.find('.dataHighlight-hidden-button-show').show();
+				dataHighlightHidden.find('.dataHighlight-hidden-button-hide').hide();
+			} else {
+				dataHighlightHidden.addClass('_visible').find('.dataHighlight-content').slideDown();
+				dataHighlightHidden.find('.dataHighlight-hidden-button-show').hide();
+				dataHighlightHidden.find('.dataHighlight-hidden-button-hide').show();
+			}
+						
 		})
 	}
 
