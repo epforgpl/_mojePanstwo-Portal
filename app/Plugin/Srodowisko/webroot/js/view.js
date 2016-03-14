@@ -534,7 +534,8 @@ var MapBrowser = Class.extend({
 					this.setStation(index);
 			}
 			
-		}
+		} else
+			self.setSelectedOption(0);
 
 	},
 
