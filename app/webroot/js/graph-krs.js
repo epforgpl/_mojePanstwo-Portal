@@ -564,7 +564,7 @@
 				}
 
 				var radius = d3Data.size.nodesSize,
-					space = 30,
+					space = 15,
 					r = radius + space,
 					nx1 = node.x - r,
 					nx2 = node.x + r,
@@ -587,11 +587,11 @@
 						}
 
 						if (root.y > node.y) {
-							node.y = root.y + d3Data.size.nodesSize / 2;
+							node.y = root.y + d3Data.size.nodesSize / 3;
 						}
 
 						if (root.y > quad.point.y) {
-							quad.point.y = root.y + d3Data.size.nodesSize / 2;
+							quad.point.y = root.y + d3Data.size.nodesSize / 3;
 						}
 					}
 
@@ -649,20 +649,20 @@
 					'target': '_self',
 					'class': 'btn btn-xs btn-primary'
 				}).text(mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_LINK);
-				
-								
+
+
 				if (node.label === "podmiot") {
 					linkEl.attr('href', '/dane/krs_podmioty/' + node.id.replace(/\D/g, ''));
 				} else if (node.label === "osoba") {
 					linkEl.attr('href', '/dane/krs_osoby/' + node.id.replace(/\D/g, ''));
 				}
-				
+
 				console.log('loop start');
-								
+
 				$.each(node.data, function (label, value) {
-				
+
 					console.log('label', label);
-					
+
 					var tr = $('<li></li>').append(
 						$('<div></div>').addClass('row')
 					);
@@ -704,15 +704,14 @@
 					} else {
 						return;
 					}
-											
+
 					tr.find('.row').append($('<div></div>').addClass('col-xs-5').text(label));
 					tr.find('.row').append($('<div></div>').addClass('col-xs-7').text((value) ? value : ' - '));
 					dataContent.find('.wskazniki').append(tr);
 
 				});
-				
-											
-				
+
+
 				dataContent.find('.wskazniki').append(
 					$('<li class="text-center"></li>').html(linkEl)
 				);

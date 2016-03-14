@@ -11,20 +11,20 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
         <div class="_mPSearchOutside appSearch form-group">
             <form action="/" method="get">
                 <div class="input-group">
-                    <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text"/>
+                    <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text"
+                           autocomplete="off"/>
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-md">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 					</span>
                 </div>
-            </form>     
-            <p class="text-center margin-top-10"><a href="/dane">Zobacz jakie dane przeszukujemy &raquo;</a></p>       
+            </form>
+            <p class="text-center margin-top-10"><a href="/dane">Zobacz jakie dane przeszukujemy &raquo;</a></p>
         </div>
-        
+
     </div>
-    
-    
+
 
     <div class="appContent row">
         <div class="appsList">

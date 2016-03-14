@@ -404,10 +404,11 @@ $(document).ready(function () {
 		return (state > 0);
 	});
 
-	$bdl.find('.block').each(function () {
+	$bdl.find('.bdlBlock').each(function () {
 		$(this).find('.wskazniki li .wskaznikText .href').each(function () {
 			var textBlock = $(this);
 			if (textBlock.text().indexOf("(") > -1) {
+
 				var tooltip = $('<span></span>').attr({
 					'title': textBlock.text().match(/\(([^)]+)\)/)[1],
 					'data-placement': 'bottom',
@@ -418,7 +419,7 @@ $(document).ready(function () {
 		});
 	});
 
-	$bdl.find('.block').click(function () {
+	$bdl.find('.bdlBlock').click(function () {
 		$('[data-toggle="tooltip"]').mouseover(function () {
 			$('.infoBlock .content').css('overflow', 'visible');
 		}).mouseout(function () {
