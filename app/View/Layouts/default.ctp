@@ -191,6 +191,9 @@ if ($domainMode == "MP") {
         echo $this->Element('survey/ankieta2');
     }
 }
+
+/*GAMIFICATION*/
+echo $this->Element('gamification');
 ?>
 
 <?php /* GOOGLE ANALYTIC */ ?>
