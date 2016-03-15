@@ -94,7 +94,7 @@ var MapBrowser = Class.extend({
 	rankingOption: 'latest',
 	loadDelay: 400,
 
-	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal, $rankingButtons, $appLogo, $morePlacesModal) {
+	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal, $rankingButtons, $appLogo, $morePlacesModal, $appInnerSubTitle) {
 
 		var self = this,
 			center = self.plCenter,
@@ -107,6 +107,7 @@ var MapBrowser = Class.extend({
 		self.$morePlacesModal = $morePlacesModal;
 		self.$rankingButtons = $rankingButtons;
 		self.$appLogo = $appLogo;
+		self.$appInnerSubTitle = $appInnerSubTitle;
 
 		self.$appLogo.append('<div class="spinner" style="display: none;"><div class="bounce1"></div> <div class="bounce2"></div><div class="bounce3"></div></div>');
 
@@ -278,6 +279,7 @@ var MapBrowser = Class.extend({
 
         if(self.options.hasOwnProperty(optionIndex)) {
 			var option = self.options[optionIndex];
+			self.$appInnerSubTitle.html(option['text']);
 			option.$a.parent().addClass('active');
 
 			if(option.stations.length === 0) {
@@ -448,6 +450,7 @@ var MapBrowser = Class.extend({
 
 		$('body').on('click', '.setStationAction', function() {
 			self.setStation(parseInt($(this).data('stationIndex')));
+			$('html, body').animate({ scrollTop: 120 }, 'slow');
 			return false;
 		});
 
@@ -531,7 +534,8 @@ var MapBrowser = Class.extend({
 					this.setStation(index);
 			}
 			
-		}
+		} else
+			self.setSelectedOption(0);
 
 	},
 
@@ -623,7 +627,7 @@ var MapBrowser = Class.extend({
 				h.push('<p class="value">' + v + ' <span class="unit">' + unit + '</span></p>');
 				h.push('<p class="desc">Stan na ' + t + '</p>');
 				
-				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li class="active"><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
+				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
 				h.push('<div class="chart">' + self.getSpinnerDOM() + '</div>');
 				h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
 				
@@ -669,7 +673,7 @@ var MapBrowser = Class.extend({
 				}
 			});
 
-			self.updateChart(station.id, option.short, 'd');
+			self.updateChart(station.id, option.short, 'h');
 			self.selectedStation = stationIndex;
 		}
 	},
@@ -723,6 +727,11 @@ var MapBrowser = Class.extend({
 				return true;
 			}
 
+			var xDateFormat = '%A, %b %e, %Y';
+			if(timestamp == 'h') {
+				xDateFormat = '%A, %b %e, %H:00';
+			}
+
 			$chart.highcharts({
 				chart: {
 					animation: false,
@@ -742,6 +751,10 @@ var MapBrowser = Class.extend({
 					title: {
 						text: null
 					}
+				},
+				tooltip: {
+					xDateFormat: xDateFormat,
+					shared: true
 				},
 				legend: {
 					enabled: false
@@ -851,7 +864,8 @@ $(document).ready(function () {
 		$('#dateRangeChartModal'),
 		$('.ranking-buttons').first(),
 		$('.app-logo').first(),
-		$('#morePlacesModal')
+		$('#morePlacesModal'),
+		$('.appInnerSubTitle strong').first()
     );
 
 });

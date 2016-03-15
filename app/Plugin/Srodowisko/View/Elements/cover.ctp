@@ -66,7 +66,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 				<ul class="nav nav-tabs">
 					<?php foreach(array(
 						'latest' => 'Bieżące odczyty',
-						'1d' => 'Ostatnie 3 dni',
+						'3d' => 'Ostatnie 3 dni',
 						'1w' => 'Ostatni tydzień',
 						'1m' => 'Ostatni miesiąc') as $option => $name) { ?>
 						<li<? if($option == 'latest') echo ' class="active"'; ?>>

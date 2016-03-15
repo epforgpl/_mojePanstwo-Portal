@@ -1,4 +1,9 @@
-<?php $this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport'))) ?>
+<?php
+
+$this->Combinator->add_libs('css', $this->Less->css('paszport', array('plugin' => 'Paszport')));
+$this->Combinator->add_libs('js', 'Paszport.paszport-register.js');
+
+?>
 
 <div class="objectsPage fullPageHeight">
     <div class="createAccount" id="modalPaszportLoginForm">
@@ -115,11 +120,39 @@
                         )); ?>
                     </div>
 
-                    <div class="slide inputForm sendForm col-xs-12">
+                    <div class="slide inputForm sendForm col-xs-12 padding-bottom-5">
                         <label>
                             <?php echo $this->Form->checkbox('is_ngo'); ?>
-                            Działam w organizacji pozarządowej
+                            &nbsp; Działam w organizacji pozarządowej
                         </label>
+                    </div>
+
+                    <div class="slide inputForm col-xs-12 selectOrganization" style="display: none;">
+                        <div class="form-group">
+                            <label for="organizationNameInput">Organizacja</label>
+                            <div class="suggesterBlockPisma">
+                                <?= $this->element('Start.letters-searcher', array('q' => '', 'notRequired' => true, 'dataset' => 'krs_podmioty', 'placeholder' => 'Zacznij pisać aby znaleźć organizacje...')) ?>
+                            </div>
+                            <input type="hidden" name="krs_pozycje_nazwa" value=""/>
+                            <input type="hidden" name="organization_object_id" value="0"/>
+                        </div>
+
+                        <div class="form-group margin-top-10">
+                            <label for="organizationFirstNameInput">Imię</label>
+                            <input type="text" name="organization_firstname" class="form-control" id="organizationFirstNameInput" placeholder="Imię">
+                        </div>
+                        <div class="form-group">
+                            <label for="organizationLastNameInput">Nazwisko</label>
+                            <input type="text" name="organization_lastname" class="form-control" id="organizationLastNameInput" placeholder="Nazwisko">
+                        </div>
+                        <div class="form-group">
+                            <label for="organizationFunctionInput">Funkcja</label>
+                            <input type="text" name="organization_function" class="form-control" id="organizationFunctionInput" placeholder="Funkcja">
+                        </div>
+                        <div class="form-group">
+                            <label for="organizationPhoneNumberInput">Telefon</label>
+                            <input type="text" name="organization_phone_number" class="form-control" id="organizationPhoneNumberInput" placeholder="Telefon">
+                        </div>
                     </div>
 
                     <div class="slide inputForm sendForm col-xs-12">
@@ -138,6 +171,10 @@
                                 'action' => 'fblogin'
                             ), array('class' => 'btn btn-social btn-facebook btn-md', 'escape' => false)); ?>
                         </div>
+
+                        <p class="help-block small margin-top-20">
+                            Administratorem danych osobowych użytkowników  jest Fundacja ePaństwo zarejestrowana pod numerem KRS 0000359730 Regon: 142445947, NIP: 1231216692. Dane osobowe będą przetwarzane  w celu korzystania z usług świadczonych w ramach portalu mojepanstwo.pl oraz przesyłania informacji związanych z portalem. Użytkownikom przysługuje prawo dostępu do treści dotyczących ich danych i ich poprawiania. Podanie danych osobowych jest dobrowolne jednak niezbędne do korzystania z usług administratora.
+                        </p>
                     </div>
                     <?php echo $this->Form->end(); ?>
                 </div>

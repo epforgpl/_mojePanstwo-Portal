@@ -127,10 +127,16 @@ class SrodowiskoController extends ApplicationsController
     public function getChapters() {
 		$items = array();
 		foreach($this->params as $short => $name) {
+
+			$href = '#' . $short;
+			if(isset($this->request->query['q'])) {
+				$href = '/srodowisko#param=' . $short;
+			}
+
 			$items[] = array(
 				'id' => 'id',
 				'label' => $name,
-				'href' => '#' . $short,
+				'href' => $href,
 				'icon' => 'dot',
 			);
 		}

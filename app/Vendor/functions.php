@@ -125,6 +125,9 @@ function dataSlownie( $data, $options = array() ) {
 	$_data = $data;
 	$_parts = explode(' ', $data);
 
+	if( !isset($options['relative']) )
+		$options['relative'] = true;
+	
 	if ( strpos( $_parts[0], '/' ) ) {
 		$parts = explode( '/', $_parts[0] );
 		$data  = $parts[2] . '-' . $parts[1] . '-' . $parts[0];
@@ -137,8 +140,10 @@ function dataSlownie( $data, $options = array() ) {
 
 	$data = date( 'Y-m-d', $timestamp );
 
-	if ( $data == date( 'Y-m-d', time() ) ) // TODAY
-	{
+	if ( 
+		$options['relative'] && 
+		( $data == date('Y-m-d', time()) )
+	) {
 
 		$str = 'dzisiaj';
 

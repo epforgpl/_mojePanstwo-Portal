@@ -66,7 +66,7 @@ if ($pismo['object_id']) {
 					            					            
 					            <div class="letter-render">
 					            
-						            <div class="row">
+						            <div class="row" style="margin-bottom: 20px;">
 							            <div class="col-md-8">
 								            
 								            <div class="nadawca"><?= nl2br($pismo['from_str']);  ?></div>
@@ -78,7 +78,9 @@ if ($pismo['object_id']) {
 									            if( $pismo['miejscowosc'] )
 									            	$parts[] = $pismo['miejscowosc'];
 									            if( $pismo['data_pisma'] )
-									            	$parts[] = dataSlownie($pismo['data_pisma']);
+									            	$parts[] = dataSlownie($pismo['data_pisma'], array(
+										            	'relative' => false,
+									            	));
 								            ?>
 								            
 								            <div class="miejsce_data"><?= implode(', ', $parts) ?></div>
