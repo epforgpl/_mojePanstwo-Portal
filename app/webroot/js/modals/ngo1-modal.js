@@ -34,7 +34,13 @@ $(document).ready(function() {
             console.log(data);
         });
 
-        if(is_ngo && $P.objects.adresaci.hasOwnProperty('object_id')) {
+        if(is_ngo) {
+
+            if(!$P.objects.adresaci.hasOwnProperty('object_id') ||
+                $P.objects.adresaci.object_id == 0) {
+                alert('Wybierz istniejącą organizacje z listy');
+                return false;
+            }
 
             $.post('/dane/krs_podmioty/' + $P.objects.adresaci.object_id + '.json', {
                 _action: 'moderate_request',
