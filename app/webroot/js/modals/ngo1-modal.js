@@ -52,7 +52,7 @@ $(document).ready(function() {
                         return false;
                     } else if(typeof res.response.row != 'undefined') {
                         alert('Dziękujemy za zgłoszenie! Wkrótce dostaniesz wiadomość email ze szczegółami.');
-                        location.reload();
+                        $modal.modal('hide');
                     } else {
                         alert(undefined_error);
                     }
@@ -62,6 +62,7 @@ $(document).ready(function() {
             });
         } else {
             alert('Dziękujemy za odpowiedź');
+            $modal.modal('hide');
         }
 
     });
