@@ -205,6 +205,9 @@ if ($domainMode == "MP") {
     }
 }
 
+/*GAMIFICATION*/
+echo $this->Element('gamification');
+
 if(isset($_modals) && is_array($_modals)) {
     foreach($_modals as $_modal) {
         echo $this->Element('modals/' . $_modal . '-modal');
