@@ -204,6 +204,13 @@ if ($domainMode == "MP") {
         echo $this->Element('survey/ankieta2');
     }
 }
+
+if(isset($_modals) && is_array($_modals)) {
+    foreach($_modals as $_modal) {
+        echo $this->Element('modals/' . $_modal . '-modal');
+    }
+}
+
 ?>
 
 <?php /* GOOGLE ANALYTIC */ ?>
