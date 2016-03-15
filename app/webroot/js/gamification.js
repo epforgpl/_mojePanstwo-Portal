@@ -11,6 +11,7 @@ function addEvent(obj, evt, fn) {
 
 $(document).ready(function () {
 	var gaminificationExit = $('#gaminification-exit'),
+		gaminificationExitAllowed = true,
 		mPCookie = {
 			'gamification': {
 				exit: false
@@ -21,16 +22,17 @@ $(document).ready(function () {
 		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 	}
 
-	if (gaminificationExit.length && mPCookie.gamification.exit !== true && false) {
+	if (gaminificationExit.length && mPCookie.gamification.exit !== true) {
 		addEvent(window, "load", function () {
 			addEvent(document, "mouseout", function (e) {
 				var from = e.relatedTarget || e.toElement;
 				if (!from || from.nodeName === "HTML") {
-					if (gaminificationExit.is(':hidden')) {
+					if (gaminificationExit.is(':hidden') && gaminificationExitAllowed) {
 						mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 						mPCookie.gamification.exit = true;
 						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 						gaminificationExit.modal('show');
+						gaminificationExitAllowed = false;
 					}
 				}
 			});
