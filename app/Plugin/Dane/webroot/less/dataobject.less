@@ -1893,8 +1893,13 @@
         .btn.optionBtn {
             border-radius: 20px;
             padding: 5px 8px;
-	        background-color: #fafafa;
+	        color: #FFF !important;
 	        border-color: #CCC;
+	        
+	        &.off {
+		        background-color: #fafafa;
+		        color: #567 !important;
+	        }
 	        
             &.btn-primary {
                 color: #567;
@@ -1910,21 +1915,21 @@
 
             &:hover, &:focus {
                 &.btn-primary {
-                    background-color: #337ab7;
+                    background-color: #337ab7 !important;
                     border-color: #337ab7;
-                    color: #ffffff;
+                    color: #ffffff !important;
                 }
 
                 &.btn-success {
-                    background-color: #5cb85c;
+                    background-color: #5cb85c !important;
                     border-color: #5cb85c;
-                    color: #ffffff;
+                    color: #ffffff !important;
                 }
 
                 &.btn-danger {
-                    background-color: #d9534f;
+                    background-color: #d9534f !important;
                     border-color: #d9534f;
-                    color: #ffffff;
+                    color: #ffffff !important;
                 }
             }
         }
