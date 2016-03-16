@@ -372,4 +372,17 @@ class User extends PaszportAppModel
         return array();
     }
 
+    public function getModals() {
+        return $this->getDataSource()->request('users/modals.json', array(
+            'method' => 'GET'
+        ));
+    }
+
+    public function addModal($data) {
+        return $this->getDataSource()->request('users/modals.json', array(
+            'data' => $data,
+            'method' => 'POST'
+        ));
+    }
+
 }

@@ -13,7 +13,7 @@
                    data-url="<?= @$url ?>"
                    data-autocompletion="true"
                    autocomplete="off"
-                   required
+                   <?= isset($notRequired) ? '' : 'required'; ?>
                 />
             <? if (isset($url) && !empty($q)) { ?>
                 <a class="clearer" href="<?= $url ?>">

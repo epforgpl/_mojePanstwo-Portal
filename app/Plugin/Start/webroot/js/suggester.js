@@ -106,7 +106,8 @@
 						$P.objects.adresaci = {
 							id: ui.item.subid,
 							dataset: ui.item.subdataset,
-							title: ui.item.title
+							title: ui.item.title,
+							object_id: ui.item.value
 						};
 						
 					} else {

@@ -102,6 +102,10 @@ class AppController extends Controller
         ),
     );
 
+    private static $activeModals = array(
+        'ngo1'
+    );
+
     public $datasets = array(
         'krs' => array(
             'krs_podmioty' => array(
@@ -844,6 +848,8 @@ class AppController extends Controller
             $this->set('_observeOptions', $this->observeOptions);
             $this->set('_domainMode', $this->domainMode);
             $this->set('appSelected', $this->appSelected);
+
+            $this->set('_modals', $this->loadModals());
             
             if( $this->name == 'CakeError' ) {
 	            $this->set('title_for_layout', 'Błąd');
@@ -851,6 +857,38 @@ class AppController extends Controller
 
         }
 
+    }
+
+    private function loadModals() {
+        $modalsElements = array();
+
+        if(!$this->Auth->user())
+            return $modalsElements;
+
+        $this->loadModel('Paszport.User');
+        $modals = false;
+        foreach(self::$activeModals as $modal) {
+            $user_id = (int) $this->Session->read('Modal.' . $modal);
+            if($this->Auth->user('id') != $user_id) {
+                if(!$modals) {
+                    $response = $this->User->getModals();
+                    $modals = $response['modals'];
+                }
+
+                $this->Session->write('Modal.' . $modal, $this->Auth->user('id'));
+
+                if(in_array($modal, $modals)) {
+                    $this->User->addModal(array(
+                        'modal' => $modal
+                    ));
+
+                    $modalsElements[] = $modal;
+                    break;
+                }
+            }
+        }
+
+        return $modalsElements;
     }
 
     /**

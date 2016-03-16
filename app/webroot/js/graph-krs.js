@@ -657,12 +657,7 @@
 					linkEl.attr('href', '/dane/krs_osoby/' + node.id.replace(/\D/g, ''));
 				}
 
-				console.log('loop start');
-
 				$.each(node.data, function (label, value) {
-
-					console.log('label', label);
-
 					var tr = $('<li></li>').append(
 						$('<div></div>').addClass('row')
 					);
