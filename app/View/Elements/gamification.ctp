@@ -14,7 +14,7 @@
             <div class="modal-body homepage">
                 <ul class="appsList">
                     <li class="col-xs-12 col-md-4">
-                        <div class=" appBorder">
+                        <a href="/ngo" class="appBorder">
                             <div class="mainpart">
                                 <img class="icon" src="/Ngo/icon/icon_ngo.svg">
                                 <strong>NGO</strong>
@@ -23,10 +23,10 @@
                                 <p class="title">Znajdź oraz zarządzaj kontem swojej organizacji i docieraj do
                                     wspierających</p>
                             </div>
-                        </div>
+                        </a>
                     </li>
                     <li class="col-xs-12 col-md-4">
-                        <div class=" appBorder">
+                        <a href="/prawo" class="appBorder">
                             <div class="mainpart">
                                 <img class="icon" src="/prawo/icon/icon_prawo.svg">
                                 <strong>Prawo</strong>
@@ -34,10 +34,10 @@
                             <div class="subpart">
                                 <p class="title">Przeglądaj ujednolicone teksty polskiego prawa</p>
                             </div>
-                        </div>
+                        </a>
                     </li>
                     <li class="col-xs-12 col-md-4">
-                        <div class=" appBorder">
+                        <a href="/podatki" class="appBorder">
                             <div class="mainpart">
                                 <img class="icon" src="/podatki/icon/icon_podatki.svg">
                                 <strong>Jak są wydawane moje podatki?</strong>
@@ -45,7 +45,7 @@
                             <div class="subpart">
                                 <p class="title">Sprawdź, ile podatków płacisz oraz na co są wydawane</p>
                             </div>
-                        </div>
+                        </a>
                     </li>
                 </ul>
             </div>

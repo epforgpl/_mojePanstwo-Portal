@@ -12,7 +12,7 @@ $object_id = $object->getId();
     data-placement="bottom"
     data-toggle="modal"
     data-target="#collectionsModal"
-    class="btn optionBtn btn-primary">
+    class="btn optionBtn btn-primary off">
     <span class="icon"
           data-icon-applications="&#xe618;"></span>
 </div>
