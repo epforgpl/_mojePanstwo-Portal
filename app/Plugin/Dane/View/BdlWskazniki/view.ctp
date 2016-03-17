@@ -32,4 +32,7 @@ $this->Combinator->add_libs('js', 'Bdl.bdl_subitem');
         </div>
     </div>
 </div>
+
+<p class="msg-link">Źródło danych: <a href="https://bdl.stat.gov.pl/BDL/start" target="_blank">Główny Urząd Statystyczny</a></p>
+
 <?= $this->Element('dataobject/pageEnd'); ?>

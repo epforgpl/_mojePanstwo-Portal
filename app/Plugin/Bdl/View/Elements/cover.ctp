@@ -112,7 +112,8 @@ $colors['diff'] = array(
             </div>
         </div>
     </div>
-
+	
+	<p class="msg-link">Źródło danych: <a href="https://bdl.stat.gov.pl/BDL/start" target="_blank">Główny Urząd Statystyczny</a></p>
 
 </div>
 

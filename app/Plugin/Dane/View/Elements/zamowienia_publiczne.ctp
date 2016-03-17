@@ -88,9 +88,9 @@ if (!isset($mode))
                     <?
                 }
                 ?>
-                <div class="buttons" style="display: none;">
+                <div class="buttons margin-sides--10" style="display: none;">
                     <a data-href="<?= $more ?>" href="<?= $more ?>" class="btn btn-default btn-xs btn-more">Zobacz
-                        więcej</a>
+                        więcej &raquo;</a>
                 </div>
                 <?
             }
