@@ -106,7 +106,7 @@
     <?php echo $this->Html->script('ie/html5shiv.js'); ?>
     <?php echo $this->Html->script('ie/respond.js'); ?>
     <![endif]-->
-    
+
     <!-- Hotjar Tracking Code for https://mojepanstwo.pl -->
 	<script>
 	    (function(h,o,t,j,a,r){
@@ -118,7 +118,7 @@
 	        a.appendChild(r);
 	    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
 	</script>
-    
+
 </head>
 <body
     class="theme-<?php echo $_layout['body']['theme'];
@@ -132,7 +132,8 @@
         constant: {
             ajax: {
                 api: "<?php echo @API_url; ?>"
-            }
+            },
+            domain: "<?php echo @$domainMode ?>"
         },
         user_id: '<?= AuthComponent::user('id'); ?>',
         username: '<?= AuthComponent::user('username'); ?>',

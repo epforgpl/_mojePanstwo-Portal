@@ -1,4 +1,4 @@
-/*global $,document,Cookies,window*/
+/*global $,document,Cookies,window,mPHeart*/
 
 function addEvent(obj, evt, fn) {
 	if (obj.addEventListener) {
@@ -22,7 +22,7 @@ $(document).ready(function () {
 		mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 	}
 
-	if (gaminificationExit.length && mPCookie.gamification.exit !== true) {
+	if (gaminificationExit.length && mPCookie.gamification.exit !== true && mPHeart.constant.domain === 'MP') {
 		addEvent(window, "load", function () {
 			addEvent(document, "mouseout", function (e) {
 				var from = e.relatedTarget || e.toElement;
