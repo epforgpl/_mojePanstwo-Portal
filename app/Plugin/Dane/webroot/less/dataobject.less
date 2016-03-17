@@ -1877,7 +1877,20 @@
 }
 
 .dataobject-cover.cover-background .DataObjectOptions {
-    margin-top: 180px;
+    bottom: 0;
+    margin-bottom: -6px;
+    margin-top: 0;
+    width: auto !important;
+
+    -webkit-transform: translate(0, 100%);
+    -moz-transform: translate(0, 100%);
+    -ms-transform: translate(0, 100%);
+    -o-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+
+    .option {
+        float: left;
+    }
 }
 
 .DataObjectOptions {
