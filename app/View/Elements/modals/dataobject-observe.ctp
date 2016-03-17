@@ -11,14 +11,11 @@ $object_id = $object->getId();
 ?>
 
 <div
-    data-tooltip="true"
-    data-original-title="Obserwuj"
-    data-placement="bottom"
     data-toggle="modal"
     data-target="#observeModal"
     class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'off btn-primary'; ?>">
     <span class="icon"
-          data-icon-applications="&#xe60a;"></span>
+          data-icon-applications="&#xe60a;"></span> <?= (isset($subscription) && !empty($subscription)) ? 'Obserwujesz' : 'Obserwuj' ?>
 </div>
 
 <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"

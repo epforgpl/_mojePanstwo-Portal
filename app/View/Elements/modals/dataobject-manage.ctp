@@ -3,13 +3,10 @@ $this->Combinator->add_libs('js', 'Admin.accept-moderate-request-modal');
 $this->Combinator->add_libs('js', 'Dane.modal-dataobject-manage');
 ?>
 <div
-    data-tooltip="true"
-    data-original-title="Zarządzaj"
-    data-placement="bottom"
     data-toggle="modal"
     data-target="#manageModal"
     class="btn optionBtn btn-danger off">
-    <i class="glyphicon glyphicon-cog" aria-hidden="true"></i>
+    <i class="glyphicon glyphicon-cog" aria-hidden="true"></i> Zarządzaj
 </div>
 
 <div class="modal fade" id="manageModal" tabindex="-1" role="dialog" aria-labelledby="manageModalLabel"

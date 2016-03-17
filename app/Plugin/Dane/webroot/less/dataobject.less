@@ -1873,31 +1873,40 @@
 }
 
 .dataobject-cover.cover-logo .DataObjectOptions {
-    margin-top: 154px;
+    margin-top: 154px;    
 }
 
 .dataobject-cover.cover-background .DataObjectOptions {
-    margin-top: 253px;
+    margin-top: 180px;
 }
 
 .DataObjectOptions {
     text-align: right;
-    margin-top: 3px;
+    margin-top: -8px;
+    position: absolute;
+    right: 0;
+    width: 180px;
 
     .option {
+	    margin: 3px;
         text-align: left;
         display: inline-block;
         margin-left: 5px;
-
+        display: block;
+        
+		
+		.glyphicon, .icon {
+			margin-right: 3px;
+		}
 		
         .btn.optionBtn {
-            border-radius: 20px;
-            padding: 5px 8px;
+            padding: 3px 8px;
 	        color: #FFF !important;
-	        border-color: #CCC;
+	        border: none;
+	        font-size: 13px;
 	        
 	        &.off {
-		        background-color: #fafafa;
+		        background-color: transparent !important;
 		        color: #567 !important;
 	        }
 	        

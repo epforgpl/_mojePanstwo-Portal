@@ -7,14 +7,11 @@ $object_id = $object->getId();
 
 ?>
 <div
-    data-tooltip="true"
-    data-original-title="Dodaj do kolekcji"
-    data-placement="bottom"
     data-toggle="modal"
     data-target="#collectionsModal"
     class="btn optionBtn btn-primary off">
     <span class="icon"
-          data-icon-applications="&#xe618;"></span>
+          data-icon-applications="&#xe618;"></span> Dodaj do kolekcji
 </div>
 
 <div class="modal fade" id="collectionsModal" tabindex="-1" role="dialog" aria-labelledby="collectionsModalLabel"
