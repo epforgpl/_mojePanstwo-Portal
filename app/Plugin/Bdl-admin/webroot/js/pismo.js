@@ -1,13 +1,7 @@
-/*global $,Class,document*/
+/*global console,$,Class,document*/
 var PISMO = Class.extend({
 	init: function () {
 		var self = this;
-
-		// SEND
-		self.lettersSendButton = $('.lettersSend');
-		self.lettersSendModal = $('#sendPismoModal');
-
-		self.lettersSendButton.click($.proxy(this.showSendModal, this));
 
 		// RESPONSES
 		self.responsesDiv = $('.lettersResponses');
@@ -20,54 +14,7 @@ var PISMO = Class.extend({
 		self.addResponseButton.click($.proxy(self.addResponseForm, this));
 
 	},
-	showSendModal: function(event) {
-		event.preventDefault();
-
-		/*this.lettersSendModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);*/
-		this.lettersSendModal.modal('show');
-
-		/*
-		this.lettersSendButton.click(function (e) {
-			e.preventDefault();
-
-			$sendPismoModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);
-			$sendPismoModal.modal('show');
-		});
-
-		if (modal.sendPismo.length) {
-			modal.sendPismo.find('.btn[type="submit"]').click(function () {
-				var correct = true;
-				$.each(modal.sendPismo.find('input:required'), function () {
-					if ($(this).val() == "") {
-						$(this).val('');
-						correct = false;
-						return false;
-					} else {
-						if ($(this).attr('type') == "email") {
-							var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-
-							if (!emailReg.test($(this).val())) {
-								$(this).focus();
-								correct = false;
-								return false;
-							}
-						}
-					}
-				});
-				if ($(this).hasClass('loading')) {
-					correct = false;
-					return false;
-				}
-				if (correct) {
-					$(this).addClass('loading');
-				}
-			});
-		}
-		*/
-
-	},
 	addResponseForm: function() {
-
 		var li = $('<li class="response response-form">' +
 			'<div class="well bs-component mp-form">' +
 			'<form class="letterResponseForm margin-top-10" method="post"  data-url="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json" action="/moje-pisma/' + this.letterAlphaId + ',' + this.letterSlug + '/responses.json">' +
@@ -110,29 +57,22 @@ var PISMO = Class.extend({
 			'</form>' +
 			'</div>' +
 			'</li>');
+
 		this.responsesList.append(li.hide());
 
-		li.slideDown(function(){
-
-		});
-
-		$('html').animate({scrollTop: li.offset()['top']});
+		$('html').animate({scrollTop: li.offset().top});
 
 		this.responsesButtons.slideUp();
-		li.find('button[data-action=cancel]').click($.proxy(function(event){
 
+		li.find('button[data-action=cancel]').click($.proxy(function(event){
 			event.preventDefault();
 			li.slideUp(function(){
-
 				li.remove();
-
 			});
 			this.responsesButtons.slideDown();
-
 		}, this));
 
 		$('form.letterResponseForm').each(function() {
-
 			var form = $(this),
 				url = form.data('url'),
 				dropzone = form.find('.dropzoneForm').first(),
@@ -162,17 +102,17 @@ var PISMO = Class.extend({
 					'<span class="error text-danger" data-dz-errormessage></span>',
 					'</div>',
 					'<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">',
-					'<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress>',
+					'<div class="progress-bar progress-bar-success" style="width:0;" data-dz-uploadprogress>',
 					'</div>',
 					'</div>',
 					'<div class="buttons">',
 					'</div>',
 					'</div>'
-				].join(''),
+				].join('')/*,
                 success: function(file, response){
                     console.log(file);
                     console.log(response);
-                }
+				 }*/
 			});
 
 		});
@@ -182,22 +122,6 @@ var PISMO = Class.extend({
 
 var $P;
 $(document).ready(function () {
-
 	"use strict";
 	$P = new PISMO();
-
-	/*
-	if ($('#clipboardCopyBtn').length) {
-		var client = new ZeroClipboard(document.getElementById("clipboardCopyBtn"));
-
-		client.on("ready", function (readyEvent) {
-			if (readyEvent) {
-				client.on("aftercopy", function (event) {
-					alert("Skopiowano do schowka: " + event.data["text/plain"]);
-				});
-			}
-		});
-	}
-	*/
-
 });
