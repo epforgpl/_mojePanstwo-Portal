@@ -26,7 +26,7 @@ if (!isset($renderFile) || !$renderFile)
         <div class="holder">
             <div class="row">
                 <div class="col-md-10">
-                    
+
                     <? /*
                     <ul class="breadcrumb">
                         <?php foreach ($_breadcrumbs as $bread) { ?>
@@ -61,16 +61,32 @@ if (!isset($renderFile) || !$renderFile)
                 </div>
                 <div class="col-md-2 DataObjectOptions">
 
-                    <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                        <div class="option"><?= $this->element('modals/dataobject-observe'); ?></div>
+                    <? if (isset($_observeOptions) && !empty($_observeOptions)) {
+                        $subscription = @$object->getLayer('subscription'); ?>
+                        <div class="option">
+                            <div data-toggle="modal" data-target="#observeModal"
+                                 class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'off btn-primary'; ?>">
+                                <span class="icon"
+                                      data-icon-applications="&#xe60a;"></span> <?= (isset($subscription) && !empty($subscription)) ? 'Obserwujesz' : 'Obserwuj' ?>
+                            </div>
+                        </div>
                     <? } ?>
 
                     <? if (isset($_collectionsOptions) && !empty($_collectionsOptions)) { ?>
-                        <div class="option"><?= $this->element('modals/dataobject-collections'); ?></div>
+                        <div class="option">
+                            <div data-toggle="modal" data-target="#collectionsModal"
+                                 class="btn optionBtn btn-primary off">
+                                <span class="icon" data-icon-applications="&#xe618;"></span> Dodaj do kolekcji
+                            </div>
+                        </div>
                     <? } ?>
 
                     <? if (isset($_manageOptions) && !empty($_manageOptions)) { ?>
-                        <div class="option"><?= $this->element('modals/dataobject-manage'); ?></div>
+                        <div class="option">
+                            <div data-toggle="modal" data-target="#manageModal" class="btn optionBtn btn-danger off">
+                                <i class="glyphicon glyphicon-cog" aria-hidden="true"></i> Zarządzaj
+                            </div>
+                        </div>
                     <? } ?>
 
                 </div>
