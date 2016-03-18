@@ -296,7 +296,11 @@ if ($pismo['object_id']) {
 						
 						
 						
-						<? if ($pismo['is_public']) { ?>
+						
+					
+				</div><div class="col-md-3">
+					
+					<? if ($pismo['is_public']) { ?>
 						    <div class="shareList">
 						        <p>Podziel się pismem:</p>
 						        <ul class="share share-center">
@@ -316,8 +320,6 @@ if ($pismo['object_id']) {
 						        </ul>
 						    </div>
 						<? } ?>
-					
-				</div><div class="col-md-3">
 					
 					<?= $this->element('letters/side', array('plugin' => 'Start',)); ?>					
 					
