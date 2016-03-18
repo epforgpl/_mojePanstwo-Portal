@@ -1872,10 +1872,7 @@
     }
 }
 
-.dataobject-cover.cover-logo .DataObjectOptions {
-    margin-top: 154px;
-}
-
+.dataobject-cover.cover-logo .DataObjectOptions,
 .dataobject-cover.cover-background .DataObjectOptions {
     bottom: 0;
     margin-bottom: -6px;
@@ -1893,13 +1890,21 @@
     }
 }
 
+.dataobject-cover.cover-logo .DataObjectOptions {
+    margin-bottom: -16px;
+}
+
+.dataobject-cover.cover-background .DataObjectOptions {
+    margin-bottom: -6px;
+}
+
 .DataObjectOptions {
     text-align: right;
     margin-top: -8px;
     position: absolute;
     right: 0;
     width: 180px;
-    z-index: 9999;
+    z-index: 1;
 
     .option {
         text-align: left;
