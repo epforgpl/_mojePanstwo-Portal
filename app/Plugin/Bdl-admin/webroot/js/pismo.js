@@ -1,34 +1,29 @@
+/*global $,Class,document*/
 var PISMO = Class.extend({
 	init: function () {
-
 		var self = this;
 
 		// SEND
+		self.lettersSendButton = $('.lettersSend');
+		self.lettersSendModal = $('#sendPismoModal');
 
-		this.lettersSendDiv = $('.lettersSend');
-		this.lettersSendButton = this.lettersSendDiv.find('button[data-action="send"]');
-		this.lettersSendModal = $('#sendPismoModal');
-
-		this.lettersSendButton.click( $.proxy(this.showSendModal, this) );
-
+		self.lettersSendButton.click($.proxy(this.showSendModal, this));
 
 		// RESPONSES
+		self.responsesDiv = $('.lettersResponses');
+		self.responsesList = self.responsesDiv.find('.responses');
+		self.responsesButtons = self.responsesDiv.find('.buttons');
+		self.addResponseButton = self.responsesDiv.find('button[data-action=add_response]').first();
+		self.letterAlphaId = self.addResponseButton.data('letter-alphaid');
+		self.letterSlug = self.addResponseButton.data('letter-slug');
 
-		this.responsesDiv = $('.lettersResponses');
-		this.responsesList = this.responsesDiv.find('.responses');
-		this.responsesButtons = this.responsesDiv.find('.buttons');
-		this.addResponseButton = this.responsesDiv.find('button[data-action=add_response]').first();
-		this.letterAlphaId = this.addResponseButton.data('letter-alphaid');
-		this.letterSlug = this.addResponseButton.data('letter-slug');
-
-		this.addResponseButton.click( $.proxy(this.addResponseForm, this) );
+		self.addResponseButton.click($.proxy(self.addResponseForm, this));
 
 	},
 	showSendModal: function(event) {
-
 		event.preventDefault();
 
-		// this.lettersSendModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);
+		/*this.lettersSendModal.find('#senderName').val($.trim(self.html.stepper_div.find('.control.control-sender').text()).split('\n')[0]);*/
 		this.lettersSendModal.modal('show');
 
 		/*
@@ -69,7 +64,6 @@ var PISMO = Class.extend({
 			});
 		}
 		*/
-
 
 	},
 	addResponseForm: function() {

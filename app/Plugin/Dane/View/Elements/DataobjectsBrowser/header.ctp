@@ -67,7 +67,8 @@
                         <? foreach ($controlls as $controll) { ?>
                             <? if ($controll == 'details') { ?>
                                 <button class="dataDetailsToggle btn btn-default btn-sm" data-state="more"><span
-                                        class="glyphicon glyphicon glyphicon-plus"></span> <span class="text">Więcej szczegółów</span>
+                                        class="glyphicon glyphicon-plus"></span> <span
+                                        class="text">Więcej szczegółów</span>
                                 </button>
                             <? } elseif ($controll == 'sortings') { /*sortowanie*/
                             } ?>

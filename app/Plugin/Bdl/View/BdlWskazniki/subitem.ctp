@@ -48,7 +48,7 @@
                                             <? } else { ?>
                                                 <li class="disable">
                                                     <a>
-                                                                        <span class="glyphicon glyphicon glyphicon-ok"
+                                                                        <span class="glyphicon glyphicon-ok"
                                                                               aria-hidden="true"></span>
                                                         &nbsp;<?= $level["label"] ?>
                                                     </a>

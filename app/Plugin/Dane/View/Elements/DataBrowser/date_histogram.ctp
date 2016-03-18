@@ -10,7 +10,7 @@ $this->Html->script(array('../plugins/bootstrap-datepicker/dist/js/bootstrap-dat
     <div class="agg agg-DateHistogram" data-choose-request="<?= $map['chooseRequest']; ?>"
          data-chart="<?= htmlentities(json_encode($data)) ?>">
         <a class="btn btn-default btn-sm select-date-range pull-right" data-toggle="modal"
-           data-target="#selectDateRangeModal" role="button"><span class="glyphicon glyphicon glyphicon-calendar"
+           data-target="#selectDateRangeModal" role="button"><span class="glyphicon glyphicon-calendar"
                                                                    aria-hidden="true"></span></a>
 
         <div class="modal fade" id="selectDateRangeModal" tabindex="-1" role="dialog"
