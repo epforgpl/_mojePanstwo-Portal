@@ -201,7 +201,7 @@ if ($pismo['object_id']) {
                     <?= $this->element('letters/side', array('plugin' => 'Start',)); ?>
 
                     <? if (!$pismo['is_public']) { ?>
-                        <button class="btn btn-primary btn-icon width-auto margin-top-5" data-toggle="modal"
+                        <button class="btn btn-primary btn-icon width-auto margin-top-15" data-toggle="modal"
                                 data-target="#accessOptions">
                             <i class="icon glyphicon glyphicon-eye-open"></i>Opublikuj pismo...
                         </button>
@@ -270,7 +270,7 @@ if ($pismo['object_id']) {
                     <? } ?>
 
                     <? if (!$pismo['sent']) { ?>
-                        <button data-action="send" class="lettersSend btn btn-primary btn-icon width-auto margin-top-5"
+                        <button data-action="send" class="lettersSend btn btn-primary btn-icon width-auto margin-top-15"
                                 data-toggle="modal" data-target="#sendPismoModal">
                             <i class="icon glyphicon glyphicon-send"></i>Wyślij pismo...
                         </button>
