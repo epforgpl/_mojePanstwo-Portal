@@ -14,9 +14,6 @@ class AlertsController extends StartAppController {
         $options = array(
             'feed' => 'user',
             'order' => 'date desc',
-            'aggs' => array(
-	            'subscribtions' => true,
-            ),
         );
 
         $this->Components->load('Dane.DataBrowser', $options);
