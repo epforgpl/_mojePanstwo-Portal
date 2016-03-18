@@ -2,21 +2,12 @@
 $this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
 
 $subscription = @$object->getLayer('subscription');
-
 $userSubscription = @$subscription['SubscriptionChannel'];
 $userSubscriptionList = empty($userSubscription) ? array() : array_column($userSubscription, 'channel');
 $channels = $object->getLayer('channels');
 $dataset = $object->getDataset();
 $object_id = $object->getId();
 ?>
-
-<div
-    data-toggle="modal"
-    data-target="#observeModal"
-    class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'off btn-primary'; ?>">
-    <span class="icon"
-          data-icon-applications="&#xe60a;"></span> <?= (isset($subscription) && !empty($subscription)) ? 'Obserwujesz' : 'Obserwuj' ?>
-</div>
 
 <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
      aria-hidden="true">

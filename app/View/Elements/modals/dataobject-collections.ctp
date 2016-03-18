@@ -1,18 +1,8 @@
 <?php
-
 $this->Combinator->add_libs('js', 'Dane.modal-dataobject-collections');
-
 $dataset = $object->getDataset();
 $object_id = $object->getId();
-
 ?>
-<div
-    data-toggle="modal"
-    data-target="#collectionsModal"
-    class="btn optionBtn btn-primary off">
-    <span class="icon"
-          data-icon-applications="&#xe618;"></span> Dodaj do kolekcji
-</div>
 
 <div class="modal fade" id="collectionsModal" tabindex="-1" role="dialog" aria-labelledby="collectionsModalLabel"
      aria-hidden="true" data-object-title="<?= $object->getTitle(); ?>">
@@ -31,7 +21,8 @@ $object_id = $object->getId();
                         <div class="form-cont">
 
                             <div class="form-group">
-                                <input type="text" class="form-control" id="collectionName" autocomplete="off" placeholder="Znajdź lub dodaj kolekcję...">
+                                <input type="text" class="form-control" id="collectionName" autocomplete="off"
+                                       placeholder="Znajdź lub dodaj kolekcję...">
                             </div>
 
                             <div class="list-group"></div>

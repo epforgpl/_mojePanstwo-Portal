@@ -1,10 +1,10 @@
 <?
-	
+
 echo $this->Html->css($this->Less->css('app'));
 
 echo $this->element('headers/main');
 echo $this->element('app/sidebar');
-	
+
 echo $this->Html->script('../plugins/cropit/dist/jquery.cropit.js', array('block' => 'scriptBlock'));
 
 /** @var Object $object */
@@ -23,21 +23,22 @@ if (!isset($renderFile) || !$renderFile)
 
 <div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) echo ' cover-logo';
 if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object->getDataset() ?>"
-     data-object_id="<?= $object->getId() ?>"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?> data-global-id="<?= $object->getGlobalId() ?>">
+     data-object_id="<?= $object->getId() ?>"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
+     data-global-id="<?= $object->getGlobalId() ?>">
 
     <div class="headlineBar" <? if ($pageLayer['cover']) {
         echo ' style="background-image: url(http://sds.tiktalik.com/portal/pages/cover/' . $dataset . '/' . $object_id . '.jpg)"';
     } ?>>
         <div class="container">
             <?
-	            if ($pageLayer['logo']) {
+            if ($pageLayer['logo']) {
 
-		           $src = is_string($pageLayer['logo']) ? $pageLayer['logo'] : 'http://sds.tiktalik.com/portal/pages/logo/' . $dataset . '/' . $object_id . '.png'
+                $src = is_string($pageLayer['logo']) ? $pageLayer['logo'] : 'http://sds.tiktalik.com/portal/pages/logo/' . $dataset . '/' . $object_id . '.png'
 
-            ?>
+                ?>
                 <div class="logoBox hidden-xs">
                     <a href="<?= $object->getUrl() ?>">
-                        <img src="<?= $src ?>" />
+                        <img src="<?= $src ?>"/>
                     </a>
                 </div>
             <? } ?>
@@ -78,16 +79,32 @@ if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object
                 </div>
                 <div class="DataObjectOptions col-xs-3">
 
-                    <? if (isset($_observeOptions) && !empty($_observeOptions)) { ?>
-                        <div class="option"><?= $this->element('modals/dataobject-observe'); ?></div>
+                    <? if (isset($_observeOptions) && !empty($_observeOptions)) {
+                        $subscription = @$object->getLayer('subscription'); ?>
+                        <div class="option">
+                            <div data-toggle="modal" data-target="#observeModal"
+                                 class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'off btn-primary'; ?>">
+                                <span class="icon"
+                                      data-icon-applications="&#xe60a;"></span> <?= (isset($subscription) && !empty($subscription)) ? 'Obserwujesz' : 'Obserwuj' ?>
+                            </div>
+                        </div>
                     <? } ?>
 
                     <? if (isset($_collectionsOptions) && !empty($_collectionsOptions)) { ?>
-                        <div class="option"><?= $this->element('modals/dataobject-collections'); ?></div>
+                        <div class="option">
+                            <div data-toggle="modal" data-target="#collectionsModal"
+                                 class="btn optionBtn btn-primary off">
+                                <span class="icon" data-icon-applications="&#xe618;"></span> Dodaj do kolekcji
+                            </div>
+                        </div>
                     <? } ?>
 
                     <? if (isset($_manageOptions) && !empty($_manageOptions)) { ?>
-                        <div class="option"><?= $this->element('modals/dataobject-manage'); ?></div>
+                        <div class="option">
+                            <div data-toggle="modal" data-target="#manageModal" class="btn optionBtn btn-danger off">
+                                <i class="glyphicon glyphicon-cog" aria-hidden="true"></i> Zarządzaj
+                            </div>
+                        </div>
                     <? } ?>
 
                 </div>
