@@ -300,6 +300,9 @@ if ($pismo['object_id']) {
 					
 				</div><div class="col-md-3">
 					
+					
+					
+					
 					<? if ($pismo['is_public']) { ?>
 						    <div class="shareList">
 						        <p>Podziel się pismem:</p>
@@ -321,7 +324,81 @@ if ($pismo['object_id']) {
 						    </div>
 						<? } ?>
 					
-					<?= $this->element('letters/side', array('plugin' => 'Start',)); ?>					
+					<?= $this->element('letters/side', array('plugin' => 'Start',)); ?>	
+					
+					<? if (!$pismo['is_public']) { ?>
+					<ul class="buttons-letter">
+			            <li>
+			                <input type="hidden" name="visibility"/>
+			                <button
+			                    data-tooltip="true"
+			                    data-original-title="Widoczność pisma"
+			                    data-placement="bottom"
+			                    class="btn btn-primary btn-sm"
+			                    data-toggle="modal"
+			                    data-target="#accessOptions">
+			                    Opublikuj pismo...
+			                </button>
+			            </li>
+			        </ul>
+			        
+			        <div class="modal fade" id="accessOptions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					    <div class="modal-dialog" role="document">
+					        <div class="modal-content">
+					            <div class="well bs-component mp-form margin-top-0 margin-bottom-0">
+					                <div class="modal-body padding-bottom-0 margin-bottom-0">
+					                    <form action="" id="form-visibility" class="form-horizontal" method="post">
+					                        <fieldset>
+					                            <legend>Widoczność pisma</legend>
+					                            <div class="form-group">
+					                                <div class="col-lg-12" id="visibility_inputs"
+					                                     data-value="<?= $pismo['is_public'] ? '1' : '0' ?>">
+					                                    <? foreach ($accessDict as $value => $label) { ?>
+					                                        <div class="radio">
+					                                            <input
+					                                                id="access<?= $value ?>"
+					                                                type="radio"
+					                                                name="is_public"
+					                                                value="<?= $value ?>"
+					                                                <?= ((int)$pismo['is_public'] == $value) ? 'checked' : '' ?>>
+					                                            <label for="access<?= $value ?>">
+					                                                <?= ucfirst($label) ?>
+					                                            </label>
+					                                        </div>
+					                                    <? } ?>
+					                                </div>
+					
+					                            </div>
+					                            <div
+					                                class="form-group form-visibility-display"<? if (!$pismo['is_public']) { ?> style="display: none;"<? } ?>>
+					                                <div class="col-lg-12">
+					                                    <p class="_label"><? if ($pismo['is_public']) { ?>Twoje pismo jest dostępne pod adresem:<? } else { ?>Twoje pismo będzie dostępne pod adresem:<? } ?></p>
+					
+					                                    <div><input class="form-control" type="text" readonly="readonly"
+					                                                value="<?= $share_url ?>"/></div>
+					
+					                                    <a class="anonymize col-xs-12 margin-top-10"
+					                                       href="<?= '/moje-pisma/' . $pismo['alphaid'] . ',' . $pismo['slug'] . '/anonymize'; ?>"
+					                                       target="_self"><? if ($pismo['is_public']) { ?>Anonimizuj to pismo<? } else { ?>Chcesz zanonimizować to pismo przed opublikowaniem?<? } ?></a>
+					
+					                                </div>
+					                            </div>
+					                            <div class="form-group margin-top-20">
+					                                <div class="col-lg-9">
+					                                    <button type="reset" data-dismiss="modal" class="btn btn-default">Anuluj</button>
+					                                    <button type="submit" name="save" class="btn btn-md btn-primary btn-icon"><i
+					                                            class="icon glyphicon glyphicon-ok"></i>Zapisz
+					                                    </button>
+					                                </div>
+					                            </div>
+					                        </fieldset>
+					                    </form>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+			        </div>
+			        <? } ?>			
 					
 				</div>
 			</div>
