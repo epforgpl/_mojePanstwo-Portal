@@ -28,7 +28,8 @@ class KrsOsobyController extends DataobjectsController
     {
         parent::view();
         $powiazania = $this->object->getLayer('powiazania');
-
+		
+		/*
         if (
             isset($powiazania['posel_id']) &&
             $powiazania['posel_id']
@@ -37,6 +38,7 @@ class KrsOsobyController extends DataobjectsController
             return $this->redirect('/dane/poslowie/' . $powiazania['posel_id'] . '/finanse');
 
         }
+        */
 
     }
 
