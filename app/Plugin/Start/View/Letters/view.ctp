@@ -195,6 +195,8 @@ if ($pismo['object_id']) {
                                            'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
                                        class="btn btn-social-icon btn-sm btn-wykop"></a></li>
                             </ul>
+                            <p class="_label">Pismo dostępne pod adresem:</p>
+                            <input class="form-control" type="text" readonly="readonly" value="<?= $share_url ?>"/>
                         </div>
                     <? } ?>
 
