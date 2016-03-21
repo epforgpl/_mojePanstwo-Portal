@@ -1,5 +1,5 @@
-<? echo $this->Html->css($this->Less->css('gamification')); ?>
-<? $this->Combinator->add_libs('js', array('gamification')); ?>
+<? echo $this->Html->css($this->Less->css('modals/exit-modal')); ?>
+<? $this->Combinator->add_libs('js', array('modals/exit-modal')); ?>
 
 <div class="modal fade gamification" id="gaminification-exit" tabindex="-1" role="dialog"
      aria-labelledby="gamification-exit-label">

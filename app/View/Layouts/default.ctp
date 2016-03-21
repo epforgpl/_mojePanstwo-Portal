@@ -207,7 +207,7 @@ if ($domainMode == "MP") {
 }
 
 /*GAMIFICATION*/
-echo $this->Element('gamification');
+echo $this->Element('modals/exit-modal');
 
 /*MODALS SYSTEM*/
 echo $this->Element('modalViewController');

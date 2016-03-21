@@ -36,6 +36,9 @@ App::uses('I18n', 'I18n');
  */
 class AppController extends Controller
 {
+    private static $activeModals = array(
+        'ngo1'
+    );
     public $components = array(
         'DebugKit.Toolbar',
         'Session',
@@ -62,7 +65,6 @@ class AppController extends Controller
 //			)
         ),
     );
-
     public $protocol = 'https://';
     public $port = false;
     public $domainMode = 'MP';
@@ -73,7 +75,6 @@ class AppController extends Controller
     public $chapter_selected = false;
     public $observeOptions = false;
     public $app_menu = array(array(), array());
-
     public $helpers = array(
         'Html',
         'Form',
@@ -85,11 +86,9 @@ class AppController extends Controller
         'Application',
         'Combinator.Combinator',
     );
-
     public $statusbarCrumbs = array();
     public $statusbarMode = false;
     public $meta = array();
-
     public $_layout = array(
         'header' => array(
             'element' => 'main',
@@ -101,11 +100,6 @@ class AppController extends Controller
             'element' => 'default',
         ),
     );
-
-    private static $activeModals = array(
-        'ngo1'
-    );
-
     public $datasets = array(
         'krs' => array(
             'krs_podmioty' => array(
@@ -578,29 +572,29 @@ class AppController extends Controller
             'icon' => '&#xe612;',
         ),
     );
-	
+
 	public function __construct($request = null, $response = null)
     {
-	    
-	    if( defined("PORTAL_UNAVAILABLE") && PORTAL_UNAVAILABLE ) {
-		    
-		    header('Content-Type: text/html; charset=utf-8');
+
+        if( defined("PORTAL_UNAVAILABLE") && PORTAL_UNAVAILABLE ) {
+
+            header('Content-Type: text/html; charset=utf-8');
 		    header('HTTP/1.1 503 Service Temporarily Unavailable');
 			header('Status: 503 Service Temporarily Unavailable');
-			
-		    print("<br/><br/><br/><br/><br/><center><p>Przenosimy portal mojePaństwo na nowe serwery.</p><p>Zapraszamy po godzine 12.</p><p><a target=\"_blank\" href=\"http://epf.org.pl\">Fundacja ePaństwo</a></p></center>"); die();
-		    
-	    } else {
-		    
-		    parent::__construct ($request, $response);
-		    
-	    }
-	    
+
+            print("<br/><br/><br/><br/><br/><center><p>Przenosimy portal mojePaństwo na nowe serwery.</p><p>Zapraszamy po godzine 12.</p><p><a target=\"_blank\" href=\"http://epf.org.pl\">Fundacja ePaństwo</a></p></center>"); die();
+
+        } else {
+
+            parent::__construct ($request, $response);
+
+        }
+
     }
-	
+
     public function beforeFilter()
     {
-				
+
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
 
@@ -739,7 +733,7 @@ class AppController extends Controller
         }
 
         $this->set('isAdmin', $this->hasUserRole('2'));
-    
+
     }
 
     /**
@@ -850,13 +844,35 @@ class AppController extends Controller
             $this->set('appSelected', $this->appSelected);
 
             $this->set('_modals', $this->loadModals());
-            
+
             if( $this->name == 'CakeError' ) {
 	            $this->set('title_for_layout', 'Błąd');
             }
 
         }
 
+    }
+
+    /**
+     * Ustawia informację o układzie layoutu strony
+     * @param array $layout
+     * @return array
+     */
+    public function setLayout($layout = array())
+    {
+        if (!empty($layout) && is_array($layout))
+            $this->_layout = array_merge($this->_layout, $layout);
+
+        return $this->_layout;
+    }
+
+    /**
+     * Zwraca listę elementów w menu
+     * @return array
+     */
+    public function getMenu()
+    {
+        return $this->menu;
     }
 
     private function loadModals() {
@@ -889,28 +905,6 @@ class AppController extends Controller
         }
 
         return $modalsElements;
-    }
-
-    /**
-     * Ustawia informację o układzie layoutu strony
-     * @param array $layout
-     * @return array
-     */
-    public function setLayout($layout = array())
-    {
-        if (!empty($layout) && is_array($layout))
-            $this->_layout = array_merge($this->_layout, $layout);
-
-        return $this->_layout;
-    }
-
-    /**
-     * Zwraca listę elementów w menu
-     * @return array
-     */
-    public function getMenu()
-    {
-        return $this->menu;
     }
 
     public function addStatusbarCrumb($item)
@@ -962,13 +956,13 @@ class AppController extends Controller
     public function addAppBreadcrumb($app_id = false)
     {
         if ($app = $this->getApplication($app_id)) {
-			
-			$this->set('_app', array(
+
+            $this->set('_app', array(
 	            'id' => $app['id'],
 	            'name' => $app['name'],
 	            'href' => $app['href'],
             ));
-			
+
         }
     }
 
