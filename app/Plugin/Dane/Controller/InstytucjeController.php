@@ -912,7 +912,8 @@ class InstytucjeController extends DataobjectsController
 	            );
 				
 				$submenu['items'][] = array(
-					'label' => 'Punkty',
+					'id' => '',
+					'label' => 'Punkty porządku dziennego',
 				);
 				
 				/*
@@ -941,6 +942,7 @@ class InstytucjeController extends DataobjectsController
 					case 'wystapienia': {
 						
 						$this->Components->load('Dane.DataBrowser', array(
+							'browserTitle' => 'Wystąpienia:',
 							'searchTitle' => 'Szukaj w wystąpieniach...',
 	                        'conditions' => array(
 	                            'dataset' => 'sejm_wystapienia',
@@ -996,8 +998,8 @@ class InstytucjeController extends DataobjectsController
 	                                        'size' => 1000,
 	                                        'fielddata_fields' => array('dataset', 'id'),
 	                                        'sort' => array(
-	                                            'data.sejm_posiedzenia_punkty.liczba_wystapien' => array(
-	                                                'order' => 'desc',
+	                                            'data.sejm_posiedzenia_punkty.numer' => array(
+	                                                'order' => 'asc',
 	                                            ),
 	                                        ),
 	                                    ),
@@ -1095,11 +1097,27 @@ class InstytucjeController extends DataobjectsController
 	                            ),
 	                        ),
 	                    );
+	                    
+	                    $this->set('_submenu', array_merge(array(
+		                    'items' => array(
+				                array(
+				                    'id' => 'rada',
+				                    'label' => 'Radni',
+				                ),
+				                array(
+				                    'id' => 'posiedzenia',
+				                    'label' => 'Posiedzenia',
+				                ),
+				            ),
+	                    ), array(
+				            'selected' => 'rada',
+				        )));
 	
 	                    $this->Components->load('Dane.DataBrowser', $options);	
-						$submenu['selected'] = 'view';
 						
 					}
+					
+					$submenu['selected'] = '';
 					
 				}
 

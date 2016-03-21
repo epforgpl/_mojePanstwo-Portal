@@ -15,6 +15,14 @@ var MapBrowser = Class.extend({
     selectedOption: false,
 	selectedStation: -1,
 	fitBounds: false,
+	calibration: {
+		'PM10': 207,
+		'PM2.5': 100,
+		'SO2': 383,
+		'O3': 333,
+		'NO2': 511,
+		'CO': 39.3
+	},
 	mapOptions: {
 		panControl: false,
 		zoomControl: true,
@@ -238,20 +246,21 @@ var MapBrowser = Class.extend({
 			$body.html(h.join(''));
 
 		} else {
-
-			$.get('/srodowisko/ranking.json?param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption + '&limit=x', function(res) {
+			
+			var key = (text == 'Najbardziej' ? 'worst' : 'best');
+			
+			$.get('/srodowisko/ranking.json?order=' + key + '&param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption + '&limit=x', function(res) {
 
 				var h = ['<div class="block places"><section class="content">'],
-					key = (text == 'Najbardziej' ? 'least' : 'most'),
-					data = res[key];
+					data = res['stations'];
 
 				if(data.length == 0) {
 					h.push('<div class="place text-center">Brak danych</div>');
  				} else {
 					for (var d = 0; d < data.length; d++) {
 						for (var m = 0; m < stations.length; m++) {
-							if (data[d]['srodowisko_pomiary']['station_id'] == stations[m].id) {
-								var v = Math.round(parseFloat(data[d]['srodowisko_pomiary']['value'] || data[d][0]['val']) * 100) / 100;
+							if (data[d]['id'] == stations[m].id) {
+								var v = Math.round(data[d]['value'] * 100)/100;
 								h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
 								break;
 							}
@@ -301,6 +310,8 @@ var MapBrowser = Class.extend({
     },
 
 	setOptionMarkers: function(optionIndex) {
+		
+		
 		var self = this;
 		if(self.options.hasOwnProperty(optionIndex)) {
 			var option = self.options[optionIndex],
@@ -313,6 +324,11 @@ var MapBrowser = Class.extend({
 				if(option.stations[o].value > max)
 					max = option.stations[o].value;
 			}
+			
+			console.log('min', min);
+			console.log('max', max);
+			
+			console.log('option', this.calibration[option.short]);
 
 			var diff = max - min,
 				per = diff / 100;
@@ -322,6 +338,7 @@ var MapBrowser = Class.extend({
 				for(o = 0; o < option.stations.length; o++) {
 					if(stations[s].id == option.stations[o].id) {
 						var color = Math.ceil(option.stations[o].value / per);
+												
 						stations[s].marker.setIcon(
 							self.getIcon(
 								3,
@@ -363,9 +380,12 @@ var MapBrowser = Class.extend({
 
 		if(self.rankingOption == 'latest' && self.options.hasOwnProperty(optionIndex)) {
 			optStations = self.options[optionIndex]['stations'];
+			
+			/*
 			optStations.sort(function(a, b) {
 				return a.value == b.value ? 0 : a.value > b.value ? 1 : -1;
 			});
+			*/
 
 			h = [];
 			for(s = 0; s < 10; s++) {
@@ -416,7 +436,45 @@ var MapBrowser = Class.extend({
 				}
 
 				$.get('/srodowisko/ranking.json?param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption, function(res) {
-
+					
+					optStations = res.stations;
+					
+					
+					h = [];
+					for(s = 0; s < 10; s++) {
+						station = optStations[s];
+						for(m = 0; m < stations.length; m++) {
+							if(stations[m].id == station.id) {
+								var v = Math.round( station.value * 100 ) / 100;
+								h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+								break;
+							}
+						}
+					}
+		
+					h.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="best" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
+		
+					self.$bestPlaces.html(h.join(''));
+		
+					h = [];
+					for(s = optStations.length - 1; s > optStations.length - 11; s--) {
+						station = optStations[s];
+						for(m = 0; m < stations.length; m++) {
+							if(stations[m].id == station.id) {
+								var v = Math.round( station.value * 100 ) / 100;
+								h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+								break;
+							}
+						}
+					}
+		
+					h.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="worst" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
+		
+					self.$worstPlaces.html(h.join(''));
+					console.log('res', res);
+					
+					
+					/*
 					for(var rOpt = 0; rOpt < rankingOptions.length; rOpt++) {
 
 						if(res.hasOwnProperty(rankingOptions[rOpt]['key'])) {
@@ -444,6 +502,8 @@ var MapBrowser = Class.extend({
 							rankingOption.list.html(html.join(''));
 						}
 					}
+					*/
+					
 				});
 			}
 		}
@@ -837,7 +897,7 @@ var MapBrowser = Class.extend({
 		if(typeof color !== 'undefined') {
 			color = this.getGreenToRed(100 - color);
 		}
-
+				
 		return {
 			path: google.maps.SymbolPath.CIRCLE,
 			scale: scale * 2.5,
