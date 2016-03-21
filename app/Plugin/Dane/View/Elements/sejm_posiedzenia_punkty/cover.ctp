@@ -39,14 +39,14 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 		                <div class="agg agg-Dataobjects">
 		                    <ul class="dataobjects">
 		                        <? 
-			                        foreach ($dataBrowser['aggs']['debaty']['top']['hits']['hits'] as $debata) { 
-				                        $data = $debata['fields']['source'][0]['data'];
+			                        foreach ($dataBrowser['aggs']['debaty']['top']['hits']['hits'] as $debata) {
+				                        $data = $debata['_source']['data'];
 		                        ?>
 		                            <li class="punkt">
 				                        <div class="info">
-					                        <? if( $data['sejm_debaty.liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/debaty/<?= $data['sejm_debaty.id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $data['sejm_debaty.id'] ?>.jpg" /></a><? } ?>
-					                        <p class="numer"><a href="/dane/instytucje/3214,sejm/debaty/<?= $data['sejm_debaty.id'] ?>">Debata #<?= $data['sejm_debaty.punkt_i'] ?></a></p>
-					                        <p class="stats"><?= $data['sejm_debaty.stats_str'] ?></p>
+					                        <? if( $data['sejm_debaty']['liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/debaty/<?= $data['sejm_debaty']['id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $data['sejm_debaty']['id'] ?>.jpg" /></a><? } ?>
+					                        <p class="numer"><a href="/dane/instytucje/3214,sejm/debaty/<?= $data['sejm_debaty']['id'] ?>">Debata #<?= $data['sejm_debaty']['punkt_i'] ?></a></p>
+					                        <p class="stats"><?= $data['sejm_debaty']['stats_str'] ?></p>
 				                        </div>
 		                            </li>
 		                        <? 

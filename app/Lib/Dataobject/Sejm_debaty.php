@@ -52,11 +52,15 @@ class Sejm_debaty extends DataObject
 	
 	public function getBreadcrumbs()
 	{
-					
+		
+		$label = $this->getData('sejm_posiedzenia.tytul');
+		if( stripos($label, 'Posiedzenie')===false )
+			$label = 'Posiedzenie #' . $label;
+				
 		return array(
 			array(
 				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id'),
-				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
+				'label' => $label,
 			),
 			array(
 				'label' => 'Debaty',

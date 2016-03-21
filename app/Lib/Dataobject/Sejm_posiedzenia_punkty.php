@@ -37,14 +37,18 @@ class Sejm_posiedzenia_punkty extends DataObject
     
     public function getBreadcrumbs()
 	{
-					
+		
+		$label = $this->getData('sejm_posiedzenia.tytul');
+		if( stripos($label, 'Posiedzenie')===false )
+			$label = 'Posiedzenie #' . $label;
+		
 		return array(
 			array(
 				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('sejm_posiedzenia.id'),
-				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
+				'label' => $label,
 			),
 			array(
-				'label' => 'Punkt porządku #' . $this->getData('numer'),
+				'label' => 'Punkt porządku nr ' . $this->getData('numer'),
 			),
 		);
 				

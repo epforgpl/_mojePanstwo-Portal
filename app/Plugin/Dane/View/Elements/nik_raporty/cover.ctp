@@ -5,6 +5,7 @@
 	$options = array(
 	    'mode' => 'init',
 	);
+	
 ?>
 
 	<? if( @$dataBrowser['aggs']['dokumenty']['top']['hits']['hits'] || @$dataBrowser['aggs']['jednostki']['top']['hits']['hits'] ) {?>
