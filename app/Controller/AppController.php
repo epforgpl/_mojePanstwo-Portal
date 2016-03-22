@@ -370,6 +370,14 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe901;',
         ),
+        'srodowisko' => array(
+            'name' => 'Środowisko',
+            'subname' => 'Dane o jakości powietrza w Polsce',
+            'desc' => 'Poznaj dane o jakości powietrza w Polsce. Sprawdzaj indeks jakości powietrza i stężenia niebezpiecznych gazów w atmosferze.',
+            'href' => '/srodowisko',
+            'tag' => 3,
+            'icon' => '&#xe605;',
+        ),
         'mapa' => array(
             'name' => 'Mapa',
             'subname' => 'Śledź działania innych w swojej okolicy',
@@ -410,14 +418,6 @@ class AppController extends Controller
             'href' => '/media',
             'tag' => 1,
             'icon' => '&#xe608;',
-        ),
-        'srodowisko' => array(
-            'name' => 'Środowisko',
-            'subname' => 'Dane o jakości powietrza w Polsce',
-            'desc' => 'Poznaj dane o jakości powietrza w Polsce',
-            'href' => '/srodowisko',
-            'tag' => 3,
-            'icon' => '&#xe605;',
         ),
         'dostep_do_informacji_publicznej' => array(
             'name' => 'Dostęp do Informacji Publicznej',

@@ -241,6 +241,7 @@ echo $this->Html->script('/pickadate.js/lib/compressed/translations/pl_PL.js', a
 													<label for="from_str" class="col-lg-12 control-label control-label-full">Twoje dane</label>
 													<div class="col-lg-12">
 														<textarea class="form-control" rows="4" id="from_str" name="nadawca"><?= $pismo['nadawca'] ?></textarea>
+														<span class="help-block">Podaj tu swoje dane adresowe, które zostaną zamieszczone w nagłówku pisma.</span>
 													</div>
 												</div>
 												
@@ -250,6 +251,8 @@ echo $this->Html->script('/pickadate.js/lib/compressed/translations/pl_PL.js', a
 													<label for="signature" class="col-lg-12 control-label control-label-full">Twój podpis</label>
 													<div class="col-lg-12">
 														<textarea class="form-control" rows="4" id="signature" name="podpis"><?= $pismo['podpis'] ?></textarea>
+																												<span class="help-block">Wpisz tutaj swój podpis, który zostanie umieszczony na koniec pisma.</span>
+
 													</div>
 												</div>
 												
