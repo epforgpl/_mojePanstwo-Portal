@@ -774,7 +774,8 @@ var MapBrowser = Class.extend({
 				
 				
 				
-				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
+				// h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
+				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li></ul></div>');
 				h.push('<div class="chart">' + self.getSpinnerDOM() + '</div>');
 				// h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
 				

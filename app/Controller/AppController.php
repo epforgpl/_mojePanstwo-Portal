@@ -375,7 +375,7 @@ class AppController extends Controller
             'subname' => 'Dane o jakości powietrza w Polsce',
             'desc' => 'Poznaj dane o jakości powietrza w Polsce. Sprawdzaj indeks jakości powietrza i stężenia niebezpiecznych gazów w atmosferze.',
             'href' => '/srodowisko',
-            'tag' => 3,
+            'tag' => 1,
             'icon' => '&#xe605;',
         ),
         'mapa' => array(
