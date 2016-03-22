@@ -13,6 +13,7 @@ class SrodowiskoController extends ApplicationsController
     );    
 	
 	public $params = array(
+		'index' => 'Indeks Jakości Powietrza', 
 		'PM10' => 'Pył PM10', 
 		'PM2_5' => 'Pył PM2.5',
 		'O3' => 'Ozon', 
@@ -38,7 +39,7 @@ class SrodowiskoController extends ApplicationsController
 			in_array($param, array_keys($this->params))
 		) {
 		
-			$data = $this->Srodowisko->getData($this->request->query['param']);
+			$data = $this->Srodowisko->getData($this->request->query['param'], $this->request->query['rank']);
 		
 		}
 		

@@ -16,12 +16,111 @@ var MapBrowser = Class.extend({
 	selectedStation: -1,
 	fitBounds: false,
 	calibration: {
-		'PM10': 207,
-		'PM2.5': 100,
+		'PM10': 200,
+		'PM2_5': 100,
 		'SO2': 383,
-		'O3': 333,
-		'NO2': 511,
-		'CO': 39.3
+		'O3': 240,
+		'NO2': 400,
+		'CO': 20000,
+		'C6H6': 50,
+		'index': 10
+	},
+	_desc: {
+		'index': ['Indeks Jakości Powietrza', 'Indeks jakości powietrza to wskaźnik obrazujący zanieczyszczenia powietrza, bazujący na rozkładzie w powietrzu pyłów, ołowiu, czadu i innych składników. Indeks przyjumje wartości od 0 do 10.'],
+		'PM10': ['Pył PM10', 'Pył PM10 składa się z mieszaniny cząstek zawieszonych w powietrzu, będących mieszaniną substancji organicznych i nieorganicznych. Pył zawieszony może zawierać substancje toksyczne takie jak wielopierścieniowe węglowodory aromatyczne (np. benzo/a/piren), metale ciężkie oraz dioksyny i furany. Pył PM10 zawiera cząstki o średnicy mniejszej niż 10 mikrometrów, które mogą docierać do górnych dróg oddechowych i płuc. Poziom dopuszczalny dla stężenia średniodobowego wynosi 50 µg/m3 i może być przekraczany nie więcej niż 35 dni w ciągu roku. Poziom dopuszczalny dla stężenia średniorocznego wynosi 40 µg/m3, a poziom alarmowy 200 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=PM10_i_PM25'],
+		'PM2_5': ['Pył PM2,5', 'Pył PM2,5 zawiera cząstki o średnicy mniejszej niż 2,5 mikrometra, które mogą docierać do górnych dróg oddechowych, płuc oraz przenikać do krwi. Docelowa wartość średnioroczna dla pyłu PM2,5 wynosi 25 µg/m3, poziom dopuszczalny 25 µg/m3, a poziom dopuszczalny powiększony o margines tolerancji dla 2012 r. 27 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=PM10_i_PM25'],
+		'O3': ['Ozon', 'Ozon to odmiana tlenu o cząsteczce trójatomowej. Jest to drażniący gaz o barwie bladoniebieskiej i charakterystycznej woni. Ozon obecny w warstwie atmosfery przy powierzchni ma negatywny wpływ na zdrowie ludzkie i roślinność. Jest jednym ze składników smogu fotochemicznego, powstającego głównie latem przy wysokich temperaturach i ciśnieniu w miastach o bardzo dużym ruchu samochodowym, ale najwyższe stężenia mogą występować na obszarach pozamiejskich dokąd transportowane są prekursory ozonu z miasta. Poziom docelowy stężenia 8-godzinnego dla ozonu wynosi 120 µg/m3 i może być przekraczany nie więcej niż 25 dni w ciągu roku. Poziom informowania społeczeństwa wynosi 180 µg/m3, a poziom alarmowy 240 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=O3&t=3'],
+		'CO': ['Czad', 'Tlenek węgla powstaje w trakcie procesów spalania przy niedoborze tlenu. Naturalnymi źródłami emisji są erupcje wulkanów i pożary lasów. W ramach działalności człowieka największą emisję tlenku węgla powodują: przemysł energetyczny, hutniczy i chemiczny. Poza tym znacząca emisja tlenku węgla pochodzi od spalania paliw w pojazdach samochodowych, kotłach domowych opalanych węglem, a także ze spalania odpadów i suchych pozostałości roślinnych.', 'http://sojp.wios.warszawa.pl/index.php?page=O3&t=3', 'http://sojp.wios.warszawa.pl/index.php?page=CO&t=3'],
+		'C6H6': ['Benzen', 'Benzen jest jednym z najbardziej rozpowszechnionych związków organicznych, otrzymywanych z ropy naftowej Jest dobrym rozpuszczalnikiem m. in. tłuszczów, wosków, naftalenu. Spala się kopcącym płomieniem. Toksyczny, rakotwórczy, wykazuje działanie narkotyczne. Otrzymywany jest na wielką skalę w czasie przeróbki węgla kamiennego (smoła węglowa) i ropy naftowej. Służy jako surowiec do syntez tworzyw sztucznych, barwników, detergentów i farmaceutyków.', 'http://sojp.wios.warszawa.pl/index.php?page=O3&t=3', 'http://sojp.wios.warszawa.pl/index.php?page=benzen'],
+		'NO2': ['Dwutlenek azotu', 'Dwutlenek azotu to brunatny, silnie toksyczny gaz o ostrym zapachu. Jest to substancja oddziaływująca w sposób szkodliwy na roślinność i zdrowie ludzkie. Poziom dopuszczalny dla jednogodzinnego stężenia dwutlenku azotu wynosi 200 µg/m3 i może być przekraczany nie więcej niż 18 razy w ciągu roku. Poziom dopuszczalny dla stężenia średniorocznego wynosi 40 µg/m3. Poziom alarmowy dla stężenia jednogodzinnego dwutlenku azotu wynosi 400 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=NO2'],
+		'SO2': ['Dwutlenek siarki', 'Dwutlenek siarki to bezbarwny gaz o ostrym, gryzącym i duszącym zapachu, silnie drażniący drogi oddechowe. Wchłaniany jest do organizmu człowieka przez błonę śluzową nosa i górny odcinek dróg oddechowych. Jest trujący dla zwierząt i szkodliwy dla roślin. Gaz ten wchodzi w reakcję z parą wodną zawartą w powietrzu, w wyniku czego stanowi główna przyczynę powstawania kwaśnych deszczów. Stanowi także składnik smogu w wielkich aglomeracjach miejskich. Poziom dopuszczalny stężenia jednogodzinnego dla dwutlenku siarki wynosi 350 µg/m3 i może być przekraczany nie więcej niż 24 razy w ciągu roku. Poziom dopuszczalny stężenia średniodobowego wynosi 125 µg/m3 i może być przekraczany nie więcej niż 3 razy w ciągu roku. Poziom alarmowy stężenia jednogodzinnego dwutlenku siarki wynosi 500 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=SO2'],
+		
+		
+		
+		
+	},
+	_bands: {
+		'index': [
+			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+		],
+		'PM10': [
+			0,
+			21,
+			41,
+			62,
+			83,
+			104,
+			124,
+			145,
+			166,
+			186,
+			207
+		],
+		'PM2_5': [
+			0,
+			10,
+			20,
+			30,
+			40,
+			50,
+			60,
+			70,
+			80,
+			90,
+			100
+		],
+		'SO2': [
+			0,
+			38,
+			77,
+			115,
+			153,
+			192,
+			230,
+			268,
+			307,
+			345,
+			383
+		],
+		'O3': [
+			0,
+			33,
+			67,
+			100,
+			133,
+			167,
+			200,
+			233,
+			267,
+			300,
+			333
+		],
+		'NO2': [
+			0,
+			38,
+			77,
+			115,
+			153,
+			192,
+			230,
+			268,
+			307,
+			345,
+			383
+		],
+		'CO': [
+			0,
+			3900,
+			7900,
+			11800,
+			15700,
+			19700,
+			23600,
+			27500,
+			31500,
+			35400,
+			39300
+		]
 	},
 	mapOptions: {
 		panControl: false,
@@ -101,7 +200,31 @@ var MapBrowser = Class.extend({
 	plZoom: 6,
 	rankingOption: 'latest',
 	loadDelay: 400,
-
+	
+	getPlotBands: function(param) {
+		
+		var data = this._bands[param];
+		var bands = [];
+		
+		for( i=1; i<data.length; i++ ) {
+			bands.push({
+				from: data[i-1],
+	            to: data[i],
+	            color: this.getGreenToRed(data[i]/this.calibration[param], .1),
+	            label: {
+	                text: i,
+	                align: 'right',
+	                style: {
+	                    color: '#606060'
+	                }
+	            }
+			});
+		}
+				
+		return bands;
+		
+	},
+	
 	init: function ($menu, $station, $worstPlaces, $bestPlaces, $dateRangeChartModal, $rankingButtons, $appLogo, $morePlacesModal, $appInnerSubTitle) {
 
 		var self = this,
@@ -123,7 +246,8 @@ var MapBrowser = Class.extend({
 
 		self.$rankingButtons.on('click', 'a', function() {
 			self.rankingOption = $(this).data('optionValue');
-			self.updatePlaces(self.selectedOption);
+			self.setSelectedOption( self.selectedOption );
+			// self.updatePlaces(self.selectedOption);
 		});
 
 		self.$worstPlaces.on('click', 'a.showMorePlaces', function() {
@@ -205,81 +329,55 @@ var MapBrowser = Class.extend({
 		$body.html(self.getSpinnerDOM());
 		$h3.html(text + ' zanieczyszczone miejsca');
 
-		if(self.rankingOption == 'latest') {
 
-			var h = ['<div class="block places"><section class="content">'];
 
-			var optStations = self.options[self.selectedOption]['stations'];
-			optStations.sort(function(a, b) {
-				return a.value == b.value ? 0 : a.value > b.value ? 1 : -1;
-			});
+		var h = ['<div class="block places"><section class="content">'];
 
-			if(text == 'Najbardziej') {
+		var optStations = self.options[self.selectedOption]['stations'];
+		optStations.sort(function(a, b) {
+			return a.value == b.value ? 0 : a.value > b.value ? 1 : -1;
+		});
 
-				for(var s = optStations.length - 1; s >= 0; s--) {
-					var station = optStations[s];
-					for(var m = 0; m < stations.length; m++) {
-						if(stations[m].id == station.id) {
-							var v = Math.round( station.value * 100 ) / 100;
-							h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-							break;
-						}
+		if(text == 'Najbardziej') {
+
+			for(var s = optStations.length - 1; s >= 0; s--) {
+				var station = optStations[s];
+				for(var m = 0; m < stations.length; m++) {
+					if(stations[m].id == station.id) {
+						var v = Math.round( station.value * 100 ) / 100;
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+						break;
 					}
 				}
-
-			} else {
-
-				for(var s = 0; s < optStations.length; s++) {
-					var station = optStations[s];
-					for(var m = 0; m < stations.length; m++) {
-						if(stations[m].id == station.id) {
-							var v = Math.round( station.value * 100 ) / 100;
-							h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-							break;
-						}
-					}
-				}
-
 			}
 
-			h.push('</section></div>');
-			$body.html(h.join(''));
-
 		} else {
-			
-			var key = (text == 'Najbardziej' ? 'worst' : 'best');
-			
-			$.get('/srodowisko/ranking.json?order=' + key + '&param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption + '&limit=x', function(res) {
 
-				var h = ['<div class="block places"><section class="content">'],
-					data = res['stations'];
-
-				if(data.length == 0) {
-					h.push('<div class="place text-center">Brak danych</div>');
- 				} else {
-					for (var d = 0; d < data.length; d++) {
-						for (var m = 0; m < stations.length; m++) {
-							if (data[d]['id'] == stations[m].id) {
-								var v = Math.round(data[d]['value'] * 100)/100;
-								h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-								break;
-							}
-						}
+			for(var s = 0; s < optStations.length; s++) {
+				var station = optStations[s];
+				for(var m = 0; m < stations.length; m++) {
+					if(stations[m].id == station.id) {
+						var v = Math.round( station.value * 100 ) / 100;
+						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+						break;
 					}
 				}
-
-				h.push('</section></div>');
-				$body.html(h.join(''));
-			});
+			}
 
 		}
+
+		h.push('</section></div>');
+		$body.html(h.join(''));
+
+		
 
 		self.$morePlacesModal.modal('show');
 	},
 
     setSelectedOption: function(optionIndex) {
+        
         var self = this;
-
+		
         if(self.selectedOption !== false) {
             if(self.options.hasOwnProperty(self.selectedOption)) {
                 self.options[self.selectedOption].$a.parent().removeClass('active');
@@ -288,22 +386,28 @@ var MapBrowser = Class.extend({
 
         if(self.options.hasOwnProperty(optionIndex)) {
 			var option = self.options[optionIndex];
+			
+			$('#paramTitle').text( self._desc[option.short][0] );
+			$('#paramDesc').text( self._desc[option.short][1] );
+			
 			self.$appInnerSubTitle.html(option['text']);
 			option.$a.parent().addClass('active');
 
-			if(option.stations.length === 0) {
+			// if(option.stations.length === 0) {
 				self.$spinner.show();
 				var short = option.short.replace('_', '.');
-				$.get('/srodowisko/dane.json?param=' + short, function(res) {
+				$.get('/srodowisko/dane.json?rank=' + self.rankingOption + '&param=' + short, function(res) {
 					self.options[optionIndex].stations = res.stations;
 					self.setOptionMarkers(optionIndex);
 					self.updatePlaces(optionIndex);
 					self.$spinner.hide();
 				});
+			/*
 			} else {
 				self.setOptionMarkers(optionIndex);
 				self.updatePlaces(optionIndex);
 			}
+			*/
 
             self.selectedOption = optionIndex;
         }
@@ -325,20 +429,15 @@ var MapBrowser = Class.extend({
 					max = option.stations[o].value;
 			}
 			
-			console.log('min', min);
-			console.log('max', max);
 			
-			console.log('option', this.calibration[option.short]);
-
-			var diff = max - min,
-				per = diff / 100;
 
 			for(var s = 0; s < stations.length; s++) {
 				var found = false;
 				for(o = 0; o < option.stations.length; o++) {
 					if(stations[s].id == option.stations[o].id) {
-						var color = Math.ceil(option.stations[o].value / per);
 												
+						var color = option.stations[o].value / this.calibration[option.short];
+										
 						stations[s].marker.setIcon(
 							self.getIcon(
 								3,
@@ -378,7 +477,7 @@ var MapBrowser = Class.extend({
 			s, h, m,
 			optStations, station;
 
-		if(self.rankingOption == 'latest' && self.options.hasOwnProperty(optionIndex)) {
+		if(self.options.hasOwnProperty(optionIndex)) {
 			optStations = self.options[optionIndex]['stations'];
 			
 			/*
@@ -390,11 +489,13 @@ var MapBrowser = Class.extend({
 			h = [];
 			for(s = 0; s < 10; s++) {
 				station = optStations[s];
-				for(m = 0; m < stations.length; m++) {
-					if(stations[m].id == station.id) {
-						var v = Math.round( station.value * 100 ) / 100;
-						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-						break;
+				if( typeof(station) !== 'undefined' ) {
+					for(m = 0; m < stations.length; m++) {
+						if(stations[m].id == station.id) {
+							var v = Math.round( station.value * 100 ) / 100;
+							h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+							break;
+						}
 					}
 				}
 			}
@@ -406,11 +507,13 @@ var MapBrowser = Class.extend({
 			h = [];
 			for(s = optStations.length - 1; s > optStations.length - 11; s--) {
 				station = optStations[s];
-				for(m = 0; m < stations.length; m++) {
-					if(stations[m].id == station.id) {
-						var v = Math.round( station.value * 100 ) / 100;
-						h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-						break;
+				if( typeof(station)!='undefined' ) {
+					for(m = 0; m < stations.length; m++) {
+						if(stations[m].id == station.id) {
+							var v = Math.round( station.value * 100 ) / 100;
+							h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
+							break;
+						}
 					}
 				}
 			}
@@ -419,94 +522,7 @@ var MapBrowser = Class.extend({
 
 			self.$worstPlaces.html(h.join(''));
 
-		} else {
-
-			if(self.options.hasOwnProperty(self.selectedOption)) {
-
-				var rankingOptions = [{
-					key: 'most',
-					list: self.$bestPlaces
-				}, {
-					key: 'least',
-					list: self.$worstPlaces
-				}];
-
-				for(var rrr = 0; rrr < rankingOptions.length; rrr++) {
-					rankingOptions[rrr].list.html('<div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
-				}
-
-				$.get('/srodowisko/ranking.json?param=' + self.options[self.selectedOption]['short'] + '&option=' + self.rankingOption, function(res) {
-					
-					optStations = res.stations;
-					
-					
-					h = [];
-					for(s = 0; s < 10; s++) {
-						station = optStations[s];
-						for(m = 0; m < stations.length; m++) {
-							if(stations[m].id == station.id) {
-								var v = Math.round( station.value * 100 ) / 100;
-								h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-								break;
-							}
-						}
-					}
-		
-					h.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="best" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
-		
-					self.$bestPlaces.html(h.join(''));
-		
-					h = [];
-					for(s = optStations.length - 1; s > optStations.length - 11; s--) {
-						station = optStations[s];
-						for(m = 0; m < stations.length; m++) {
-							if(stations[m].id == station.id) {
-								var v = Math.round( station.value * 100 ) / 100;
-								h.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-								break;
-							}
-						}
-					}
-		
-					h.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="worst" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
-		
-					self.$worstPlaces.html(h.join(''));
-					console.log('res', res);
-					
-					
-					/*
-					for(var rOpt = 0; rOpt < rankingOptions.length; rOpt++) {
-
-						if(res.hasOwnProperty(rankingOptions[rOpt]['key'])) {
-							var rankingOption = rankingOptions[rOpt],
-								data = res[rankingOption['key']],
-								html = [];
-
-							if(data.length == 0) {
-								rankingOption.list.html('<p class="help-block margin-sides-15">Brak danych</p>');
-								continue;
-							}
-
-							for(var d = 0; d < data.length; d++) {
-								for(m = 0; m < stations.length; m++) {
-									if(data[d]['srodowisko_pomiary']['station_id'] == stations[m].id) {
-										var v = Math.round( parseFloat(data[d]['srodowisko_pomiary']['value'] || data[d][0]['val']) * 100 ) / 100;
-										html.push('<div class="place"><a href="#" class="title setStationAction" data-station-index="' + m + '"><span class="glyphicon glyphicon-map-marker"></span>' + stations[m].nazwa + '<span class="v">' + v + ' ' + self.getUnitDOMByShort(self.options[self.selectedOption]['short']) + '</span></a></div>');
-										break;
-									}
-								}
-							}
-
-							html.push('<div class="place text-center"><a href="#" class="title showMorePlaces" data-places-type="' + rankingOptions[rOpt]['key'] + '" data-places-option="' + self.rankingOption + '">więcej &nbsp;<span class="caret"></span></a></div>');
-
-							rankingOption.list.html(html.join(''));
-						}
-					}
-					*/
-					
-				});
-			}
-		}
+		} 
 
 		$('body').on('click', '.setStationAction', function() {
 			self.setStation(parseInt($(this).data('stationIndex')));
@@ -613,7 +629,7 @@ var MapBrowser = Class.extend({
 					color = stations[self.selectedStation].color;
 				}
 			}
-
+						
 			stations[self.selectedStation].marker.setIcon(
 				self.getIcon(3, color)
 			);
@@ -671,25 +687,74 @@ var MapBrowser = Class.extend({
 						break;
 					}
 				}
+				
+				
+				var t;
+				
+				
+				if( this.selectedOption ) {
+				
+					if( this.rankingOption=='3d' ) {
+						
+						t = 'Średnie stężenie z ostatnich 3 dni';
+						
+					} else if( this.rankingOption=='1w' ) {
+						
+						t = 'Średnie stężenie z ostatniego tygodnia';
+						
+					} else if( this.rankingOption=='1m' ) {
+						
+						t = 'Średnie stężenie z ostatniego miesiąca';
+						
+					} else {
+					
+						var dates = date.split('T');
+						date = dates[0] + ' ' + dates[1].substring(0, 5);
+		
+						t = 'Stan na ' + date;
+					
+					}
+				
+				} else {
+					
+					if( this.rankingOption=='3d' ) {
+						
+						t = 'Średnia wartość indeksu z ostatnich 3 dni';
+						
+					} else if( this.rankingOption=='1w' ) {
+						
+						t = 'Średnia wartość indeksu z ostatniego tygodnia';
+						
+					} else if( this.rankingOption=='1m' ) {
+						
+						t = 'Średnia wartość indeksu z ostatniego miesiąca';
+						
+					} else {
+					
+						var dates = date.split('T');
+						date = dates[0] + ' ' + dates[1].substring(0, 5);
+		
+						t = 'Stan na ' + date;
+					
+					}
 
-				if(date == '')
-					date = '2016-03-07T09:00:00';
-
-				var dates = date.split('T');
-				date = dates[0] + ' ' + dates[1];
-
+					
+				}
+				
 				var v = Math.round( station.stat.value * 100 ) / 100;
 				var unit = self.getUnitDOMByShort(option['short']);
-				var t = date;
 				
-				h.push('<p class="param">Stężenie ' + self.getDopelniaczbyShort(option['short']) + ' w powietrzu:</p>');
+				if( option['short']=='index' )
+					h.push('<p class="param">Indeks Jakości Powietrza:');
+				else
+					h.push('<p class="param">Stężenie ' + self.getDopelniaczbyShort(option['short']) + ' w powietrzu:</p>');
 				
 				h.push('<p class="value">' + v + ' <span class="unit">' + unit + '</span></p>');
-				h.push('<p class="desc">Stan na ' + t + '</p>');
+				h.push('<p class="desc">' + t + '</p>');
 				
 				h.push('<div class="chart-buttons"><ul class="nav nav-tabs"><li class="active"><a href="#h" data-toggle="tab" data-timestamp="h">Ostatnie godziny</a></li><li><a href="#d" data-toggle="tab" data-timestamp="d">Ostatnie dni</a></li><li><a href="#home" data-toggle="tab">Wybierz zakres...</a></li></ul></div>');
 				h.push('<div class="chart">' + self.getSpinnerDOM() + '</div>');
-				h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
+				// h.push('<p class="param-desc"><a href="#">Dowiedz się więcej o tym wskaźniku &raquo;</a></p>');
 				
 			} else {
 				h.push([
@@ -739,7 +804,7 @@ var MapBrowser = Class.extend({
 	},
 
 	getUnitDOMByShort: function(short) {
-		return (short == 'CO' ? 'm' : '&micro;') + 'g/m<sup>3</sup>';
+		return (short == 'index' ? '' : '&micro;' + 'g/m<sup>3</sup>');
 	},
 
 	getDopelniaczbyShort: function(short) {
@@ -791,12 +856,14 @@ var MapBrowser = Class.extend({
 			if(timestamp == 'h') {
 				xDateFormat = '%A, %b %e, %H:00';
 			}
-
+			
+			var bands = self._bands[ short ];
+						
 			$chart.highcharts({
 				chart: {
 					animation: false,
 					backgroundColor: null,
-					height: 230
+					height: 270
 				},
 				title: {
 					text: ''
@@ -809,8 +876,10 @@ var MapBrowser = Class.extend({
 				},
 				yAxis: {
 					title: {
-						text: null
-					}
+						text: ''
+					},
+					plotBands: self.getPlotBands(short),
+					max: self.calibration[short]
 				},
 				tooltip: {
 					xDateFormat: xDateFormat,
@@ -820,7 +889,7 @@ var MapBrowser = Class.extend({
 					enabled: false
 				},
 				series: [{
-					type: 'area',
+					type: 'line',
 					name: short,
 					data: data,
 					tooltip: {
@@ -887,15 +956,27 @@ var MapBrowser = Class.extend({
 		}
 	},
 
-	getGreenToRed: function(percent) {
-		var r = percent<50 ? 255 : Math.floor(255-(percent*2-100)*255/100);
-		var g = percent>50 ? 255 : Math.floor((percent*2)*255/100);
-		return 'rgb('+r+','+g+',0)';
+	getGreenToRed: function(percent, alpha) {
+		
+		percent = Math.min(1.5 * percent, 1)
+		
+		var min = [50, 255, 0];
+		var max = [255, 50, 0];
+		
+		var r = Math.round( min[0] + ( max[0]-min[0] ) * Math.pow(percent, .5) );
+		var g = Math.round( min[1] + ( max[1]-min[1] ) * Math.pow(percent, 1) );
+		var b = 0;
+				
+		r = Math.max(Math.min(r, 255), 0);
+		g = Math.max(Math.min(g, 255), 0);
+		b = Math.max(Math.min(b, 255), 0);
+		
+		return 'rgba(' + r + ',' + g + ',' + b + ', ' + alpha + ')';
 	},
 
 	getIcon: function(scale, color) {
 		if(typeof color !== 'undefined') {
-			color = this.getGreenToRed(100 - color);
+			color = this.getGreenToRed(color, 1);
 		}
 				
 		return {

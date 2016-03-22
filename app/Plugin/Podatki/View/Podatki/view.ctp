@@ -339,7 +339,7 @@ echo $this->element('app/sidebar');
 		                <div class="row items bdlClickEngine" data-bdllabel="false">
 		                    <h2 class="text-center"><?= __d('podatki', 'LC_PODATKI_RESULTS_WYDAWANE_PODATKI'); ?>:</h2>
 		                    <? foreach ($wydatki['dzialy'] as $dzial) { ?>
-		                        <div class="bdlBlock col-xs-12 col-sm-6 col-md-3">
+		                        <div data-id="<?= $dzial['id'] ?>" class="bdlBlock col-xs-12 col-sm-6 col-md-3">
 		                            <div class="item more">
 		                                <div class="inner<? if (isset($dzial['subdzialy'])) { ?> clickable<? } ?>">
 		                                    <div class="logo">

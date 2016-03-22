@@ -21,6 +21,16 @@ class PodatkiController extends ApplicationsController
         'id' => 'podatki',
         'title' => 'Jak są wydawane moje podatki?',
     );
+    
+    public function stat()
+    {	
+	    $data = $this->Podatki->getDataSource()->request('podatki/stat', array(
+            'method' => 'POST',
+            'data' => $this->request->data,
+        ));
+	    $this->set('data', $data);
+	    $this->set('_serialize', 'data');
+    }
 
     public function view()
     {

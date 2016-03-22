@@ -5,9 +5,9 @@ class Srodowisko extends AppModel
 
     public $useDbConfig = 'mpAPI';
 		
-    public function getData($param)
+    public function getData($param, $rank = 'latest')
     {
-        $data = $this->getDataSource()->request('srodowisko/data?param=' . $param);
+        $data = $this->getDataSource()->request('srodowisko/data?param=' . $param. '&rank=' . $rank);
         return $data;
     }
 

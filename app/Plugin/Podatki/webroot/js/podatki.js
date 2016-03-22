@@ -390,6 +390,14 @@ $(document).ready(function () {
 	}
 
 	$bdl.find('.item .inner.clickable').click(function (e) {
+		
+		var params = {
+			'action': $(e.target).parents('.bdlBlock').hasClass('focus') ? 'close' : 'open',
+			'id': $(e.target).parents('.bdlBlock').data('id')
+		};
+		
+		$.post('/podatki/stat.json', params);
+		
 		bdlClick($(e.target).parents('.bdlBlock')[0]);
 	});
 
