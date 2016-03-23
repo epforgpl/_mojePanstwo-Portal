@@ -1,10 +1,4 @@
 <?
-if (isset($odpis) && $odpis) {
-    $this->Html->meta(array(
-        'http-equiv' => "refresh",
-        'content' => "0;URL='$odpis'"
-    ), null, array('inline' => false));
-}
 
 if ($object->getPage()) {
     $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
@@ -259,7 +253,7 @@ $description =
 
             echo '<div class="bannerCol col-xs-6 col-md-12">';
             echo $this->element('tools/krs_odpis', array(
-                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
+                'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpisy',
             ));
             echo '</div>';
 

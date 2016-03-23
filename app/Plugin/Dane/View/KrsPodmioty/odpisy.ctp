@@ -14,6 +14,50 @@ $status_dict = array(
 );
 
 ?>
+
+<div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="observeModalLabel">Pobierz odpis aktualny</h4>
+            </div>
+            <form action="<?= $object->getUrl() ?>/odpisy" method="get">
+                <div class="modal-body">
+                    <p class="header">Pobieranie odpisu dla dla: <span><a
+                                href="<?= $object->getUrl() ?>"><?= $object->getTitle(); ?></a></span>
+                    </p>
+                    
+                    <p class="header">Data odpisu: <span class="data_odpisu"></span>
+                    </p>
+
+                    <div class="optionsBlock text-center subscribeDiv">
+                        <div class="checkbox first">
+                            <input id="subscribeCheckbox" type="checkbox" name="subscribe" value="1" checked="checked">
+                            <label for="subscribeCheckbox">Powiadomiaj mnie o nowych danych dla tej organizacji</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer<?php if (!$this->Session->read('Auth.User.id')) {
+                    echo ' backgroundBlue';
+                } ?>">
+                    <?php if ($this->Session->read('Auth.User.id')) { ?>
+                        <button class="btn btn-success btn-icon submit width-auto">
+                            <span class="icon" data-icon="&#xe604;"></span>Pobierz</button>
+                    <?php } else { ?>
+                        <a href="/login" class="_specialCaseLoginButton" data-dismiss="modal">Zaloguj się, aby
+                            korzystać z funkcji obserwowania
+                        </a>
+                    <?php } ?>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <div class="container">
     <div class="krsPodmioty">
 
@@ -31,18 +75,22 @@ $status_dict = array(
                         <header>
                             <div class="sm">Pobrane odpisy</div>
                         </header>
-                        <section class="content">
+                        <section class="content odpisy">
                             <div class="row">
 
                                 <div class="col-md-8">
                                     <? if (@count($odpisy)) { ?>
                                     <div class="list-group">
-                                        <? foreach ($odpisy as $odpis) { ?>
+                                        <? foreach ($odpisy as $odpis) {
+	                                        
+	                                        $href = $_user ? $object->getUrl() . '/odpisy/' . $odpis['id'] : "#";
+	                                        
+                                        ?>
                                             <div class="list-group-item">
 
                                                 <? if ($odpis['complete']) { ?>
                                                     <a class="pull-right label label-success"
-                                                       href="<?= $object->getUrl() ?>/odpisy/<?= $odpis['id'] ?>">Pobrany</a>
+                                                       href="<?= $href ?>">Pobrany</a>
                                                 <?
                                                 } else {
                                                     $status = $status_dict[$odpis['status']];
@@ -63,10 +111,11 @@ $status_dict = array(
                                                 } else {
                                                     ?>
 
-                                                    <? if ($odpis['complete']) { ?><a href="<?= $object->getUrl() ?>/odpisy/<?= $odpis['id'] ?>"><? } ?>
+                                                    <? if ($odpis['complete']) { ?><a href="<?= $href ?>"><? } ?>
 
 
-                                                    <?= $this->Czas->dataSlownie($odpis['complete_ts']) ?>
+                                                    <span class="glyphicon glyphicon-cloud-download
+"></span> <?= $this->Czas->dataSlownie($odpis['complete_ts']) ?>
 
                                                     <? if ($odpis['complete']) { ?></a><? } ?>
 
@@ -82,7 +131,7 @@ $status_dict = array(
                                     <div class="sticky">
                                         <form action="<?= $object->getUrl(); ?>" method="post">
                                             <input type="hidden" name="_action" value="pobierz_nowy_odpis"/>
-                                            <button type="submit" class="btn btnUpdate btn-primary btn-icon width-auto">
+                                            <button type="submit" class="btn btnUpdate btn-primary btn-icon width-auto<? if(!$_user) {?> _specialCaseLoginButton<? } ?>">
                                                 <span class="icon glyphicon glyphicon-refresh"></span> Poproś o nowy
                                                 odpis
                                             </button>

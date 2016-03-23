@@ -37,20 +37,28 @@ class SubscriptionsController extends AppController
 
     public function delete($id)
     {
-
+				
         if ($this->Subscription->delete($id)) {
             $message = 'Deleted';
         } else {
             $message = 'Error';
         }
-
-        return $this->redirect(str_replace('subscription=' . $id, '', $this->referer()));
+		
+		if( !$this->request->is('ajax') ) {
+		
+			debug('not ajax');
+			
+			$url = str_replace('subscription=' . $id, '', $this->referer());		
+	        $this->redirect( $url );
+	        exit();
+        
+        }
 
         $this->set(array(
             'message' => $message,
             '_serialize' => array('message')
         ));
-
+		
     }
 
 }

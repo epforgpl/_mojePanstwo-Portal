@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+	
     <title><?= htmlspecialchars(strip_tags(str_replace('&nbsp;', ' ', $title_for_layout))) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <?php if (isset($_META) && !empty($_META)) {
@@ -29,6 +29,15 @@
 
 
     <?php
+	
+	
+	if (isset($_meta_redirect) && $_meta_redirect) {
+	    echo $this->Html->meta(array(
+	        'http-equiv' => "refresh",
+	        'content' => "0;URL='$_meta_redirect'"
+	    ));
+	}
+	    
     echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
     echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
     echo $this->Html->meta(array('property' => 'og:title', 'content' => strip_tags($title_for_layout)));

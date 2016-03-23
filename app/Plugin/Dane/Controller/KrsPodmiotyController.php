@@ -37,9 +37,36 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function beforeFilter()
     {
-        parent::beforeFilter();
 
-        $this->Auth->deny(array('pobierz_odpis', 'odpis'));
+        $this->Auth->deny(array('odpis')); 
+	    parent::beforeFilter();
+
+    }
+    
+    public function beforeRender()
+    {
+	    
+	    if( $odpis = $this->Session->read('KRS.odpis') ) {
+		    
+		    $this->Session->delete('KRS.odpis');
+		    	   
+		    if(
+			    $this->Auth->user() && 
+			    @$odpis['object_id'] && 
+			    @$odpis['id'] && 
+			    ( $this->request->params['pass'][1] == $odpis['object_id'] ) && 
+			    ( $res = $this->Dataobject->getDatasource()->request('krs/odpisy/' . $odpis['id']) ) && 
+			    @$res['url']
+		    ) {
+			    			    
+			    $this->set('_meta_redirect', $res['url']);
+			    
+		    }		    
+		    
+	    }
+	    
+	    parent::beforeRender();
+	    
     }
 
 
@@ -86,28 +113,11 @@ class KrsPodmiotyController extends DataobjectsController
             'firmy',
         ));
 
-        if ($this->Session->read('KRS.odpis') == $this->params->id) {
-            $this->addInitLayers('odpis');
-        }
-
         $this->_prepareView();
 
         $desc_parts = array('Informacje gospodarcze o ' . $this->object->getShortTitle());
         $desc_bodies_parts = array();
-
-        if ($this->Session->read('KRS.odpis') == $this->object->getId()) {
-
-            $odpis = $this->object->getLayer('odpis');
-
-            if ($odpis['status']) {
-                $this->set('odpis', $odpis['url']);
-            }
-
-        }
-
-        $this->Session->delete('KRS.odpis');
-
-
+       
         $organy = array();
         $menu = array();
 
@@ -604,15 +614,6 @@ class KrsPodmiotyController extends DataobjectsController
         }
     }
 
-    public function odpis()
-    {
-
-        $id = (int) $this->request->params['id'];
-        $this->Session->write('KRS.odpis', $id);
-        $this->redirect('/dane/krs_podmioty/' . $id);
-
-    }
-
     public function zamowienia()
     {
 
@@ -991,12 +992,10 @@ class KrsPodmiotyController extends DataobjectsController
             'label' => 'Powiązania'
         );
 		
-        if($this->Auth->user()) {
-            $menu['items'][] = array(
-                'id' => 'odpisy',
-                'label' => 'Odpisy'
-            );
-        }
+        $menu['items'][] = array(
+            'id' => 'odpisy',
+            'label' => 'Odpisy'
+        );
 
         if($this->_canEdit()) {
             $menu['items'][] = array(
@@ -1058,17 +1057,38 @@ class KrsPodmiotyController extends DataobjectsController
     public function odpisy() {
 
         if( @$this->request->params['subid'] ) {
-
-	        $res = $this->Dataobject->getDatasource()->request('krs/odpisy/' . $this->request->params['subid']);
-            $this->redirect( $res['url'] );
+			
+			
+	        if( $this->Auth->user() ) {
+		        
+		        if( isset($this->request->query['subscribe']) ) {
+			        
+			        $this->Dataobject->getDataSource()->request('dane/subscriptions', array(
+		                'method' => 'POST',
+		                'data' => array(
+					        'dataset' => $this->request->params['pass'][0],
+					        'object_id' => $this->request->params['pass'][1],
+				        ),
+		            ));
+			        
+		        }
+		        
+		        $this->Session->write('KRS.odpis', array(
+			        'object_id' => $this->request->params['pass'][1],
+			        'id' => $this->request->params['subid'],
+		        ));
+		        
+	            $this->redirect('/dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1] . '/odpisy');
+		        
+	        } else {
+	            throw new ForbiddenException;
+	        }
+	        
 
         } else {
 
 	        $this->addInitLayers('odpisy');
 	        $this->_prepareView();
-
-	        if(!$this->Auth->user())
-	            throw new ForbiddenException;
 
 	        $this->set('title_for_layout', 'Odpisy z KRS podmiotu ' . $this->object->getTitle());
 
