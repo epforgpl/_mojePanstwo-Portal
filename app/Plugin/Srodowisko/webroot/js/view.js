@@ -26,7 +26,7 @@ var MapBrowser = Class.extend({
 		'index': 10
 	},
 	_desc: {
-		'index': ['Indeks Jakości Powietrza', 'Indeks jakości powietrza to wskaźnik obliczany na podstawie stężeń pyłów, ołowiu, czadu i innych składników w powietrzu. Indeks przyjumje wartości od 0 do 10 i obrazuje wzrost ryzyka śmiertelności ludności ze wględu na zanieczyszczenie powietrza. Wartości 1-3 oznaczają niskie ryzyko wzrostu śmiertelności (1.5–6.0%). Wartości 4-6 oznaczają średnie ryzyko wzrostu śmiertelności (6.1–10.6%). Wartości 7-9 oznaczają wysokie ryzyko wzrostu śmiertelności (10.7–15.3%). Wartość 10 oznacza bardzo wysokie ryzyko wzrostu śmiertelności (powyżej 15.3%).', 'https://mojepanstwo.pl/docs/1897593'],
+		'index': ['Zdrowotny Indeks Jakości Powietrza', 'Zdrowotny Indeks Jakości Powietrza to wskaźnik obliczany na podstawie stężeń pyłów, ołowiu, czadu i innych składników w powietrzu. Indeks przyjumje wartości od 0 do 10 i obrazuje wzrost ryzyka śmiertelności ludności ze wględu na zanieczyszczenie powietrza. Wartości 1-3 oznaczają niskie ryzyko wzrostu śmiertelności (1.5–6.0%). Wartości 4-6 oznaczają średnie ryzyko wzrostu śmiertelności (6.1–10.6%). Wartości 7-9 oznaczają wysokie ryzyko wzrostu śmiertelności (10.7–15.3%). Wartość 10 oznacza bardzo wysokie ryzyko wzrostu śmiertelności (powyżej 15.3%).', false],
 		'PM10': ['Pył PM10', 'Pył PM10 składa się z mieszaniny cząstek zawieszonych w powietrzu, będących mieszaniną substancji organicznych i nieorganicznych. Pył zawieszony może zawierać substancje toksyczne takie jak wielopierścieniowe węglowodory aromatyczne (np. benzo/a/piren), metale ciężkie oraz dioksyny i furany. Pył PM10 zawiera cząstki o średnicy mniejszej niż 10 mikrometrów, które mogą docierać do górnych dróg oddechowych i płuc. Poziom dopuszczalny dla stężenia średniodobowego wynosi 50 µg/m3 i może być przekraczany nie więcej niż 35 dni w ciągu roku. Poziom dopuszczalny dla stężenia średniorocznego wynosi 40 µg/m3, a poziom alarmowy 200 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=PM10_i_PM25'],
 		'PM2_5': ['Pył PM2,5', 'Pył PM2,5 zawiera cząstki o średnicy mniejszej niż 2,5 mikrometra, które mogą docierać do górnych dróg oddechowych, płuc oraz przenikać do krwi. Docelowa wartość średnioroczna dla pyłu PM2,5 wynosi 25 µg/m3, poziom dopuszczalny 25 µg/m3, a poziom dopuszczalny powiększony o margines tolerancji dla 2012 r. 27 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=PM10_i_PM25'],
 		'O3': ['Ozon', 'Ozon to odmiana tlenu o cząsteczce trójatomowej. Jest to drażniący gaz o barwie bladoniebieskiej i charakterystycznej woni. Ozon obecny w warstwie atmosfery przy powierzchni ma negatywny wpływ na zdrowie ludzkie i roślinność. Jest jednym ze składników smogu fotochemicznego, powstającego głównie latem przy wysokich temperaturach i ciśnieniu w miastach o bardzo dużym ruchu samochodowym, ale najwyższe stężenia mogą występować na obszarach pozamiejskich dokąd transportowane są prekursory ozonu z miasta. Poziom docelowy stężenia 8-godzinnego dla ozonu wynosi 120 µg/m3 i może być przekraczany nie więcej niż 25 dni w ciągu roku. Poziom informowania społeczeństwa wynosi 180 µg/m3, a poziom alarmowy 240 µg/m3.', 'http://sojp.wios.warszawa.pl/index.php?page=O3&t=3'],
@@ -388,7 +388,10 @@ var MapBrowser = Class.extend({
 			var option = self.options[optionIndex];
 			
 			$('#paramTitle').text( self._desc[option.short][0] );
-			$('#paramDesc').html( self._desc[option.short][1] + ' <a target="_blank" href="' + self._desc[option.short][2] + '">Źródło</a>' );
+			var text = self._desc[option.short][1];
+			if( self._desc[option.short][2] )
+				text = text + ' <a target="_blank" href="' + self._desc[option.short][2] + '">Źródło</a>';
+			$('#paramDesc').html( text );
 			
 			self.$appInnerSubTitle.html(option['text']);
 			option.$a.parent().addClass('active');
