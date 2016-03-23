@@ -1,11 +1,11 @@
 /*global window, document, $, Cookies, mPCookie, mPHeart*/
 
 $(window).load(function () {
-
 	var mPCookie = mPCookie || {},
 		surveyAnkieta2 = $('#surveyAnkieta2'),
 		ankieta2Interval,
-		ankieta2EndDate = new Date(Date.parse("30 March 2016"));
+		ankieta2EndDate = new Date(Date.parse("30 March 2016")),
+		timing = 15;
 
 	mPCookie.survey = {};
 	mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
@@ -95,11 +95,11 @@ $(window).load(function () {
 
 		if (typeof mPCookie.survey.ankieta2 === "undefined" || !(mPCookie.survey.ankieta2 === 'toSend' || mPCookie.survey.ankieta2 === 'sended')) {
 
-			if (mPCookie.survey.ankieta2 > 30) {
+			if (mPCookie.survey.ankieta2 > timing) {
 				surveyAnkieta2.modal('show');
 			} else {
 				ankieta2Interval = setInterval(function () {
-					if (mPCookie.survey.ankieta2 > 30) {
+					if (mPCookie.survey.ankieta2 > timing) {
 						surveyAnkieta2.modal('show');
 						clearInterval(ankieta2Interval);
 					}
