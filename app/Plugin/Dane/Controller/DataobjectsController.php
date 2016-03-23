@@ -245,7 +245,7 @@ class DataobjectsController extends AppController
                 !empty($this->request->query)
                 )
                     $url .= '?' . http_build_query($this->request->query);
-
+								
                 return $this->redirect($url);
 
             }
@@ -791,7 +791,15 @@ class DataobjectsController extends AppController
                     $this->ActivitiesFile->clear();
                 }
             }
-
+			
+			if( 
+				( $this->request->data['_action']=='pobierz_nowy_odpis' ) && 
+				!$this->Auth->user()
+			) {
+				$this->redirect( $this->referer() );
+				exit();
+			}
+						
 		    $response = $this->Dataobject->getDatasource()->request('dane/' . $this->request->params['pass'][0] . '/' . $this->request->params['pass'][1], array(
 			    'method' => 'POST',
 			    'data' => $this->request->data,
