@@ -773,7 +773,17 @@ class MediaController extends ApplicationsController
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
-				
+		
+		if( $mode!='results' ) {
+			
+			$output['items'][] = array(
+			    'id' => 'usuniete',
+			    'href' => '/media/usuniete',
+			    'label' => 'Usunięte tweety',
+			    'icon' => 'icon-datasets-twitter',
+		    );
+			
+		}		
 
 	    if( $this->isSuperUser() )
 		    $output['items'][] = array(
@@ -786,4 +796,21 @@ class MediaController extends ApplicationsController
 	    return $output;
 
     }
+    
+    public function usuniete() {
+		
+
+		$this->menu_selected = 'usuniete';
+		$this->chapter_selected = 'usuniete';
+		$this->title = 'Usunięte tweety';
+        $this->loadDatasetBrowser('twitter', array(
+	        'browserTitle' => 'Usunięte tweety',
+	        'default_conditions' => array(
+		        'dataset' => 'twitter',
+		        'twitter.usuniety' => '1',
+	        ),
+        ));
+	    
+    }
+    
 }

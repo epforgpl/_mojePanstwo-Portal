@@ -12,6 +12,7 @@ Router::connect('/media/propozycje_kont', array('plugin' => 'Media', 'controller
 Router::connect('/media/:id', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'view',), array(
 	'id' => 'politycy|ngo|komentatorzy|urzedy|miasta|media|partie'
 ));
+Router::connect('/media/usuniete', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'usuniete',));
 Router::connect('/media/:id', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'action',));
 
 /*

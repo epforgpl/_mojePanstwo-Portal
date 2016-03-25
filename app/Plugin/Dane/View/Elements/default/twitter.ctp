@@ -1,3 +1,4 @@
+
 <p class="header-a">
     <? if ($object->getData('twitter_account_id')) { ?>
         <a href="/dane/twitter_accounts/<?= $object->getData('twitter_account_id') ?>"><strong><?= $object->getData('twitter_accounts.name') ?></strong></a>
@@ -11,6 +12,13 @@
     	'seconds' => false,
     )) ?></span>
 </p>
+
+
+<? if( $object->getData('usuniety') ) {?>
+<div class="alert alert-danger">
+	<p>Tweet został usunięty</p>
+</div>
+<? } ?>
 
 <? if( $object->getOptions('page') ) { ?>
 

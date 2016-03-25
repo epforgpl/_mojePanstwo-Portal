@@ -36,6 +36,34 @@ class TwitterAccountsController extends DataobjectsController
         }
 
         $this->addInitLayers(array('powiazania'));
+        $this->addInitAggs(array(
+	        'followers' => array(
+                'nested' => array(
+	                'path' => 'twitter_accounts-followers',
+                ),
+                'aggs' => array(
+	                'filtered' => array(
+		                'filter' => array(
+			                'range' => array(
+				                'twitter_accounts-followers.date' => array(
+					                'gte' => 'now-70d/d',
+				                ),
+			                ),
+		                ),
+		                'aggs' => array(
+			                'top' => array(
+				                'top_hits' => array(
+					                'size' => 71,
+					                'sort' => array(
+						                'twitter_accounts-followers.date' => 'asc',
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
+            ),
+        ));
         $this->load();
 
         if(
@@ -367,6 +395,35 @@ class TwitterAccountsController extends DataobjectsController
 
         $this->set('title_for_layout', $this->object->getTitle());
     }
+    
+    public function usuniete() {
+
+        $this->_prepareView();
+
+        if(
+	        ( $page = $this->object->getLayer('page') ) &&
+	        ( $page['logo'] )
+        ) {
+
+        } else {
+
+	        $this->object->layers['page'] = array(
+		        'cover' => false,
+		        'logo' => str_replace('_normal', '', $this->object->getData('profile_image_url_https')),
+	        );
+
+        }
+
+        $this->Components->load('Dane.DataBrowser', array(
+            'conditions' => array(
+                'dataset' => 'twitter',
+                'twitter.twitter_account_id' => $this->object->getId(),
+                'twitter.usuniety' => '1',
+            ),
+        ));
+
+        $this->set('title_for_layout', $this->object->getTitle());
+    }
 
     public function getMenu()
     {
@@ -380,6 +437,10 @@ class TwitterAccountsController extends DataobjectsController
                 array(
                     'id' => 'tweety',
                     'label' => 'Tweety',
+                ),
+                array(
+                    'id' => 'usuniete',
+                    'label' => 'Usunięte tweety',
                 ),
             ),
             'base' => $this->object->getUrl(),
