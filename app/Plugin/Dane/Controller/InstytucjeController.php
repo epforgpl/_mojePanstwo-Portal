@@ -752,12 +752,12 @@ class InstytucjeController extends DataobjectsController
 		                            'must' => array(
 			                            array(
 				                            'term' => array(
-					                            'nik_raporty_dokumenty.podmiot_id' => '0',
+					                            'data.nik_raporty_dokumenty.podmiot_id' => '0',
 				                            ),
 			                            ),
 			                            array(
 				                            'term' => array(
-					                            'nik_raporty_dokumenty.jednostka_id' => '0',
+					                            'data.nik_raporty_dokumenty.jednostka_id' => '0',
 				                            ),
 			                            ),
 		                            ),
@@ -784,14 +784,14 @@ class InstytucjeController extends DataobjectsController
 		                            'must' => array(
 			                            array(
 				                            'term' => array(
-					                            'nik_raporty_dokumenty.podmiot_id' => '0',
+					                            'data.nik_raporty_dokumenty.podmiot_id' => '0',
 				                            ),
 			                            ),
 		                            ),
 		                            'must_not' => array(
 			                            array(
 				                            'term' => array(
-					                            'nik_raporty_dokumenty.jednostka_id' => '0',
+					                            'data.nik_raporty_dokumenty.jednostka_id' => '0',
 				                            ),
 			                            ),
 		                            ),
@@ -818,7 +818,7 @@ class InstytucjeController extends DataobjectsController
 		                            'must_not' => array(
 			                            array(
 				                            'term' => array(
-					                            'nik_raporty_dokumenty.podmiot_id' => '0',
+					                            'data.nik_raporty_dokumenty.podmiot_id' => '0',
 				                            ),
 			                            ),
 		                            ),
