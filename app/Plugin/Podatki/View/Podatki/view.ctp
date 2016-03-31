@@ -467,7 +467,7 @@ echo $this->element('app/sidebar');
 		                                oraz pomniejszono podatek PIT o 1/12 rocznej kwoty zmniejszającej podatek (46 zł).
 		                            </p>
 
-                                    <p>Struktura wydatków państwa została opracowana na podstawie danych za 2013 rok. W tym celu
+                                    <p>Wydatki państwa w aplikacji obejmują wydatki całego sektora finansów publicznych (budżetu państwa, budżetów samorządów, funduszy ZUS, szpitali, uczelni, itd.), po wyeliminowaniu przepływów pomiędzy jednostkami sektora. Struktura wydatków została opracowana na podstawie danych za 2013 rok. Struktura wydatków państwa została opracowana na podstawie danych za 2013 rok. W tym celu
 		                                wykorzystano następujące źródła danych: sprawozdanie z wykonania budżetu państwa za 2013
 		                                rok; raport NIK „Analiza wykonania budżetu państwa i założeń polityki pieniężnej w 2013
 		                                roku”; informacje NIK o wynikach kontroli wykonania budżetu państwa w poszczególnych
