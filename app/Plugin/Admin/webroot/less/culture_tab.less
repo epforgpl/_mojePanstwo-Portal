@@ -1,0 +1,107 @@
+#_TAB {
+
+	#modal-preview {
+				
+		.surveys {
+			
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			
+			.survey {
+				border-bottom: 2px solid #999;
+			    list-style: outside none none;
+			    margin: 10px;
+			    padding: 10px 10px 30px;
+			    
+			    &:last-child {
+				    border-bottom: none;
+			    }
+				
+				.title {
+					font-size: 16px;
+				}
+				
+				.table-container {
+					
+					width: 520px;
+					height: 150px;
+					overflow: auto;
+					
+					table {
+						tr {
+							td {
+								padding: 5px;
+								border: 1px solid #DDD;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.table {
+		table {
+			
+			._ {
+				margin: 0;
+				padding: 5px;
+				cursor: default;
+			}
+			
+			tr {
+				
+				&.optionsHeader {
+					td {
+						background-color: #666;
+						color: #FFF;
+						padding-top: 40px;
+					}
+				}
+				
+				&.optionsRow {
+					td {
+						background-color: #FFF;
+						color: #666;
+					}
+				}
+				
+				td {
+					padding: 10px;
+					border: 1px solid #CCC;
+					
+					&.drop-over {
+						background-color: #ffef8f;
+					}
+					
+					&.survey {
+						border-left: 2px solid red;
+					}
+					
+					&.ctrl {
+						.dropdown {
+							list-style: none;
+							
+							.caret {
+								border-left: 7px solid transparent;
+							    border-right: 7px solid transparent;
+							    border-top: 8px dashed;
+							}
+						}
+					}
+					
+				}
+			}
+		}
+	}
+	
+	.header {
+		padding: 10px;
+	}
+
+}
+
+footer.footer {
+	display: none;
+}

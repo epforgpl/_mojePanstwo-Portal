@@ -107,6 +107,11 @@ class AdminAppController extends AppController
             'label' => 'Hurtownia danych',
             'href'  => '/admin/docs/hurtownia',
         ),
+        array(
+            'id'    => 'kultura',
+            'label' => 'Kultura',
+            'href'  => '/admin/kultura/pliki',
+        ),
     );
 
     public function beforeFilter() {
