@@ -81,7 +81,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
         <div id="compare" class="col-xs-12">
 
             <div class="appBanner">
-                <p class="appSubtitle">Porównaj stan finansów publicznych w wybranych latach.</p>
+                <p class="appSubtitle">Porównaj stan budżetu państwa w wybranych latach.</p>
             </div>
 
 
