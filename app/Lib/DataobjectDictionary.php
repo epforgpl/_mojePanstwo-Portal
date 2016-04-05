@@ -70,6 +70,20 @@
 				array('id' => '49','single' => 'Jednostka terenowa stowarzyszenia posiadająca osobowość prawną','plural' => 'Jednostki terenowa stowarzyszeń posiadających osobowość prawną'),
 				array('id' => '50','single' => 'Stowarzyszenie ogrodowe','plural' => 'Stowarzyszenia ogrodowe')
 			),
+			'ngo_konkursy_areas' => array(			
+				array('id' => '1', 'single' => 'Działalność charytatywna', 'plural' => 'Działalność charytatywna'),
+		        array('id' => '2', 'single' => 'Pomoc społeczna', 'plural' => 'Pomoc społeczna'),
+		        array('id' => '3', 'single' => 'Ochrona praw obywatelskich i praw człowieka', 'plural' => 'Ochrona praw obywatelskich i praw człowieka'),
+		        array('id' => '4', 'single' => 'Rozwój przedsiębiorczości', 'plural' => 'Rozwój przedsiębiorczości'),
+		        array('id' => '5', 'single' => 'Nauka, kultura, edukacja', 'plural' => 'Nauka, kultura, edukacja'),
+		        array('id' => '6', 'single' => 'Ekologia', 'plural' => 'Ekologia'),
+		        array('id' => '7', 'single' => 'Działalność międzynarodowa', 'plural' => 'Działalność międzynarodowa'),
+		        array('id' => '8', 'single' => 'Aktywność społeczna', 'plural' => 'Aktywność społeczna'),
+		        array('id' => '9', 'single' => 'Sport, turystyka', 'plural' => 'Sport, turystyka'),
+		        array('id' => '10', 'single' => 'Bezpieczeństwo publiczne', 'plural' => 'Bezpieczeństwo publiczne'),
+		        array('id' => '11', 'single' => 'Pozostałe', 'plural' => 'Pozostałe'),
+		        array('id' => '12', 'single' => 'Uchodźcy', 'plural' => 'Uchodźcy'),
+	        ),
 		);
 		
 		public function label($dict, $id, $mode = 'single') {

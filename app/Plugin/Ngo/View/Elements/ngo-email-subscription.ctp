@@ -4,14 +4,17 @@ $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin
 $this->Combinator->add_libs('css', $this->Less->css('ngo-email-subscription', array('plugin' => 'Ngo')));
 ?>
 
-<div class="banner ngoEmailSubscription block margin-top-10">
-    <?php echo $this->Html->image('Dane.banners/pisma.svg', array(
-        'width' => '64',
-        'alt' => 'Newsletter',
-        'class' => 'pull-left'
-    )); ?>
-    <p><strong>Zapisz się</strong> do newslettera</p>
-    <a href="#" data-toggle="modal" data-target="#ngoEmailSubscriptionModal" class="btn btn-sm btn-primary">Zapisz się</a>
+<div class="banner block margin-top-0">
+    <div>
+        <div class="img-cog pull-left">
+            <span class="object-icon icon-datasets-miejsca"></span>
+        </div>
+        <p class="headline margin-top-20"><strong>Zapisz się</strong> <br/> do newslettera</p>
+    </div>
+    <div class="description margin-top-10">			
+        <p class="min-height">Otrzymuj na adres e-mail najnowsze informacje z sektora organizacji pozarządowych.</p>
+        <div class="text-left"><a href="#" data-toggle="modal" data-target="#ngoEmailSubscriptionModal">Dołącz do newslettera &raquo;</a></div>
+    </div>
 </div>
 
 <div class="modal fade" id="ngoEmailSubscriptionModal" tabindex="-1" role="dialog"

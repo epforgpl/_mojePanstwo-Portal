@@ -189,7 +189,25 @@ class NgoController extends ApplicationsController
 	
     public function view()
     {
-
+		
+		$this->loadModel('Dane.Dataobject');
+		$dataset = $this->Dataobject->find('first', array(
+			'conditions' => array(
+				'dataset' => 'zbiory',
+				'id' => 226,
+			),
+			'layers' => array('channels', 'subscription'),
+		));				
+		
+		$observe_params = array(
+			'dataset' => 'ngo_konkursy',
+			'url' => '/ngo/konkursy',
+			'title' => 'Konkursy dla organizacji pozarządowych',
+			'object' => $dataset,
+		);
+				
+		$this->set('observe_params', $observe_params);
+		
 		$this->set('last_month_report', $this->Twitter->getLastMonthReport());
 		$this->set('dropdownRanges', $this->Twitter->getDropdownRanges());
 
@@ -773,6 +791,8 @@ class NgoController extends ApplicationsController
     
     public function konkursy()
     {
+
+        $this->title = 'Konkursy dla organizacji pozarządowych';
         $this->loadDatasetBrowser('ngo_konkursy', array(
             'browserTitle' => 'Konkursy dla organizacji pozarządowych:',
             'menu' => array_merge($this->submenus['ngo'], array(
@@ -780,7 +800,6 @@ class NgoController extends ApplicationsController
                 'base' => '/ngo'
             ))
         ));
-        $this->set('title_for_layout', 'Konkursy | NGO');
 
     }
     

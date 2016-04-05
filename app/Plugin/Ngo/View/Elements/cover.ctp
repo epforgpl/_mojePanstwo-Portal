@@ -4,6 +4,9 @@ $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ng
 $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Ngo.ngo');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('js', 'Dane.dataset-observe.js');
+
+echo $this->element('modals/dataset-observe', $observe_params);
 
 ?>
 
@@ -32,13 +35,13 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 
 	
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			
 			<?
 			$this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 			?>
 			
-			<div class="banner block nobg margin-top-0">
+			<div class="banner block margin-top-0">
 			    <div>
 			        <div class="img-cog pull-left">
 			            <span class="object-icon icon-datasets-strony"></span>
@@ -46,15 +49,14 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 			        <p class="headline margin-top-20"><strong>Zarządzaj profilem</strong> <br/>swojej organizacji!</p>
 			    </div>
 			    <div class="description margin-top-10">
-			        <p class="min-height">Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane! Aby zacząć, znajdź organizację, korzystając z wyszukiwarki, przejdź na jej profil i poproś o
-			            uprawnienia do zarządzania jej profilem.</p>
-			        <div class="text-left"><a href="/ngo/organizacje" class="btn btn-xs btn-primary szukajOrganizajiBtn">Znajdź organizację &raquo;</a></div>
+			        <p class="min-height">Dodawaj działania swojej organizacji, uaktualniaj i modyfikuj jej dane. Znajdź organizację i poproś o uprawnienia do zarządzania jej profilem.</p>
+			        <div class="text-left"><a href="/ngo/organizacje" class="szukajOrganizajiBtn">Znajdź organizację &raquo;</a></div>
 			    </div>
 			</div>
 			
-		</div><div class="col-md-6">
+		</div><div class="col-md-4">
 			
-			<div class="banner block nobg margin-top-0">
+			<div class="banner block margin-top-0">
 			    <div>
 			        <div class="img-cog pull-left">
 			            <span class="object-icon icon-datasets-miejsca"></span>
@@ -63,19 +65,30 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 			    </div>
 			    <div class="description margin-top-10">			
 			        <p class="min-height">Zobacz gdzie w Polsce działają organizacje pozarządowe. Znajdź organizacje w swojej okolicy.</p>
-			        <div class="text-left"><a href="/mapa/ngo" class="btn btn-xs btn-primary">Przejdź do mapy &raquo;</a></div>
+			        <div class="text-left"><a href="/mapa/ngo" class="">Przejdź do mapy &raquo;</a></div>
 			    </div>
 			</div>
 			
+		</div><div class="col-md-4">
+			
+			<?= $this->Element('Ngo.ngo-email-subscription') ?>
+						
 		</div>
 	</div>
 	
-	<div class="row">
+	<div class="row margin-top-10">
 		<div class="col-md-8">
 
 			<? if( $docs = @$dataBrowser['aggs']['konkursy']['top']['hits']['hits'] ) {?>
 			<div class="block">
 		        <header>Konkursy dla organizacji pozarządowych:</header>
+		        <div class="buttons larger">
+			        <? if( $observe_params['object']->getLayer('subscription') ) { ?>
+			        	<a class="dataset-observe-button" href="#">Subskrybujesz...</a>
+			        <? } else { ?>
+	                Poszukujesz finansowanie dla swojej organizacji? <a class="dataset-observe-button" href="#">Subskrybuj informacje o nowych konkursach »</a>
+	                <? } ?>
+                </div>
 		        <section class="content">
 			        <div class="agg agg-Dataobjects">
 	                    <ul class="dataobjects img-nopadding" style="margin: 0 20px;">
@@ -88,17 +101,15 @@ $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
 	                        <? } ?>
 	                    </ul>
 	                </div>
-
+ 
                     <div class="buttons">
-		                <a href="/ngo/konkursy" class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+		                <a href="/ngo/konkursy" class="btn btn-xs btn-primary margin-sides-5">Zobacz więcej &raquo;</a> <? if( $observe_params['object']->getLayer('subscription') ) {?><a href="#" class="margin-sides-5 dataset-observe-button">Subskrybujesz...</a><? } else { ?><a href="#" class="btn btn-xs btn-success margin-sides-5 dataset-observe-button">Subskrybuj &raquo;</a><? } ?>
                     </div>
 		        </section>
 			</div>
 			<? } ?>
 
         </div><div class="col-md-4">
-
-			<?= $this->Element('Ngo.ngo-email-subscription') ?>
 			
 			<? if( $docs = @$dataBrowser['aggs']['zbiorki']['top']['hits']['hits'] ) {?>
             <div class="block bgA">

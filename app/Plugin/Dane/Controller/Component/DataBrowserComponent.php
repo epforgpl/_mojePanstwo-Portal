@@ -135,6 +135,20 @@ class DataBrowserComponent extends Component
 	);
 
     private $aggs_presets = array(
+        'ngo_konkursy' => array(
+            'area' => array(
+                'terms' => array(
+                    'field' => 'ngo_konkursy.area_id',
+                ),
+                'visual' => array(
+                    'label' => 'Obszar tematyczny',
+                    'skin' => 'list',
+                    'field' => 'ngo_konkursy.area_id',
+                    'all' => 'Wszystkie obszary tematyczne',
+                    'dict' => 'ngo_konkursy_areas',
+                ),
+            ),
+         ),
         'msig_pozycje' => array(
             'dzial' => array(
                 'terms' => array(
