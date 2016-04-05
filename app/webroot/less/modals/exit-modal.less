@@ -1,113 +1,157 @@
 .gamification {
-    &#gaminification-exit .modal-dialog {
-        width: 835px;
+    &#gaminification-exit {
+        &.gamification-ngo .modal-dialog {
+            width: 730px;
 
-        .modal-content {
-            float: left;
-            width: 100%;
-            background-color: #ffffff;
-
-            .modal-header {
-                h4 {
-                    color: #3f84c3;
-                    font-size: 27px;
-                    font-weight: bold;
-                    text-transform: uppercase;
+            .modal-content {
+                .modal-header {
+                    h4 {
+                        font-size: 34px;
+                        text-transform: inherit;
+                    }
+                    p {
+                        font-size: 18px;
+                        text-transform: inherit;
+                        padding: 0 10%;
+                    }
                 }
-                p {
-                    color: #030506;
-                    font-size: 17px;
-                    font-weight: normal;
-                    margin-top: 22px;
+                .modal-body .appsList .appBorder {
                     text-align: center;
-                    text-transform: uppercase;
+
+                    .mainpart .icon {
+                        float: none;
+                        height: 45px;
+                        margin: 0 auto;
+                        width: auto;
+                    }
                 }
             }
-            .modal-body {
-                margin: 0;
-                padding-top: 10px;
-                display: inline-block;
+        }
+        .modal-dialog {
+            width: 835px;
+            padding-left: 180px;
+
+            .modal-content {
                 float: left;
                 width: 100%;
+                background-color: #ffffff;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                border-radius: 0;
 
-                .appsList {
-                    margin: 20px 0 15px;
-                    list-style-type: none;
-                    padding: 0;
+                &:before {
+                    content: "";
+                    width: 180px;
+                    height: 169px;
+                    position: absolute;
+                    left: -180px;
+                    top: 0;
+                    background: url(/img/gamification/avatar-asia.png) top right no-repeat;
+                }
+
+                .modal-header {
+                    h4 {
+                        color: #3f84c3;
+                        font-size: 27px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+                    p {
+                        color: #030506;
+                        font-size: 17px;
+                        font-weight: normal;
+                        line-height: 1.2em;
+                        margin-top: 22px;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                }
+                .modal-body {
+                    margin: 0;
+                    padding-top: 10px;
+                    display: inline-block;
                     float: left;
                     width: 100%;
 
-                    .appBorder {
-                        background-color: transparent;
-                        border-width: 0;
-                        width: 100%;
+                    .appsList {
+                        margin: 20px 0 15px;
+                        list-style-type: none;
                         padding: 0;
-                        margin: 0;
-                        border-radius: 7px;
-                        display: block;
                         float: left;
-                        line-height: 1.2em;
+                        width: 100%;
 
-                        .mainpart,
-                        .subpart {
-                            display: inline-block;
-                            float: left;
+                        .appBorder {
+                            background-color: transparent;
+                            border-width: 0;
                             width: 100%;
-                        }
+                            padding: 0;
+                            margin: 0;
+                            border-radius: 7px;
+                            display: block;
+                            float: left;
+                            line-height: 1.2em;
 
-                        .mainpart {
-                            color: #546466;
-                            position: relative;
-
-                            .icon {
-                                width: 40px;
-                                display: block;
+                            .mainpart,
+                            .subpart {
+                                display: inline-block;
                                 float: left;
-                                margin-right: 10px;
+                                width: 100%;
                             }
-                            > strong {
-                                font-size: 14px;
-                                display: block;
-                                left: 60px;
-                                position: absolute;
-                                text-transform: uppercase;
-                                top: 50%;
-                                -webkit-transform: translate(0, -50%);
-                                -moz-transform: translate(0, -50%);
-                                -ms-transform: translate(0, -50%);
-                                -o-transform: translate(0, -50%);
-                                transform: translate(0, -50%);
-                            }
-                        }
-                        .subpart {
-                            margin-top: 12px;
-                            margin-bottom: 0;
 
-                            .title {
-                                font-size: 12px;
-                                line-height: 1em;
-                                color: #92a7a4;
-                                font-weight: normal;
-                                margin-bottom: 6px;
-                                text-transform: uppercase;
+                            .mainpart {
+                                color: #546466;
+                                position: relative;
+
+                                .icon {
+                                    width: 40px;
+                                    display: block;
+                                    float: left;
+                                    margin-right: 10px;
+                                }
+                                > strong {
+                                    font-size: 14px;
+                                    display: block;
+                                    left: 60px;
+                                    position: absolute;
+                                    text-transform: uppercase;
+                                    top: 50%;
+                                    -webkit-transform: translate(0, -50%);
+                                    -moz-transform: translate(0, -50%);
+                                    -ms-transform: translate(0, -50%);
+                                    -o-transform: translate(0, -50%);
+                                    transform: translate(0, -50%);
+                                }
+                            }
+                            .subpart {
+                                margin-top: 12px;
+                                margin-bottom: 0;
+
+                                .title {
+                                    font-size: 12px;
+                                    line-height: 1em;
+                                    color: #92a7a4;
+                                    font-weight: normal;
+                                    margin-bottom: 6px;
+                                    text-transform: uppercase;
+                                }
                             }
                         }
                     }
                 }
-            }
-            .modal-footer {
-                display: inline-block;
-                float: left;
-                width: 100%;
-                border: none;
-                margin-bottom: 20px;
+                .modal-footer {
+                    display: inline-block;
+                    float: left;
+                    width: 100%;
+                    border: none;
+                    margin-bottom: 20px;
 
-                .btn-primary {
-                    font-size: 18px;
-                    font-weight: normal;
-                    padding-left: 13%;
-                    padding-right: 13%;
-                    text-transform: uppercase;
+                    .btn-primary {
+                        font-size: 18px;
+                        font-weight: normal;
+                        padding-left: 13%;
+                        padding-right: 13%;
+                        text-transform: uppercase;
+                    }
                 }
             }
         }

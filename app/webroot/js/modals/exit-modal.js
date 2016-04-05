@@ -26,7 +26,7 @@ $(document).ready(function () {
 		addEvent(window, "load", function () {
 			addEvent(document, "mouseout", function (e) {
 				var from = e.relatedTarget || e.toElement;
-				if (!from || from.nodeName === "HTML") {
+				if ((!from || from.nodeName === "HTML") && e.clientY < 50) {
 					if (gaminificationExit.is(':hidden') && gaminificationExitAllowed) {
 						mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
 						mPCookie.gamification.exit = true;
