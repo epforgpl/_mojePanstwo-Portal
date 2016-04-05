@@ -7,11 +7,11 @@ $this->Combinator->add_libs('css', $this->Less->css('ngo-email-subscription', ar
 <div class="banner block margin-top-0">
     <div>
         <div class="img-cog pull-left">
-            <span class="object-icon icon-datasets-miejsca"></span>
+            <span class="object-icon icon-datasets-newsletter"></span>
         </div>
         <p class="headline margin-top-20"><strong>Zapisz się</strong> <br/> do newslettera</p>
     </div>
-    <div class="description margin-top-10">			
+    <div class="description margin-top-10">
         <p class="min-height">Otrzymuj na adres e-mail najnowsze informacje z sektora organizacji pozarządowych.</p>
         <div class="text-left"><a href="#" data-toggle="modal" data-target="#ngoEmailSubscriptionModal">Dołącz do newslettera &raquo;</a></div>
     </div>
