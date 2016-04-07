@@ -12,7 +12,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 ?>
 
-<div class="col-md-12"><?= $this->Element('Dane.DataBrowser/browser') ?></div>
+<?= $this->Element('Dane.DataBrowser/browser') ?>
 
 <?
 echo $this->Element('dataobject/pageEnd');

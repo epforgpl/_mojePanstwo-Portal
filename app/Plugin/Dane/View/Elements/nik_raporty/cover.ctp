@@ -7,67 +7,69 @@
 	);
 	
 ?>
-
+<div class="row margin-top-15">
 	<? if( @$dataBrowser['aggs']['dokumenty']['top']['hits']['hits'] || @$dataBrowser['aggs']['jednostki']['top']['hits']['hits'] ) {?>
         <div class="col-md-6 nik_raporty_dokumenty-div">
 
             <? if( @$dataBrowser['aggs']['dokumenty']['top']['hits']['hits'] ) {?>
-        <div class="block block-simple block-size-sm col-xs-12">
-            <header>Wyniki kontroli:</header>
-
-            <section class="aggs-init">
-                <div class="dataAggs">
-                    <div class="agg agg-Dataobjects">
-
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['dokumenty']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default', array(
-	                                    'routes' => array(
-		                                    'titleAddon' => false,
-	                                    ),
-	                                    'mode' => 'raport',
-                                    ));
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-
-                    </div>
-                </div>
-            </section>
-        </div>
-        <? } ?>
-
-        <? if( @$dataBrowser['aggs']['jednostki']['top']['hits']['hits'] ) {?>
-        <div class="block block-simple block-size-sm col-xs-12">
-            <header>Wystąpienia jednostek NIK:</header>
-
-            <section class="aggs-init">
-                <div class="dataAggs">
-                    <div class="agg agg-Dataobjects">
-
-                        <ul class="dataobjects">
-                            <? foreach ($dataBrowser['aggs']['jednostki']['top']['hits']['hits'] as $doc) { ?>
-                                <li>
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default', array(
-	                                    'routes' => array(
-		                                    'titleAddon' => false,
-	                                    ),
-	                                    'mode' => 'raport',
-                                    ));
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-
-                    </div>
-                </div>
-            </section>
-        </div>
-        <? } ?>
+	        <div class="block block-simple block-size-sm col-xs-12">
+	            <header>Wyniki kontroli:</header>
+	
+	            <section class="aggs-init">
+	                <div class="dataAggs">
+	                    <div class="agg agg-Dataobjects">
+	
+	                        <ul class="dataobjects">
+	                            <? foreach ($dataBrowser['aggs']['dokumenty']['top']['hits']['hits'] as $doc) { ?>
+	                                <li>
+	                                    <?
+	                                    echo $this->Dataobject->render($doc, 'default', array(
+		                                    'routes' => array(
+			                                    'titleAddon' => false,
+		                                    ),
+		                                    'mode' => 'raport',
+	                                    ));
+	                                    ?>
+	                                </li>
+	                            <? } ?>
+	                        </ul>
+	
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+	        <? } ?>
+	
+	        <? if( @$dataBrowser['aggs']['jednostki']['top']['hits']['hits'] ) {?>
+	        <div class="block block-simple block-size-sm col-xs-12">
+	            <header>Wystąpienia jednostek NIK:</header>
+	
+	            <section class="aggs-init">
+	                <div class="dataAggs">
+	                    <div class="agg agg-Dataobjects">
+	
+	                        <ul class="dataobjects">
+	                            <? foreach ($dataBrowser['aggs']['jednostki']['top']['hits']['hits'] as $doc) { ?>
+	                                <li>
+	                                    <?
+	                                    echo $this->Dataobject->render($doc, 'default', array(
+		                                    'routes' => array(
+			                                    'titleAddon' => false,
+		                                    ),
+		                                    'mode' => 'raport',
+	                                    ));
+	                                    ?>
+	                                </li>
+	                            <? } ?>
+	                        </ul>
+	
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+	        <? } ?>
+	        
+	        <p class="text-center"><a target="_blank" href="https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/kontrole,<?= $raport->getData('nik_id') ?>.html">Źródło</a></p>
 
         </div>
 	<? } ?>
@@ -105,9 +107,9 @@
 										                    <ul>
                                                                 <?
 											                foreach( $podmiot['dokumenty'] as $doc ) {
-												                $data = $doc['fields']['source'][0]['data'];
+												                $data = $doc['_source']['data'];
 											                ?>
-											                	<li><a href="/dane/instytucje/3217,najwyzsza-izba-kontroli/raporty/1305/dokumenty/<?= $data['nik_raporty_dokumenty.id'] ?>"><?= $data['nik_raporty_dokumenty.nazwa'] ?></a></li>
+											                	<li><a href="/dane/instytucje/3217,najwyzsza-izba-kontroli/raporty/1305/dokumenty/<?= $data['nik_raporty_dokumenty']['id'] ?>"><?= $data['nik_raporty_dokumenty']['nazwa'] ?></a></li>
 											                <? } ?>
                                                             </ul>
                                                         </div>
@@ -126,7 +128,5 @@
         </div>
 	</div>
     <? } ?>
+</div>
 
-<div class="col-md-12">
-    	<p class="text-center"><a target="_blank" href="https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/kontrole,<?= $raport->getData('nik_id') ?>.html">Źródło</a></p>
-    </div>
