@@ -1,0 +1,46 @@
+msgid "LC_ADMINISTRACJA_TITLE"
+msgstr "Państwowe instytucje publiczne"
+
+msgid "LC_ADMINISTRACJA_INFO_WWW"
+msgstr "Adres WWW"
+
+msgid "LC_ADMINISTRACJA_INFO_EMAIL"
+msgstr "Adres e-mail"
+
+msgid "LC_ADMINISTRACJA_INFO_TELEFON"
+msgstr "Telefon"
+
+msgid "LC_ADMINISTRACJA_INFO_FAX"
+msgstr "Fax"
+
+msgid "LC_ADMINISTRACJA_INFO_INSTYTUCJE"
+msgstr "Podległe instytucje"
+
+msgid "LC_ADMINISTRACJA_INFO_WIECEJ"
+msgstr "Dowiedz się więcej"
+
+
+
+msgid "LC_ADMINISTRACJA_HEADER"
+msgstr "Administracja publiczna w Polsce"
+
+msgid "LC_ADMINISTRACJA_HEADLINE"
+msgstr "Struktura <strong>administracji publicznej</strong> w Polsce"
+
+msgid "LC_ADMINISTRACJA_SEARCH_PLACEHOLDER"
+msgstr "Szukaj instytucji"
+
+msgid "LC_ADMINISTRACJA_POSLOWIE_HEADLINE"
+msgstr "Posłowie w KRS"
+
+msgid "LC_ADMINISTRACJA_POSLOWIE_BLOCK_LINK"
+msgstr "Zobacz szczegóły"
+
+msgid "LC_ADMINISTRACJA_SEARCH_TITLE"
+msgstr "Wyniki"
+
+msgid "LC_ADMINISTRACJA_SEARCH_LINK"
+msgstr "Zobacz więcej"
+
+msgid "LC_ADMINISTRACJA_BRAK_WYNIKOW"
+msgstr "Brak wyników dla frazy"

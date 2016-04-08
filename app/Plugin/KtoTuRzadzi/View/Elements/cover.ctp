@@ -9,17 +9,20 @@ $this->Combinator->add_libs('js', 'KtoTuRzadzi.administracja.js');
 
         <h1 class="appTitle">Kto tu rządzi?</h1>
         <p class="appSubtitle">Informacje o urzędach i urzędnikach publicznych.</p>
-
-        <div class="appSearch form-group">
-            <div class="input-group">
-                <input class="form-control" placeholder="Szukaj urzędów i urzędników..." type="text">
-				<span class="input-group-btn">
-					<button type="submit" class="btn btn-primary input-md">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-				</span>
-            </div>
-        </div>
+		
+		<form action="" method="get">
+	        <div class="appSearch form-group">
+	            <div class="input-group">
+	                <input name="q" class="form-control" placeholder="Szukaj urzędów i urzędników..." type="text">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-primary input-md">
+	                        <span class="glyphicon glyphicon-search"></span>
+	                    </button>
+					</span>
+	            </div>
+	        </div>
+		</form>
+		
     </div>
 
     <div id="administracja">

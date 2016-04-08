@@ -130,6 +130,12 @@ class AppController extends Controller
                 'menu_id' => '',
            ),
         ),
+        'kultura' => array(
+            'kultura_ankiety' => array(
+                'label' => 'Pytania o kulturę',
+                'menu_id' => '',
+           ),
+        ),
         'bdl' => array(
             'bdl_wskazniki' => array(
                 'label' => 'Wskaźniki'
@@ -376,6 +382,14 @@ class AppController extends Controller
             'desc' => 'Poznaj dane o jakości powietrza w Polsce. Sprawdzaj indeks jakości powietrza i stężenia niebezpiecznych gazów w atmosferze.',
             'href' => '/srodowisko',
             'tag' => 1,
+            'icon' => '&#xe605;',
+        ),
+        'kultura' => array(
+            'name' => 'Kultura',
+            'subname' => 'Badanie postrzegania kultury w Polsce',
+            'desc' => 'Poznaj dane o jakości powietrza w Polsce. Sprawdzaj indeks jakości powietrza i stężenia niebezpiecznych gazów w atmosferze.',
+            'href' => '/kultura',
+            'tag' => 3,
             'icon' => '&#xe605;',
         ),
         'mapa' => array(
