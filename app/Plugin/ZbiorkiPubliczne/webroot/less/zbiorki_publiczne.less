@@ -29,5 +29,31 @@
         .semigrey {
             background-color: #F3F3F3;
         }
+
+        td {
+            > input, > textarea {
+                width: 100%;
+            }
+        }
+
+        .currency-pln {
+            width: 80%;
+            text-align: right;
+        }
+
+        .checkbox {
+            margin-top: 0;
+            margin-bottom: 0;
+
+            label {
+                width: 20px;
+                height: 20px;
+                padding: 0;
+
+                &:before, &:after {
+                    margin-left: 0;
+                }
+            }
+        }
     }
 }
