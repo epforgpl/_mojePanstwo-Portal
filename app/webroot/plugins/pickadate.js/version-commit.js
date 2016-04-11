@@ -1,17 +1,17 @@
 /*jshint node: true*/
 
-var grunt = require('grunt')
-var exec = require('shelljs').exec
+var grunt = require('grunt');
+var exec = require('shelljs').exec;
 
-var pkg = require('./package')
+var pkg = require('./package');
 
 
-var isSuccessful = commitAndTag(pkg.version)
+var isSuccessful = commitAndTag(pkg.version);
 if (!isSuccessful) {
   grunt.fail.fatal('Unable to commit and tag version')
 }
 
-return
+return;
 
 
 function commitAndTag(version) {
@@ -19,6 +19,6 @@ function commitAndTag(version) {
     'git add .',
     'git commit -m "Release v' + version + '"',
     'git tag ' + version,
-  ].join(' && ')).code
+  ].join(' && ')).code;
   return !code
 }

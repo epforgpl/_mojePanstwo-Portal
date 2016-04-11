@@ -7,11 +7,11 @@
 
     // AMD.
     if ( typeof define == 'function' && define.amd )
-        define( ['picker', 'jquery'], factory )
+		define(['picker', 'jquery'], factory);
 
     // Node.js/browserify.
     else if ( typeof exports == 'object' )
-        module.exports = factory( require('./picker.js'), require('jquery') )
+		module.exports = factory(require('./picker.js'), require('jquery'));
 
     // Browser globals.
     else factory( Picker, jQuery )
@@ -24,7 +24,7 @@
  */
 var DAYS_IN_WEEK = 7,
     WEEKS_IN_CALENDAR = 6,
-    _ = Picker._
+	_ = Picker._;
 
 
 
@@ -48,10 +48,10 @@ function DatePicker( picker, settings ) {
 
                 // For normal browsers.
                 getComputedStyle( picker.$root[0] ).direction == 'rtl'
-        }
+		};
 
-    calendar.settings = settings
-    calendar.$node = picker.$node
+	calendar.settings = settings;
+	calendar.$node = picker.$node;
 
     // The queue of methods that will be used to build item objects.
     calendar.queue = {
@@ -63,21 +63,19 @@ function DatePicker( picker, settings ) {
         view: 'parse create validate viewset',
         disable: 'deactivate',
         enable: 'activate'
-    }
+	};
 
     // The component's item object.
-    calendar.item = {}
+	calendar.item = {};
 
-    calendar.item.clear = null
-    calendar.item.disable = ( settings.disable || [] ).slice( 0 )
+	calendar.item.clear = null;
+	calendar.item.disable = ( settings.disable || [] ).slice(0);
     calendar.item.enable = -(function( collectionDisabled ) {
         return collectionDisabled[ 0 ] === true ? collectionDisabled.shift() : -1
-    })( calendar.item.disable )
+	})(calendar.item.disable);
 
     calendar.
-        set( 'min', settings.min ).
-        set( 'max', settings.max ).
-        set( 'now' )
+        set( 'min', settings.min ).set('max', settings.max).set('now');
 
     // When there’s a value, set the `select`, which in turn
     // also sets the `highlight` and `view`.
@@ -104,37 +102,37 @@ function DatePicker( picker, settings ) {
         37: function() { return isRTL() ? 1 : -1 }, // Left
         go: function( timeChange ) {
             var highlightedObject = calendar.item.highlight,
-                targetDate = new Date( highlightedObject.year, highlightedObject.month, highlightedObject.date + timeChange )
+				targetDate = new Date(highlightedObject.year, highlightedObject.month, highlightedObject.date + timeChange);
             calendar.set(
                 'highlight',
                 targetDate,
                 { interval: timeChange }
-            )
+			);
             this.render()
         }
-    }
+	};
 
 
     // Bind some picker events.
     picker.
         on( 'render', function() {
             picker.$root.find( '.' + settings.klass.selectMonth ).on( 'change', function() {
-                var value = this.value
+				var value = this.value;
                 if ( value ) {
-                    picker.set( 'highlight', [ picker.get( 'view' ).year, value, picker.get( 'highlight' ).date ] )
+					picker.set('highlight', [picker.get('view').year, value, picker.get('highlight').date]);
                     picker.$root.find( '.' + settings.klass.selectMonth ).trigger( 'focus' )
                 }
-            })
+			});
             picker.$root.find( '.' + settings.klass.selectYear ).on( 'change', function() {
-                var value = this.value
+				var value = this.value;
                 if ( value ) {
-                    picker.set( 'highlight', [ value, picker.get( 'view' ).month, picker.get( 'highlight' ).date ] )
+					picker.set('highlight', [value, picker.get('view').month, picker.get('highlight').date]);
                     picker.$root.find( '.' + settings.klass.selectYear ).trigger( 'focus' )
                 }
             })
         }, 1 ).
         on( 'open', function() {
-            var includeToday = ''
+		var includeToday = '';
             if ( calendar.disabled( calendar.get('now') ) ) {
                 includeToday = ':not(.' + settings.klass.buttonToday + ')'
             }
@@ -153,12 +151,12 @@ function DatePicker( picker, settings ) {
 DatePicker.prototype.set = function( type, value, options ) {
 
     var calendar = this,
-        calendarItem = calendar.item
+		calendarItem = calendar.item;
 
     // If the value is `null` just set it immediately.
     if ( value === null ) {
-        if ( type == 'clear' ) type = 'select'
-        calendarItem[ type ] = value
+		if (type == 'clear') type = 'select';
+		calendarItem[type] = value;
         return calendar
     }
 
@@ -167,9 +165,9 @@ DatePicker.prototype.set = function( type, value, options ) {
     // * In the case of `enable`, keep the queue but set `disable` instead.
     //   And in the case of `flip`, keep the queue but set `enable` instead.
     calendarItem[ ( type == 'enable' ? 'disable' : type == 'flip' ? 'enable' : type ) ] = calendar.queue[ type ].split( ' ' ).map( function( method ) {
-        value = calendar[ method ]( type, value, options )
+		value = calendar[method](type, value, options);
         return value
-    }).pop()
+	}).pop();
 
     // Check if we need to cascade through more updates.
     if ( type == 'select' ) {
@@ -188,7 +186,7 @@ DatePicker.prototype.set = function( type, value, options ) {
     }
 
     return calendar
-} //DatePicker.prototype.set
+}; //DatePicker.prototype.set
 
 
 /**
@@ -196,7 +194,7 @@ DatePicker.prototype.set = function( type, value, options ) {
  */
 DatePicker.prototype.get = function( type ) {
     return this.item[ type ]
-} //DatePicker.prototype.get
+}; //DatePicker.prototype.get
 
 
 /**
@@ -205,10 +203,10 @@ DatePicker.prototype.get = function( type ) {
 DatePicker.prototype.create = function( type, value, options ) {
 
     var isInfiniteValue,
-        calendar = this
+		calendar = this;
 
     // If there’s no value, use the type as the value.
-    value = value === undefined ? type : value
+	value = value === undefined ? type : value;
 
 
     // If it’s infinity, update the value.
@@ -224,7 +222,7 @@ DatePicker.prototype.create = function( type, value, options ) {
     // If it’s an array, convert it into a date and make sure
     // that it’s a valid date – otherwise default to today.
     else if ( $.isArray( value ) ) {
-        value = new Date( value[ 0 ], value[ 1 ], value[ 2 ] )
+		value = new Date(value[0], value[1], value[2]);
         value = _.isDate( value ) ? value : calendar.create().obj
     }
 
@@ -247,7 +245,7 @@ DatePicker.prototype.create = function( type, value, options ) {
         obj: isInfiniteValue || value,
         pick: isInfiniteValue || value.getTime()
     }
-} //DatePicker.prototype.create
+}; //DatePicker.prototype.create
 
 
 /**
@@ -262,7 +260,7 @@ DatePicker.prototype.createRange = function( from, to ) {
                 return calendar.create( date )
             }
             return date
-        }
+		};
 
     // Create objects if possible.
     if ( !_.isInteger( from ) ) {
@@ -284,16 +282,16 @@ DatePicker.prototype.createRange = function( from, to ) {
         from: createDate( from ),
         to: createDate( to )
     }
-} //DatePicker.prototype.createRange
+}; //DatePicker.prototype.createRange
 
 
 /**
  * Check if a date unit falls within a date range object.
  */
 DatePicker.prototype.withinRange = function( range, dateUnit ) {
-    range = this.createRange(range.from, range.to)
+	range = this.createRange(range.from, range.to);
     return dateUnit.pick >= range.from.pick && dateUnit.pick <= range.to.pick
-}
+};
 
 
 /**
@@ -301,27 +299,27 @@ DatePicker.prototype.withinRange = function( range, dateUnit ) {
  */
 DatePicker.prototype.overlapRanges = function( one, two ) {
 
-    var calendar = this
+	var calendar = this;
 
     // Convert the ranges into comparable dates.
-    one = calendar.createRange( one.from, one.to )
-    two = calendar.createRange( two.from, two.to )
+	one = calendar.createRange(one.from, one.to);
+	two = calendar.createRange(two.from, two.to);
 
     return calendar.withinRange( one, two.from ) || calendar.withinRange( one, two.to ) ||
         calendar.withinRange( two, one.from ) || calendar.withinRange( two, one.to )
-}
+};
 
 
 /**
  * Get the date today.
  */
 DatePicker.prototype.now = function( type, value, options ) {
-    value = new Date()
+	value = new Date();
     if ( options && options.rel ) {
         value.setDate( value.getDate() + options.rel )
     }
     return this.normalize( value, options )
-}
+};
 
 
 /**
@@ -342,32 +340,32 @@ DatePicker.prototype.navigate = function( type, value, options ) {
     if ( isTargetArray || isTargetObject ) {
 
         if ( isTargetObject ) {
-            targetYear = value.year
-            targetMonth = value.month
+			targetYear = value.year;
+			targetMonth = value.month;
             targetDate = value.date
         }
         else {
-            targetYear = +value[0]
-            targetMonth = +value[1]
+			targetYear = +value[0];
+			targetMonth = +value[1];
             targetDate = +value[2]
         }
 
         // If we’re navigating months but the view is in a different
         // month, navigate to the view’s year and month.
         if ( options && options.nav && viewsetObject && viewsetObject.month !== targetMonth ) {
-            targetYear = viewsetObject.year
+			targetYear = viewsetObject.year;
             targetMonth = viewsetObject.month
         }
 
         // Figure out the expected target year and month.
-        targetDateObject = new Date( targetYear, targetMonth + ( options && options.nav ? options.nav : 0 ), 1 )
-        targetYear = targetDateObject.getFullYear()
-        targetMonth = targetDateObject.getMonth()
+		targetDateObject = new Date(targetYear, targetMonth + ( options && options.nav ? options.nav : 0 ), 1);
+		targetYear = targetDateObject.getFullYear();
+		targetMonth = targetDateObject.getMonth();
 
         // If the month we’re going to doesn’t have enough days,
         // keep decreasing the date until we reach the month’s last date.
         while ( /*safety &&*/ new Date( targetYear, targetMonth, targetDate ).getMonth() !== targetMonth ) {
-            targetDate -= 1
+			targetDate -= 1;
             /*safety -= 1
             if ( !safety ) {
                 throw 'Fell into an infinite loop while navigating to ' + new Date( targetYear, targetMonth, targetDate ) + '.'
@@ -378,16 +376,15 @@ DatePicker.prototype.navigate = function( type, value, options ) {
     }
 
     return value
-} //DatePicker.prototype.navigate
-
-
-/**
+};
+	; //DatePicker.prototype.navigate
+	/**
  * Normalize a date by setting the hours to midnight.
  */
 DatePicker.prototype.normalize = function( value/*, options*/ ) {
-    value.setHours( 0, 0, 0, 0 )
+	value.setHours(0, 0, 0, 0);
     return value
-}
+};
 
 
 /**
@@ -395,7 +392,7 @@ DatePicker.prototype.normalize = function( value/*, options*/ ) {
  */
 DatePicker.prototype.measure = function( type, value/*, options*/ ) {
 
-    var calendar = this
+	var calendar = this;
 
     // If it’s anything false-y, remove the limits.
     if ( !value ) {
@@ -413,7 +410,7 @@ DatePicker.prototype.measure = function( type, value/*, options*/ ) {
     }
 
     return value
-} ///DatePicker.prototype.measure
+}; ///DatePicker.prototype.measure
 
 
 /**
@@ -421,7 +418,7 @@ DatePicker.prototype.measure = function( type, value/*, options*/ ) {
  */
 DatePicker.prototype.viewset = function( type, dateObject/*, options*/ ) {
     return this.create([ dateObject.year, dateObject.month, 1 ])
-}
+};
 
 
 /**
@@ -455,8 +452,8 @@ DatePicker.prototype.validate = function( type, dateObject, options ) {
 
             // If there’s a date, check where it is relative to the target.
             if ( $.isArray( value ) ) {
-                var dateTime = calendar.create( value ).pick
-                if ( dateTime < dateObject.pick ) hasEnabledBeforeTarget = true
+				var dateTime = calendar.create(value).pick;
+				if (dateTime < dateObject.pick) hasEnabledBeforeTarget = true;
                 else if ( dateTime > dateObject.pick ) hasEnabledAfterTarget = true
             }
 
@@ -503,15 +500,15 @@ DatePicker.prototype.validate = function( type, dateObject, options ) {
 
             // If we’ve looped into the next/prev month with a large interval, return to the original date and flatten the interval.
             if ( Math.abs( interval ) > 1 && ( dateObject.month < originalDateObject.month || dateObject.month > originalDateObject.month ) ) {
-                dateObject = originalDateObject
+				dateObject = originalDateObject;
                 interval = interval > 0 ? 1 : -1
             }
 
 
             // If we’ve reached the min/max limit, reverse the direction, flatten the interval and set it to the limit.
             if ( dateObject.pick <= minLimitObject.pick ) {
-                reachedMin = true
-                interval = 1
+				reachedMin = true;
+				interval = 1;
                 dateObject = calendar.create([
                     minLimitObject.year,
                     minLimitObject.month,
@@ -519,8 +516,8 @@ DatePicker.prototype.validate = function( type, dateObject, options ) {
                 ])
             }
             else if ( dateObject.pick >= maxLimitObject.pick ) {
-                reachedMax = true
-                interval = -1
+				reachedMax = true;
+				interval = -1;
                 dateObject = calendar.create([
                     maxLimitObject.year,
                     maxLimitObject.month,
@@ -544,10 +541,9 @@ DatePicker.prototype.validate = function( type, dateObject, options ) {
 
     // Return the date object settled on.
     return dateObject
-} //DatePicker.prototype.validate
-
-
-/**
+};
+	; //DatePicker.prototype.validate
+	/**
  * Check if a date is disabled.
  */
 DatePicker.prototype.disabled = function( dateToVerify ) {
@@ -572,13 +568,13 @@ DatePicker.prototype.disabled = function( dateToVerify ) {
             if ( $.isPlainObject( dateToDisable ) ) {
                 return calendar.withinRange( dateToDisable, dateToVerify )
             }
-        })
+		});
 
     // If this date matches a disabled date, confirm it’s not inverted.
     isDisabledMatch = isDisabledMatch.length && !isDisabledMatch.filter(function( dateToDisable ) {
         return $.isArray( dateToDisable ) && dateToDisable[3] == 'inverted' ||
             $.isPlainObject( dateToDisable ) && dateToDisable.inverted
-    }).length
+		}).length;
 
     // Check the calendar “enabled” flag and respectively flip the
     // disabled state. Then also check if it’s beyond the min/max limits.
@@ -586,7 +582,7 @@ DatePicker.prototype.disabled = function( dateToVerify ) {
         dateToVerify.pick < calendar.item.min.pick ||
         dateToVerify.pick > calendar.item.max.pick
 
-} //DatePicker.prototype.disabled
+}; //DatePicker.prototype.disabled
 
 
 /**
@@ -595,7 +591,7 @@ DatePicker.prototype.disabled = function( dateToVerify ) {
 DatePicker.prototype.parse = function( type, value, options ) {
 
     var calendar = this,
-        parsingObject = {}
+		parsingObject = {};
 
     // If it’s already parsed, we’re good.
     if ( !value || typeof value != 'string' ) {
@@ -604,7 +600,7 @@ DatePicker.prototype.parse = function( type, value, options ) {
 
     // We need a `.format` to parse the value with.
     if ( !( options && options.format ) ) {
-        options = options || {}
+		options = options || {};
         options.format = calendar.settings.format
     }
 
@@ -617,7 +613,7 @@ DatePicker.prototype.parse = function( type, value, options ) {
 
             // The format length is from the formatting label function or the
             // label length without the escaping exclamation (!) mark.
-            formatLength = formattingLabel ? _.trigger( formattingLabel, calendar, [ value, parsingObject ] ) : label.replace( /^!/, '' ).length
+			formatLength = formattingLabel ? _.trigger(formattingLabel, calendar, [value, parsingObject]) : label.replace(/^!/, '').length;
 
         // If there's a format label, split the value up to the format length.
         // Then add it to the parsing object with appropriate label.
@@ -627,7 +623,7 @@ DatePicker.prototype.parse = function( type, value, options ) {
 
         // Update the value as the substring from format length to end.
         value = value.substr( formatLength )
-    })
+	});
 
     // Compensate for month 0index.
     return [
@@ -635,7 +631,7 @@ DatePicker.prototype.parse = function( type, value, options ) {
         +( parsingObject.mm || parsingObject.m ) - 1,
         parsingObject.dd || parsingObject.d
     ]
-} //DatePicker.prototype.parse
+}; //DatePicker.prototype.parse
 
 
 /**
@@ -648,7 +644,7 @@ DatePicker.prototype.formats = (function() {
 
         // Grab the first word from the string.
         // Regex pattern from http://stackoverflow.com/q/150033
-        var word = string.match( /[^\x00-\x7F]+|\w+/ )[ 0 ]
+		var word = string.match(/[^\x00-\x7F]+|\w+/)[0];
 
         // If there's no month index, add it to the date object
         if ( !dateObject.mm && !dateObject.m ) {
@@ -704,7 +700,7 @@ DatePicker.prototype.formats = (function() {
         },
         mmm: function( string, dateObject ) {
 
-            var collection = this.settings.monthsShort
+			var collection = this.settings.monthsShort;
 
             // If there's a string, get length of the relevant month from the short
             // months collection. Otherwise return the selected month from that collection.
@@ -712,7 +708,7 @@ DatePicker.prototype.formats = (function() {
         },
         mmmm: function( string, dateObject ) {
 
-            var collection = this.settings.monthsFull
+			var collection = this.settings.monthsFull;
 
             // If there's a string, get length of the relevant month from the full
             // months collection. Otherwise return the selected month from that collection.
@@ -736,13 +732,13 @@ DatePicker.prototype.formats = (function() {
 
         // Format an object into a string using the formatting options.
         toString: function ( formatString, itemObject ) {
-            var calendar = this
+			var calendar = this;
             return calendar.formats.toArray( formatString ).map( function( label ) {
                 return _.trigger( calendar.formats[ label ], calendar, [ 0, itemObject ] ) || label.replace( /^!/, '' )
             }).join( '' )
         }
     }
-})() //DatePicker.prototype.formats
+})(); //DatePicker.prototype.formats
 
 
 
@@ -752,7 +748,7 @@ DatePicker.prototype.formats = (function() {
  */
 DatePicker.prototype.isDateExact = function( one, two ) {
 
-    var calendar = this
+	var calendar = this;
 
     // When we’re working with weekdays, do a direct comparison.
     if (
@@ -776,7 +772,7 @@ DatePicker.prototype.isDateExact = function( one, two ) {
     }
 
     return false
-}
+};
 
 
 /**
@@ -785,15 +781,15 @@ DatePicker.prototype.isDateExact = function( one, two ) {
 DatePicker.prototype.isDateOverlap = function( one, two ) {
 
     var calendar = this,
-        firstDay = calendar.settings.firstDay ? 1 : 0
+		firstDay = calendar.settings.firstDay ? 1 : 0;
 
     // When we’re working with a weekday index, compare the days.
     if ( _.isInteger( one ) && ( _.isDate( two ) || $.isArray( two ) ) ) {
-        one = one % 7 + firstDay
+		one = one % 7 + firstDay;
         return one === calendar.create( two ).day + 1
     }
     if ( _.isInteger( two ) && ( _.isDate( one ) || $.isArray( one ) ) ) {
-        two = two % 7 + firstDay
+		two = two % 7 + firstDay;
         return two === calendar.create( one ).day + 1
     }
 
@@ -803,16 +799,16 @@ DatePicker.prototype.isDateOverlap = function( one, two ) {
     }
 
     return false
-}
+};
 
 
 /**
  * Flip the “enabled” state.
  */
 DatePicker.prototype.flipEnable = function(val) {
-    var itemObject = this.item
+	var itemObject = this.item;
     itemObject.enable = val || (itemObject.enable == -1 ? 1 : -1)
-}
+};
 
 
 /**
@@ -821,7 +817,7 @@ DatePicker.prototype.flipEnable = function(val) {
 DatePicker.prototype.deactivate = function( type, datesToDisable ) {
 
     var calendar = this,
-        disabledItems = calendar.item.disable.slice(0)
+		disabledItems = calendar.item.disable.slice(0);
 
 
     // If we’re flipping, that’s all we need to do.
@@ -830,12 +826,12 @@ DatePicker.prototype.deactivate = function( type, datesToDisable ) {
     }
 
     else if ( datesToDisable === false ) {
-        calendar.flipEnable(1)
+		calendar.flipEnable(1);
         disabledItems = []
     }
 
     else if ( datesToDisable === true ) {
-        calendar.flipEnable(-1)
+		calendar.flipEnable(-1);
         disabledItems = []
     }
 
@@ -844,13 +840,13 @@ DatePicker.prototype.deactivate = function( type, datesToDisable ) {
 
         datesToDisable.map(function( unitToDisable ) {
 
-            var matchFound
+			var matchFound;
 
             // When we have disabled items, check for matches.
             // If something is matched, immediately break out.
             for ( var index = 0; index < disabledItems.length; index += 1 ) {
                 if ( calendar.isDateExact( unitToDisable, disabledItems[index] ) ) {
-                    matchFound = true
+					matchFound = true;
                     break
                 }
             }
@@ -871,7 +867,7 @@ DatePicker.prototype.deactivate = function( type, datesToDisable ) {
 
     // Return the updated collection.
     return disabledItems
-} //DatePicker.prototype.deactivate
+}; //DatePicker.prototype.deactivate
 
 
 /**
@@ -881,7 +877,7 @@ DatePicker.prototype.activate = function( type, datesToEnable ) {
 
     var calendar = this,
         disabledItems = calendar.item.disable,
-        disabledItemsCount = disabledItems.length
+		disabledItemsCount = disabledItems.length;
 
     // If we’re flipping, that’s all we need to do.
     if ( datesToEnable == 'flip' ) {
@@ -889,12 +885,12 @@ DatePicker.prototype.activate = function( type, datesToEnable ) {
     }
 
     else if ( datesToEnable === true ) {
-        calendar.flipEnable(1)
+		calendar.flipEnable(1);
         disabledItems = []
     }
 
     else if ( datesToEnable === false ) {
-        calendar.flipEnable(-1)
+		calendar.flipEnable(-1);
         disabledItems = []
     }
 
@@ -906,28 +902,28 @@ DatePicker.prototype.activate = function( type, datesToEnable ) {
             var matchFound,
                 disabledUnit,
                 index,
-                isExactRange
+				isExactRange;
 
             // Go through the disabled items and try to find a match.
             for ( index = 0; index < disabledItemsCount; index += 1 ) {
 
-                disabledUnit = disabledItems[index]
+				disabledUnit = disabledItems[index];
 
                 // When an exact match is found, remove it from the collection.
                 if ( calendar.isDateExact( disabledUnit, unitToEnable ) ) {
-                    matchFound = disabledItems[index] = null
-                    isExactRange = true
+					matchFound = disabledItems[index] = null;
+					isExactRange = true;
                     break
                 }
 
                 // When an overlapped match is found, add the “inverted” state to it.
                 else if ( calendar.isDateOverlap( disabledUnit, unitToEnable ) ) {
                     if ( $.isPlainObject( unitToEnable ) ) {
-                        unitToEnable.inverted = true
+						unitToEnable.inverted = true;
                         matchFound = unitToEnable
                     }
                     else if ( $.isArray( unitToEnable ) ) {
-                        matchFound = unitToEnable
+						matchFound = unitToEnable;
                         if ( !matchFound[3] ) matchFound.push( 'inverted' )
                     }
                     else if ( _.isDate( unitToEnable ) ) {
@@ -940,7 +936,7 @@ DatePicker.prototype.activate = function( type, datesToEnable ) {
             // If a match was found, remove a previous duplicate entry.
             if ( matchFound ) for ( index = 0; index < disabledItemsCount; index += 1 ) {
                 if ( calendar.isDateExact( disabledItems[index], unitToEnable ) ) {
-                    disabledItems[index] = null
+					disabledItems[index] = null;
                     break
                 }
             }
@@ -949,7 +945,7 @@ DatePicker.prototype.activate = function( type, datesToEnable ) {
             // make sure there are no “inverted” dates because of it.
             if ( isExactRange ) for ( index = 0; index < disabledItemsCount; index += 1 ) {
                 if ( calendar.isDateOverlap( disabledItems[index], unitToEnable ) ) {
-                    disabledItems[index] = null
+					disabledItems[index] = null;
                     break
                 }
             }
@@ -963,7 +959,7 @@ DatePicker.prototype.activate = function( type, datesToEnable ) {
 
     // Return the updated collection.
     return disabledItems.filter(function( val ) { return val != null })
-} //DatePicker.prototype.activate
+}; //DatePicker.prototype.activate
 
 
 /**
@@ -990,7 +986,7 @@ DatePicker.prototype.nodes = function( isOpen ) {
 
             // If the first day should be Monday, move Sunday to the end.
             if ( settings.firstDay ) {
-                collection.push( collection.shift() )
+				collection.push(collection.shift());
                 fullCollection.push( fullCollection.shift() )
             }
 
@@ -1013,7 +1009,7 @@ DatePicker.prototype.nodes = function( isOpen ) {
                         }
                     })
                 )
-            ) //endreturn
+			); //endreturn
         })( ( settings.showWeekdaysFull ? settings.weekdaysFull : settings.weekdaysShort ).slice( 0 ), settings.weekdaysFull.slice( 0 ) ), //tableHead
 
 
@@ -1037,14 +1033,14 @@ DatePicker.prototype.nodes = function( isOpen ) {
                     controls: calendar.$node[0].id + '_table'
                 }) + ' ' +
                 'title="' + (next ? settings.labelMonthNext : settings.labelMonthPrev ) + '"'
-            ) //endreturn
+			); //endreturn
         }, //createMonthNav
 
 
         // Create the month label.
         createMonthLabel = function() {
 
-            var monthsCollection = settings.showMonthsShort ? settings.monthsShort : settings.monthsFull
+			var monthsCollection = settings.showMonthsShort ? settings.monthsShort : settings.monthsFull;
 
             // If there are months to select, add a dropdown menu.
             if ( settings.selectMonths ) {
@@ -1094,7 +1090,7 @@ DatePicker.prototype.nodes = function( isOpen ) {
 
             // If years selector is set to a literal "true", set it to 5. Otherwise
             // divide in half to get half before and half after focused year.
-            numberYears = settings.selectYears === true ? 5 : ~~( settings.selectYears / 2 )
+				numberYears = settings.selectYears === true ? 5 : ~~( settings.selectYears / 2 );
 
             // If there are years to select, add a dropdown menu.
             if ( numberYears ) {
@@ -1103,12 +1099,12 @@ DatePicker.prototype.nodes = function( isOpen ) {
                     minYear = minLimitObject.year,
                     maxYear = maxLimitObject.year,
                     lowestYear = focusedYear - numberYears,
-                    highestYear = focusedYear + numberYears
+					highestYear = focusedYear + numberYears;
 
                 // If the min year is greater than the lowest year, increase the highest year
                 // by the difference and set the lowest year to the min year.
                 if ( minYear > lowestYear ) {
-                    highestYear += minYear - lowestYear
+					highestYear += minYear - lowestYear;
                     lowestYear = minYear
                 }
 
@@ -1118,9 +1114,9 @@ DatePicker.prototype.nodes = function( isOpen ) {
                 if ( maxYear < highestYear ) {
 
                     var availableYears = lowestYear - minYear,
-                        neededYears = highestYear - maxYear
+						neededYears = highestYear - maxYear;
 
-                    lowestYear -= availableYears > neededYears ? neededYears : availableYears
+					lowestYear -= availableYears > neededYears ? neededYears : availableYears;
                     highestYear = maxYear
                 }
 
@@ -1149,7 +1145,7 @@ DatePicker.prototype.nodes = function( isOpen ) {
 
             // Otherwise just return the year focused
             return _.node( 'div', focusedYear, settings.klass.year )
-        } //createYearLabel
+		}; //createYearLabel
 
 
     // Create and return the entire calendar.
@@ -1171,7 +1167,7 @@ DatePicker.prototype.nodes = function( isOpen ) {
                 item: function( rowCounter ) {
 
                     // If Monday is the first day and the month starts on Sunday, shift the date back a week.
-                    var shiftDateBy = settings.firstDay && calendar.create([ viewsetObject.year, viewsetObject.month, 1 ]).day === 0 ? -7 : 0
+					var shiftDateBy = settings.firstDay && calendar.create([viewsetObject.year, viewsetObject.month, 1]).day === 0 ? -7 : 0;
 
                     return [
                         _.group({
@@ -1184,12 +1180,12 @@ DatePicker.prototype.nodes = function( isOpen ) {
                             item: function( targetDate ) {
 
                                 // Convert the time date from a relative date to a target date.
-                                targetDate = calendar.create([ viewsetObject.year, viewsetObject.month, targetDate + ( settings.firstDay ? 1 : 0 ) ])
+								targetDate = calendar.create([viewsetObject.year, viewsetObject.month, targetDate + ( settings.firstDay ? 1 : 0 )]);
 
                                 var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
                                     isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
                                     isDisabled = disabledCollection && calendar.disabled( targetDate ) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
-                                    formattedDate = _.trigger( calendar.formats.toString, calendar, [ settings.format, targetDate ] )
+									formattedDate = _.trigger(calendar.formats.toString, calendar, [settings.format, targetDate]);
 
                                 return [
                                     _.node(
@@ -1198,7 +1194,7 @@ DatePicker.prototype.nodes = function( isOpen ) {
                                         (function( klasses ) {
 
                                             // Add the `infocus` or `outfocus` classes based on month in view.
-                                            klasses.push( viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus )
+											klasses.push(viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus);
 
                                             // Add the `today` class if needed.
                                             if ( nowObject.pick == targetDate.pick ) {
@@ -1232,10 +1228,10 @@ DatePicker.prototype.nodes = function( isOpen ) {
                                     ),
                                     '',
                                     _.ariaAttr({ role: 'presentation' })
-                                ] //endreturn
+								]; //endreturn
                             }
                         })
-                    ] //endreturn
+					]; //endreturn
                 }
             })
         ),
@@ -1263,8 +1259,8 @@ DatePicker.prototype.nodes = function( isOpen ) {
             ( isOpen ? '' : ' disabled' ) + ' ' +
             _.ariaAttr({ controls: calendar.$node[0].id }) ),
         settings.klass.footer
-    ) //endreturn
-} //DatePicker.prototype.nodes
+	); //endreturn
+}; //DatePicker.prototype.nodes
 
 
 
@@ -1336,7 +1332,7 @@ DatePicker.defaults = (function( prefix ) {
             buttonClose: prefix + 'button--close'
         }
     }
-})( Picker.klasses().picker + '__' )
+})(Picker.klasses().picker + '__');
 
 
 

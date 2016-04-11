@@ -1,6 +1,7 @@
-<?php $edit = isset($edit); ?>
+<?php
+$edit = isset($edit);
+?>
 
-//sprawozdanie 1
 <table class="formularz table table-bordered">
     <thead>
     <tr>
@@ -8,9 +9,9 @@
             <small><i>(Należy wypełnić zgodnie z numerem nadanym przy zgłoszeniu widocznym
                     na portalu zbiórek)</i></small>
         </td>
-        <td class="col-xs-3"><?= ($edit) ? '<input type="text" name="numer_zbiorki" />' : $value ?></td>
+        <td class="col-xs-3"><?= ($edit) ? '<input class="form-control" type="text" name="numer_zbiorki" />' : $value ?></td>
         <td class="grey col-xs-3">Data wpływu sprawozdania</td>
-        <td class="grey col-xs-3">//datepicker</td>
+        <td class="grey col-xs-3"><input class="datepicker form-control" name="data_wplywu" type="text"/></td>
     </tr>
     </thead>
     <tbody>
@@ -42,11 +43,18 @@
     </tr>
     <tr>
         <td class="grey"><b>Okres sprawozdawczy</b></td>
-        <td colspan="3">//datepicker od do</td>
+        <td colspan="3">
+            <div class="datepicker range">
+                <label>Od</label>
+                <input class="from form-control" name="okres_sprawozdawczy[]" type="text"/>
+                <label>do</label>
+                <input class="to form-control" name="okres_sprawozdawczy[]" type="text"/>
+            </div>
+        </td>
     </tr>
     <tr>
         <td class="grey"><b>Nazwa zbiórki</b></td>
-        <td colspan="3"><?= ($edit) ? '<input type="text" name="nazwa_zbiorki" />' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="nazwa_zbiorki" />' : $value ?></td>
     </tr>
 
     <tr>
@@ -54,28 +62,28 @@
     </tr>
     <tr>
         <td class="grey">1. Nazwa organizacji/komitetu społecznego</td>
-        <td colspan="3"><?= ($edit) ? '<input type="text" name="organizacja_nazwa" />' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_nazwa" />' : $value ?></td>
     </tr>
     <tr>
         <td class="grey">2. Siedziba</td>
-        <td colspan="3"><?= ($edit) ? '<input type="text" name="organizacja_miejscowosc" placeholder="Miejscowość" />' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_miejscowosc" placeholder="Miejscowość" />' : $value ?></td>
     </tr>
     <tr>
         <td class="grey">3. Dane do kontaktu</td>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_kraj" placeholder="Kraj" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_miejscowosc" placeholder="Miejscowość" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_ulica" placeholder="Ulica" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_kraj" placeholder="Kraj" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_miejscowosc" placeholder="Miejscowość" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_ulica" placeholder="Ulica" />' : $value ?></td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_nr_domu" placeholder="Nr domu" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_nr_lokalu" placeholder="Nr lokalu" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_kod_pocztowy" placeholder="Kod pocztowy" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_nr_telefonu" placeholder="Nr telefonu" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_domu" placeholder="Nr domu" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_lokalu" placeholder="Nr lokalu" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_kod_pocztowy" placeholder="Kod pocztowy" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_telefonu" placeholder="Nr telefonu" />' : $value ?></td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input type="text" name="organizacja_kontakt_nr_faxu" placeholder="Nr faksu (pole nieobowiązkowe)" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="email" name="organizacja_kontakt_email" placeholder="e-mail (pole nieobowiązkowe)" />' : $value ?></td>
-        <td colspan="2"><?= ($edit) ? '<input type="text" name="organizacja_kontakt_email" placeholder="Strona www (pole nieobowiązkowe)" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_faxu" placeholder="Nr faksu (pole nieobowiązkowe)" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="email" name="organizacja_kontakt_email" placeholder="e-mail (pole nieobowiązkowe)" />' : $value ?></td>
+        <td colspan="2"><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_www" placeholder="Strona www (pole nieobowiązkowe)" />' : $value ?></td>
     </tr>
 
     <tr>
@@ -86,22 +94,22 @@
         </td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_imie" placeholder="Imię" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_nazwisko" placeholder="Nazwisko" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_pesel_dowod" placeholder="PESEL (przypadku braku seria i nr dokumentu potwierdzającego tożsamość)" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_kraj" placeholder="Kraj" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_imie" placeholder="Imię" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nazwisko" placeholder="Nazwisko" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_pesel_dowod" placeholder="PESEL (przypadku braku seria i nr dokumentu potwierdzającego tożsamość)" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_kraj" placeholder="Kraj" />' : $value ?></td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_miejscowosc" placeholder="Miejscowość" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_ulica" placeholder="Ulica" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_nr_domu" placeholder="Nr domu" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_nr_lokalu" placeholder="Nr lokalu" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_miejscowosc" placeholder="Miejscowość" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_ulica" placeholder="Ulica" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_domu" placeholder="Nr domu" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_lokalu" placeholder="Nr lokalu" />' : $value ?></td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_kod_pocztowy" placeholder="Kod pocztowy" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_nr_telefonu" placeholder="Nr telefonu (pole nieobowiązkowe)" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_nr_faxu" placeholder="Nr faksu (pole nieobowiązkowe)" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text" name="osoba_uprawniona_email" placeholder="e-mail (pole nieobowiązkowe)" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_kod_pocztowy" placeholder="Kod pocztowy" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_telefonu" placeholder="Nr telefonu (pole nieobowiązkowe)" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_faxu" placeholder="Nr faksu (pole nieobowiązkowe)" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="email" name="osoba_uprawniona_email" placeholder="e-mail (pole nieobowiązkowe)" />' : $value ?></td>
     </tr>
 
     <tr>
@@ -111,32 +119,32 @@
     </tr>
     <tr>
         <td class="grey" colspan="3">1. Suma zebranych środków pieniężnych</td>
-        <td><?= ($edit) ? '<input class="currency-pln" type="number" min="0" step="any" name="zebrane_suma" />' : $value ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="zebrane_suma" />' : $value ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" rowspan="4">2. Kategorie i ilość albo wartość zebranych darów rzeczowych</td>
-        <td colspan="2"><?= ($edit) ? '<input type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
+        <td colspan="2"><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
     </tr>
     <tr>
-        <td colspan="2"><?= ($edit) ? '<input type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
+        <td colspan="2"><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
     </tr>
     <tr>
-        <td colspan="2"><?= ($edit) ? '<input type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
+        <td colspan="2"><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
     </tr>
     <tr>
-        <td colspan="2"><?= ($edit) ? '<input type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
-        <td><?= ($edit) ? '<input type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
+        <td colspan="2"><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_nazwa[]" />' : $value ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text"name="zebrane_kategorie_wartosc[]" />' : $value ?></td>
     </tr>
     <tr>
         <td class="grey">3. Dodatkowe informacje o zebranych ofiarach<br/>
             <small><i>(pole nieobowiązkowe)</i></small>
         </td>
-        <td colspan="3"><?= ($edit) ? '<textarea name="zebrane_informacje_dodatkowe"></textarea>' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<textarea class="form-control" name="zebrane_informacje_dodatkowe"></textarea>' : $value ?></td>
     </tr>
 
     <tr>
@@ -149,7 +157,7 @@
             <small><i>(Koszty ogółem
                     muszą być sumą kosztów podanych w pkt 2-6)</i></small>
         </td>
-        <td><?= ($edit) ? '<input class="currency-pln" type="number" min="0" step="any" name="koszty_suma" />' : $value ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_suma" />' : $value ?>
             , PLN
         </td>
     </tr>
@@ -158,7 +166,7 @@
             identyfikatorów,
             wykorzystanie sprzętu itp.
         </td>
-        <td><?= ($edit) ? '<input class="currency-pln" type="number" min="0" step="any" name="koszty_organizacja" />' : $value ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_organizacja" />' : $value ?>
             , PLN
         </td>
     </tr>
@@ -167,25 +175,25 @@
             przeprowadzeniem
             zbiórki
         </td>
-        <td><?= ($edit) ? '<input class="currency-pln" type="number" min="0" step="any" name="koszty_kampanii_informacyjne" />' : $value ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_kampanii_informacyjne" />' : $value ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">4. Koszty administracyjne</td>
-        <td><?= ($edit) ? '<input class="currency-pln" type="number" min="0" step="any" name="koszty_administracyjne" />' : $value ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_administracyjne" />' : $value ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">5. Wynagrodzenia</td>
-        <td><?= ($edit) ? '<input class="currency-pln" type="number" min="0" step="any" name="koszty_wynagrodzenia" />' : $value ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_wynagrodzenia" />' : $value ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">6. Pozostałe koszty ogółem</td>
-        <td><?= ($edit) ? '<input class="currency-pln" type="number" min="0" step="any" name="koszty_pozostałe" />' : $value ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_pozostałe" />' : $value ?>
             , PLN
         </td>
     </tr>
@@ -193,7 +201,7 @@
         <td class="grey">7. Dodatkowe informacje o kosztach<br/>
             <small><i>(pole nieobowiązkowe)</i></small>
         </td>
-        <td colspan="3"><?= ($edit) ? '<textarea name="koszty_informacje_dodatkowe"></textarea>' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<textarea class="form-control" name="koszty_informacje_dodatkowe"></textarea>' : $value ?></td>
     </tr>
 
     <tr>
@@ -202,19 +210,19 @@
         </td>
     </tr>
     <tr>
-        <td colspan="3"><?= ($edit) ? '<input type="text" name="podpis[]" placeholder="Imię i nazwisko" />' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="podpis[]" placeholder="Imię i nazwisko" />' : $value ?></td>
         <td><? if ($edit) {
                 echo '<small><i>Podpis</i></small>';
             } ?></td>
     </tr>
     <tr>
-        <td colspan="3"><?= ($edit) ? '<input type="text" name="podpis[]" placeholder="Imię i nazwisko" />' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="podpis[]" placeholder="Imię i nazwisko" />' : $value ?></td>
         <td><? if ($edit) {
                 echo '<small><i>Podpis</i></small>';
             } ?></td>
     </tr>
     <tr>
-        <td colspan="3"><?= ($edit) ? '<input type="text" name="podpis[]" placeholder="Imię i nazwisko" />' : $value ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="podpis[]" placeholder="Imię i nazwisko" />' : $value ?></td>
         <td><? if ($edit) {
                 echo '<small><i>Podpis</i></small>';
             } ?></td>

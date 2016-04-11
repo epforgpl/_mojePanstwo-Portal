@@ -16,7 +16,7 @@
 // Map array support
 if ( ![].map ) {
     Array.prototype.map = function ( callback, self ) {
-        var array = this, len = array.length, newArray = new Array( len )
+		var array = this, len = array.length, newArray = new Array(len);
         for ( var i = 0; i < len; i++ ) {
             if ( i in array ) {
                 newArray[ i ] = callback.call( self, array[ i ], i, array )
@@ -30,13 +30,13 @@ if ( ![].map ) {
 // Filter array support
 if ( ![].filter ) {
     Array.prototype.filter = function( callback ) {
-        if ( this == null ) throw new TypeError()
-        var t = Object( this ), len = t.length >>> 0
-        if ( typeof callback != 'function' ) throw new TypeError()
-        var newArray = [], thisp = arguments[ 1 ]
+		if (this == null) throw new TypeError();
+		var t = Object(this), len = t.length >>> 0;
+		if (typeof callback != 'function') throw new TypeError();
+		var newArray = [], thisp = arguments[1];
         for ( var i = 0; i < len; i++ ) {
           if ( i in t ) {
-            var val = t[ i ]
+			  var val = t[i];
             if ( callback.call( thisp, val, i, t ) ) newArray.push( val )
           }
         }
@@ -48,12 +48,12 @@ if ( ![].filter ) {
 // Index of array support
 if ( ![].indexOf ) {
     Array.prototype.indexOf = function( searchElement ) {
-        if ( this == null ) throw new TypeError()
-        var t = Object( this ), len = t.length >>> 0
-        if ( len === 0 ) return -1
-        var n = 0
+		if (this == null) throw new TypeError();
+		var t = Object(this), len = t.length >>> 0;
+		if (len === 0) return -1;
+		var n = 0;
         if ( arguments.length > 1 ) {
-            n = Number( arguments[ 1 ] )
+			n = Number(arguments[1]);
             if ( n != n ) {
                 n = 0
             }
@@ -61,8 +61,8 @@ if ( ![].indexOf ) {
                 n = ( n > 0 || -1 ) * Math.floor( Math.abs( n ) )
             }
         }
-        if ( n >= len ) return -1
-        var k = n >= 0 ? n : Math.max( len - Math.abs( n ), 0 )
+		if (n >= len) return -1;
+		var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
         for ( ; k < len; k++ ) {
             if ( k in t && t[ k ] === searchElement ) return k
         }
@@ -77,9 +77,9 @@ if ( ![].indexOf ) {
  * Available under the MIT License
  * http://blog.stevenlevithan.com/archives/cross-browser-split
  */
-var nativeSplit = String.prototype.split, compliantExecNpcg = /()??/.exec('')[1] === undefined
+var nativeSplit = String.prototype.split, compliantExecNpcg = /()??/.exec('')[1] === undefined;
 String.prototype.split = function(separator, limit) {
-    var str = this
+	var str = this;
     if (Object.prototype.toString.call(separator) !== '[object RegExp]') {
         return nativeSplit.call(str, separator, limit)
     }
@@ -89,17 +89,17 @@ String.prototype.split = function(separator, limit) {
                 (separator.extended   ? 'x' : '') +
                 (separator.sticky     ? 'y' : ''),
         lastLastIndex = 0,
-        separator2, match, lastIndex, lastLength
-    separator = new RegExp(separator.source, flags + 'g')
-    str += ''
+		separator2, match, lastIndex, lastLength;
+	separator = new RegExp(separator.source, flags + 'g');
+	str += '';
     if (!compliantExecNpcg) {
         separator2 = new RegExp('^' + separator.source + '$(?!\\s)', flags)
     }
-    limit = limit === undefined ? -1 >>> 0 : limit >>> 0
+	limit = limit === undefined ? -1 >>> 0 : limit >>> 0;
     while (match = separator.exec(str)) {
-        lastIndex = match.index + match[0].length
+		lastIndex = match.index + match[0].length;
         if (lastIndex > lastLastIndex) {
-            output.push(str.slice(lastLastIndex, match.index))
+			output.push(str.slice(lastLastIndex, match.index));
             if (!compliantExecNpcg && match.length > 1) {
                 match[0].replace(separator2, function () {
                     for (var i = 1; i < arguments.length - 2; i++) {
@@ -112,8 +112,8 @@ String.prototype.split = function(separator, limit) {
             if (match.length > 1 && match.index < str.length) {
                 Array.prototype.push.apply(output, match.slice(1))
             }
-            lastLength = match[0].length
-            lastLastIndex = lastIndex
+			lastLength = match[0].length;
+			lastLastIndex = lastIndex;
             if (output.length >= limit) {
                 break
             }

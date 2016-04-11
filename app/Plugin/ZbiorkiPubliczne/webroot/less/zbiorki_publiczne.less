@@ -20,6 +20,7 @@
 
         &, td {
             border: 1px solid #000000;
+            line-height: 2.5em;
         }
 
         .grey {
@@ -34,25 +35,28 @@
             > input, > textarea {
                 width: 100%;
             }
+
+            > label {
+                width: 100%;
+                margin: 0;
+                cursor: pointer;
+            }
         }
 
         .currency-pln {
             width: 80%;
             text-align: right;
+            float: left;
         }
 
-        .checkbox {
-            margin-top: 0;
-            margin-bottom: 0;
-
-            label {
-                width: 20px;
-                height: 20px;
-                padding: 0;
-
-                &:before, &:after {
-                    margin-left: 0;
-                }
+        .datepicker.range {
+            > label, > input {
+                float: left;
+            }
+            input {
+                width: 43%;
+                margin-left: 1%;
+                margin-right: 1%;
             }
         }
     }
