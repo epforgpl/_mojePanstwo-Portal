@@ -19,15 +19,20 @@ echo $this->element('app/sidebar');
                 <p class="margin-top-20">Uzupełnij formularz sprawozdania</p>
             </div>
             <? if (isset($edit)) { ?>
-                <form>
-                    <input type="hidden" name="sprawozdanie" value="<?= $edit['sprawozdanie'] ?>"/>
-                    <input type="hidden" name="skladajacy" value="<?= $edit['skladajacy'] ?>"/>
-                    <input type="hidden" name="zbiorka" value="<?= $edit['zbiorka'] ?>"/>
+                <form method="post" action="/zbiorki_publiczne/formularz">
+                    <input type="hidden" name="sprawozdanie" value="<?= $data['sprawozdanie'] ?>"/>
+                    <input type="hidden" name="skladajacy" value="<?= $data['skladajacy'] ?>"/>
+                    <input type="hidden" name="zbiorka" value="<?= $data['zbiorka'] ?>"/>
                     <div class="sections col-xs-12">
-                        <? echo $this->Element('ZbiorkiPubliczne.form1') ?>
+                        <? if ($data['sprawozdanie'] == 'zakonczeniu') {
+                            echo $this->Element('ZbiorkiPubliczne.form1');
+                        } else {
+                            echo $this->Element('ZbiorkiPubliczne.form2');
+                        } ?>
                     </div>
-                    <div class="sections col-xs-12">
-                        <? echo $this->Element('ZbiorkiPubliczne.form2') ?>
+                    <div class="sectionsBtn col-xs-12 text-center">
+                        <a href="/zbiorki_publiczne" class="btn btn-link" onclick="confirm('Czy na pewno?')">Anuluj</a>
+                        <button type="submit" class="btn btn-primary">Podgląd formularza</button>
                     </div>
                 </form>
             <? } else { ?>

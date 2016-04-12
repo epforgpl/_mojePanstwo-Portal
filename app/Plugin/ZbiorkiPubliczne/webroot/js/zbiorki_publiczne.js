@@ -1,4 +1,4 @@
-/*global $,document */
+/*global $,document, window */
 
 $(document).ready(function () {
 	var root = $('#zbiorkiPubliczne'),
@@ -10,11 +10,11 @@ $(document).ready(function () {
 			sections.find('.section:hidden:first').removeClass('hide').hide().slideDown();
 		}
 
-		console.log((sections.find('.section:hidden').length === 0), (sections.find('.section input:checked').length === 3), (sections.find('.section:hidden').length === 0) && (sections.find('.section input:checked').length === 3));
-
-		if ((sections.find('.section:hidden').length === 0) && (sections.find('.section input:checked').length === 3)) {
-			root.find('.sectionsBtn .btn').removeClass('disabled');
-		}
+		window.setTimeout(function () {
+			if ((sections.find('.section:hidden').length === 0) && (sections.find('.section input:checked').length === 3)) {
+				root.find('.sectionsBtn .btn').removeClass('disabled');
+			}
+		}, 0);
 	});
 	root.find('.sectionsBtn .btn').click(function (e) {
 		if ($(this).hasClass('disabled')) {
