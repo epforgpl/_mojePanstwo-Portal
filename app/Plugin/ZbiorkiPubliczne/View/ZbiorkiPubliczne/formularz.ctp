@@ -15,17 +15,34 @@ echo $this->element('app/sidebar');
                 <h1 class="appTitle">Zbiórka publiczna</h1>
                 <p class="appSubtitle">Sprawozdania</p>
             </div>
-            <div class="sections col-xs-12">
+            <form method="post" action="/zbiorki_publiczne">
+                <input type="hidden" name="sprawozdanie" value="<?= $data['sprawozdanie'] ?>"/>
+                <input type="hidden" name="skladajacy" value="<?= $data['skladajacy'] ?>"/>
+                <input type="hidden" name="zbiorka" value="<?= $data['zbiorka'] ?>"/>
+                <?
+                foreach ($data as $n => $d) {
+                    if (is_array($d)) {
+                        foreach ($d as $sub_d) {
+                            echo '<input type="hidden" name="' . $n . '[]" value="' . $sub_d . '"/>';
+                        }
+                    } else {
+                        echo '<input type="hidden" name="' . $n . '" value="' . $d . '"/>';
+                    }
+                }
+                ?>
                 <div class="sections col-xs-12">
-                    <? echo $this->Element('ZbiorkiPubliczne.form1') ?>
+                    <? if ($data['sprawozdanie'] == 'zakonczeniu') {
+                        echo $this->Element('ZbiorkiPubliczne.form1');
+                    } else {
+                        echo $this->Element('ZbiorkiPubliczne.form2');
+                    } ?>
                 </div>
-                <div class="sections col-xs-12">
-                    <? echo $this->Element('ZbiorkiPubliczne.form2') ?>
+                <div class="sectionsBtn col-xs-12 text-center">
+                    <a href="/zbiorki_publiczne" class="btn btn-link" onclick="confirm('Czy na pewno?')">Anuluj</a>
+                    <button class="btn btn-default">Popraw dane</button>
+                    <button class="btn btn-primary">Wydrukuj formularz</button>
                 </div>
-            </div>
-            <div class="sectionsBtn col-xs-12 text-center">
-                <button class="btn btn-primary btn-lg disabled">Dalej</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>

@@ -18,10 +18,16 @@ class ZbiorkiPubliczneController extends ApplicationsController
     public function index()
     {
         $this->set('title_for_layout', 'Zbiórka publiczna');
+        if (isset($this->data) && !empty($this->data)) {
+            $this->set('edit', true);
+            $this->set('data', $this->data);
+        }
     }
 
     public function formularz()
     {
         $this->set('title_for_layout', 'Zbiórka publiczna - Formularz');
+        $this->set('edit', false);
+        $this->set('data', $this->data);
     }
 }

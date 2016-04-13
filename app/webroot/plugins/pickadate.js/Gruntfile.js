@@ -11,17 +11,17 @@
 module.exports = function( grunt ) {
 
     // Read the package manifest.
-    var packageJSON = grunt.file.readJSON( 'package.json' )
+	var packageJSON = grunt.file.readJSON('package.json');
 
 
     // Load the NPM tasks.
-    grunt.loadNpmTasks( 'grunt-contrib-watch' )
-    grunt.loadNpmTasks( 'grunt-contrib-jshint' )
-    grunt.loadNpmTasks( 'grunt-contrib-qunit' )
-    grunt.loadNpmTasks( 'grunt-contrib-less' )
-    grunt.loadNpmTasks( 'grunt-contrib-cssmin' )
-    grunt.loadNpmTasks( 'grunt-contrib-uglify' )
-    grunt.loadNpmTasks( 'grunt-autoprefixer' )
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-autoprefixer');
 
 
     // Setup the initial configurations.
@@ -140,19 +140,19 @@ module.exports = function( grunt ) {
             },
         }
 
-    }) //grunt.initConfig
+	}); //grunt.initConfig
 
 
     // Register the tasks.
-    grunt.registerTask( 'default', [ 'develop' ] )
+	grunt.registerTask('default', ['develop']);
 
-    grunt.registerTask( 'develop', [ 'develop-once', 'watch:develop' ] )
-    grunt.registerTask( 'develop-once', [ 'less:themes', 'autoprefixer:themes' ] )
+	grunt.registerTask('develop', ['develop-once', 'watch:develop']);
+	grunt.registerTask('develop-once', ['less:themes', 'autoprefixer:themes']);
 
-    grunt.registerTask( 'package', [ 'develop-once', 'uglify', 'cssmin' ] )
+	grunt.registerTask('package', ['develop-once', 'uglify', 'cssmin']);
 
     grunt.registerTask( 'test', [ 'jshint', 'qunit' ] )
 
-} //module.exports
+}; //module.exports
 
 

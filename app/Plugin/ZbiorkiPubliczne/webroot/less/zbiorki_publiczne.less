@@ -20,6 +20,7 @@
 
         &, td {
             border: 1px solid #000000;
+            line-height: 2.5em;
         }
 
         .grey {
@@ -28,6 +29,35 @@
 
         .semigrey {
             background-color: #F3F3F3;
+        }
+
+        td {
+            > input, > textarea {
+                width: 100%;
+            }
+
+            > label {
+                width: 100%;
+                margin: 0;
+                cursor: pointer;
+            }
+        }
+
+        .currency-pln {
+            width: 80%;
+            text-align: right;
+            float: left;
+        }
+
+        .datepicker.range {
+            > label, > input {
+                float: left;
+            }
+            input {
+                width: 43%;
+                margin-left: 1%;
+                margin-right: 1%;
+            }
         }
     }
 }
