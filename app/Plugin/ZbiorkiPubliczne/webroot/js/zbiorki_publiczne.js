@@ -67,4 +67,10 @@ $(document).ready(function () {
 			});
 		}
 	});
+
+	console.log(root.find('.printForm'));
+	root.find('.printForm').click(function () {
+		window.print();
+		return false;
+	});
 });

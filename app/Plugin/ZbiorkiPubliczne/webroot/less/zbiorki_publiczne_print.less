@@ -1,0 +1,35 @@
+table {
+    page-break-inside: avoid;
+}
+
+html, body {
+    background: white !important;
+    font-family: Georgia, ‘Times New Roman’, serif;
+    font-size: 12pt;
+}
+
+#portal-header-sticky-wrapper,
+#portal-header,
+footer.footer,
+.app-sidebar,
+.appBanner,
+#zbiorkiPubliczne .sectionsBtn {
+    display: none;
+}
+
+#_wrapper #_main {
+    min-height: inherit;
+    margin-bottom: 0;
+}
+
+#zbiorkiPubliczne {
+    &, .sections {
+        width: 100%;
+        margin: 0;
+        float: none;
+    }
+
+    .formularz {
+        margin-bottom: 0;
+    }
+}
