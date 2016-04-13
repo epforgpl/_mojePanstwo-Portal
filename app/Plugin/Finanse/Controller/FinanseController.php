@@ -11,11 +11,61 @@ class FinanseController extends ApplicationsController
         'subtitle' => 'Przeglądaj informacje o finansach Polski',
     );
     public $menu = array(
+        
+        'dochody_i_wydatki_sektora_finansow_publicznych' => array(
+            'menu_id' => 'dochody_i_wydatki_sektora_finansow_publicznych',
+            'label' => 'Dochody i wydatki sektora finansów publicznych',
+            'icon' => 'dot',
+        ),
+        'dlug_publiczny' => array(
+            'menu_id' => 'dlug_publiczny',
+            'label' => 'Dług publiczny',
+            'icon' => 'dot',
+        ),
+        'dochody_ue' => array(
+            'menu_id' => 'dochody_ue',
+            'label' => 'Dochody budżetu środków europejskich',
+            'icon' => 'dot',
+        ),
+        
+        
+        
+        'fundusze_celowe' => array(
+            'menu_id' => 'fundusze_celowe',
+            'label' => 'Fundusze celowe',
+            'icon' => 'dot',
+        ),
+        'wykonanie_fus' => array(
+            'menu_id' => 'wykonanie_fus',
+            'label' => 'Wykonanie Funduszu Ubezpieczeń Społecznych',
+            'icon' => 'dot',
+        ),
+        
+        
+        'wskazniki_makroekonomiczne' => array(
+            'menu_id' => 'wskazniki_makroekonomiczne',
+            'label' => 'Wskaźniki makroekonomiczne',
+            'icon' => 'dot',
+        ),
+        
+        /*
+        'budzet_panstwa' => array(
+            'menu_id' => 'budzet_panstwa',
+            'label' => 'Budżet państwa',
+            'icon' => 'dot',
+        ),
         'gminy' => array(
             'menu_id' => 'gminy',
             'label' => 'Budżety gmin',
-            'icon' => 'special-finanse',
+            'icon' => 'dot',
         ),
+        'budzet_srodkow_europejskich' => array(
+            'menu_id' => 'budzet_srodkow_europejskich',
+            'label' => 'Budżet środków europejskich',
+            'icon' => 'dot',
+        ),
+        */        
+        
     );
     private $histogramIntervals = array(
         100000000,                  // 100 mln.
@@ -1143,5 +1193,72 @@ class FinanseController extends ApplicationsController
 		return $output;
 
 	}
+	
+	public function wskazniki_makroekonomiczne() {
+		
+		$this->title = 'Wskaźniki makroekonomiczne';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('wskazniki_makroekonomiczne');
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function dochody_i_wydatki_sektora_finansow_publicznych() {
+		
+		$this->title = 'Dochody i wydatki sektora finansów publicznych';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('dochody_i_wydatki_sektora_finansow_publicznych');
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function fundusze_celowe() {
+		
+		$this->title = 'Fundusze celowe';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('fundusze_celowe');
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function dlug_publiczny() {
+		
+		$this->title = 'Dług publiczny';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('dlug_publiczny');
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function dochody_ue() {
+		
+		$this->title = 'Dochody budżetu środków europejskich';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('dochody_ue');
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function wykonanie_fus() {
+		
+		$this->title = 'Wykonanie budżetu Funduszu Ubezpieczeń Społecznych';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('wykonanie_fus');
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
 
 }

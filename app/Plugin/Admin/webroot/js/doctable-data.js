@@ -1,4 +1,4 @@
-
+var doctableData = [];
 $(document).ready(function() {
 
     var DocTableData = function($$) {
@@ -131,20 +131,31 @@ $(document).ready(function() {
                 colIndex = $(this).data('colIndex');
             self.tables[tableIndex].cols[colIndex].name = $(this).val();
         });
-
+		
+		self.$preview.on('change', 'select.tableColType', function() {
+            var tableIndex = $(this).data('tableIndex'),
+                colIndex = $(this).data('colIndex'),
+                val = $(this).find(':selected').first().html();
+            self.tables[tableIndex].cols[colIndex].type = val;
+            if( val == 'FLOAT' )
+	            self.tables[tableIndex].cols[colIndex].size = "14,2";
+            else if( val == 'VARCHAR' )
+	            self.tables[tableIndex].cols[colIndex].size = "255";
+            self.refresh();
+        });
+		
         self.$preview.on('change', 'input.tableColTypeSize', function() {
             var tableIndex = $(this).data('tableIndex'),
                 colIndex = $(this).data('colIndex');
             self.tables[tableIndex].cols[colIndex].size = $(this).val();
             self.refresh();
         });
-
-        self.$preview.on('change', 'select.tableColType', function() {
-            var tableIndex = $(this).data('tableIndex'),
-                colIndex = $(this).data('colIndex');
-            self.tables[tableIndex].cols[colIndex].type = $(this).find(':selected').first().html();
+        
+        self.$preview.on('change', 'input.tableEnabled', function() {
+            var tableIndex = $(this).data('tableIndex');
+            self.tables[tableIndex].enabled = $(this).prop('checked');
             self.refresh();
-        });
+        });        
 
         this.$toolbar.find('.exportSQL').click(function() {
             var sql = self.getTablesAsSQL();
@@ -247,14 +258,20 @@ $(document).ready(function() {
                 break;
 
                 case 'FLOAT':
-                    if(val == '')
+                    if(val == '') {
                         val = 0.0;
+                    } else {
+	                    val = val.replace(/\./g, '');
+	                    val = val.replace(/\,/g, '.');
+	                    val = val.replace(/\s/g, '');
+                    }
+                    val = '"' + val + '"';
                 break;
 
                 default: break;
             }
 
-            return val;
+            return $.trim(val);
         },
 
         getTablesAsSQL: function() {
@@ -262,6 +279,10 @@ $(document).ready(function() {
 
             for(var t = 0; t < this.tables.length; t++) {
                 var table = this.tables[t];
+                
+                if( !table.enabled )
+                	continue;
+                
                 s.push('CREATE TABLE IF NOT EXISTS `docd_' + table.dbName + '` (');
                 s.push('\t`id` INT(11) UNSIGNED AUTO_INCREMENT,');
                 s.push('\t`parent_id` INT(11) UNSIGNED DEFAULT 0,');
@@ -346,7 +367,8 @@ $(document).ready(function() {
                             dbName: 'table_' + t,
                             rows: [],
                             cols: [],
-                            rowParents: []
+                            rowParents: [],
+                            enabled: false
                         },
                         c = 0,
                         v = 0,
@@ -388,7 +410,8 @@ $(document).ready(function() {
             for(var t = 0; t < this.tables.length; t++) {
                 var table = this.tables[t];
                 dom.push('<div style="margin-top: 15px;" class="panel panel-default">');
-                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-10"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block margeTablesUp">&uarr;</button>');
+                var checked = table.enabled ? ' checked="checked"' : '';
+                dom.push('<div class="panel-heading"><div class="clear row"><div class="clear col-sm-1"><input class="form-control tableEnabled" data-table-index="' + t + '" type="checkbox"' + checked + '></div><div class="clear col-sm-8"><input class="form-control tableName" data-table-index="' + t + '" type="text" placeholder="Nazwa" value="' + table.dbName + '"></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block useDict">Popraw</button></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block margeTablesUp">&uarr;</button></div><div class="clear col-sm-1"><button data-table-index="' + t + '" class="btn btn-default btn-block importStructure">Import</button>');
                 dom.push('</div></div></div>');
 
 
@@ -443,7 +466,6 @@ $(document).ready(function() {
 
     };
 
-    var doctableData = [];
     $('.doctableData').each(function() {
         doctableData.push(
             new DocTableData($(this))
