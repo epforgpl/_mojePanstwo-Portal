@@ -22,6 +22,12 @@ class Finanse extends AppModel
         $data = $this->getDataSource()->request('finanse/getBudgetData');
         return $data;
     }
+    
+    public function getTables($id)
+    {
+        $data = $this->getDataSource()->request('finanse/getTables/' . $id);
+        return $data;
+    }
 
     public function getCommunePopCount($id) {
         $data = $this->getDataSource()->request('finanse/getCommunePopCount/' . $id);
