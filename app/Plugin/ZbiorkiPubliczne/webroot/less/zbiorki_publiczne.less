@@ -63,23 +63,25 @@
 }
 
 @media print {
-    table {
-        page-break-after: auto;
+    @page {
+        margin: 0.1rem 0.6rem;
     }
 
     tr {
         page-break-inside: avoid;
+        page-break-before: auto;
         page-break-after: auto;
     }
 
     td {
         page-break-inside: avoid;
+        page-break-before: auto;
         page-break-after: auto;
     }
 
     html, body {
         background: white !important;
-        font-size: 10pt;
+        font-size: 6pt;
         line-height: 1em;
         margin: 0;
     }
