@@ -1,6 +1,5 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('zbiorki_publiczne', array('plugin' => 'ZbiorkiPubliczne')));
-echo $this->Html->css('ZbiorkiPubliczne.zbiorki_publiczne_print.css', array('media' => 'print'));
 echo $this->Html->css($this->Less->css('app'));
 
 $this->Combinator->add_libs('js', 'ZbiorkiPubliczne.zbiorki_publiczne.js');
