@@ -38,7 +38,7 @@ $object_id = $object->getId();
                                 <div class="checkbox first">
                                     <input type="checkbox" id="checkbox_all" name="channel[]"
                                            value=""<? if (empty($userSubscription)) echo ' checked'; ?>>
-                                    <label for="checkbox_all">Wszystkie dane</label>
+                                    <label for="checkbox_all">Wszystkie konkursy</label>
                                 </div>
                                 <? foreach ($channels as $ch) {
                                     ?>

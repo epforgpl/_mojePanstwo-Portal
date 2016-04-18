@@ -30,4 +30,5 @@ Router::connect('/finanse/:p1-:p2', array('plugin' => 'Finanse', 'controller' =>
 	'p2' => '([0-9]+)',
 	'pass' => array('p1', 'p2'),
 ));
+Router::connect('/finanse/:action-:year.csv', array('plugin' => 'Finanse', 'controller' => 'Finanse'));
 Router::connect('/finanse/:action', array('plugin' => 'Finanse', 'controller' => 'Finanse'));

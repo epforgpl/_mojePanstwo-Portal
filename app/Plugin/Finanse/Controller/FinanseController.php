@@ -4,7 +4,9 @@ App::uses('ApplicationsController', 'Controller');
 
 class FinanseController extends ApplicationsController
 {
-
+	
+	public $helpers = array('FVal');
+	public $components = array('RequestHandler');
     public $settings = array(
         'id' => 'finanse',
         'title' => 'Finanse publiczne',
@@ -22,9 +24,50 @@ class FinanseController extends ApplicationsController
             'label' => 'Dług publiczny',
             'icon' => 'dot',
         ),
+        
+        'wykonanie_budzetu_panstwa' => array(
+            'menu_id' => 'wykonanie_budzetu_panstwa',
+            'label' => 'Wykonanie budżetu państwa',
+            'icon' => 'dot',
+        ),
+        
+        'dotacje_i_subwencje_budzetu_panstwa' => array(
+            'menu_id' => 'dotacje_i_subwencje_budzetu_panstwa',
+            'label' => 'Dotacje i subwencje z budżetu państwa',
+            'icon' => 'dot',
+        ),
+        
+        
+        
+        'dochody_budzetu_panstwa' => array(
+            'menu_id' => 'dochody_budzetu_panstwa',
+            'label' => 'Dochody budżetu państwa',
+            'icon' => 'dot',
+        ),
+        'wydatki_budzetu_panstwa_wedlug_dzialow' => array(
+            'menu_id' => 'wydatki_budzetu_panstwa_wedlug_dzialow',
+            'label' => 'Wydatki budżetu państwa według działów',
+            'icon' => 'dot',
+        ),
+        'wydatki_budzetu_panstwa_wedlug_czesci' => array(
+            'menu_id' => 'wydatki_budzetu_panstwa_wedlug_czesci',
+            'label' => 'Wydatki budżetu państwa według części',
+            'icon' => 'dot',
+        ),
+        
+        
+        
+        
+        
+        
         'dochody_ue' => array(
             'menu_id' => 'dochody_ue',
             'label' => 'Dochody budżetu środków europejskich',
+            'icon' => 'dot',
+        ),
+        'wydatki_ue' => array(
+            'menu_id' => 'wydatki_ue',
+            'label' => 'Wydatki budżetu środków europejskich',
             'icon' => 'dot',
         ),
         
@@ -38,6 +81,16 @@ class FinanseController extends ApplicationsController
         'wykonanie_fus' => array(
             'menu_id' => 'wykonanie_fus',
             'label' => 'Wykonanie Funduszu Ubezpieczeń Społecznych',
+            'icon' => 'dot',
+        ),
+        'wykonanie_fer_rolnikow' => array(
+            'menu_id' => 'wykonanie_fer_rolnikow',
+            'label' => 'Wykonanie Funduszu Emerytalno-Rentowego',
+            'icon' => 'dot',
+        ),
+        'wykonanie_funduszu_pracy' => array(
+            'menu_id' => 'wykonanie_funduszu_pracy',
+            'label' => 'Wykonanie Funduszu Pracy',
             'icon' => 'dot',
         ),
         
@@ -1193,13 +1246,17 @@ class FinanseController extends ApplicationsController
 		return $output;
 
 	}
-	
+		
 	public function wskazniki_makroekonomiczne() {
 		
 		$this->title = 'Wskaźniki makroekonomiczne';
 		$this->set('subtitle', $this->title);
 
 		$tables = $this->Finanse->getTables('wskazniki_makroekonomiczne');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+		
 		$this->set('tables', $tables);
 		$this->render('tables');
 		
@@ -1211,6 +1268,10 @@ class FinanseController extends ApplicationsController
 		$this->set('subtitle', $this->title);
 
 		$tables = $this->Finanse->getTables('dochody_i_wydatki_sektora_finansow_publicznych');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
 		$this->set('tables', $tables);
 		$this->render('tables');
 		
@@ -1222,6 +1283,10 @@ class FinanseController extends ApplicationsController
 		$this->set('subtitle', $this->title);
 
 		$tables = $this->Finanse->getTables('fundusze_celowe');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
 		$this->set('tables', $tables);
 		$this->render('tables');
 		
@@ -1233,6 +1298,10 @@ class FinanseController extends ApplicationsController
 		$this->set('subtitle', $this->title);
 
 		$tables = $this->Finanse->getTables('dlug_publiczny');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
 		$this->set('tables', $tables);
 		$this->render('tables');
 		
@@ -1244,6 +1313,25 @@ class FinanseController extends ApplicationsController
 		$this->set('subtitle', $this->title);
 
 		$tables = $this->Finanse->getTables('dochody_ue');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function wydatki_ue() {
+		
+		$this->title = 'Wydatki budżetu środków europejskich';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('wydatki_ue');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
 		$this->set('tables', $tables);
 		$this->render('tables');
 		
@@ -1255,10 +1343,157 @@ class FinanseController extends ApplicationsController
 		$this->set('subtitle', $this->title);
 
 		$tables = $this->Finanse->getTables('wykonanie_fus');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
 		$this->set('tables', $tables);
 		$this->render('tables');
 		
 	}
 	
+	public function wykonanie_budzetu_panstwa() {
+		
+		$this->title = 'Wykonanie budżetu państwa';
+		$this->set('subtitle', $this->title);
 
+		$tables = $this->Finanse->getTables('wykonanie_budzetu_panstwa');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function dochody_budzetu_panstwa() {
+		
+		$this->title = 'Dochody budżetu państwa';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('dochody_budzetu_panstwa');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function wydatki_budzetu_panstwa_wedlug_dzialow() {
+		
+		$this->title = 'Wydatki budżetu państwa według działów';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('wydatki_budzetu_panstwa_wedlug_dzialow');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function dotacje_i_subwencje_budzetu_panstwa() {
+		
+		$this->title = 'Dotacje i subwencje z budżetu państwa';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('dotacje_i_subwencje_budzetu_panstwa');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function wykonanie_fer_rolnikow() {
+		
+		$this->title = 'Wykonanie Funduszu Emerytalno-Rentowego';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('wykonanie_fer_rolnikow');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function wykonanie_funduszu_pracy() {
+		
+		$this->title = 'Wykonanie Funduszu Pracy';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('wykonanie_funduszu_pracy');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	public function wydatki_budzetu_panstwa_wedlug_czesci() {
+		
+		$this->title = 'Wydatki budżetu państwa według części';
+		$this->set('subtitle', $this->title);
+
+		$tables = $this->Finanse->getTables('wydatki_budzetu_panstwa_wedlug_czesci');
+		
+		if( $this->isCsv($tables) )
+			return $this->response;
+			
+		$this->set('tables', $tables);
+		$this->render('tables');
+		
+	}
+	
+	private function isCsv($tables) {
+		
+		$output = false;
+		
+		if(
+			( $pathinfo = pathinfo( $this->request->here ) ) && 
+			( @$pathinfo['extension'] == 'csv' )
+		) {
+			
+			$this->response->body( $this->prepareCsvBody($tables, $this->request->params['year']) );
+		    $this->response->type('csv');
+		    $this->response->download( $this->request->params['action'] . '-' . $this->request->params['year'] . '.csv' );
+		    $output = true;
+		    
+		}
+		
+		return $output;
+		
+	}
+	
+	private function prepareCsvBody($tables, $year) {
+		
+		$table = false;
+		foreach( $tables as $t ) {
+			if( $t['table']['name'] == $year ) {
+				$table = $t;
+				break;
+			}
+		}
+		
+		if( $table ) {
+			
+			// debug($table); die();
+			return 'CSV CONTENT';
+			
+		} else return false;
+					
+	}
+		
 }

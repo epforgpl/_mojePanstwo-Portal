@@ -12,8 +12,8 @@ echo $this->element('app/sidebar');
     <div class="objectsPage">
         <div id="zbiorkiPubliczne" class="container">
             <div class="appBanner margin-top-20">
-                <h1 class="appTitle">Zbiórka publiczna</h1>
-                <p class="appSubtitle">Sprawozdania</p>
+                <h1 class="appTitle">Rozlicz zbiorkę publiczną</h1>
+                <p class="appSubtitle">Wypełnij formularz, aby wygenerować dokument rozliczenia zbiórki</p>
             </div>
             <form method="post" action="/zbiorki_publiczne">
                 <input type="hidden" name="sprawozdanie" value="<?= $data['sprawozdanie'] ?>"/>

@@ -13,10 +13,8 @@ echo $this->element('app/sidebar');
         <div id="zbiorkiPubliczne" class="container">
 
             <div class="appBanner margin-top-20">
-                <h1 class="appTitle">Zbiórka publiczna</h1>
-                <p class="appSubtitle">Sprawozdania</p>
-                <p class="margin-top-20">Odpowiedz na kilka pytań</p>
-                <p class="margin-top-20">Uzupełnij formularz sprawozdania</p>
+                <h1 class="appTitle">Rozlicz zbiorkę publiczną</h1>
+                <p class="appSubtitle">Odpowiedz na kilka pytań, aby wygenerować formularz rozliczenia zbiórki</p>
             </div>
             <? if (isset($edit)) { ?>
                 <form method="post" action="/zbiorki_publiczne/formularz">

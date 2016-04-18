@@ -12,7 +12,6 @@
     <div class="objectsPage">
 		        
 		<div class="dataBrowser upper margin-top-0">
-		    <div class="container">
 		        <div class="dataBrowserContent">
 
 					<div id="tablesBrowser" class="col-xs-12">
@@ -29,7 +28,6 @@
 					</div>				
 					
 		        </div>
-		    </div>
 		</div>
 		
     </div>

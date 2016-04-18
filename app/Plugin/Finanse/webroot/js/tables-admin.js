@@ -3,6 +3,8 @@ var TableBrowserAdmin = Class.extend({
 	init: function() {
 		
 		var self = this;	
+		
+		/*
 		$('#btn-switchers .btn').click(function(event){
 			
 			event.preventDefault();
@@ -20,6 +22,7 @@ var TableBrowserAdmin = Class.extend({
 			}
 			
 		});
+		*/
 		
 		$('#tables table tr td, #tables table tr th').click(function(event){			
 			if( self.mode == 'edit' ) {

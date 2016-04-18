@@ -224,6 +224,7 @@ $(document).ready(function() {
                 }, function(res) {
                     if(res === true) {
                         alert('Zapisano poprawnie');
+                        location.reload();
                     } else {
                         alert('Wystąpił błąd podczas zapisywania');
                     }

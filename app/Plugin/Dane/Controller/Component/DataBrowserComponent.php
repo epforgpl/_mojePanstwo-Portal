@@ -1103,8 +1103,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Typy aktów prawnych',
                     'all' => 'Wszystkie typy aktów',
-                    'skin' => 'pie_chart',
-                    'field' => 'prawo.typ_id'
+                    'skin' => 'list',
+                    'field' => 'prawo.typ'
                 ),
             ),
             'date' => array(
@@ -1137,8 +1137,8 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Autorzy aktów prawnych',
                     'all' => 'Wszyscy autorzy',
-                    'skin' => 'columns_horizontal',
-                    'field' => 'prawo.autor_id'
+                    'skin' => 'list',
+                    'field' => 'prawo.autor_nazwa'
                 ),
             ),
         ),

@@ -13,7 +13,7 @@ class KulturaController extends ApplicationsController
     );    
 	
 	public $params = array(
-		array('id' => '2','name' => 'Kultura','slug' => ''),
+		array('id' => '2','name' => 'Postrzeganie kultury','slug' => 'postrzeganie_kultury'),
 		array('id' => '8','name' => 'Telewizja, film i radio','slug' => 'telewizja_film_radio'),
 		array('id' => '9','name' => 'Korzystanie z komputera i Internetu','slug' => 'korzystanie_z_komputera_i_internetu'),
 		array('id' => '6','name' => 'Czytelnictwo','slug' => 'czytelnictwo'),

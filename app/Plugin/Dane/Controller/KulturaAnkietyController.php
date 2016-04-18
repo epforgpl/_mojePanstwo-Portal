@@ -14,12 +14,10 @@ class KulturaAnkietyController extends DataobjectsController
 		
 		parent::beforeRender();
 		
-		if( $this->object->getData('file_slug') != 'kultura' ) {
-			$this->addBreadcrumb(array(
-	            'href' => '/kultura/' . $this->object->getData('file_slug'),
-	            'label' => $this->object->getData('file'),
-	        ));
-        }
+		$this->addBreadcrumb(array(
+            'href' => '/kultura/' . $this->object->getData('file_slug'),
+            'label' => $this->object->getData('file'),
+        ));
 		
 	}
 	
