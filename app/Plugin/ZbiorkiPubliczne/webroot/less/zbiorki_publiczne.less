@@ -61,3 +61,59 @@
         }
     }
 }
+
+@media print {
+    @page {
+        margin: 0.1rem 0.6rem;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-before: auto;
+        page-break-after: auto;
+    }
+
+    td {
+        page-break-inside: avoid;
+        page-break-before: auto;
+        page-break-after: auto;
+    }
+
+    html, body {
+        background: white !important;
+        font-size: 6pt;
+        line-height: 1em;
+        margin: 0;
+    }
+
+    #portal-header-sticky-wrapper,
+    #portal-header,
+    footer.footer,
+    .app-sidebar,
+    .appBanner,
+    #zbiorkiPubliczne .sectionsBtn,
+    #debug-kit-toolbar {
+        display: none;
+    }
+
+    #_wrapper #_main {
+        min-height: inherit;
+        margin-bottom: 0;
+    }
+
+    #zbiorkiPubliczne {
+        &, .sections {
+            width: 100% !important;
+            margin: 0;
+            float: none !important;
+        }
+
+        .formularz {
+            margin-bottom: 0;
+
+            tr, td {
+                line-height: 1em !important;
+            }
+        }
+    }
+}
