@@ -49,7 +49,7 @@ $(document).ready(function () {
 								mPCookie.gamification.exit = true;
 							}
 
-							//Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+							Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 							gaminificationExit.modal('show');
 							gaminificationExitAllowed = false;
 						}
