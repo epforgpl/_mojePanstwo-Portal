@@ -10,7 +10,7 @@ class FValHelper extends AppHelper
 		    
 		    $inp = (float) $inp;
 		    if( $inp )
-			    return number_format(round($inp, 1), 1, ',', '&nbsp;'); 
+			    return str_replace(' ', '&nbsp;', number_format(round($inp, 1), 1, ',', ' ')); 
 			else
 				return '';
 				
@@ -19,7 +19,7 @@ class FValHelper extends AppHelper
 		    $inp = str_replace(' ', '', $inp);
 		    $inp = (int) $inp;
 		    if( $inp )
-			    return number_format($inp, 0, ',', '&nbsp;'); 
+			    return str_replace(' ', '&nbsp;', number_format($inp, 0, ',', ' ')); 
 			else
 				return '';
 				
@@ -38,7 +38,7 @@ class FValHelper extends AppHelper
 		    elseif( !$inp )
 		    	return '';
 		    else
-			    return number_format(round($inp, 1), 1, ',', '&nbsp;') . '%'; 
+			    return str_replace(' ', '&nbsp;', number_format(round($inp, 1), 1, ',', '&nbsp;')) . '%'; 
 		    
 	    } else {
 	    
