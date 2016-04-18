@@ -32,11 +32,11 @@
 
 
     if (isset($_meta_redirect) && $_meta_redirect) {
-	    echo $this->Html->meta(array(
-	        'http-equiv' => "refresh",
-	        'content' => "0;URL='$_meta_redirect'"
-	    ));
-	}
+        echo $this->Html->meta(array(
+            'http-equiv' => "refresh",
+            'content' => "0;URL='$_meta_redirect'"
+        ));
+    }
 
     echo $this->Html->meta(array('property' => 'og:url', 'content' => Router::url($this->here, true)));
     echo $this->Html->meta(array('property' => 'og:type', 'content' => 'website'));
@@ -117,16 +117,19 @@
     <![endif]-->
 
     <!-- Hotjar Tracking Code for https://mojepanstwo.pl -->
-	<script>
-	    (function(h,o,t,j,a,r){
-	        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-	        h._hjSettings={hjid:166942,hjsv:5};
-	        a=o.getElementsByTagName('head')[0];
-	        r=o.createElement('script');r.async=1;
-	        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-	        a.appendChild(r);
-	    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
-	</script>
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () {
+                    (h.hj.q = h.hj.q || []).push(arguments)
+                };
+            h._hjSettings = {hjid: 166942, hjsv: 5};
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script');
+            r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
 
 </head>
 <body
@@ -216,13 +219,17 @@ if ($domainMode == "MP") {
 }
 
 /*GAMIFICATION*/
-echo $this->Element('modals/exit-ngo-modal');
+if ($this->request->params['plugin'] == 'Krs') {
+    echo $this->Element('modals/exit-krs-modal');
+} else {
+    echo $this->Element('modals/exit-modal');
+}
 
 /*MODALS SYSTEM*/
 echo $this->Element('modalViewController');
 
-if(isset($_modals) && is_array($_modals)) {
-    foreach($_modals as $_modal) {
+if (isset($_modals) && is_array($_modals)) {
+    foreach ($_modals as $_modal) {
         echo $this->Element('modals/' . $_modal . '-modal');
     }
 }

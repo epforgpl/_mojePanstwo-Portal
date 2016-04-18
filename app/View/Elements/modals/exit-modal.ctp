@@ -2,7 +2,7 @@
 <? $this->Combinator->add_libs('js', array('modals/exit-modal')); ?>
 
 <div class="modal fade gamification" id="gaminification-exit" tabindex="-1" role="dialog"
-     aria-labelledby="gamification-exit-label">
+     aria-labelledby="gamification-exit-label" data-node="main">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
