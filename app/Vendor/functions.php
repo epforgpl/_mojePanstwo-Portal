@@ -417,3 +417,22 @@ function getDiff($from_time, $include_seconds = true) {
 	}
 }
 
+	
+function array2csv(array &$array) {
+	
+	if (count($array) == 0)
+		return null;
+				
+	ob_start();
+	$df = fopen("php://output", 'w');
+	
+	// fputs($df, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+	// fputcsv($df, array_keys(reset($array)), ';', ' ');
+
+	foreach ($array as $row)
+		fputcsv($df, $row, "\t", " ");
+	
+	fclose($df);
+	return ob_get_clean();
+
+}

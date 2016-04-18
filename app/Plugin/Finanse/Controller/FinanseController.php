@@ -1493,8 +1493,43 @@ class FinanseController extends ApplicationsController
 		
 		if( $table ) {
 			
-			// debug($table); die();
-			return 'CSV CONTENT';
+			$meta_fields = array('id', 'parent_id');
+			$csv_table = array();
+			
+			$csv_row = array();
+			foreach( $table['columns'] as $col )
+				if( !in_array($col['field'], $meta_fields) )
+					$csv_row[] = $col['title'];
+			
+			$csv_table[] = $csv_row;
+			
+			foreach( $table['data'] as $d ) {
+				
+				$csv_row = array();
+				
+				foreach( $table['columns'] as $col ) {
+					if( !in_array($col['field'], $meta_fields) ) {
+						
+						$v = $d[ $col['field'] ];
+						
+						if( $col['type'] == 'float' )
+							$v = str_replace('.', ',', round($v, 1));
+						elseif( $col['type'] == 'int' )
+							$v = str_replace('.', ',', round($v));
+						
+						$csv_row[] = $v;
+						
+					}
+				}
+						
+				$csv_table[] = $csv_row;
+					
+			}
+			
+			$output = array2csv( $csv_table );
+			$output = mb_convert_encoding($output, 'UTF-16LE', 'UTF-8');
+			$output = chr(255) . chr(254) . $output;
+			return $output;
 			
 		} else return false;
 					
