@@ -1,4 +1,39 @@
+.popup-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1040;
+}
+
 .gamification {
+    .modal-dialog {
+        padding-left: 180px;
+        min-width: 620px;
+
+        .modal-content {
+            float: left;
+            width: 100%;
+            min-height: 169px;
+            background-color: #ffffff;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+
+            &:before {
+                content: "";
+                width: 180px;
+                height: 169px;
+                position: absolute;
+                left: -180px;
+                top: 0;
+                background: url(/img/gamification/avatar-asia.png) top right no-repeat;
+            }
+        }
+    }
+
     &#gaminification-exit {
         &.gamification-ngo .modal-dialog {
             width: 730px;
@@ -29,26 +64,8 @@
         }
         .modal-dialog {
             width: 835px;
-            padding-left: 180px;
 
             .modal-content {
-                float: left;
-                width: 100%;
-                background-color: #ffffff;
-                -webkit-border-radius: 0;
-                -moz-border-radius: 0;
-                border-radius: 0;
-
-                &:before {
-                    content: "";
-                    width: 180px;
-                    height: 169px;
-                    position: absolute;
-                    left: -180px;
-                    top: 0;
-                    background: url(/img/gamification/avatar-asia.png) top right no-repeat;
-                }
-
                 .modal-header {
                     h4 {
                         color: #3f84c3;

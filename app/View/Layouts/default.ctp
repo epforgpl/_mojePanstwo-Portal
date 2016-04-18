@@ -280,6 +280,12 @@ $this->Combinator->add_libs('js', 'portal', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
+/* TUTORIAL ENGINE */
+if (!empty(AuthComponent::user('id'))) {
+    echo $this->Html->css($this->Less->css('modals/exit-modal'));
+    $this->Combinator->add_libs('js', 'tutorial');
+}
+
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');
 ?>
