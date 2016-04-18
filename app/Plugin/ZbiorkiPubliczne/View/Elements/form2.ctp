@@ -43,17 +43,23 @@
         <td class="grey"><b>Sprawozdanie końcowe</b></td>
         <td colspan="1">
             <label class="text-center">
-                <input type="radio" name="sprawozdanie_typ"
-                       value="koncowe" <? if (!$edit) echo 'disabled="disabled"';
-                if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'koncowe') echo 'checked="checked"'; ?> />
+                <? if (!$edit) {
+                    if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'koncowe') echo 'x';
+                } else { ?>
+                    <input type="radio" name="sprawozdanie_typ" value="koncowe"
+                        <? if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'koncowe') echo 'checked="checked"'; ?> />
+                <? } ?>
             </label>
         </td>
         <td class="grey"><b>Sprawozdanie częściowe</b></td>
         <td colspan="1">
             <label class="text-center">
+                <? if (!$edit) {
+                    if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'czesciowe') echo 'x';
+                } else { ?>
                 <input type="radio" name="sprawozdanie_typ"
-                       value="czesciowe" <? if (!$edit) echo 'disabled="disabled"';
-                if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'czesciowe') echo 'checked="checked"'; ?>/>
+                       value="czesciowe" <? if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'czesciowe') echo 'checked="checked"'; ?>/>
+                <? } ?>
             </label>
         </td>
     </tr>

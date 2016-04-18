@@ -67,4 +67,9 @@ $(document).ready(function () {
 			});
 		}
 	});
+
+	root.find('.printForm').click(function () {
+		window.print();
+		return false;
+	});
 });

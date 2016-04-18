@@ -14,6 +14,12 @@ class FinanseController extends ApplicationsController
     );
     public $menu = array(
         
+        'gminy' => array(
+            'menu_id' => 'gminy',
+            'label' => 'Budżety gmin',
+            'icon' => 'dot',
+        ),
+        
         'dochody_i_wydatki_sektora_finansow_publicznych' => array(
             'menu_id' => 'dochody_i_wydatki_sektora_finansow_publicznych',
             'label' => 'Dochody i wydatki sektora finansów publicznych',
@@ -49,11 +55,13 @@ class FinanseController extends ApplicationsController
             'label' => 'Wydatki budżetu państwa według działów',
             'icon' => 'dot',
         ),
+        /*
         'wydatki_budzetu_panstwa_wedlug_czesci' => array(
             'menu_id' => 'wydatki_budzetu_panstwa_wedlug_czesci',
             'label' => 'Wydatki budżetu państwa według części',
             'icon' => 'dot',
         ),
+        */
         
         
         
@@ -107,11 +115,7 @@ class FinanseController extends ApplicationsController
             'label' => 'Budżet państwa',
             'icon' => 'dot',
         ),
-        'gminy' => array(
-            'menu_id' => 'gminy',
-            'label' => 'Budżety gmin',
-            'icon' => 'dot',
-        ),
+        
         'budzet_srodkow_europejskich' => array(
             'menu_id' => 'budzet_srodkow_europejskich',
             'label' => 'Budżet środków europejskich',
