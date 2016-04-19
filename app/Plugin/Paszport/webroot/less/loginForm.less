@@ -50,6 +50,33 @@
                         }
                     }
 
+                    &.sendForm {
+
+                        input:checked + label:after {
+                            top: 50%;
+                            -webkit-transform: translate(1px, -50%);
+                            -moz-transform: translate(1px, -50%);
+                            -ms-transform: translate(1px, -50%);
+                            -o-transform: translate(1px, -50%);
+                            transform: translate(1px, -50%);
+                        }
+                        label {
+                            font-size: 14px;
+                            font-weight: bold;
+                            line-height: 1em;
+                            margin: 10px 0 15px;
+
+                            &::before {
+                                top: 50%;
+                                -webkit-transform: translate(1px, -50%);
+                                -moz-transform: translate(1px, -50%);
+                                -ms-transform: translate(1px, -50%);
+                                -o-transform: translate(1px, -50%);
+                                transform: translate(1px, -50%);
+                            }
+                        }
+                    }
+
                     &.loginOptions {
                         font-size: 12px;
                     }
