@@ -482,6 +482,9 @@ echo $this->element('app/sidebar');
 		                            </p>
 
                                     <p>Wszystkie kwoty zaokrąglono do pełnych złotych.</p>
+                                    
+                                    <p><a href="http://ibs.org.pl/app/uploads/2016/04/IBS_Metodologia_Aplikacja_Jak_sa_wydawane_moje_podatki.pdf" target="_blank">Szczegółowy opisu metodologii &raquo;</a></p>
+                                    
 		                            <p>W razie dalszych pytań prosimy o kontakt na adres: <a href="mailto:ibs@ibs.org.pl">ibs@ibs.org.pl</a>
 		                            </p>
 		                        </div>
