@@ -50,7 +50,9 @@
                 </ul>
             </div>
             <div class="modal-footer text-center">
-                <a href="/" type="button" class="btn btn-primary btn-lg">Zobacz wszystkie</a>
+
+                <a href="<?= (AuthComponent::user('id')) ? '/register' : '/' ?>" type="button"
+                   class="btn btn-primary btn-lg">Zobacz wszystkie</a>
             </div>
         </div>
     </div>

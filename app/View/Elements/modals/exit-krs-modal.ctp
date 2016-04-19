@@ -46,7 +46,8 @@
                 </ul>
             </div>
             <div class="modal-footer text-center">
-                <a href="/" type="button" class="btn btn-primary btn-lg">Chcę poznać narzędzia</a>
+                <a href="<?= (AuthComponent::user('id')) ? '/register' : '/' ?>" type="button"
+                   class="btn btn-primary btn-lg">Chcę poznać narzędzia</a>
             </div>
         </div>
     </div>

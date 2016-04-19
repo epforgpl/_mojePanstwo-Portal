@@ -38,7 +38,7 @@ $(document).ready(function () {
 		if (exitshowModal) {
 			addEvent(window, "load", function () {
 				addEvent(document, "mouseout", function (e) {
-					var mPCookie = Cookies.getJSON('mojePanstwo');
+					var mPCookie = $.extend(true, {}, Cookies.getJSON('mojePanstwo'));
 
 					if (!(typeof mPCookie.tutorial !== "undefined" && mPCookie.tutorial.option !== null || $('.popup-backdrop:visible').length || $('#tutorialModal:visible').length)) {
 						var from = e.relatedTarget || e.toElement;
