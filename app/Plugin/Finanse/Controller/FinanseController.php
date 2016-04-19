@@ -55,13 +55,11 @@ class FinanseController extends ApplicationsController
             'label' => 'Wydatki budżetu państwa według działów',
             'icon' => 'dot',
         ),
-        /*
         'wydatki_budzetu_panstwa_wedlug_czesci' => array(
             'menu_id' => 'wydatki_budzetu_panstwa_wedlug_czesci',
             'label' => 'Wydatki budżetu państwa według części',
             'icon' => 'dot',
         ),
-        */
         
         
         

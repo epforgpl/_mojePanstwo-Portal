@@ -10,7 +10,7 @@
 	<table class="table-data margin-top-20" border="0" cellpadding="0" cellspacing="0">
 		<tr class="header">
 			<? foreach( $table['columns'] as $col ) { if( !in_array($col['field'], $meta_fields) ) { ?>
-			<th><?= $col['title'] ? $col['title'] : 'no title' ?></th>
+			<th data-rowspan="<?= @$col['rowspan'] ?>"><?= $col['title'] ? $col['title'] : 'no title' ?></th>
 			<? } } ?>
 		</tr>
 		<? foreach( $table['data'] as $d ) {?>
