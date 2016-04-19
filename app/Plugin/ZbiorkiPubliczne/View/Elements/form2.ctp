@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     <tr>
-        <td class="grey"><h3>Ministerstwo Administracji i Cyfryzacji</h3></td>
+        <td class="grey"><h3>Ministerstwo Cyfryzacji</h3></td>
         <td class="grey" colspan="3"><h2>Sprawozdanie ze sposobu rozdysponowania zebranych
                 ofiar</h2>
             <small><i>Formularz wypełnia się dla zbiórek już przeprowadzonych, jak również dla tych,
@@ -57,8 +57,8 @@
                 <? if (!$edit) {
                     if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'czesciowe') echo 'x';
                 } else { ?>
-                <input type="radio" name="sprawozdanie_typ"
-                       value="czesciowe" <? if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'czesciowe') echo 'checked="checked"'; ?>/>
+                    <input type="radio" name="sprawozdanie_typ"
+                           value="czesciowe" <? if (isset($data['sprawozdanie_typ']) && $data['sprawozdanie_typ'] == 'czesciowe') echo 'checked="checked"'; ?>/>
                 <? } ?>
             </label>
         </td>

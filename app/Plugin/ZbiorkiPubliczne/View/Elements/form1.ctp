@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     <tr>
-        <td class="grey"><h3>Ministerstwo Administracji i Cyfryzacji</h3></td>
+        <td class="grey"><h3>Ministerstwo Cyfryzacji</h3></td>
         <td class="grey" colspan="3"><h2>Sprawozdanie z przeprowadzonej zbiórki publicznej</h2>
             <small><i>Formularz wypełnia się dla zbiórek już przeprowadzonych, jak również dla tych,
                     które trwają dłużej niż rok za każdy 6-miesięczny okres</i></small>

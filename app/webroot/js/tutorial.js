@@ -61,7 +61,7 @@ $(document).ready(function () {
 						exit: '.popover .nextStep'
 					}, {
 						type: 'modal',
-						text: '<p>Brawo!</p><p>Nauczyłeś się jak dodawać powiadomienia. Zdobywasz informacje u źródła i oszczędzasz czas - wszystko co ważne trafia do powiadomień!</p><p class="text-center"><img src="/img/tutorial/obserwuj.png" alt="" /></p>',
+						text: '<p>Brawo!</p><p>Nauczyłeś się jak dodawać powiadomienia. Zdobywasz informacje u źródła i oszczędzasz czas - wszystko co ważne trafia do powiadomień!</p><p class="text-center margin-top-30"><img src="/img/tutorial/obserwuj.png" alt="" /></p>',
 						footer: '<button class="btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="btn btn-primary tutorialRepeat">Przejdź go jeszcze raz</a>'
 					}]
 				}
