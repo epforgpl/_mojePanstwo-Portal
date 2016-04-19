@@ -103,6 +103,7 @@ $(document).ready(function () {
 
 		$('body').append(modal);
 
+		modal.modal({backdrop: 'static', keyboard: false});
 		modal.modal('show');
 
 		if (modal.find('.nextStep').length) {
