@@ -20,7 +20,7 @@ $(document).ready(function () {
 		};
 
 	if (Cookies.get('mojePanstwoExit') !== undefined) {
-		mPCookieExit = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwoExit'));
+		mPCookieExit = $.extend(true, mPCookieExit, Cookies.getJSON('mojePanstwoExit'));
 	}
 
 	if (gaminificationExit.length && mPHeart.constant.domain === 'MP') {
