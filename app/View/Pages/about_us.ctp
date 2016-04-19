@@ -148,7 +148,7 @@
                     <div class="sector">
                         <div id="wspieraja">
                             <div class="part">
-                                <div class="logotypy">
+                                <div class="logotypy text-center">
                                     <a target="_blank" href="https://nowoczesnapolska.org.pl"
                                        title="Link do strony Fundacja Nowoczesna Polska">
                                         <img class="image" src="/img/about/wspieraja/fundacja_nowoczesna_polska.jpg"
