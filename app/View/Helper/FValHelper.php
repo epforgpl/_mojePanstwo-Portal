@@ -39,7 +39,20 @@ class FValHelper extends AppHelper
 		    	return '';
 		    else
 			    return '<span class="nmbr">' . str_replace(' ', '&nbsp;', number_format(round($inp, 1), 1, ',', '&nbsp;')) . '%</span>';
+		   
+		} elseif( $type == 'wyliczenie' ) {
 		    
+		    if( $inp=='Według ustawy' )
+		    	$class = 'primary';
+		    elseif( $inp=='Po zmianach' )
+		    	$class = 'success';
+		    elseif( $inp=='Wykonanie' )
+		    	$class = 'warning';
+		    else
+		    	$class = 'default';
+		    
+		    return '<span class="label label-' . $class . '">' . $inp . '</span>';
+		
 	    } else {
 	    
 		    return $inp;
