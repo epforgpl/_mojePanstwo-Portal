@@ -21,39 +21,60 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 
 <div class="col-xs-12">
 
-    <div class="appBanner">
+    <div class="appBanner playerMode">
+        <button class="playerModeButton btn btn-link" type="button" data-toggle="modal"
+                data-target="#socialMediaPlayerYoutube">
+            <img src="/img/socialmedia/social-media-player-youtube.svg" class="img-responsive" width="42"/>
+            <p>Obejrzyj film</p>
+        </button>
+
+        <div class="modal fade" id="socialMediaPlayerYoutube" tabindex="-1" role="dialog"
+             aria-labelledby="socialMediaPlayerYoutubeLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/AjYs7t93N9M?list=PLa_8n5BEWSbnvu-owdDAOCmD2dbI0Zosv"
+                                frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h1 class="appTitle">Środowisko naturalne</h1>
         <p class="appSubtitle">Informacje o jakości powietrza w Polsce</p>
-
-		
     </div>
-	
-	<div class="row margin-top-30 margin-bottom-15">
-		<div class="col-md-12">
-			<div class="ranking-buttons">
-				<ul class="nav nav-tabs">
-					<?php foreach(array(
-						'latest' => 'Bieżące odczyty',
-						'3d' => 'Ostatnie 3 dni',
-						'1w' => 'Ostatni tydzień',
-						'1m' => 'Ostatni miesiąc') as $option => $name) { ?>
-						<li<? if($option == 'latest') echo ' class="active"'; ?>>
-							<a href="#<?= $option ?>" data-option-value="<?= $option ?>" data-toggle="tab"><?= $name ?></a>
-						</li>
-					<? } ?>
-				</ul>
-			</div>
-		</div>
-	</div>
+
+    <div class="row margin-top-30 margin-bottom-15">
+        <div class="col-md-12">
+            <div class="ranking-buttons">
+                <ul class="nav nav-tabs">
+                    <?php foreach (array(
+                                       'latest' => 'Bieżące odczyty',
+                                       '3d' => 'Ostatnie 3 dni',
+                                       '1w' => 'Ostatni tydzień',
+                                       '1m' => 'Ostatni miesiąc') as $option => $name) { ?>
+                        <li<? if ($option == 'latest') echo ' class="active"'; ?>>
+                            <a href="#<?= $option ?>" data-option-value="<?= $option ?>"
+                               data-toggle="tab"><?= $name ?></a>
+                        </li>
+                    <? } ?>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
-	<div class="margin-top-10">
-		<h2 id="paramTitle" class="appInnerTitle"></h2>
-		<h3 id="paramDesc" class="appInnerSubTitle"></h3>
-	</div>
-	
-	<form action="/srodowisko" method="get">
+    <div class="margin-top-10">
+        <h2 id="paramTitle" class="appInnerTitle"></h2>
+        <h3 id="paramDesc" class="appInnerSubTitle"></h3>
+    </div>
+
+    <form action="/srodowisko" method="get">
         <div class="appSearch form-group">
             <div class="input-group">
                 <input name="q" class="form-control" placeholder="Szukaj stacji pomiarowych..." type="text">
@@ -64,102 +85,106 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
 				</span>
             </div>
         </div>
-	</form>
-	
+    </form>
 
-	
-	<div class="row">
-		<div class="col-md-6">
-			
-			<div id="mapBrowser">
-				<div class="map"></div>
-			</div>
-			
-		</div>
-		<div class="col-md-6">
-			<div class="stationContent"></div>
-		</div>
-	</div>
-	
-	
-	
-	
-	
-	
-	<div class="row margin-top-10">
-		<div class="col-md-6">
-			
-			<div id="worst-places" class="block places">
-				<header>Najbardziej zanieczyszone miejsca:</header>
-				<section class="content">
-					
-				</section>
-			</div>
-			
-		</div><div class="col-md-6">
-			
-			<div id="best-places" class="block places">
-				<header>Najmniej zanieczyszone miejsca:</header>
-				<section class="content">
-					
-				</section>
-			</div>
-			
-		</div>
-	</div>
 
-	<div class="row margin-top-20">
-		<div class="col-md-12 text-center">
-			<p class="text-muted">
-				Aplikacja powstaje we współpracy z <a href="/fundacja-clientearth-poland" title="Fundacja ClientEarth Poland">Fundacją ClientEarth Poland</a>
-				<br/>
-				<a href="/fundacja-clientearth-poland" title="Fundacja ClientEarth Poland">
-					<img class="image margin-top-5" src="/img/partnerzy/client-earth-logo.png" alt="Fundacja ClientEarth Poland"/>
-				</a>
-			</p>
-		</div>
-	</div>
-	
-	
+    <div class="row">
+        <div class="col-md-6">
+
+            <div id="mapBrowser">
+                <div class="map"></div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="stationContent"></div>
+        </div>
+    </div>
+
+
+    <div class="row margin-top-10">
+        <div class="col-md-6">
+
+            <div id="worst-places" class="block places">
+                <header>Najbardziej zanieczyszone miejsca:</header>
+                <section class="content">
+
+                </section>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+
+            <div id="best-places" class="block places">
+                <header>Najmniej zanieczyszone miejsca:</header>
+                <section class="content">
+
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row margin-top-20">
+        <div class="col-md-12 text-center">
+            <p class="text-muted">
+                Aplikacja powstaje we współpracy z <a href="/fundacja-clientearth-poland"
+                                                      title="Fundacja ClientEarth Poland">Fundacją ClientEarth
+                    Poland</a>
+                <br/>
+                <a href="/fundacja-clientearth-poland" title="Fundacja ClientEarth Poland">
+                    <img class="image margin-top-5" src="/img/partnerzy/client-earth-logo.png"
+                         alt="Fundacja ClientEarth Poland"/>
+                </a>
+            </p>
+        </div>
+    </div>
+
+
     <script type="text/javascript">
-	    var stations = <?= json_encode(array_column(array_column(array_column($dataBrowser['aggs']['stacje']['top']['hits']['hits'], '_source'), 'data'), 'srodowisko_stacje_pomiarowe')) ?>;
+        var stations = <?= json_encode(array_column(array_column(array_column($dataBrowser['aggs']['stacje']['top']['hits']['hits'], '_source'), 'data'), 'srodowisko_stacje_pomiarowe')) ?>;
     </script>
 
 </div>
 
-<div class="modal fade bs-example-modal-sm" id="dateRangeChartModal" tabindex="-1" role="dialog" aria-labelledby="dateRangeChartModal">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header text-center">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 id="exampleModalLabel">Wybierz zakres</h4>
-			</div>
-			<div class="modal-body">
-				<div class="input-daterange input-group" id="datepicker">
-					<input type="text" value="<?= date('Y-m-d', time() - 2592000) ?>" class="input-sm form-control" name="start" />
-					<span class="input-group-addon">do</span>
-					<input type="text" value="<?= date('Y-m-d') ?>" class="input-sm form-control" name="end" />
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-				<button type="button" class="btn btn-primary applyDateRange">Zastosuj</button>
-			</div>
-		</div>
-	</div>
+<div class="modal fade bs-example-modal-sm" id="dateRangeChartModal" tabindex="-1" role="dialog"
+     aria-labelledby="dateRangeChartModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="exampleModalLabel">Wybierz zakres</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-daterange input-group" id="datepicker">
+                    <input type="text" value="<?= date('Y-m-d', time() - 2592000) ?>" class="input-sm form-control"
+                           name="start"/>
+                    <span class="input-group-addon">do</span>
+                    <input type="text" value="<?= date('Y-m-d') ?>" class="input-sm form-control" name="end"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-primary applyDateRange">Zastosuj</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="modal fade bs-example-modal-sm" id="morePlacesModal" tabindex="-1" role="dialog" aria-labelledby="morePlacesModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header text-center">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3 class="margin-top-0"></h3>
-			</div>
-			<div class="modal-body"></div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-			</div>
-		</div>
-	</div>
+<div class="modal fade bs-example-modal-sm" id="morePlacesModal" tabindex="-1" role="dialog"
+     aria-labelledby="morePlacesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h3 class="margin-top-0"></h3>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+            </div>
+        </div>
+    </div>
 </div>
