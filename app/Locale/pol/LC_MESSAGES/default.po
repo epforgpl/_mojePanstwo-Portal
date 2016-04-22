@@ -141,3 +141,48 @@ msgstr "Lis"
 
 msgid "Dec"
 msgstr "Gru"
+
+msgid "LC_ABOUT_US_HIGHTEXT"
+msgstr "Wydawcą portalu mojePaństwo jest <a href=\"http://epf.org.pl\" target=\"_blank\">Fundacja ePaństwo<\/a> - niezależna organizacja pozarządowa działająca na rzecz rozwoju demokracji w Polsce."
+
+msgid "LC_ABOUT_US_CONTACT_H2"
+msgstr "Kontakt z redakcją:"
+
+msgid "LC_ABOUT_US_CONTACT_SECTION"
+msgstr "E-mail: <a href=\"mailto:biuro@epf.org.pl\">biuro@epf.org.pl<\/a><br\/>Telefon: <a href=\"skype:224074204\">(22) 40 74 204<\/a>"
+
+msgid "LC_ABOUT_US_PORTAL_H2"
+msgstr "O portalu:"
+
+msgid "LC_ABOUT_US_PORTAL_CONTENT"
+msgstr "<p>_mojePaństwo to następca serwisu sejmometr.pl. Jest zestawem aplikacji, dzięki którym możesz kontrolować i wpływać na działania Twojego państwa. Serwis mojePaństwo jest projektem Open Source, w którym każdy może wziąć udział. Kod źródłowy oraz system zgłaszania błędów i propozycji (issues) dostępny jest w serwisie <a href=\"https:\/\/github.com\/epforgpl\" target=\"_blank\">GitHub<\/a> w postaci trzech repozytoriów:<\/p><ul><li><a href=\"https:\/\/github.com\/epforgpl\/_mojePanstwo-Portal\" target=\"_blank\">_mojePanstwo Portal<\/a> - jest głównym kodem źródłowym serwisu. Odpowiada za obsługę i wizualizacje wszelkich aplikacji dostępnych w portalu. Działa w oparciu o środowisko CakePHP 2.x.<\/li><li><a href=\"https:\/\/github.com\/epforgpl\/_mojePanstwo-API-Server\" target=\"_blank\">_mojePanstwo API Server<\/a> - jest Serwerem danych, z którego korzysta Portal.<\/li><\/ul>"
+
+msgid "LC_ABOUT_US_DATAUSEAGE_H2"
+msgstr "Wykorzystywanie danych:"
+
+msgid "LC_ABOUT_US_DATAUSEAGE_CONTENT"
+msgstr "<p>Fundacja ePaństwo stara się strukturalizować, wzbogacać oraz łączyć informacje, które pozyskuje w ramach ponownego wykorzystywania informacji z sektora publicznego. W takim przypadku może powstać chroniony <a target=\"_self\" title=\"Ustawa z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych.\" href=\"\/dane\/prawo\/51613\">prawem autorskim<\/a> utwór. Starania Fundacji dotyczace strukturalizacji danych mogą też powodować, że korzystający z portalu _mojePaństwo będą korzystali z bazy danych, o której mowa w <a target=\"_self\" title=\"Ustawa z dnia 27 lipca 2001 r. o ochronie baz danych\" href=\"\/dane\/prawo\/1777\">ustawie o ochronie baz danych<\/a>.<\/p><p>Fundacja ePaństwo niniejszym udziela \"wolnej licencji\" na udostępniane w ramach portalu mojePaństwo utwory i bazy danych, do których przysługują jej autorskie prawa majątkowe oraz prawa pokrewne, a jedynym warunkiem takiej licencji - w przypadku tworzenia aplikacji wykorzystujących dane udostępniane przez Fundację - jest umieszczenie informacji o pochodzeniu danych wraz z linkiem do serwisu <a href=\"http:\/\/mojepanstwo.pl\">mojePaństwo.pl<\/a>.<\/p>"
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_H2"
+msgstr "Projekt Systemowy:"
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_H3"
+msgstr "Numer wniosku: "
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_H4"
+msgstr "Tytuł projektu systemowego: \"Grywalizacja prac na rzecz dobra publicznego\""
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_CONTENT"
+msgstr "Celem projektu jest stworzenie i spopularyzowanie internetowej platformy \"grywalizacyjnej\" nakierowanej na prace na rzecz dobra publicznego oraz zbudowanie wokół niej społeczności organizacji i użytkowników. Projekt odpowiada na potrzebę zaangażowania w sprawy publiczne organizacji oraz osób indywidualnych wykorzystując naturalną potrzebę zdobywania uznania i autorytetu."
+
+msgid "LC_ABOUT_US_SPONSORS_H2"
+msgstr "Sponsorzy projektu:"
+
+msgid "LC_ABOUT_US_SPONSORS_INFO"
+msgstr "Projekt realizowany w ramach programu Obywatele dla Demokracji, finansowanego z Funduszy EOG:"
+
+msgid "LC_ABOUT_US_SPONSORS_SUPPORT_INFO"
+msgstr "Wspierają nas także:"
+
+msgid "LC_ABOUT_US_SPONSORS_DEVELOPED_H2"
+msgstr "Portal pomagają nam rozwijać:"

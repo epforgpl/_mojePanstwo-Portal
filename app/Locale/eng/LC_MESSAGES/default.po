@@ -141,3 +141,48 @@ msgstr "Lis"
 
 msgid "Dec"
 msgstr "Gru"
+
+msgid "LC_ABOUT_US_HIGHTEXT"
+msgstr "The editor of the mojePanstwo portal is <a href=\"http://epf.org.pl\" target=\"_blank\">ePaństwo Foundation<\/a> – an independent non-governmental organization working for democracy in Poland."
+
+msgid "LC_ABOUT_US_CONTACT_H2"
+msgstr "Contact us:"
+
+msgid "LC_ABOUT_US_CONTACT_SECTION"
+msgstr "E-mail: <a href=\"mailto:biuro@epf.org.pl\">biuro@epf.org.pl<\/a><br\/>Telephone: <a href=\"skype:0048224074204\">00 48 (22) 40 74 204<\/a>"
+
+msgid "LC_ABOUT_US_PORTAL_H2"
+msgstr "About the portal:"
+
+msgid "LC_ABOUT_US_PORTAL_CONTENT"
+msgstr "<p>_mojePaństwo is the successor to sejmometr.pl. It is a set of applications to track and influence state administration activity. _mojePaństwo is an Open Source project where everyone is invited to participate. The source code along with the error notification and suggestion system is available in <a href=\"https:\/\/github.com\/epforgpl\" target=\"_blank\">GitHub<\/a> in a form of three repositories:<\/p><ul><li><a href=\"https:\/\/github.com\/epforgpl\/_mojePanstwo-Portal\" target=\"_blank\">_mojePanstwo Portal<\/a> is the main source code of the service. It provides the service and visualization of all applications available within the service and is based on CakePHP 2.x environment.<\/li><li><a href=\"https:\/\/github.com\/epforgpl\/_mojePanstwo-API-Server\" target=\"_blank\">_mojePanstwo API Server<\/a> - the portal’s data server.<\/li><\/ul>"
+
+msgid "LC_ABOUT_US_DATAUSEAGE_H2"
+msgstr "Use of data:"
+
+msgid "LC_ABOUT_US_DATAUSEAGE_CONTENT"
+msgstr "<p>ePaństwo Foundation makes an effort to structuralize, enrich and connect information sourced from the public sector. In that event, a work considered protected by <a target=\"_self\" title=\"Act from 4th February 1994 about copyright and related rights.\" href=\"\/dane\/prawo\/51613\">copyright<\/a> may emerge. Due to the Foundation’s effort to structuralize the data, _mojePaństwo.pl users may use the data base referred to in the <a target=\"_self\" title=\"Act from 27th July 2001 about protection of Databases\" href=\"\/dane\/prawo\/1777\">act on the protection of databases<\/a>.<\/p><p>ePaństwo Foundation hereby grants ‘free license’ for works and data bases used within mojepaństwo.pl for which it owns author’s property rights and related rights. We only require that you provide the source of the information and the link to the portal <a href=\"http:\/\/mojepanstwo.pl\">mojePaństwo.pl<\/a>.<\/p>"
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_H2"
+msgstr "System project:"
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_H3"
+msgstr "Application number: "
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_H4"
+msgstr "System project title: \"Gamification of work for public good.\""
+
+msgid "LC_ABOUT_US_SYSTEM_PROJECT_CONTENT"
+msgstr "The project aims are to create and popularize the \"gamification\" internet platform to act for the public good as well as to build a community of organizations and users around that platform. The project responds to the organizations’ and individuals’ need of involvement in public affairs, and takes advantage of the fact that winning recognition and authority is a natural need."
+
+msgid "LC_ABOUT_US_SPONSORS_H2"
+msgstr "Project sponsors:"
+
+msgid "LC_ABOUT_US_SPONSORS_INFO"
+msgstr "The project is implemented within the Citizens for Democracy programme, financed by EOG Funds:"
+
+msgid "LC_ABOUT_US_SPONSORS_SUPPORT_INFO"
+msgstr "Supported also by:"
+
+msgid "LC_ABOUT_US_SPONSORS_DEVELOPED_H2"
+msgstr "Portal develop with help of:"

@@ -13,85 +13,34 @@
                                  width="40%"/>
                         </a>
 
-                        <p>Wydawcą portalu mojePaństwo jest <a href="http://epf.org.pl" target="_blank">Fundacja
-                                ePaństwo</a> - niezależna organizacja pozarządowa działająca na rzecz rozwoju
-                            demokracji
-                            w Polsce.</p>
+                        <p><?= __("LC_ABOUT_US_HIGHTEXT") ?></p>
                     </div>
 
-                    <h2>Kontakt z redakcją:</h2>
+                    <h2><p><?= __("LC_ABOUT_US_CONTACT_H2") ?></p></h2>
 
                     <div class="sector">
-                        <p>
-                            E-mail: <a href="mailto:biuro@epf.org.pl">biuro@epf.org.pl</a>
-                            <br/>
-                            Telefon: <a href="skype:224074204">(22) 40 74 204</a>
-                        </p>
+                        <p><?= __("LC_ABOUT_US_CONTACT_SECTION") ?></p>
                     </div>
 
-                    <h2>O portalu:</h2>
+                    <h2><?= __("LC_ABOUT_US_PORTAL_H2") ?></h2>
+                    <?= __("LC_ABOUT_US_PORTAL_CONTENT") ?>
 
-                    <p>_mojePaństwo to następca serwisu sejmometr.pl. Jest zestawem aplikacji, dzięki którym możesz
-                        kontrolować i wpływać na działania Twojego państwa. Serwis mojePaństwo jest projektem Open
-                        Source, w którym każdy może wziąć udział. Kod źródłowy oraz system zgłaszania błędów i
-                        propozycji (issues) dostępny jest w serwisie <a
-                            href="https://github.com/epforgpl" target="_blank">GitHub</a> w postaci trzech
-                        repozytoriów:</p>
-                    <ul>
-                        <li><a href="https://github.com/epforgpl/_mojePanstwo-Portal" target="_blank">_mojePanstwo
-                                Portal</a> - jest
-                            głównym kodem źródłowym serwisu. Odpowiada za obsługę i wizualizacje wszelkich aplikacji
-                            dostępnych w portalu. Działa w oparciu o środowisko CakePHP 2.x.
-                        </li>
-                        <li><a href="https://github.com/epforgpl/_mojePanstwo-API-Server" target="_blank">_mojePanstwo
-                                API Server</a>
-                            - jest Serwerem danych, z którego korzysta Portal.
-                        </li>
-                    </ul>
+                    <h2><?= __("LC_ABOUT_US_DATAUSEAGE_H2") ?></h2>
+                    <div class="sector"><?= __("LC_ABOUT_US_DATAUSEAGE_CONTENT") ?></div>
 
-                    <h2>Wykorzystywanie danych:</h2>
-
-                    <div class="sector">
-                        <p>Fundacja ePaństwo stara się strukturalizować, wzbogacać oraz łączyć informacje, które
-                            pozyskuje w ramach ponownego wykorzystywania informacji z sektora publicznego. W takim
-                            przypadku może powstać chroniony <a target="_self"
-                                                                title="Ustawa z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych."
-                                                                href="/dane/prawo/51613">prawem autorskim</a> utwór.
-                            Starania Fundacji dotyczace strukturalizacji danych mogą też powodować, że korzystający
-                            z
-                            portalu _mojePaństwo będą korzystali z bazy danych, o której mowa w <a target="_self"
-                                                                                                   title="Ustawa z dnia 27 lipca 2001 r. o ochronie baz danych"
-                                                                                                   href="/dane/prawo/1777">ustawie
-                                o ochronie baz danych</a>.</p>
-
-                        <p>Fundacja ePaństwo niniejszym udziela "wolnej licencji" na udostępniane w ramach portalu
-                            mojePaństwo utwory i bazy danych, do których przysługują jej autorskie prawa majątkowe
-                            oraz
-                            prawa pokrewne, a jedynym warunkiem takiej licencji - w przypadku tworzenia aplikacji
-                            wykorzystujących dane udostępniane przez Fundację - jest umieszczenie informacji o
-                            pochodzeniu danych wraz z linkiem do serwisu <a
-                                href="http://mojepanstwo.pl">mojePaństwo.pl</a>.
-                        </p>
-                    </div>
-
-                    <h2>Projekt Systemowy:</h2>
-                    <h3>Numer wniosku: S/257</h3>
-                    <h4>Tytuł projektu systemowego: Grywalizacja prac na rzecz dobra publicznego</h4>
-                    <p>Celem projektu jest stworzenie i spopularyzowanie internetowej platformy "grywalizacyjnej"
-                        nakierowanej na prace na rzecz dobra publicznego oraz zbudowanie wokół niej społeczności
-                        organizacji i użytkowników. Projekt odpowiada na potrzebę zaangażowania w sprawy publiczne
-                        organizacji oraz osób indywidualnych wykorzystując naturalną potrzebę zdobywania uznania i
-                        autorytetu.</p>
+                    <h2><?= __("LC_ABOUT_US_SYSTEM_PROJECT_H2") ?></h2>
+                    <h3><?= __("LC_ABOUT_US_SYSTEM_PROJECT_H3") ?>S/257</h3>
+                    <h4><?= __("LC_ABOUT_US_SYSTEM_PROJECT_H4") ?></h4>
+                    <p><?= __("LC_ABOUT_US_SYSTEM_PROJECT_CONTENT") ?></p>
                 </div>
 
                 <div class="fundatorzy">
-                    <h2>Sponsorzy projektu:</h2>
+                    <h2><?= __("LC_ABOUT_US_SPONSORS_H2") ?></h2>
 
                     <div class="sector">
                         <div id="fundatorzy">
                             <div class="part">
-                                <p class="info">Projekt realizowany w ramach programu Obywatele dla Demokracji,
-                                    finansowanego z Funduszy EOG:</p>
+                                <p class="info"><?= __("LC_ABOUT_US_SPONSORS_INFO") ?></p>
 
                                 <div class="logotypy">
                                     <a target="_blank" href="http://www.eeagrants.org/"
@@ -114,7 +63,7 @@
                             </div>
 
                             <div class="part">
-                                <p class="info">Wspierają nas także:</p>
+                                <p class="info"><?= __("LC_ABOUT_US_SPONSORS_SUPPORT_INFO") ?></p>
 
                                 <div class="logotypy">
                                     <a target="_blank" href="http://www.soros.org/initiatives/information"
@@ -143,7 +92,7 @@
                     </div>
                 </div>
                 <div class="fundatorzy">
-                    <h2>Portal pomagają nam rozwijać:</h2>
+                    <h2><?= __("LC_ABOUT_US_SPONSORS_DEVELOPED_H2") ?></h2>
 
                     <div class="sector">
                         <div id="wspieraja">
