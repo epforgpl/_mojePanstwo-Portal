@@ -5,6 +5,32 @@ $(document).ready(function () {
 		datepicker = root.find('.datepicker'),
 		sections = root.find('.sections');
 
+	var validate = function () {
+		var formularz = root.find('.formularz'),
+			valid = true;
+
+		formularz.find('input[required="required"]').each(function () {
+			if (this.value === '') {
+				$(this).addClass('has-error').change(function () {
+					var el = $(this);
+
+					if (el.val().length > 0) {
+						el.removeClass('has-error').unbind('change');
+					}
+				});
+				valid = false;
+			}
+		});
+
+		if (formularz.find('.has-error:first').length) {
+			$('html, body').animate({
+				scrollTop: formularz.find('.has-error:first').offset().top - 100
+			}, 500);
+		}
+
+		return valid;
+	};
+
 	sections.find('.radio label').click(function () {
 		if (sections.find('.section:visible:last input:checked')) {
 			sections.find('.section:hidden:first').removeClass('hide').hide().slideDown();
@@ -66,6 +92,10 @@ $(document).ready(function () {
 				dateFormat: 'yy-mm-dd'
 			});
 		}
+	});
+
+	root.find('.viewForm').click(function () {
+		return validate();
 	});
 
 	root.find('.printForm').click(function () {
