@@ -39,6 +39,9 @@ class AppController extends Controller
     private static $activeModals = array(
         'ngo1'
     );
+    
+    private $_languages = array('pol', 'eng');
+    
     public $components = array(
         'DebugKit.Toolbar',
         'Session',
@@ -611,7 +614,27 @@ class AppController extends Controller
 
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
-
+		
+		// switch languages
+		
+		if( 
+			array_key_exists('lang', $this->request->query) && 
+			in_array($this->request->query['lang'], $this->_languages)
+		) {
+			
+			$query = $this->request->query;
+			unset( $query['lang'] );
+			$url = $this->request->here;
+			if( !empty($query) )
+				$url .= '?' . http_build_query($query);
+			
+			Configure::write("Config.language", $this->request->query['lang']);
+			
+			return $this->redirect( $url );
+			
+		}
+		
+		
         if (defined('PORTAL_DOMAIN')) {
             $pieces = parse_url(Router::url($this->here, true));
 
