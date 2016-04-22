@@ -6,9 +6,9 @@
         <td class="grey col-xs-3">Numer zbiórki<br/>
             <small><i>(Należy wypełnić zgodnie z numerem nadanym przy zgłoszeniu)</i></small>
         </td>
-        <td class="col-xs-3"><?= ($edit) ? '<input class="form-control" type="text" name="numer_zbiorki" value="' . @$data['numer_zbiorki'] . '" />' : @$data['numer_zbiorki'] ?></td>
+        <td class="col-xs-3"><?= ($edit) ? '<input class="form-control" type="text" name="numer_zbiorki" value="' . @$data['numer_zbiorki'] . '" required="required" />' : @$data['numer_zbiorki'] ?></td>
         <td class="grey col-xs-3">Data wpływu sprawozdania</td>
-        <td class="grey col-xs-3"><?= ($edit) ? '<input class="datepicker form-control" name="data_wplywu" type="text" value="' . @$data['data_wplywu'] . '"/>' : @$data['data_wplywu'] ?></td>
+        <td class="grey col-xs-3"><?= ($edit) ? '<input class="datepicker form-control" name="data_wplywu" type="text" value="' . @$data['data_wplywu'] . '"required="required" />' : @$data['data_wplywu'] ?></td>
     </tr>
     </thead>
     <tbody>
@@ -83,7 +83,7 @@
     </tr>
     <tr>
         <td class="grey"><b>Nazwa zbiórki</b></td>
-        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="nazwa_zbiorki" value="' . @$data['nazwa_zbiorki'] . '" />' : @$data['nazwa_zbiorki'] ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="nazwa_zbiorki" value="' . @$data['nazwa_zbiorki'] . '" required="required" />' : @$data['nazwa_zbiorki'] ?></td>
     </tr>
 
     <tr>
@@ -91,23 +91,23 @@
     </tr>
     <tr>
         <td class="grey">1. Nazwa organizacji/komitetu społecznego</td>
-        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_nazwa" value="' . @$data['organizacja_nazwa'] . '" />' : @$data['organizacja_nazwa'] ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_nazwa" value="' . @$data['organizacja_nazwa'] . '" required="required" />' : @$data['organizacja_nazwa'] ?></td>
     </tr>
     <tr>
         <td class="grey">2. Siedziba</td>
-        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_miejscowosc" placeholder="Miejscowość" value="' . @$data['organizacja_miejscowosc'] . '" />' : @$data['organizacja_miejscowosc'] ?></td>
+        <td colspan="3"><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_miejscowosc" placeholder="Miejscowość" value="' . @$data['organizacja_miejscowosc'] . '" required="required" />' : @$data['organizacja_miejscowosc'] ?></td>
     </tr>
     <tr>
         <td class="grey">3. Dane do kontaktu</td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_kraj" placeholder="Kraj" value="' . @$data['organizacja_kontakt_kraj'] . '" />' : @$data['organizacja_kontakt_kraj'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_miejscowosc" placeholder="Miejscowość" value="' . @$data['organizacja_kontakt_miejscowosc'] . '" />' : @$data['organizacja_kontakt_miejscowosc'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_ulica" placeholder="Ulica" value="' . @$data['organizacja_kontakt_ulica'] . '" />' : @$data['organizacja_kontakt_ulica'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_kraj" placeholder="Kraj" value="' . @$data['organizacja_kontakt_kraj'] . '" required="required" />' : @$data['organizacja_kontakt_kraj'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_miejscowosc" placeholder="Miejscowość" value="' . @$data['organizacja_kontakt_miejscowosc'] . '" required="required" />' : @$data['organizacja_kontakt_miejscowosc'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_ulica" placeholder="Ulica" value="' . @$data['organizacja_kontakt_ulica'] . '" required="required" />' : @$data['organizacja_kontakt_ulica'] ?></td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_domu" placeholder="Nr domu" value="' . @$data['organizacja_kontakt_nr_domu'] . '" />' : @$data['organizacja_kontakt_nr_domu'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_lokalu" placeholder="Nr lokalu" value="' . @$data['organizacja_kontakt_nr_lokalu'] . '" />' : @$data['organizacja_kontakt_nr_lokalu'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_kod_pocztowy" placeholder="Kod pocztowy" value="' . @$data['organizacja_kontakt_kod_pocztowy'] . '" />' : @$data['organizacja_kontakt_kod_pocztowy'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_telefonu" placeholder="Nr telefonu" value="' . @$data['organizacja_kontakt_nr_telefonu'] . '" />' : @$data['organizacja_kontakt_nr_telefonu'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_domu" placeholder="Nr domu" value="' . @$data['organizacja_kontakt_nr_domu'] . '" required="required" />' : @$data['organizacja_kontakt_nr_domu'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_lokalu" placeholder="Nr lokalu" value="' . @$data['organizacja_kontakt_nr_lokalu'] . '" required="required" />' : @$data['organizacja_kontakt_nr_lokalu'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_kod_pocztowy" placeholder="Kod pocztowy" value="' . @$data['organizacja_kontakt_kod_pocztowy'] . '" required="required" />' : @$data['organizacja_kontakt_kod_pocztowy'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_telefonu" placeholder="Nr telefonu" value="' . @$data['organizacja_kontakt_nr_telefonu'] . '" required="required" />' : @$data['organizacja_kontakt_nr_telefonu'] ?></td>
     </tr>
     <tr>
         <td><?= ($edit) ? '<input class="form-control" type="text" name="organizacja_kontakt_nr_faxu" placeholder="Nr faksu (pole nieobowiązkowe)" value="' . @$data['organizacja_kontakt_nr_faxu'] . '" />' : @$data['organizacja_kontakt_nr_faxu'] ?></td>
@@ -123,19 +123,19 @@
         </td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_imie" placeholder="Imię" value="' . @$data['osoba_uprawniona_imie'] . '" />' : @$data['osoba_uprawniona_imie'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nazwisko" placeholder="Nazwisko" value="' . @$data['osoba_uprawniona_nazwisko'] . '" />' : @$data['osoba_uprawniona_nazwisko'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_pesel_dowod" placeholder="PESEL (przypadku braku seria i nr dokumentu potwierdzającego tożsamość)" value="' . @$data['osoba_uprawniona_pesel_dowod'] . '" />' : @$data['osoba_uprawniona_pesel_dowod'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_kraj" placeholder="Kraj" value="' . @$data['osoba_uprawniona_kraj'] . '" />' : @$data['osoba_uprawniona_kraj'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_imie" placeholder="Imię" value="' . @$data['osoba_uprawniona_imie'] . '" required="required" />' : @$data['osoba_uprawniona_imie'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nazwisko" placeholder="Nazwisko" value="' . @$data['osoba_uprawniona_nazwisko'] . '" required="required" />' : @$data['osoba_uprawniona_nazwisko'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_pesel_dowod" placeholder="PESEL (przypadku braku seria i nr dokumentu potwierdzającego tożsamość)" value="' . @$data['osoba_uprawniona_pesel_dowod'] . '" size="11" maxlength="11"required="required" />' : @$data['osoba_uprawniona_pesel_dowod'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_kraj" placeholder="Kraj" value="' . @$data['osoba_uprawniona_kraj'] . '" required="required" />' : @$data['osoba_uprawniona_kraj'] ?></td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_miejscowosc" placeholder="Miejscowość" value="' . @$data['osoba_uprawniona_miejscowosc'] . '" />' : @$data['osoba_uprawniona_miejscowosc'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_ulica" placeholder="Ulica" value="' . @$data['osoba_uprawniona_ulica'] . '" />' : @$data['osoba_uprawniona_ulica'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_domu" placeholder="Nr domu" value="' . @$data['osoba_uprawniona_nr_domu'] . '" />' : @$data['osoba_uprawniona_nr_domu'] ?></td>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_lokalu" placeholder="Nr lokalu" value="' . @$data['osoba_uprawniona_nr_lokalu'] . '" />' : @$data['osoba_uprawniona_nr_lokalu'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_miejscowosc" placeholder="Miejscowość" value="' . @$data['osoba_uprawniona_miejscowosc'] . '" required="required" />' : @$data['osoba_uprawniona_miejscowosc'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_ulica" placeholder="Ulica" value="' . @$data['osoba_uprawniona_ulica'] . '" required="required" />' : @$data['osoba_uprawniona_ulica'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_domu" placeholder="Nr domu" value="' . @$data['osoba_uprawniona_nr_domu'] . '" required="required" />' : @$data['osoba_uprawniona_nr_domu'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_lokalu" placeholder="Nr lokalu" value="' . @$data['osoba_uprawniona_nr_lokalu'] . '" required="required" />' : @$data['osoba_uprawniona_nr_lokalu'] ?></td>
     </tr>
     <tr>
-        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_kod_pocztowy" placeholder="Kod pocztowy" value="' . @$data['osoba_uprawniona_kod_pocztowy'] . '" />' : @$data['osoba_uprawniona_kod_pocztowy'] ?></td>
+        <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_kod_pocztowy" placeholder="Kod pocztowy" value="' . @$data['osoba_uprawniona_kod_pocztowy'] . '" required="required" />' : @$data['osoba_uprawniona_kod_pocztowy'] ?></td>
         <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_telefonu" placeholder="Nr telefonu (pole nieobowiązkowe)" value="' . @$data['osoba_uprawniona_nr_telefonu'] . '" />' : @$data['osoba_uprawniona_nr_telefonu'] ?></td>
         <td><?= ($edit) ? '<input class="form-control" type="text" name="osoba_uprawniona_nr_faxu" placeholder="Nr faksu (pole nieobowiązkowe)" value="' . @$data['osoba_uprawniona_nr_faxu'] . '" />' : @$data['osoba_uprawniona_nr_faxu'] ?></td>
         <td><?= ($edit) ? '<input class="form-control" type="email" name="osoba_uprawniona_email" placeholder="e-mail (pole nieobowiązkowe)" value="' . @$data['osoba_uprawniona_email'] . '" />' : @$data['osoba_uprawniona_email'] ?></td>
@@ -148,7 +148,7 @@
     </tr>
     <tr>
         <td class="grey" colspan="3">1. Suma zebranych środków pieniężnych</td>
-        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="zebrane_suma" value="' . @$data['zebrane_suma'] . '" />' : @$data['zebrane_suma'] ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="zebrane_suma" value="' . @$data['zebrane_suma'] . '" required="required" />' : @$data['zebrane_suma'] ?>
             , PLN
         </td>
     </tr>
@@ -203,37 +203,37 @@
             <small><i>(Koszty ogółem
                     muszą być sumą kosztów podanych w pkt 2-6)</i></small>
         </td>
-        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_suma" value="' . @$data['koszty_suma'] . '" />' : @$data['koszty_suma'] ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_suma" value="' . @$data['koszty_suma'] . '" required="required" />' : @$data['koszty_suma'] ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">2. Koszty związane z organizacją rozdysponowania ofiar</td>
-        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_organizacja" value="' . @$data['koszty_organizacja'] . '" />' : @$data['koszty_organizacja'] ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_organizacja" value="' . @$data['koszty_organizacja'] . '" required="required" />' : @$data['koszty_organizacja'] ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">3. Koszty kampanii informacyjnej lub reklamowej dotyczącej zbiórki</td>
-        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_kampanii_informacyjne" value="' . @$data['koszty_kampanii_informacyjne'] . '" />' : @$data['koszty_kampanii_informacyjne'] ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_kampanii_informacyjne" value="' . @$data['koszty_kampanii_informacyjne'] . '" required="required" />' : @$data['koszty_kampanii_informacyjne'] ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">4. Koszty administracyjne</td>
-        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_administracyjne" value="' . @$data['koszty_administracyjne'] . '" />' : @$data['koszty_administracyjne'] ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_administracyjne" value="' . @$data['koszty_administracyjne'] . '" required="required" />' : @$data['koszty_administracyjne'] ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">5. Wynagrodzenia</td>
-        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_wynagrodzenia" value="' . @$data['koszty_wynagrodzenia'] . '" />' : @$data['koszty_wynagrodzenia'] ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_wynagrodzenia" value="' . @$data['koszty_wynagrodzenia'] . '" required="required" />' : @$data['koszty_wynagrodzenia'] ?>
             , PLN
         </td>
     </tr>
     <tr>
         <td class="grey" colspan="3">6. Pozostałe koszty ogółem</td>
-        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_pozostałe" value="' . @$data['koszty_pozostałe'] . '" />' : @$data['koszty_pozostałe'] ?>
+        <td><?= ($edit) ? '<input class="form-control currency-pln" type="number" min="0" step="any" name="koszty_pozostałe" value="' . @$data['koszty_pozostałe'] . '" required="required" />' : @$data['koszty_pozostałe'] ?>
             , PLN
         </td>
     </tr>

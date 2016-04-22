@@ -30,7 +30,7 @@ echo $this->element('app/sidebar');
                     </div>
                     <div class="sectionsBtn col-xs-12 text-center">
                         <a href="/zbiorki_publiczne" class="btn btn-link" onclick="confirm('Czy na pewno?')">Anuluj</a>
-                        <button type="submit" class="btn btn-primary">Podgląd formularza</button>
+                        <button type="submit" class="btn btn-primary viewForm">Podgląd formularza</button>
                     </div>
                 </form>
             <? } else { ?>

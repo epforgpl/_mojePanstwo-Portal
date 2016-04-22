@@ -120,11 +120,10 @@ $this->Combinator->add_libs('js', 'Paszport.paszport-register.js');
                         )); ?>
                     </div>
 
-                    <div class="slide inputForm sendForm col-xs-12 padding-bottom-5">
-                        <label>
-                            <?php echo $this->Form->checkbox('is_ngo'); ?>
-                            &nbsp; Działam w organizacji pozarządowej
-                        </label>
+                    <div class="slide inputForm sendForm checkbox col-xs-12 padding-bottom-5">
+                        <?php echo $this->Form->checkbox('is_ngo'); ?>
+                        <label for="UserIsNgo">Działam w organizacji pozarządowej i potrzebuję narzędzi, które pomogą mi
+                            w spełnianiu moich zamiarów.</label>
                     </div>
 
                     <div class="slide inputForm col-xs-12 selectOrganization" style="display: none;">

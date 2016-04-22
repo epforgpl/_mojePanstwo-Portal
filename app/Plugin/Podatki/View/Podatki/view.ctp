@@ -22,8 +22,31 @@ echo $this->element('app/sidebar');
 
 		<form id="podatki" method="post">
 		    <div class="container">
-		        <div class="appBanner margin-top-20">
-		            <h1 class="appTitle"><?= __d('podatki', 'LC_PODATKI_HEADLINE'); ?></h1>
+                <div class="appBanner playerMode margin-top-20">
+                    <button class="playerModeButton btn btn-link" type="button" data-toggle="modal"
+                            data-target="#socialMediaPlayerYoutube">
+                        <img src="/img/socialmedia/social-media-player-youtube.svg" class="img-responsive" width="42"/>
+                        <p>Obejrzyj film</p>
+                    </button>
+
+                    <div class="modal fade" id="socialMediaPlayerYoutube" tabindex="-1" role="dialog"
+                         aria-labelledby="socialMediaPlayerYoutubeLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe width="560" height="315"
+                                            src="https://www.youtube.com/embed/xi94ExsaIDo?list=PLa_8n5BEWSbnvu-owdDAOCmD2dbI0Zosv"
+                                            frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="appTitle"><?= __d('podatki', 'LC_PODATKI_HEADLINE'); ?></h1>
 
 		            <p class="appSubtitle"><?= __d('podatki', 'LC_PODATKI_SUBHEADLINE'); ?></p>
 
@@ -482,10 +505,10 @@ echo $this->element('app/sidebar');
 		                            </p>
 
                                     <p>Wszystkie kwoty zaokrąglono do pełnych złotych.</p>
-                                    
+
                                     <p><a href="http://ibs.org.pl/app/uploads/2016/04/IBS_Metodologia_Aplikacja_Jak_sa_wydawane_moje_podatki.pdf" target="_blank">Szczegółowy opisu metodologii &raquo;</a></p>
-                                    
-		                            <p>W razie dalszych pytań prosimy o kontakt na adres: <a href="mailto:ibs@ibs.org.pl">ibs@ibs.org.pl</a>
+
+                                    <p>W razie dalszych pytań prosimy o kontakt na adres: <a href="mailto:ibs@ibs.org.pl">ibs@ibs.org.pl</a>
 		                            </p>
 		                        </div>
 		                    </div>

@@ -761,7 +761,7 @@ msgid "LC_PASZPORT_MODAL_LOGIN_VIA_EMAIL"
 msgstr "Zaloguj się przez konto email"
 
 msgid "LC_PASZPORT_MODAL_REGISTER_VIA_EMAIL"
-msgstr "Zarejestruj się przez konto email"
+msgstr "Zarejestruj się, by szybko realizować cele organizacji"
 
 msgid "LC_PASZPORT_MODAL_LOGIN_REGISTER"
 msgstr "Nie masz konta? Załóż konto na Twój adres email"

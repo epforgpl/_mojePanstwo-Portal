@@ -393,6 +393,31 @@ a.link-discrete {
         padding-bottom: 40px;
     }
 
+    &.playerMode {
+        position: relative;
+
+        .playerModeButton {
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-align: center;
+
+            -webkit-transform: translate(0, -10%);
+            -moz-transform: translate(0, -10%);
+            -ms-transform: translate(0, -10%);
+            -o-transform: translate(0, -10%);
+            transform: translate(0, -10%);
+
+            .img-responsive {
+                margin: 0 auto;
+            }
+        }
+
+        #socialMediaPlayerYoutube .modal-header {
+            padding-bottom: 0;
+        }
+    }
+
     .appTitle {
         margin: 15px 0;
         padding: 0;
@@ -943,12 +968,12 @@ svg.svg {
 }
 
 .nocontainer {
-	.container {
-		width: inherit;
-		.dataBrowser-wrap {
-			width: 100%;
-		}
-	}
+    .container {
+        width: inherit;
+        .dataBrowser-wrap {
+            width: 100%;
+        }
+    }
 }
 
 .flash-message {
@@ -1233,7 +1258,6 @@ blockquote p {
     margin-top: -30px !important;
 }
 
-
 .margin-top--35 {
     margin-top: -35px !important;
 }
@@ -1345,18 +1369,18 @@ blockquote p {
 }
 
 .msg-link {
-	color: #999;
-	text-align: center;
-	margin: 20px 0;
-	font-size: 13px;
-	a {
-		color: #157AB5;
-	}
+    color: #999;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 13px;
+    a {
+        color: #157AB5;
+    }
 }
 
-.dataBrowser .dataAggs .buttons.margin-sides--10, 
-.dataFeed .dataAggs .buttons.margin-sides--10, 
-.dataobjects .dataAggs .buttons.margin-sides--10, 
+.dataBrowser .dataAggs .buttons.margin-sides--10,
+.dataFeed .dataAggs .buttons.margin-sides--10,
+.dataobjects .dataAggs .buttons.margin-sides--10,
 .margin-sides--10 {
     margin-left: -10px !important;
     margin-right: -10px !important;
@@ -1405,7 +1429,6 @@ blockquote p {
 .padding-bottom-0 {
     padding-bottom: 0 !important;
 }
-
 
 .padding-bottom-5 {
     padding-bottom: 5px !important;

@@ -4,7 +4,7 @@ $(window).load(function () {
 	var mPCookie = mPCookie || {},
 		surveyAnkieta2 = $('#surveyAnkieta2'),
 		ankieta2Interval,
-		ankieta2EndDate = new Date(Date.parse("30 March 2016")),
+		ankieta2EndDate = new Date(Date.parse("30 March 2096")),
 		timing = 15;
 
 	mPCookie.survey = {};
