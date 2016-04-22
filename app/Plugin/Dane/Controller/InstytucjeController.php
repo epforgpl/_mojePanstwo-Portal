@@ -913,15 +913,8 @@ class InstytucjeController extends DataobjectsController
 				
 				$submenu['items'][] = array(
 					'id' => '',
-					'label' => 'Punkty porządku dziennego',
+					'label' => 'Podsumowanie',
 				);
-				
-				/*
-				$submenu['items'][] = array(
-					'id' => 'przebieg',
-					'label' => 'Przebieg posiedzenia',
-				);
-				*/
 				
 				$submenu['items'][] = array(
 					'id' => 'wystapienia',
@@ -970,9 +963,9 @@ class InstytucjeController extends DataobjectsController
 						break;
 						
 					}
-				
-					default: {
-						
+					
+					case 'punkty': {
+												
 						$global_aggs = array(
 	                        'punkty' => array(
 	                            'filter' => array(
@@ -1075,7 +1068,7 @@ class InstytucjeController extends DataobjectsController
 	                        'cover' => array(
 	                            'view' => array(
 	                                'plugin' => 'Dane',
-	                                'element' => 'sejm_posiedzenia/cover',
+	                                'element' => 'sejm_posiedzenia/punkty',
 	                            ),
 	                            'aggs' => $global_aggs,
 	                        ),
@@ -1097,27 +1090,152 @@ class InstytucjeController extends DataobjectsController
 	                            ),
 	                        ),
 	                    );
-	                    
-	                    $this->set('_submenu', array_merge(array(
-		                    'items' => array(
-				                array(
-				                    'id' => 'rada',
-				                    'label' => 'Radni',
-				                ),
-				                array(
-				                    'id' => 'posiedzenia',
-				                    'label' => 'Posiedzenia',
-				                ),
-				            ),
-	                    ), array(
-				            'selected' => 'rada',
-				        )));
 	
 	                    $this->Components->load('Dane.DataBrowser', $options);	
+						$submenu['selected'] = 'punkty';
+						break;
 						
 					}
 					
-					$submenu['selected'] = '';
+					default: {
+												
+						$global_aggs = array(
+	                        
+	                        'stenogramy' => array(
+		                        'scope' => 'global',
+		                        'filter' => array(
+			                        'bool' => array(
+				                        'must' => array(
+					                        array(
+						                        'term' => array(
+							                        'dataset' => 'sejm_posiedzenia_dni',
+						                        ),
+					                        ),
+					                        array(
+						                        'term' => array(
+							                        'data.sejm_posiedzenia_dni.posiedzenie_id' => $posiedzenie->getId(),
+						                        ),
+					                        ),
+				                        ),
+			                        ),
+		                        ),
+		                        'aggs' => array(
+			                        'top' => array(
+				                        'top_hits' => array(
+					                        'size' => 100,
+					                        'sort' => array(
+						                        'date' => 'asc',
+					                        ),
+				                        ),
+			                        ),
+		                        ),
+	                        ),
+	                        
+	                        'punkty' => array(
+	                            'filter' => array(
+	                                'bool' => array(
+	                                    'must' => array(
+	                                        array(
+	                                            'term' => array(
+	                                                'dataset' => 'sejm_posiedzenia_punkty',
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.sejm_posiedzenia_punkty.posiedzenie_id' => $posiedzenie->getId(),
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                            'scope' => 'global',
+	                            'aggs' => array(
+	                                'top' => array(
+	                                    'top_hits' => array(
+	                                        'size' => 1000,
+	                                        'fielddata_fields' => array('dataset', 'id'),
+	                                        'sort' => array(
+	                                            'data.sejm_posiedzenia_punkty.numer' => array(
+	                                                'order' => 'asc',
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+                                ),
+	                        ),
+	                        
+	                        'glosowania' => array(
+		                        'filter' => array(
+	                                'bool' => array(
+	                                    'must' => array(
+	                                        array(
+	                                            'term' => array(
+	                                                'dataset' => 'sejm_glosowania',
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.sejm_glosowania.posiedzenie_id' => $posiedzenie->getId(),
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.sejm_glosowania_typy.istotne' => '1',
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                            'scope' => 'global',
+	                            'aggs' => array(
+	                                'top' => array(
+	                                    'top_hits' => array(
+	                                        'size' => 1000,
+	                                        '_source' => array('data'),
+	                                        'sort' => array(
+		                                        'date' => array(
+			                                        'order' => 'asc',
+		                                        ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                        	                        
+	                    );
+	
+	                    $options = array(
+	                        'searchTitle' => 'Szukaj w posiedzeniu...',
+	                        'conditions' => array(
+	                            '_object' => 'radni_gmin.' . $posiedzenie->getId(),
+	                        ),
+	                        'cover' => array(
+	                            'view' => array(
+	                                'plugin' => 'Dane',
+	                                'element' => 'sejm_posiedzenia/cover',
+	                            ),
+	                            'aggs' => $global_aggs,
+	                        ),
+	                        'aggs' => array(
+	                            'dataset' => array(
+	                                'terms' => array(
+	                                    'field' => 'dataset',
+	                                ),
+	                                'visual' => array(
+	                                    'label' => 'Zbiory danych',
+	                                    'skin' => 'datasets',
+	                                    'class' => 'special',
+	                                    'field' => 'dataset',
+	                                ),
+	                            ),
+	                        ),
+	                    );
+	
+	                    $this->Components->load('Dane.DataBrowser', $options);	
+						$submenu['selected'] = '';
+						
+					}
+					
 					
 				}
 

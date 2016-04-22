@@ -58,9 +58,19 @@ class Sejm_posiedzenia_punkty extends DataObject
 	{
 		
 		$output = array();
-						
-		if( $this->getDate() )
+			
+					
+		if( ($preset!='posiedzenie') && $this->getDate() )
 			$output[] = dataSlownie($this->getDate());
+			
+		if( $count = $this->getData('liczba_debat') )
+			$output[] = pl_dopelniacz($count, 'debata', 'debaty', 'debat');
+			
+		if( $count = $this->getData('liczba_wystapien') )
+			$output[] = pl_dopelniacz($count, 'wystąpienie', 'wystąpienia', 'wystąpień');
+			
+		if( $count = $this->getData('liczba_glosowan') )
+			$output[] = pl_dopelniacz($count, 'głosowanie', 'głosowania', 'głosowań');
 		
 		return $output;
 		

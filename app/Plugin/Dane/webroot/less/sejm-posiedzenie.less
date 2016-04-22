@@ -45,33 +45,6 @@
 	}
 }
 
-.punkt {
-			
-	font-size: 12px;
-	padding-top: 5px;
-	overflow: auto;
-	margin-bottom: 10px;
-	
-	img {
-		float: left;
-		margin-right: 10px;
-		border: 1px solid #DDD;
-	}
-	
-	.numer {
-		font-size: 14px;
-		padding: 0;
-		margin: 0 0 1px;
-		font-weight: bold;
-	}
-	
-	.stats {
-		color: #789;
-		padding: 0;
-		margin: 0;
-	}
-	
-}
 
 .punkt-projekty {
 	> li {
@@ -104,12 +77,24 @@
 			color: #789;
 		}
 		
-		.punkt {
+		&.punkt {
 						
 			.glosowania {
-				margin-top: 30px;
-				> li {
-					margin: 10px 20px 10px 0;										
+				margin: 10px 60px 0 8px;
+				
+				.objectRender {
+					.title {
+						font-size: 14px;
+						margin-top: 6px;
+					
+						a {
+							color: #444;
+						}
+					}
+					
+					.label-glos {
+						margin-top: 0;
+					}
 				}
 			}
 		}
@@ -118,12 +103,112 @@
 
 .punkt_header {	
 	.numer {
-		font-size: 24px;
-		font-weight: 300;
+		font-size: 16px;
+		font-weight: 400;
 		margin: 0 13px;
 	}
 	
 	.tytul {
 		margin: 5px 15px 7px;
 	}
+}
+
+
+
+.date-div {
+	float: left;
+	width: 87px;
+}
+
+.date-icon {
+	display: block;
+	width: 70px;
+	height: 73px;
+	margin: 0;
+	background: #fff;
+	text-align: center;
+	font-family: 'Helvetica', sans-serif;
+	position: relative;
+}
+
+.date-icon .binds {
+	position: absolute;
+	height: 12px;
+	width: 55px;
+	background: transparent;
+	border: 2px solid #68A;
+	border-width: 0 5px;
+	top: -5px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.date-icon .month {
+	background: #3b83c5;
+	display: block;
+	padding: 10px 0 2px;
+	color: #fff;
+	font-size: 11px;
+	font-weight: bold;
+	border-bottom: 2px solid #156ab5;
+	box-shadow: inset 0 -1px 0 0 #156ab5;
+}
+
+.date-icon .day {
+	display: block;
+	margin: 0;
+	padding: 3px 0 0px;
+	font-size: 28px;
+	box-shadow: 0 0 3px #ccc;
+	position: relative;
+	color: #666;
+}
+
+.date-icon .day::after {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 96%;
+	position: absolute;
+	top: 3px;
+	left: 2%;
+	z-index: -1;
+	box-shadow: 0 0 3px #ccc;
+}
+
+.date-icon .day::before {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 90%;
+	position: absolute;
+	top: 6px;
+	left: 5%;
+	z-index: -1;
+	box-shadow: 0 0 3px #ccc;
+}
+
+.number-div {
+	float: left;
+	width: 40px;
+	text-align: center;
+	
+	span {
+		background-color: #f0ad3e;
+	    border-radius: 20px;
+	    -webkit-border-radius: 20px;
+	    -moz-border-radius: 20px;
+	    -o-border-radius: 20px;
+	    color: #fff;
+	    font-weight: bold;
+	    padding: 7px 11px;
+	    position: relative;
+	    top: 5px;
+	}
+	
+}
+
+.number-div-content {
+	margin-left: 45px;
 }

@@ -77,7 +77,7 @@ class Dataobject
         if (@$params['Aggs']['_page']['page']['hits']['hits'][0]['_source']['data']) {
             $this->page = $params['Aggs']['_page']['page']['hits']['hits'][0]['_source']['data'];
         }
-
+		
         $temp = array();
         if( !empty($this->data) ) {
 	        foreach( $this->data as $key => $val ) {
@@ -89,7 +89,7 @@ class Dataobject
 
 	        }
         }
-
+				
         foreach( $temp as $t )
         	$this->data[ $t ] = $this->data[ $this->dataset . '.' . $t ];
 
