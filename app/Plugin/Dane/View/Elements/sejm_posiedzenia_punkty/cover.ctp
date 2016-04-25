@@ -93,63 +93,20 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 	    </div>
 	    
 	    <div class="col-md-6">
-			
-			<? debug($dataBrowser['aggs']['druki']); ?>
-			
-			<? if( isset($static['prawo_projekty']) && !empty($static['prawo_projekty']) ) {?>
+						
+			<? if( $druki = $dataBrowser['aggs']['druki']['top']['hits']['hits'] ) {?>
 		    <div class="block">
 		        <header>Rozpatrywane druki</header>
 				
-		        <section class="aggs-init">
+		        <section class="aggs-init nopadding">
 		            <div class="dataAggs">
 		                <div class="agg agg-Dataobjects">
 		                    <ul class="dataobjects punkt-projekty">
-		                        <? 
-			                        foreach ($static['prawo_projekty'] as $p) { 
-			                        	if( $projekt = $projekty[$p['projekt_id']] ) {
-		                        ?>
-		                            <li>
-			                        <?	
-										echo $this->Dataobject->render($projekt, 'default', array(
-		                        			'truncate' => 1000,
-		                    			));
-		                    			
-		                    			if( isset($p['wynik_id']) ) {
-	                            		?><p class="wynik"><?
-	                            			switch( $p['wynik_id'] ) {
-		                            			case '1': {
-						                            ?><span class="label label-success">Przyjęto</span><?	
-							                        break;		
-		                            			}
-		                            			case '2': {
-						                            ?><span class="label label-danger">Odrzucono</span><?	
-							                        break;		
-		                            			}
-		                            			case '3': {
-						                            ?><span class="label label-primary">Skierowano do dalszych prac</span><?	
-							                        break;		
-		                            			}
-		                            			case '4': {
-						                            ?><span class="label label-primary">Rozpatrzono poprawki Senatu</span><?	
-							                        break;		
-		                            			}
-		                            			case '5': {
-						                            ?><span class="label label-default">Głosowanie odbędzie się w bloku głosowań</span><?	
-							                        break;		
-		                            			}
-		                            			case '6': {
-						                            ?><span class="label label-default">Głosowanie odbędzie się na kolejnym posiedzeniu</span><?	
-							                        break;		
-		                            			}
-	                            			}
-	                            		?></p><?
-                            			}
-			                        ?>
-		                            </li>
-		                        <? 
-			                    		}
-			                        } 
-			                    ?>
+		                    <? foreach( $druki as $druk ) {?>
+		                    	<li class="">
+			                    	<?= $this->Dataobject->render($druk, 'default'); ?>
+			                    </li>
+		                    <? } ?>
 		                    </ul>
 		                </div>
 		            </div>
