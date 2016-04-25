@@ -615,6 +615,14 @@ class AppController extends Controller
         $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $this->port = ($_SERVER['SERVER_PORT'] == 80) ? false : ':' . $_SERVER['SERVER_PORT'];
 		
+		
+		
+		if( $this->Session->read('Config.language') )
+			Configure::write('Config.language', $this->Session->read('Config.language'));
+		else
+			Configure::write('Config.language', 'pol');
+		
+		
 		// switch languages
 		
 		if( 
@@ -629,6 +637,7 @@ class AppController extends Controller
 				$url .= '?' . http_build_query($query);
 			
 			Configure::write("Config.language", $this->request->query['lang']);
+			$this->Session->write('Config.language', Configure::read('Config.language'));
 			
 			return $this->redirect( $url );
 			
@@ -856,8 +865,8 @@ class AppController extends Controller
     }
 
     public function beforeRender()
-    {
-
+    {		
+		
         if (@$this->request->params['ext'] != 'json') {
 
             $layout = $this->setLayout();

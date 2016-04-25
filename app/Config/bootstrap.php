@@ -32,7 +32,7 @@ Cache::config( 'short', array(
 	'path'     => CACHE,
 	'prefix'   => 'cake_short_'
 ) );
-Configure::write( 'Config.language', 'pol' );
+
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
  *

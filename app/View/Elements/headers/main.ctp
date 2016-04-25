@@ -108,6 +108,7 @@
                 </div>
             </li>
         </ul>
+        <? if( in_array($this->request->url, array('oportalu')) ) {?>
         <div class="languages pull-right">
             <a href="?lang=pol" class="icon-flag_pol">
                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>
@@ -125,6 +126,7 @@
                     class="path28"></span>
             </a>
         </div>
+        <? } ?>
         <ul class="user-icons pull-right">
             <li class="login<?php if ($this->Session->read('Auth.User.id')) {
                 echo ' logged';
