@@ -71,10 +71,11 @@ class Sejm_debaty extends DataObject
 	
 	public function getMetaDescriptionParts($preset = false)
 	{
+				
+		$output = array();
 		
-		$output = array(
-			dataSlownie($this->getDate()),
-		);
+		if( $preset!='dzien' )
+			$output[] = dataSlownie($this->getDate());
 		
 		if( $this->getData('sejm_debaty.liczba_wystapien') )
 			$output[] = pl_dopelniacz( $this->getData('sejm_debaty.liczba_wystapien'), 'wystąpienie', 'wystąpienia', 'wystąpień' );

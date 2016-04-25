@@ -1,5 +1,6 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('js', 'Dane.sejm-posiedzenie');
 ?>
 
 <div class="col-md-12">
@@ -32,26 +33,17 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 		    
 		    <? if( $dataBrowser['aggs']['debaty']['top']['hits']['hits'] ) {?>
 		    <div class="block">
-		        <header>Debaty w tym punkcie</header>
+		        <header>Debaty w tym punkcie:</header>
 				
-		        <section class="aggs-init">
+		        <section class="aggs-init nopadding">
 		            <div class="dataAggs">
 		                <div class="agg agg-Dataobjects">
-		                    <ul class="dataobjects">
+		                    <ul class="dataobjects debaty">
 		                        <? 
-			                        foreach ($dataBrowser['aggs']['debaty']['top']['hits']['hits'] as $debata) {
-				                        $data = $debata['_source']['data'];
+			                        foreach ($dataBrowser['aggs']['debaty']['top']['hits']['hits'] as $doc) {
 		                        ?>
-		                            <li class="punkt">
-				                        <div class="info">
-					                        <? if( $data['sejm_debaty']['liczba_wystapien'] ) {?><a href="/dane/instytucje/3214,sejm/debaty/<?= $data['sejm_debaty']['id'] ?>"><img src="http://resources.sejmometr.pl/stenogramy/subpunkty/<?= $data['sejm_debaty']['id'] ?>.jpg" /></a><? } ?>
-					                        <p class="numer"><a href="/dane/instytucje/3214,sejm/debaty/<?= $data['sejm_debaty']['id'] ?>">Debata #<?= $data['sejm_debaty']['punkt_i'] ?></a></p>
-					                        <p class="stats"><?= $data['sejm_debaty']['stats_str'] ?></p>
-				                        </div>
-		                            </li>
-		                        <? 
-			                        } 
-			                    ?>
+		                            <li><?= $this->Dataobject->render($doc, 'sejm_posiedzenia_punkty/debata'); ?></li>
+		                        <? } ?>
 		                    </ul>
 		                </div>
 		            </div>
@@ -60,32 +52,40 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 		    <? } ?>
 		    
 		    
-		    <? if( isset($static['istotne_glosowania_ids']) && !empty($static['istotne_glosowania_ids']) ) {?>
+		    <? if( $glosowania = $dataBrowser['aggs']['glosowania']['top']['hits']['hits'] ) {?>
 		    <div class="block">
-		        <header>Ważne głosowania</header>
+		        <header>Głosowania:</header>
 				
 		        <section class="aggs-init">
 		            <div class="dataAggs">
-		                <div class="agg agg-Dataobjects">
-		                    <ul class="dataobjects punkt-projekty">
+		                <div class="agg agg-Dataobjects" id="glosowania">
+		                    <ul class="dataobjects punkt-projekty margin-top--20">
 		                        <? 
-			                        foreach ($static['istotne_glosowania_ids'] as $p) { 
-			                        	if( $glosowanie = $glosowania[$p] ) {
+			                        $hidden = false;
+			                        foreach ($glosowania as $doc) {  
 		                        ?>
-		                            <li>
+		                            <li class="gls <? if( $doc['_source']['data']['sejm_glosowania_typy']['istotne'] ) { ?>istotne<? } else { $hidden = true; ?>mniej_istotne hidden<? } ?>">
 			                        <?	
-										echo $this->Dataobject->render($glosowanie, 'default', array(
-		                        			'truncate' => 1000,
+										echo $this->Dataobject->render($doc, 'default', array(
+		                        			'truncate' => 185,
 		                    			));
 			                        ?>
 		                            </li>
-		                        <? 
-			                    		}
-			                        } 
-			                    ?>
+		                        <? }  ?>
 		                    </ul>
+		                    
+		                    <? if($hidden) {?>
+		                    <div class="btns">
+			                    <p class="btn-more"><a href="#">Zobacz wszystkie głosowania &darr;</a></p>
+			                    <p class="btn-less" style="display: none;"><a href="#">Zobacz tylko najważniejsze głosowania &uarr;</a></p>
+		                    </div>
+		                    <? } ?>
+		                    
 		                </div>
 		            </div>
+		            
+		            
+                    
 		        </section>
 		    </div>
 		    <? } ?>
@@ -96,7 +96,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 						
 			<? if( $druki = $dataBrowser['aggs']['druki']['top']['hits']['hits'] ) {?>
 		    <div class="block">
-		        <header>Rozpatrywane druki</header>
+		        <header>Rozpatrywane druki:</header>
 				
 		        <section class="aggs-init nopadding">
 		            <div class="dataAggs">

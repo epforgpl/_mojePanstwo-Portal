@@ -35,9 +35,7 @@ class Sejm_posiedzenia_dni extends DataObject
 	}
 	
 	public function getUrl() {
-		
-		return '/dane/instytucje/3214,sejm/punkty/' . $this->getId();
-		
+		return '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id') . '/dni/' . $this->getId();
 	}
 	
 	public function getTitle() {

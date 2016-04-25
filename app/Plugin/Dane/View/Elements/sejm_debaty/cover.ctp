@@ -9,7 +9,7 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 		$glosowania[ $hit['fields']['id'][0] ] = $hit;
 ?>
 
-<div class="row">
+<div class="row margin-top-10">
 <div class="col-md-9">
 
 	<? if( @$dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] ) {?>

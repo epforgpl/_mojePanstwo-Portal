@@ -907,6 +907,9 @@ class InstytucjeController extends DataobjectsController
 	                ),
 	            ));
 								
+	        	$render_file = 'sejm_posiedzenie';
+	        	$title = $posiedzenie->getTitle();
+
 				$submenu = array(
 	                'items' => array(),
 	            );
@@ -960,6 +963,95 @@ class InstytucjeController extends DataobjectsController
 						));
 						
 						$submenu['selected'] = 'glosowania';
+						break;
+						
+					}
+					
+					case 'dni': {
+						
+						$dzien = $this->Dataobject->find('first', array(
+			                'conditions' => array(
+			                    'dataset' => 'sejm_posiedzenia_dni',
+			                    'id' => $this->request->params['subsubid'],
+			                ),
+			                'aggs' => array(
+				                'stenogramy' => array(
+			                        'scope' => 'global',
+			                        'filter' => array(
+				                        'bool' => array(
+					                        'must' => array(
+						                        array(
+							                        'term' => array(
+								                        'dataset' => 'sejm_posiedzenia_dni',
+							                        ),
+						                        ),
+						                        array(
+							                        'term' => array(
+								                        'data.sejm_posiedzenia_dni.posiedzenie_id' => $posiedzenie->getId(),
+							                        ),
+						                        ),
+					                        ),
+				                        ),
+			                        ),
+			                        'aggs' => array(
+				                        'top' => array(
+					                        'top_hits' => array(
+						                        'size' => 100,
+						                        'sort' => array(
+							                        'date' => 'asc',
+						                        ),
+						                        '_source' => true,
+						                        'fields' => array('dataset', 'id'),
+					                        ),
+				                        ),
+			                        ),
+		                        ),
+				                'debaty' => array(
+					                'filter' => array(
+						                'bool' => array(
+							                'must' => array(
+								                array(
+									                'term' => array(
+										                'dataset' => 'sejm_debaty',
+									                ),
+								                ),
+								                array(
+									                'term' => array(
+										                'data.sejm_debaty.posiedzenie_id' => $posiedzenie->getId(),
+									                ),
+								                ),
+							                ),
+						                ),
+					                ),
+					                'scope' => 'global',
+					                'aggs' => array(
+						                'top' => array(
+							                'top_hits' => array(
+								                'size' => 1000,
+								                'sort' => array(
+									                'data.sejm_debaty.kolejnosc' => array(
+										                'order' => 'asc',
+									                ),
+								                ),
+								                '_source' => true,
+								                'fields' => array('dataset', 'id'),
+							                ),
+						                ),
+					                ),
+				                ),
+			                ),
+			            ));
+			            
+			            
+			            $aggs = $this->Dataobject->getAggs();
+			            
+			            $this->set('dzien', $dzien);
+			            $this->set('debaty', $aggs['debaty']['top']['hits']['hits']);
+			            $this->set('stenogramy', $aggs['stenogramy']['top']['hits']['hits']);
+						
+						$render_file = 'sejm_posiedzenie_dzien';
+						$title = $dzien->getData('tytul');
+						
 						break;
 						
 					}
@@ -1112,8 +1204,8 @@ class InstytucjeController extends DataobjectsController
 
 				$this->set('_submenu', $submenu);
 	            $this->set('posiedzenie', $posiedzenie);
-	            $this->set('title_for_layout', $posiedzenie->getTitle());
-	            $this->render('sejm_posiedzenie');
+	            $this->set('title_for_layout', $title);
+	            $this->render( $render_file );
 	            
 	        
 	        } else {
@@ -1210,34 +1302,6 @@ class InstytucjeController extends DataobjectsController
 					default: {
 						
 						$global_aggs = array(
-	                        /*
-	                        'projekty' => array(
-		                        'filter' => array(
-	                                'bool' => array(
-	                                    'must' => array(
-	                                        array(
-	                                            'term' => array(
-	                                                'dataset' => 'prawo_projekty',
-	                                            ),
-	                                        ),
-	                                        array(
-	                                            'term' => array(
-	                                                'data.prawo_projekty.punkt_id' => $punkt->getId(),
-	                                            ),
-	                                        ),
-	                                    ),
-	                                ),
-	                            ),
-	                            'scope' => 'global',
-	                            'aggs' => array(
-	                                'top' => array(
-	                                    'top_hits' => array(
-	                                        'size' => 1000,
-	                                        'fielddata_fields' => array('dataset', 'id'),
-	                                    ),
-	                                ),
-	                            ),
-	                        ),
 	                        'glosowania' => array(
 		                        'filter' => array(
 	                                'bool' => array(
@@ -1252,11 +1316,13 @@ class InstytucjeController extends DataobjectsController
 	                                                'data.sejm_glosowania.punkt_id' => $punkt->getId(),
 	                                            ),
 	                                        ),
+	                                        /*
 	                                        array(
 	                                            'term' => array(
 	                                                'data.sejm_glosowania_typy.istotne' => '1',
 	                                            ),
 	                                        ),
+	                                        */
 	                                    ),
 	                                ),
 	                            ),
@@ -1265,12 +1331,17 @@ class InstytucjeController extends DataobjectsController
 	                                'top' => array(
 	                                    'top_hits' => array(
 	                                        'size' => 1000,
-	                                        'fielddata_fields' => array('dataset', 'id'),
+	                                        '_source' => array('data'),
+	                                        'fields' => array('dataset', 'id'),
+	                                        'sort' => array(
+		                                        'date' => array(
+			                                        'order' => 'asc',
+		                                        ),
+	                                        ),
 	                                    ),
 	                                ),
 	                            ),
 	                        ),
-	                        */
 	                        'debaty' => array(
 		                        'filter' => array(
 	                                'bool' => array(
@@ -1400,7 +1471,7 @@ class InstytucjeController extends DataobjectsController
 	        
         }
     }
-    
+        
     public function debaty()
     {
 		
