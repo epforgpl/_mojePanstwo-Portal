@@ -179,6 +179,7 @@
         <td><?= ($edit) ? '<input class="form-control" type="text" name="zebrane_kategorie_wartosc[]" value="' . @$data['zebrane_kategorie_wartosc'][1] . '" />' : @$data['zebrane_kategorie_wartosc'][1] ?></td>
     </tr>
     <tr>
+
         <td colspan="2"><?= ($edit) ? '<input class="form-control" type="text" name="zebrane_kategorie_nazwa[]" value="' . @$data['zebrane_kategorie_nazwa'][2] . '" />' : @$data['zebrane_kategorie_nazwa'][2] ?></td>
         <td><?= ($edit) ? '<input class="form-control" type="text" name="zebrane_kategorie_wartosc[]" value="' . @$data['zebrane_kategorie_wartosc'][2] . '" />' : @$data['zebrane_kategorie_wartosc'][2] ?></td>
     </tr>
