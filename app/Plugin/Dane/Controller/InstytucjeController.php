@@ -963,140 +963,7 @@ class InstytucjeController extends DataobjectsController
 						break;
 						
 					}
-					
-					case 'punkty': {
-												
-						$global_aggs = array(
-	                        'punkty' => array(
-	                            'filter' => array(
-	                                'bool' => array(
-	                                    'must' => array(
-	                                        array(
-	                                            'term' => array(
-	                                                'dataset' => 'sejm_posiedzenia_punkty',
-	                                            ),
-	                                        ),
-	                                        array(
-	                                            'term' => array(
-	                                                'data.sejm_posiedzenia_punkty.posiedzenie_id' => $posiedzenie->getId(),
-	                                            ),
-	                                        ),
-	                                    ),
-	                                ),
-	                            ),
-	                            'scope' => 'global',
-	                            'aggs' => array(
-	                                'top' => array(
-	                                    'top_hits' => array(
-	                                        'size' => 1000,
-	                                        'fielddata_fields' => array('dataset', 'id'),
-	                                        'sort' => array(
-	                                            'data.sejm_posiedzenia_punkty.numer' => array(
-	                                                'order' => 'asc',
-	                                            ),
-	                                        ),
-	                                    ),
-	                                ),
-                                ),
-	                        ),
-	                        'projekty' => array(
-		                        'filter' => array(
-	                                'bool' => array(
-	                                    'must' => array(
-	                                        array(
-	                                            'term' => array(
-	                                                'dataset' => 'prawo_projekty',
-	                                            ),
-	                                        ),
-	                                        array(
-	                                            'term' => array(
-	                                                'data.prawo_projekty.posiedzenie_id' => $posiedzenie->getId(),
-	                                            ),
-	                                        ),
-	                                    ),
-	                                ),
-	                            ),
-	                            'scope' => 'global',
-	                            'aggs' => array(
-	                                'top' => array(
-	                                    'top_hits' => array(
-	                                        'size' => 1000,
-	                                        'fielddata_fields' => array('dataset', 'id'),
-	                                    ),
-	                                ),
-	                            ),
-	                        ),
-	                        'glosowania' => array(
-		                        'filter' => array(
-	                                'bool' => array(
-	                                    'must' => array(
-	                                        array(
-	                                            'term' => array(
-	                                                'dataset' => 'sejm_glosowania',
-	                                            ),
-	                                        ),
-	                                        array(
-	                                            'term' => array(
-	                                                'data.sejm_glosowania.posiedzenie_id' => $posiedzenie->getId(),
-	                                            ),
-	                                        ),
-	                                        array(
-	                                            'term' => array(
-	                                                'data.sejm_glosowania_typy.istotne' => '1',
-	                                            ),
-	                                        ),
-	                                    ),
-	                                ),
-	                            ),
-	                            'scope' => 'global',
-	                            'aggs' => array(
-	                                'top' => array(
-	                                    'top_hits' => array(
-	                                        'size' => 1000,
-	                                        'fielddata_fields' => array('dataset', 'id'),
-	                                    ),
-	                                ),
-	                            ),
-	                        ),
-	                    );
-	
-	                    $options = array(
-	                        'searchTitle' => 'Szukaj w posiedzeniu...',
-	                        'conditions' => array(
-	                            '_object' => 'radni_gmin.' . $posiedzenie->getId(),
-	                        ),
-	                        'cover' => array(
-	                            'view' => array(
-	                                'plugin' => 'Dane',
-	                                'element' => 'sejm_posiedzenia/punkty',
-	                            ),
-	                            'aggs' => $global_aggs,
-	                        ),
-	                        'aggs' => array(
-	                            'dataset' => array(
-	                                'terms' => array(
-	                                    'field' => 'dataset',
-	                                ),
-	                                'visual' => array(
-	                                    'label' => 'Zbiory danych',
-	                                    'skin' => 'datasets',
-	                                    'class' => 'special',
-	                                    'field' => 'dataset',
-	                                    'dictionary' => array(
-	                                        'prawo_wojewodztwa' => array('prawo', 'Prawo lokalne'),
-	                                        'zamowienia_publiczne' => array('zamowienia_publiczne', 'Zamówienia publiczne'),
-	                                    ),
-	                                ),
-	                            ),
-	                        ),
-	                    );
-	
-	                    $this->Components->load('Dane.DataBrowser', $options);	
-						$submenu['selected'] = 'punkty';
-						break;
-						
-					}
-					
+										
 					default: {
 												
 						$global_aggs = array(
@@ -1155,8 +1022,8 @@ class InstytucjeController extends DataobjectsController
 	                                        'size' => 1000,
 	                                        'fielddata_fields' => array('dataset', 'id'),
 	                                        'sort' => array(
-	                                            'data.sejm_posiedzenia_punkty.numer' => array(
-	                                                'order' => 'asc',
+	                                            'data.sejm_posiedzenia_punkty.liczba_slow' => array(
+	                                                'order' => 'desc',
 	                                            ),
 	                                        ),
 	                                    ),
@@ -1201,7 +1068,7 @@ class InstytucjeController extends DataobjectsController
 	                                ),
 	                            ),
 	                        ),
-	                        	                        
+	                        	                        	                        
 	                    );
 	
 	                    $options = array(
@@ -1343,6 +1210,7 @@ class InstytucjeController extends DataobjectsController
 					default: {
 						
 						$global_aggs = array(
+	                        /*
 	                        'projekty' => array(
 		                        'filter' => array(
 	                                'bool' => array(
@@ -1402,6 +1270,7 @@ class InstytucjeController extends DataobjectsController
 	                                ),
 	                            ),
 	                        ),
+	                        */
 	                        'debaty' => array(
 		                        'filter' => array(
 	                                'bool' => array(
@@ -1414,6 +1283,38 @@ class InstytucjeController extends DataobjectsController
 	                                        array(
 	                                            'term' => array(
 	                                                'data.sejm_debaty.punkt_id' => $punkt->getId(),
+	                                            ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                            'scope' => 'global',
+	                            'aggs' => array(
+	                                'top' => array(
+	                                    'top_hits' => array(
+	                                        'size' => 1000,
+	                                        'fielddata_fields' => array('dataset', 'id'),
+	                                        'sort' => array(
+		                                        'date' => array(
+			                                        'order' => 'asc',
+		                                        ),
+	                                        ),
+	                                    ),
+	                                ),
+	                            ),
+	                        ),
+	                        'druki' => array(
+		                        'filter' => array(
+	                                'bool' => array(
+	                                    'must' => array(
+	                                        array(
+	                                            'term' => array(
+	                                                'dataset' => 'sejm_druki',
+	                                            ),
+	                                        ),
+	                                        array(
+	                                            'term' => array(
+	                                                'data.sejm_druki.punkt_id' => $punkt->getId(),
 	                                            ),
 	                                        ),
 	                                    ),
@@ -1703,6 +1604,23 @@ class InstytucjeController extends DataobjectsController
 	                    'id' => $this->request->params['subid'],
 	                ),
 	                'aggs' => array(
+		                'glosy' => array(
+			                'nested' => array(
+				                'path' => 'sejm_glosowania-glosy',
+			                ),
+			                'aggs' => array(
+				                'glosy' => array(
+					                'top_hits' => array(
+						                'size' => 500,
+						                'sort' => array(
+							                'sejm_glosowania-glosy.posel_nazwisko_imie' => array(
+								                'order' => 'asc',
+							                ),
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
 		                'punkty' => array(
 	                        'filter' => array(
 	                            'bool' => array(
@@ -1739,19 +1657,6 @@ class InstytucjeController extends DataobjectsController
 	            ));				
 				
 				$this->set('glosowanie_aggs', $this->Dataobject->getAggs());
-				
-                $options = array(
-                    'searchTitle' => 'Szukaj posła...',
-                    'conditions' => array(
-                        'dataset' => 'poslowie_glosy',
-                        'poslowie_glosy.glosowanie_id' => $glosowanie->getId(),
-                    ),
-                    'renderFile' => 'sejm_glosowania/glosy',
-                    'limit' => 100,
-                    'aggsPreset' => 'poslowie_glosy',
-                );
-
-                $this->Components->load('Dane.DataBrowser', $options);									
 
 	            $this->set('glosowanie', $glosowanie);
 	            $this->set('title_for_layout', $glosowanie->getTitle());
@@ -2022,6 +1927,9 @@ class InstytucjeController extends DataobjectsController
 		            'browserTitle' => 'Druki sejmowe',
 		            'conditions' => array(
 		                'dataset' => 'sejm_druki',
+		            ),
+		            'default_conditions' => array(
+			            'sejm_druki.kadencja' => '8',
 		            ),
 		            'aggsPreset' => 'sejm_druki',
 		        ));

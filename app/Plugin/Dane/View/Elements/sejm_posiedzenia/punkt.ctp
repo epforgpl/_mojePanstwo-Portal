@@ -15,6 +15,10 @@
 		</p>
 		<p class="meta meta-desc"><?= $object->getMetaDescription('posiedzenie'); ?></p>
 		
+		<? if( $object->getData('liczba_wystapien') ) { ?>
+		<img class="img" src="http://resources.sejmometr.pl/stenogramy/punkty/<?= $object->getId() ?>.jpg" />
+		<? } ?>
+		
 		<? if( $glosowania = $object->getOptions('glosowania') ) { ?>
 		<ul class="glosowania">
 			<? foreach( $glosowania as $g ) {

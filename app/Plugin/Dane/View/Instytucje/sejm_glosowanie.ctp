@@ -16,15 +16,55 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ));
 ?>
 
-<div class="row">
-	<div class="col-md-9">
-		<div class="wyniki_indywidualne">
-			<? echo $this->Element('Dane.DataBrowser/browser', array(
-				'columns' => array(7, 5),
-			)); ?>
+
+<div class="row margin-top-10">
+	<div class="col-md-6">
+	<? if( $glosy = @$glosowanie_aggs['glosy']['glosy']['hits']['hits'] ) { ?>
+	
+		<div class="block">
+			<header>Wyniki indywidualne</header>
+			<section class="content nopadding">
+				<ul class="wyniki_indywidualne">
+				<? foreach( $glosy as $g ) { $g = $g['_source']; ?>
+					<li>
+						
+						<div class="img_content">
+							
+							<img src="http://resources.sejmometr.pl/mowcy/a/2/<?= $g['mowca_id'] ?>.jpg" />
+							
+						</div><div class="g_content">
+							
+							<p class="title">
+								<a><?= $g['posel_nazwa'] ?></a>
+							</p>
+							
+							<p class="desc">
+								<?= $g['klub_skrot'] ?>
+							</p>
+							
+						</div><div class="glos">
+							
+						<? if( $g['glos_id']=='1' ) { ?>
+							<span class="label label-success">Za</span>
+						<? } elseif( $g['glos_id']=='2' ) { ?> 
+							<span class="label label-danger">Przeciw</span>							
+						<? } elseif( $g['glos_id']=='3' ) { ?> 
+							<span class="label label-primary">Wstrzymanie</span>
+						<? } elseif( $g['glos_id']=='4' ) { ?> 
+							<span class="label label-default">Nieobecność</span>							
+						<? } ?>
+							
+						</div>
+					
+					</li>
+				<? } ?>
+				</ul>
+			</section>
 		</div>
+		
+	<? } ?>
 	</div>
-	<div class="col-md-3">        
+	<div class="col-md-6">        
 			
 		<? if( @$glosowanie_aggs['all']['punkty']['top']['hits']['hits'] ) { ?>
 		<div class="stickybar">

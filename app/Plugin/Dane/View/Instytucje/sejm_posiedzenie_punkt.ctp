@@ -8,7 +8,6 @@ echo $this->Element('dataobject/pageBegin', array(
 
 echo $this->Element('Dane.dataobject/subobject', array(
     'object' => $punkt,
-    'menu' => $_submenu,
     'objectOptions' => array(
 	    'truncate' => 1000,
 	),

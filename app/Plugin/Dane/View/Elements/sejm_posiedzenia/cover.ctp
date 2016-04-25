@@ -1,6 +1,7 @@
 <?
 $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
+$this->Combinator->add_libs('js', 'Dane.sejm-posiedzenie.js');
 
 $glosowania = array();
 if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] ) 
@@ -35,7 +36,7 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 			    </section>
 			</div>
 			
-			<div class="block">
+			<div class="block" id="punkty">
 			    <header>Punkty porządku dziennego:</header>
 			    <section class="content">
 				    
@@ -43,8 +44,13 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 	                    <ul class="dataobjects punkt-projekty margin-sides-10">
 	                        <? 
 		                        $bufor = array();
+		                        $iterator = 0;
+		                        
+		                        $add_dive = false;
+		                        
 		                        foreach (@$dataBrowser['aggs']['punkty']['top']['hits']['hits'] as $doc) {
 			                        
+			                        $iterator++;
 			                        $data = $doc['_source']['data'];
 			                        
 			                        if( !$data['sejm_posiedzenia_punkty']['numer'] ) {
@@ -53,6 +59,11 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 			                        }
 			                        
 	                        ?>
+	                        
+	                        <? if( !$add_dive && ($iterator>3) ) { $add_dive = true;?>
+	                        	<div class="add_div" style="display: none;">
+	                        <? } ?>
+	                        
 	                            <li class="punkt">
 	                            	
 	                            	<?
@@ -75,12 +86,20 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 	                            </li>
 	                        <? } ?>
 	                        
+	                        <? if( $add_dive ) { ?>
+	                        	</div>
+	                        <? } ?>
+	                        
 	                    </ul>
+	                    <div class="btns">
+		                    <p class="btn-more"><a href="#">Zobacz wszystkie punkty &darr;</a></p>
+		                    <p class="btn-less" style="display: none;"><a href="#">Zobacz mniej &uarr;</a></p>
+	                    </div>
 	                </div>
 				    
 			    </section>
 			</div>
-	
+				
 		</div>
 	</div>
 

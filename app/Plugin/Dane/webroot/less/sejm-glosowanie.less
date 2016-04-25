@@ -1,32 +1,53 @@
 .objectsPage {
 	.wyniki_indywidualne {
-		.dataBrowser .dataObjects .innerContainer .objectRender {
+		
+		height: 500px;
+		overflow: scroll;
+		
+		li {
 			
-			margin: 10px 0 0px;
-			padding: 0;
+			overflow: auto;
+			border-bottom: 1px solid #DDD;
+			padding: 10px 0;
+			margin: 10px 20px;
 			
-			.attachment {
-				margin-bottom: 0;
+			&:last-child {
+				border-bottom: none;
+			}
+			
+			.img_content {
+				width: 60px;
+				float: left;
+				
 				img {
-					margin-top: 0;
-					margin-bottom: 5px;
+					border: 1px solid #CCC;
+					padding: 1px;
 				}
 			}
 			
-			.label-glos {
-				margin: 0px 25px 0 0;
+			.g_content {
+				
+				float: left;
+				
+				.title {
+					font-size: 16px;
+					margin-bottom: 3px;
+				}
+				
+				.desc {
+					
+				}
+				
 			}
 			
-			.title {
-				margin: -17px 0 0;
-			}
-			
-			.klub {
-				img {
-					margin-top: 5px;
-				    max-height: 33px;
+			.glos {
+				float: right;
+				.label {
+					font-size: 13px;
 				}
 			}
+			
 		}
+		
 	}
 }

@@ -483,8 +483,11 @@ class KrsPodmiotyController extends DataobjectsController
         ));
 		
         parent::_prepareView();
-                        
-        if( preg_match('/^\/dane\/krs_podmioty\/([^\/]+)(\/*)(.*?)$/i', $this->request->here, $match) ) {
+                          
+        if( 
+	        ( @$this->request->params['ext']!='json' ) && 
+        	preg_match('/^\/dane\/krs_podmioty\/([^\/]+)(\/*)(.*?)$/i', $this->request->here, $match) 
+    	) {
 	        
 	        $url = $this->object->getUrl();
 	        if( $match[3] )

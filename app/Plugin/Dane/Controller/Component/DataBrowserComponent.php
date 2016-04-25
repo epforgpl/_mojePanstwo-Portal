@@ -1478,6 +1478,24 @@ class DataBrowserComponent extends Component
             ),
         ),
         'sejm_druki' => array(
+            'kadencja' => array(
+                'terms' => array(
+                    'field' => 'sejm_druki.kadencja',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+	                'all' => 'Wszystkie kadencje',
+                    'label' => 'Kadencja',
+                    'skin' => 'list',
+                    'field' => 'sejm_druki.kadencja',
+                    'dictionary' => array(
+                        '7' => 'Kadencja 7',
+                        '8' => 'Kadencja 8',
+                    ),
+                ),
+            ),
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'sejm_druki.typ_id',
@@ -1493,6 +1511,7 @@ class DataBrowserComponent extends Component
                     ),
                 ),
                 'visual' => array(
+	                'all' => 'Wszystkie typy druków',
                     'label' => 'Typy druków',
                     'skin' => 'list',
                     'field' => 'sejm_druki.typ_id',

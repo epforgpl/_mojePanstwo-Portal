@@ -25,13 +25,13 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 	?>
 	
     
-    <div class="row">
+    <div class="row margin-top-10">
 	    <div class="col-md-6">
     
 		    
 		    
 		    <? if( $dataBrowser['aggs']['debaty']['top']['hits']['hits'] ) {?>
-		    <div class="block block-simple block-size-sm col-xs-12">
+		    <div class="block">
 		        <header>Debaty w tym punkcie</header>
 				
 		        <section class="aggs-init">
@@ -61,7 +61,7 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 		    
 		    
 		    <? if( isset($static['istotne_glosowania_ids']) && !empty($static['istotne_glosowania_ids']) ) {?>
-		    <div class="block block-simple block-size-sm col-xs-12">
+		    <div class="block">
 		        <header>Ważne głosowania</header>
 				
 		        <section class="aggs-init">
@@ -94,9 +94,11 @@ $this->Combinator->add_libs('css', $this->Less->css('sejm-posiedzenie', array('p
 	    
 	    <div class="col-md-6">
 			
+			<? debug($dataBrowser['aggs']['druki']); ?>
+			
 			<? if( isset($static['prawo_projekty']) && !empty($static['prawo_projekty']) ) {?>
-		    <div class="block block-simple block-size-sm col-xs-12">
-		        <header>Rozpatrywane projekty</header>
+		    <div class="block">
+		        <header>Rozpatrywane druki</header>
 				
 		        <section class="aggs-init">
 		            <div class="dataAggs">
