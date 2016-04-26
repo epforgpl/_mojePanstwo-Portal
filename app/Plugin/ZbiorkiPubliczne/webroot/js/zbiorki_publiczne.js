@@ -179,13 +179,47 @@ $(document).ready(function () {
 		}
 	});
 
-	root.find('.viewForm').click(function () {
-		return validate();
-	});
+	if (root.find('.viewForm').length) {
+		root.find('.viewForm').click(function () {
+			return validate();
+		});
+	}
 
-	root.find('.printForm').click(function () {
-		window.print();
-		return false;
-	});
-})
-;
+	if (root.find('.printForm').length) {
+		root.find('.printForm').click(function () {
+			var zbiorkiPrintModal = $('#zbiorkiPrintModal');
+
+			if (zbiorkiPrintModal.length === 0) {
+				zbiorkiPrintModal = $('<div></div>').addClass('modal fade').attr({
+					id: 'zbiorkiPrintModal',
+					tabindex: "-1",
+					role: 'dialog'
+				}).append(
+					$('<div></div>').addClass('modal-dialog').append(
+						$('<div></div>').addClass('modal-content').append(
+							$('<div></div>').addClass('modal-header margin-top-0').append(
+								$('<button><button').addClass('close margin-top-0').attr({
+									'data-dismiss': 'modal',
+									'aria-label': 'Zamknij'
+								}).append(
+									$('<span></span>').attr('aria-hidden', 'true').html('&times;')
+								)
+							)
+						).append(
+							$('<div></div>').addClass('modal-body text-center').append(
+								$('<p></p>').text('Sprawdź czy na sprawozdaniu jest podpis osoby uprawnionej do reprezentowania organizacji, a następnie wyślij sprawozdanie do:')
+							).append(
+								$('<p></p>').html('<b>Ministerstwa Spraw Wewnetrznych i Administracji,<br/>ul. Batorego 5, 02-591 Warszawa</b>')
+							)
+						)
+					)
+				);
+			}
+
+			zbiorkiPrintModal.modal('show');
+			window.print();
+
+			return false;
+		});
+	}
+});
