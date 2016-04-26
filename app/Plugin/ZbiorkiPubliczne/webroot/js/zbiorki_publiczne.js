@@ -42,6 +42,9 @@ $(document).ready(function () {
 					url: "/dane/suggest.json",
 					data: {'dataset[]': 'krs_podmioty', q: request.term},
 					dataType: "json",
+					before: function () {
+						formularz.find('input[name="organizacja_nazwa"]').addClass('loading');
+					},
 					success: function (res) {
 						var data = res.options,
 							dataArr = [];
@@ -53,16 +56,37 @@ $(document).ready(function () {
 						zbiorkiCache[request.term] = dataArr;
 						response(dataArr);
 					},
+					complete: function () {
+						formularz.find('input[name="organizacja_nazwa"]').removeClass('loading');
+					},
 					error: function () {
 						response([]);
 					}
 				});
 			}
 		},
+		focus: function (event, ui) {
+			formularz.find('input[name="organizacja_nazwa"]').val(ui.item.label);
+			return false;
+		},
 		select: function (event, ui) {
 			$.ajax({
 				url: '/dane/krs_podmioty/' + ui.item.value + '.json',
+				before: function () {
+					formularz.find('input[name="organizacja_nazwa"]').addClass('loading');
+				},
 				success: function (data) {
+					formularz.find('input[name="organizacja_nazwa"]').val('');
+					formularz.find('input[name="organizacja_miejscowosc"]').val('');
+					formularz.find('input[name="organizacja_kontakt_kraj"]').val('');
+					formularz.find('input[name="organizacja_kontakt_miejscowosc"]').val('');
+					formularz.find('input[name="organizacja_kontakt_ulica"]').val('');
+					formularz.find('input[name="organizacja_kontakt_nr_domu"]').val('');
+					formularz.find('input[name="organizacja_kontakt_nr_lokalu"]').val('');
+					formularz.find('input[name="organizacja_kontakt_kod_pocztowy"]').val('');
+					formularz.find('input[name="organizacja_kontakt_email"]').val('');
+					formularz.find('input[name="organizacja_kontakt_www"]').val('');
+
 					if (data.data.firma) {
 						formularz.find('input[name="organizacja_nazwa"]').val(data.data.firma);
 					}
@@ -103,6 +127,9 @@ $(document).ready(function () {
 						formularz.find('input[name="organizacja_kontakt_www"]').val(data.data.www);
 					}
 				},
+				complete: function () {
+					formularz.find('input[name="organizacja_nazwa"]').removeClass('loading');
+				},
 				error: function () {
 					//error
 				}
@@ -128,29 +155,6 @@ $(document).ready(function () {
 			e.preventDefault();
 		}
 	});
-
-	$.datepicker.regional.pl = {
-		closeText: 'Zamknij',
-		prevText: '&#x3c;Poprzedni',
-		nextText: 'Następny&#x3e;',
-		currentText: 'Dzień',
-		changeMonth: true,
-		monthNames: ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'],
-		monthNamesShort: ['Sty', 'Lu', 'Mar', 'Kw', 'Maj', 'Cze',
-			'Lip', 'Sie', 'Wrz', 'Pa', 'Lis', 'Gru'],
-		dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
-		dayNamesShort: ['Nie', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'So'],
-		dayNamesMin: ['N', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So'],
-		weekHeader: 'Tydz',
-		dateFormat: 'd MM yy',
-		altField: '#datepickerAlt',
-		altFormat: "yy-mm-dd",
-		firstDay: 1,
-		isRTL: false,
-		showMonthAfterYear: false,
-		yearSuffix: ''
-	};
-	$.datepicker.setDefaults($.datepicker.regional.pl);
 
 	datepicker.each(function () {
 		var el = $(this);
