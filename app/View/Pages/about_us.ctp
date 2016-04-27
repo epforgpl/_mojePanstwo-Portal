@@ -186,10 +186,32 @@
                         <div id="wspieraja">
                             <div class="part">
                                 <div class="logotypy text-center">
+                                    <a target="_blank" href="#" onclick="return false;"
+                                       title="Link do mapy miejsc odwiedzonych przez Fundację Fundament"
+                                       data-toggle="modal"
+                                       data-target="#fundamentMapaModal">
+                                        <img class="image full" src="/img/about/spotkania/fundament_mapa.png"
+                                             alt="Mapa miejsc odwiedzonych przez Fundację Fundament"/>
+                                    </a>
+                                    <div id="fundamentMapaModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img class="img-responsive"
+                                                         src="/img/about/spotkania/fundament_mapa.png"
+                                                         alt="Mapa mejsc działania Fundamentu"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <a target="_blank"
                                        href="https://www.facebook.com/Kongres-Ruch%C3%B3w-Miejskich-224877324202563/"
                                        title="Link do strony Kongres Ruchów Miejskich">
-                                        <img class="image full" src="/img/about/spotkania/fundament_mapa.png"
+                                        <img class="image" src="/img/about/spotkania/kongres.jpg"
                                              alt="Logo Kongres Ruchów Miejskich"/>
                                     </a>
                                     <a target="_blank" href="http://siecobywatelska.pl"
