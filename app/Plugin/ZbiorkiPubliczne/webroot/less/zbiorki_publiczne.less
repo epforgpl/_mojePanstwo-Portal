@@ -37,12 +37,15 @@
 
                 &.has-error {
                     border-color: #a94442;
-                    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-                    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+                    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+                    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 
                     &:focus {
                         border-color: #843534;
+
                         -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+                        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
                         box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
                     }
                 }
@@ -52,6 +55,10 @@
                 width: 100%;
                 margin: 0;
                 cursor: pointer;
+            }
+
+            input[name="organizacja_nazwa"].loading {
+                background-position: center right;
             }
         }
 
@@ -76,6 +83,8 @@
 
 @media print {
     @page {
+        size: 7in 9.25in;
+        //margin: 27mm 16mm 27mm 16mm;
         margin: 0.1rem 0.6rem;
     }
 
