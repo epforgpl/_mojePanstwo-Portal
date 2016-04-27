@@ -1544,39 +1544,8 @@ class InstytucjeController extends DataobjectsController
                             'top' => array(
                                 'top_hits' => array(
                                     'size' => 1000,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'punkty' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must' => array(
-                                    array(
-                                        'term' => array(
-                                            'dataset' => 'sejm_posiedzenia_punkty',
-                                        ),
-                                    ),
-                                    array(
-                                        'term' => array(
-                                            'data.sejm_posiedzenia_punkty.subpunkt_id' => $debata->getId(),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                        'scope' => 'global',
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 1000,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    'sort' => array(
-                                        'date' => array(
-	                                        'order' => 'asc',
-                                        ),
-                                    ),
+                                    'fields' => array('dataset', 'id'),
+                                    '_source' => array('data'),
                                 ),
                             ),
                         ),

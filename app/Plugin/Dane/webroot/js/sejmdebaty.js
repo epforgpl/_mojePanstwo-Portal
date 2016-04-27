@@ -16,7 +16,7 @@ $(document).ready(function () {
 		
 		var wdiv = debata_div.find('.sejm_debata_wystapienie[oid=' + id + ']');
 		if( wdiv )
-			$("html, body").animate({ scrollTop: wdiv.offset().top }, 500);
+			$("html, body").animate({ scrollTop: wdiv.offset().top - 55 }, 500);
 		
 	}
 	
@@ -29,7 +29,7 @@ $(document).ready(function () {
 		var id = wdiv.attr('oid');
 				
 	    History.pushState({state: id}, wdiv.find('.text').text(), '/dane/instytucje/3214,sejm/debaty/' + debata_id + '/wystapienia/' + id);
-		$("html, body").animate({ scrollTop: wdiv.offset().top }, 500);
+		$("html, body").animate({ scrollTop: wdiv.offset().top - 55 }, 500);
 		
 		wdiv.find('.sw_content').addClass('_loading').addClass('_disabled');
 		$.get('/dane/sejm_wystapienia/' + id + '.json', function(data) {
@@ -81,7 +81,7 @@ $(document).ready(function () {
 		div_text.fadeOut(300, function(){
 			
 			div.find('.sw_content').removeClass('expanded');
-			$("html, body").animate({ scrollTop: div.offset().top }, 500);
+			$("html, body").animate({ scrollTop: div.offset().top - 55 }, 500);
 			
 			div_text.html(div.attr('data-html'));
 			div_text.fadeIn(300, function(){

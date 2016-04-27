@@ -7,6 +7,7 @@ $glosowania = array();
 if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 	foreach( $dataBrowser['aggs']['glosowania']['top']['hits']['hits'] as $hit )
 		$glosowania[ $hit['fields']['id'][0] ] = $hit;
+
 ?>
 
 <div class="row margin-top-10">
@@ -24,10 +25,10 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 					( $wystapienie->getId()==$doc['fields']['id'][0] )
 				) ? $wystapienie->getLayer('html') : false,
 			));
-
-			if( @$doc['fields']['source'][0]['data']['sejm_wystapienia.glosowanie_id'] ) {
+						
+			if( @$doc['_source']['data']['sejm_wystapienia']['glosowanie_id'] ) {
 				
-				$glosowanie = $glosowania[ $doc['fields']['source'][0]['data']['sejm_wystapienia.glosowanie_id'] ];
+				$glosowanie = $glosowania[ $doc['_source']['data']['sejm_wystapienia']['glosowanie_id'] ];
 				echo '<div class="glosowanie">' . $this->Dataobject->render($glosowanie, 'default') . '</div>';
 				
 			}
