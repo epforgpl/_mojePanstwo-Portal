@@ -190,31 +190,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             <h4 class="factor u"><span class="label label-success">Wzrosły wydatki na:</span></h4>
                         </div>
                     </div>
-                    <div class="czesci wydatki wzrost hidden">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['wydatki']['czesci']['wzrost'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($rok1['p1'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p2'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"><span
-                                            class="glyphicon glyphicon-arrow-up factor u"></span> <span
-                                            class="text factor u"><?= round($row['zmiana'], 2) ?>%</span></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        } ?>
-                    </div>
                     <div class="dzialy wydatki wzrost">
                         <?
                         $i = 0;
@@ -240,32 +215,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             $i++;
                         } ?>
                     </div>
-                    <div class="rozdzialy wydatki wzrost hidden">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['wydatki']['rozdzialy']['wzrost'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p1'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p2'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"><span
-                                            class="glyphicon glyphicon-arrow-up factor u"></span> <span
-                                            class="text factor u"><?= round($row['zmiana'], 2) ?>%</span></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        } ?>
-                    </div>
-
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="wydatki_wzrost_on text-right"><span class="btn btn-link btn-sm">Więcej</span>
@@ -280,31 +229,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         <div class="col-sm-4 col-sm-offset-0">
                             <h4 class="factor d"><span class="label label-danger">Spadły wydatki na:</span></h4>
                         </div>
-                    </div>
-                    <div class="czesci wydatki spadek hidden">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['wydatki']['czesci']['spadek'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p1'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p2'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"><span
-                                            class="glyphicon glyphicon-arrow-down factor d"></span> <span
-                                            class="text factor d"><?= round($row['zmiana'], 2) ?>%</span></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        } ?>
                     </div>
                     <div class="dzialy wydatki spadek">
                         <?
@@ -331,31 +255,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             $i++;
                         } ?>
                     </div>
-                    <div class="rozdzialy wydatki spadek hidden">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['wydatki']['rozdzialy']['spadek'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p1'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p2'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"><span
-                                            class="glyphicon glyphicon-arrow-down factor d"></span> <span
-                                            class="text factor d"><?= round($row['zmiana'], 2) ?>%</span></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        } ?>
-                    </div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="wydatki_spadek_on text-right"><span class="btn btn-link btn-sm">Więcej</span>
@@ -373,72 +272,10 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             <h4>Dane dostępne tylko w jednym roczniku:</h4>
                         </div>
                     </div>
-                    <div class="czesci wydatki hidden bd">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['wydatki']['czesci']['bd'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><? if (isset($row['p1'])) {
-                                            echo number_format_h($row['p1'] * 1000) ?> zł<?
-                                        } else { ?><?
-                                        } ?></p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><? if (isset($row['p2'])) { ?>
-                                            <?= number_format_h($row['p2'] * 1000) ?> zł
-                                            <?
-                                        } else { ?>
-
-                                        <? } ?></p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        }
-                        ?>
-                    </div>
                     <div class="dzialy wydatki bd">
                         <?
                         $i = 0;
                         foreach ($compareData['wydatki']['dzialy']['bd'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><? if (isset($row['p1'])) {
-                                            echo number_format_h($row['p1'] * 1000) ?> zł<?
-                                        } else { ?><?
-                                        } ?></p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><? if (isset($row['p2'])) {
-                                            echo number_format_h($row['p2'] * 1000) ?> zł<?
-                                        } else { ?><?
-                                        } ?></p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        }
-                        ?>
-                    </div>
-                    <div class="rozdzialy wydatki hidden bd">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['wydatki']['rozdzialy']['bd'] as $row) {
                             ?>
                             <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
                                 <div class="col-sm-4 _label">
@@ -502,38 +339,14 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                         <? } ?></p>
                 </div>
             </div>
-
+			
+			<? /*
             <div class="compare-details">
                 <? if (count($compareData['dochody']['dzialy']['wzrost']) !== 0) { ?>
                     <div class="row data internal">
                         <div class="col-sm-4 col-sm-offset-0">
                             <h4 class="factor u"><span class="label label-success">Wzrost wpływów z:</span></h4>
                         </div>
-                    </div>
-                    <div class="czesci dochody wzrost hidden">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['dochody']['czesci']['wzrost'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= round($row['p1'] * 100 / $rok1['dochody'], 2) ?>%</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= round($row['p2'] * 100 / $rok2['dochody'], 2) ?>%</p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"><span
-                                            class="glyphicon glyphicon-arrow-up factor u"></span> <span
-                                            class="text factor u"><?= round($row['zmiana'], 2) ?>%</span></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        } ?>
                     </div>
                     <div class="dzialy dochody wzrost">
                         <?
@@ -577,32 +390,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             <h4 class="factor d"><span class="label label-danger">Spadek wpływów z:</span></h4>
                         </div>
                     </div>
-
-                    <div class="czesci dochody spadek hidden">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['dochody']['czesci']['spadek'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p1'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><?= number_format_h($row['p2'] * 1000) ?> zł</p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"><span
-                                            class="glyphicon glyphicon-arrow-down factor d"></span> <span
-                                            class="text factor d"><?= round($row['zmiana'], 2) ?>%</span></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        } ?>
-                    </div>
                     <div class="dzialy dochody spadek">
                         <?
                         $i = 0;
@@ -645,36 +432,6 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                             <h4>Dane dostępne tylko w jednym roczniku:</h4>
                         </div>
                     </div>
-                    <div class="czesci dochody hidden bd">
-                        <?
-                        $i = 0;
-                        foreach ($compareData['wydatki']['czesci']['bd'] as $row) {
-                            ?>
-                            <div class="row subdata <? if ($i > 2) { ?>hidden<? } else { ?>primary_row<? } ?>">
-                                <div class="col-sm-4 _label">
-                                    <p><?= $row['tresc'] ?>:</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><? if (isset($row['p1'])) {
-                                            echo number_format_h($row['p1'] * 1000) ?> zł<?
-                                        } else { ?><?
-                                        } ?></p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="value"><? if (isset($row['p2'])) {
-                                            echo number_format_h($row['p2'] * 1000) ?> zł<?
-                                        } else { ?><?
-                                        } ?></p>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p class="value diff"></p>
-                                </div>
-                            </div>
-                            <?
-                            $i++;
-                        }
-                        ?>
-                    </div>
                     <div class="dzialy dochody bd">
                         <?
                         $i = 0;
@@ -715,6 +472,7 @@ $zmiana_dochody = $rok2['dochody'] / $rok1['dochody'];
                     </div>
                 <? } ?>
             </div>
+            */ ?>
 
             <div class="row data ">
                 <div class="col-sm-4 _label">
