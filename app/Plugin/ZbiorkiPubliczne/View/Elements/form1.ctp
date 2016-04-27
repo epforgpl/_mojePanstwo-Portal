@@ -1,4 +1,7 @@
-<?php $edit = isset($edit) && $edit; ?>
+<?php
+/** @var object $data */
+$edit = isset($edit) && $edit;
+?>
 
 <table class="formularz table table-bordered">
     <thead>
@@ -44,11 +47,11 @@
         <td colspan="3">
             <? if ($edit) { ?>
                 <div class="datepicker range">
-                    <label>Od</label>
-                    <input class="from form-control" name="okres_sprawozdawczy[]" type="text"
+                    <label for="datepickerRangeOd">Od</label>
+                    <input id="datepickerRangeOd" class="from form-control" name="okres_sprawozdawczy[]" type="text"
                            value="<?= @$data['okres_sprawozdawczy'][0] ?>"/>
-                    <label>do</label>
-                    <input class="to form-control" name="okres_sprawozdawczy[]" type="text"
+                    <label for="datepickerRangeDo">do</label>
+                    <input id="datepickerRangeDo" class="to form-control" name="okres_sprawozdawczy[]" type="text"
                            value="<?= @$data['okres_sprawozdawczy'][1] ?>"/>
                 </div>
             <? } else {

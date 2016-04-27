@@ -185,4 +185,7 @@ msgid "LC_ABOUT_US_SPONSORS_SUPPORT_INFO"
 msgstr "Wspierają nas także:"
 
 msgid "LC_ABOUT_US_SPONSORS_DEVELOPED_H2"
-msgstr "Portal pomagają nam rozwijać:"
+msgstr "Partnerzy wspierający rozwój portalu:"
+
+msgid "LC_ABOUT_US_SPONSORS_DEVELOPED_ALSO_H2"
+msgstr "Oprócz partnerów spotkania informacyjne o portalu pomagali nam zorganizować:"
