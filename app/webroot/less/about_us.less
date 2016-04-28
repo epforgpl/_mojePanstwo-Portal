@@ -56,19 +56,28 @@
                     margin-bottom: 10px;
                 }
 
-                .logotypy {
-                    a {
-                        margin: 0 10px;
-                        outline: none;
+                .logotypy a {
+                    margin: 0 10px;
+                    outline: none;
 
-                        .image {
-                            max-width: 320px;
-                            max-height: 100px;
-                            margin-right: 20px;
-                            margin-bottom: 25px;
-                            vertical-align: middle;
+                    .image {
+                        &.full {
+                            max-width: 100%;
+                            max-height: 250px;
+                            margin-right: 0;
                         }
+
+                        max-width: 320px;
+                        max-height: 100px;
+                        margin-right: 20px;
+                        margin-bottom: 25px;
+                        vertical-align: middle;
                     }
+                }
+
+                #fundamentMapaModal .modal-dialog {
+                    width: 70vw;
+                    min-width: 800px;
                 }
             }
         }

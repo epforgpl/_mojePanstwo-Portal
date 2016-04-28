@@ -154,12 +154,141 @@
                                         <img class="image" src="/img/about/wspieraja/warsztat.png"
                                              alt="Logo Fundacja Warsztat Wiedzy"/>
                                     </a>
+                                    <a target="_blank" href="https://www.techsoup.pl"
+                                       title="Link do strony Techsoup ">
+                                        <img class="image" src="/img/about/wspieraja/techsoup.png"
+                                             alt="Logo Techsoup"/>
+                                    </a>
+                                    <a target="_blank" href="http://warsztat.org.pl"
+                                       title="Link do strony Warsztat innowacji Społecznych ">
+                                        <img class="image" src="/img/about/wspieraja/warsztat_innowacji.png"
+                                             alt="Logo Warsztat innowacji Społecznych"/>
+                                    </a>
+                                    <a target="_blank" href=" http://medialabkatowice.eu"
+                                       title="Link do strony Medialab Katowice ">
+                                        <img class="image" src="/img/about/wspieraja/medialab.jpg"
+                                             alt="Logo Medialab Katowice"/>
+                                    </a>
+                                    <a target="_blank" href="http://olcamp.pl/"
+                                       title="Link do strony Stowarzyszenie Olcamp ">
+                                        <img class="image" src="/img/about/wspieraja/olcamp.jpg"
+                                             alt="Logo Stowarzyszenie Olcamp"/>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="fundatorzy">
+                    <h2><?= __("LC_ABOUT_US_SPONSORS_DEVELOPED_ALSO_H2") ?></h2>
 
+                    <div class="sector">
+                        <div id="wspieraja">
+                            <div class="part">
+                                <div class="logotypy text-center">
+                                    <a target="_blank" href="#" onclick="return false;"
+                                       title="Link do mapy miejsc odwiedzonych przez Fundację Fundament"
+                                       data-toggle="modal"
+                                       data-target="#fundamentMapaModal">
+                                        <img class="image full" src="/img/about/spotkania/fundament_mapa.png"
+                                             alt="Mapa miejsc odwiedzonych przez Fundację Fundament"/>
+                                    </a>
+                                    <div id="fundamentMapaModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img class="img-responsive"
+                                                         src="/img/about/spotkania/fundament_mapa.png"
+                                                         alt="Mapa mejsc działania Fundamentu"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a target="_blank"
+                                       href="https://www.facebook.com/Kongres-Ruch%C3%B3w-Miejskich-224877324202563/"
+                                       title="Link do strony Kongres Ruchów Miejskich">
+                                        <img class="image" src="/img/about/spotkania/kongres.jpg"
+                                             alt="Logo Kongres Ruchów Miejskich"/>
+                                    </a>
+                                    <a target="_blank" href="http://siecobywatelska.pl"
+                                       title="Link do strony Sieć Obywatelska">
+                                        <img class="image" src="/img/about/spotkania/siec.jpg"
+                                             alt="Logo Sieć Obywatelska"/>
+                                    </a>
+                                    <a target="_blank" href="http://media30.pl"
+                                       title="Link do strony Fundacja Media 3.0">
+                                        <img class="image" src="/img/about/spotkania/media30.jpg"
+                                             alt="Logo Fundacja Media 3.0"/>
+                                    </a>
+                                    <a target="_blank" href="http://liczysiemiasto.pl"
+                                       title="Link do strony Liczy się miasto">
+                                        <img class="image" src="/img/about/spotkania/liczy_sie.jpg"
+                                             alt="Logo Liczy się miasto"/>
+                                    </a>
+                                    <a target="_blank" href="http://kodujdlapolski.pl"
+                                       title="Link do strony Koduj dla Polski">
+                                        <img class="image" src="/img/about/spotkania/kdp.png"
+                                             alt="Logo Koduj dla Polski"/>
+                                    </a>
+                                    <a target="_blank" href="http://netwtorek.pl"
+                                       title="Link do strony Netwtorek">
+                                        <img class="image" src="/img/about/spotkania/netwtorek.png"
+                                             alt="Logo Netwtorek"/>
+                                    </a>
+                                    <a target="_blank" href="http://www.technologielokalnie.pl/techklub/suwalki/"
+                                       title="Link do strony TechKlub Suwałki">
+                                        <img class="image" src="/img/about/spotkania/suwalki.png"
+                                             alt="Logo TechKlub Suwałki"/>
+                                    </a>
+                                    <a target="_blank" href="http://mamywolomin.pl"
+                                       title="Link do strony Fundacja Mamy Wołomin">
+                                        <img class="image" src="/img/about/spotkania/mamy_wolomin.jpg"
+                                             alt="Logo Fundacja Mamy Wołomin"/>
+                                    </a>
+                                    <a target="_blank" href="http://centrumbukowska.pl"
+                                       title="Link do strony Centrum Bukowska">
+                                        <img class="image" src="/img/about/spotkania/centrum_bukowska.jpg"
+                                             alt="Logo Centrum Bukowska"/>
+                                    </a>
+                                    <a target="_blank" href="http://rada-lodzkie.org.pl"
+                                       title="Link do strony Rada Organizacji Pozarządowych Województwa Łódzkiego">
+                                        <img class="image" src="/img/about/spotkania/rada.jpg"
+                                             alt="Logo Rada Organizacji Pozarządowych Województwa Łódzkiego"/>
+                                    </a>
+                                    <a target="_blank" href="http://www.gdansk.pl"
+                                       title="Link do strony Miasto Gdańsk">
+                                        <img class="image" src="/img/about/spotkania/gdansk.jpg"
+                                             alt="Logo Miasto Gdańsk"/>
+                                    </a>
+                                    <a target="_blank" href="http://www.technologielokalnie.pl/techklub/bialystok/"
+                                       title="Link do strony TechKlub Białystok">
+                                        <img class="image" src="/img/about/spotkania/bialystok.png"
+                                             alt="Logo TechKlub Białystok"/>
+                                    </a>
+                                    <a target="_blank" href="http://soclab.org.pl"
+                                       title="Link do strony Fundacja SocLab">
+                                        <img class="image" src="/img/about/spotkania/soclab.jpg"
+                                             alt="Logo Fundacja SocLab"/>
+                                    </a>
+                                    <a target="_blank" href="http://frso.pl"
+                                       title="Link do strony Fundacja Rozwoju Społeczeństwa Obywatelskiego">
+                                        <img class="image" src="/img/about/spotkania/frso.png"
+                                             alt="Logo Fundacja Rozwoju Społeczeństwa Obywatelskiego"/>
+                                    </a>
+                                    <a target="_blank" href="http://stocznia.org.pl"
+                                       title="Link do strony Pracownia Badań i Innowacji Społecznych 'Stocznia'">
+                                        <img class="image" src="/img/about/spotkania/stocznia.jpg"
+                                             alt="Logo Pracownia Badań i Innowacji Społecznych 'Stocznia'"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>

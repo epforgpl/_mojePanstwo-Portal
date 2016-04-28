@@ -47,9 +47,10 @@ $(document).ready(function () {
 					},
 					success: function (res) {
 						var data = res.options,
-							dataArr = [];
+							dataArr = [],
+							i;
 
-						for (var i = 0; i < data.length; i++) {
+						for (i = 0; i < data.length; i++) {
 							dataArr.push({label: data[i].text, value: data[i].payload.object_id});
 						}
 
@@ -140,14 +141,15 @@ $(document).ready(function () {
 	});
 
 	sections.find('.radio label').click(function () {
-		if (sections.find('.section:visible:last input:checked')) {
-			sections.find('.section:hidden:first').removeClass('hide').hide().slideDown();
-		}
-
 		window.setTimeout(function () {
-			if ((sections.find('.section:hidden').length === 0) && (sections.find('.section input:checked').length === 3)) {
-				root.find('.sectionsBtn .btn').removeClass('disabled');
+			if (sections.find('.section:visible:last input:checked').length > 0) {
+				sections.find('.section:hidden:first').removeClass('hide').hide().slideDown();
 			}
+			window.setTimeout(function () {
+				if ((sections.find('.section:hidden').length === 0) && (sections.find('.section input:checked').length === 3)) {
+					root.find('.sectionsBtn .btn').removeClass('disabled');
+				}
+			}, 10);
 		}, 0);
 	});
 	root.find('.sectionsBtn .btn').click(function (e) {
