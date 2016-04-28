@@ -1487,8 +1487,9 @@ class InstytucjeController extends DataobjectsController
 	                    'dataset' => 'sejm_debaty',
 	                    'id' => $this->request->params['subid'],
 	                ),
+	                'layers' => array('neighboors'),
 	            ));				
-				
+								
 				$global_aggs = array(
                     'wystapienia' => array(
                         'filter' => array(
@@ -1537,6 +1538,41 @@ class InstytucjeController extends DataobjectsController
                                             'data.sejm_glosowania.debata_id' => $debata->getId(),
                                         ),
                                     ),
+                                ),
+                            ),
+                        ),
+                        'aggs' => array(
+                            'top' => array(
+                                'top_hits' => array(
+                                    'size' => 1000,
+                                    'fields' => array('dataset', 'id'),
+                                    '_source' => array('data'),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'punkty' => array(
+                        'scope' => 'global',
+                        'filter' => array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'sejm_posiedzenia_punkty',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.sejm_posiedzenia_punkty.debata_id' => $debata->getId(),
+                                        ),
+                                    ),
+                                ),
+                                'must_not' => array(
+	                                array(
+		                                'term' => array(
+			                                'data.sejm_posiedzenia_punkty.numer' => 0,
+		                                ),
+	                                ),
                                 ),
                             ),
                         ),

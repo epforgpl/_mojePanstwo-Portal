@@ -12,7 +12,9 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 
 <div class="row margin-top-10">
 <div class="col-md-9">
-
+	
+	<?= $this->element('Dane.sejm_debaty/neighboors', array('neighboors' => $debata->getLayer('neighboors'))); ?>
+	
 	<? if( @$dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] ) {?>
 	<ul class="debata-wystapienia" did="<?= $debata->getId() ?>"<? if( isset($wystapienie) ){?> wid="<?= $wystapienie->getId() ?>"<?}?>>
 		<? foreach( $dataBrowser['aggs']['wystapienia']['top']['hits']['hits'] as $doc ) { ?>
@@ -37,28 +39,32 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 		<? } ?>
 	</ul>
 	<? } ?>
-        
+     
+	<?= $this->element('Dane.sejm_debaty/neighboors', array('neighboors' => $debata->getLayer('neighboors'))); ?>
+    
 </div><div class="col-md-3">
 	
 	
-
-        
 	
 	
 	<? if( @$dataBrowser['aggs']['punkty']['top']['hits']['hits'] ) { ?>
 	<div class="stickybar">
-		<div class="punkty">
-			<p class="title">Rozpatrywane punkty porządku dziennego:</p>
-			<ul>
-			<? 
-			foreach( $dataBrowser['aggs']['punkty']['top']['hits']['hits'] as $doc ) {
-				$data = $doc['fields']['source'][0]['data'];
-			?>
-				<li>
-					<p><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty.id']?>"><span class="badge">#<?= $data['sejm_posiedzenia_punkty.numer']?></span> <?= smarty_modifier_truncate($data['sejm_posiedzenia_punkty.tytul'], 135, ' (...) ', false, true) ?></a></p>
-				</li>
-			<? } ?>
-			</ul>
+		<div class="block nobg block-simple">
+			<header>Punkty porządku dziennego:</header>
+			<section class="content nopadding">
+				<div class="punkty">
+					<ul>
+					<? 
+					foreach( $dataBrowser['aggs']['punkty']['top']['hits']['hits'] as $doc ) { 
+						$data = $doc['_source']['data'];
+					?>
+						<li class="nopadding">
+							<p><a href="/dane/instytucje/3214,sejm/punkty/<?= $data['sejm_posiedzenia_punkty']['id']?>"><span class="badge"><?= $data['sejm_posiedzenia_punkty']['numer']?></span> <?= smarty_modifier_truncate($data['sejm_posiedzenia_punkty']['tytul'], 135, ' (...) ', false, true) ?></a></p>
+						</li>
+					<? } ?>
+					</ul>
+				</div>
+			</section>
 		</div>
 	</div>
 	<? } ?>

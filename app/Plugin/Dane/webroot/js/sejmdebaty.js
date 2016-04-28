@@ -6,7 +6,7 @@ $(document).ready(function () {
 	
 	var bar = $('.stickybar');
 	if( bar.length ) 
-		bar.sticky({topSpacing:0});
+		bar.sticky({topSpacing:35});
 	
 	var debata_div = $('.debata-wystapienia');
 	var debata_id = debata_div.attr('did');
