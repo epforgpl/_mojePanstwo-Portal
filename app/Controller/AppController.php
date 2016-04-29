@@ -395,11 +395,11 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe605;',
         ),
-        'mapa' => array(
-            'name' => 'Mapa',
-            'subname' => 'Śledź działania innych w swojej okolicy',
-            'desc' => 'Sprawdź, jakie działania podejmowane są w Twojej okolicy oraz jakie firmy i organizacje pozarządowe są zarejestrowane w wybranej lokalizacji.',
-            'href' => '/mapa',
+        'kultura' => array(
+            'name' => 'Kultura',
+            'subname' => 'Poznaj dane dotyczące kultury',
+            'desc' => 'Sprawdź stan postrzegania kultury w Polsce. Jak często chodzimy do kina, teatru oraz jak wygląda stan czytelnictwa i korzystania z Internetu.',
+            'href' => '/kultura',
             'tag' => 1,
             'icon' => '&#xe900;',
         ),
@@ -474,6 +474,14 @@ class AppController extends Controller
             'href' => '/handel_zagraniczny',
             'tag' => 1,
             'icon' => '&#xe617;',
+        ),
+        'mapa' => array(
+            'name' => 'Mapa',
+            'subname' => 'Śledź działania innych w swojej okolicy',
+            'desc' => 'Sprawdź, jakie działania podejmowane są w Twojej okolicy oraz jakie firmy i organizacje pozarządowe są zarejestrowane w wybranej lokalizacji.',
+            'href' => '/mapa',
+            'tag' => 1,
+            'icon' => '&#xe900;',
         ),
         'api' => array(
             'name' => 'API',
