@@ -133,7 +133,7 @@ echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.22&libraries=geo
                     Poland</a>
                 <br/>
                 <a href="/fundacja-clientearth-poland" title="Fundacja ClientEarth Poland">
-                    <img class="image margin-top-5" src="/img/partnerzy/client-earth-logo.png"
+                    <img class="image margin-top-5" src="/img/about/partnerzy/client-earth-logo.png"
                          alt="Fundacja ClientEarth Poland"/>
                 </a>
             </p>

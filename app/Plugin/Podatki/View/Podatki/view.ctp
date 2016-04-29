@@ -526,16 +526,17 @@ echo $this->element('app/sidebar');
 		            <div class="part">
 		                <div class="logotypy">
 		                    <a target="_blank" href="http://www.eeagrants.org/" title="Link do strony EEA Grants">
-		                        <img class="image" src="/img/partnerzy/norway_grants.png" alt="Logo EEA Grants"/>
+                                <img class="image" src="/img/about/partnerzy/norway_grants.png" alt="Logo EEA Grants"/>
 		                    </a>
 		                    <a target="_blank" href="http://www.batory.org.pl/"
 		                       title="Link do strony Fundacji im. Stefana Batorego">
-		                        <img class="image" src="/img/partnerzy/fundacja_batorego.png" alt="Logo Fundacji Batorego"/>
+                                <img class="image" src="/img/about/partnerzy/fundacja_batorego.png"
+                                     alt="Logo Fundacji Batorego"/>
 		                    </a>
 		                    <a target="_blank" href="http://www.pcyf.org.pl/"
 		                       title="Link do strony Polskiej Fundacji Dzieci i Młodzieży">
-		                        <img class="image" src="/img/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png"
-		                             alt="Logo Polskiej Fundacji Dzieci i Młodzieży"/>
+                                <img class="image" src="/img/about/partnerzy/polska_fundacja_dzieci_i_mlodziezy.png"
+                                     alt="Logo Polskiej Fundacji Dzieci i Młodzieży"/>
 		                    </a>
 		                    <a target="_blank" href="http://www.ibs.org.pl/"
 		                       title="Link do strony Fundacji Naukowej Instytutu Badań Strukturalnych">
