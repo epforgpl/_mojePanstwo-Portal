@@ -48,10 +48,13 @@ echo $this->element('app/sidebar');
 						
 					<div class="col-xs-12 col-sm-8 col-md-4-5">
 					
-					    <div class="dataWrap">
 					        
-					        <h1 class="appTitle">Bank Danych Lokalnych</h1>
-					        
+					        <div class="appBanner bottom-border">
+					            <h1 class="appTitle">API</h1>
+					
+					            <p class="appSubtitle">Bank Danych Lokalnych</p>
+					        </div>
+					        					        
 					        <div class="block margin-top-20">
 						        <header class="">Dokumentacja żądań</header>
 						        <section class="textBlock">
@@ -157,7 +160,6 @@ echo $this->element('app/sidebar');
 					        					
 						        				        
 					        
-					    </div>
 					
 					</div>
 	

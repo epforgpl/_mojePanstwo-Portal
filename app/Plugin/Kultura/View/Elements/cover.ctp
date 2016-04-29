@@ -12,7 +12,7 @@ $this->Combinator->add_libs('js', 'Kultura.view.js');
     <div class="appBanner">
 
         <h1 class="appTitle">Kultura</h1>
-        <p class="appSubtitle">Badanie postrzegania kultury w Polsce</p>
+        <p class="appSubtitle">Badanie GUS postrzegania kultury w Polsce w 2014 roku</p>
 		
 		<form action="/kultura" method="get">
 	        <div class="appSearch form-group">

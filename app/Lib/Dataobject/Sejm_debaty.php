@@ -88,6 +88,14 @@ class Sejm_debaty extends DataObject
 		
 	}
 	
+	public function getShortTitle() {
+		return $this->getData('tytul') ? $this->getData('tytul') : 'Poza punktami porządku dziennego';
+	}
+	
+	public function getTitle() {
+		return $this->getShortTitle();
+	}
+	
 	public function getUrl()
 	{
 		

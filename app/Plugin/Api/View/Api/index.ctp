@@ -130,7 +130,7 @@ echo $this->element('app/sidebar');
 						        
 					        </div>
 					        
-					        <div class="block block-simple margin-top-20">
+					        <div class="block margin-top-20">
 						        <header class="">Identyfikatory obiektów</header>
 						        
 						        <section class="textBlock">
@@ -152,7 +152,7 @@ echo $this->element('app/sidebar');
 						        
 					        </div>
 					        
-					        <div class="block block-simple margin-top-20">
+					        <div class="block margin-top-20">
 						        <header class="">Warstwy danych</header>
 						        
 						        <section class="textBlock">
@@ -214,7 +214,7 @@ echo $this->element('app/sidebar');
 					        </div>
 					        
 					        
-					        <div class="block block-simple margin-top-20">
+					        <div class="block margin-top-20">
 						        <header class="">Obsługa błędów</header>
 						        
 						        <section class="textBlock">
@@ -258,7 +258,7 @@ echo $this->element('app/sidebar');
 						        
 					        </div>
 					        
-					        <div class="block block-simple margin-top-20">
+					        <div class="block margin-top-20">
 						        <header class="">Wersjonowanie</header>
 						        
 						        <section class="textBlock">

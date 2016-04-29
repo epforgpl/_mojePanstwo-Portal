@@ -4,6 +4,17 @@ App::uses('ApplicationsController', 'Controller');
 
 class ApiController extends ApplicationsController
 {
+	
+	public $_layout = array(
+        'header' => false,
+        'body' => array(
+            'theme' => 'default',
+        ),
+        'footer' => array(
+            'element' => 'default',
+        ),
+    );
+    
     public $helpers = array();
 
     public $components = array();
@@ -26,6 +37,11 @@ class ApiController extends ApplicationsController
     {
 		$this->title = 'API - Bank Danych Lokalnych';
     }
+    
+    public function sejmometr()
+    {
+		$this->title = 'API - Sejmometr';
+    }
 
     public function view($slug)
     {
@@ -42,6 +58,13 @@ class ApiController extends ApplicationsController
 		$mode = false;
 		$items = array();
 		$app = $this->getApplication( $this->settings['id'] );
+		
+		$items[] = array(
+			'label' => 'Sejmometr',
+			'href' => '/api/sejmometr',
+			'id' => 'sejmometr',
+			'icon' => 'icon-datasets-dot',
+		);
 		
 		$items[] = array(
 			'label' => 'Bank Danych Lokalnych',
