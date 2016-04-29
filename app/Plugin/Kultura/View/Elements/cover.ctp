@@ -134,5 +134,8 @@ $this->Combinator->add_libs('js', 'Kultura.view.js');
 		
 	</div>
 	<? } ?>
+	
+	<p class="msg-link">Źródło danych: <a href="https://bdl.stat.gov.pl/BDL/start" target="_blank">http://stat.gov.pl/obszary-tematyczne/kultura-turystyka-sport/kultura/uczestnictwo-ludnosci-w-kulturze-w-2014-r-,6,2.html</a></p>
+
 
 </div>
