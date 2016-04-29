@@ -12,7 +12,7 @@ class NgoController extends ApplicationsController
         'subtitle' => 'Organizacje pozarządowe w Polsce',
         'headerImg' => 'ngo',
     );
-    
+
     public $menu = array(
 		'konkursy' => array(
 			'menu_id' => 'konkursy',
@@ -78,7 +78,7 @@ class NgoController extends ApplicationsController
 			'icon' => 'dot',
 		),
 	);
-    
+
     public $_aggs = array(
         'dataset' => array(
             'terms' => array(
@@ -94,43 +94,7 @@ class NgoController extends ApplicationsController
             ),
         ),
     );
-        
-    private function getSubAggs() {
-	    return array(
-	        '_query' => array(
-	            'filter' => array(
-		            'or' => array(
-			            array(
-				            'terms' => array(
-					            'dataset' => array('dzialania', 'pisma'),
-				            ),
-			            ),
-			            array(
-				            'bool' => array(
-					            'must' => array(
-						            array(
-							            'term' => array(
-								            'dataset' => 'krs_podmioty',
-							            ),
-						            ),
-						            array(
-							            'term' => array(
-								            'data.krs_podmioty.forma_prawna_typ_id' => '2',
-							            ),
-						            ),
-					            ),
-				            ),
-			            ),
-		            ),
-	            ),
-	            'scope' => 'query',
-	            'aggs' => $this->_aggs,
-	        ),
-	    );
-    }
-
     public $components = array('RequestHandler', 'Media.Twitter');
-
     public $submenus = array(
         'ngo' => array(
             'items' => array(
@@ -153,10 +117,8 @@ class NgoController extends ApplicationsController
             )
         )
     );
-
 	private $twitterAccountType = '9';
 	private $twitterTimerange = '1D';
-
 	private $accounts_map = array(
 		'politycy' => array(7, 'Politycy na Twitterze'),
 		'ngo' => array(9, 'Organizacje pozarządowe na Twitterze'),
@@ -186,10 +148,10 @@ class NgoController extends ApplicationsController
         return $this->redirect('/ngo');
 
     }
-	
+
     public function view()
     {
-		
+
 		$this->loadModel('Dane.Dataobject');
 		$dataset = $this->Dataobject->find('first', array(
 			'conditions' => array(
@@ -197,17 +159,17 @@ class NgoController extends ApplicationsController
 				'id' => 226,
 			),
 			'layers' => array('channels', 'subscription'),
-		));				
-		
+        ));
+
 		$observe_params = array(
 			'dataset' => 'ngo_konkursy',
 			'url' => '/ngo/konkursy',
 			'title' => 'Konkursy dla organizacji pozarządowych',
 			'object' => $dataset,
 		);
-				
+
 		$this->set('observe_params', $observe_params);
-		
+
 		$this->set('last_month_report', $this->Twitter->getLastMonthReport());
 		$this->set('dropdownRanges', $this->Twitter->getDropdownRanges());
 
@@ -452,13 +414,13 @@ class NgoController extends ApplicationsController
             ),
             'conditions' => array(
 	            'dataset' => array(
-		            'dzialania', 
-		            'pisma', 
+                    'dzialania',
+                    'pisma',
 		            'ngo_konkursy',
 		            'sprawozdania_opp',
 		            'zbiorki_publiczne',
 		            'krs_podmioty{krs_podmioty.forma_prawna_typ_id:2}',
-	            ),	            
+                ),
             ),
             'cover' => array(
                 'cache' => true,
@@ -713,6 +675,41 @@ class NgoController extends ApplicationsController
         ));
     }
 
+    private function getSubAggs()
+    {
+        return array(
+            '_query' => array(
+                'filter' => array(
+                    'or' => array(
+                        array(
+                            'terms' => array(
+                                'dataset' => array('dzialania', 'pisma'),
+                            ),
+                        ),
+                        array(
+                            'bool' => array(
+                                'must' => array(
+                                    array(
+                                        'term' => array(
+                                            'dataset' => 'krs_podmioty',
+                                        ),
+                                    ),
+                                    array(
+                                        'term' => array(
+                                            'data.krs_podmioty.forma_prawna_typ_id' => '2',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'scope' => 'query',
+                'aggs' => $this->_aggs,
+            ),
+        );
+    }
+
     public function pisma()
     {
 	    $this->title = 'Pisma | NGO';
@@ -720,7 +717,7 @@ class NgoController extends ApplicationsController
             'aggs' => $this->getSubAggs(),
         ));
     }
-    
+
     public function fundacje()
     {
 	    $this->title = 'Fundacje | NGO';
@@ -736,7 +733,7 @@ class NgoController extends ApplicationsController
             'aggsPresetExclude' => array('kapitalizacja', 'typ_id'),
         ));
     }
-    
+
     public function organizacje()
     {
 	    $this->title = 'Baza organizacji pozarządowych | NGO';
@@ -753,7 +750,7 @@ class NgoController extends ApplicationsController
             'aggsPresetExclude' => array('kapitalizacja'),
         ));
     }
-    
+
     public function zwiazki_zawodowe()
     {
 	    $this->title = 'Związki zawodowe | NGO';
@@ -765,7 +762,7 @@ class NgoController extends ApplicationsController
             'aggsPresetExclude' => array('kapitalizacja', 'typ_id'),
         ));
     }
-    
+
     public function spoldzielnie()
     {
         $this->title = 'Spółdzielnie | NGO';
@@ -777,7 +774,7 @@ class NgoController extends ApplicationsController
             'aggsPresetExclude' => array('kapitalizacja', 'typ_id'),
         ));
     }
-    
+
     public function pozostale()
     {
         $this->title = 'Pozostałe organizacje | NGO';
@@ -788,7 +785,7 @@ class NgoController extends ApplicationsController
             'aggs' => $this->getSubAggs(),
         ));
     }
-    
+
     public function konkursy()
     {
 
@@ -802,7 +799,7 @@ class NgoController extends ApplicationsController
         ));
 
     }
-    
+
     public function zbiorki()
     {
 	    $this->title = 'Zbiórki publiczne | NGO';
@@ -814,7 +811,7 @@ class NgoController extends ApplicationsController
             ))
         ));
     }
-    
+
     public function sprawozdania_opp()
     {
         $this->loadDatasetBrowser('sprawozdania_opp', array(
@@ -848,22 +845,22 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Stowarzyszenia | NGO');
 
     }
-	
-	public function getChapters() {
+
+    public function getChapters() {
 
 		$mode = false;
 		$items = array();
-		$app = $this->getApplication( $this->settings['id'] );		
-		
+        $app = $this->getApplication($this->settings['id']);
+
 		if( @$this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'] )
 			$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] = $this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'];
-		
-		if(
+
+        if(
 			isset( $this->request->query['q'] ) &&
 			$this->request->query['q']
 		) {
-			
-			$items[] = array(
+
+            $items[] = array(
 				'id' => '_results',
 				'label' => 'Szukaj w NGO:',
 				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
@@ -881,97 +878,95 @@ class NgoController extends ApplicationsController
 			$mode = 'results';
 
 		}
-		
-		
 
-		
-		$others_count = 0;
-		
-		foreach( $this->menu as $key => $value ) {
-						
-			if( !isset($value['menu_id']) )
+
+        $others_count = 0;
+
+        foreach( $this->menu as $key => $value ) {
+
+            if( !isset($value['menu_id']) )
 				$value['menu_id'] = '';
-						
-			$item = array(
+
+            $item = array(
 				'id' => $value['menu_id'],
 				'label' => $value['label'],
 			);
-			
-			if( $value['menu_id'] )
+
+            if( $value['menu_id'] )
 				$item['href'] = '/' . $this->settings['id'] . '/' . $value['menu_id'];
-			
-			if( isset($value['icon']) )
+
+            if( isset($value['icon']) )
 				$item['icon'] = 'icon-datasets-' . $value['icon'];
-				
-			if( isset($value['class']) )
+
+            if( isset($value['class']) )
 				$item['class'] = $value['class'];
 
 			if( $mode == 'results' ) {
-			
-				
-				$datasets = array();
-				
-				if( isset($item['href']) )
+
+
+                $datasets = array();
+
+                if( isset($item['href']) )
 					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
-				
-				if( @$value['forma_prawna_id'] ) {
-					
-					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+
+                if( @$value['forma_prawna_id'] ) {
+
+                    if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
 						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
-													
-							if( $dataset['key']=='krs_podmioty' ) {
-								
-								if( $value['forma_prawna_id']=='_all' ) {
-									
-									if( $dataset['doc_count'] );
+
+                            if( $dataset['key']=='krs_podmioty' ) {
+
+                                if( $value['forma_prawna_id']=='_all' ) {
+
+                                    if( $dataset['doc_count'] );
 										$items[] = $item;
-									
-								} else {
-											
-									foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
+
+                                } else {
+
+                                    foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
 										if( $forma['doc_count'] ) {
-																				
-											if( $value['forma_prawna_id']==$forma['key'] ) {
-												
-												$item['count'] = $forma['doc_count'];
+
+                                            if( $value['forma_prawna_id']==$forma['key'] ) {
+
+                                                $item['count'] = $forma['doc_count'];
 												$items[] = $item;
-													
-											} elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
-												
-												$others_count += $forma['doc_count'];
-												
-											}
-																				
-										}
+
+                                            } elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
+
+                                                $others_count += $forma['doc_count'];
+
+                                            }
+
+                                        }
 									}
-									
-									if( ($value['forma_prawna_id']=='_other') && $others_count ) {
-										
-										$item['count'] = $others_count;
+
+                                    if( ($value['forma_prawna_id']=='_other') && $others_count ) {
+
+                                        $item['count'] = $others_count;
 										$items[] = $item;
-										
-									}
-								
-								}
-								
-							}
+
+                                    }
+
+                                }
+
+                            }
 						}
 					}
-					
-				} else {
-					
-					if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
+
+                } else {
+
+                    if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
 						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
 							if( ($dataset['key'] == $key) && $dataset['doc_count'] ) {
-									
-								$item['count'] = $dataset['doc_count'];
+
+                                $item['count'] = $dataset['doc_count'];
 								$items[] = $item;
-								
-							}
+
+                            }
 						}
 					}
-					
-				}
+
+                }
 
 			} else {
 
@@ -980,24 +975,24 @@ class NgoController extends ApplicationsController
 			}
 
 		}
-				
+
         foreach($items as $i => $item) {
 
             if(isset($item['submenu'])) {
                 $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
             }
-                                
+
             if(
-            	$i && 
-            	( @strpos($item['class'], 'border-top')!==false ) && 
+                $i &&
+                (@strpos($item['class'], 'border-top') !== false) &&
             	( @strpos($items[$i-1]['class'], '_label')!==false )
             )
 	            $items[$i]['class'] = str_replace('border-top', '', $item['class']);
 
         }
-        
-		
-		$output = array(
+
+
+        $output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
@@ -1005,11 +1000,11 @@ class NgoController extends ApplicationsController
 		return $output;
 
 	}
-	
+
     public function page()
     {
-	    
-	    $options = array(
+
+        $options = array(
             'searchTag' => array(
 	            'href' => '/ngo',
 	            'label' => 'NGO',
@@ -1055,7 +1050,7 @@ class NgoController extends ApplicationsController
 
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
-	    
+
     }
 
 	public function newsletter() {
@@ -1069,4 +1064,19 @@ class NgoController extends ApplicationsController
 		$this->redirect('/ngo');
 	}
 
+    public function zbiorki_publiczne()
+    {
+        $this->set('title_for_layout', 'Zbiórka publiczna');
+        if (isset($this->data) && !empty($this->data)) {
+            $this->set('edit', true);
+            $this->set('data', $this->data);
+        }
+    }
+
+    public function zbiorki_publiczne_formularz()
+    {
+        $this->set('title_for_layout', 'Zbiórka publiczna - Formularz');
+        $this->set('edit', false);
+        $this->set('data', $this->data);
+    }
 }

@@ -300,7 +300,7 @@
                  data-height="820" data-show-faces="true" data-stream="true"
                  data-border-color="#FFFFFF" data-header="true"></div>
             <script>
-                var height = document.getElementsByClassName('mainContent')[0].clientHeight;
+                var height = document.getElementById('aboutUs').clientHeight;
                 document.getElementsByClassName('fb-like-box')[0].setAttribute('data-width', document.getElementsByClassName('fb-like-box')[0].parentElement.clientWidth);
                 document.getElementsByClassName('fb-like-box')[0].setAttribute('data-height', (height < 620) ? 620 : height);
             </script>
