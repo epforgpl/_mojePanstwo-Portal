@@ -268,41 +268,4 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 	if (parseInt(_main.css('margin-bottom'), 0) < _footer.outerHeight(true)) {
 		_main.css('margin-bottom', _footer.outerHeight(true));
 	}
-
-	/* Datepicker - regional PL */
-	if (typeof $.datepicker !== "undefined") {
-		$.datepicker.regional.pl = {
-			closeText: 'Zamknij',
-			prevText: '&#x3c;Poprzedni',
-			nextText: 'Następny&#x3e;',
-			currentText: 'Dzień',
-			changeMonth: true,
-			monthNames: ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'],
-			monthNamesShort: ['Sty', 'Lu', 'Mar', 'Kw', 'Maj', 'Cze',
-				'Lip', 'Sie', 'Wrz', 'Pa', 'Lis', 'Gru'],
-			dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
-			dayNamesShort: ['Nie', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'So'],
-			dayNamesMin: ['N', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So'],
-			weekHeader: 'Tydz',
-			dateFormat: 'd MM yy',
-			altField: '#datepickerAlt',
-			altFormat: "yy-mm-dd",
-			firstDay: 1,
-			isRTL: false,
-			showMonthAfterYear: false,
-			yearSuffix: ''
-		};
-		$.datepicker.setDefaults($.datepicker.regional.pl);
-
-		var months = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
-		var uDatepicker = $.datepicker._updateDatepicker;
-		$.datepicker._updateDatepicker = function () {
-			var ret = uDatepicker.apply(this, arguments),
-				$sel = this.dpDiv.find('select');
-			$sel.find('option').each(function (i) {
-				$(this).text(months[i]);
-			});
-			return ret;
-		};
-	}
 })(jQuery);

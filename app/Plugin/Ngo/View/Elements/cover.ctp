@@ -17,7 +17,7 @@ echo $this->element('modals/dataset-observe', $observe_params);
 
 		<h1 class="appTitle">Organizacje pozarządowe</h1>
         <p class="appSubtitle">Poznaj scenę organizacji obywatelskich w Polsce.</p>
-		
+
 		<form action="/ngo" method="get">
 	        <div class="appSearch form-group">
 				<div class="input-group">
@@ -33,15 +33,15 @@ echo $this->element('modals/dataset-observe', $observe_params);
 
     </div>
 
-	
+
 	<div class="row">
 		<div class="col-md-4">
-			
+
 			<?
 			$this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
 			?>
-			
-			<div class="banner block margin-top-0">
+
+            <div class="banner block margin-top-0">
 			    <div>
 			        <div class="img-cog pull-left">
 			            <span class="object-icon icon-datasets-strony"></span>
@@ -53,30 +53,30 @@ echo $this->element('modals/dataset-observe', $observe_params);
 			        <div class="text-left"><a href="/ngo/organizacje" class="szukajOrganizajiBtn">Znajdź organizację &raquo;</a></div>
 			    </div>
 			</div>
-			
-		</div><div class="col-md-4">
-			
-			<div class="banner block margin-top-0">
+
+        </div><div class="col-md-4">
+
+            <div class="banner block margin-top-0">
 			    <div>
 			        <div class="img-cog pull-left">
 			            <span class="object-icon icon-datasets-miejsca"></span>
 			        </div>
 			        <p class="headline margin-top-20"><strong>Zobacz mapę</strong> <br/> organizacji pozarządowych</p>
 			    </div>
-			    <div class="description margin-top-10">			
+                <div class="description margin-top-10">
 			        <p class="min-height">Zobacz gdzie w Polsce działają organizacje pozarządowe. Znajdź organizacje w swojej okolicy.</p>
 			        <div class="text-left"><a href="/mapa/ngo" class="">Przejdź do mapy &raquo;</a></div>
 			    </div>
 			</div>
-			
-		</div><div class="col-md-4">
-			
-			<?= $this->Element('Ngo.ngo-email-subscription') ?>
-						
-		</div>
+
+        </div><div class="col-md-4">
+
+            <?= $this->Element('Ngo.ngo-email-subscription') ?>
+
+        </div>
 	</div>
-	
-	<div class="row margin-top-10">
+
+    <div class="row margin-top-10">
 		<div class="col-md-8">
 
 			<? if( $docs = @$dataBrowser['aggs']['konkursy']['top']['hits']['hits'] ) {?>
@@ -101,7 +101,7 @@ echo $this->element('modals/dataset-observe', $observe_params);
 	                        <? } ?>
 	                    </ul>
 	                </div>
- 
+
                     <div class="buttons">
 		                <a href="/ngo/konkursy" class="btn btn-xs btn-primary margin-sides-5">Zobacz więcej &raquo;</a> <? if( $observe_params['object']->getLayer('subscription') ) {?><a href="#" class="margin-sides-5 dataset-observe-button">Subskrybujesz...</a><? } else { ?><a href="#" class="btn btn-xs btn-success margin-sides-5 dataset-observe-button">Subskrybuj &raquo;</a><? } ?>
                     </div>
@@ -110,8 +110,8 @@ echo $this->element('modals/dataset-observe', $observe_params);
 			<? } ?>
 
         </div><div class="col-md-4">
-			
-			<? if( $docs = @$dataBrowser['aggs']['zbiorki']['top']['hits']['hits'] ) {?>
+
+            <? if( $docs = @$dataBrowser['aggs']['zbiorki']['top']['hits']['hits'] ) {?>
             <div class="block bgA">
 		        <header>Najnowsze zbiórki publiczne:</header>
 		        <section class="content">
@@ -133,8 +133,22 @@ echo $this->element('modals/dataset-observe', $observe_params);
 		        </section>
 			</div>
 			<? } ?>
-			
-			<? if( $docs = @$dataBrowser['aggs']['sprawozdania_opp']['top']['hits']['hits'] ) {?>
+
+            <div class="banner block margin-top-0">
+                <div>
+                    <div class="img-cog pull-left">
+                        <span class="object-icon icon-datasets-zbiorki_publiczne"></span>
+                    </div>
+                    <p class="headline margin-top-20"><strong>Rozlicz</strong> <br/>zbiorkę publiczną!</p>
+                </div>
+                <div class="description margin-top-10">
+                    <p class="min-height">Odpowiedz na kilka pytań, aby wygenerować formularz rozliczenia zbiórki</p>
+                    <div class="text-left"><a href="/ngo/zbiorki_publiczne" class="szukajOrganizajiBtn">Wypełnij
+                            formularz &raquo;</a></div>
+                </div>
+            </div>
+
+            <? if( $docs = @$dataBrowser['aggs']['sprawozdania_opp']['top']['hits']['hits'] ) {?>
             <div class="block bgA">
 		        <header>Sprawozdania organizacji pożytku publicznego:</header>
 		        <section class="content">
@@ -159,9 +173,7 @@ echo $this->element('modals/dataset-observe', $observe_params);
 
         </div>
 	</div>
-	
-	
-	
+
 
     <div id="actions-newest" class="block block-simple">
         <header>Najnowsze działania organizacji pozarządowych:</header>
@@ -224,9 +236,9 @@ echo $this->element('modals/dataset-observe', $observe_params);
         </section>
     </div>
     <? } ?>
-	
-	<h2 class="appInnerTitle">Działania organizacji pozarządowych na Twitterze:</h2>
-	
+
+    <h2 class="appInnerTitle">Działania organizacji pozarządowych na Twitterze:</h2>
+
     <div id="accountsSwitcher" class="appMenuStrip">
         <? if (isset($twitterTimeranges) && isset($twitterTimerange)) { ?>
             <div class="appSwitchers">
@@ -277,7 +289,7 @@ echo $this->element('modals/dataset-observe', $observe_params);
             </div>
         <? } ?>
     </div>
-	
+
     <div class="mediaHighstockPicker">
         <div class="chart"
              data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['selected_accounts']['histogram']) ?>'
