@@ -10,7 +10,7 @@ $edit = isset($edit) && $edit;
             <small><i>(Należy wypełnić zgodnie z numerem nadanym przy zgłoszeniu widocznym
                     na portalu zbiórek)</i></small>
         </td>
-        <td class="col-xs-3"><?= ($edit) ? '<input class="form-control" type="text" name="numer_zbiorki" value="' . @$data['numer_zbiorki'] . '" required="required" />' : (!empty($data['numer_zbiorki'])) ? $data['numer_zbiorki'] : '&nbsp;' ?></td>
+        <td class="col-xs-3"><?= ($edit) ? '<input class="form-control" type="text" name="numer_zbiorki" value="' . @$data['numer_zbiorki'] . '" required="required" />' : ((!empty($data['numer_zbiorki'])) ? $data['numer_zbiorki'] : '&nbsp;') ?></td>
         <td class="grey col-xs-3">Data wpływu sprawozdania</td>
         <td class="grey col-xs-3"><?= ($edit) ? '<input class="datepicker form-control" name="data_wplywu" type="text" value="' . @$data['data_wplywu'] . '"required="required" />' : ((!empty($data['data_wplywu'])) ? $data['data_wplywu'] : '&nbsp;') ?></td>
     </tr>

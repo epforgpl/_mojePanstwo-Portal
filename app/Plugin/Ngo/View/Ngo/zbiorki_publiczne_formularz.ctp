@@ -1,8 +1,8 @@
 <?
-$this->Combinator->add_libs('css', $this->Less->css('zbiorki_publiczne', array('plugin' => 'Ngo')));
+$this->Combinator->add_libs('css', $this->Less->css('zbiorki-publiczne', array('plugin' => 'Ngo')));
 echo $this->Html->css($this->Less->css('app'));
 
-$this->Combinator->add_libs('js', 'Ngo.zbiorki_publiczne.js');
+$this->Combinator->add_libs('js', 'Ngo.zbiorki-publiczne.js');
 
 echo $this->element('headers/main');
 echo $this->element('app/sidebar');
