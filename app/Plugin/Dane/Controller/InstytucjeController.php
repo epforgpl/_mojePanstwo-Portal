@@ -1017,7 +1017,7 @@ class InstytucjeController extends DataobjectsController
 								                ),
 								                array(
 									                'term' => array(
-										                'data.sejm_debaty.posiedzenie_id' => $posiedzenie->getId(),
+										                'data.sejm_debaty.dzien_id' => $this->request->params['subsubid'],
 									                ),
 								                ),
 							                ),

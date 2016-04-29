@@ -27,12 +27,12 @@ if( @$dataBrowser['aggs']['glosowania']['top']['hits']['hits'] )
 					( $wystapienie->getId()==$doc['fields']['id'][0] )
 				) ? $wystapienie->getLayer('html') : false,
 			));
-						
-			if( @$doc['_source']['data']['sejm_wystapienia']['glosowanie_id'] ) {
-				
-				$glosowanie = $glosowania[ $doc['_source']['data']['sejm_wystapienia']['glosowanie_id'] ];
+			
+			if(
+				@$doc['_source']['data']['sejm_wystapienia']['glosowanie_id'] && 
+				( $glosowanie = @$glosowania[ $doc['_source']['data']['sejm_wystapienia']['glosowanie_id'] ] )
+			) {
 				echo '<div class="glosowanie">' . $this->Dataobject->render($glosowanie, 'default') . '</div>';
-				
 			}
 			?>
 		</li>
