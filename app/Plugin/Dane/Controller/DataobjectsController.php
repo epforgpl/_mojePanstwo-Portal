@@ -393,7 +393,9 @@ class DataobjectsController extends AppController
             ));
 
             $this->set('pismo', $pismo);
+            $this->set('title_for_layout', $pismo->getTitle());
             $this->render('Dane.KrsPodmioty/pismo');
+            
         } else {
             $this->Components->load('Dane.DataBrowser', array(
                 'conditions' => array(
@@ -513,6 +515,7 @@ class DataobjectsController extends AppController
             }
 
             $this->set('dzialanie', $dzialanie);
+            $this->set('title_for_layout', $dzialanie->getTitle());
 
             $this->loadModel('Dane.ActivitiesFiles');
             $this->set('files', $this->ActivitiesFiles->getByActivity($dzialanie->getId()));
@@ -538,7 +541,7 @@ class DataobjectsController extends AppController
             } else {
                 $this->render('Dane.KrsPodmioty/dzialanie');
             }
-
+            
         } else {
 
             $conditions = array(
