@@ -54,11 +54,15 @@ class Sejm_glosowania extends DataObject
     
     public function getBreadcrumbs()
 	{
-					
+		
+		$label = $this->getData('sejm_posiedzenia.tytul');
+		if( is_numeric($label) )
+			$label = 'Posiedzenie #' . $label;
+		
 		return array(
 			array(
 				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id'),
-				'label' => 'Posiedzenie #' . $this->getData('sejm_posiedzenia.tytul'),
+				'label' => $label,
 			),
 			array(
 				'id' => '/dane/instytucje/3214,sejm/posiedzenia/' . $this->getData('posiedzenie_id') . '/glosowania',

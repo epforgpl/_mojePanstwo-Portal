@@ -1033,7 +1033,7 @@ class InstytucjeController extends DataobjectsController
 										                'order' => 'asc',
 									                ),
 								                ),
-								                '_source' => true,
+								                '_source' => array('data', 'static'),
 								                'fields' => array('dataset', 'id'),
 							                ),
 						                ),
@@ -1582,6 +1582,11 @@ class InstytucjeController extends DataobjectsController
                                     'size' => 1000,
                                     'fields' => array('dataset', 'id'),
                                     '_source' => array('data'),
+                                    'sort' => array(
+	                                    'data.sejm_posiedzenia_punkty.numer' => array(
+		                                    'order' => 'asc',
+	                                    ),
+                                    ),
                                 ),
                             ),
                         ),

@@ -1,3 +1,7 @@
+body {
+	position: relative;
+}
+
 .block {
 	width: 100%;
 	.textBlock {
@@ -189,6 +193,80 @@
 
 .newLayout {
 	margin-bottom: 20px;
+}
+
+.tos {
+	
+	margin-left: 6px !important;
+	
+	li {
+	
+		margin: 0 !important;
+		padding: 0 !important;
+		
+		a {
+			
+			padding: 5px 10px;
+			
+			.glyphicon {
+				color: #666;
+				visibility: hidden;
+				width: 22px;
+				float: left;
+				display: block;
+			}
+			
+			.title {
+				margin-left: 22px;
+				display: block;
+				color: #157ab5;
+			}
+		}
+		
+		&.active > a, &.active > a:focus, &.active > a:hover {
+			background-color: inherit !important;
+			color: #157ab5 !important;
+			
+			.glyphicon {
+				visibility: visible;
+			}
+			
+		}
+	}
+}
+
+pre {
+	border-radius: 0;
+	border-style: none none none solid;
+	border-left: 3px solid #72b935;
+	background-color: #F1F4F7;
+	margin: 15px -20px 30px 0;
+	color: #080;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+code {
+	background-color: #F1F4F7;
+	color: #444;
+}
+
+.layers {
+	li {
+		margin: 10px;
+		padding: 5px;
+		border-bottom: 1px solid #DDD;
+		
+		&:last-child {
+			border-bottom: none;
+		}
+		
+		
+	}
+}
+
+.theme-simply .block > section, .theme-default .block.block-simple > section, .theme-wallpaper .block.block-simple > section {
+	padding: 20px;
 }
 
 @media (min-width: 768px) {
