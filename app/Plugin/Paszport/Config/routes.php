@@ -29,6 +29,9 @@ Router::redirect('/paszport/users/failed', array(
     'action' => 'login'
 ));
 
+Router::connect('/paszport/tutoriale', array('plugin' => 'paszport', 'controller' => 'tutorials', 'action' => 'index', '[method]' => 'GET'));
+Router::connect('/paszport/tutoriale/:id', array('plugin' => 'paszport', 'controller' => 'tutorials', 'action' => 'edit', '[method]' => 'POST'), array('id' => '[0-9]+', 'pass' => array('id')));
+
 Router::redirect('/pages/fblogin', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'fblogin'));
 
 Router::connect('/paszport/users/email', array('plugin' => 'paszport', 'controller' => 'AjaxRequest', 'action' => 'getUsersByEmail', '[method]' => 'POST'));
