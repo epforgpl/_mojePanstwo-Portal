@@ -404,7 +404,8 @@ class KrsPodmiotyController extends DataobjectsController
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
-                            'fielddata_fields' => array('dataset', 'id'),
+                            'fields' => array('dataset', 'id'),
+                            '_source' => array('data'),
 	                        'size' => 3,
 	                        'sort' => array(
 		                        'date' => 'desc',

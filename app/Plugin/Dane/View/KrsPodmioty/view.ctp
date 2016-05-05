@@ -26,7 +26,7 @@ $description =
 
 ?>
 
-<div class="krsPodmioty margin-top--25">
+<div class="krsPodmioty margin-top--15">
     <div class="col-xs-12 col-md-3 objectSide">
         <? if (($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www'))) { ?>
             <div class="iconsList">
@@ -330,29 +330,39 @@ $description =
                 </div>
             </div>
             <? } ?>
-
-
+									
             <? if( $pisma = @$object_aggs['pisma']['top']['hits']['hits'] ) { ?>
-            <div class="block block-simple col-xs-12">
-                <header>Pisma:</header>
-                <section class="content margin-sides-10">
-
-                    <div class="agg agg-Dataobjects">
-                        <ul class="dataobjects">
-                            <? foreach ($pisma as $doc) { ?>
-                                <li class="margin-top-10">
-                                    <?
-                                    echo $this->Dataobject->render($doc, 'default');
-                                    ?>
-                                </li>
-                            <? } ?>
-                        </ul>
-                    </div>
-
-                </section>
-                <div class="linkmore text-center">
-                    <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-primary btn-xs">więcej</a>
+            <div class="block block-simple col-xs-12 dzialania">
+                <header>Pisma wysłane przez organizację:</header>
+                
+                <div class="margin-sides-5">
+	                <section class="content">
+	                    <? foreach ($pisma as $pismo) { ?>
+	                        <div class="col-xs-12 col-sm-6 col-md-4">
+	                            <h4>
+	                                <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/pisma/<?= $pismo['fields']['id'][0]; ?>">	                                
+	                                    <?= $this->Text->truncate($pismo['_source']['data']['pisma']['name'], 55); ?>
+	                                </a>
+	                            </h4>
+	
+                                <div class="photo border col-xs-4 col-sm-12">
+                                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/pisma/<?= $pismo['fields']['id'][0]; ?>"><img src="http://pisma.sds.tiktalik.com/thumbs/<?= $pismo['_source']['data']['pisma']['hash'] ?>-big.png"/></a>
+                                </div>
+	
+	                            <div class="desc col-xs-8 col-sm-12">
+	                                Adresat: <?= $pismo['_source']['data']['pisma']['to_label'] ?>
+	                            </div>
+	                        </div>
+	                    <? } ?>
+	                </section>
                 </div>
+                
+                <div class="dataAggs margin-top-10">
+	                <div class="buttons">
+	                    <a href="<?= $object->getUrl() . '/pisma' ?>" class="btn btn-default btn-xs">Więcej</a>
+	                </div>
+                </div>
+                
             </div>
             <? } ?>
 

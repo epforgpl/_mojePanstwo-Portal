@@ -13,7 +13,7 @@ $this->Combinator->add_libs('js', 'Dane.view-krspodmioty');
         <div class="row">
             <div class="col-md-12">
 
-                <header><h1><?= $dzialanie->getData('tytul'); ?></h1></header>
+                <header class="margin-top-15 margin-bottom-15"><h1><?= $dzialanie->getData('tytul'); ?></h1></header>
 
             </div>
         </div>

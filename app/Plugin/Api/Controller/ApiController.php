@@ -59,14 +59,12 @@ class ApiController extends ApplicationsController
 		$items = array();
 		$app = $this->getApplication( $this->settings['id'] );
 		
-		/*
 		$items[] = array(
 			'label' => 'Sejmometr',
 			'href' => '/api/sejmometr',
 			'id' => 'sejmometr',
 			'icon' => 'icon-datasets-dot',
 		);
-		*/
 		
 		$items[] = array(
 			'label' => 'Bank Danych Lokalnych',
