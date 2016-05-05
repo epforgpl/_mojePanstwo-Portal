@@ -24,9 +24,12 @@
                 <div class="modal-body">
                     <p>
                         Portal MojePaństwo.pl pomaga Twojej organizacji docierać do osób zainteresowanych Waszymi
-                        działaniami, a także usprawnia pracę samej organizacji oferując specjalne narzędzia dostępne
-                        tylko dla oficjalnych partnerów. Aby uzyskać taki status należy wypełnić poniższy formularz a
-                        skontaktujemy się w celu potwierdzenia profilu i uaktywnimy nowe funkcje.
+                        działaniami, a także usprawnia pracę samej organizacji oferując specjalne narzędzia. <strong>Uzupełnisz
+                            tutaj podstawowe dane kontaktowe, dodasz aktualne działania czy wpiszesz nr konta i
+                            zaczniesz
+                            zbierać środki na Waszą działalność.</strong> Aby uzyskać taki dostęp należy wypełnić
+                        poniższy formularz
+                        a skontaktujemy się w celu potwierdzenia profilu i uaktywnimy nowe funkcje.
                     </p>
                     <?php if ($this->Session->read('Auth.User.id')) { ?>
                         <div class="form-group">
