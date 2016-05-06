@@ -62,7 +62,7 @@ $(document).ready(function () {
 					}, {
 						type: 'modal',
 						text: '<p>Brawo!</p><p>Nauczyłeś się jak dodawać powiadomienia. Zdobywasz informacje u źródła i oszczędzasz czas - wszystko co ważne trafia do powiadomień!</p><p class="text-center margin-top-30"><img src="/img/tutorial/obserwuj.png" alt="" /></p>',
-						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-primary tutorialRepeat">Chcę dodać nowe powiadomienia</a><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Naucz się innego narzędzia</a>'
+						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-success tutorialRepeat">Chcę dodać nowe powiadomienia</a><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Naucz się innego narzędzia</a>'
 					}]
 				}
 			],
@@ -105,7 +105,7 @@ $(document).ready(function () {
 					steps: [{
 						type: 'modal',
 						text: '<p>Super!</p><p>Przeszedłeś pierwszy etap uzupełniania konta swojej organizacji. Poczekaj teraz na maila z akeptacją Twojego zgłoszenia i uzupełnij konto o wybrane dane.</p><p class="text-center margin-top-30"><img src="/img/tutorial/ngo_finanse.png" alt="" /></p>',
-						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Nauczy się innego narzędzia</a>'
+						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Naucz się innego narzędzia</a>'
 					}]
 				}
 			],
@@ -140,7 +140,7 @@ $(document).ready(function () {
 					steps: [{
 						type: 'modal',
 						text: '<p>Gratulacje!</p><p>Teraz nie ominą Cię żadne informacje o nowych konkursach i grantach! Informacje o nich otrzymasz w zakładce "Powiadomienia" na stronie głównej.</p><p class="text-center margin-top-30"><img src="/img/tutorial/konkursy_granty.png" alt="" /></p>',
-						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Nauczy się innego narzędzia</a>'
+						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Naucz się innego narzędzia</a>'
 					}]
 				}
 			],
@@ -209,7 +209,7 @@ $(document).ready(function () {
 					steps: [{
 						type: 'modal',
 						text: '<p>Brawo!</p><p>Udało Ci się wysłać pismo do instytucji publicznej w ważnej dla Ciebie sprawie! Przed upływem 14 dni wyślemy na Twój adres mailowy przypomnienie o upływie terminu oraz o możliwych dalszych krokach. Jeśli natomiast otrzymasz odpowiedz, możesz ją opublikować na naszym portalu. Wystarczy w zakładce "Moje Pisma" na stronie głównej odnaleźć właściwe pismo i dodać do niego odpowiedź.</p><p class="text-center margin-top-30"><img src="/img/tutorial/pisma_dostep_do_informacji.png" alt="" /></p>',
-						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Nauczy się innego narzędzia</a>'
+						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Zakończ ten samouczek</button><a href="/" target="_self" class="margin-bottom-5 btn btn-primary">Naucz się innego narzędzia</a>'
 					}]
 				}
 			]
@@ -363,38 +363,6 @@ $(document).ready(function () {
 		}, 1000);
 	};
 
-	var userStatus = function () {
-		$.ajax({
-			url: '/paszport/tutoriale.json',
-			type: 'GET',
-			success: function (res) {
-				for (var i = 0; i < res.length; i++) {
-					if (res[i].completed == false) {
-						console.log(mPCookie);
-						mPCookie.tutorial = {
-							id: res[i].id,
-							step: 0,
-							option: res[i].slug
-						};
-						console.log(mPCookie, res[i], res[i].slug);
-						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-						runTutorial();
-						break;
-					}
-					console.log(res[i]);
-				}
-
-				if (typeof mPCookie.tutorial == 'undefined') {
-					mPCookie.tutorial = {
-						step: 0,
-						option: null
-					};
-					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
-				}
-			}
-		});
-	};
-
 	var runTutorial = function () {
 		var stepNumber = mPCookie.tutorial.step,
 			logic = tutorialLogic[mPCookie.tutorial.option],
@@ -433,7 +401,62 @@ $(document).ready(function () {
 		}
 	};
 
-	console.log(mPCookie, typeof mPCookie.tutorial);
+	var userStatus = function () {
+		var firstModal = $('<div></div>').addClass('modal fade gamification').attr({
+			id: 'tutorialModal',
+			tabindex: '-1',
+			role: 'dialog'
+		}).append(
+			$('<div></div>').addClass('modal-dialog').append(
+				$('<div></div>').addClass('modal-content').append(
+					$('<div></div>').addClass('modal-body').html('<p>Już za chwilę przeprowadzę Cię przez 4 tutoriale dotyczące naszych najpopularniejszych narzędzi. Dzięki nim dowiedz się, jak:<ul>' +
+						'<li>zaoszczędzić czas, dodając interesujące Cię rzeczy do powiadomień</li>' +
+						'<li>prosić o wsparcie finansowe dla działań Twojego NGO</li>' +
+						'<li>przeglądać najnowsze konkursy i granty</li>' +
+						'<li>wysyłać wniosek o dostęp do informacji publicznej.</li>' +
+						'</ul>' +
+						'</p><p>Kliknij "Samouczek", aby udać się ze mną we wspólną podróż :)</p>')
+				).append(
+					$('<div></div>').addClass('modal-footer').append(
+						$('<button></button>').attr('modal-dismiss', 'modal').addClass('btn btn-primary').text('Samouczek').click(function () {
+							runTutorial();
+						})
+					)
+				)
+			)
+		);
+
+		$.ajax({
+			url: '/paszport/tutoriale.json',
+			type: 'GET',
+			success: function (res) {
+				for (var i = 0; i < res.length; i++) {
+					if (res[i].completed == false) {
+						if (typeof mPCookie.tutorial == "undefined") {
+							firstModal.modal('show');
+						} else {
+							runTutorial();
+						}
+						mPCookie.tutorial = {
+							id: res[i].id,
+							step: 0,
+							option: res[i].slug
+						};
+						Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+						break;
+					}
+				}
+
+				if (typeof mPCookie.tutorial == 'undefined') {
+					mPCookie.tutorial = {
+						step: 0,
+						option: null
+					};
+					Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+				}
+			}
+		});
+	};
 
 	if (typeof mPCookie.tutorial !== "undefined" && mPCookie.tutorial.option !== null) {
 		runTutorial();
