@@ -281,7 +281,7 @@ $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
 
 /* TUTORIAL ENGINE */
-if( false && AuthComponent::user('id') ) {
+if (AuthComponent::user('id')) {
     echo $this->Html->css($this->Less->css('modals/exit-modal'));
     $this->Combinator->add_libs('js', 'tutorial');
 }
