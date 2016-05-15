@@ -8,6 +8,25 @@
     z-index: 1040;
 }
 
+.popover {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    color: #fff;
+
+    &.top > .arrow:after {
+        border-top-color: #5cb85c;
+    }
+    &.right > .arrow:after {
+        border-right-color: #5cb85c;
+    }
+    &.bottom > .arrow:after {
+        border-bottom-color: #5cb85c;
+    }
+    &.left > .arrow:after {
+        border-left-color: #5cb85c;
+    }
+}
+
 .gamification {
     .modal-dialog {
         padding-left: 180px;
