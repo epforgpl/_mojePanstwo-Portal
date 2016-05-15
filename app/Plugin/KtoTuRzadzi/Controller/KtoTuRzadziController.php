@@ -71,5 +71,26 @@ class KtoTuRzadziController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
+    
+    public function getChapters() {
+
+		$mode = false;
+		$items = array(
+			array(
+				'id' => 'instytucje',
+				'href' => '/kto_tu_rzadzi/instytucje',
+				'label' => 'Instytucje',
+				'icon' => 'icon-datasets-instytucje',
+			),
+		);
+
+        $output = array(
+			'items' => $items,
+			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
+		);
+
+		return $output;
+
+	}
 
 }

@@ -32,10 +32,10 @@ $this->Dataobject->setObject($object);
     <div class="row">
         <div class="col-xs-1 action text-center">
             
-            <span class="mpIcon icon-datasets-<?= $object->getDataset() ?>"></span>
+            <span class="object-icon icon-datasets-<?= $object->getDataset() ?>"></span>
             
         </div>
-        <div class="data col-xs-11">
+        <div class="data col-xs-11 nopadding">
             <div class="feed-header">
                 <? if ($object->getCreator('url')) { ?>
                     <div class="thumb_cont">

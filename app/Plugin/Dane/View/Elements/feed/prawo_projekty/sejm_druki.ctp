@@ -16,7 +16,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
               data-documentid="<?= $object->getData('dokument_id'); ?>" data-toogle="modal"
               data-target="#documentFastCheckModal"></span>
     <?php } ?>
-        <a class="thumb_cont" href="<?= $object->getUrl() ?>/tresc">
+        <a class="thumb_cont" href="<?= $object->getUrl() ?>">
             <?php } ?>
             <img class="thumb pull-right" src="<?= $object->getThumbnailUrl($thumbSize) ?>"
                  alt="<?= strip_tags($object->getTitle()) ?>" onerror="imgFixer(this)"/>
@@ -36,7 +36,7 @@ if ($object->getThumbnailUrl($thumbSize)) {
 
         <p class="title">
             <?php if ($object->getUrl() != false) { ?>
-            <a href="<?= $object->getUrl() ?>/tresc" title="<?= strip_tags($object->getTitle()) ?>">
+            <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                 <?php } ?>
                 Druk nr <?= $object->getData('numer') ?>
                 <?php if ($object->getUrl() != false) { ?>

@@ -84,14 +84,19 @@ if ($classes = $object->getClasses()) {
                                        value="<?php echo __d('powiadomienia', 'LC_POWIADOMIENIA_OPTIONS_ALERT_BUTTON_UNREAD'); ?>"/>
                             </div>
                         <? } ?>
-
-                        <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
+						
+                        <? 
+	                        $nolabel = true;
+	                        if (
+	                        	( $object->force_hl_fields || $objectRenderOptions['forceLabel'] ) &&
+	                        	( $label = $object->getLabel() )
+	                        ) { $nolabel = false; ?>
                             <p class="header">
-                                <?= $object->getLabel(); ?>
+                                <?= $label ?>
                             </p>
                         <? } ?>
 
-                        <p class="title">
+                        <p class="title<? if( $nolabel ) {?> margin-top-5<? } ?>">
                             <?php if ($object->getUrl() != false) { ?>
                             <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                 <?php } ?>
@@ -164,14 +169,20 @@ if ($classes = $object->getClasses()) {
                             class="<? if ($object->getIcon()) { ?>object-icon-side <? } ?> <? if ($object->getSideLabel()) {
                                 echo 'marginRight';
                             } ?>">
-
-                            <? if ($object->force_hl_fields || $objectRenderOptions['forceLabel']) { ?>
-                                <p class="header">
-                                    <?= $object->getLabel(); ?>
-                                </p>
-                            <? } ?>
-
-                            <p class="title">
+							
+							<? 
+		                        $nolabel = true;
+		                        if (
+		                        	( $object->force_hl_fields || $objectRenderOptions['forceLabel'] ) &&
+		                        	( $label = $object->getLabel() )
+		                        ) { $nolabel = false; ?>
+	                            <p class="header">
+	                                <?= $label ?>
+	                            </p>
+	                        <? } ?>
+	
+	                        <p class="title<? if( $nolabel ) {?> margin-top-5<? } ?>">
+	
                                 <?php if ($object->getUrl() != false){ ?>
                                 <a href="<?= $object->getUrl() ?>" title="<?= strip_tags($object->getTitle()) ?>">
                                     <?php } ?>

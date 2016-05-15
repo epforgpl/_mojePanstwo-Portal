@@ -798,6 +798,7 @@ class DataFeedComponent extends Component
                 'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
                 'mode' => isset($this->settings['mode']) ? $this->settings['mode'] : 'full',
             );
+                        
             $this->controller->set('dataFeed', $dataFeed);
             $this->controller->feed = $dataFeed;
 

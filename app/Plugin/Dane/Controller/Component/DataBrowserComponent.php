@@ -406,6 +406,31 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'fb_accounts' => array(
+            'type_id' => array(
+                'terms' => array(
+                    'field' => 'fb_accounts.type_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Typy obserwowanych kont',
+                    'all' => 'Wszystkie obserwowane konta',
+                    'skin' => 'list',
+                    'field' => 'fb_accounts.type_id',
+                    'dictionary' => array(
+                        '2' => 'Komentatorzy polityczni',
+                        '3' => 'Urzędy',
+                        '6' => 'Media',
+                        '7' => 'Politycy',
+                        '8' => 'Partie polityczne',
+                        '9' => 'NGO',
+                        '10' => 'Miasta',
+                    ),
+                ),
+            ),
+        ),
         'twitter' => array(
             'date' => array(
                 'date_histogram' => array(
@@ -454,6 +479,66 @@ class DataBrowserComponent extends Component
                     'all' => 'Wszystkie typy kont',
                     'skin' => 'list',
                     'field' => 'twitter_accounts.typ_id',
+                    'dictionary' => array(
+                        '2' => 'Komentatorzy polityczni',
+                        '3' => 'Urzędy',
+                        '6' => 'Media',
+                        '7' => 'Politycy',
+                        '8' => 'Partie polityczne',
+                        '9' => 'NGO',
+                        '10' => 'Miasta',
+                    ),
+                ),
+            ),
+        ),
+        'fb_posts' => array(
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba postów w czasie',
+                    'skin' => 'date_histogram',
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
+                ),
+            ),
+            'account_id' => array(
+                'terms' => array(
+                    'field' => 'fb_accounts.id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.fb_accounts.name',
+                            'size' => 1,
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Konta',
+                    'all' => 'Wszystkie konta',
+                    'skin' => 'list',
+                    'field' => 'fb_accounts.id',
+                ),
+            ),
+            'type_id' => array(
+                'terms' => array(
+                    'field' => 'fb_accounts.type_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Typy kont',
+                    'all' => 'Wszystkie typy kont',
+                    'skin' => 'list',
+                    'field' => 'fb_accounts.type_id',
                     'dictionary' => array(
                         '2' => 'Komentatorzy polityczni',
                         '3' => 'Urzędy',
@@ -541,63 +626,6 @@ class DataBrowserComponent extends Component
                 ),
                 'visual' => array(
                     'label' => 'Liczba aktów prawnych w czasie',
-                    'skin' => 'date_histogram',
-                    'field' => 'date',
-                    'all' => 'Kiedykolwiek',
-                ),
-            ),
-        ),
-        'prawo_projekty' => array(
-            'faza_id' => array(
-                'terms' => array(
-                    'field' => 'prawo_projekty.faza_id',
-                    'exclude' => array(
-                        'pattern' => '0'
-                    ),
-                ),
-                'visual' => array(
-                    'label' => 'Statusy projektów',
-                    'skin' => 'columns_vertical',
-                    'field' => 'prawo_projekty.faza_id',
-                    'dictionary' => array(
-                        '2' => 'W trakcie prac',
-                        '3' => 'Przyjęte',
-                        '4' => 'Odrzucone',
-                    ),
-                ),
-            ),
-            'typ_id' => array(
-                'terms' => array(
-                    'field' => 'prawo_projekty.typ_id',
-                    'exclude' => array(
-                        'pattern' => '(0|8)'
-                    ),
-                ),
-                'visual' => array(
-                    'label' => 'Typy projektów',
-                    'skin' => 'pie_chart',
-                    'field' => 'prawo_projekty.typ_id',
-                    'dictionary' => array(
-                        '1' => 'Projekty ustaw',
-                        '2' => 'Projekty uchwał',
-                        '3' => 'Wota zaufania',
-                        '5' => 'Powołania odwołania',
-                        '6' => 'Umowy międzynarodowe',
-                        '11' => 'Sprawozdania kontrolne',
-                        '12' => 'Inne projekty',
-                        '100' => 'Zmiany w składach komisji sejmowych',
-                        '103' => 'Wniosko o referenda',
-                    ),
-                ),
-            ),
-            'date' => array(
-                'date_histogram' => array(
-                    'field' => 'date',
-                    'interval' => 'year',
-                    'format' => 'yyyy-MM-dd',
-                ),
-                'visual' => array(
-                    'label' => 'Liczba projektów w czasie',
                     'skin' => 'date_histogram',
                     'field' => 'date',
                     'all' => 'Kiedykolwiek',
@@ -1503,13 +1531,6 @@ class DataBrowserComponent extends Component
                         'pattern' => '0'
                     ),
                 ),
-                'aggs' => array(
-                    'label' => array(
-                        'terms' => array(
-                            'field' => 'sejm_druki_typy.nazwa',
-                        ),
-                    ),
-                ),
                 'visual' => array(
 	                'all' => 'Wszystkie typy druków',
                     'label' => 'Typy druków',
@@ -1528,6 +1549,81 @@ class DataBrowserComponent extends Component
                         '11' => 'Sprawozdania kontrolne',
                         '12' => 'Inne',
                     ),
+                ),
+            ),
+        ),
+        'prawo_projekty' => array(
+            'kadencja' => array(
+                'terms' => array(
+                    'field' => 'prawo_projekty.kadencja',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+	                'all' => 'Wszystkie kadencje',
+                    'label' => 'Kadencja',
+                    'skin' => 'list',
+                    'field' => 'prawo_projekty.kadencja',
+                    'dictionary' => array(
+                        '7' => 'Kadencja 7',
+                        '8' => 'Kadencja 8',
+                    ),
+                ),
+            ),
+            'faza_id' => array(
+                'terms' => array(
+                    'field' => 'prawo_projekty.faza_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Statusy projektów',
+                    'skin' => 'columns_vertical',
+                    'field' => 'prawo_projekty.faza_id',
+                    'dictionary' => array(
+                        '2' => 'W trakcie prac',
+                        '3' => 'Przyjęte',
+                        '4' => 'Odrzucone',
+                    ),
+                ),
+            ),
+            'typ_id' => array(
+                'terms' => array(
+                    'field' => 'prawo_projekty.typ_id',
+                    'exclude' => array(
+                        'pattern' => '(0|8)'
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Typy projektów',
+                    'skin' => 'pie_chart',
+                    'field' => 'prawo_projekty.typ_id',
+                    'dictionary' => array(
+                        '1' => 'Projekty ustaw',
+                        '2' => 'Projekty uchwał',
+                        '3' => 'Wota zaufania',
+                        '5' => 'Powołania odwołania',
+                        '6' => 'Umowy międzynarodowe',
+                        '11' => 'Sprawozdania kontrolne',
+                        '12' => 'Inne projekty',
+                        '100' => 'Zmiany w składach komisji sejmowych',
+                        '103' => 'Wniosko o referenda',
+                    ),
+                ),
+            ),
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba projektów w czasie',
+                    'skin' => 'date_histogram',
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),

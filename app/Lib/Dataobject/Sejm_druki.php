@@ -14,7 +14,7 @@ class Sejm_druki extends DocDataObject
 	);
     protected $routes = array(
         'title' => 'tytul',
-        'shortTitle' => 'tytul',
+        'shortTitle' => 'tytul_skrocony',
         'date' => 'data',
         'label' => 'label'
     );
@@ -24,7 +24,7 @@ class Sejm_druki extends DocDataObject
 
     public function getLabel()
     {
-        return 'Druk sejmowy <strong>nr ' . $this->getData('numer') . '</strong>';
+        return $this->getData('sejm_druki_typy.nazwa');
     }
 
     public function getFullLabel()
@@ -35,9 +35,12 @@ class Sejm_druki extends DocDataObject
     public function getMetaDescriptionParts($preset = false)
 	{
 		
-		$output = array(
-			dataSlownie( $this->getDate() ),
-		);
+		$output = array();
+		
+		if( $numer = $this->getData('numer') )
+			$output[] = 'Druk nr ' . $numer;
+			
+		$output[] = dataSlownie( $this->getDate() );
 		
 		$static = $this->getStatic();
 		

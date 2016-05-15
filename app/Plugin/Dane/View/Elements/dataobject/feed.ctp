@@ -11,7 +11,7 @@ $mainPage = !isset($this->request->query['channel']) || !$this->request->query['
 ?>
 <div class="row row-feed dataBrowser dataFeed">
     <? if ($side_left) { ?>
-        <div class="col-xs-12 col-sm-3 objectSide col-feed-side col-feed-side-left">
+        <div class="col-xs-12 col-sm-4 objectSide col-feed-side col-feed-side-left">
             <? echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-left'); ?>
         </div>
     <? } ?>
@@ -20,4 +20,9 @@ $mainPage = !isset($this->request->query['channel']) || !$this->request->query['
             <? echo $this->Element('Dane.DataFeed/feed'); ?>
         </div>
     </div>
+    <? if ($side_right) { ?>
+        <div class="col-xs-12 col-sm-4">
+            <? echo $this->Element('Dane.sides/' . $dataFeed['side'] . '-right'); ?>
+        </div>
+    <? } ?>
 </div>

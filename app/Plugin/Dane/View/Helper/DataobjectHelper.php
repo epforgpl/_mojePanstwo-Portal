@@ -64,7 +64,7 @@ class DataobjectHelper extends AppHelper
 
     public function render($object, $theme = 'default', $options = array())
     {
-				
+					
         if (is_array($object)) {
 			
 			if( isset($object['fields']['source']) ) {

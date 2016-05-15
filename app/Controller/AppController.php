@@ -259,7 +259,7 @@ class AppController extends Controller
         */
         'media' => array(
             'twitter_accounts' => array(
-                'label' => 'Obserwowane konta',
+                'label' => 'Obserwowane konta Twitter',
                 'searchTitle' => 'Szukaj w kontach Twitter...',
                 'menu_id' => 'twitter_konta',
                 'default_order' => 'twitter_accounts.liczba_obserwujacych desc',
@@ -272,6 +272,17 @@ class AppController extends Controller
                 'searchTitle' => 'Szukaj w tweetach...',
                 'menu_id' => 'tweety',
             ),
+            'fb_accounts' => array(
+                'label' => 'Obserwowane konta Facebook',
+                'searchTitle' => 'Szukaj w kontach Facebook...',
+                'menu_id' => 'fb_accounts',
+                'default_order' => 'fb_accounts.likes desc',
+            ),
+            'fb_posts' => array(
+                'label' => 'Posty',
+                'searchTitle' => 'Szukaj w postach...',
+                'menu_id' => 'posts',
+            ),
         ),
         'sejmometr' => array(
             'poslowie' => array(
@@ -280,6 +291,10 @@ class AppController extends Controller
                 'autocompletion' => array(
                     'dataset' => 'poslowie',
                 ),
+            ),
+            'prawo_projekty' => array(
+                'label' => 'Projekty aktów prawnych',
+                'menu_id' => 'prawo_projekty',
             ),
             'sejm_dezyderaty' => array(
                 'label' => 'Dezyderaty komisji',

@@ -14,23 +14,8 @@ class PrawoProjektyController extends DataobjectsController
 
     public function view()
     {
-
-        parent::load();
-
-        if ($this->object->getData('nadrzedny_projekt_id')) {
-            $this->redirect(array(
-                'plugin' => 'Dane',
-                'controller' => 'prawo_projekty',
-                'action' => '',
-                'id' => $this->object->getData('nadrzedny_projekt_id')
-            ));
-        }
-
-        $this->feed(array(
-            'searchTitle' => '"' . $this->object->getTitle() . '"',
-            'timeline' => true,
-            'direction' => 'asc',
-        ));
+				
+        return $this->redirect('/dane/instytucje/3214/prawo_projekty/' . $this->request->params['id']);
 
     }
 

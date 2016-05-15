@@ -52,7 +52,7 @@
         <p class="_counter" title="Liczba ulubionych"><span
                     class="glyphicon glyphicon-heart"></span> <?= number_format($object->getData('liczba_ulubionych'), 0, '.', ' ') ?></p>
 
-        <p class="_counter" title="Licza odpowiedzi"><span
+        <p class="_counter" title="Liczba odpowiedzi"><span
                     class="glyphicon glyphicon-comment"></span> <?= $object->getData('liczba_odpowiedzi') ?>
             </p>
 

@@ -434,22 +434,48 @@ class InstytucjeController extends DataobjectsController
                 ),
                 'scope' => 'global',
                 'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'size' => 3,
-                            'fielddata_fields' => array('dataset', 'id'),
-                            'sort' => array(
-                                'date' => array(
-                                    'order' => 'desc',
-                                ),
-                            ),
-                        ),
+                    'typy' => array(
+	                    'terms' => array(
+		                    'field' => 'data.prawo_projekty.typ_id',
+		                    'include' => array('1', '2', '6', '5', '103'),
+	                    ),
+	                    'aggs' => array(
+		                    'top' => array(
+		                        'top_hits' => array(
+		                            'size' => 3,
+		                            'fields' => array('dataset', 'id'),
+		                            '_source' => array('data'),
+		                            'sort' => array(
+		                                'date' => array(
+		                                    'order' => 'desc',
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+	                    ),
                     ),
                 ),
             );
 
             $this->loadModel('Sejmometr.Sejmometr');
             $this->set('okregi', $this->Sejmometr->okregi_sejm());
+            $this->set('prawo_projekty_slownik', array(
+	            '1' => array(
+		            'tytul' => 'Najnowsze projekty ustaw:',
+	            ),
+	            '2' => array(
+		            'tytul' => 'Najnowsze projekty uchwał:',
+	            ),
+	            '6' => array(
+		            'tytul' => 'Najnowsze umowy międzynarodowe:',
+	            ),
+	            '5' => array(
+		            'tytul' => 'Powołania i odwołania na stanowiska państwowe:',
+	            ),
+	            '103' => array(
+		            'tytul' => 'Wnioski o referenda:',
+	            ),
+            ));
             
             $cover = 'cover-sejm';
 	        
@@ -578,6 +604,13 @@ class InstytucjeController extends DataobjectsController
 	            'id' => 'poslowie',
 	        );	        
         } 
+        
+        if( $this->object->getId()=='3214' ) { // Sejm
+	        $menu['items'][] = array(
+	            'label' => 'Projekty',
+	            'id' => 'prawo_projekty',
+	        );	        
+        } 
 		
 		if( $this->object->getId()!='3214' ) { // Sejm
 			if( isset($aggs['prawo']) && $aggs['prawo']['doc_count'] ) {
@@ -640,6 +673,60 @@ class InstytucjeController extends DataobjectsController
 
         $this->set('title_for_layout', "Akty prawne wydane przez " . $this->object->getTitle());
 
+    }
+    
+    public function prawo_projekty()
+    {
+
+        $this->load();
+        
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+			
+			$projekt = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'prawo_projekty',
+                    'id' => $this->request->params['subid'],
+                ),
+            ));
+			
+			/*
+			if ($this->object->getData('nadrzedny_projekt_id')) {
+	            $this->redirect(array(
+	                'plugin' => 'Dane',
+	                'controller' => 'prawo_projekty',
+	                'action' => '',
+	                'id' => $this->object->getData('nadrzedny_projekt_id')
+	            ));
+	        }
+	        */
+			
+	        $this->feed(array(
+		        'feed' => $projekt->getDataset() . '/' . $projekt->getId(),
+	            'preset' => $projekt->getDataset(),
+	            'searchTitle' => '"' . $projekt->getTitle() . '"',
+	            'timeline' => true,
+	            'direction' => 'asc',
+	            'side' => 'prawo_projekty',
+	        ));
+	        
+			            
+            $this->set('projekt', $projekt);
+            $this->set('title_for_layout', $projekt->getTitle());
+            $this->render('prawo_projekty-view');
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+	            'browserTitle' => 'Projekty aktów prawnych:',
+	            'conditions' => array(
+	                'dataset' => 'prawo_projekty',
+	            ),
+	        ));
+			
+	        $this->set('title_for_layout', "Projekty aktów prawnych");
+
+        }
+        
     }
 
     public function dziennik()

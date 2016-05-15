@@ -28,37 +28,43 @@ $options = array(
 	<div class="col-md-9">
 	
 	    <div class="blocks">
-	        <? if (@$dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits']) { ?>
-	            <div class="block block-simple block-size-sm col-xs-12">
-	                <header>Najnowsze projekty aktów prawnych skierowane do Sejmu:</header>
-	
-	                <section class="aggs-init">
-	
-	                    <div class="dataAggs">
-	                        <div class="agg agg-Dataobjects">
-	                            <? if ($dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits']) { ?>
-	                                <ul class="dataobjects">
-	                                    <? foreach ($dataBrowser['aggs']['prawo_projekty']['top']['hits']['hits'] as $doc) { ?>
-	                                        <li>
-	                                            <?
-	                                            echo $this->Dataobject->render($doc, 'default', array(
-		                                            'truncate' => '230',
-	                                            ));
-	                                            ?>
-	                                        </li>
-	                                    <? } ?>
-	                                </ul>
-	                                <div class="buttons margin-bottom-10">
-	                                    <a href="<?= $object->getUrl() ?>/prawo" class="btn btn-primary btn-xs">Zobacz więcej</a>
-	                                </div>
-	                            <? } ?>
-	
-	                        </div>
-	                    </div>
-	
-	                </section>
-	            </div>
-	        <? } ?>
+		    
+	    <? foreach( $dataBrowser['aggs']['prawo_projekty']['typy']['buckets'] as $b ) { ?>
+	    		    	
+	    	<div class="block block-simple block-size-sm col-xs-12">
+                <header><?= $prawo_projekty_slownik[ $b['key'] ]['tytul'] ?></header>
+
+                <section class="aggs-init">
+
+                    <div class="dataAggs">
+                        <div class="agg agg-Dataobjects">
+                            <? if ($b['top']['hits']['hits']) { ?>
+                                <ul class="dataobjects border-bottom margin-sides-10 margin-top--10">
+                                    <? foreach ($b['top']['hits']['hits'] as $doc) { ?>
+                                        <li class="margin-top-15">
+                                            <?
+                                            echo $this->Dataobject->render($doc, 'default', array(
+	                                            'truncate' => '230',
+                                            ));
+                                            ?>
+                                        </li>
+                                    <? } ?>
+                                </ul>
+                                <div class="buttons margin-bottom-10">
+                                    <a href="<?= $object->getUrl() ?>/prawo_projekty?conditions[prawo_projekty.typ_id]=<?= $b['key'] ?>" class="btn btn-primary btn-xs">Zobacz więcej</a>
+                                </div>
+                            <? } ?>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+	    
+	    <? } ?>
+		    
+		    
+		    
+		   
 	
 	
 	        <? if(@$okregi) { ?>
