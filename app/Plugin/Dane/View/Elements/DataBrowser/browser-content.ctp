@@ -14,7 +14,7 @@ $_manage = isset( $manage ) ? $manage: false;
 ?>
 
 <div class="dataBrowser upper margin-top-0<? if (isset($class)) echo " " . $class; ?>">
-    <div class="container">
+    <div class="container container-padding">
         <div class="dataBrowserContent">
 			
 			<?= $this->element('Dane.DataBrowser/browser-content-modal'); ?>

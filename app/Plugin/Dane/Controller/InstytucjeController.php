@@ -209,6 +209,7 @@ class InstytucjeController extends DataobjectsController
                                     'order' => 'desc',
                                 ),
                             ),
+                            '_source' => array('data'),
                         ),
                     ),
                 ),
@@ -241,6 +242,7 @@ class InstytucjeController extends DataobjectsController
                                     'order' => 'desc',
                                 ),
                             ),
+                            '_source' => array('data'),
                         ),
                     ),
                 ),
@@ -273,6 +275,7 @@ class InstytucjeController extends DataobjectsController
                                     'order' => 'desc',
                                 ),
                             ),
+                            '_source' => array('data'),
                         ),
                     ),
                 ),
@@ -408,13 +411,14 @@ class InstytucjeController extends DataobjectsController
                 'aggs' => array(
                     'top' => array(
                         'top_hits' => array(
-                            'size' => 1,
+                            'size' => 3,
                             'fielddata_fields' => array('dataset', 'id'),
                             'sort' => array(
                                 'date' => array(
                                     'order' => 'desc',
                                 ),
                             ),
+                            '_source' => array('data.*'),
                         ),
                     ),
                 ),
@@ -437,7 +441,7 @@ class InstytucjeController extends DataobjectsController
                     'typy' => array(
 	                    'terms' => array(
 		                    'field' => 'data.prawo_projekty.typ_id',
-		                    'include' => array('1', '2', '6', '5', '103'),
+		                    'include' => array('1', '2', '11'),
 	                    ),
 	                    'aggs' => array(
 		                    'top' => array(
@@ -466,11 +470,17 @@ class InstytucjeController extends DataobjectsController
 	            '2' => array(
 		            'tytul' => 'Najnowsze projekty uchwał:',
 	            ),
+	            '5' => array(
+		            'tytul' => 'Powołania i odwołania na stanowiska państwowe:',
+	            ),
 	            '6' => array(
 		            'tytul' => 'Najnowsze umowy międzynarodowe:',
 	            ),
-	            '5' => array(
-		            'tytul' => 'Powołania i odwołania na stanowiska państwowe:',
+	            '11' => array(
+		            'tytul' => 'Sprawozdania kontrolne:',
+	            ),
+	            '100' => array(
+		            'tytul' => 'Zmiany w składach komisji:',
 	            ),
 	            '103' => array(
 		            'tytul' => 'Wnioski o referenda:',
@@ -687,8 +697,43 @@ class InstytucjeController extends DataobjectsController
                     'dataset' => 'prawo_projekty',
                     'id' => $this->request->params['subid'],
                 ),
+                'aggs' => array(
+	                'poslowie' => array(
+		                'scope' => 'global',
+		                'filter' => array(
+			                'bool' => array(
+				                'must' => array(
+					                array(
+						                'term' => array(
+							                'dataset' => 'poslowie',
+						                ),
+					                ),
+					                array(
+						                'term' => array(
+							                'poslowie-projekty_id' => $this->request->params['subid'],
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+		                'aggs' => array(
+			                'top' => array(
+				                'top_hits' => array(
+					                'size' => 1000,
+					                '_source' => array('slug', 'data.poslowie.id', 'data.poslowie.nazwa', 'data.ludzie.id'),
+					                'sort' => array(
+						                'title.raw_pl' => 'asc',
+					                ),
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
             ));
-			
+            
+            $aggs = $this->Dataobject->getAggs();
+            $this->set('projekt_poslowie', $aggs['poslowie']['top']['hits']['hits']);
+            			
 			/*
 			if ($this->object->getData('nadrzedny_projekt_id')) {
 	            $this->redirect(array(
@@ -721,6 +766,10 @@ class InstytucjeController extends DataobjectsController
 	            'conditions' => array(
 	                'dataset' => 'prawo_projekty',
 	            ),
+	            'default_conditions' => array(
+		            'prawo_projekty.kadencja' => '8',
+	            ),
+	            'aggsPreset' => 'prawo_projekty',
 	        ));
 			
 	        $this->set('title_for_layout', "Projekty aktów prawnych");
@@ -2082,8 +2131,44 @@ class InstytucjeController extends DataobjectsController
 					    'dataset' => 'sejm_druki',
 					    'id' => $this->request->params['subid'],
 				    ),
+				    'aggs' => array(
+					    'projekty' => array(
+						    'scope' => 'global',
+						    'filter' => array(
+							    'bool' => array(
+								    'must' => array(
+									    array(
+										    'term' => array(
+											    'dataset' => 'prawo_projekty',
+										    ),
+									    ),
+									    array(
+										    'term' => array(
+											    'data.prawo_projekty.druki_id' => $this->request->params['subid'],
+										    ),
+									    ),
+								    ),
+							    ),
+						    ),
+						    'aggs' => array(
+							    'top' => array(
+								    'top_hits' => array(
+									    'size' => 1000,
+									    '_source' => array('dataset', 'slug', 'data.*'),
+									    'sort' => array(
+										    'date' => 'asc',
+									    ),
+									    'fields' => array('dataset', 'id'),
+								    ),
+							    ),
+						    ),
+					    ),
+				    ),
 			    ));
 			    
+			    $aggs = $this->Dataobject->getAggs();
+			    
+			    $this->set('druk_projekty', $aggs['projekty']['top']['hits']['hits']);
 			    $this->set('druk', $druk);
 			    $this->set('title_for_layout', $druk->getTitle());
 			    $this->render('druk');

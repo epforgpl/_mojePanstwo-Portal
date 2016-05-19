@@ -122,7 +122,7 @@
             margin-right: 3px;
 
             .dataObjects .innerContainer .objectRender {
-                border-bottom: 1px solid #E3E3E3;
+                border: 1px solid #E3E3E3;
                 &:last-child {
                     border-bottom: none;
                 }
@@ -651,7 +651,9 @@
                 .objectRender {
                     padding: 5px 10px 15px;
                     margin: 10px 0;
-                    border-bottom: 1px solid #E6E6E6;
+                    border: 1px solid #E6E6E6;
+                    border-radius: 3px;
+	                background-color: #FFF;
 
                     .manage-checkbox {
                         position: absolute;
@@ -2087,6 +2089,18 @@
 .objectsPage .objectRender.gminy .attachment img {
     margin-top: -4px;
     max-width: 90px;
+}
+
+.prawo_projekty-autorzy {
+	
+	margin: 13px 5px -10px;
+	
+	li {
+		overflow: auto;
+		font-size: 13px;
+		margin: 5px 0 !important;
+		min-height: 50px;
+	}
 }
 
 @media (min-width: 992px) {

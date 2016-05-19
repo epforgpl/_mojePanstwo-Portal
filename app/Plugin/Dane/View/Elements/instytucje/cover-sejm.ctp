@@ -28,14 +28,62 @@ $options = array(
 	<div class="col-md-9">
 	
 	    <div class="blocks">
-		    
-	    <? foreach( $dataBrowser['aggs']['prawo_projekty']['typy']['buckets'] as $b ) { ?>
-	    		    	
+			
+			
+			<? if ($docs = @$dataBrowser['aggs']['sejm_posiedzenia']['top']['hits']['hits']) { ?>
+			<div class="block block-simple block-size-sm col-xs-12">
+	            <header>Ostatnie posiedzenia Sejmu:</header>
+	            <section class="aggs-init">
+	                <div class="dataAggs">
+	                    <div class="agg agg-Dataobjects">
+                            <ul class="dataobjects border-bottom margin-sides-10 margin-top--10">
+                                <? foreach ($docs as $doc) { ?>
+                                    <li class="margin-top-15">
+                                        <?
+                                        echo $this->Dataobject->render($doc, 'default', array(
+                                            'truncate' => '230',
+                                        ));
+                                        ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                            <div class="buttons margin-bottom-10">
+                                <a href="<?= $object->getUrl() ?>/posiedzenia" class="btn btn-default btn-xs">Wszystkie posiedzenia &raquo;</a>
+                            </div>
+	                    </div>
+	                </div>
+	            </section>
+	        </div>
+	        <? } ?>
+		
+			<? if(@$okregi) { ?>
+            <div class="block block-simple block-size-sm col-xs-12">
+                <header>Znajdź posłów reprezentujących Twój okręg wyborczy:</header>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div id="map"></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4>Okregi według numerów</h4>
+                        <div class="row">
+                            <? foreach($okregi as $i => $okrag) { ?>
+                                <button id="okrag<?= $okrag[0]; ?>" data-index="<?= $i; ?>" type="button" class="btn btn-link okrag"><?= $okrag[1]; ?></button>
+                            <? } ?>
+                        </div>
+                    </div>
+                </div>
+                <div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
+                <div class="buttons margin-bottom-10">
+                    <a href="<?= $object->getUrl() ?>/poslowie" class="btn btn-default btn-xs">Zobacz listę wszystkich posłów &raquo;</a>
+                </div>
+            </div>
+	        <? } ?>
+		
+		
+		    <? foreach( $dataBrowser['aggs']['prawo_projekty']['typy']['buckets'] as $b ) { ?>
 	    	<div class="block block-simple block-size-sm col-xs-12">
                 <header><?= $prawo_projekty_slownik[ $b['key'] ]['tytul'] ?></header>
-
                 <section class="aggs-init">
-
                     <div class="dataAggs">
                         <div class="agg agg-Dataobjects">
                             <? if ($b['top']['hits']['hits']) { ?>
@@ -56,58 +104,31 @@ $options = array(
                             <? } ?>
                         </div>
                     </div>
-
                 </section>
             </div>
-	    
-	    <? } ?>
+		    <? } ?>
 		    
-		    
-		    
-		   
-	
-	
-	        <? if(@$okregi) { ?>
-	            <div class="block block-simple block-size-sm col-xs-12">
-	                <header>Znajdź posłów reprezentujących Twój okręg wyborczy:</header>
-	                <div class="row">
-	                    <div class="col-sm-8">
-	                        <div id="map"></div>
-	                    </div>
-	                    <div class="col-sm-4">
-	                        <h4>Okregi według numerów</h4>
-	                        <div class="row">
-	                            <? foreach($okregi as $i => $okrag) { ?>
-	                                <button id="okrag<?= $okrag[0]; ?>" data-index="<?= $i; ?>" type="button" class="btn btn-link okrag"><?= $okrag[1]; ?></button>
-	                            <? } ?>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div data-name="okregi" data-value='<?= json_encode($okregi) ?>'></div>
-	            </div>
-	        <? } ?>
-	
+
 			
 						
 			<? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
-	            <div class="block block-simple block-size-sm col-xs-12">
-	                <header>Rozstrzygnięcia zamówień publicznych w Kancelarii Sejmu:</header>
-	                <section>
-	                    <?= $this->element('Dane.zamowienia_publiczne', array(
-	                        'histogram' => $dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
-	                        'request' => array(
-		                        'instytucja_id' => $object->getId(),
-	                        ),
-	                        'more' => $object->getUrl() . '/zamowienia',
-	                        'aggs' => array(
-	                            'stats' => array(),
-	                            'dokumenty' => array(),
-	                        ),
-	                    )); ?>
-	                </section>
-	            </div>
+            <div class="block block-simple block-size-sm col-xs-12">
+                <header>Rozstrzygnięcia zamówień publicznych w Kancelarii Sejmu:</header>
+                <section>
+                    <?= $this->element('Dane.zamowienia_publiczne', array(
+                        'histogram' => $dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
+                        'request' => array(
+	                        'instytucja_id' => $object->getId(),
+                        ),
+                        'more' => $object->getUrl() . '/zamowienia',
+                        'aggs' => array(
+                            'stats' => array(),
+                            'dokumenty' => array(),
+                        ),
+                    )); ?>
+                </section>
+            </div>
 	        <? } ?>
-	
 	
 	    </div>
 	

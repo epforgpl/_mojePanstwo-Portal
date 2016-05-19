@@ -1553,24 +1553,7 @@ class DataBrowserComponent extends Component
             ),
         ),
         'prawo_projekty' => array(
-            'kadencja' => array(
-                'terms' => array(
-                    'field' => 'prawo_projekty.kadencja',
-                    'exclude' => array(
-                        'pattern' => '0'
-                    ),
-                ),
-                'visual' => array(
-	                'all' => 'Wszystkie kadencje',
-                    'label' => 'Kadencja',
-                    'skin' => 'list',
-                    'field' => 'prawo_projekty.kadencja',
-                    'dictionary' => array(
-                        '7' => 'Kadencja 7',
-                        '8' => 'Kadencja 8',
-                    ),
-                ),
-            ),
+            /*
             'faza_id' => array(
                 'terms' => array(
                     'field' => 'prawo_projekty.faza_id',
@@ -1589,6 +1572,8 @@ class DataBrowserComponent extends Component
                     ),
                 ),
             ),
+            */
+            
             'typ_id' => array(
                 'terms' => array(
                     'field' => 'prawo_projekty.typ_id',
@@ -1597,19 +1582,72 @@ class DataBrowserComponent extends Component
                     ),
                 ),
                 'visual' => array(
+                    'all' => 'Wszystkie typy projektów',
                     'label' => 'Typy projektów',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'prawo_projekty.typ_id',
                     'dictionary' => array(
                         '1' => 'Projekty ustaw',
                         '2' => 'Projekty uchwał',
-                        '3' => 'Wota zaufania',
                         '5' => 'Powołania odwołania',
                         '6' => 'Umowy międzynarodowe',
                         '11' => 'Sprawozdania kontrolne',
                         '12' => 'Inne projekty',
                         '100' => 'Zmiany w składach komisji sejmowych',
                         '103' => 'Wniosko o referenda',
+                    ),
+                ),
+            ),
+            'autor_typ_id' => array(
+                'terms' => array(
+                    'field' => 'prawo_projekty.autor_typ_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+                    'all' => 'Wszyscy autorzy',
+                    'label' => 'Autorzy projektów',
+                    'skin' => 'list',
+                    'field' => 'prawo_projekty.autor_typ_id',
+                    'dictionary' => array(
+                        '1' => 'Projekty rządowe',
+                        '2' => 'Projekty obywatelskie',
+                        '3' => 'Projekty komisyjne',
+                        '4' => 'Projekty senackie',
+                        '5' => 'Projekty poselskie',
+                        '6' => 'Projekty prezydenckie',
+                        '7' => 'Projekty prezydialne',
+                    ),
+                ),
+            ),
+            'klub_id' => array(
+                'terms' => array(
+                    'field' => 'prawo_projekty.kluby_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'visual' => array(
+                    'all' => 'Wszystkie kluby',
+                    'label' => 'Klub poselski',
+                    'skin' => 'list',
+                    'field' => 'prawo_projekty.kluby_id',
+                    'dictionary' => array(
+                        '1' => 'Platforma Obywatelska',
+                        '2' => 'Prawo i Sprawiedliwość',
+                        '3' => 'Polskie Stronnictwo Ludowe',
+                        '4' => 'Sojusz Lewicy Demokratycznej',
+                        '5' => 'Ruch Palikota',
+                        '6' => 'Solidarna Polska',
+                        '7' => 'Posłowie niezrzeszeni',
+                        '8' => 'Inicjatywa Dialogu',
+                        '9' => 'Sprawiedliwa Polska',
+                        '10' => 'Bezpieczeństwo i Gospodarka',
+                        '11' => 'Zjednoczona Prawica',
+                        '12' => 'Biało-Czerwoni',
+                        '13' => 'Kukiz15',
+                        '14' => 'Nowoczesna',
                     ),
                 ),
             ),
@@ -1623,7 +1661,23 @@ class DataBrowserComponent extends Component
                     'label' => 'Liczba projektów w czasie',
                     'skin' => 'date_histogram',
                     'field' => 'date',
-                    'all' => 'Kiedykolwiek',
+                    'all' => 'Złożone kiedykolwiek',
+                ),
+            ),
+            'kadencja' => array(
+                'terms' => array(
+                    'field' => 'prawo_projekty.kadencja',
+                    'exclude' => array('0'),
+                ),
+                'visual' => array(
+	                'all' => 'Złożone we wszystkich kadencjach',
+                    'label' => 'Kadencja',
+                    'skin' => 'list',
+                    'field' => 'prawo_projekty.kadencja',
+                    'dictionary' => array(
+                        '7' => 'Kadencja 7',
+                        '8' => 'Kadencja 8',
+                    ),
                 ),
             ),
         ),

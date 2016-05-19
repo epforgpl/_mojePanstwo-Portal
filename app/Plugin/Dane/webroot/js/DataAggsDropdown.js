@@ -78,7 +78,7 @@ DataAggsDropdown.prototype.createHighstockPicker = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '">Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -225,7 +225,7 @@ DataAggsDropdown.prototype.createColumnsVertical = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '">Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -371,7 +371,6 @@ DataAggsDropdown.prototype.createDateHistogram = function() {
 	}
 
 	dropdownStr += [
-		'<li role="separator" class="divider"></li>',
 		'<li', rangeSelected ? ' class="active"' : '' ,'>',
 			'<a href="#" data-toggle="modal" data-target=".histogramDateRange">Wybierz zakres..</a>',
 		'</li>'
@@ -446,7 +445,7 @@ DataAggsDropdown.prototype.createPieChart = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '">Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -636,7 +635,7 @@ DataAggsDropdown.prototype.createColumnsHorizontal = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownChart += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '">Usuń filtr</a></li>'
 		].join('');
 	}
 
@@ -771,7 +770,7 @@ DataAggsDropdown.prototype.createList = function() {
 
 	if(this.allLabel.length > 0 && this.isSelected) {
 		dropdownList += [
-			'<li class="cancel"><a href="' + this.cancelRequest + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Usuń filtr</a></li>'
+			'<li class="cancel"><a href="' + this.cancelRequest + '">Usuń filtr</a></li>'
 		].join('');
 	}
 

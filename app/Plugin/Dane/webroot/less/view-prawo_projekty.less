@@ -10,3 +10,28 @@
 		}
 	}
 }
+
+.prawo_projekty_items {
+	
+	&.fixed_height {
+		max-height: 300px;
+		overflow-y: auto;
+	}
+	
+	li {
+		
+		overflow: auto;
+		border-bottom: 1px solid #DDD;
+		padding: 8px 0;
+		
+		&:last-child {
+			border-bottom: none;
+		}
+		
+		&.posel {
+			img {
+				border: 1px solid #DDD;
+			}
+		}
+	}
+}

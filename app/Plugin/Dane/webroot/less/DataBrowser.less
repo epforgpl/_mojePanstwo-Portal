@@ -75,6 +75,10 @@ a.link-api-call {
 	}
 }
 
+.objectsPageWindow .container-padding {
+	padding: 0;
+}
+
 .dataBrowser, .dataFeed, .dataobjects {
     
     &.border-bottom {
@@ -96,10 +100,10 @@ a.link-api-call {
     }
 
     &.lower {
-        background-color: #FFF;
-        border-top: 1px solid #EAEAEA;
-        border-bottom: 1px solid #EAEAEA;
+        border-top: 1px solid #DDD;
+        border-bottom: 1px solid #DDD;
         min-height: 65vh;
+        padding-top: 10px;
     }
 
     .dataAggsDropdownListContainer {
@@ -120,8 +124,7 @@ a.link-api-call {
 
             .dataCounter > span {
                 font-size: 12px !important;
-                color: #789;
-                padding: 7px 15px;
+                padding: 8px 15px;
             }
 
             .dataAggsDropdown {
@@ -131,18 +134,19 @@ a.link-api-call {
                 > a:hover {
                     color: #157ab5;
                 }
+                .cancel {
+	                float: none;
+	                padding: 3px 0;
+	                background-color: #f4f5f6;
+	                margin-bottom: -10px;
+                }
             }
 
             .cancel {
-                float: right;
+	            float: right;
                 a {
                     font-size: 12px !important;
-                    color: #555;
                     background: inherit;
-                    &:hover {
-                        background: inherit;
-                        color: #157ab5;
-                    }
                 }
             }
 
@@ -168,14 +172,28 @@ a.link-api-call {
             margin-top: 0;
             margin-left: -16px;
             min-width: 250px;
+            padding: 10px 0;
 
             > li {
+	            
+	            border-bottom: 1px solid #DDD;
+	            
+	            &:last-child {
+		            border-bottom: none;
+	            }
+	            
+	            &:empty {
+		            display: none;
+	            }
+	            
                 > a {
                     @linkPaddingBorder: 30px;
 
                     white-space: normal;
                     padding-right: @linkPaddingBorder;
                     padding-left: @linkPaddingBorder;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
 
                     .badge {
                         font-size: 10px;
@@ -183,13 +201,17 @@ a.link-api-call {
                         right: 0;
                         margin-right: 10px;
                         margin-top: 1px;
+                        background-color: inherit;
+                        color: #999;
                     }
 
                     &:hover, &:focus {
-                        background: #f1f1f1;
-                        color: inherit;
+                        background: inherit;
+                        color: #157ab5;
                         padding-right: @linkPaddingBorder;
                         padding-left: @linkPaddingBorder;
+                        padding-top: 10px;
+	                    padding-bottom: 10px;
                     }
                 }
 
@@ -198,7 +220,7 @@ a.link-api-call {
 
                     &:before {
                         content: "\e013";
-
+						color: #555;
                         position: absolute;
                         top: 50%;
                         left: 10px;
@@ -208,6 +230,7 @@ a.link-api-call {
                         font-style: normal;
                         font-weight: normal;
                         line-height: 1;
+                        margin-top: -1px;
 
                         -webkit-font-smoothing: antialiased;
                         -moz-osx-font-smoothing: grayscale;
@@ -221,7 +244,7 @@ a.link-api-call {
 
                     > a {
                         background: inherit;
-                        color: inherit;
+                        color: #555;
                     }
                 }
             }
@@ -654,17 +677,8 @@ a.link-api-call {
                 }
             }
 
-            a {
-                color: #444;
-            }
-
             &.active > a {
                 background: none;
-                color: #DC4A38;
-            }
-
-            &.open > a {
-                color: #333;
             }
 
             > a:hover, > a:focus {
@@ -703,18 +717,6 @@ a.link-api-call {
 
             li.cancel, li.apply {
                 text-align: center;
-
-                span {
-                    margin-right: 5px;
-                }
-
-                a {
-                    &:hover {
-                        background: none;
-                        color: #23527C;
-                    }
-                }
-
             }
 
             li.apply {

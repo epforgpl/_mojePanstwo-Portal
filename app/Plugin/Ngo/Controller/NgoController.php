@@ -128,7 +128,171 @@ class NgoController extends ApplicationsController
 		'media' => array(6, 'Media na Twitterze'),
 		'partie' => array(8, 'Partie polityczne na Twitterze'),
 	);
-
+	
+	public $_sprawozdania_opp = array(
+		'options' => array(
+	        'w' => array(
+	            'items' => array(
+	                array(
+	                    'id' => 'wszystkie',
+	                    'label' => 'Wszystkie',
+	                ),
+	                array(
+	                    'id' => '1',
+	                    'label' => 'dolnośląskie',
+	                ),
+	                array(
+	                    'id' => '2',
+	                    'label' => 'kujawsko-pomorskie',
+	                ),
+	                array(
+	                    'id' => '3',
+	                    'label' => 'lubelskie',
+	                ),
+	                array(
+	                    'id' => '4',
+	                    'label' => 'lubuskie',
+	                ),
+	                array(
+	                    'id' => '5',
+	                    'label' => 'łódzkie',
+	                ),
+	                array(
+	                    'id' => '6',
+	                    'label' => 'małopolskie',
+	                ),
+	                array(
+	                    'id' => '7',
+	                    'label' => 'mazowieckie',
+	                ),
+	                array(
+	                    'id' => '8',
+	                    'label' => 'opolskie',
+	                ),
+	                array(
+	                    'id' => '9',
+	                    'label' => 'podkarpackie',
+	                ),
+	                array(
+	                    'id' => '10',
+	                    'label' => 'podlaskie',
+	                ),
+	                array(
+	                    'id' => '11',
+	                    'label' => 'pomorskie',
+	                ),
+	                array(
+	                    'id' => '12',
+	                    'label' => 'śląskie',
+	                ),
+	                array(
+	                    'id' => '13',
+	                    'label' => 'świętokrzyskie',
+	                ),
+	                array(
+	                    'id' => '14',
+	                    'label' => 'warmińsko-mazurskie',
+	                ),
+	                array(
+	                    'id' => '15',
+	                    'label' => 'wielkopolskie',
+	                ),
+	                array(
+	                    'id' => '16',
+	                    'label' => 'zachodniopomorskie',
+	                ),					 	
+	            ),
+	        ),
+	        'size' => array(
+	            'items' => array(
+	                array(
+	                    'id' => 'wszystkie',
+	                    'label' => 'Wszystkie',
+	                ),
+	                array(
+	                    'id' => 'male',
+	                    'label' => 'Małe (roczny przychód: poniżej 1 mln)',
+	                ),
+	                array(
+	                    'id' => 'srednie',
+	                    'label' => 'Średnie (roczny przychód: od 1 mln. zł, do 10 mln zł)',
+	                ),
+	                array(
+	                    'id' => 'duze',
+	                    'label' => 'Duże (roczny przychód: powyżej 10 mln zł)',
+	                ),
+	            ),
+	        ),
+	        'timerange' => array(
+	            'items' => array(
+	                array(
+	                    'id' => '2015',
+	                    'label' => '2015',
+	                ),
+	                array(
+	                    'id' => '2014',
+	                    'label' => '2014',
+	                ),
+	                array(
+	                    'id' => '2013',
+	                    'label' => '2013',
+	                ),
+	            ),
+	        ),
+	        
+	    ),
+		'es_filters_map' => array(
+			'w' => array(
+				'wszystkie' => array(
+					'filter' => array(
+						'match_all' => '_empty',
+					),
+				),
+			),
+			'size' => array(
+				'wszystkie' => array(
+					'filter' => array(
+						'match_all' => '_empty',
+					),
+				),
+				'male' => array(
+					'filter' => array(
+						'lte' => 1000000
+					),
+				),
+				'srednie' => array(
+					'filter' => array(
+						'gt' => 1000000,
+						'lte' => 10000000
+					),
+				),
+				'duze' => array(
+					'filter' => array(
+						'gt' => 10000000,
+					),
+				),
+			),
+		),
+		'fields' => array(
+			'przychody_ogolem' => array(
+				'title' => 'Łączna kwota przychodów organizacji ogółem',
+			),
+			'przychody_procent' => array(
+				'title' => 'Przychody z 1% podatku dochodowego od osób fizycznych'
+			),
+			'przychody_zrodla_publiczne' => array(
+				'title' => 'Przychody ze źródeł publicznych ogółem',
+			),
+			'przychody_prywatne_ogolem' => array(
+				'title' => 'Przychody ze źródeł prywatnych ogółem',
+			),
+			'przychody_inne' => array(
+				'title' => 'Przychody z innych źródeł',
+			),
+		),
+	);
+	
+		
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -812,18 +976,277 @@ class NgoController extends ApplicationsController
         ));
     }
 
-    public function sprawozdania_opp()
+    private function sprawozdania_opp_init($mode, $params = array())
     {
-        $this->loadDatasetBrowser('sprawozdania_opp', array(
-            'browserTitle' => 'Sprawozdania organizacji pożytku publicznego:',
-           'menu' => array_merge($this->submenus['ngo'], array(
-                'selected' => 'sprawozdania_opp',
-                'base' => '/ngo'
-            ))
-        ));
-        $this->set('title_for_layout', 'Sprawozdania organizacji pożytku publicznego | NGO');
+		
+		$options = $this->_sprawozdania_opp['options'];
+		$es_filters_map = $this->_sprawozdania_opp['es_filters_map'];
+		$fields = $this->_sprawozdania_opp['fields'];
+		$es_filters = array();
+		
+        foreach( $options as $key => &$option ) {
+
+            $allowed_values = array_column($option['items'], 'id');
+
+            if(
+                array_key_exists($key, $this->request->query) &&
+                in_array($this->request->query[$key], $allowed_values)
+            ) {
+
+                $option['selected_id'] = $this->request->query[$key];
+                $option['selected_i'] = array_search($this->request->query[$key], $allowed_values);
+
+            } else {
+				
+				$selected_i = ( $key=='timerange' ) ? 1 : 0;
+				
+                $option['selected_id'] = $option['items'][$selected_i]['id'];
+                $option['selected_i'] = $selected_i;
+
+            }
+            
+            if( $key=='timerange' ) {
+	            
+	            $es_filters[ $key ] = array(
+	                'term' => array(
+	                    'krs_podmioty-sprawozdania_opp.rocznik' => $option['items'][ $option['selected_i'] ]['id'],
+	                ),
+	            );
+	            
+	        } elseif( $key=='w' ) {
+		        
+	            if( is_numeric( $option['items'][ $option['selected_i'] ]['id'] ) ) {
+		            
+		            $es_filters[ $key ] = array(
+			            array(
+				            'term' => array(
+					            'data.krs_podmioty.wojewodztwo_id' => $option['items'][ $option['selected_i'] ]['id'],
+				            ),
+			            ),
+		            );
+		            
+	            } else {
+		            
+		            $es_filters[ $key ] = array(
+			            array(
+			            	'match_all' => '_empty',
+			            ),
+		            );
+		            
+	            }
+	            
+            } else {
+	            $es_filters[ $key ] = $es_filters_map[ $key ][ $option['items'][ $option['selected_i'] ]['id'] ]['filter'];
+	        }
+	        
+
+        }        
+
+        $this->set('filter_options', $options);
+		
+		$data_aggs = array();
+		foreach( $fields as $field => $data ) {
+						
+			if( isset($es_filters['size']['match_all']) )
+				$es_filter_size = $es_filters['size'];
+			else
+				$es_filter_size = array(
+					'range' => array(
+						'krs_podmioty-sprawozdania_opp.' . $field => $es_filters['size'],
+					),
+				);
+			
+			if( $mode == 'start' ) {
+				
+				$field_aggs = array(
+					'min' => array(
+		                'terms' => array(
+		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
+		                    'size' => '1',
+		                    'order' => array(
+		                        '_term' => 'asc',
+		                    ),
+		                ),
+		            ),
+		            'max' => array(
+		                'terms' => array(
+		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
+		                    'size' => '3',
+		                    'order' => array(
+		                        '_term' => 'desc',
+		                    ),
+		                ),
+		                'aggs' => array(
+		                    'reverse' => array(
+		                        'reverse_nested' => '_empty',
+		                        'aggs' => array(
+		                            'top' => array(
+		                                'top_hits' => array(
+		                                    'size' => 1,
+		                                    '_source' => array('data.krs_podmioty.nazwa', 'slug'),
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                ),
+		            ),
+		            'percentiles' => array(
+		                'percentiles' => array(
+		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
+		                    'percents' => array(50),
+		                ),
+		            ),
+		            'stats' => array(
+		                'stats' => array(
+		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
+		                ),
+		            ),
+				);
+				
+			} elseif( $mode=='histogram' ) {
+								
+				$field_aggs = array(
+					'histogram' => array(
+		                'histogram' => array(
+		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
+		                    'interval' => $params[ $field ],
+		                    'min_doc_count' => 1,
+		                ),
+		            ),
+				);
+				
+			}
+				
+			$data_aggs = array_merge($data_aggs, array(
+				$field . '_range' => array(
+					'filter' => $es_filter_size,
+					'aggs' => $field_aggs,
+				),				
+			));
+			
+		}
+		
+		$dataset_aggs = array_merge(array(
+			array(
+                'term' => array(
+                    'dataset' => 'krs_podmioty',
+                ),
+            ),
+            array(
+                'term' => array(
+                    'data.krs_podmioty.sprawozdania_opp' => true,
+                ),
+            ),
+		), $es_filters['w']);
+		
+		
+		$data_aggs = array_merge($data_aggs, array(
+			'suma_przychody_ogolem' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+				),
+			),
+			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
+				),
+			),
+			'suma_przychody_dzialalnosc_odplatna_pozytku_publicznego' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_odplatna_pozytku_publicznego',
+				),
+			),
+			'suma_przychody_dzialalnosc_gospodarcza' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_gospodarcza',
+				),
+			),
+			'suma_przychody_finansowe' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_finansowe',
+				),
+			),
+			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
+				),
+			),
+			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
+				),
+			),
+			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
+				),
+			),
+			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
+				'sum' => array(
+					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
+				),
+			),
+		));
+		
+				
+		$aggs = array(
+            'krs_podmioty' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => $dataset_aggs,
+                    ),
+                ),
+                'scope' => 'global',
+                'aggs' => array(
+                    'sprawozdania_opp' => array(
+                        'nested' => array(
+                            'path' => 'krs_podmioty-sprawozdania_opp',
+                        ),
+                        'aggs' => array(
+	                        'rocznik' => array(
+		                        'filter' => $es_filters['timerange'],
+		                        'aggs' => $data_aggs,
+	                        ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+               		
+		
+		$this->set('fields', $fields);
+		
+        $options = array(
+            'searchTitle' => 'Szukaj w sprawozdaniach OPP...',
+            'conditions' => array(
+                'dataset' => 'sprawozdania_opp',
+            ),
+            'cover' => array(
+                'view' => array(
+                    'plugin' => 'Ngo',
+                    'element' => 'sprawozdania_opp',
+                ),
+                'aggs' => $aggs,
+            ),
+        );
+
+		$this->chapter_selected = 'view';
+        $this->Components->load('Dane.DataBrowser', $options);
+        $this->title = 'Sprawozdania organizacji pożytku publicznego | NGO';
+        $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
+    
+    
+    public function sprawozdania_opp()
+    {
+	    return $this->sprawozdania_opp_init('start');
+    }
+    
+    public function sprawozdania_opp_histogram()
+    {	
+	    return $this->sprawozdania_opp_init('histogram', $this->request->query['fields']);
+	}
 
     public function stowarzyszenia()
     {

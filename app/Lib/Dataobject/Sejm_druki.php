@@ -6,7 +6,6 @@ require_once('DocDataObject.php');
 class Sejm_druki extends DocDataObject
 {
 
-    public $force_hl_fields = true;
 	protected $tiny_label = 'Druk sejmowy';
 	protected $schema = array(
 		array('druk_typ_nazwa', 'Typ druku'),
@@ -21,7 +20,15 @@ class Sejm_druki extends DocDataObject
     protected $hl_fields = array(
     	'druk_typ_nazwa'
     );
-
+	
+	public function getShortTitle() {
+		return $this->getData('tytul');
+	}
+	
+	public function getTitle() {
+		return $this->getData('tytul');
+	}
+	
     public function getLabel()
     {
         return $this->getData('sejm_druki_typy.nazwa');

@@ -44,7 +44,7 @@
 
     echo $this->Html->css('//fonts.googleapis.com/css?family=Lato:200,300,400,700,900,400italic');
 
-    echo $this->Html->css('../libs/jqueryui/1.11.0/cupertino/jquery-ui.min.css');
+    echo $this->Html->css('../libs/jqueryui/themes/cupertino/jquery-ui.theme.min.css');
 
     $this->Combinator->add_libs('css', $this->Less->css('jquery/jquery-ui-customize'), false);
     $this->Combinator->add_libs('css', $this->Less->css('structure'), false);
@@ -54,18 +54,33 @@
     /* GLOBAL CSS FOR LOGIN FORM FOR PASZPORT PLUGIN*/
     $this->Combinator->add_libs('css', $this->Less->css('loginForm', array('plugin' => 'Paszport')), false);
 
+    /* CSS FOR OBSERVE BUTTON MODAL FOR DANE PLUGIN AND OTHER MODALS */
+    $this->Combinator->add_libs('css', $this->Less->css('modal-dataobject', array('plugin' => 'Dane')));
+
     /*BOOTSTRAP SELECT LOOKS LIKE BOOTSTRAP BUTTONS*/
-    echo $this->Html->css('../plugins/bootstrap-select/bootstrap-select.min.css');
+    echo $this->Html->css('../plugins/bootstrap-select/dist/css/bootstrap-select.min.css');
 
     /*BOOTSTRAP CHECKBOX LOOKS SWITCH BUTTONS*/
-    echo $this->Html->css('../plugins/bootstrap-switch/bootstrap-switch.css');
+    echo $this->Html->css('../plugins/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css');
 
     /* SOCIAL BUTTONS */
-    echo $this->Html->css('../libs/font-awesome/4.1.0/css/font-awesome.min.css');
+    echo $this->Html->css('../libs/font-awesome/4.4.0/css/font-awesome.min.css');
     $this->Combinator->add_libs('css', $this->Less->css('social-buttons'), false);
 
+    /* OBJECT "PAGE" ICONS */
+    if (isset($object) && $object->getPage())
+        $this->Combinator->add_libs('css', $this->Less->css('radny_details', array('plugin' => 'PrzejrzystyKrakow')));
+
+    if (isset($object_editable) && !empty($object_editable)) {
+        $this->Combinator->add_libs('css', $this->Less->css('dataobjects-editable', array('plugin' => 'Dane')));
+    }
+
+    /* SPECIAL THEME FOR PRZEJRZYSTY KRAKOW */
+    if ($domainMode == 'PK')
+        $this->Combinator->add_libs('css', $this->Less->css('przejrzysty-krakow-theme', array('plugin' => 'PrzejrzystyKrakow')));
+
     /* HAD TO BE EXCLUDED CAUSE ERRORS AT BOOTSTRAP */
-    echo $this->Html->css('../libs/bootstrap/3.1.1/css/bootstrap.min.css');
+    echo $this->Html->css('../libs/bootstrap/3.3.4/css/bootstrap.min.css');
     echo $this->Combinator->scripts('css');
 
     /* BLOCK FOR SPECIAL STYLES THAT CANNOT BE MERGE TO ONE FILE*/
@@ -108,20 +123,6 @@
     ga('send', 'pageview');
 </script>
 
-<?php
-echo $this->Html->script('../libs/jquery/2.1.1/jquery.min.js');
-echo $this->Html->script('../libs/jqueryui/1.10.4/js/jquery-ui.min.js');
-echo $this->Html->script('../libs/jqueryui/1.10.4/development-bundle/ui/minified/i18n/jquery-ui-i18n.min.js');
-
-echo $this->Html->script('../libs/bootstrap/3.1.1/js/bootstrap.min.js');
-
-/* PACKAGES FROM VENDOR */
-echo $this->Html->script('../plugins/browserstate/history.js/scripts/bundled/html4+html5/jquery.history.js');
-echo $this->Html->script('../plugins/carhartl/jquery-cookie/jquery.cookie.js');
-echo $this->Html->script('../plugins/bootstrap-select/bootstrap-select.min.js');
-echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
-
-<?php /*PHP DATA FOR JS */ ?>
 <script type="text/javascript">
     var mPHeart = {
         translation: jQuery.parseJSON('<?php echo json_encode($translation); ?>'),
@@ -143,11 +144,33 @@ echo $this->Html->script('../plugins/bootstrap-switch/bootstrap-switch.js'); ?>
     }
 </script>
 
+
+<?php
+echo $this->Html->script('../libs/jquery/2.1.4/jquery-2.1.4.min.js');
+echo $this->Html->script('jquery.sticky.js');
+
+if (isset($object_editable) && !empty($object_editable))
+    echo $this->Html->script('../js/jquery.autocomplete.min');
+
+echo $this->Html->script('../libs/jqueryui/1.11.4/jquery-ui.min.js');
+echo $this->Html->script('../libs/jqueryui/i18n/jquery-ui-i18n.min.js');
+
+echo $this->Html->script('../libs/bootstrap/3.3.4/js/bootstrap.min.js');
+
+/* PACKAGES FROM VENDOR */
+echo $this->Html->script('../plugins/history.js/scripts/bundled/html4+html5/jquery.history.js');
+echo $this->Html->script('../plugins/js-cookie/src/js.cookie.js');
+echo $this->Html->script('../plugins/bootstrap-select/dist/js/bootstrap-select.min.js');
+echo $this->Html->script('../plugins/bootstrap-switch/dist/js/bootstrap-switch.min.js'); ?>
+
 <?php
 $this->Combinator->add_libs('js', 'enhance', false);
 $this->Combinator->add_libs('js', 'structure', false);
-$this->Combinator->add_libs('js', 'main', false);
-$this->Combinator->add_libs('js', 'suggester.js');
+$this->Combinator->add_libs('js', 'mpbase', false);
+$this->Combinator->add_libs('js', 'portal', false);
+$this->Combinator->add_libs('js', 'suggester');
+$this->Combinator->add_libs('js', 'appheader');
+
 
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');

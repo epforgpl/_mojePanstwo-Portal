@@ -91,6 +91,7 @@ class DaneController extends ApplicationsController
 			
 			switch( $this->request->params['id'] ) {
 				case 'nik_raporty': return $this->redirect('/dane/instytucje/3217,najwyzsza-izba-kontroli/raporty');
+				case 'prawo_lokalne': return $this->redirect('/prawo/lokalne');
 			}
 			
 			$dataset_info = $this->getDataset($this->request->params['id']);
