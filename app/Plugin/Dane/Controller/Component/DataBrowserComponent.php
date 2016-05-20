@@ -1186,9 +1186,35 @@ class DataBrowserComponent extends Component
                     ),
                 ),
                 'visual' => array(
+                    'all' => 'Wszystkie kluby',
                     'label' => 'Kluby parlamentarne',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'poslowie.klub_id'
+                ),
+            ),
+            'okreg_id' => array(
+                'terms' => array(
+                    'field' => 'poslowie.sejm_okreg_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'poslowie.okreg_wyborczy_numer',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'all' => 'Wszystkie okręgi',
+                    'label' => 'Okręg wyborczy',
+                    'skin' => 'list',
+                    'field' => 'poslowie.sejm_okreg_id',
+                    'activePrefix' => 'Okręg wyborczy nr ',
+                    'activeObject' => array(
+	                    'dataset' => 'sejm_okregi_wyborcze',
+                    ),
                 ),
             ),
             'zawod' => array(
@@ -1206,8 +1232,9 @@ class DataBrowserComponent extends Component
                     ),
                 ),
                 'visual' => array(
+	                'all' => 'Wszystkie zawody',
                     'label' => 'Zawody posłów',
-                    'skin' => 'columns_horizontal',
+                    'skin' => 'list',
                     'field' => 'poslowie.zawod'
                 ),
             ),
@@ -1218,16 +1245,10 @@ class DataBrowserComponent extends Component
                         'pattern' => '(K|M)'
                     ),
                 ),
-                'aggs' => array(
-                    'label' => array(
-                        'terms' => array(
-                            'field' => 'poslowie.plec',
-                        ),
-                    ),
-                ),
                 'visual' => array(
+	                'all' => 'Obie płcie',
                     'label' => 'Płeć',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'poslowie.plec',
                     'dictionary' => array(
                         'K' => 'Kobiety',
@@ -2246,7 +2267,7 @@ class DataBrowserComponent extends Component
             'limit' => isset($this->settings['limit']) ? $this->settings['limit'] : 30,
             '_type' => $this->type,
         );
-
+        
 		if( isset($this->settings['feed']) )
 			$output['feed'] = $this->settings['feed'];
 

@@ -1236,11 +1236,23 @@ class NgoController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
 
     }
-    
+        
+    public function finanse_opp()
+    {
+	    return $this->sprawozdania_opp_init('start');
+    }
     
     public function sprawozdania_opp()
     {
-	    return $this->sprawozdania_opp_init('start');
+        $this->loadDatasetBrowser('sprawozdania_opp', array(
+            'browserTitle' => 'Sprawozdania organizacji pożytku publicznego:',
+           'menu' => array_merge($this->submenus['ngo'], array(
+                'selected' => 'sprawozdania_opp',
+                'base' => '/ngo'
+            ))
+        ));
+        $this->set('title_for_layout', 'Sprawozdania organizacji pożytku publicznego | NGO');
+
     }
     
     public function sprawozdania_opp_histogram()

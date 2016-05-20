@@ -68,7 +68,7 @@ Okregi.prototype.okregiPolygonClick = function(polygon) {
 
 Okregi.prototype.clickOnOkrag = function(i) {
     var okrag = this.data[i];
-    window.location = '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/okregi/' + okrag[0];
+    window.location = '/dane/instytucje/3214,sejm-rzeczypospolitej-polskiej/poslowie?&conditions[poslowie.sejm_okreg_id]=' + okrag[0];
 };
 
 Okregi.prototype.markOkregiPolygonAsHover = function(i) {

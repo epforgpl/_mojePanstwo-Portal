@@ -39,7 +39,7 @@ $_manage = isset( $manage ) ? $manage: false;
 		<div class="dataBrowserContent">
 				
 			<div class="row">
-				<div class="col-xs-8 dataBrowser-wrap">
+				<div class="col-lg-8 dataBrowser-wrap">
 					<div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">	
 												
 						<div class="row">

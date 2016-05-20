@@ -44,7 +44,7 @@
 	                ?>
 	                <li role="presentation" class="dropdown dataAggsDropdown<?= $isSelected ? ' active' : ''; ?>"
 	                    data-skin="<?= $map['skin'] ?>"
-	                    data-aggs='<?= json_encode($dataBrowser['aggs'][$name]) ?>'
+	                    data-aggs="<?= htmlspecialchars(json_encode($dataBrowser['aggs'][$name]), ENT_QUOTES, 'UTF-8') ?>" 
 	                    data-cancel-request="<?= $map['cancelRequest'] ?>"
 	                    data-label-dictionary='<?= json_encode(isset($map['dictionary']) ? $map['dictionary'] : array()) ?>'
 	                    data-choose-request="<?= $map['chooseRequest'] ?>"
@@ -101,14 +101,19 @@
 	                                }
 	                            }
 	
-	                            echo isset($label) ? $label : $this->request->query['conditions'][$map['field']];
+	                            $label = isset($label) ? $label : $this->request->query['conditions'][$map['field']];
+	                            if( isset($map['activePrefix']) )
+		                            $label = $map['activePrefix'] . $label;
+	                            echo $label;
 	
 	                        } else { ?>
 	                            <?= $map['all'] ?>
 	                        <? } ?>
 	                        <span class="caret"></span>
 	                    </a>
-	                    <ul class="dropdown-menu"></ul>
+	                    <ul class="dropdown-menu">
+		                    <li class="title"><?= $map['label'] ?>:</li>
+	                    </ul>
 	                </li>
 	            <? }
 	        } ?>

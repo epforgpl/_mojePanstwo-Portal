@@ -2094,6 +2094,7 @@ class InstytucjeController extends DataobjectsController
 	                'poslowie.kadencja' => 8,
 	            ),
 	            'aggsPreset' => 'poslowie',
+	            'order' => '_title asc',
 	        ));
 	        $this->set('title_for_layout', "Posłowie na Sejm RP");
 		    $this->render('DataBrowser/browser-from-object');
