@@ -1043,32 +1043,187 @@ class NgoController extends ApplicationsController
         }        
 
         $this->set('filter_options', $options);
-		
-		$data_aggs = array();
-		foreach( $fields as $field => $data ) {
-						
-			if( isset($es_filters['size']['match_all']) )
-				$es_filter_size = $es_filters['size'];
-			else
-				$es_filter_size = array(
-					'range' => array(
-						'krs_podmioty-sprawozdania_opp.' . $field => $es_filters['size'],
-					),
-				);
-			
-			if( $mode == 'start' ) {
 				
-				$field_aggs = array(
-					'min' => array(
-		                'terms' => array(
+		$dataset_aggs = array_merge(array(
+			array(
+                'term' => array(
+                    'dataset' => 'krs_podmioty',
+                ),
+            ),
+            array(
+                'term' => array(
+                    'data.krs_podmioty.sprawozdania_opp' => true,
+                ),
+            ),
+		), $es_filters['w']);
+		
+		
+		if( $mode == 'start' ) {
+		
+			$data_aggs = array(
+				'percentiles.przychody_ogolem' => array(
+	                'percentiles' => array(
+	                    'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+	                    'percents' => array(50),
+	                ),
+	            ),
+				'stats.przychody_ogolem' => array(
+					'stats' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+					),
+				),
+				'max.przychody_ogolem' => array(
+	                'terms' => array(
+	                    'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+	                    'size' => '3',
+	                    'order' => array(
+	                        '_term' => 'desc',
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'reverse' => array(
+	                        'reverse_nested' => '_empty',
+	                        'aggs' => array(
+	                            'top' => array(
+	                                'top_hits' => array(
+	                                    'size' => 1,
+	                                    '_source' => array('data.krs_podmioty.nazwa', 'slug'),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+				'suma.przychody_ogolem' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+					),
+				),
+				'suma.przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
+					),
+				),
+				'suma.przychody_dzialalnosc_odplatna_pozytku_publicznego' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_odplatna_pozytku_publicznego',
+					),
+				),
+				'suma.przychody_dzialalnosc_gospodarcza' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_gospodarcza',
+					),
+				),
+				'suma.przychody_finansowe' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_finansowe',
+					),
+				),
+				'suma.przychody_pozostale' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_pozostale',
+					),
+				),
+				'suma.przychody_procent' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_procent',
+					),
+				),
+				'suma.przychody_zrodla_publiczne' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_zrodla_publiczne',
+					),
+				),
+				'suma.przychody_srodki_europejskie' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_srodki_europejskie',
+					),
+				),
+				'suma.przychody_budzet_panstwa' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_budzet_panstwa',
+					),
+				),
+				'suma.przychody_samorzad' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_samorzad',
+					),
+				),
+				'suma.przychody_fundusze_celowe' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_fundusze_celowe',
+					),
+				),
+				'suma.przychody_prywatne_ogolem' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_prywatne_ogolem',
+					),
+				),
+				'suma.przychody_skladki' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_skladki',
+					),
+				),
+				'suma.przychody_darowizny_osoby_fizyczne' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_darowizny_osoby_fizyczne',
+					),
+				),
+				'suma.przychody_darowizny_osoby_prawne' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_darowizny_osoby_prawne',
+					),
+				),
+				'suma.przychody_ofiarnosc_publiczna' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_ofiarnosc_publiczna',
+					),
+				),
+				'suma.przychody_spadki_zapisy' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_spadki_zapisy',
+					),
+				),
+				'suma.przychody_majatek' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_majatek',
+					),
+				),
+				'suma.przychody_inne' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.przychody_inne',
+					),
+				),
+			);
+		
+		} elseif( $mode == 'histogram' ) {
+			
+			foreach( $params as $field => $interval ) {
+				$data_aggs['histogram.' . $field] = array(
+	                'histogram' => array(
+	                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
+	                    'interval' => $interval,
+	                    'min_doc_count' => 1,
+	                ),
+	            );				
+			}
+			
+		} elseif( $mode == 'stats' ) {
+			
+			foreach( $params as $field ) {
+				$data_aggs = array(
+	                'percentiles.' . $field => array(
+		                'percentiles' => array(
 		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
-		                    'size' => '1',
-		                    'order' => array(
-		                        '_term' => 'asc',
-		                    ),
+		                    'percents' => array(50),
 		                ),
 		            ),
-		            'max' => array(
+					'stats.' . $field => array(
+						'stats' => array(
+							'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
+						),
+					),
+					'max.' . $field => array(
 		                'terms' => array(
 		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
 		                    'size' => '3',
@@ -1090,105 +1245,20 @@ class NgoController extends ApplicationsController
 		                    ),
 		                ),
 		            ),
-		            'percentiles' => array(
-		                'percentiles' => array(
-		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
-		                    'percents' => array(50),
-		                ),
-		            ),
-		            'stats' => array(
-		                'stats' => array(
-		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
-		                ),
-		            ),
-				);
-				
-			} elseif( $mode=='histogram' ) {
-								
-				$field_aggs = array(
-					'histogram' => array(
-		                'histogram' => array(
-		                    'field' => 'krs_podmioty-sprawozdania_opp.' . $field,
-		                    'interval' => $params[ $field ],
-		                    'min_doc_count' => 1,
-		                ),
-		            ),
-				);
-				
+	            );				
 			}
-				
-			$data_aggs = array_merge($data_aggs, array(
-				$field . '_range' => array(
-					'filter' => $es_filter_size,
-					'aggs' => $field_aggs,
-				),				
-			));
 			
 		}
-		
-		$dataset_aggs = array_merge(array(
-			array(
-                'term' => array(
-                    'dataset' => 'krs_podmioty',
-                ),
-            ),
-            array(
-                'term' => array(
-                    'data.krs_podmioty.sprawozdania_opp' => true,
-                ),
-            ),
-		), $es_filters['w']);
-		
-		
-		$data_aggs = array_merge($data_aggs, array(
-			'suma_przychody_ogolem' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
-				),
-			),
-			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
-				),
-			),
-			'suma_przychody_dzialalnosc_odplatna_pozytku_publicznego' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_odplatna_pozytku_publicznego',
-				),
-			),
-			'suma_przychody_dzialalnosc_gospodarcza' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_gospodarcza',
-				),
-			),
-			'suma_przychody_finansowe' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_finansowe',
-				),
-			),
-			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
-				),
-			),
-			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
-				),
-			),
-			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
-				),
-			),
-			'suma_przychody_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
-				'sum' => array(
-					'field' => 'krs_podmioty-sprawozdania_opp.przychody_dzialalnosc_nieodplatna_pozytku_publicznego',
-				),
-			),
-		));
-		
 				
+				
+		if( !isset($es_filters['size']['match_all']) ) {
+			$es_filters['size'] = array(
+				'range' => array(
+					'krs_podmioty-sprawozdania_opp.przychody_ogolem' => $es_filters['size'],
+				),
+			);
+		}
+		
 		$aggs = array(
             'krs_podmioty' => array(
                 'filter' => array(
@@ -1204,7 +1274,14 @@ class NgoController extends ApplicationsController
                         ),
                         'aggs' => array(
 	                        'rocznik' => array(
-		                        'filter' => $es_filters['timerange'],
+		                        'filter' => array(
+			                        'bool' => array(
+				                        'must' => array(
+					                        $es_filters['timerange'],
+					                        $es_filters['size'],
+				                        ),
+			                        ),
+		                        ),
 		                        'aggs' => $data_aggs,
 	                        ),
                         ),
@@ -1212,6 +1289,8 @@ class NgoController extends ApplicationsController
                 ),
             ),
         );
+        
+        // debug( $aggs ); die();
                		
 		
 		$this->set('fields', $fields);
@@ -1224,7 +1303,7 @@ class NgoController extends ApplicationsController
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Ngo',
-                    'element' => 'sprawozdania_opp',
+                    'element' => 'finanse_opp',
                 ),
                 'aggs' => $aggs,
             ),
@@ -1258,6 +1337,11 @@ class NgoController extends ApplicationsController
     public function sprawozdania_opp_histogram()
     {	
 	    return $this->sprawozdania_opp_init('histogram', $this->request->query['fields']);
+	}
+	
+	public function sprawozdania_opp_stats()
+    {	
+	    return $this->sprawozdania_opp_init('stats', $this->request->query['fields']);
 	}
 
     public function stowarzyszenia()

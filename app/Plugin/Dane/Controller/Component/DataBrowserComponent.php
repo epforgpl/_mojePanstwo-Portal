@@ -492,17 +492,27 @@ class DataBrowserComponent extends Component
             ),
         ),
         'fb_posts' => array(
-            'date' => array(
-                'date_histogram' => array(
-                    'field' => 'date',
-                    'interval' => 'year',
-                    'format' => 'yyyy-MM-dd',
+            'type_id' => array(
+                'terms' => array(
+                    'field' => 'fb_accounts.type_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
                 ),
                 'visual' => array(
-                    'label' => 'Liczba postów w czasie',
-                    'skin' => 'date_histogram',
-                    'field' => 'date',
-                    'all' => 'Kiedykolwiek',
+                    'label' => 'Typy kont',
+                    'all' => 'Wszystkie typy kont',
+                    'skin' => 'list',
+                    'field' => 'fb_accounts.type_id',
+                    'dictionary' => array(
+                        '2' => 'Komentatorzy polityczni',
+                        '3' => 'Urzędy',
+                        '6' => 'Media',
+                        '7' => 'Politycy',
+                        '8' => 'Partie polityczne',
+                        '9' => 'NGO',
+                        '10' => 'Miasta',
+                    ),
                 ),
             ),
             'account_id' => array(
@@ -527,27 +537,17 @@ class DataBrowserComponent extends Component
                     'field' => 'fb_accounts.id',
                 ),
             ),
-            'type_id' => array(
-                'terms' => array(
-                    'field' => 'fb_accounts.type_id',
-                    'exclude' => array(
-                        'pattern' => '0'
-                    ),
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
                 ),
                 'visual' => array(
-                    'label' => 'Typy kont',
-                    'all' => 'Wszystkie typy kont',
-                    'skin' => 'list',
-                    'field' => 'fb_accounts.type_id',
-                    'dictionary' => array(
-                        '2' => 'Komentatorzy polityczni',
-                        '3' => 'Urzędy',
-                        '6' => 'Media',
-                        '7' => 'Politycy',
-                        '8' => 'Partie polityczne',
-                        '9' => 'NGO',
-                        '10' => 'Miasta',
-                    ),
+                    'label' => 'Liczba postów w czasie',
+                    'skin' => 'date_histogram',
+                    'field' => 'date',
+                    'all' => 'Kiedykolwiek',
                 ),
             ),
         ),
