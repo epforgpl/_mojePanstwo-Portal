@@ -190,7 +190,7 @@
 	    
 	    <div class="container">
 		    <div id="charts" class="row">
-			    <div id="chart-income-sources" class="col-sm-6">
+			    <div id="chart-income-sources" class="col-md-6">
 				    
 				    <h2>Przychody według źródeł:</h2>
 				    
@@ -288,7 +288,7 @@
 					    </ul>
 				    </div>
 				    
-			    </div><div id="chart-income-types" class="col-sm-6">
+			    </div><div id="chart-income-types" class="col-md-6">
 				    
 				    <h2>Przychody według typu:</h2>
 				    
