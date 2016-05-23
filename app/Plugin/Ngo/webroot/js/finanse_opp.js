@@ -36,11 +36,11 @@ function number_format_h(n) {
 
     var $n = Math.abs(n);
     // now filter it;
-    if ($n > 1000000000000000) return Math.round((n / 1000000000000000) * 10) / 10 + '&nbsp;blr.';
-    else if ($n > 1000000000000) return Math.round((n / 1000000000000) * 10) / 10 + '&nbsp;bln.';
-    else if ($n > 1000000000) return Math.round((n / 1000000000) * 10) / 10 + '&nbsp;mld.';
-    else if ($n > 1000000) return Math.round((n / 1000000) * 10) / 10 + '&nbsp;mln';
-    else if ($n > 1000) return Math.round((n / 1000) * 10) / 10 + '&nbsp;tys.';
+    if ($n > 1000000000000000) return Math.round((n / 1000000000000000) * 10) / 10 + ' blr.';
+    else if ($n > 1000000000000) return Math.round((n / 1000000000000) * 10) / 10 + ' bln.';
+    else if ($n > 1000000000) return Math.round((n / 1000000000) * 10) / 10 + ' mld.';
+    else if ($n > 1000000) return Math.round((n / 1000000) * 10) / 10 + ' mln';
+    else if ($n > 1000) return Math.round((n / 1000) * 10) / 10 + ' tys.';
 
     return number_format(n, 0, '.', ' ');
 }
@@ -114,6 +114,8 @@ $(document).ready(function () {
 				color: subcolor
 			});
 			
+			subitem.find('._color').css('background-color', subcolor);
+			
 			incomeSubsourcesSum += subvalue;
 			
 		}
@@ -147,7 +149,14 @@ $(document).ready(function () {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: false
-                }
+                },
+                point:{
+					events : {
+						click: function(e) {
+							e.preventDefault();
+						}
+					}
+				}
             }
         },
         credits: {
@@ -155,13 +164,18 @@ $(document).ready(function () {
         },
         series: [{
             name: 'Wartość: ',
-            data: incomeSources
+            data: incomeSources,
         }, {
             name: 'Wartość: ',
             data: incomeSubsources,
             innerSize: '75%',
             borderColor: 'rgba(0,0,0,0)'
-        }]
+        }],
+        tooltip: {
+	        formatter: function() {
+	            return this.point.name ? this.point.name + ':<br/><b>' + number_format_h(this.y) + ' zł</b>' : false;
+            }
+        }
     });
     
     
@@ -196,11 +210,18 @@ $(document).ready(function () {
         },
         plotOptions: {
             pie: {
-                allowPointSelect: true,
+                allowPointSelect: false,
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: false
-                }
+                },
+                point:{
+					events : {
+						click: function(e) {
+							e.preventDefault();
+						}
+					}
+				}
             }
         },
         credits: {
@@ -209,7 +230,12 @@ $(document).ready(function () {
         series: [{
             name: 'Wartość: ',
             data: incomeSources
-        }]
+        }],
+        tooltip: {
+	        formatter: function() {
+	            return this.point.name ? this.point.name + ':<br/><b>' + number_format_h(this.y) + ' zł</b>' : false;
+            }
+        }
     });
 	
 	
@@ -323,20 +349,32 @@ function chartInit(chart, data) {
 
 function chartStart(field, title) {
 		
-	$chart_dynamic = $('#chart-dynamic');
+	$chart_dynamic = $('#chart-dynamic');	
 	
-	var offset = $chart_dynamic.offset();
-	var top = offset['top'] + 300;
-	$('html').stop().animate({scrollTop: top}, '500', 'swing');
-		
 	$chart_dynamic.data('field', field);
 	$chart_dynamic.find('h2').text(title+':')
 	$chart_dynamic.find('.block-ranking ul').html('');
 	$chart_dynamic.find('.block-ranking button').hide();
 	$chart_dynamic.find('.gradient_cont ._median').hide();
 	$chart_dynamic.find('.histogram').html('<div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
-	$chart_dynamic.slideDown();
 	
+	
+	var offset = $chart_dynamic.offset();
+	var top = offset['top'] + 500;
+	var top_init = $(window).scrollTop();
+	var targetHeight = $chart_dynamic.height();
+	// $('html').stop().animate({scrollTop: top}, '500', 'swing');
+	
+	$chart_dynamic.show().animate({
+		'min-height': targetHeight
+	}, {
+		progress: function(a, b) {
+			var p = top_init + (top-top_init) * b;
+			console.log('p', p);
+			$(window).scrollTop(p);
+		}
+	});
+		
 	var $dataForm = $('#dataForm');	
 	var params = $dataForm.serialize();
 	var _params = params + '&fields[]=' + field;
