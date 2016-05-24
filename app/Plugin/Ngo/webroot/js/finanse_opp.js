@@ -109,6 +109,7 @@ $(document).ready(function () {
 		var color = item.data('color');
 		
 		incomeSources.push({
+			id: item.data('field'),
 			name: item.find('._label').text(),
 			y: value,
 			color: color
@@ -123,6 +124,7 @@ $(document).ready(function () {
 			var subcolor = Highcharts.Color(color).brighten((j+2)/16).get();
 			
 			incomeSubsources.push({
+				id: subitem.data('field'),
 				name: subitem.find('._label').text(),
 				y: subvalue,
 				color: subcolor
@@ -166,8 +168,10 @@ $(document).ready(function () {
                 },
                 point:{
 					events : {
-						click: function(e) {
-							e.preventDefault();
+						click: function(event) {
+							event.preventDefault();
+							if( this.id )
+								chartStart(this.id, this.name);
 						}
 					}
 				}
@@ -205,6 +209,7 @@ $(document).ready(function () {
 		var color = item.data('color');
 		
 		incomeSources.push({
+			id: item.data('field'),
 			name: item.find('._label').text(),
 			y: value,
 			color: color
@@ -231,8 +236,10 @@ $(document).ready(function () {
                 },
                 point:{
 					events : {
-						click: function(e) {
-							e.preventDefault();
+						click: function(event) {
+							event.preventDefault();
+							if( this.id )
+								chartStart(this.id, this.name);
 						}
 					}
 				}
