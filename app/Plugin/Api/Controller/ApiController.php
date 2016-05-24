@@ -1,4 +1,4 @@
-	<?
+<?
 
 App::uses('ApplicationsController', 'Controller');
 
@@ -42,6 +42,11 @@ class ApiController extends ApplicationsController
     {
 		$this->title = 'API - Sejmometr';
     }
+    
+    public function krs()
+    {
+		$this->title = 'API - KRS';
+    }
 
     public function view($slug)
     {
@@ -58,6 +63,13 @@ class ApiController extends ApplicationsController
 		$mode = false;
 		$items = array();
 		$app = $this->getApplication( $this->settings['id'] );
+		
+		$items[] = array(
+			'label' => 'Krajowy Rejestr Sądowy',
+			'href' => '/api/krs',
+			'id' => 'krs',
+			'icon' => 'icon-datasets-dot',
+		);
 		
 		$items[] = array(
 			'label' => 'Sejmometr',

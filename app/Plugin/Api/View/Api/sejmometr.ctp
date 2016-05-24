@@ -90,7 +90,7 @@ echo $this->element('app/sidebar');
 									        <ul class="layers">
 										        <li>
 										        	<p><code>krs</code></p>
-										        	<p>Zwraca listy organizacji z rejestru KRS, z którymi powiązany jest poseł.</p>
+										        	<p>Zwraca listę organizacji z rejestru KRS, z którymi powiązany jest poseł.</p>
 										        </li>
 										        <li>
 										        	<p><code>biura</code></p>
