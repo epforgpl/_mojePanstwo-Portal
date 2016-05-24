@@ -1056,7 +1056,7 @@ class NgoController extends ApplicationsController
                 ),
             ),
 		), $es_filters['w']);
-		
+				
 		
 		if( $mode == 'start' ) {
 		
@@ -1248,6 +1248,33 @@ class NgoController extends ApplicationsController
 	            );				
 			}
 			
+		} elseif( $mode == 'rank' ) {
+			
+			$data_aggs = array(
+				'rank' => array(
+					'terms' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.' . $params['field'],
+						'order' => array(
+							'_term' => 'desc',
+						),
+						'size' => 200,
+					),
+					'aggs' => array(
+						'reverse' => array(
+	                        'reverse_nested' => '_empty',
+	                        'aggs' => array(
+	                            'top' => array(
+	                                'top_hits' => array(
+	                                    'size' => 100,
+	                                    '_source' => array('data.krs_podmioty.nazwa', 'slug'),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+					),
+				),
+			);
+				
 		}
 				
 				
@@ -1257,6 +1284,34 @@ class NgoController extends ApplicationsController
 					'krs_podmioty-sprawozdania_opp.przychody_ogolem' => $es_filters['size'],
 				),
 			);
+		}
+		
+		$must = array(
+            $es_filters['timerange'],
+            $es_filters['size'],
+        );
+		
+		if( isset($params['field']) ) {
+			
+			if( isset($params['min']) || isset($params['max']) ) {
+				
+				$range = array();
+				
+				if( isset($params['min']) )
+					$range['gte'] = $params['min'];
+					
+				if( isset($params['max']) )
+					$range['lt'] = $params['max'];
+				
+				if( !empty($range) )
+					$must[] = array(
+						'range' => array(
+							'krs_podmioty-sprawozdania_opp.' . $params['field'] => $range,
+						),
+					);
+				
+			}
+			
 		}
 		
 		$aggs = array(
@@ -1276,10 +1331,7 @@ class NgoController extends ApplicationsController
 	                        'rocznik' => array(
 		                        'filter' => array(
 			                        'bool' => array(
-				                        'must' => array(
-					                        $es_filters['timerange'],
-					                        $es_filters['size'],
-				                        ),
+				                        'must' => $must,
 			                        ),
 		                        ),
 		                        'aggs' => $data_aggs,
@@ -1289,9 +1341,7 @@ class NgoController extends ApplicationsController
                 ),
             ),
         );
-        
-        // debug( $aggs ); die();
-               		
+                       		
 		
 		$this->set('fields', $fields);
 		
@@ -1337,6 +1387,11 @@ class NgoController extends ApplicationsController
     public function sprawozdania_opp_histogram()
     {	
 	    return $this->sprawozdania_opp_init('histogram', $this->request->query['fields']);
+	}
+	
+	public function sprawozdania_opp_rank()
+    {	
+	    return $this->sprawozdania_opp_init('rank', $this->request->query);
 	}
 	
 	public function sprawozdania_opp_stats()

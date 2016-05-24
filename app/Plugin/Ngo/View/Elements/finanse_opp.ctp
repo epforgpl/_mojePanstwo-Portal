@@ -41,6 +41,19 @@
         <p class="appSubtitle">Sprawdź jakie przychody mają organizacje OPP w Polsce i jakie są ich źródła.</p>
     </div>
 	
+	<div id="rankModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+	
 	<? if (isset($filter_options)) { ?>
         <div class="appSwitchers text-center">
 	        <div class="container">
@@ -186,7 +199,7 @@
 				                </ul>
 				                
 				                <p class="text-center margin-top-10">
-					                <button class="btn btn-xs btn-default">Pełny ranking...</button>
+					                <button class="btn btn-xs btn-default btn-rank">Pełny ranking...</button>
 				                </p>
 				                
 			                </section>
@@ -394,7 +407,7 @@
 				                <ul></ul>
 				                
 				                <p class="text-center margin-top-10">
-					                <button class="btn btn-xs btn-default">Pełny ranking...</button>
+					                <button class="btn btn-xs btn-default btn-rank">Pełny ranking...</button>
 				                </p>
 				                
 			                </section>

@@ -62,6 +62,20 @@ $(document).ready(function () {
 		params += '&fields[' + $chart.data('field') + ']=' + $chart.data('histogram-interval');
 	}
 	
+	$('button.btn-rank').click(function(event){
+		
+		event.preventDefault();
+		var btn = $(event.target);
+		var div = btn.parents('.histogram_chart');
+		
+		var field = div.data('field');
+		
+		showRank({
+			field: field
+		});
+		
+	});
+	
 	$.get('/ngo/sprawozdania_opp_histogram.json?' + params, function(data){
 		for( var i=0; i<$charts.length; i++ ) {
 			
@@ -244,15 +258,12 @@ $(document).ready(function () {
 
 
 function chartInit(chart, data) {
-	
-	console.log('chart', chart);
-	console.log('data', data);
-	
+		
 	var $chart = $(chart),
 		histogram_div = jQuery($chart.find('.histogram')),
 		interval = $chart.data('histogram-interval') || 0,
 		charts_data = [];
-		
+				
 	for (var d = 0; d < data.length; d++) {
 		if (data[d]) {
 			var v = Number(data[d]['doc_count']);
@@ -336,7 +347,29 @@ function chartInit(chart, data) {
 				minPointLength: 10
 			},
 			series: {
-				pointPlacement: "on"
+				pointPlacement: "on",
+				cursor: 'pointer',
+	            point: {
+	                events: {
+	                    click: function(event) {
+	                        
+	                        console.log('click');
+	                        
+	                        var min = this.x;
+	                        var chart = $(event.target).parents('.histogram_chart');
+	                        var field = chart.data('field');
+	                        var interval = chart.data('histogram-interval');
+	                        var max = min + interval;
+	                        
+	                        showRank({
+		                        field: field,
+		                        min: min,
+		                        max: max
+	                        });
+	                        
+	                    }
+	                }
+	            }
 			}
 		},
 
@@ -370,7 +403,6 @@ function chartStart(field, title) {
 	}, {
 		progress: function(a, b) {
 			var p = top_init + (top-top_init) * b;
-			console.log('p', p);
 			$(window).scrollTop(p);
 		}
 	});
@@ -416,6 +448,54 @@ function chartStart(field, title) {
 			chartInit($chart_dynamic, data['aggs']['krs_podmioty']['sprawozdania_opp']['rocznik']['histogram.'+field]['buckets']);
 		});
 				
+	});
+	
+}
+
+function showRank(params) {
+	
+	var $dataForm = $('#dataForm');
+	var _params = $dataForm.serialize();
+	
+	if( params['field'] )
+		_params += '&field=' + params['field'];
+		
+	if( params['min'] )
+		_params += '&min=' + params['min'];
+		
+	if( params['max'] )
+		_params += '&max=' + params['max'];
+	
+	var body = $('#rankModal .modal-body').html('<div class="spinner grey"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
+	$('#rankModal').modal('show');
+	
+	$.get('/ngo/sprawozdania_opp_rank.json?' + _params, function(data){
+		
+		var ul_html = '<ul>';
+		var items = data.aggs.krs_podmioty.sprawozdania_opp.rocznik.rank.buckets;
+		
+		for( var i=0; i<items.length; i++ ) {
+			
+			var item = items[i];
+			var hits = item['reverse']['top']['hits']['hits'];
+			
+			for( var j=0; j<hits.length; j++ ) {
+			
+				var title = hits[j]['_source']['data']['krs_podmioty']['nazwa'];
+				var short_title = title.substring(0, 60);
+				if( short_title.length<title.length )
+					short_title += '...'
+				
+				ul_html += '<li class="objectRender krs_podmioty"><span class="object-icon icon-datasets-krs_podmioty"></span><div class="title_cont"><p class="title"><a href="/' + hits[j]['_source']['slug'] + '">' + short_title + '</a></p><p class="value">' + number_format_h(item['key']) + ' zł</p></div></li>';	
+			
+			}		
+			
+		}
+		
+		ul_html += '</ul>';
+				
+		body.html(ul_html);
+		
 	});
 	
 }
