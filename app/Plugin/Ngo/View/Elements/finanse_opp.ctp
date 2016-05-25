@@ -37,7 +37,7 @@
 </div></div>
 	
 	<div class="appBanner">
-        <h1 class="appTitle">Sprawozdania Organizacji Pożytku Publicznego</h1>
+        <h1 class="appTitle">Finanse Organizacji Pożytku Publicznego</h1>
         <p class="appSubtitle">Sprawdź jakie przychody mają organizacje OPP w Polsce i jakie są ich źródła.</p>
     </div>
 	
@@ -188,7 +188,7 @@
 					            		<span class="object-icon icon-datasets-krs_podmioty"></span>
 					            		
 					            		<div class="title_cont">
-						            		<p class="title"><a href="/<?= $b['reverse']['top']['hits']['hits'][0]['_source']['slug'] ?>"><?= $this->Text->truncate($b['reverse']['top']['hits']['hits'][0]['_source']['data']['krs_podmioty']['nazwa'], 60) ?></a></p>
+						            		<p class="title"><a href="/<?= $b['reverse']['top']['hits']['hits'][0]['_source']['slug'] ?>/sprawozdania_opp_rocznik/<?= $filter_options['timerange']['selected_id'] ?>"><?= $this->Text->truncate($b['reverse']['top']['hits']['hits'][0]['_source']['data']['krs_podmioty']['nazwa'], 60) ?></a></p>
 						            		<p class="value"><?= number_format_h($b['key']) ?> zł</p>
 					            		</div>
 							            		
@@ -419,8 +419,13 @@
             </div>
 	                
         </div>
-        
-
+		
 	</div>
+	
 
 <div><div>
+	
+<div class="msg-link margin-top-40 margin-bottom-20">
+	<p>Aplikacja powstała przy współpracy z <a href="http://www.mapa3sektora.org/" target="_blank">Strategiczną Mapą Drogową 3sektora</a>.</p>
+	<a href="http://www.mapa3sektora.org/" target="_blank"><img style="width: 170px;" src="/img/dua.jpg" /></a>
+</div>

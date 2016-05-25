@@ -34,7 +34,8 @@ class KrsPodmiotyController extends DataobjectsController
 
     private $twitterAccountType = '0';
     private $twitterTimerange = '1W';
-
+	private $sprawozdanie;
+	
     public function beforeFilter()
     {
 
@@ -281,10 +282,10 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
-    public function _prepareView()
+    public function _prepareView($params = array())
     {
-
-        $this->addInitAggs(array(
+				
+		$aggs = array(
             'zamowienia' => array(
                 'filter' => array(
                     'bool' => array(
@@ -350,34 +351,34 @@ class KrsPodmiotyController extends DataobjectsController
                 'scope' => 'global',
             ),
             'sprawozdania_opp' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'sprawozdania_opp',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.sprawozdania_opp.krs_id' => $this->request->params['id'],
-                                ),
-                            ),
-                        ),
-                    ),
+                'nested' => array(
+	                'path' => 'krs_podmioty-sprawozdania_opp',
                 ),
                 'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'fielddata_fields' => array('dataset', 'id'),
-	                        'size' => 3,
-	                        'sort' => array(
-		                        'date' => 'desc',
-	                        ),
-                        ),
-                    ),
+	                'rocznik' => array(
+		                'terms' => array(
+			                'field' => 'krs_podmioty-sprawozdania_opp.rocznik',
+			                'size' => 1,
+			                'order' => array(
+				                '_term' => 'desc',
+			                ),
+		                ),
+		                'aggs' => array(
+			                'przychody' => array(
+				                'terms' => array(
+					                'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+					                'size' => 1,
+				                ),
+			                ),
+			                'koszty' => array(
+				                'terms' => array(
+					                'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem',
+					                'size' => 1,
+				                ),
+			                ),
+		                ),
+	                ),
                 ),
-                'scope' => 'global',
             ),
             'pisma' => array(
                 'filter' => array(
@@ -481,7 +482,36 @@ class KrsPodmiotyController extends DataobjectsController
                 'scope' => 'global',
             ),
             */
-        ));
+        );
+		
+		
+		if( in_array('organizacja-sprawozdania_opp', $params) ) {
+						
+			$aggs['organizacja-sprawozdania_opp'] = array(
+				'nested' => array(
+	                'path' => 'krs_podmioty-sprawozdania_opp',
+                ),
+                'aggs' => array(
+	                'rocznik' => array(
+		                'filter' => array(
+			                'term' => array(
+				                'krs_podmioty-sprawozdania_opp.rocznik' => $this->sprawozdanie->getData('rocznik'),
+			                ),
+		                ),
+		                'aggs' => array(
+			                'top' => array(
+				                'top_hits' => array(
+					                'size' => 1,
+				                ),
+			                ),
+		                ),
+	                ),
+                ),
+			);
+		}
+		
+		
+        $this->addInitAggs($aggs);
 		
         parent::_prepareView();
                           
@@ -686,10 +716,57 @@ class KrsPodmiotyController extends DataobjectsController
 
     }
 
-	public function sprawozdania_opp()
+	public function sprawozdania_opp_rocznik()
     {
 
-        $this->_prepareView();
+		$this->_prepareView();
+		
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+						
+            if( $sprawozdania = $this->Dataobject->find('all', array(
+	            'conditions' => array(
+		            'dataset' => 'sprawozdania_opp',
+		            'sprawozdania_opp.krs_id' => $this->request->params['id'],
+		            'sprawozdania_opp.rocznik' => $this->request->params['subid'],
+	            ),
+            )) ) {
+	            
+	            $spr = array_pop($sprawozdania);
+	            return $this->redirect( $this->object->getUrl() . '/sprawozdania_opp/' . $spr->getId() );
+	            
+            } else {
+	            
+	            return $this->redirect( $this->object->getUrl() . '/sprawozdania_opp/' );
+
+            }
+            
+
+        } else {
+					
+			if( $sprawozdania = $this->Dataobject->find('all', array(
+	            'conditions' => array(
+		            'dataset' => 'sprawozdania_opp',
+		            'sprawozdania_opp.krs_id' => $this->request->params['id'],
+	            ),
+	            'limit' => 1,
+            )) ) {
+	            
+	            $spr = array_pop($sprawozdania);
+	            return $this->redirect( $this->object->getUrl() . '/sprawozdania_opp/' . $spr->getId() );
+	            
+            } else {
+	            
+	            return $this->redirect( $this->object->getUrl() . '/sprawozdania_opp/' );
+	            
+            }
+            			
+        }
+
+    }
+    
+    public function sprawozdania_opp()
+    {
+
 
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
@@ -699,62 +776,138 @@ class KrsPodmiotyController extends DataobjectsController
 		            'dataset' => 'sprawozdania_opp',
 		            'id' => $this->request->params['subid'],
 	            ),
+	            'aggs' => array(
+		            'sprawozdania' => array(
+		                'filter' => array(
+			                'bool' => array(
+				                'must' => array(
+					                array(
+						                'term' => array(
+							                'dataset' => 'sprawozdania_opp',
+						                ),
+					                ),
+					                array(
+						                'term' => array(
+							                'data.sprawozdania_opp.krs_id' => $this->request->params['id'],
+						                ),
+					                ),
+				                ),
+			                ),
+		                ),
+		                'aggs' => array(
+			                'top' => array(
+				                'top_hits' => array(
+					                'size' => 100,
+					                '_source' => array('data', 'id', 'dataset'),
+					                'sort' => array(
+						                'date' => 'desc',
+					                ),
+				                ),
+			                ),
+		                ),
+		                'scope' => 'global',
+	                ),
+	            ),
 	            'layers' => array(
 		            'czesci'
 	            ),
             ));
+            
+            $sprawozdanie_aggs = $this->Dataobject->getAggs();
+            
+            $this->sprawozdanie = $sprawozdanie;
+            $this->_prepareView(array(
+            	'organizacja-sprawozdania_opp',
+        	));
+
 			
 			$menu = array(
 				'items' => array(),
-				'base' => '/',
 			);
 			
-			$czesci = $sprawozdanie->getLayer('czesci');
-			$czesc = false;
-			$selected_id = false;
-			$document_id = false;
-			
-			foreach( $czesci as $c ) {
+			foreach( $sprawozdanie_aggs['sprawozdania']['top']['hits']['hits'] as $h ) {
 				
 				$menu['items'][] = array(
-					'id' => $c['id'],
-					'label' => $c['nazwa'],
-					'href' => '?c=' . $c['id'],
+					'id' => $h['_source']['id'],
+					'label' => 'Rok ' . $h['_source']['data']['sprawozdania_opp']['rocznik'],
+					'href' => $h['_source']['id'],
 				);
-				
-				if(
-					isset( $this->request->query['c'] ) &&
-					( $this->request->query['c'] == $c['id'] )
-				)
-					$czesc = $c;
 				
 			}
 			
-			if( !$czesc )
-				$czesc = $czesci[0];
 			
-			$menu['selected'] = $czesc['id'];
+			$menu['selected'] = $this->request->params['subid'];
 			
             $this->set('_submenu', $menu);
-            $this->set('czesc', $czesc);
             $this->set('sprawozdanie', $sprawozdanie);
             $this->set('title_for_layout', $sprawozdanie->getTitle());
             $this->render('sprawozdanie');
 
         } else {
-
+					
+			if( $sprawozdania = $this->Dataobject->find('all', array(
+	            'conditions' => array(
+		            'dataset' => 'sprawozdania_opp',
+		            'sprawozdania_opp.krs_id' => $this->request->params['id'],
+	            ),
+	            'limit' => 1,
+            )) ) {
+	            
+	            $spr = array_pop($sprawozdania);
+	            return $this->redirect( $this->request->here . '/' . $spr->getId() );
+	            
+            }
+            			
             $this->_prepareView();
 	        $this->Components->load('Dane.DataBrowser', array(
 	            'conditions' => array(
 	                'dataset' => 'sprawozdania_opp',
 	                'sprawozdania_opp.krs_id' => $this->object->getId(),
 	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Dane',
+	                    'element' => 'KrsPodmioty/sprawozdania_opp',
+	                ),
+	                'aggs' => array(
+		                'sprawozdania' => array(
+			                'filter' => array(
+				                'bool' => array(
+					                'must' => array(
+						                array(
+							                'term' => array(
+								                'dataset' => 'sprawozdania_opp',
+							                ),
+						                ),
+						                array(
+							                'term' => array(
+								                'data.sprawozdania_opp.krs_id' => $this->object->getId(),
+							                ),
+						                ),
+					                ),
+				                ),
+			                ),
+			                'aggs' => array(
+				                'top' => array(
+					                'top_hits' => array(
+						                'size' => 100,
+						                '_source' => array('data', 'id', 'dataset'),
+						                'sort' => array(
+							                'date' => 'desc',
+						                ),
+					                ),
+				                ),
+			                ),
+			                'scope' => 'global',
+		                ),
+	                ),
+	            ),
 	            'objectOptions' => array(
 		            'view' => 'from_parent',
 	            ),
 	        ));
 
-	        $this->set('title_for_layout', 'Umowy cywilnoprawne podpisane przez ' . $this->object->getData('nazwa'));
+	        $this->set('title_for_layout', 'Sprawozdania - ' . $this->object->getData('nazwa'));
 
         }
 

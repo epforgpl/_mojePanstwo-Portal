@@ -34,10 +34,15 @@
 	
 	h2 {
 		text-align: center;
+		color: #545454;
+	    font-size: 16px;
+	    font-weight: 600;
+	    margin: 5px 5px 15px;
+	    padding: 0;
 	}
 	
 	.chart {
-		min-height: 400px;
+		min-height: 300px;
 	}
 	
 	.chart_description {
@@ -48,6 +53,7 @@
 			overflow: auto;
 			display: block;
 			outline: none;
+			cursor: default;
 			
 			._color {
 				 float: left;
@@ -59,6 +65,7 @@
 			
 			._label {
 				color: #004782;
+				width: 75%;
 			}
 			
 			._value {
@@ -373,7 +380,26 @@
     }
 }
 
-.msg-link {
-	border-top: 1px solid #CCC;
-	padding-top: 20px;
+.block-files {
+	ul {
+		overflow: auto;
+		li {
+			padding: 0;
+			a {
+				display: block;
+				outline: none;
+				overflow: auto;
+				margin: 15px;
+				.avatar {
+					float: left;
+					img {
+						width: 80px;
+					}
+				}
+				.content {
+					margin-left: 90px;
+				}
+			}
+		}
+	}
 }

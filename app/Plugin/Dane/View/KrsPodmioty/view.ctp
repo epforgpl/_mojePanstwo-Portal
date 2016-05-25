@@ -307,14 +307,20 @@ $description =
 	                                    <?= $this->Text->truncate($dzialanie['_source']['data']['dzialania']['tytul'], 55); ?>
 	                                </a>
 	                            </h4>
-	
+								
+								<div class="photo col-xs-4 col-sm-12">
+                                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['_source']['data']['dzialania']['id']; ?>">
 	                            <? if ($dzialanie['_source']['data']['dzialania']['photo'] == '1') { ?>
-	                                <div class="photo col-xs-4 col-sm-12">
-	                                    <a href="/dane/krs_podmioty/<?= $object->getId(); ?>/dzialania/<?= $dzialanie['_source']['data']['dzialania']['id']; ?>"><img
+	                                <img
 	                                            alt="<?= $dzialanie['_source']['data']['dzialania']['tytul']; ?>"
-	                                            src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/></a>
-	                                </div>
+	                                            src="http://sds.tiktalik.com/portal/2/pages/dzialania/<?= $dzialanie['fields']['id'][0]; ?>.jpg"/>
+	                            <? } else { ?>
+	                            	<img
+	                                            alt="<?= $dzialanie['_source']['data']['dzialania']['tytul']; ?>"
+	                                            src="/Ngo/icon/side_ngo.svg"/>
 	                            <? } ?>
+		                            </a>
+                                </div>
 	
 	                            <div class="desc col-xs-8 col-sm-12">
 	                                <?= $this->Text->truncate($dzialanie['_source']['data']['dzialania']['podsumowanie'], 200) ?>
@@ -388,10 +394,10 @@ $description =
                     <a href="<?= $object->getUrl() . '/kolekcje' ?>" class="btn btn-primary btn-xs">więcej</a>
                 </div>
             </div>
-            <? } ?>
+            <? } 
+			
+			
 
-
-            <?
             $adres = $object->getData('adres_ulica');
             $adres .= ' ' . $object->getData('adres_numer');
             $adres .= ', ' . $object->getData('adres_miejscowosc');
@@ -465,7 +471,7 @@ $description =
 				
 			<?	
 			}
-			
+						
 			
             if ($object->getId() == '481129') { ?>
             <div class="special banner">
@@ -475,7 +481,55 @@ $description =
                 </a>
             </div>
             <?php }
+			
+			if( $rocznik = @$object_aggs['sprawozdania_opp']['rocznik']['buckets'][0] ) {
+			?>
+			
+			<div class="block-sprawozdania_opp block block-simple col-xs-12">
+                <header>
+                    <div class="sm">Finanse organizacji</div>
+                </header>
 
+                <section class="content">
+                    
+                    <ul>
+	                    <? if( $rocznik['przychody']['buckets'][0]['key'] ) {?>
+	                    <li><div class="row">
+		                    <div class="col-md-6">
+			                    <p>Przychody w <?= $rocznik['key'] ?> r.:</p>
+		                    </div>
+		                    <div class="col-md-6">
+			                    <p class="_value"><?= number_format_h($rocznik['przychody']['buckets'][0]['key']) ?></p>
+		                    </div>
+	                    </div></li>
+	                    <? } ?> 
+	                    
+	                    <? if( $rocznik['koszty']['buckets'][0]['key'] ) {?>
+	                    <li><div class="row">
+		                    <div class="col-md-6">
+			                    <p>Koszty w <?= $rocznik['key'] ?> r.:</p>
+		                    </div>
+		                    <div class="col-md-6">
+			                    <p class="_value"><?= number_format_h($rocznik['koszty']['buckets'][0]['key']) ?></p>
+		                    </div>
+	                    </div></li>
+	                    <? } ?> 
+                    </ul>
+                                     
+                </section>
+                
+                <div class="dataAggs margin-top-10">
+	                <div class="buttons">
+	                    <a href="<?= $object->getUrl() . '/sprawozdania_opp' ?>" class="btn btn-default btn-xs">Więcej</a>
+	                </div>
+                </div>
+                
+            </div>
+				
+			<?	
+			}
+			
+			
             if ($object->getData('sposob_reprezentacji')) { ?>
             <div class="reprezentacja block block-simple nobg col-xs-12">
                 <header>

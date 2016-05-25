@@ -24,6 +24,11 @@ class NgoController extends ApplicationsController
 			'label' => 'Zbiórki publiczne',
 			'icon' => 'zbiorki_publiczne',
 		),
+		'finanse_opp' => array(
+			'menu_id' => 'finanse_opp',
+			'label' => 'Finanse Organizacji Pożytku Publicznego',
+			'icon' => 'dotacje_ue',
+		),
 		'sprawozdania_opp' => array(
 			'menu_id' => 'sprawozdania_opp',
 			'label' => 'Sprawozdania OPP',
@@ -1359,7 +1364,7 @@ class NgoController extends ApplicationsController
             ),
         );
 
-		$this->chapter_selected = 'view';
+		$this->chapter_selected = 'finanse_opp';
         $this->Components->load('Dane.DataBrowser', $options);
         $this->title = 'Sprawozdania organizacji pożytku publicznego | NGO';
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
@@ -1368,6 +1373,7 @@ class NgoController extends ApplicationsController
         
     public function finanse_opp()
     {
+	    $this->chapter_selected = 'finanse_opp';
 	    return $this->sprawozdania_opp_init('start');
     }
     

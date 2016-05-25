@@ -59,24 +59,23 @@ echo $this->element('modals/dataset-observe', $observe_params);
         </div>
         <div class="col-md-4">
 
-            <div class="banner block margin-top-0">
-                <div>
-                    <div class="img-cog pull-left">
-                        <span class="object-icon icon-datasets-miejsca"></span>
-                    </div>
-                    <p class="headline margin-top-20"><strong>Zobacz mapę</strong> <br/> organizacji pozarządowych</p>
-                </div>
-                <div class="description margin-top-10">
-                    <p class="min-height">Zobacz gdzie w Polsce działają organizacje pozarządowe. Znajdź organizacje w
-                        swojej okolicy.</p>
-                    <div class="text-left"><a href="/mapa/ngo" class="">Przejdź do mapy &raquo;</a></div>
-                </div>
-            </div>
+            <?= $this->Element('Ngo.ngo-email-subscription') ?>
 
         </div>
         <div class="col-md-4">
 
-            <?= $this->Element('Ngo.ngo-email-subscription') ?>
+            <div class="banner block margin-top-0">
+                <div>
+                    <div class="img-cog pull-left">
+                        <span class="object-icon icon-datasets-dotacje_ue"></span>
+                    </div>
+                    <p class="headline margin-top-20"><strong>Zobacz dane finansowe</strong> <br/> organizacji pożytku publicznego</p>
+                </div>
+                <div class="description margin-top-10">
+                    <p class="min-height">Sprawdź, jakie przychody mają organizacje OPP w Polsce i jakie są ich źródła.</p>
+                    <div class="text-left"><a href="/ngo/finanse_opp" class="">Zobacz więcej &raquo;</a></div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -122,7 +121,31 @@ echo $this->element('modals/dataset-observe', $observe_params);
 
         </div>
         <div class="col-md-4">
+			
+			<? if ($docs = @$dataBrowser['aggs']['sprawozdania_opp']['top']['hits']['hits']) { ?>
+                <div class="block bgA">
+                    <header>Sprawozdania organizacji pożytku publicznego:</header>
+                    <section class="content">
+                        <div class="agg agg-Dataobjects">
+                            <ul class="dataobjects img-nopadding" style="margin: 0 20px;">
+                                <? foreach ($docs as $doc) { ?>
+                                    <li class="margin-top-10">
+                                        <?
+                                        echo $this->Dataobject->render($doc, 'default');
+                                        ?>
+                                    </li>
+                                <? } ?>
+                            </ul>
+                        </div>
 
+                        <div class="buttons">
+                            <a href="/ngo/sprawozdania_opp" class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
+                        </div>
+                    </section>
+                </div>
+            <? } ?>
+            
+			
             <? if ($docs = @$dataBrowser['aggs']['zbiorki']['top']['hits']['hits']) { ?>
                 <div class="block bgA">
                     <header>Najnowsze zbiórki publiczne:</header>
@@ -146,36 +169,15 @@ echo $this->element('modals/dataset-observe', $observe_params);
                 </div>
             <? } ?>
 
-            <a href="/ngo/zbiorki_publiczne" class="banner transferuj block">
+            <a href="/ngo/zbiorki_publiczne" class="banner finanse block">
                 <span class="pull-right object-icon icon-datasets-zbiorki_publiczne"
-                      style="font-size: 70px; margin: 10px 20px 0 0;"></span>
-                <p style="color:#000;"><strong>Rozlicz</strong> zbiorkę publiczną!</p>
+                      style="font-size: 70px; margin: 3px 20px -20px 0; color: #FFF;"></span>
+                <p style="color:#FFF;"><strong>Rozlicz zbiorkę publiczną!</strong></p>
 
-                <button class="btn btn-sm btn-primary" type="button">Wypełnij formularz</button>
+                <button class="btn btn-xs btn-success" type="button">Wypełnij formularz &raquo;</button>
             </a>
 
-            <? if ($docs = @$dataBrowser['aggs']['sprawozdania_opp']['top']['hits']['hits']) { ?>
-                <div class="block bgA">
-                    <header>Sprawozdania organizacji pożytku publicznego:</header>
-                    <section class="content">
-                        <div class="agg agg-Dataobjects">
-                            <ul class="dataobjects img-nopadding" style="margin: 0 20px;">
-                                <? foreach ($docs as $doc) { ?>
-                                    <li class="margin-top-10">
-                                        <?
-                                        echo $this->Dataobject->render($doc, 'default');
-                                        ?>
-                                    </li>
-                                <? } ?>
-                            </ul>
-                        </div>
-
-                        <div class="buttons">
-                            <a href="/ngo/sprawozdania_opp" class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
-                        </div>
-                    </section>
-                </div>
-            <? } ?>
+            
 
         </div>
     </div>

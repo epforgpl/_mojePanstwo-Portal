@@ -568,12 +568,15 @@ $(function () {
             $(this).parents('.attachment').click(function (e) {
                 
                 e.preventDefault();
+                modal.find('.modal-body').html(
+                    $('<iframe></iframe>').addClass('loading').attr('name', 'preview')
+                );
                 modal.modal('show');
                 
                 var documentId = $(this).find('.documentFastCheck').data('documentid');
                 var frame = modal.find('iframe');
 								
-				frame.attr('src', 'http://mojepanstwo.local/docs/' + documentId + '.html');
+				frame.attr('src', 'https://mojepanstwo.pl/docs/' + documentId + '.html');
                 
             });
         });

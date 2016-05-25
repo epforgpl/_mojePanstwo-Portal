@@ -111,7 +111,7 @@ $(document).ready(function () {
 		incomeSources.push({
 			id: item.data('field'),
 			name: item.find('._label').text(),
-			y: value,
+			y: Number(value),
 			color: color
 		});
 		
@@ -126,7 +126,7 @@ $(document).ready(function () {
 			incomeSubsources.push({
 				id: subitem.data('field'),
 				name: subitem.find('._label').text(),
-				y: subvalue,
+				y: Number(subvalue),
 				color: subcolor
 			});
 			
@@ -211,7 +211,7 @@ $(document).ready(function () {
 		incomeSources.push({
 			id: item.data('field'),
 			name: item.find('._label').text(),
-			y: value,
+			y: Number(value),
 			color: color
 		});
 				
@@ -441,7 +441,7 @@ function chartStart(field, title) {
 			if( short_title.length<title.length )
 				short_title += '...'
 			
-			ul_html += '<li class="objectRender krs_podmioty"><span class="object-icon icon-datasets-krs_podmioty"></span><div class="title_cont"><p class="title"><a href="/' + item['reverse']['top']['hits']['hits'][0]['_source']['slug'] + '">' + short_title + '</a></p><p class="value">' + number_format_h(item['key']) + ' zł</p></div></li>';			
+			ul_html += '<li class="objectRender krs_podmioty"><span class="object-icon icon-datasets-krs_podmioty"></span><div class="title_cont"><p class="title"><a href="/' + item['reverse']['top']['hits']['hits'][0]['_source']['slug'] + '/sprawozdania_opp_rocznik/' + $('#dataForm #rangeSelect').val() + '">' + short_title + '</a></p><p class="value">' + number_format_h(item['key']) + ' zł</p></div></li>';			
 			
 		}
 		
@@ -493,7 +493,7 @@ function showRank(params) {
 				if( short_title.length<title.length )
 					short_title += '...'
 				
-				ul_html += '<li class="objectRender krs_podmioty"><span class="object-icon icon-datasets-krs_podmioty"></span><div class="title_cont"><p class="title"><a href="/' + hits[j]['_source']['slug'] + '">' + short_title + '</a></p><p class="value">' + number_format_h(item['key']) + ' zł</p></div></li>';	
+				ul_html += '<li class="objectRender krs_podmioty"><span class="object-icon icon-datasets-krs_podmioty"></span><div class="title_cont"><p class="title"><a href="/' + hits[j]['_source']['slug'] + '/sprawozdania_opp_rocznik/' + $('#dataForm #rangeSelect').val() + '">' + short_title + '</a></p><p class="value">' + number_format_h(item['key']) + ' zł</p></div></li>';	
 			
 			}		
 			
