@@ -26,7 +26,7 @@ class ApplicationsController extends AppController
             'element' => 'default',
         ),
     );
-
+		
     public $title = false;
     public $description = false;
     public $appSelected = '';
@@ -49,7 +49,6 @@ class ApplicationsController extends AppController
 
     public function beforeRender()
     {
-
 		$app = false;
 
         if(
@@ -78,7 +77,7 @@ class ApplicationsController extends AppController
 					$this->app_menu[0][] = array(
 						'id' => $id,
 						'href' => $a['href'],
-						'title' => $a['name'],
+						'title' => $a['name_' . $this->lang],
 						'path' => isset( $a['path'] ) ? $a['path'] : false,
 					);
 

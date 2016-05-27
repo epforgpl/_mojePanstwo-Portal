@@ -189,3 +189,12 @@ msgstr "Partnerzy wspierający rozwój portalu:"
 
 msgid "LC_ABOUT_US_SPONSORS_DEVELOPED_ALSO_H2"
 msgstr "Oprócz partnerów spotkania informacyjne o portalu pomagali nam zorganizować:"
+
+msgid "LC_START_PORTAL_MOTTO"
+msgstr "Fundament działalności aktywnego obywatela i działacza"
+
+msgid "LC_START_PORTAL_SEARCH"
+msgstr "Szukaj w danych publicznych..."
+
+msgid "LC_START_PORTAL_WHAT_SEARCH"
+msgstr "Zobacz jakie dane przeszukujemy"
