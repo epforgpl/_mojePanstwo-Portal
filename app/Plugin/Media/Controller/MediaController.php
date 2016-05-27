@@ -31,6 +31,8 @@ class MediaController extends ApplicationsController
 		'partie' => array(8, 'Partie polityczne na Twitterze'),
 	);
 	
+	public $mediums = array('twitter', 'facebook');
+	
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -40,6 +42,14 @@ class MediaController extends ApplicationsController
 
     public function view()
     {
+	    
+	    $medium = (
+		    isset( $this->request->query['medium'] ) && 
+		    in_array($this->request->query['medium'], $this->mediums)
+	    ) ? $this->request->query['medium'] : $this->mediums[0];
+	    
+	    $this->set('medium', $medium);
+	    
 		$this->set('last_month_report', $this->Twitter->getLastMonthReport());
         $this->set('dropdownRanges', $this->Twitter->getDropdownRanges());
 
@@ -67,279 +77,284 @@ class MediaController extends ApplicationsController
 		}
 
 		$timerange['init'] = $init;
-
-		$selectedAccountsFilter = array(
-			'term' => array(
-				'data.twitter.konto_obserwowane' => '1',
-			),
-		);
-
-		$mentions_accounts_filter = array(
-	        'bool' => array(
-		        'must_not' => array(
-			        'term' => array(
-				        'twitter-mentions.account_id' => '0',
-			        ),
-		        ),
-	        ),
-        );
 		
-		if( isset($this->request->query['a']) )
-	        foreach( $this->accounts_map as $k => $v )
-		        if( $v[0] == $this->request->query['a'] ) {
-					$t = @$this->request->query['t'];
-					return $this->redirect('/media/' . $k . ($t ? '?t=' . $t : ''));
-				}
 		
-		if(
-			@$this->request->params['id'] && 
-			array_key_exists($this->request->params['id'], $this->accounts_map)
-		) {
-			$item = $this->accounts_map[ $this->request->params['id'] ];
-			$this->request->query['a'] = $item[0];
-			$this->chapter_selected = $this->request->params['id'];
-			$this->title = $item[1];
-			$this->set('accountTypeLabel', $item[1]);
-		}
 		
-        if(
-        	isset($this->request->query['a']) &&
-        	array_key_exists($this->request->query['a'], $this->Twitter->twitterAccountTypes) &&
-            $this->twitterAccountType = $this->request->query['a']
-        ) {
-
-        	$selectedAccountsFilter['term'] = array(
-	        	'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
-        	);
-
-        	$mentions_accounts_filter = array(
+		if( $medium == 'twitter' ) {
+		
+			$selectedAccountsFilter = array(
+				'term' => array(
+					'data.twitter.konto_obserwowane' => '1',
+				),
+			);
+	
+			$mentions_accounts_filter = array(
 		        'bool' => array(
-			        'must' => array(
+			        'must_not' => array(
 				        'term' => array(
-					        'twitter-mentions.account_type_id' => $this->request->query['a'],
+					        'twitter-mentions.account_id' => '0',
 				        ),
 			        ),
 		        ),
 	        );
-
-        }
-
-
-
-        $this->set('twitterAccountTypes', $this->Twitter->twitterAccountTypes);
-        $this->set('twitterAccountType', $this->twitterAccountType);
-
-        $this->set('twitterTimeranges', $this->Twitter->twitterTimeranges);
-        $this->set('twitterTimerange', $this->twitterTimerange);
-
-		$this->set('timerange', $timerange);
-
-        $datasets = $this->getDatasets('media');
-        $selectedAccountsAggs = array(
-	        'top' => array(
-	            'top_hits' => array(
-	                'sort' => array(
-		                'data.twitter.liczba_zaangazowan' => array(
-			                'order' => 'desc',
-		                ),
-	                ),
-	                'fielddata_fields' => array('id', 'date', 'dataset'),
-	                'size' => 20,
-	            ),
-	        ),
-	        'accounts_engagement' => array(
-	            'terms' => array(
-	                'field' => 'data.twitter.twitter_account_id',
-	                'order' => array(
-		                'engagement_count' => 'desc',
-	                ),
-	                'size' => 10,
-	            ),
-	            'aggs' => array(
-	                'name' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter_accounts.name',
-			                'size' => 1,
-		                ),
-	                ),
-	                'image_url' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter_accounts.profile_image_url_https',
-			                'size' => 1,
-		                ),
-	                ),
-	                'account_type' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter.twitter_account_type_id',
-			                'size' => 1,
-		                ),
-	                ),
-	                'engagement_count' => array(
-		                'sum' => array(
-			                'field' => 'data.twitter.liczba_zaangazowan',
-		                ),
-	                ),
-	            ),
-	        ),
-	        'accounts_tweets' => array(
-	            'terms' => array(
-	                'field' => 'data.twitter.twitter_account_id',
-	                'size' => 10,
-	            ),
-	            'aggs' => array(
-	                'name' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter_accounts.name',
-			                'size' => 1,
-		                ),
-	                ),
-	                'image_url' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter_accounts.profile_image_url_https',
-			                'size' => 1,
-		                ),
-	                ),
-	                'account_type' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter.twitter_account_type_id',
-			                'size' => 1,
-		                ),
-	                ),
-	            ),
-	        ),
-	        'accounts_engagement_tweets' => array(
-	            'terms' => array(
-	                'field' => 'data.twitter.twitter_account_id',
-	                'size' => 10,
-	                'order' => array(
-		                'engagement_count' => 'desc',
-	                ),
-	            ),
-	            'aggs' => array(
-	                'name' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter_accounts.name',
-			                'size' => 1,
-		                ),
-	                ),
-	                'image_url' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter_accounts.profile_image_url_https',
-			                'size' => 1,
-		                ),
-	                ),
-	                'account_type' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter.twitter_account_type_id',
-			                'size' => 1,
-		                ),
-	                ),
-	                'engagement_count' => array(
-		                'avg' => array(
-			                'field' => 'data.twitter.liczba_zaangazowan',
-		                ),
-	                ),
-	            ),
-	        ),
-	        'tags' => array(
-	            'nested' => array(
-	                'path' => 'twitter-tags',
-
-	            ),
-	            'aggs' => array(
-	                'tags' => array(
-		                'terms' => array(
-			                'field' => 'twitter-tags.id',
-			                'size' => 20,
-			                'order' => array(
-				                'rn' => 'desc',
+			
+			if( isset($this->request->query['a']) )
+		        foreach( $this->accounts_map as $k => $v )
+			        if( $v[0] == $this->request->query['a'] ) {
+						$t = @$this->request->query['t'];
+						return $this->redirect('/media/' . $k . ($t ? '?t=' . $t : ''));
+					}
+			
+			if(
+				@$this->request->params['id'] && 
+				array_key_exists($this->request->params['id'], $this->accounts_map)
+			) {
+				$item = $this->accounts_map[ $this->request->params['id'] ];
+				$this->request->query['a'] = $item[0];
+				$this->chapter_selected = $this->request->params['id'];
+				$this->title = $item[1];
+				$this->set('accountTypeLabel', $item[1]);
+			}
+			
+	        if(
+	        	isset($this->request->query['a']) &&
+	        	array_key_exists($this->request->query['a'], $this->Twitter->twitterAccountTypes) &&
+	            $this->twitterAccountType = $this->request->query['a']
+	        ) {
+	
+	        	$selectedAccountsFilter['term'] = array(
+		        	'data.twitter.twitter_account_type_id' => $this->twitterAccountType,
+	        	);
+	
+	        	$mentions_accounts_filter = array(
+			        'bool' => array(
+				        'must' => array(
+					        'term' => array(
+						        'twitter-mentions.account_type_id' => $this->request->query['a'],
+					        ),
+				        ),
+			        ),
+		        );
+	
+	        }
+	
+	
+	
+	        $this->set('twitterAccountTypes', $this->Twitter->twitterAccountTypes);
+	        $this->set('twitterAccountType', $this->twitterAccountType);
+	
+	        $this->set('twitterTimeranges', $this->Twitter->twitterTimeranges);
+	        $this->set('twitterTimerange', $this->twitterTimerange);
+	
+			$this->set('timerange', $timerange);
+	
+	        $datasets = $this->getDatasets('media');
+	        $selectedAccountsAggs = array(
+		        'top' => array(
+		            'top_hits' => array(
+		                'sort' => array(
+			                'data.twitter.liczba_zaangazowan' => array(
+				                'order' => 'desc',
 			                ),
 		                ),
-		                'aggs' => array(
-			                'label' => array(
-				                'terms' => array(
-					                'field' => 'twitter-tags.name',
-					                'size' => 1,
+		                'fielddata_fields' => array('id', 'date', 'dataset'),
+		                'size' => 20,
+		            ),
+		        ),
+		        'accounts_engagement' => array(
+		            'terms' => array(
+		                'field' => 'data.twitter.twitter_account_id',
+		                'order' => array(
+			                'engagement_count' => 'desc',
+		                ),
+		                'size' => 10,
+		            ),
+		            'aggs' => array(
+		                'name' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter_accounts.name',
+				                'size' => 1,
+			                ),
+		                ),
+		                'image_url' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter_accounts.profile_image_url_https',
+				                'size' => 1,
+			                ),
+		                ),
+		                'account_type' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter.twitter_account_type_id',
+				                'size' => 1,
+			                ),
+		                ),
+		                'engagement_count' => array(
+			                'sum' => array(
+				                'field' => 'data.twitter.liczba_zaangazowan',
+			                ),
+		                ),
+		            ),
+		        ),
+		        'accounts_tweets' => array(
+		            'terms' => array(
+		                'field' => 'data.twitter.twitter_account_id',
+		                'size' => 10,
+		            ),
+		            'aggs' => array(
+		                'name' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter_accounts.name',
+				                'size' => 1,
+			                ),
+		                ),
+		                'image_url' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter_accounts.profile_image_url_https',
+				                'size' => 1,
+			                ),
+		                ),
+		                'account_type' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter.twitter_account_type_id',
+				                'size' => 1,
+			                ),
+		                ),
+		            ),
+		        ),
+		        'accounts_engagement_tweets' => array(
+		            'terms' => array(
+		                'field' => 'data.twitter.twitter_account_id',
+		                'size' => 10,
+		                'order' => array(
+			                'engagement_count' => 'desc',
+		                ),
+		            ),
+		            'aggs' => array(
+		                'name' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter_accounts.name',
+				                'size' => 1,
+			                ),
+		                ),
+		                'image_url' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter_accounts.profile_image_url_https',
+				                'size' => 1,
+			                ),
+		                ),
+		                'account_type' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter.twitter_account_type_id',
+				                'size' => 1,
+			                ),
+		                ),
+		                'engagement_count' => array(
+			                'avg' => array(
+				                'field' => 'data.twitter.liczba_zaangazowan',
+			                ),
+		                ),
+		            ),
+		        ),
+		        'tags' => array(
+		            'nested' => array(
+		                'path' => 'twitter-tags',
+	
+		            ),
+		            'aggs' => array(
+		                'tags' => array(
+			                'terms' => array(
+				                'field' => 'twitter-tags.id',
+				                'size' => 20,
+				                'order' => array(
+					                'rn' => 'desc',
 				                ),
 			                ),
-			                'rn' => array(
-				                'reverse_nested' => '_empty',
-				                'aggs' => array(
-					                'engagement_count' => array(
-						                'sum' => array(
-							                'field' => 'data.twitter.liczba_zaangazowan',
+			                'aggs' => array(
+				                'label' => array(
+					                'terms' => array(
+						                'field' => 'twitter-tags.name',
+						                'size' => 1,
+					                ),
+				                ),
+				                'rn' => array(
+					                'reverse_nested' => '_empty',
+					                'aggs' => array(
+						                'engagement_count' => array(
+							                'sum' => array(
+								                'field' => 'data.twitter.liczba_zaangazowan',
+							                ),
 						                ),
 					                ),
 				                ),
 			                ),
 		                ),
-	                ),
-	            ),
-	        ),
-	        'sources' => array(
-	            'terms' => array(
-	                'field' => 'data.twitter.source_id',
-	                'size' => 5,
-	            ),
-	            'aggs' => array(
-	                'label' => array(
-		                'terms' => array(
-			                'field' => 'data.twitter.source',
-			                'size' => 1,
+		            ),
+		        ),
+		        'sources' => array(
+		            'terms' => array(
+		                'field' => 'data.twitter.source_id',
+		                'size' => 5,
+		            ),
+		            'aggs' => array(
+		                'label' => array(
+			                'terms' => array(
+				                'field' => 'data.twitter.source',
+				                'size' => 1,
+			                ),
 		                ),
-	                ),
+		            ),
+		        ),
+		    );
+			
+			
+			// debug($selectedAccountsFilter);
+			
+	
+	        $options = array(
+	            'searchTag' => array(
+		            'href' => '/media',
+		            'label' => 'Media',
 	            ),
-	        ),
-	    );
-		
-		
-		// debug($selectedAccountsFilter);
-		
-
-        $options = array(
-            'searchTag' => array(
-	            'href' => '/media',
-	            'label' => 'Media',
-            ),
-            'conditions' => array(
-                'dataset' => array_keys($datasets),
-            ),
-            'cover' => array(
-                'view' => array(
-                    'plugin' => 'Media',
-                    'element' => 'cover',
-                ),
-                'aggs' => array(
-	                'dataset' => array(
-	                    'terms' => array(
-	                        'field' => 'dataset',
-	                    ),
-	                    'visual' => array(
-	                        'skin' => 'datasets',
-	                        'class' => 'special',
-	                        'field' => 'dataset',
-	                        'dictionary' => $datasets,
-	                    ),
+	            'conditions' => array(
+	                'dataset' => array_keys($datasets),
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Media',
+	                    'element' => 'cover-' . $medium,
 	                ),
-	                /*
-	                'accounts' => array(
-		                'scope' => 'global',
-		                'filter' => array(
-			                'bool' => array(
-				                'must' => array(
-					                array(
-						                'term' => array(
-							                'dataset' => 'twitter_accounts',
+	                'aggs' => array(
+		                'dataset' => array(
+		                    'terms' => array(
+		                        'field' => 'dataset',
+		                    ),
+		                    'visual' => array(
+		                        'skin' => 'datasets',
+		                        'class' => 'special',
+		                        'field' => 'dataset',
+		                        'dictionary' => $datasets,
+		                    ),
+		                ),
+		                /*
+		                'accounts' => array(
+			                'scope' => 'global',
+			                'filter' => array(
+				                'bool' => array(
+					                'must' => array(
+						                array(
+							                'term' => array(
+								                'dataset' => 'twitter_accounts',
+							                ),
 						                ),
-					                ),
-					                array(
-						                'nested' => array(
-							                'path' => 'twitter_accounts-followers',
-							                'filter' => array(
-								                'term' => array(
-									                'twitter_accounts-followers.date' => array(
-									                	substr($timerange['labels']['min'], 0, 10),
-									                	substr($timerange['labels']['max'], 0, 10),
+						                array(
+							                'nested' => array(
+								                'path' => 'twitter_accounts-followers',
+								                'filter' => array(
+									                'term' => array(
+										                'twitter_accounts-followers.date' => array(
+										                	substr($timerange['labels']['min'], 0, 10),
+										                	substr($timerange['labels']['max'], 0, 10),
+										                ),
 									                ),
 								                ),
 							                ),
@@ -347,50 +362,50 @@ class MediaController extends ApplicationsController
 					                ),
 				                ),
 			                ),
-		                ),
-		                'aggs' => array(
-			                'accounts' => array(
-				                'terms' => array(
-					                'field' => 'id',
-				                ),
-				                'aggs' => array(
-					                'name' => array(
-						                'terms' => array(
-							                'field' => 'twitter_accounts.name',
-							                'size' => 1,
-						                ),
+			                'aggs' => array(
+				                'accounts' => array(
+					                'terms' => array(
+						                'field' => 'id',
 					                ),
-					                'photo' => array(
-						                'terms' => array(
-							                'field' => 'twitter_accounts.profile_image_url_https',
-							                'size' => 1,
+					                'aggs' => array(
+						                'name' => array(
+							                'terms' => array(
+								                'field' => 'twitter_accounts.name',
+								                'size' => 1,
+							                ),
 						                ),
-					                ),
-					                'counts' => array(
-						                'nested' => array(
-							                'path' => 'twitter_accounts-followers',
+						                'photo' => array(
+							                'terms' => array(
+								                'field' => 'twitter_accounts.profile_image_url_https',
+								                'size' => 1,
+							                ),
 						                ),
-						                'aggs' => array(
-							                'dates' => array(
-								                'filter' => array(
-									                'term' => array(
-										                'twitter_accounts-followers.date' => array(
-											                substr($timerange['labels']['min'], 0, 10),
-										                	substr($timerange['labels']['max'], 0, 10),
-										                )
-									                ),
-								                ),
-								                'aggs' => array(
-									                'dates' => array(
-										                'terms' => array(
-											                'field' => 'twitter_accounts-followers.date',
-											                'size' => 2,
+						                'counts' => array(
+							                'nested' => array(
+								                'path' => 'twitter_accounts-followers',
+							                ),
+							                'aggs' => array(
+								                'dates' => array(
+									                'filter' => array(
+										                'term' => array(
+											                'twitter_accounts-followers.date' => array(
+												                substr($timerange['labels']['min'], 0, 10),
+											                	substr($timerange['labels']['max'], 0, 10),
+											                )
 										                ),
-										                'aggs' => array(
-											                'count' => array(
-												                'terms' => array(
-													                'field' => 'twitter_accounts-followers.count',
-													                'size' => 1,
+									                ),
+									                'aggs' => array(
+										                'dates' => array(
+											                'terms' => array(
+												                'field' => 'twitter_accounts-followers.date',
+												                'size' => 2,
+											                ),
+											                'aggs' => array(
+												                'count' => array(
+													                'terms' => array(
+														                'field' => 'twitter_accounts-followers.count',
+														                'size' => 1,
+													                ),
 												                ),
 											                ),
 										                ),
@@ -402,86 +417,86 @@ class MediaController extends ApplicationsController
 				                ),
 			                ),
 		                ),
-	                ),
-	                */
-	                'tweets' => array(
-		                'scope' => 'global',
-		                'filter' => array(
-			                'bool' => array(
-				                'must' => array(
-					                array(
-						                'term' => array(
-							                'dataset' => 'twitter',
+		                */
+		                'tweets' => array(
+			                'scope' => 'global',
+			                'filter' => array(
+				                'bool' => array(
+					                'must' => array(
+						                array(
+							                'term' => array(
+								                'dataset' => 'twitter',
+							                ),
 						                ),
-					                ),
-					                array(
-						                'term' => array(
-							                'data.twitter.retweet' => '0',
-							            ),
+						                array(
+							                'term' => array(
+								                'data.twitter.retweet' => '0',
+								            ),
+						                ),
 					                ),
 				                ),
 			                ),
-		                ),
-		                'aggs' => array(
-			                'global_timerange' => array(
-						        'filter' => array(
-							        'range' => array(
-						                'date' => $timerange['histogram_filter'],
-					                ),
-						        ),
-						        'aggs' => array(
-							        'selected_accounts' => array(
-								        'filter' => $selectedAccountsFilter,
-								        'aggs' => array(
-									        'histogram' => array(
-								                'date_histogram' => $date_histogram,
-							                ),
-								        ),
+			                'aggs' => array(
+				                'global_timerange' => array(
+							        'filter' => array(
+								        'range' => array(
+							                'date' => $timerange['histogram_filter'],
+						                ),
 							        ),
-							        'target_timerange' => array(
-								        'filter' => array(
-									        'range' => array(
-								                'date' => $timerange['target_filter'],
-							                ),
-								        ),
-								        'aggs' => array(
-									        'accounts' => array(
-										        'filter' => $selectedAccountsFilter,
-										        'aggs' => $selectedAccountsAggs,
+							        'aggs' => array(
+								        'selected_accounts' => array(
+									        'filter' => $selectedAccountsFilter,
+									        'aggs' => array(
+										        'histogram' => array(
+									                'date_histogram' => $date_histogram,
+								                ),
 									        ),
-									        'mentions' => array(
-										        'nested' => array(
-											        'path' => 'twitter-mentions',
+								        ),
+								        'target_timerange' => array(
+									        'filter' => array(
+										        'range' => array(
+									                'date' => $timerange['target_filter'],
+								                ),
+									        ),
+									        'aggs' => array(
+										        'accounts' => array(
+											        'filter' => $selectedAccountsFilter,
+											        'aggs' => $selectedAccountsAggs,
 										        ),
-										        'aggs' => array(
-											        'accounts' => array(
-												        'filter' => $mentions_accounts_filter,
-												        'aggs' => array(
-													        'ids' => array(
-														        'terms' => array(
-															        'field' => 'twitter-mentions.account_id',
-															        'size' => 10,
+										        'mentions' => array(
+											        'nested' => array(
+												        'path' => 'twitter-mentions',
+											        ),
+											        'aggs' => array(
+												        'accounts' => array(
+													        'filter' => $mentions_accounts_filter,
+													        'aggs' => array(
+														        'ids' => array(
+															        'terms' => array(
+																        'field' => 'twitter-mentions.account_id',
+																        'size' => 10,
+															        ),
+															        'aggs' => array(
+																        'screen_name' => array(
+																	        'terms' => array(
+																		        'field' => 'twitter-mentions.screen_name',
+																		        'size' => 1,
+																	        ),
+																        ),
+																        'name' => array(
+																	        'terms' => array(
+																		        'field' => 'twitter-mentions.name',
+																		        'size' => 1,
+																	        ),
+																        ),
+	                                                                    'photo' => array(
+	                                                                        'terms' => array(
+	                                                                            'field' => 'twitter-mentions.account_photo_url',
+	                                                                            'size' => 1,
+	                                                                        ),
+	                                                                    ),
+															        )
 														        ),
-														        'aggs' => array(
-															        'screen_name' => array(
-																        'terms' => array(
-																	        'field' => 'twitter-mentions.screen_name',
-																	        'size' => 1,
-																        ),
-															        ),
-															        'name' => array(
-																        'terms' => array(
-																	        'field' => 'twitter-mentions.name',
-																	        'size' => 1,
-																        ),
-															        ),
-                                                                    'photo' => array(
-                                                                        'terms' => array(
-                                                                            'field' => 'twitter-mentions.account_photo_url',
-                                                                            'size' => 1,
-                                                                        ),
-                                                                    ),
-														        )
 													        ),
 												        ),
 											        ),
@@ -490,26 +505,283 @@ class MediaController extends ApplicationsController
 								        ),
 							        ),
 						        ),
-					        ),
+			                ),
 		                ),
 	                ),
-                ),
-            ),
-            'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'visual' => array(
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => $datasets,
-                    ),
-                ),
-            ),
-            'apps' => true,
-        );
+	            ),
+	            'aggs' => array(
+	                'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => $datasets,
+	                    ),
+	                ),
+	            ),
+	            'apps' => true,
+	        );
+	        
+	        
+	        
+	        
+	        
+	    } elseif( $medium == 'facebook' ) {
+		    
+		    
+		    
+		    $selectedAccountsFilter = array(
+				'match_all' => '_empty',
+			);			
+			
+			if( isset($this->request->query['a']) )
+		        foreach( $this->accounts_map as $k => $v )
+			        if( $v[0] == $this->request->query['a'] ) {
+						$t = @$this->request->query['t'];
+						return $this->redirect('/media/' . $k . ($t ? '?t=' . $t : ''));
+					}
+			
+			if(
+				@$this->request->params['id'] && 
+				array_key_exists($this->request->params['id'], $this->accounts_map)
+			) {
+				$item = $this->accounts_map[ $this->request->params['id'] ];
+				$this->request->query['a'] = $item[0];
+				$this->chapter_selected = $this->request->params['id'];
+				$this->title = $item[1];
+				$this->set('accountTypeLabel', $item[1]);
+			}
+			
+	        if(
+	        	isset($this->request->query['a']) &&
+	        	array_key_exists($this->request->query['a'], $this->Twitter->twitterAccountTypes) &&
+	            $this->twitterAccountType = $this->request->query['a']
+	        ) {
+	
+	        	$selectedAccountsFilter['term'] = array(
+		        	'data.fb_accounts.type_id' => $this->twitterAccountType,
+	        	);
+		
+	        }
+	
+	
+	
+	        $this->set('twitterAccountTypes', $this->Twitter->twitterAccountTypes);
+	        $this->set('twitterAccountType', $this->twitterAccountType);
+	
+	        $this->set('twitterTimeranges', $this->Twitter->twitterTimeranges);
+	        $this->set('twitterTimerange', $this->twitterTimerange);
+	
+			$this->set('timerange', $timerange);
+	
+	        $datasets = $this->getDatasets('media');
+	        $selectedAccountsAggs = array(
+		        'top' => array(
+		            'top_hits' => array(
+		                'sort' => array(
+			                'data.fb_posts.engagement' => array(
+				                'order' => 'desc',
+			                ),
+		                ),
+		                'fielddata_fields' => array('id', 'date', 'dataset'),
+		                'size' => 20,
+		            ),
+		        ),
+		        'accounts_engagement' => array(
+		            'terms' => array(
+		                'field' => 'data.fb_posts.fb_account_id',
+		                'order' => array(
+			                'engagement_count' => 'desc',
+		                ),
+		                'size' => 10,
+		            ),
+		            'aggs' => array(
+		                'name' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.name',
+				                'size' => 1,
+			                ),
+		                ),
+		                'image_url' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.picture',
+				                'size' => 1,
+			                ),
+		                ),
+		                'account_type' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.type_id',
+				                'size' => 1,
+			                ),
+		                ),
+		                'engagement_count' => array(
+			                'sum' => array(
+				                'field' => 'data.fb_posts.engagement',
+			                ),
+		                ),
+		            ),
+		        ),
+		        'accounts_posts' => array(
+		            'terms' => array(
+		                'field' => 'data.fb_accounts.id',
+		                'size' => 10,
+		            ),
+		            'aggs' => array(
+		                'name' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.name',
+				                'size' => 1,
+			                ),
+		                ),
+		                'image_url' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.picture',
+				                'size' => 1,
+			                ),
+		                ),
+		                'account_type' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.type_id',
+				                'size' => 1,
+			                ),
+		                ),
+		            ),
+		        ),
+		        'accounts_engagement_posts' => array(
+		            'terms' => array(
+		                'field' => 'data.fb_posts.fb_account_id',
+		                'size' => 10,
+		                'order' => array(
+			                'engagement_count' => 'desc',
+		                ),
+		            ),
+		            'aggs' => array(
+		                'name' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.name',
+				                'size' => 1,
+			                ),
+		                ),
+		                'image_url' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.picture',
+				                'size' => 1,
+			                ),
+		                ),
+		                'account_type' => array(
+			                'terms' => array(
+				                'field' => 'data.fb_accounts.type_id',
+				                'size' => 1,
+			                ),
+		                ),
+		                'engagement_count' => array(
+			                'avg' => array(
+				                'field' => 'data.fb_posts.engagement',
+			                ),
+		                ),
+		            ),
+		        ),
+		    );
+			
+			
+			// debug($selectedAccountsFilter);
+			
+	
+	        $options = array(
+	            'searchTag' => array(
+		            'href' => '/media',
+		            'label' => 'Media',
+	            ),
+	            'conditions' => array(
+	                'dataset' => array_keys($datasets),
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Media',
+	                    'element' => 'cover-' . $medium,
+	                ),
+	                'aggs' => array(
+		                'dataset' => array(
+		                    'terms' => array(
+		                        'field' => 'dataset',
+		                    ),
+		                    'visual' => array(
+		                        'skin' => 'datasets',
+		                        'class' => 'special',
+		                        'field' => 'dataset',
+		                        'dictionary' => $datasets,
+		                    ),
+		                ),
+		                'posts' => array(
+			                'scope' => 'global',
+			                'filter' => array(
+				                'bool' => array(
+					                'must' => array(
+						                array(
+							                'term' => array(
+								                'dataset' => 'fb_posts',
+							                ),
+						                ),
+					                ),
+				                ),
+			                ),
+			                'aggs' => array(
+				                'global_timerange' => array(
+							        'filter' => array(
+								        'range' => array(
+							                'date' => $timerange['histogram_filter'],
+						                ),
+							        ),
+							        'aggs' => array(
+								        'selected_accounts' => array(
+									        'filter' => $selectedAccountsFilter,
+									        'aggs' => array(
+										        'histogram' => array(
+									                'date_histogram' => $date_histogram,
+								                ),
+									        ),
+								        ),
+								        'target_timerange' => array(
+									        'filter' => array(
+										        'range' => array(
+									                'date' => $timerange['target_filter'],
+								                ),
+									        ),
+									        'aggs' => array(
+										        'accounts' => array(
+											        'filter' => $selectedAccountsFilter,
+											        'aggs' => $selectedAccountsAggs,
+										        ),
+									        ),
+								        ),
+							        ),
+						        ),
+			                ),
+		                ),
+	                ),
+	            ),
+	            'aggs' => array(
+	                'dataset' => array(
+	                    'terms' => array(
+	                        'field' => 'dataset',
+	                    ),
+	                    'visual' => array(
+	                        'skin' => 'datasets',
+	                        'class' => 'special',
+	                        'field' => 'dataset',
+	                        'dictionary' => $datasets,
+	                    ),
+	                ),
+	            ),
+	            'apps' => true,
+	        );
+		    
+		    
+		    
+	    }
 
         $this->Components->load('Dane.DataBrowser', $options);
         $this->render('Dane.Elements/DataBrowser/browser-from-app');

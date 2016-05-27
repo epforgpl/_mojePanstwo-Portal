@@ -22,7 +22,7 @@ $options = array(
 <div class="col-xs-12">
 
     <div class="appBanner">
-        <h1 class="appTitle">Państwo na Twitterze</h1>
+        <h1 class="appTitle">Państwo w mediach społocznościowych</h1>
         <p class="appSubtitle">Zobacz kto i jak wykorzystuje media społecznościowe w debacie publicznej.</p>
 		
 		<form action="" method="get">
@@ -37,6 +37,17 @@ $options = array(
 				</div>
 	        </div>
 		</form>
+    </div>
+    
+    <div id="mediumSwitcher">
+	    <ul>
+		    <li>
+			    <a title="Analizuj aktywność na Twitterze" href="?medium=twitter"><img title="Twitter" src="/media/img/twitter<? if( $medium == 'twitter' ) {?>-active<? } ?>.svg" /></a>
+		    </li>
+		    <li>
+			    <a title="Analizuj aktywność na Facebooku" href="?medium=facebook"><img title="Facebook" src="/media/img/facebook<? if( $medium == 'facebook' ) {?>-active<? } ?>.svg" /></a>
+		    </li>
+	    </ul>
     </div>
     
     <div id="accountsSwitcher" class="appMenuStrip">
@@ -92,7 +103,7 @@ $options = array(
 		
     <div class="mediaHighstockPicker">
         <div class="chart"
-             data-aggs='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['selected_accounts']['histogram']) ?>'
+             data-aggs='<?= json_encode($dataBrowser['aggs']['posts']['global_timerange']['selected_accounts']['histogram']) ?>'
              data-xmax='<?= json_encode(isset($timerange['xmax']) ? $timerange['xmax'] : false) ?>'
              data-range='<?= json_encode($timerange['range']) ?>'>
             <div class="spinner grey">
@@ -133,7 +144,7 @@ $options = array(
 		<div class="col-md-8">
 			
 			<?
-			if ($hits = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
+			if ($hits = @$dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['top']['hits']['hits']) {
 		        
 		        if ($timerange['init']) {
 		            $docs = array();
@@ -149,11 +160,11 @@ $options = array(
 		        
 	        ?>
 	        <div class="block">
-	            <header>Najbardziej angażujące tweety</header>
+	            <header>Najbardziej angażujące posty</header>
 	            <section class="content">
 		            
 		            <div class="block-bg-area">
-			            <p class="p">Tweety, które uzyskały najwięszką liczbę retweetów, polubień i komentarzy.</p>
+			            <p class="p">Posty, które uzyskały najwięszką liczbę polubień, komentarzy i udostępień.</p>
 		            </div>
 		            
 	                <div class="dataAggs">
@@ -175,22 +186,19 @@ $options = array(
 		
 		<div class="col-md-4">
 
-
-			<? if (isset($twitterAccountTypes)) {
-				echo $this->Element('Media.twitter-account-suggestion', array(
-				'types' => $twitterAccountTypes
-				));
-			} ?>
 			
 			<?
-			if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) {
+			
+			debug( $dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts'] );
+				
+			if (@$dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) {
 			?>
 	        <div class="block bgA">
 	            <header>Najbardziej angażujące profile</header>
 	            <section class="aggs-init">
 	                
 	                <div class="block-bg-area">
-			            <p class="p">Profile, których tweety uzyskały największe liczby retweetów, polubień i komentarzy.</p>
+			            <p class="p">Profile, których posty uzyskały największe liczby polubień, komentarzy i udostępień.</p>
 		            </div>
 	                
 	                <div class="dataAggs">
@@ -198,7 +206,7 @@ $options = array(
 	                         data-image_field="image_url" data-label_field="name"
 	                         data-counter_field="engagement_count"
 	                         data-choose-request="/dane/twitter_accounts/"
-	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
+	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
 	                        <div class="chart">
 	                            <div class="spinner grey">
 	                                <div class="bounce1"></div>
