@@ -74,7 +74,7 @@
                                     <a target="_self" href="<?= $app['href'] ?>"
                                        class="_mPAppsList _appBlock _appBlockBackground text-center">
                                         <img src="<?= $icon_link ?>" class="_mPAppIcon icon"/>
-                                        <p class="_mPAppLabel"><?= $app['name'] ?></p>
+                                        <p class="_mPAppLabel"><?= $app['name_' . $_lang] ?></p>
                                     </a>
                                 </li>
                                 <?
@@ -108,7 +108,7 @@
                 </div>
             </li>
         </ul>
-        <? if( in_array($this->request->url, array('oportalu')) ) {?>
+        <? if( in_array($this->request->url, array(false, 'oportalu')) ) {?>
         <div class="languages pull-right">
             <a href="?lang=pol" class="icon-flag_pol">
                 <span class="path1"></span><span class="path2"></span><span class="path3"></span>

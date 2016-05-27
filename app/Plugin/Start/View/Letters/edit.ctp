@@ -39,14 +39,14 @@ echo $this->Html->css('../plugins/pickadate.js/lib/themes/default.date.css');
 	                <div class="col-md-9 margin-top-15">
 
 	                    <? if (@$pismo['_template'][0]['opis']) { ?>
-	                        <div class="alert alert-info margin-top-15 margin-sides-20">
+	                        <div class="alert alert-info margin-top-15">
 
 	                            <?= $pismo['_template'][0]['opis'] ?>
 
 	                        </div>
 	                    <? } ?>
 
-	                    <div class="bs-component mp-form nobg mp-form-letter">
+	                    <div class="bs-component mp-form nobg mp-form-letter nopadding">
 
 	                        <input type="hidden" name="edit_from_inputs" value="1"/>
 	                        <fieldset>
@@ -206,9 +206,9 @@ echo $this->Html->css('../plugins/pickadate.js/lib/themes/default.date.css');
 			            <div class="row">
 				            <div class="col-md-9">
 
-                                <div class="bs-component mp-form nobg mp-form-letter">
+                                <div class="bs-component mp-form nobg mp-form-letter nopadding">
 
-                                    <fieldset>
+                                    <fieldset class="margin-top-20">
 
                                         <h2>Dodatkowe informacje o piśmie:</h2>
 
@@ -283,7 +283,7 @@ echo $this->Html->css('../plugins/pickadate.js/lib/themes/default.date.css');
 
 
                 <div class="row">
-		                <div class="col-md-9">
+		                <div class="col-md-12">
 
                             <div
                                 class="bs-component mp-form nobg mp-form-letter text-center margin-top-30 margin-bottom-30">
@@ -292,11 +292,11 @@ echo $this->Html->css('../plugins/pickadate.js/lib/themes/default.date.css');
 		                            <? /*<a href="/moje-pisma/<?= $pismo['id'] ?>,<?= $pismo['slug'] ?>"
 		                               class="btn btn-md btn-default">Anuluj</a>
 	                               */ ?>
-		                            <button type="submit" class="createBtn btn btn-md btn-primary btn-icon"><i
+		                            <button type="submit" class="createBtn btn btn-lg btn-primary btn-icon"><i
 		                                    class="icon icon-applications-pisma"></i>Zapisz pismo
 		                            </button>
 		                        <? } else { ?>
-		                            <button type="submit" class="createBtn btn btn-md btn-success btn-icon"><i
+		                            <button type="submit" class="createBtn btn btn-lg btn-success btn-icon"><i
 		                                    class="icon icon-applications-pisma"></i>Zapisz i zobacz podgląd
 		                                pisma
 		                            </button>

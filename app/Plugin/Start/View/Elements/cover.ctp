@@ -6,12 +6,12 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
 <div id="homepage" class="col-xs-12">
     <div class="appBanner">
         <h1 class="appTitle">mojePaństwo</h1>
-        <p class="appSubtitle">Fundament działalności aktywnego obywatela i działacza</p>
+        <p class="appSubtitle"><?= __("LC_START_PORTAL_MOTTO") ?></p>
 
         <div class="_mPSearchOutside appSearch form-group">
             <form action="/" method="get">
                 <div class="input-group">
-                    <input name="q" class="form-control" placeholder="Szukaj w danych publicznych..." type="text"
+                    <input name="q" class="form-control" placeholder="<?= __("LC_START_PORTAL_SEARCH") ?>" type="text"
                            autocomplete="off"/>
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-md">
@@ -20,7 +20,7 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
 					</span>
                 </div>
             </form>
-            <p class="text-center margin-top-10"><a href="/dane">Zobacz jakie dane przeszukujemy &raquo;</a></p>
+            <p class="text-center margin-top-10"><a href="/dane"><?= __("LC_START_PORTAL_WHAT_SEARCH") ?> &raquo;</a></p>
         </div>
 
     </div>
@@ -40,14 +40,14 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
                             <div class="col-xs-12 col-md-8">
                                 <div class="mainpart">
                                     <img src="<?= $icon_link ?>" class="icon"/>
-                                    <strong><?= $a['name'] ?></strong>
+                                    <strong><?= $a['name_' . $_lang] ?></strong>
                                 </div>
                                 <div class="subpart">
-                                    <? if (isset($a['subname']) && !empty($a['subname'])) { ?>
-                                        <p class="title"><?= $a['subname'] ?></p>
+                                    <? if (isset($a['subname_' . $_lang]) && !empty($a['subname_' . $_lang])) { ?>
+                                        <p class="title"><?= $a['subname_' . $_lang] ?></p>
                                     <? } ?>
-                                    <? if (isset($a['desc']) && !empty($a['desc'])) { ?>
-                                        <p class="text"><?= $a['desc'] ?></p>
+                                    <? if (isset($a['desc_' . $_lang]) && !empty($a['desc_' . $_lang])) { ?>
+                                        <p class="text"><?= $a['desc_' . $_lang] ?></p>
                                     <? } ?>
                                 </div>
                             </div>

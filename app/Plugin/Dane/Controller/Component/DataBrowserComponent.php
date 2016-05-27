@@ -1950,7 +1950,7 @@ class DataBrowserComponent extends Component
                 !empty($this->queryData['conditions'])
             )
         ) {
-
+			
             $controller->Paginator->settings = $this->getSettings();
 
 			if( isset($this->settings['default_order']) )
@@ -1989,6 +1989,7 @@ class DataBrowserComponent extends Component
                 'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
                 'sort' => $this->settings['sort'],
                 'phrases' => isset($this->settings['phrases']) ? $this->settings['phrases'] : false,
+                'noResultsElement' => isset($this->settings['noResultsElement']) ? $this->settings['noResultsElement'] : 'Dane.DataBrowser/noResults',
             );
             
             if( isset($this->settings['beforeBrowserElement']) )

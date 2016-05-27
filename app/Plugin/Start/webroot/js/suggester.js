@@ -72,7 +72,7 @@
 						$ui = $('#ui-id-' + uiIndex);
 
 					$ui.css({
-						'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top'), 10) - parseInt($ui.css('border-bottom-left-radius'), 10)) + 'px',
+						'margin-top': Math.floor((suggesterInput.offset().top + suggesterInput.outerHeight()) - parseInt($ui.css('top'), 10) - parseInt($ui.css('border-bottom-left-radius'), 10)) + 7 + 'px',
 						'width': suggesterInput.outerWidth() - 2,
 						'left': parseInt($ui.css('left'), 10) + 1 + 'px'
 					});

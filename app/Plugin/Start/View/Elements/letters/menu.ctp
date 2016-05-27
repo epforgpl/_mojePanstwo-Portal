@@ -23,7 +23,7 @@ if (!isset($active))
 
 <div class="appMenu margin-top-10">
     <div class="container">
-        <ul class="margin-sides-10">
+        <ul>
             <?
             foreach ($items as $item) {
                 ?>

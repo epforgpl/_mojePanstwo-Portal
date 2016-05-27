@@ -343,8 +343,11 @@ class LettersController extends StartAppController
 
         if($this->Auth->user())
             $this->set('objects', $this->ObjectUsersManagement->getUserObjects());
-
+		
+		$szablony = $this->Pismo->templates_grouped();
+		
         $this->set('pismo_init', $pismo);
+        $this->set('szablony', $szablony);
         $this->title = 'Nowe pismo';
     }
 	
@@ -454,9 +457,10 @@ class LettersController extends StartAppController
     {
 
         $this->title = 'Moje Pisma';
-
+				
         $this->Components->load('Dane.DataBrowser', array(
-            '_type' => 'letters'
+            '_type' => 'letters',
+            'noResultsElement' => 'Start.brakPism',
         ));
 
     }

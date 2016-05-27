@@ -239,13 +239,14 @@ class PismaController extends ApplicationsController
 
         $this->menu_selected = 'nowe';
         $query = array_merge($this->request->query, $this->request->params);
-
+		
         $pismo = array(
             'szablon_id' => isset($query['szablon_id']) ? $query['szablon_id'] : false,
             'adresat_id' => isset($query['adresat_id']) ? $query['adresat_id'] : false,
         );
 
         $this->set('pismo_init', $pismo);
+                
         $this->title = 'Nowe pismo';
 
     }
@@ -284,7 +285,6 @@ class PismaController extends ApplicationsController
 
     public function my()
     {
-
         $this->menu_selected = 'view';
         $q = false;
 

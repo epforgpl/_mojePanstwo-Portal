@@ -75,10 +75,8 @@
 	
 	<? if (!$this->Session->read('Auth.User.id')) { ?>
     <div class="col-xs-12 nopadding">
-        <div class="alert-identity alert alert-dismissable alert-success">
+        <div class="alert-identity alert alert-dismissable alert-info" style="margin-left: 20px; margin-right: 30px;">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            <h4>Uwaga!</h4>
-
             <p>Nie jesteś zalogowany. Twoje pisma będą przechowywane na tym urządzeniu przez 24 godziny. <a
                     class="_specialCaseLoginButton" href="/login">Zaloguj się</a>, aby trwale przechowywać pisma na
                 swoim koncie.</p>

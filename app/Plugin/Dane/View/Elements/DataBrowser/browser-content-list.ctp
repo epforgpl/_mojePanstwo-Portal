@@ -36,8 +36,9 @@ $_manage = isset( $manage ) ? $manage: false;
 	<? } ?>
 	
 	<div class="container container-padding">
+		<? if( $params['count'] ) { ?>
 		<div class="dataBrowserContent">
-				
+						
 			<div class="row">
 				<div class="col-lg-8 dataBrowser-wrap">
 					<div class="<? if ($dataWrap) { ?>dataWrap <? } ?>">	
@@ -91,13 +92,20 @@ $_manage = isset( $manage ) ? $manage: false;
 			            
 				            </div>
 						</div>
-										
+												
 			        </div>
 			
 			    </div>
 			</div>
 			
+			
+			
 		</div>
+		<? } else { ?>
+						
+				<?= $this->element( $dataBrowser['noResultsElement'] ) ?>
+			
+			<? } ?>
 	</div>
 		
 	

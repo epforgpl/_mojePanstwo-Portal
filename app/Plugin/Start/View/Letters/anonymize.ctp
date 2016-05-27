@@ -1,5 +1,6 @@
 <?php
 $this->Combinator->add_libs('css', $this->Less->css('letters', array('plugin' => 'Start')));
+$this->Combinator->add_libs('css', $this->Less->css('letter-anonymize', array('plugin' => 'Start')));
 $this->Combinator->add_libs('css', $this->Less->css('letter', array('plugin' => 'Start')));
 $this->Combinator->add_libs('css', $this->Less->css('dataobject', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('letters-responses', array('plugin' => 'Start')));
@@ -45,8 +46,8 @@ echo $this->element('app/sidebar');
             <div class="row">
                 <div class="col-md-9">
 
-                    <div style="margin-right: 40px;">
-                        <div class="col-xs-12 alert alert-info margin-top-30 margin-sides-20">
+                    <div>
+                        <div class="col-xs-12 alert alert-info margin-top-30">
                             <p>Zaznacz fragmenty pisma, których nie chcesz ujawnić publicznie. Wciśnij na wyciemnione
                                 polę
                                 aby ponownie były widoczne.<br/>Gdy będziesz gotowy, naciśnij

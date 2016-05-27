@@ -690,6 +690,31 @@ var PISMA = Class.extend({
 var $P;
 $(document).ready(function () {
 	"use strict";
+	
+	
+	$('#tabs-szablony a').click(function(event){
+
+		event.preventDefault();
+
+		var li = $(event.target).parents('li');
+		var a = li.find('a');
+
+		if( li.hasClass('active') ) {
+						
+			var tab = $( a.attr('href') );
+			
+			li.removeClass('active');
+			tab.removeClass('active');
+			
+			
+		} else {
+			
+			a.tab('show');
+			
+		}
+		
+	});
+	
 	$P = new PISMA();
 
 	$P.html.stepper_div.find('.more-buttons-switcher').click(function (event) {
