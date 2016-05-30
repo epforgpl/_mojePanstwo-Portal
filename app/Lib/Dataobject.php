@@ -16,8 +16,9 @@ class Dataobject
     public $slug;
     public $hl = null;
     public $classes = array();
-    public $subscribtion = false;
+    public $subscribtions = false;
     public $inner_hits = array();
+    public $subscriptions = array();
     public $options = array();
     public $page = array();
     public $_pageDescription = true;
@@ -39,6 +40,7 @@ class Dataobject
     public function __construct($params = array(), $options = array())
     {
 
+		
 		$this->options = $options;
         $this->data = $params['data'];
         $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
@@ -69,7 +71,11 @@ class Dataobject
         if (isset($params['inner_hits'])) {
             $this->inner_hits = $params['inner_hits'];
         }
-
+        
+        if (isset($params['subscribtions'])) {
+            $this->subscriptions = $params['subscribtions'];
+        }
+        
         if (isset($params['collection'])) {
             $this->collection = $params['collection'];
         }

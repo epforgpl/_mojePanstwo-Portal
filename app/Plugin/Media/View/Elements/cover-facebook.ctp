@@ -19,6 +19,10 @@ $options = array(
     )); ?>
 <? } ?>
 
+<script type="text/javascript">
+	var _medium = '<?= $medium ?>';
+</script>
+
 <div class="col-xs-12">
 
     <div class="appBanner">
@@ -59,7 +63,7 @@ $options = array(
                     <ul class="nav nav-pills">
                         <? foreach ($twitterTimeranges as $key => $value) { ?>
                             <li<? if ($twitterTimerange == $key) echo ' class="active"' ?>>
-                                <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
+                                <a href="/media?t=<?= $key ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>&medium=facebook">
                                     <?= $value ?>
                                 </a>
                             </li>
@@ -69,7 +73,7 @@ $options = array(
                 <div class="pull-right">
                     <ul class="nav nav-pills">
                         <li<? if (isset($this->request->query['t']) && ($this->request->query['t'] == $last_month_report['param'])) echo ' class="active"' ?>>
-                            <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>"><?= $last_month_report['label'] ?></a>
+                            <a href="/media?t=<?= $last_month_report['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>&medium=<?= $medium ?>"><?= $last_month_report['label'] ?></a>
                         </li>
 
                         <? if (isset($dropdownRanges)) { ?>
@@ -84,7 +88,7 @@ $options = array(
                                             <li class="dropdown-title"><?= $dropdown['title'] ?></li>
                                             <? foreach ($dropdown['ranges'] as $range) { ?>
                                                 <li<? if ($twitterTimerange == $range['param'] && strlen($twitterTimerange) === strlen($range['param'])) echo ' class="active"'; ?>>
-                                                    <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>">
+                                                    <a href="/media?t=<?= $range['param'] ?><? if (isset($twitterAccountType) && $twitterAccountType !== '0') echo "&a=" . $twitterAccountType; ?>&medium=<?= $medium ?>">
                                                         <?= $range['label'] ?>
                                                     </a>
                                                 </li>
@@ -188,9 +192,7 @@ $options = array(
 
 			
 			<?
-			
-			debug( $dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts'] );
-				
+							
 			if (@$dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_engagement']['buckets']) {
 			?>
 	        <div class="block bgA">
@@ -205,7 +207,7 @@ $options = array(
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
 	                         data-image_field="image_url" data-label_field="name"
 	                         data-counter_field="engagement_count"
-	                         data-choose-request="/dane/twitter_accounts/"
+	                         data-choose-request="/dane/fb_accounts/"
 	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_engagement'])) ?>">
 	                        <div class="chart">
 	                            <div class="spinner grey">
@@ -220,17 +222,18 @@ $options = array(
 	        </div>
 		    <? } ?>
 		    
+		    
 		    <?
-		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets']['buckets']) {
+		    if (@$dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_posts']['buckets']) {
 		    ?>
 	        <div class="block bgA">
-	            <header>Najwięcej tweetów napisali</header>
+	            <header>Najwięcej postów napisali</header>
 	            <section class="aggs-init">
 	                <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
 	                         data-image_field="image_url" data-label_field="name"
-	                         data-choose-request="/dane/twitter_accounts/"
-	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_tweets'])) ?>">
+	                         data-choose-request="/dane/fb_accounts/"
+	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_posts'])) ?>">
 	                        <div class="chart">
 	                            <div class="spinner grey">
 	                                <div class="bounce1"></div>
@@ -245,21 +248,21 @@ $options = array(
 		    <? } ?>
 		    
 		    <?
-		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets']['buckets']) {
+		    if (@$dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_engagement_posts']['buckets']) {
 		    ?>
 	        <div class="block bgA">
-	            <header>Najwięcej zaangażowania w przeliczeniu na 1 tweeta</header>
+	            <header>Najwięcej zaangażowania w przeliczeniu na 1 posta</header>
 	            <section class="aggs-init">
 	                
 	                <div class="block-bg-area">
-			            <p class="p">Profile, które uzyskały najwięcej retweetów, polubień i komentarzy, w przeliczeniu na 1 tweeta.</p>
+			            <p class="p">Profile, które uzyskały najwięcej polubień, komentarzy i udostępień, w przeliczeniu na 1 posta.</p>
 		            </div>
 	                
 	                <div class="dataAggs">
 	                    <div class="agg agg-ColumnsHorizontal" data-chart-height="1500" data-label-width="150"
 	                         data-image_field="image_url" data-label_field="name" data-counter_field="engagement_count"
-	                         data-choose-request="/dane/twitter_accounts/"
-	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['accounts_engagement_tweets'])) ?>">
+	                         data-choose-request="/dane/fb_accounts/"
+	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['posts']['global_timerange']['target_timerange']['accounts']['accounts_engagement_posts'])) ?>">
 	                        <div class="chart">
 	                            <div class="spinner grey">
 	                                <div class="bounce1"></div>
@@ -273,113 +276,10 @@ $options = array(
 	        </div>
 		    <? } ?>
 		    
-		    <?
-		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids']['buckets']) {
-		    ?>
-	        <div class="block bgA">
-	            <header>Najczęściej wzmiankowani</header>
-	            <section class="aggs-init">
-		            
-		            <div class="block-bg-area">
-			            <p class="p">Profile, które były najczęściej wzmiankowane w innych tweetach i ich retweetach.</p>
-		            </div>
-		            
-	                <div class="dataAggs">
-	                    <div class="agg agg-ColumnsHorizontal"
-	                         data-chart-height="1500"
-	                         data-label-width="150"
-	                         data-label_field="name"
-	                         data-image_field="photo"
-	                         data-choose-request="/dane/twitter_accounts/"
-	                         data-chart="<?= htmlentities(json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['mentions']['accounts']['ids'])) ?>">
-	                        <div class="chart">
-	                            <div class="spinner grey">
-	                                <div class="bounce1"></div>
-	                                <div class="bounce2"></div>
-	                                <div class="bounce3"></div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </section>
-	        </div>
-		    <? } ?>
-		    
-		    <?
-		    if (@$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']) {
-		    ?>
-	        <div class="block bgA">
-	            <header>Najczęściej używane aplikacje:</header>
-	            <section class="aggs-init margin-sides-10">
-	                <div class="pie"
-	                     data-json='<?= json_encode($dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['sources']['buckets']); ?>'
-	                     data-parms="<?
-	                     $parms = '';
-	
-	                     if (isset($timerange["range"])) {
-	                         $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
-	                     }
-	                     if (isset($twitterAccountType) && $twitterAccountType !== '0') {
-	                         $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
-	                     }
-	                     echo $parms;
-	                     ?>">
-	                    <div class="spinner grey">
-	                        <div class="bounce1"></div>
-	                        <div class="bounce2"></div>
-	                        <div class="bounce3"></div>
-	                    </div>
-	                </div>
-	            </section>
-	        </div>
-		    <? } ?>
 			
 		</div>
 		
 	</div>
-	
-	<?
-	if ($tags = @$dataBrowser['aggs']['tweets']['global_timerange']['target_timerange']['accounts']['tags']['tags']['buckets']) {
-
-	    $max = 0;
-	    foreach ($tags as $t)
-	        if ($t['rn']['engagement_count']['value'] > $max)
-	            $max = $t['rn']['engagement_count']['value'];
-	
-	    if (!$max)
-	        $max = 1;
-    ?>
-    <div class="block">
-        <header>Najbardziej angażujące hashtagi</header>
-		<section class="aggs-init">
-		    
-		    <? /*
-		    <div class="block-bg-area">
-	            <p class="p">Hashatagi osadzone w tweetach, które osiągneły największą liczbę retweetów, polubień i komentarzy.</p>
-            </div>
-            */ ?>
-		    
-		    <ul id="tagsCloud">
-		        <? foreach ($tags as $tag) { ?>
-		            <li style="font-size: <?= 20 + (70 * $tag['rn']['engagement_count']['value'] / $max) ?>px;">
-		                <a href="/media/tweety?conditions[twitter.tags]=<?
-		                $parms = $tag['key'];
-		                if (isset($timerange["range"])) {
-		                    $parms .= '&conditions[date]=[' . date('Y-m-d', $timerange["range"]['min']) . ' TO ' . date('Y-m-d', $timerange["range"]['max']) . ']';
-		                }
-		                if (isset($twitterAccountType) && $twitterAccountType !== '0') {
-		                    $parms .= '&conditions[twitter_accounts.typ_id]=' . $twitterAccountType;
-		                }
-		                echo $parms;
-		                ?>">
-		                    <?= $tag['label']['buckets'][0]['key'] ?>
-		                </a>
-		            </li>
-		        <? } ?>
-		    </ul>
-		</section>
-	</div>
-	<? } ?>
-	
+		
 	
 </div>

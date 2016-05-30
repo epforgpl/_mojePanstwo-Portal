@@ -8,24 +8,27 @@ class AlertsController extends StartAppController {
     public $appSelected = 'powiadomienia';
 
     public function index() {
-
+				
 		$this->title = 'Moje powiadomienia';
-
-        $options = array(
-            'feed' => 'user',
+      
+        $this->Components->load('Dane.DataFeed', array(
+	        'feed' => 'user',
+            'searchTitle' => 'Szukaj w moich powiadomieniach...',
+            'timeline' => true,
             'order' => 'date desc',
-        );
-
-        $this->Components->load('Dane.DataBrowser', $options);
+            'preset' => 'user',
+            'limit' => 50,
+        ));
+        
+        $this->render('index');
 
     }
 
     public function subscriptions() {
-
+				
 		$this->title = 'Sprawy, które obserwuję';
 
         $options = array(
-	        'browserTitle' => 'Sprawy, które obserwuję:',
             'conditions' => array(
 	            'subscribtions' => true,
             ),

@@ -1082,7 +1082,7 @@ class AppController extends Controller
 
             $this->set('_app', array(
 	            'id' => $app['id'],
-	            'name' => $app['name'],
+	            'name' => $app['name_' . $this->lang],
 	            'href' => $app['href'],
             ));
 

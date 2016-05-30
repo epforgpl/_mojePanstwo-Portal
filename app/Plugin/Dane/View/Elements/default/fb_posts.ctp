@@ -11,10 +11,12 @@
 
 <? if( $object->getOptions('page') ) { ?>
 
-    <blockquote class="_"><?= strip_tags($object->getData('message')) ?></blockquote>
+    <? if( $message = $object->getData('message') ) { ?>
+    <blockquote class="_"><?= strip_tags($message) ?></blockquote>
+    <? } ?>
 
-    <? if ($object->getData('photo_url')) { ?>
-	    <img class="media" src="<?= $object->getData('photo_url') ?>" onerror="imgFixer(this)" />
+    <? if ($object->getData('picture')) { ?>
+	    <img class="media" src="<?= $object->getData('picture') ?>" onerror="imgFixer(this)" />
 	<? } ?>
 
 <? } else { ?>
@@ -51,9 +53,3 @@
         </p>
 
 </div>
-
-<? if( $object->getOptions('page') ) { ?>
-<p class="_src margin-top-20"><a title="Źródło" target="_blank"
-                               href="https://twitter.com/<?= $object->getData('twitter_user_screenname') ?>/statuses/<?= $object->getData('src_id') ?>"><span
-                    class="glyphicon glyphicon-new-window"></span> Źródło</a></p>
-<? } ?>

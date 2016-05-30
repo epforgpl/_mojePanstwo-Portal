@@ -20,6 +20,7 @@ class MediaController extends ApplicationsController
     public $mainMenuLabel = 'Analiza';
     private $twitterAccountType = '0';
     private $twitterTimerange = '1D';
+    public $medium = 'twitter';
 	
 	private $accounts_map = array(
 		'politycy' => array(7, 'Politycy na Twitterze'),
@@ -43,11 +44,11 @@ class MediaController extends ApplicationsController
     public function view()
     {
 	    
-	    $medium = (
+	    $this->medium = $medium = (
 		    isset( $this->request->query['medium'] ) && 
 		    in_array($this->request->query['medium'], $this->mediums)
 	    ) ? $this->request->query['medium'] : $this->mediums[0];
-	    
+	    	    
 	    $this->set('medium', $medium);
 	    
 		$this->set('last_month_report', $this->Twitter->getLastMonthReport());
@@ -534,7 +535,14 @@ class MediaController extends ApplicationsController
 		    
 		    
 		    $selectedAccountsFilter = array(
-				'match_all' => '_empty',
+				'or' => array(
+					array('term' => array('data.fb_accounts.type_id' => '7')),
+					array('term' => array('data.fb_accounts.type_id' => '9')),
+					array('term' => array('data.fb_accounts.type_id' => '2')),
+					array('term' => array('data.fb_accounts.type_id' => '3')),
+					array('term' => array('data.fb_accounts.type_id' => '10')),
+					array('term' => array('data.fb_accounts.type_id' => '8')),
+	        	),
 			);			
 			
 			if( isset($this->request->query['a']) )
@@ -561,8 +569,10 @@ class MediaController extends ApplicationsController
 	            $this->twitterAccountType = $this->request->query['a']
 	        ) {
 	
-	        	$selectedAccountsFilter['term'] = array(
-		        	'data.fb_accounts.type_id' => $this->twitterAccountType,
+	        	$selectedAccountsFilter = array(
+		        	'term' => array(
+			        	'data.fb_accounts.type_id' => $this->twitterAccountType,
+		        	),
 	        	);
 		
 	        }
@@ -592,7 +602,7 @@ class MediaController extends ApplicationsController
 		        ),
 		        'accounts_engagement' => array(
 		            'terms' => array(
-		                'field' => 'data.fb_posts.fb_account_id',
+		                'field' => 'data.fb_accounts.id',
 		                'order' => array(
 			                'engagement_count' => 'desc',
 		                ),
@@ -652,7 +662,7 @@ class MediaController extends ApplicationsController
 		        ),
 		        'accounts_engagement_posts' => array(
 		            'terms' => array(
-		                'field' => 'data.fb_posts.fb_account_id',
+		                'field' => 'data.fb_accounts.id',
 		                'size' => 10,
 		                'order' => array(
 			                'engagement_count' => 'desc',
@@ -914,7 +924,7 @@ class MediaController extends ApplicationsController
 
     public function getChapters()
     {
-
+		
 	    $mode = false;
 		$items = array();
 		$app = $this->getApplication( $this->settings['id'] );
@@ -943,42 +953,42 @@ class MediaController extends ApplicationsController
 			$items[] = array(
 				'id' => 'politycy',
 				'label' => 'Politycy',
-				'href' => '/media/politycy',
+				'href' => '/media/politycy?medium=' . $this->medium,
 				'icon' => 'icon-datasets-dot',
 			);
 			
 			$items[] = array(
 				'id' => 'urzedy',
 				'label' => 'Urzędy',
-				'href' => '/media/urzedy',
+				'href' => '/media/urzedy?medium=' . $this->medium,
 				'icon' => 'icon-datasets-dot',
 			);
 			
 			$items[] = array(
 				'id' => 'miasta',
 				'label' => 'Miasta',
-				'href' => '/media/miasta',
+				'href' => '/media/miasta?medium=' . $this->medium,
 				'icon' => 'icon-datasets-dot',
 			);
 			
 			$items[] = array(
 				'id' => 'komentatorzy',
 				'label' => 'Komentatorzy polityczni',
-				'href' => '/media/komentatorzy',
+				'href' => '/media/komentatorzy?medium=' . $this->medium,
 				'icon' => 'icon-datasets-dot',
 			);
 			
 			$items[] = array(
 				'id' => 'ngo',
 				'label' => 'NGO',
-				'href' => '/media/ngo',
+				'href' => '/media/ngo?medium=' . $this->medium,
 				'icon' => 'icon-datasets-dot',
 			);
 			
 			$items[] = array(
 				'id' => 'partie',
 				'label' => 'Partie polityczne',
-				'href' => '/media/partie',
+				'href' => '/media/partie?medium=' . $this->medium,
 				'icon' => 'icon-datasets-dot',
 				'class' => 'border-bottom',
 			);

@@ -173,7 +173,8 @@ $(document).ready(function () {
 							if (switcher.attr('data-type') !== '') {
 								parms += '&a=' + switcher.attr('data-type');
 							}
-
+							
+							parms += '&medium=' + _medium;
 							switcher.attr('href', parms);
 
 							display.html('<span class="_ds" datetime="' + dateToYYYYMMDD(start) + '">' + dataSlownie(start) + '</span> <span class="separator">—</span> <span class="_ds" datetime="' + dateToYYYYMMDD(end) + '">' + dataSlownie(end) + '</span>');
@@ -208,93 +209,102 @@ $(document).ready(function () {
 
 		var appPieDataNr = 1,
 			appPieDataY = 30;
-		$.map($.parseJSON(pie.attr('data-json')), function (el) {
-			var name = $(el.label.buckets[0].key).text();
-			el = {
-				id: el.key,
-				name: name,
-				logo: name.toLowerCase().replace(/\s/g, '_'),
-				x: appPieDataNr++,
-				y: appPieDataY
-			};
-			appPieData.push(el);
-			appPieDataY -= 5;
-		});
-
-		appPie = pie.highcharts({
-			chart: {
-				backgroundColor: null,
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false,
-				type: 'pie'
-			},
-			title: {
-				text: null
-			},
-			tooltip: {
+			
+		
+		try {
+		
+			$.map($.parseJSON(pie.attr('data-json')), function (el) {
+				var name = $(el.label.buckets[0].key).text();
+				el = {
+					id: el.key,
+					name: name,
+					logo: name.toLowerCase().replace(/\s/g, '_'),
+					x: appPieDataNr++,
+					y: appPieDataY
+				};
+				appPieData.push(el);
+				appPieDataY -= 5;
+			});
+	
+			appPie = pie.highcharts({
+				chart: {
+					backgroundColor: null,
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					type: 'pie'
+				},
 				title: {
 					text: null
 				},
-				formatter: function () {
-					var img = '';
-					if (this.point.logo === 'facebook' || this.point.logo === 'plume_for_android' || this.point.logo === 'tweetdeck' || this.point.logo === 'twitter_for_android' || this.point.logo === 'twitter_for_ipad' || this.point.logo === 'twitter_for_iphone' || this.point.logo === 'twitter_web_client' || this.point.logo === 'twitterfeed') {
-						img = '<img src="/media/img/twitterapp/' + this.point.logo + '.png"/>';
-					}
-					return '<div style="display: block"><strong>#' + this.point.x + '</strong> ' + img + this.point.name + '</div>';
-				},
-				useHTML: true,
-				headerFormat: ' '
-			},
-			legend: {
-				enabled: true,
-				labelFormatter: function () {
-					var img = '',
-						ret,
-						name = this.name;
-
-					if (this.logo === 'facebook' || this.logo === 'plume_for_android' || this.logo === 'tweetdeck' || this.logo === 'twitter_for_android' || this.logo === 'twitter_for_ipad' || this.logo === 'twitter_for_iphone' || this.logo === 'twitter_web_client' || this.logo === 'twitterfeed') {
-						img = '<img src="/media/img/twitterapp/' + this.logo + '.png" style="margin-right:4px" />';
-					}
-
-					ret = '<strong>#' + this.x + '</strong> ' + img;
-
-					if (name.length > 55) {
-						name = this.name.substring(0, 52);
-						name += '...';
-					}
-					return '<div style="margin-top: -5px; margin-bottom:10px">' + ret + name + '</div>';
-				},
-				useHTML: true
-			},
-			legacy: {
-				enabled: false
-			},
-			credits: {
-				enabled: false
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: false
+				tooltip: {
+					title: {
+						text: null
 					},
-					showInLegend: true
-				}
-			},
-			series: [{
-				colorByPoint: true,
-				data: appPieData,
-				point: {
-					events: {
-						click: function () {
-							window.location.href = '?conditions[twitter.source_id]=' + this.id + appPie.attr('data-parms');
-							return false;
+					formatter: function () {
+						var img = '';
+						if (this.point.logo === 'facebook' || this.point.logo === 'plume_for_android' || this.point.logo === 'tweetdeck' || this.point.logo === 'twitter_for_android' || this.point.logo === 'twitter_for_ipad' || this.point.logo === 'twitter_for_iphone' || this.point.logo === 'twitter_web_client' || this.point.logo === 'twitterfeed') {
+							img = '<img src="/media/img/twitterapp/' + this.point.logo + '.png"/>';
+						}
+						return '<div style="display: block"><strong>#' + this.point.x + '</strong> ' + img + this.point.name + '</div>';
+					},
+					useHTML: true,
+					headerFormat: ' '
+				},
+				legend: {
+					enabled: true,
+					labelFormatter: function () {
+						var img = '',
+							ret,
+							name = this.name;
+	
+						if (this.logo === 'facebook' || this.logo === 'plume_for_android' || this.logo === 'tweetdeck' || this.logo === 'twitter_for_android' || this.logo === 'twitter_for_ipad' || this.logo === 'twitter_for_iphone' || this.logo === 'twitter_web_client' || this.logo === 'twitterfeed') {
+							img = '<img src="/media/img/twitterapp/' + this.logo + '.png" style="margin-right:4px" />';
+						}
+	
+						ret = '<strong>#' + this.x + '</strong> ' + img;
+	
+						if (name.length > 55) {
+							name = this.name.substring(0, 52);
+							name += '...';
+						}
+						return '<div style="margin-top: -5px; margin-bottom:10px">' + ret + name + '</div>';
+					},
+					useHTML: true
+				},
+				legacy: {
+					enabled: false
+				},
+				credits: {
+					enabled: false
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false
+						},
+						showInLegend: true
+					}
+				},
+				series: [{
+					colorByPoint: true,
+					data: appPieData,
+					point: {
+						events: {
+							click: function () {
+								window.location.href = '?conditions[twitter.source_id]=' + this.id + appPie.attr('data-parms');
+								return false;
+							}
 						}
 					}
-				}
-			}]
-		});
+				}]
+			});
+		
+		}
+		catch(err) {
+		}
+		
 	}());
 });

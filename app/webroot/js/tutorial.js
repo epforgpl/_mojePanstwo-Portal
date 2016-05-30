@@ -1,6 +1,5 @@
 /*global $,jQuery,window,document,mpHeart,Cookies*/
 
-/*
 $(document).ready(function () {
 	var tutorialLogic = {
 			'obserwuj': [
@@ -465,4 +464,3 @@ $(document).ready(function () {
 		userStatus();
 	}
 });
-*/

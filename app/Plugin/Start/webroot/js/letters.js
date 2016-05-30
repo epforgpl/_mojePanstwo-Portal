@@ -688,9 +688,32 @@ var PISMA = Class.extend({
 	;
 
 var $P;
+
+function resizeHandler() {
+	
+	var block = $('#block-szablony');
+	
+	if( $(window).width()>=992 ) {
+		
+		var offset = block.offset();
+		var y = $(document).height() - offset.top - block.height() + 20;
+		$(".block-adresat").sticky({topSpacing:40, bottomSpacing: y});
+		
+	} else {
+		
+		$(".block-adresat").unstick();
+		
+	}
+	
+}
+
 $(document).ready(function () {
 	"use strict";
-	
+		
+	$(window).resize(function(){
+		resizeHandler();
+	});
+	resizeHandler();
 	
 	$('#tabs-szablony a').click(function(event){
 

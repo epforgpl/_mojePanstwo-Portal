@@ -18,6 +18,12 @@
 				<h1 class="pull-left">Tworzenie nowego pisma</h1>
 			</div>
 			
+		
+			<div class="app-banner banner-letter">
+				<p>Dzięki tej usłudze, łatwo stworzysz i wyślesz pismo do urzędu lub instytucji. Wybierz szablon w zależności od sprawy, którą chcesz załatwić. Znajdź i wybierz adresata, aby automatycznie uzupełnić dane teleadresowe pisma.</p>
+			</div>
+		
+			
 			<? if (!$this->Session->read('Auth.User.id')) { ?>
 			    <div class="col-xs-12 nopadding">
 			        <div class="alert-identity alert alert-dismissable alert-info">
@@ -31,7 +37,7 @@
 			
 			<div class="row">
 				<div class="col-md-12">
-					<div class="bs-component mp-form nopadding margin-top-10">
+					<div class="bs-component mp-form nopadding">
 					    <form action="/moje-pisma" method="post" class="form-horizontal">
 					        <input type="hidden" name="adresat_id"<?php if (!empty($pismo['adresat_id'])) {
 					            echo ' value="' . $pismo['adresat_id'] . '"';
@@ -41,7 +47,7 @@
 								<div class="row">
 									<div class="col-md-6">
 								
-										<div class="block block-szablony">
+										<div id="block-szablony" class="block block-szablony">
 											<header>Wybierz szablon pisma:</header>
 											<section class="content" style="padding-bottom: 0;">
 										
@@ -114,7 +120,7 @@
 									</div><div class="col-md-6">
 							    
 							    
-									    <div class="block block-adresat">
+									    <div id="block-adresat" class="block block-adresat">
 											<header>Wybierz adresata pisma:</header>
 											<section class="content">
 												
@@ -151,8 +157,8 @@
 					            
 					            
 					            <? if(isset($objects)) { ?>
-					                <div class="block text-center">
-						                <header>Dodaj pismo jako:</header>
+					                <div class="block block-simple nobg text-center">
+						                <header>Stwórz pismo jako:</header>
 						                <section class="content margin-bottom-10">
 							                
 							                <div class="row">

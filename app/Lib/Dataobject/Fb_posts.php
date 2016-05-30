@@ -16,8 +16,11 @@ class Fb_posts extends DataObject
 		3 => array('Urząd', 'warning'),
 		7 => array('Polityk', 'danger'),
 		9 => array('NGO', 'success'),
+		10 => array('Miasto', 'warning'),
+		6 => array('Media', 'primary'),
+		8 => array('Partia', 'danger'),
 	);
-	
+		
 	public function getAccountTypeName(){
 		$output = '';
 				

@@ -29,7 +29,13 @@ $this->Dataobject->setObject($object);
 } ?>"
      oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 
+	
     <div class="row">
+	    <div class="col-xs-12">
+			
+			<p class="feed_date"><?= $this->Czas->dataSlownie($object->getDate()) ?></p>
+	
+		</div>
         <div class="col-xs-1 action text-center">
             
             <span class="object-icon icon-datasets-<?= $object->getDataset() ?>"></span>
@@ -37,17 +43,11 @@ $this->Dataobject->setObject($object);
         </div>
         <div class="data col-xs-11 nopadding">
             <div class="feed-header">
-                <? if ($object->getCreator('url')) { ?>
-                    <div class="thumb_cont">
-                        <img alt="<?= addslashes($object->getCreator('name')) ?>"
-                             src="<?= $object->getCreator('url') ?>" class="thumb" onerror="imgFixer(this)"/>
-                    </div>
-                <? } ?>
+                
 
                 <div class="inner">
                     <? if ($sentence = $object->getSentence()) { ?>
                         <p class="sentence"><?= $sentence ?></p>
-                        <p class="date"><?= $this->Czas->dataSlownie($object->getDate()) ?></p>
                     <? } ?>
                 </div>
             </div>

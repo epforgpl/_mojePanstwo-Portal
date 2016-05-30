@@ -142,6 +142,7 @@ if ($classes = $object->getClasses()) {
                                 <?= $object->getDescription() ?>
                             </div>
                         <? } ?>
+                        
 
                     </div>
 
@@ -228,12 +229,31 @@ if ($classes = $object->getClasses()) {
                                     <?= $this->Text->truncate($object->getDescription(), 300) ?>
                                 </div>
                             <? } ?>
+                            
 
                         </div>
 
                     </div>
                 <? } ?>
+                                
             </div>
+            
         </div>
     </div>
+    
+    <?
+	                        if( 
+	                        	$object->subscriptions && 
+	                        	$sub = array_shift( $object->subscriptions)
+	                    	) { ?>
+	                    	<div class="subscription">
+		                    	<p class="pull-left">
+			                    	<? if( empty($sub['channels']) ) {?>Wszystkie dane<? } ?> 
+			                    	Obserwujesz od <?= dataSlownie($sub['cts']) ?>
+		                    	</p>
+		                    	<p class="pull-right"><a href="#"><span class="glyphicon glyphicon-option-horizontal
+"></span></a></p>
+	                    	</div>
+	                        <? } ?>
+    
 </div>

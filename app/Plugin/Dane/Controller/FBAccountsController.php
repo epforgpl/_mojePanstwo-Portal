@@ -174,7 +174,7 @@ class FbAccountsController extends DataobjectsController
 
     }
 
-    public function tweety() {
+    public function posty() {
 
         $this->_prepareView();
 
@@ -184,53 +184,24 @@ class FbAccountsController extends DataobjectsController
         ) {
 
         } else {
-
+			
 	        $this->object->layers['page'] = array(
 		        'cover' => false,
-		        'logo' => str_replace('_normal', '', $this->object->getData('profile_image_url_https')),
+		        'logo' => str_replace('_normal', '', $this->object->getData('picture')),
 	        );
 
         }
 
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
-                'dataset' => 'twitter',
-                'twitter.twitter_account_id' => $this->object->getId(),
+                'dataset' => 'fb_posts',
+                'fb_accounts.id' => $this->object->getId(),
             ),
         ));
 
         $this->set('title_for_layout', $this->object->getTitle());
     }
-    
-    public function usuniete() {
-
-        $this->_prepareView();
-
-        if(
-	        ( $page = $this->object->getLayer('page') ) &&
-	        ( $page['logo'] )
-        ) {
-
-        } else {
-
-	        $this->object->layers['page'] = array(
-		        'cover' => false,
-		        'logo' => str_replace('_normal', '', $this->object->getData('profile_image_url_https')),
-	        );
-
-        }
-
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'twitter',
-                'twitter.twitter_account_id' => $this->object->getId(),
-                'twitter.usuniety' => '1',
-            ),
-        ));
-
-        $this->set('title_for_layout', $this->object->getTitle());
-    }
-
+        
     public function getMenu()
     {
 	    	    
@@ -241,13 +212,9 @@ class FbAccountsController extends DataobjectsController
                     'label' => 'Analiza konta',
                 ),
                 array(
-                    'id' => 'tweety',
-                    'label' => 'Tweety',
-                ),
-                array(
-                    'id' => 'usuniete',
-                    'label' => 'Usunięte tweety',
-                ),
+                    'id' => 'posty',
+                    'label' => 'Posty',
+                )
             ),
             'base' => $this->object->getUrl(),
         );

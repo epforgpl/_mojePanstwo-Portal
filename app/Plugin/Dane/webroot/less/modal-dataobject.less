@@ -27,6 +27,62 @@
       .info {
         color: #ccc;
       }
+      
+      .keywordsBlock {
+	      
+		border-top: 1px solid #ccc;
+		margin: 20px 0;
+		padding: 20px;
+		
+		.keywords_list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			li {
+				
+				border-bottom: 1px solid #ccc;
+			    color: green;
+			    list-style: outside none none;
+			    margin: 5px;
+			    padding: 5px 5px 5px 1px;
+			    overflow: auto;
+			    
+			    &:last-child {
+				    border-bottom: none;
+			    }
+			    
+			    p {
+				    padding: 0;
+				    margin: 0;
+			    }
+			    
+			    .val {
+				    margin-left: 20px;
+			    }
+			    
+			    .icons {
+				    float: left;
+				    display: none;
+				    
+				    a {
+					    color: #999;
+				    }
+			    }
+			    
+			    &:hover {
+				    .icons {
+					    display: block;
+					    a:hover {
+						    color: red;
+					    }
+				    }
+			    }
+			    
+			}
+		}
+	      
+      }
+      
     }
     .modal-footer {
       a.unobserve > .icon {

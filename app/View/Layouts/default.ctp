@@ -206,17 +206,6 @@
 </div>
 
 <?
-if ($domainMode == "MP") {
-    if (isset($_COOKIE["mojePanstwo"])) {
-        $mojePanstwo = json_decode($_COOKIE["mojePanstwo"]);
-
-        if (!isset($mojePanstwo->survey->ankieta2->complete)) {
-            echo $this->Element('survey/ankieta2');
-        }
-    } else {
-        echo $this->Element('survey/ankieta2');
-    }
-}
 
 /*GAMIFICATION*/
 if ($this->request->params['plugin'] == 'Krs') {

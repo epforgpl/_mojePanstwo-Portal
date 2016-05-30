@@ -13,7 +13,7 @@
 
             <a href="/<?= $_app['id'] ?>" target="_self">
                 <img class="icon" src="<?= '/' . $path ?>/icon/icon_<?= $_app['id'] ?>.svg">
-                <p><?= $_app['name_' . $_lang] ?></p>
+                <p><?= isset($_app['name_' . $_lang]) ? $_app['name_' . $_lang] : $_app['name'] ?></p>
             </a>
 			
 			<? if( !empty($_breadcrumbs) ) {?>

@@ -654,7 +654,35 @@
                     border: 1px solid #E6E6E6;
                     border-radius: 3px;
 	                background-color: #FFF;
-
+					
+					.subscription {
+						overflow: auto;
+						margin: 15px -10px -20px -10px;
+						background-color: #fafafa;
+						padding: 10px;
+						border-top: 1px solid #DDD;
+						
+						p {
+							margin: 0;
+							&.pull-left {
+								font-size: 12px;
+								color: #678;
+							}
+							&.pull-right {
+								font-size: 27px;
+							    margin-top: -4px;
+							    position: absolute;
+							    right: 20px;
+							    a {
+								    color: #89A;
+								    &:hover {
+									    color: #157ab5;
+								    }
+							    }
+							}
+						}
+					}
+					
                     .manage-checkbox {
                         position: absolute;
                         width: 24px;
@@ -711,6 +739,11 @@
             > div {
                 margin-top: 0;
             }
+            
+            &:before {
+	        	top: 13px;   
+            }
+            
         }
 
         &:last-child {
@@ -722,7 +755,7 @@
         &:before {
             content: ' ';
             position: absolute;
-            top: 34px;
+            top: 22px;
             left: 0;
             width: 0;
             height: 0;
@@ -772,12 +805,30 @@
                 border-radius: 3px;
                 -moz-border-radius: 3px;
                 -webkit-border-radius: 3px;
-
+				
+				.attachment {
+					margin-top: -8px;
+				}
+				
+				.feed_date {
+					background-color: #fafafa;
+				    border-bottom: 1px solid #ddd;
+				    color: #567;
+				    font-size: 11px;
+				    font-weight: bold;
+				    margin: -5px -20px 5px;
+				    padding: 10px 20px 7px;
+				}
+				
                 .content {
-                    padding: 10px;
+                    padding: 0 13px;
 
                     .header {
                         display: none;
+                    }
+                    
+                    .title {
+	                    margin-bottom: 10px;
                     }
 
                 }
@@ -2079,7 +2130,7 @@
                     padding-left: 15px;
                 }
                 .action {
-                    padding: 0 10px;
+                    padding: 0 10px 6px;
                 }
             }
         }

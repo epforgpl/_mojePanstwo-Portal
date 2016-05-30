@@ -74,6 +74,33 @@ $object_id = $object->getId();
                             }
                         } ?>
                     </div>
+                    
+                    <?
+	                    $qs = array();
+	                    if( $_qs = @$subscription['SubscriptionQuery'] ) {
+		                    foreach( $_qs as $_q ) {
+			                    $qs[] = $_q['q'];
+		                    }
+	                    }
+                    ?>
+                    
+                    <div class="keywordsBlock" data-qs="<?= htmlspecialchars(json_encode($qs), ENT_QUOTES, 'UTF-8') ?>">
+	                    	                    
+	                    <p>Powiadamiaj mnie tylko o danych zawierających określone słowa lub frazy:</p>
+	                    
+	                    <div class="input-group">
+							<input name="keyword" value="" type="text" class="form-control input-keyword" placeholder="Dodaj słowo lub frazę...">
+							<span class="input-group-btn">
+								<button class="btn btn-default btn-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+							</span>
+						</div>
+						
+						<ul class="keywords_list">
+							
+						</ul>
+	                    
+                    </div>
+                    
                 </div>
                 <div class="modal-footer<?php if (!$this->Session->read('Auth.User.id')) {
                     echo ' backgroundBlue';
