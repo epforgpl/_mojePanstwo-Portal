@@ -67,9 +67,7 @@ $(document).ready(function () {
 				observeModal.modal('show');
 							
 				$.get('/dane/' + dataset + '/' + object_id + '.json?layers[]=channels&layers[]=subscription', function(data){
-					
-					console.log('data', data);
-					
+										
 					observeModal.find('.dataobject-title').html('<a href="' + data.url + '">' + data.title + '</a>');
 					
 					var div = '<div class="checkbox first"><input type="checkbox" id="checkbox_all" name="channel[]" value="" checked><label for="checkbox_all">Wszystkie dane</label></div>';

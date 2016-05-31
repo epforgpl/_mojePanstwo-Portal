@@ -2196,7 +2196,7 @@ class DataBrowserComponent extends Component
 					}
 				
 				}
-				
+								
 				$dataBrowser = array_merge($dataBrowser, array(
 					'sort' => $this->settings['sort'],
                     'cover' => $this->cover,
@@ -2213,6 +2213,15 @@ class DataBrowserComponent extends Component
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 				));
+				
+				if( $controller->object ) {
+					$dataBrowser = array_merge($dataBrowser, array(
+						'data' => $controller->object->getData(),
+						'layers' => $controller->object->getLayers(),
+						'title' => $controller->object->getTitle(),
+						'url' => $controller->object->getUrl(),
+					));
+				}
 				
                 
 	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
@@ -2244,7 +2253,7 @@ class DataBrowserComponent extends Component
         }
 
         if( @$controller->request->params['ext']=='json' ) {
-
+						
 	        foreach( array('cancel_url', 'api_call', 'renderFile', 'cover', 'chapters', 'browserTitle', 'browserTitleElement', 'searchTitle', 'searchTag', 'searchAction', 'searcher', 'autocompletion', 'mode', 'aggs_visuals_map', 'apps') as $var )
 	        	if( isset($controller->viewVars['dataBrowser'][ $var ]) )
 			        unset( $controller->viewVars['dataBrowser'][ $var ] );

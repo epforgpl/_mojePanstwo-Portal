@@ -242,18 +242,18 @@ if ($classes = $object->getClasses()) {
     </div>
     
     <?
-	                        if( 
-	                        	@$object->subscriptions && 
-	                        	$sub = array_shift( $object->subscriptions)
-	                    	) { ?>
-	                    	<div class="subscription">
-		                    	<p class="pull-left">
-			                    	<? if( empty($sub['channels']) ) {?>Wszystkie dane<? } ?> 
-			                    	Obserwujesz od <?= dataSlownie($sub['cts']) ?>
-		                    	</p>
-		                    	<p class="pull-right"><a href="#"><span class="glyphicon glyphicon-option-horizontal
+    if( 
+    	@$object->subscriptions && 
+    	$sub = array_shift( $object->subscriptions)
+	) { ?>
+	<div class="subscription dataobject-head" data-dataset="<?= $object->getDataset() ?>" data-object_id="<?= $object->getId() ?>">
+    	<p class="pull-left">
+        	<? if( empty($sub['channels']) ) {?>Wszystkie dane<? } ?> 
+        	Obserwujesz od <?= dataSlownie($sub['cts']) ?>
+    	</p>
+    	<p class="pull-right"><a class="btn-observe" href="#"><span class="glyphicon glyphicon-option-horizontal
 "></span></a></p>
-	                    	</div>
-	                        <? } ?>
+	</div>
+    <? } ?>
     
 </div>

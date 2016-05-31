@@ -111,8 +111,13 @@ if ( $host == PK_DOMAIN ) { // HTTP_X_FORWARDED_HOST
 
 
 } else {
-		
+	
+	$parse_url = @parse_url($_SERVER['REQUEST_URI']);
+	$pathinfo = @pathinfo($parse_url['path']);
+	$ext = @$pathinfo['extension'];
+	
 	if( 
+		( $ext != 'json' ) && 
 		( $_SERVER['REQUEST_METHOD']=='GET' ) && 
 		preg_match('/^\/dane\/gminy\/903(\,krakow|\,krakow|\,|)(.*?)$/i', $_SERVER['REQUEST_URI'], $match)
 	) {

@@ -13,10 +13,13 @@ class PrawoHaslaController extends DataobjectsController
 
     public function view()
     {
-
+				
         $this->_prepareView();
 		
-		if( $this->object->getData('instytucja_id') ) {
+		if( 
+			( $this->request->params['ext'] != 'json' ) && 
+			$this->object->getData('instytucja_id')
+		) {
 			return $this->redirect( $this->object->getUrl() );
 		}
 		

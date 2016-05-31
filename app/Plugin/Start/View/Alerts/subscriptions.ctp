@@ -3,6 +3,7 @@
 
 	echo $this->element('headers/main');
 	echo $this->element('app/sidebar');
+	echo $this->element('Dane.modals/dataobject-observe');
 ?>
 
 <div class="app-content-wrap">
