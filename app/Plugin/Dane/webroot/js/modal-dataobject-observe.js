@@ -101,9 +101,7 @@ $(document).ready(function () {
 								
 								var ch = data.layers.subscription.SubscriptionChannel[i];
 								var selector = '#checkbox_' + data.layers.subscription.Subscription.dataset + '_' + ch['channel'];
-								
-								console.log('selector', selector);
-								
+																
 								optionsBlock.find(selector).prop('checked', true);
 								
 							}
@@ -125,9 +123,7 @@ $(document).ready(function () {
 					
 					
 					observeModal.find('#checkbox_all').change(function () {
-		    	
-				    	console.log('checked', $('#checkbox_all').prop('checked'));
-				    	
+		    					    	
 			            if ($('#checkbox_all').prop('checked')) {
 			                observeModal.find('.checkbox input:not(#checkbox_all)').prop({
 			                    'checked': 'checked',
