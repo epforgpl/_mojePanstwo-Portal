@@ -16,7 +16,11 @@ class ZbioryController extends DataobjectsController
         } else {
 
             parent::_prepareView();
-            return $this->redirect('/dane/' . $this->object->getData('slug'));
+            
+            if( @$this->request->params['ext']=='json' )
+            	return true;
+            else
+	            return $this->redirect('/dane/' . $this->object->getData('slug'));
 
         }
 

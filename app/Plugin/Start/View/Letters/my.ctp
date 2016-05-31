@@ -13,16 +13,17 @@
     <div class="objectsPage">		
 		
 		<div class="container">
-
-			<div class="header-wrap">
-				<h1 class="pull-left smaller">Moje pisma</h1>
-				<a
-			        href="/moje-pisma/nowe"
-			        class="btn-success btn-xs mp-btn-sm btn-icon submit width-auto pull-left">
-			        <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
-			        Stwórz nowe pismo
-			    </a>
+			
+			<div class="overflow-auto">
+				<h1 class="pull-left">Moje pisma</h1>
 			</div>
+			
+		
+			<div class="app-banner banner-letter">
+				<p>Dzięki tej usłudze, łatwo stworzysz i wyślesz pismo do urzędu lub instytucji. Stworzone przez Ciebie pisma możesz organizować i udostępniać publicznie.</p>
+				<p><a href="/moje-pisma/nowe">Stwórz nowe pismo &raquo;</a></p>
+			</div>
+			
 			
 			<? if (!$this->Session->read('Auth.User.id')) { ?>
 			    <div class="col-xs-12 nopadding margin-top-15 margin-bottom--20">

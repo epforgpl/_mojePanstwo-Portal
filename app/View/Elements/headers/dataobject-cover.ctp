@@ -21,7 +21,7 @@ if (!isset($renderFile) || !$renderFile)
     $renderFile = 'page';
 ?>
 
-<div class="appHeader dataobject dataobject-cover<? if ($pageLayer['logo']) echo ' cover-logo';
+<div class="appHeader dataobject-head dataobject dataobject-cover<? if ($pageLayer['logo']) echo ' cover-logo';
 if ($pageLayer['cover']) echo ' cover-background'; ?>" data-dataset="<?= $object->getDataset() ?>"
      data-object_id="<?= $object->getId() ?>"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
      data-global-id="<?= $object->getGlobalId() ?>">

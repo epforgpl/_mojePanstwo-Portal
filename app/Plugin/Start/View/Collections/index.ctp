@@ -12,17 +12,15 @@
     <div class="objectsPage">		
 		
 		<div class="container">
-
-			<div class="header-wrap">
-				<h1 class="pull-left smaller">Moje Kolekcje</h1>
-				<a
-			        href="#"
-			        class="btn-success btn-xs mp-btn-sm btn-icon submit width-auto pull-left"
-			        data-toggle="modal"
-			        data-target="#createCollection">
-			        <i aria-hidden="true" class="icon glyphicon glyphicon-plus"></i>
-			        Stwórz nową kolekcję
-			    </a>
+			
+			<div class="overflow-auto">
+				<h1 class="pull-left">Moje kolekcje</h1>
+			</div>
+			
+		
+			<div class="app-banner banner-collection">
+				<p>Dzięki tej usłudze możesz kolekcjonować interesującę Cię dane. Stworzone przez Ciebie kolekcje możesz organizować i udostępniać publicznie.</p>
+				<p><a href="#" data-toggle="modal" data-target="#createCollection">Stwórz nową kolekcję &raquo;</a></p>
 			</div>
 			
 			<div class="modal fade" id="createCollection" tabindex="-1" role="dialog" aria-labelledby="createCollection">

@@ -216,7 +216,6 @@ if ($this->request->params['plugin'] == 'Krs') {
 
 /*MODALS SYSTEM*/
 echo $this->Element('modalViewController');
-
 if (isset($_modals) && is_array($_modals)) {
     foreach ($_modals as $_modal) {
         echo $this->Element('modals/' . $_modal . '-modal');

@@ -19,7 +19,7 @@ if (!isset($renderFile) || !$renderFile)
 ?>
 
 <div
-    class="appHeader objectRender <?= $object->getDataset() ?> dataobject"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
+    class="appHeader dataobject-head objectRender <?= $object->getDataset() ?> dataobject"<? if (isset($object_editable) && !empty($object_editable)) { ?> data-editables='<?= json_encode($object_editable) ?>'<? } ?>
     data-url="<?= urlencode($object->getUrl()) ?>" data-dataset="<?= $object->getDataset() ?>"
     data-object_id="<?= $object->getId() ?>" data-global-id="<?= $object->getGlobalId() ?>">
     <div class="container">
@@ -64,8 +64,7 @@ if (!isset($renderFile) || !$renderFile)
                     <? if (isset($_observeOptions) && !empty($_observeOptions)) {
                         $subscription = @$object->getLayer('subscription'); ?>
                         <div class="option">
-                            <div data-toggle="modal" data-target="#observeModal"
-                                 class="btn optionBtn <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'off btn-primary'; ?>">
+                            <div class="btn optionBtn btn-observe <? echo (isset($subscription) && !empty($subscription)) ? 'btn-success' : 'off btn-primary'; ?>">
                                 <span class="icon"
                                       data-icon-applications="&#xe60a;"></span> <?= (isset($subscription) && !empty($subscription)) ? 'Obserwujesz' : 'Obserwuj' ?>
                             </div>

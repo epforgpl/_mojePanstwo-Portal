@@ -464,7 +464,22 @@ class LettersController extends StartAppController
         ));
 
     }
-
+	
+	public function beforeRender()
+	{
+		
+		parent::beforeRender();
+		if( 
+			( $this->request->params['action'] == 'my' ) && 
+			!$this->request->params['paging']['Dataobject']['count']
+		) {
+			
+			return $this->redirect('/moje-pisma/nowe');
+			
+		}
+		
+	}
+	
     public function templates()
     {
         $this->set('output', $this->Pismo->templates_index($this->request->query));

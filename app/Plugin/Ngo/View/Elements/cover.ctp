@@ -4,10 +4,8 @@ $this->Combinator->add_libs('css', $this->Less->css('ngo', array('plugin' => 'Ng
 $this->Combinator->add_libs('js', 'jquery-tags-cloud-min');
 $this->Combinator->add_libs('js', 'Ngo.ngo');
 $this->Combinator->add_libs('js', 'Dane.DataBrowser.js');
-$this->Combinator->add_libs('js', 'Dane.dataset-observe.js');
 
-echo $this->element('modals/dataset-observe', $observe_params);
-
+echo $this->element('Dane.modals/dataobject-observe');
 ?>
 
 
@@ -86,11 +84,11 @@ echo $this->element('modals/dataset-observe', $observe_params);
             <? if ($docs = @$dataBrowser['aggs']['konkursy']['top']['hits']['hits']) { ?>
                 <div class="block">
                     <header>Konkursy dla organizacji pozarządowych:</header>
-                    <div class="buttons larger">
+                    <div class="buttons larger dataobject-head" data-dataset="<?= $observe_params['object']->getDataset() ?>" data-object_id="<?= $observe_params['object']->getId() ?>">
                         <? if ($observe_params['object']->getLayer('subscription')) { ?>
-                            <a class="dataset-observe-button" href="#">Subskrybujesz...</a>
+                            <a class="dataset-observe-button btn-observe" href="#">Subskrybujesz...</a>
                         <? } else { ?>
-                            Poszukujesz finansowanie dla swojej organizacji? <a class="dataset-observe-button" href="#">Subskrybuj
+                            Poszukujesz finansowanie dla swojej organizacji? <a class="dataset-observe-button btn-observe" href="#">Subskrybuj
                                 informacje o nowych konkursach »</a>
                         <? } ?>
                     </div>
@@ -107,13 +105,13 @@ echo $this->element('modals/dataset-observe', $observe_params);
                             </ul>
                         </div>
 
-                        <div class="buttons">
+                        <div class="buttons dataobject-head" data-dataset="<?= $observe_params['object']->getDataset() ?>" data-object_id="<?= $observe_params['object']->getId() ?>">
                             <a href="/ngo/konkursy" class="btn btn-xs btn-primary margin-sides-5">Zobacz
                                 więcej &raquo;</a> <? if ($observe_params['object']->getLayer('subscription')) { ?><a
                                 href="#"
-                                class="margin-sides-5 dataset-observe-button">Subskrybujesz...</a><? } else { ?><a
+                                class="margin-sides-5 dataset-observe-button btn-observe">Subskrybujesz...</a><? } else { ?><a
                                 href="#"
-                                class="btn btn-xs btn-success margin-sides-5 dataset-observe-button">Subskrybuj &raquo;</a><? } ?>
+                                class="btn btn-xs btn-success margin-sides-5 dataset-observe-button btn-observe">Subskrybuj &raquo;</a><? } ?>
                         </div>
                     </section>
                 </div>

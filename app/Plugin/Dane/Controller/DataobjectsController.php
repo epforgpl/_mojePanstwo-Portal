@@ -120,7 +120,7 @@ class DataobjectsController extends AppController
 
     public function load()
     {
-
+				
         $dataset = isset($this->request->params['controller']) ? $this->request->params['controller'] : false;
         $id = isset($this->request->params['id']) ? $this->request->params['id'] : false;
         $slug = isset($this->request->params['slug']) ? $this->request->params['slug'] : '';
@@ -185,17 +185,14 @@ class DataobjectsController extends AppController
 
             $this->object_aggs = $this->Dataobject->getAggs();
             $this->set('object_aggs', $this->object_aggs);
-						
+							
             if (
                 ($this->domainMode == 'MP') && 
                 (
 	                !isset($this->request->params['from_slug']) || 
 	                !$this->request->params['from_slug']
                 ) && 
-                (
-                    !isset($this->request->params['ext']) ||
-                    !in_array($this->request->params['ext'], array('json', 'html'))
-                ) &&
+                !in_array(@$this->request->params['ext'], array('json', 'html')) && 
                 !$slug &&
                 $this->object->getSlug() &&
                 ($this->object->getSlug() != $slug) &&
@@ -249,12 +246,14 @@ class DataobjectsController extends AppController
                 return $this->redirect($url);
 
             }
-
+                        
             if (@$this->request->params['ext'] == 'json') {
 
                 $this->set('data', $this->object->getData());
                 $this->set('layers', $this->object->getLayers());
-                $this->set('_serialize', array('data', 'layers'));
+                $this->set('title', $this->object->getTitle());
+                $this->set('url', $this->object->getUrl());
+                $this->set('_serialize', array('data', 'layers', 'title', 'url'));
 
             } else {
 
@@ -264,7 +263,7 @@ class DataobjectsController extends AppController
                 $this->set('title_for_layout', $this->object->getTitle());
 
             }
-
+            
         } else {
             throw new BadRequestException();
         }
@@ -819,7 +818,7 @@ class DataobjectsController extends AppController
                     'close' => true
                 ));
             }
-
+						
             $this->redirect(
                 isset($response['redirect_url']) ?
                     $response['redirect_url'] : $this->referer()

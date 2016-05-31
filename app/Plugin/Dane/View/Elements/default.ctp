@@ -243,7 +243,7 @@ if ($classes = $object->getClasses()) {
     
     <?
 	                        if( 
-	                        	$object->subscriptions && 
+	                        	@$object->subscriptions && 
 	                        	$sub = array_shift( $object->subscriptions)
 	                    	) { ?>
 	                    	<div class="subscription">
