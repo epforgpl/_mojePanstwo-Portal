@@ -196,39 +196,20 @@ class ApplicationsController extends AppController
 	    ) {
 
 		    $datasets = $this->getDatasets($this->settings['id']);
-
+						
 			$fields = array('searchTitle', 'order', 'autocompletion');
 			$params = array(
-				/*
-				'aggs' => array(
-					'filter' => array(
-						'filter' => array(
-							'terms' => array(
-								'dataset' => array_keys( $datasets ),
-							),
-						),
-						'aggs' => array(
-							'dataset' => array(
-								'terms' => array(
-									'field' => 'dataset',
-								),
-							),
-						),
-						'scope' => 'query',
-						'visual' => array(
-							'skin' => 'datasets',
-	                        'field' => 'dataset',
-	                        'dictionary' => $datasets,
-	                        'forceKey' => 'dataset',
-	                        'target' => 'menu',
-						),
-					),
-				),
-				*/
 				'routes' => array(
 					'filter/dataset' => 'dataset',
 				),
 			);
+			
+			if( @$data['dataset_name']['id'] ) {
+				$params['observe'] = array(
+					'dataset' => 'zbiory',
+					'object_id' => $data['dataset_name']['id'],
+				); 
+			}
 						
 			if( isset($data['dataset_name']['browserTitle']) )
 				$params['browserTitle'] = $data['dataset_name']['browserTitle'];

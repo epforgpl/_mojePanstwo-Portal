@@ -21,6 +21,7 @@ class DataBrowserComponent extends Component
     public $dataset = false;
     public $searchAction = false;
     public $type = 'objects';
+    public $observe = false;
 		
 	private $phrases_presets = array(
 		'krakow_posiedzenia' => array(
@@ -1835,6 +1836,8 @@ class DataBrowserComponent extends Component
         ) {
         	$settings['cover']['aggs'] = $this->processAggs( $settings['cover']['aggs'] );
         }
+        
+    	$settings['observe'] = isset($settings['observe']) ? $settings['observe'] : false;
 
 
 
@@ -1990,6 +1993,7 @@ class DataBrowserComponent extends Component
                 'sort' => $this->settings['sort'],
                 'phrases' => isset($this->settings['phrases']) ? $this->settings['phrases'] : false,
                 'noResultsElement' => isset($this->settings['noResultsElement']) ? $this->settings['noResultsElement'] : 'Dane.DataBrowser/noResults',
+                'observe' => $this->settings['observe'],
             );
             
             if( isset($this->settings['beforeBrowserElement']) )
@@ -2212,6 +2216,7 @@ class DataBrowserComponent extends Component
                     'mode' => 'cover',
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
+	                'observe' => $this->settings['observe'],
 				));
 				
 				if( $controller->object ) {

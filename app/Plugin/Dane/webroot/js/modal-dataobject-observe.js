@@ -74,7 +74,7 @@ $(document).ready(function () {
 						
 					optionsBlock.append(div);
 					
-					if( data.layers.channels ) {
+					if( data.layers.channels && data.layers.channels.length ) {
 											
 						for( var i=0; i<data.layers.channels.length; i++ ) {
 							
@@ -85,6 +85,10 @@ $(document).ready(function () {
 							
 						}
 					
+					} else {
+						
+						observeModal.find('#checkbox_all').prop('checked', true).prop('disabled', true);
+						
 					}
 					
 					if( data.layers.subscription && data.layers.subscription.Subscription && data.layers.subscription.Subscription.id ) {

@@ -5,15 +5,29 @@
 	    $phrases = $dataBrowser['phrases']['paginator'];
 	
 	if (isset($paginatorPhrases) && $paginatorPhrases)
-	    $phrases = $paginatorPhrases;
+	    $phrases = $paginatorPhrases;	    
 ?>
 
 <? if( (!isset($nopaging) || !$nopaging) ) {?>
 <div class="dataAggsDropdownListContainer<? if( isset($class) ) echo ' ' . $class; ?>">
 	
 	
-	<? if (isset($dataBrowser['aggs_visuals_map']) && (count($dataBrowser['aggs_visuals_map']) > 0)) {
-	    $selected = false; ?>
+	<? if (
+		(
+			isset($dataBrowser['aggs_visuals_map']) && 
+			( count($dataBrowser['aggs_visuals_map']) > 0 )
+		) || 
+		(
+			isset( $paging['count'] ) && 
+			(
+				!isset($nopaging) || 
+				!$nopaging
+			)
+		)
+	) {
+	    $selected = false;
+    ?>
+	
 	<ul class="nav nav-pills dataAggsDropdownList nopadding" role="tablist">
 	
 				<? if (isset($paging['count']) && (!isset($nopaging) || !$nopaging)) { ?>
@@ -173,6 +187,14 @@
 	                </a>
 	            </li>
 	        <? } ?>
+	        	        
+	        <? if( $dataBrowser['observe'] ) { ?>
+	        <li role="presentation" class="pull-right dataobject-head" data-dataset="<?= $dataBrowser['observe']['dataset'] ?>" data-object_id="<?= $dataBrowser['observe']['object_id'] ?>">
+                <a class="btn-observe" href="#"><span class="icon" data-icon-applications="&#xe60a;"></span> Obserwuj</a>
+	        </li>
+	        <? echo $this->element('Dane.modals/dataobject-observe'); ?>
+	        <? } ?>
+
 		
 	</ul>
 	<? } ?>

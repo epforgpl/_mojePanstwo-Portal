@@ -1,14 +1,10 @@
-<?php
-$this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
+<?
 
-/*
-$subscription = @$object->getLayer('subscription');
-$userSubscription = @$subscription['SubscriptionChannel'];
-$userSubscriptionList = empty($userSubscription) ? array() : array_column($userSubscription, 'channel');
-$channels = $object->getLayer('channels');
-$dataset = $object->getDataset();
-$object_id = $object->getId();
-*/
+if( !defined('_dataobject_observe') ) {
+
+	define('_dataobject_observe', true);
+	$this->Combinator->add_libs('js', 'Dane.modal-dataobject-observe');
+
 ?>
 
 <div class="modal fade" id="observeModal" tabindex="-1" role="dialog" aria-labelledby="observeModalLabel"
@@ -39,18 +35,7 @@ $object_id = $object->getId();
                     <input type="hidden" name="object_id" value="" />
 
                     <div class="optionsBlock"></div>
-                    
-                    <? /*
-                    <?
-	                    $qs = array();
-	                    if( $_qs = @$subscription['SubscriptionQuery'] ) {
-		                    foreach( $_qs as $_q ) {
-			                    $qs[] = $_q['q'];
-		                    }
-	                    }
-                    ?>
-                    */ ?>
-                    
+                                        
                     <div class="keywordsBlock">
 	                    	                    
 	                    <p>Powiadamiaj mnie tylko o danych zawierających określone słowa lub frazy:</p>
@@ -86,3 +71,5 @@ $object_id = $object->getId();
         </div>
     </div>
 </div>
+
+<? } ?>
