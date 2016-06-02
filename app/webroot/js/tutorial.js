@@ -27,7 +27,7 @@ $(document).ready(function () {
 				}, {
 					url: null,
 					steps: [{
-						el: '.DataObjectOptions .option:first',
+						el: '.DataObjectOptions .btn-observe.off',
 						text: '<p>Kliknij teraz "Obserwuj". Od tej pory wiesz jako pierwszy o ważnych aktualizacjach na tej stronie.</p><p>Dzięki powiadomieniom będziesz zawsze na bieżąco w najważniejszych dla Ciebie sprawach.</p>',
 						background: false,
 						exit: '.DataObjectOptions .option:first'
@@ -222,6 +222,9 @@ $(document).ready(function () {
 	}
 
 	var showModal = function (pos, steps) {
+		
+		console.log('showModal');
+		
 		var step = steps[pos],
 			modal = $('<div></div>').addClass('modal fade gamification').attr({
 				id: 'tutorialModal',
@@ -289,14 +292,17 @@ $(document).ready(function () {
 	};
 
 	var showPopup = function (pos, steps) {
+				
 		var step = steps[pos];
+		
+		console.log('step', step);
 
-		if ($('.popup-backdrop').length === 0 && step.background !== false) {
+		if ( ($('.popup-backdrop').length === 0) && (step.background !== false) ) {
 			$('body').append(
 				$('<div></div>').addClass('popup-backdrop')
 			);
 		}
-
+		
 		if ($('.popover .popoverClose').length) {
 			$('.popover .popoverClose').click(function () {
 				$(this).parents('.popover').popover('hide');
@@ -313,16 +319,25 @@ $(document).ready(function () {
 						'z-index': 9990
 					});
 				}
-
+								
 				$(step.el).attr({
 					'data-container': "body",
 					'data-toggle': "popover",
 					'data-placement': "top auto",
-					'data-trigger': "manual",
 					'data-html': "true",
-					'data-content': step.text
+					'data-content': step.text,
 				}).popover('show');
-
+				
+				var closeFunction = function(event){
+					
+					event.preventDefault();
+					$(step.el).popover('hide');
+					$('body').unbind('click', closeFunction);
+					
+				};
+				
+				$('body').bind('click', closeFunction);
+				
 				if (typeof step.exit !== "undefined") {
 					$(step.exit).one("click", function () {
 						var next = steps[pos + 1];
@@ -364,6 +379,8 @@ $(document).ready(function () {
 	};
 
 	var runTutorial = function () {
+		
+		
 		var stepNumber = mPCookie.tutorial.step,
 			logic = tutorialLogic[mPCookie.tutorial.option],
 			step = logic[stepNumber];
@@ -389,6 +406,7 @@ $(document).ready(function () {
 			};
 			Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
 		} else {
+						
 			if ((typeof step.urlType !== "undefined" && step.urlType === "search" && window.location.search.substring(0, step.url.length) === step.url) || (step.url === window.location.pathname) || step.url === null) {
 				var s = 0;
 

@@ -24,7 +24,7 @@ $_manage = isset( $manage ) ? $manage: false;
 <div class="objectRender<? echo ($alertsStatus) ? " unreaded" : " readed";
 if ($classes = $object->getClasses()) {
     echo " " . implode(' ', $classes);
-} ?><? if($object->getOptions('manage')) {?> manage<?}?>" oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
+} ?><? if($object->getOptions('manage')) {?> manage<?}?><? if($object->getThumbnailUrl()) { ?> hasthumb<?}?>" oid="<?php echo $object->getId() ?>" gid="<?php echo $object->getGlobalId() ?>">
 		
     <div class="row">
         <div class="data col-xs-12">

@@ -5,6 +5,8 @@ namespace MP\Lib;
 class Patenty extends DataObject
 {
 	
+    public $force_hl_fields = true;
+
 	protected $schema = array(
 		array('uprawniony', 'Uprawniony', 'string'),
 		array('tworcy', 'Twórcy', 'string'),		
@@ -22,7 +24,7 @@ class Patenty extends DataObject
     );
 
     public function getLabel()
-    {
+    {	    
         return 'Patent';
     }
 		
@@ -32,6 +34,18 @@ class Patenty extends DataObject
 			return 'http://public.sds.tiktalik.com/patenty/img/' . $this->getId() . '.png';
 		else
 			return false;
+		
+	}
+	
+	public function getMetaDescriptionParts($preset = false)
+	{
+					
+		$output = array();
+		
+		if( $date = $this->getDate() )
+			$output[] = 'Zarejestrowano ' . dataSlownie($date);
+		
+		return $output;
 		
 	}
 	

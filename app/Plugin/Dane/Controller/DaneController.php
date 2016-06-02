@@ -84,7 +84,7 @@ class DaneController extends ApplicationsController
 
     public function action()
     {
-
+				
         if (
         isset($this->request->params['id'])
         ) {
@@ -113,7 +113,7 @@ class DaneController extends ApplicationsController
 			            'zbiory.slug' => $this->request->params['id'],
 		            ),
 	            ));
-	            	            
+	            	            	            
 	            $this->title = $dataset->getData('nazwa');
 	            $this->setMetaDescription($dataset->getData('opis'));
 	            $this->addBreadcrumb(array(
@@ -126,7 +126,12 @@ class DaneController extends ApplicationsController
             }
 
             $fields = array('searchTitle', 'order');
-            $params = array();
+            $params = array(
+	            'observe' => array(
+		            'dataset' => $dataset->getDataset(),
+		            'object_id' => $dataset->getId(),
+	            ),
+            );
 
             foreach ($fields as $field)
                 if (isset($data[$field]))
