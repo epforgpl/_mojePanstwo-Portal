@@ -5,6 +5,7 @@ namespace MP\Lib;
 class Poslowie extends DataObject
 {
 	
+    public $force_hl_fields = true;
 	protected $tiny_label = 'Poseł';
 	
     protected $schema = array(

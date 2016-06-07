@@ -43,6 +43,11 @@ class ApiController extends ApplicationsController
 		$this->title = 'API - Sejmometr';
     }
     
+    public function finanse()
+    {
+		$this->title = 'API - Finanse';
+    }
+    
     public function krs()
     {
 		$this->title = 'API - KRS';
@@ -75,6 +80,13 @@ class ApiController extends ApplicationsController
 			'label' => 'Sejmometr',
 			'href' => '/api/sejmometr',
 			'id' => 'sejmometr',
+			'icon' => 'icon-datasets-dot',
+		);
+		
+		$items[] = array(
+			'label' => 'Finanse',
+			'href' => '/api/finanse',
+			'id' => 'finanse',
 			'icon' => 'icon-datasets-dot',
 		);
 		
