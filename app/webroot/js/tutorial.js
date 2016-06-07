@@ -222,9 +222,7 @@ $(document).ready(function () {
 	}
 
 	var showModal = function (pos, steps) {
-		
-		console.log('showModal');
-		
+				
 		var step = steps[pos],
 			modal = $('<div></div>').addClass('modal fade gamification').attr({
 				id: 'tutorialModal',
@@ -295,8 +293,6 @@ $(document).ready(function () {
 				
 		var step = steps[pos];
 		
-		console.log('step', step);
-
 		if ( ($('.popup-backdrop').length === 0) && (step.background !== false) ) {
 			$('body').append(
 				$('<div></div>').addClass('popup-backdrop')

@@ -42,16 +42,41 @@ $(document).ready(function () {
 	    $('.dataobject-head .btn-observe').click(function(event){
 		    
 		    event.preventDefault();
-					    	
+		    					    	
 		    var appHeader = $(event.target).parents('.dataobject-head');
 		    var dataset = appHeader.data('dataset');
 		    var object_id = appHeader.data('object_id');
+		    var phrase = appHeader.data('phrase');
 		    
-		    if( dataset && object_id ) {
-		    		    
+		    var mode = false;
+		    
+		    if( dataset && object_id )
+		    	mode = 'dataset';
+		    else if( phrase )
+		    	mode = 'phrase';
+		    
+		    if( mode) {
+		    		 	
+		    	   
 				var optionsBlock = observeModal.find('.optionsBlock');
 				var keywordsBlock = observeModal.find('.keywordsBlock');
 				
+				console.log('dataset', dataset);
+				
+				if( 
+					( mode == 'phrase' ) ||
+					(
+						( mode == 'dataset' ) && 
+						( dataset == 'users_phrases' )
+					)
+				)
+					keywordsBlock.hide();
+				else if( 
+					( mode == 'dataset' ) && 
+					( dataset != 'users_phrases' )
+				)
+					keywordsBlock.show();
+					
 				
 				optionsBlock.html('');
 				keywordsBlock.find('input').val('');
@@ -61,14 +86,33 @@ $(document).ready(function () {
 				observeModal.find('.modal-footer .unobserve').hide();
 				observeModal.find('.modal-body-loading').show();
 				
-				observeModal.find('input[name=dataset]').val(dataset);
-				observeModal.find('input[name=object_id]').val(object_id);
+				if( mode == 'dataset' ) {
+					observeModal.find('input[name=dataset]').val(dataset);
+					observeModal.find('input[name=object_id]').val(object_id);
+				}
 				
 				observeModal.modal('show');
-							
-				$.get('/dane/' + dataset + '/' + object_id + '.json?layers[]=channels&layers[]=subscription', function(data){
+				
+				if( mode == 'phrase' ) {
+					
+					var url = '/dane/user_phrases/phrase.json?q=' + phrase;
+					
+				} else if( mode == 'dataset') {
+					
+					var url = '/dane/' + dataset + '/' + object_id + '.json?layers[]=channels&layers[]=subscription';
+					
+				}
+						
+				$.get(url, function(data){
 										
 					observeModal.find('.dataobject-title').html('<a href="' + data.url + '">' + data.title + '</a>');
+					
+					if( mode == 'phrase' ) {
+						
+						observeModal.find('input[name=dataset]').val('users_phrases');
+						observeModal.find('input[name=object_id]').val(data.data.id);
+											
+					}
 					
 					var div = '<div class="checkbox first"><input type="checkbox" id="checkbox_all" name="channel[]" value="" checked><label for="checkbox_all">Wszystkie dane</label></div>';
 						
@@ -105,6 +149,8 @@ $(document).ready(function () {
 								
 								var ch = data.layers.subscription.SubscriptionChannel[i];
 								var selector = '#checkbox_' + data.layers.subscription.Subscription.dataset + '_' + ch['channel'];
+								
+								console.log('selector', selector);
 																
 								optionsBlock.find(selector).prop('checked', true);
 								

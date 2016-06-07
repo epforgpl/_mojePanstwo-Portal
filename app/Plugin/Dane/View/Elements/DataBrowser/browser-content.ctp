@@ -57,7 +57,7 @@ $_manage = isset( $manage ) ? $manage: false;
 	    ));
 		
 	} else {
-	
+		
 		echo $this->element('Dane.DataBrowser/browser-content-list', array(
 		    'dataWrap' => $dataWrap,
 		    'params' => $this->Paginator->params(),
