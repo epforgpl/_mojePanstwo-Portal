@@ -60,9 +60,7 @@ $(document).ready(function () {
 		    	   
 				var optionsBlock = observeModal.find('.optionsBlock');
 				var keywordsBlock = observeModal.find('.keywordsBlock');
-				
-				console.log('dataset', dataset);
-				
+								
 				if( 
 					( mode == 'phrase' ) ||
 					(
@@ -149,9 +147,7 @@ $(document).ready(function () {
 								
 								var ch = data.layers.subscription.SubscriptionChannel[i];
 								var selector = '#checkbox_' + data.layers.subscription.Subscription.dataset + '_' + ch['channel'];
-								
-								console.log('selector', selector);
-																
+																								
 								optionsBlock.find(selector).prop('checked', true);
 								
 							}
