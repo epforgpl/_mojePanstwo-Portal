@@ -83,12 +83,14 @@ class ApiController extends ApplicationsController
 			'icon' => 'icon-datasets-dot',
 		);
 		
+		/*
 		$items[] = array(
 			'label' => 'Finanse',
 			'href' => '/api/finanse',
 			'id' => 'finanse',
 			'icon' => 'icon-datasets-dot',
 		);
+		*/
 		
 		$items[] = array(
 			'label' => 'Bank Danych Lokalnych',
