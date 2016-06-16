@@ -35,6 +35,7 @@
 		            ?>
 		            
 		            <?
+			            /*
 			            $datasetsFilter = isset( $datasetsFilter ) ? $datasetsFilter : false;
 			            if(
 			            	$datasetsFilter && 
@@ -57,7 +58,7 @@
 					            <? } ?>
 					        <? } ?>								
 						</ul>						
-					<? } ?>
+					<? } */ ?>
 
 				    
 					

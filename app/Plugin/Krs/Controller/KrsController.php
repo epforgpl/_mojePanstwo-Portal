@@ -224,20 +224,8 @@ class KrsController extends ApplicationsController
 	                ),
                 ),
             ),
-            'aggs' => array(
-                'dataset' => array(
-                    'terms' => array(
-                        'field' => 'dataset',
-                    ),
-                    'visual' => array(
-                        'skin' => 'datasets',
-                        'class' => 'special',
-                        'field' => 'dataset',
-                        'dictionary' => $datasets,
-                    ),
-                ),
-            ),
-            'apps' => true,
+            'perDatasets' => true,
+            'appObserve' => 1,
             'browserTitle' => 'Wyniki wyszukiwania w Krajowym Rejestrze Sądowym:',
         );
 		

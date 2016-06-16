@@ -111,7 +111,7 @@ $(document).ready(function () {
 						observeModal.find('input[name=object_id]').val(data.data.id);
 											
 					}
-					
+										
 					var div = '<div class="checkbox first"><input type="checkbox" id="checkbox_all" name="channel[]" value="" checked><label for="checkbox_all">Wszystkie dane</label></div>';
 						
 					optionsBlock.append(div);
@@ -146,8 +146,8 @@ $(document).ready(function () {
 							for( var i=0; i<data.layers.subscription.SubscriptionChannel.length; i++ ) {
 								
 								var ch = data.layers.subscription.SubscriptionChannel[i];
-								var selector = '#checkbox_' + data.layers.subscription.Subscription.dataset + '_' + ch['channel'];
-																								
+								var selector = 'input[value=' + ch['channel'] + ']';
+
 								optionsBlock.find(selector).prop('checked', true);
 								
 							}
@@ -158,7 +158,7 @@ $(document).ready(function () {
 							
 							for( var i=0; i<data.layers.subscription.SubscriptionQuery.length; i++ ) {
 								var q = data.layers.subscription.SubscriptionQuery[i];
-								observeModalAddKeywordQ( q['q'] );
+								observeModalAddKeywordQ(q['q'], true);
 							}
 							
 						}
@@ -166,7 +166,8 @@ $(document).ready(function () {
 						
 					}
 					
-					
+					if( getQueryVariable('q') )
+						observeModalAddKeywordQ(getQueryVariable('q'), false);
 					
 					observeModal.find('#checkbox_all').change(function () {
 		    					    	
@@ -201,20 +202,60 @@ $(document).ready(function () {
         
 });
 
-function observeModalAddKeywordQ(q) {
+function observeModalAddKeywordQ(q, validation) {
+	
+	q = q.trim();
+	
+	if( !q )
+		return false;
+	
+	if( q.length<3 ) {
+		if( validation )
+			return alert('Podana fraza jest zbyt krótka');
+		else
+			return false;
+	}
+	
+	if( q.length>150 ) {
+		if( validation )
+			return alert('Podana fraza jest zbyt długa');
+		else
+			return false;
+	}
 	
 	var observeModal = $('#observeModal');
 	if( observeModal.length ) {
 
 		var list = observeModal.find('.keywordsBlock .keywords_list');
-		var li = $('<li><input type="hidden" name="qs[]" /><p class="icons"><a href="#" class="glyphicon glyphicon-remove"></a></p><p class="val"></p></li>').data('q', q);
-		li.find('.val').text(q);
-		li.find('input').val(q);
-		li.find('a').click(function(event){
-			event.preventDefault();
-			li.remove();
-		});
-		list.append( li );
+		var list_options = list.find('li');
+		
+				
+		if( q ) {
+			if( list_options.length < 5 ) {
+				
+				for( var i=0; i<list_options.length; i++ ) {
+					if( $(list_options[i]).data('q') == q ) {
+						if( validation )
+							alert('To słowo jest już na liście.');
+						return false;
+					}
+				}
+				
+				var li = $('<li><input type="hidden" name="qs[]" /><p class="icons"><a href="#" class="glyphicon glyphicon-remove"></a></p><p class="val"></p></li>').data('q', q);
+				li.find('.val').text(q);
+				li.find('input').val(q);
+				li.find('a').click(function(event){
+					event.preventDefault();
+					li.remove();
+				});
+				list.append( li );
+				
+								
+			} else {
+				if( validation )
+					alert('Możesz dodać maksymalnie 5 słów lub fraz.');
+			}
+		}
 		
 	}
 }
@@ -225,38 +266,10 @@ function observeModalAddKeyword() {
 		
 		var input = observeModal.find('.keywordsBlock .input-keyword');
 		var list = observeModal.find('.keywordsBlock .keywords_list');
-		var list_options = list.find('li');
+		var q = input.val();
 		
-		var q = input.val().trim();
-		
-		if( !q )
-			return false;
-		
-		if( q.length<3 ) {
-			return alert('Podana fraza jest zbyt krótka');
-		}
-		
-		if( q.length>150 ) {
-			return alert('Podana fraza jest zbyt długa');
-		}
+		observeModalAddKeywordQ(q, true);
+		input.val('').focus();
 				
-		if( q ) {
-			if( list_options.length < 5 ) {
-				
-				for( var i=0; i<list_options.length; i++ ) {
-					if( $(list_options[i]).data('q') == q ) {
-						alert('To słowo jest już na liście.');
-						return false;
-					}
-				}
-				
-				observeModalAddKeywordQ(q);
-				input.val('').focus();
-								
-			} else {
-				alert('Możesz dodać maksymalnie 5 słów lub fraz.');
-			}
-		}
-		
 	}
 }

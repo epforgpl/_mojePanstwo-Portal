@@ -13,6 +13,27 @@ class OrzecznictwoController extends ApplicationsController
     );
     public $mainMenuLabel = 'Przeglądaj';
 
+	public $menu = array(
+		'sa_orzeczenia' => array(
+			'id' => 'sa',
+			'label' => 'Sądy administracyjne',
+			'icon' => 'icon-datasets-sa_orzeczenia',
+			'href' => '/orzecznictwo/sa',
+		),
+		'sp_orzeczenia' => array(
+			'id' => 'sp',
+			'label' => 'Sądy powszechne',
+			'icon' => 'icon-datasets-sp_orzeczenia',
+			'href' => '/orzecznictwo/sp',
+		),
+		'sn_orzeczenia' => array(
+			'id' => 'sn',
+			'label' => 'Sąd Najwyższy',
+			'icon' => 'icon-datasets-sn_orzeczenia',
+			'href' => '/orzecznictwo/sn',
+		),
+	);
+	
     public function prepareMetaTags()
     {
         parent::prepareMetaTags();
@@ -107,6 +128,8 @@ class OrzecznictwoController extends ApplicationsController
                     ),
                 ),
             ),
+            'perDatasets' => true,
+
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

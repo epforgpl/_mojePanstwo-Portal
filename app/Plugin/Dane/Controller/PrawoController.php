@@ -22,36 +22,27 @@ class PrawoController extends DataobjectsController
     public function _prepareView()
     {
 	            
-        $aggs_fields = array();
-        foreach(array('akty_uchylajace', 'akty_uchylone', 'akty_wykonawcze', 'akty_uznane_za_uchylone', 'akty_zmieniajace', 'akty_zmienione', 'informacja_o_tekscie_jednolitym', 'odeslania', 'orzeczenie_do_aktu', 'orzeczenie_tk', 'podstawa_prawna', 'tekst_jednolity_do_aktu', 'uchylenia_wynikajace_z') as $field) {
-	        $aggs_fields[$field] = array(
-                'filter' => array(
-                    'term' => array(
-                    	'data.prawo.' . $field => $this->request->params['id'],
-                    ),
-                ),
-	        );
-        }
-                
-        $this->addInitAggs(array(
-            'prawo' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'prawo',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-                'scope' => 'global',
-                'aggs' => $aggs_fields,
-            ),
-        ));
+        parent::_prepareView();
         
-	    return parent::_prepareView();
+        $dataset = false;
+        if( $this->object->getData('zrodlo') == 'DzU' )
+        	$dataset = 'dziennik_ustaw';
+        elseif( $this->object->getData('zrodlo') == 'MP' )
+        	$dataset = 'monitor_polski';
+        
+        if( $dataset ) {
+	        
+	        $url = '/dane/' . $dataset . '/' . $this->object->getId() . ',' . $this->object->getSlug();
+	        if( $this->request->params['action'] != 'view' )
+	        	$url .= '/' . $this->request->params['action'];
+	        
+        } else {
+	        
+	        $url = '/';
+	        
+        }
+                        
+        return $this->redirect($url);
 	    
     }
     

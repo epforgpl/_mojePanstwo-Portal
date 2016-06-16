@@ -98,6 +98,25 @@ class ApplicationsController extends AppController
 				'active' => ( $app && ($app['id']=='dane') ),
 				'glyphicon' => 'search',
 			);
+						
+			
+			if( $apps = @$this->viewVars['dataBrowser']['aggs']['apps']['buckets'] ) {
+			    
+			    foreach( $apps as &$a ) {
+				    
+			    	$a['app'] = $this->getApplication($a['key']);
+			    	
+			    	$path = (isset($a['app']['path']) && !empty($a['app']['path'])) ? $a['app']['path'] : $a['app']['id'];
+                    $icon_link = '/' . $path . '/icon/icon_' . $a['app']['id'] . '.svg';
+                    
+                    $a['icon_path'] = $icon_link;
+			    		
+			    }
+			    	
+			    unset($this->viewVars['dataBrowser']['aggs']['apps']);
+			    $this->set('apps', $apps);
+			    
+		    }
 			
 		}
 
@@ -132,7 +151,23 @@ class ApplicationsController extends AppController
         elseif (isset($this->settings['title']))
             $this->set('title_for_layout', $this->settings['title']);
 
-       parent::beforeRender();
+        parent::beforeRender();
+       
+       
+        if( 
+			isset($this->request->query['q']) && 
+			$this->request->query['q'] && 
+			( $datasets = @$this->viewVars['dataBrowser']['aggs']['datasets']['buckets'] )
+   	    ) {
+
+   			foreach( $datasets as &$d ) {
+		    	$d['dataset'] = $this->getDataset($d['key']);
+		    }
+		    	
+		    unset($this->viewVars['dataBrowser']['aggs']['datasets']);
+		    $this->set('datasets', $datasets);
+	       
+	    }
 
     }
 
@@ -189,14 +224,14 @@ class ApplicationsController extends AppController
 
     public function action()
     {
-
+				
 	    if(
 	    	isset($this->request->params['id']) &&
 	    	( $data = $this->getDatasetByAlias(@$this->settings['id'], $this->request->params['id']) )
 	    ) {
-
+			
 		    $datasets = $this->getDatasets($this->settings['id']);
-						
+					
 			$fields = array('searchTitle', 'order', 'autocompletion');
 			$params = array(
 				'routes' => array(
@@ -210,6 +245,9 @@ class ApplicationsController extends AppController
 					'object_id' => $data['dataset_name']['id'],
 				); 
 			}
+			
+			if( isset($data['dataset_name']['label']) )
+				$params['browserTitle'] = $data['dataset_name']['label'];
 						
 			if( isset($data['dataset_name']['browserTitle']) )
 				$params['browserTitle'] = $data['dataset_name']['browserTitle'];
@@ -272,70 +310,18 @@ class ApplicationsController extends AppController
     }
 
 	public function getChapters() {
-
+	
 		$mode = false;
 		$items = array();
-		$app = $this->getApplication( $this->settings['id'] );
-
-		if(
-			isset( $this->request->query['q'] ) &&
-			$this->request->query['q']
-		) {
-						
-			$items[] = array(
-				'id' => '_results',
-				'label' => 'Szukaj',
-				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
-				'icon' => 'icon-search',
-				'class' => '_label',
-			);
-
-			if( $this->chapter_selected=='view' )
-				$this->chapter_selected = '_results';
-			$mode = 'results';
-
-		}
-
-		if(
-			( $map = @$this->viewVars['dataBrowser']['aggs_visuals_map']['dataset']['dictionary'] ) &&
-			( $datasets = @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] )
-		) {
-
-			foreach( $map as $key => $value ) {
-
-				if( !isset($value['menu_id']) )
-					$value['menu_id'] = '';
-								
-				$item = array(
-					'id' => $value['menu_id'],
-					'label' => $value['label'],
-					'href' => '/' . $this->settings['id'] . '/' . $value['menu_id'],
-					'icon' => 'icon-datasets-' . $key,
-
-				);
-
-				
-
-				$items[] = $item;
-
-
-			}
-
-		}
 		
-        foreach($items as $i => $item) {
+		foreach( $this->menu as $item )
+			$items[] = $item;
 
-            if(isset($item['submenu'])) {
-                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
-            }
-
-        }
-        
-		$output = array(
+        $output = array(
 			'items' => $items,
 			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
 		);
-				
+
 		return $output;
 
 	}

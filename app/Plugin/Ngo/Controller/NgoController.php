@@ -15,29 +15,34 @@ class NgoController extends ApplicationsController
 
     public $menu = array(
 		'konkursy' => array(
-			'menu_id' => 'konkursy',
+			'id' => 'konkursy',
 			'label' => 'Konkursy',
-			'icon' => 'ngo_konkursy',
+			'icon' => 'icon-datasets-ngo_konkursy',
+			'href' => '/ngo/konkursy',
 		),
-		'zbiorki_publiczne' => array(
-			'menu_id' => 'zbiorki',
+		'zbiorki' => array(
+			'id' => 'zbiorki',
 			'label' => 'Zbiórki publiczne',
-			'icon' => 'zbiorki_publiczne',
+			'icon' => 'icon-datasets-zbiorki_publiczne',
+			'href' => '/ngo/zbiorki',
 		),
 		'finanse_opp' => array(
-			'menu_id' => 'finanse_opp',
+			'id' => 'finanse_opp',
 			'label' => 'Finanse Organizacji Pożytku Publicznego',
-			'icon' => 'dotacje_ue',
+			'icon' => 'icon-datasets-dotacje_ue',
+			'href' => '/ngo/finanse_opp',
 		),
 		'sprawozdania_opp' => array(
-			'menu_id' => 'sprawozdania_opp',
+			'id' => 'sprawozdania_opp',
 			'label' => 'Sprawozdania OPP',
-			'icon' => 'sprawozdania_opp',
+			'icon' => 'icon-datasets-sprawozdania_opp',
+			'href' => '/ngo/sprawozdania_opp',
 		),
 		'dzialania' => array(
-			'menu_id' => 'dzialania',
+			'id' => 'dzialania',
 			'label' => 'Działania',
-			'icon' => 'dzialania',
+			'icon' => 'icon-datasets-dzialania',
+			'href' => '/ngo/dzialania',
 		),
 		/*
 		'pisma' => array(
@@ -49,38 +54,37 @@ class NgoController extends ApplicationsController
 		'krs_podmioty' => array(
 			'label' => 'Organizacje:',
 			'class' => '__label border-top',
-			'icon' => 'krs_podmioty',
-			'forma_prawna_id' => '_all',
+			'icon' => 'icon-datasets-krs_podmioty',
 		),
 		'fundacje' => array(
-			'menu_id' => 'fundacje',
+			'id' => 'fundacje',
 			'label' => 'Fundacje',
-			'forma_prawna_id' => '1',
 			'icon' => 'dot',
+			'href' => '/ngo/fundacje',
 		),
 		'stowarzyszenia' => array(
-			'menu_id' => 'stowarzyszenia',
+			'id' => 'stowarzyszenia',
 			'label' => 'Stowarzyszenia',
-			'forma_prawna_id' => '15',
 			'icon' => 'dot',
+			'href' => '/ngo/stowarzyszenia',
 		),
 		'zwiazki_zawodowe' => array(
-			'menu_id' => 'zwiazki_zawodowe',
+			'id' => 'zwiazki_zawodowe',
 			'label' => 'Związki zawodowe',
-			'forma_prawna_id' => '18',
 			'icon' => 'dot',
+			'href' => '/ngo/zwiazki_zawodowe',
 		),
 		'spoldzielnie' => array(
-			'menu_id' => 'spoldzielnie',
+			'id' => 'spoldzielnie',
 			'label' => 'Spółdzielnie',
-			'forma_prawna_id' => '9',
 			'icon' => 'dot',
+			'href' => '/ngo/spoldzielnie',
 		),
 		'pozostale_ngo' => array(
-			'menu_id' => 'pozostale',
+			'id' => 'pozostale',
 			'label' => 'Pozostałe organizacje',
-			'forma_prawna_id' => '_other',
 			'icon' => 'dot',
+			'href' => '/ngo/pozostale',
 		),
 	);
 
@@ -817,6 +821,8 @@ class NgoController extends ApplicationsController
 				),
             ),
             'aggs' => $this->_aggs,
+            'perDatasets' => true,
+            'appObserve' => 3,
         );
 
 
@@ -891,6 +897,7 @@ class NgoController extends ApplicationsController
     {
 	    $this->title = 'Fundacje | NGO';
         $this->loadDatasetBrowser('krs_podmioty', array(
+	        'browserTitle' => 'Fundacje',
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '1',
             ),
@@ -924,6 +931,7 @@ class NgoController extends ApplicationsController
     {
 	    $this->title = 'Związki zawodowe | NGO';
         $this->loadDatasetBrowser('krs_podmioty', array(
+	        'browserTitle' => 'Związki zawodowe',
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '18',
             ),
@@ -936,6 +944,7 @@ class NgoController extends ApplicationsController
     {
         $this->title = 'Spółdzielnie | NGO';
         $this->loadDatasetBrowser('krs_podmioty', array(
+	        'browserTitle' => 'Spółdzielnie',
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '9',
             ),
@@ -948,6 +957,7 @@ class NgoController extends ApplicationsController
     {
         $this->title = 'Pozostałe organizacje | NGO';
         $this->loadDatasetBrowser('krs_podmioty', array(
+	        'browserTitle' => 'Pozostałe organizacje',
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => array('2', '3', '4', '5', '8', '16', '17', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '33', '34', '35', '36', '37', '40', '41', '43', '45'),
             ),
@@ -1412,6 +1422,7 @@ class NgoController extends ApplicationsController
         )));
 
         $this->loadDatasetBrowser('krs_podmioty', array(
+	        'browserTitle' => 'Stowarzyszenia',
             'conditions' => array(
                 'krs_podmioty.forma_prawna_id' => '15',
             ),
@@ -1426,160 +1437,6 @@ class NgoController extends ApplicationsController
 
     }
 
-    public function getChapters() {
-
-		$mode = false;
-		$items = array();
-        $app = $this->getApplication($this->settings['id']);
-
-		if( @$this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'] )
-			$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] = $this->viewVars['dataBrowser']['aggs']['_query']['dataset']['buckets'];
-
-        if(
-			isset( $this->request->query['q'] ) &&
-			$this->request->query['q']
-		) {
-
-            $items[] = array(
-				'id' => '_results',
-				'label' => 'Szukaj w NGO:',
-				'href' => '/' . $this->settings['id'] . '?q=' . urlencode( $this->request->query['q'] ),
-				'tool' => array(
-					'icon' => 'search',
-					'href' => '/' . $this->settings['id'],
-				),
-				'icon' => 'appIcon',
-				'appIcon' => $app['icon'],
-				'class' => '_label',
-			);
-
-			if( $this->chapter_selected=='view' )
-				$this->chapter_selected = '_results';
-			$mode = 'results';
-
-		}
-
-
-        $others_count = 0;
-
-        foreach( $this->menu as $key => $value ) {
-
-            if( !isset($value['menu_id']) )
-				$value['menu_id'] = '';
-
-            $item = array(
-				'id' => $value['menu_id'],
-				'label' => $value['label'],
-			);
-
-            if( $value['menu_id'] )
-				$item['href'] = '/' . $this->settings['id'] . '/' . $value['menu_id'];
-
-            if( isset($value['icon']) )
-				$item['icon'] = 'icon-datasets-' . $value['icon'];
-
-            if( isset($value['class']) )
-				$item['class'] = $value['class'];
-
-			if( $mode == 'results' ) {
-
-
-                $datasets = array();
-
-                if( isset($item['href']) )
-					$item['href'] .= '?q=' . urlencode( $this->request->query['q'] );
-
-                if( @$value['forma_prawna_id'] ) {
-
-                    if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
-						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
-
-                            if( $dataset['key']=='krs_podmioty' ) {
-
-                                if( $value['forma_prawna_id']=='_all' ) {
-
-                                    if( $dataset['doc_count'] );
-										$items[] = $item;
-
-                                } else {
-
-                                    foreach( $dataset['forma_prawna']['buckets'] as $forma ) {
-										if( $forma['doc_count'] ) {
-
-                                            if( $value['forma_prawna_id']==$forma['key'] ) {
-
-                                                $item['count'] = $forma['doc_count'];
-												$items[] = $item;
-
-                                            } elseif( ($value['forma_prawna_id']=='_other') && !in_array($forma['key'], array('1', '15', '18', '9')) ) {
-
-                                                $others_count += $forma['doc_count'];
-
-                                            }
-
-                                        }
-									}
-
-                                    if( ($value['forma_prawna_id']=='_other') && $others_count ) {
-
-                                        $item['count'] = $others_count;
-										$items[] = $item;
-
-                                    }
-
-                                }
-
-                            }
-						}
-					}
-
-                } else {
-
-                    if( @$this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] ) {
-						foreach( $this->viewVars['dataBrowser']['aggs']['dataset']['buckets'] as $dataset ) {
-							if( ($dataset['key'] == $key) && $dataset['doc_count'] ) {
-
-                                $item['count'] = $dataset['doc_count'];
-								$items[] = $item;
-
-                            }
-						}
-					}
-
-                }
-
-			} else {
-
-				$items[] = $item;
-
-			}
-
-		}
-
-        foreach($items as $i => $item) {
-
-            if(isset($item['submenu'])) {
-                $items[$i]['submenu']['selected'] = $this->chapter_submenu_selected;
-            }
-
-            if(
-                $i &&
-                (@strpos($item['class'], 'border-top') !== false) &&
-            	( @strpos($items[$i-1]['class'], '_label')!==false )
-            )
-	            $items[$i]['class'] = str_replace('border-top', '', $item['class']);
-
-        }
-
-
-        $output = array(
-			'items' => $items,
-			'selected' => ($this->chapter_selected=='view') ? false : $this->chapter_selected,
-		);
-
-		return $output;
-
-	}
 
     public function page()
     {

@@ -315,7 +315,21 @@ if(
 }
 
 
+Router::connect('/ustawaAT', array(
+    'plugin' => 'Dane',
+    'controller' => 'krs_podmioty',
+	'id' => '359730',
+    'action' => 'dzialania',
+    'subid' => 395
+));
 
+Router::connect('/ustawaat', array(
+    'plugin' => 'Dane',
+    'controller' => 'krs_podmioty',
+	'id' => '359730',
+    'action' => 'dzialania',
+    'subid' => 395
+));
 
 
 

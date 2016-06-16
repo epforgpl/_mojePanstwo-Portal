@@ -26,7 +26,7 @@ $options = array(
 <div class="col-xs-12">
 
     <div class="appBanner">
-        <h1 class="appTitle">Państwo w mediach społocznościowych</h1>
+        <h1 class="appTitle">Państwo w mediach społecznościowych</h1>
         <p class="appSubtitle">Zobacz kto i jak wykorzystuje media społecznościowe w debacie publicznej.</p>
 		
 		<form action="" method="get">

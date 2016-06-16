@@ -373,6 +373,7 @@ class DataobjectHelper extends AppHelper
                         $field_value[$f] = '<a href="' . $href . '">' . $field_value[$f] . '</a>';
                     }
                 } else {
+	                	                
                     $object_id = ($field_options['link']['object_id'][0] == '$') ?
                         $this->object->getData(mb_substr($field_options['link']['object_id'], 1)) :
                         $field_options['link']['object_id'];
@@ -460,6 +461,9 @@ class DataobjectHelper extends AppHelper
 
     public function hlTableForObject($object, $fields, $options = array())
     {
+	    
+	    $this->object = $object;
+	    
         $data = array();
         if (empty($fields)) {
             return '';
@@ -494,7 +498,7 @@ class DataobjectHelper extends AppHelper
             }
 
         }
-
+		
         return $this->hlTable($data, $options);
     }
 

@@ -70,6 +70,38 @@ class DataBrowserComponent extends Component
 				),
 			),
 		),
+		'dziennik_ustaw' => array(
+			'dziennik_ustaw.data_publikacji' => array(
+				'label' => 'Data publikacji',
+				'options' => array(
+					'desc' => 'od najnowszych',
+					'asc' => 'od najstarszych',
+				),
+			),
+			'dziennik_ustaw.data_wejscia_w_zycie' => array(
+				'label' => 'Data wejścia w życie',
+				'options' => array(
+					'asc' => 'od najwcześniejszych',
+					'desc' => 'od najpóźniejszych',
+				),
+			),
+		),
+		'monitor_polski' => array(
+			'monitor_polski.data_publikacji' => array(
+				'label' => 'Data publikacji',
+				'options' => array(
+					'desc' => 'od najnowszych',
+					'asc' => 'od najstarszych',
+				),
+			),
+			'monitor_polski.data_wejscia_w_zycie' => array(
+				'label' => 'Data wejścia w życie',
+				'options' => array(
+					'asc' => 'od najwcześniejszych',
+					'desc' => 'od najpóźniejszych',
+				),
+			),
+		),
 		'rady_gmin_interpelacje' => array(
 			'date' => array(
 				'label' => 'Data wysłania',
@@ -1171,6 +1203,116 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'dziennik_ustaw' => array(
+            'typ_id' => array(
+                'terms' => array(
+                    'field' => 'dziennik_ustaw.typ_id',
+                    'exclude' => array(0),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.dziennik_ustaw.typ_nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Typy aktów prawnych',
+                    'all' => 'Wszystkie typy aktów',
+                    'skin' => 'list',
+                    'field' => 'dziennik_ustaw.typ_id'
+                ),
+            ),
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba aktów prawnych w czasie',
+                    'all' => 'Wydane kiedykolwiek',
+                    'skin' => 'date_histogram',
+                    'field' => 'date'
+                ),
+            ),
+            'autor_id' => array(
+                'terms' => array(
+                    'field' => 'dziennik_ustaw.autor_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'dziennik_ustaw.prawo.autor_nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Autorzy aktów prawnych',
+                    'all' => 'Wszyscy autorzy',
+                    'skin' => 'list',
+                    'field' => 'dziennik_ustaw.autor_nazwa'
+                ),
+            ),
+        ),
+        'monitor_polski' => array(
+            'typ_id' => array(
+                'terms' => array(
+                    'field' => 'monitor_polski.typ_id',
+                    'exclude' => array(0),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.monitor_polski.typ_nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Typy aktów prawnych',
+                    'all' => 'Wszystkie typy aktów',
+                    'skin' => 'list',
+                    'field' => 'monitor_polski.typ'
+                ),
+            ),
+            'date' => array(
+                'date_histogram' => array(
+                    'field' => 'date',
+                    'interval' => 'year',
+                    'format' => 'yyyy-MM-dd',
+                ),
+                'visual' => array(
+                    'label' => 'Liczba aktów prawnych w czasie',
+                    'all' => 'Wydane kiedykolwiek',
+                    'skin' => 'date_histogram',
+                    'field' => 'date'
+                ),
+            ),
+            'autor_id' => array(
+                'terms' => array(
+                    'field' => 'monitor_polski.autor_id',
+                    'exclude' => array(
+                        'pattern' => '0'
+                    ),
+                ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'monitor_polski.prawo.autor_nazwa',
+                        ),
+                    ),
+                ),
+                'visual' => array(
+                    'label' => 'Autorzy aktów prawnych',
+                    'all' => 'Wszyscy autorzy',
+                    'skin' => 'list',
+                    'field' => 'monitor_polski.autor_nazwa'
+                ),
+            ),
+        ),
         'poslowie' => array(
             'klub_id' => array(
                 'terms' => array(
@@ -1838,7 +1980,8 @@ class DataBrowserComponent extends Component
         }
         
     	$settings['observe'] = isset($settings['observe']) ? $settings['observe'] : false;
-
+		
+		
 
 
         $this->settings = $settings;
@@ -1926,6 +2069,50 @@ class DataBrowserComponent extends Component
 		    	$this->settings['aggs'] = $aggs;
 				
 	        $this->aggsMode = 'apps';
+
+
+
+		} elseif( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['perDatasets']) && $this->settings['perDatasets'] ) {
+					        
+	        $aggs = array();
+	        $aggs['datasets'] = array(
+		        'terms' => array(
+			        'size' => 10,
+			        'field' => 'dataset',
+			        'order' => array(
+				        'score' => 'desc',
+			        ),
+		        ),
+		        'aggs' => array(
+			        'top' => array(
+		            	'top_hits' => array(
+			            	'size' => 3,
+			            	'_source' => array('data', 'static', 'slug'),
+			            	'fielddata_fields' => array('dataset', 'id'),
+		            	),
+	            	),
+	            	'score' => array(
+		            	'max' => array(
+			            	'script' => array(
+				            	'lang' => 'groovy',
+				            	'id' => 'score',
+			            	),			            	
+		            	),
+	            	),
+		        ),
+	        );
+						
+	        $this->cover = array(
+		        'view' => array(
+			        'plugin' => 'Start',
+			        'element' => 'search-datasets',
+		        ),
+		        'aggs' => $aggs,
+		        'force' => true,
+	        );
+	        
+	        $this->browserTitle = 'Wyniki wyszukiwania:';
+	        $this->aggsMode = 'datasets';
 
 		}
 
@@ -2082,38 +2269,6 @@ class DataBrowserComponent extends Component
             }
 
 
-			/*
-            if (
-                isset($controller->Paginator->settings['conditions']) &&
-                isset($controller->Paginator->settings['conditions']['dataset']) &&
-                is_array($controller->Paginator->settings['conditions']['dataset']) &&
-                (count($controller->Paginator->settings['conditions']['dataset']) > 1) &&
-                isset($dataBrowser['aggs']['dataset']) &&
-                isset($dataBrowser['aggs']['dataset']['buckets']) &&
-                (count($dataBrowser['aggs']['dataset']['buckets']) === 1) &&
-                ($dataBrowser['aggs']['dataset']['buckets'][0]['doc_count'])
-            ) {
-
-                $params = array();
-                $conditions = $controller->Paginator->settings['conditions'];
-                if (isset($conditions['dataset']))
-                    unset($conditions['dataset']);
-
-                if (isset($conditions['q'])) {
-                    $params['q'] = $conditions['q'];
-                    unset($conditions['q']);
-                }
-
-                $params['conditions'] = $conditions;
-
-                $url = '/dane/' . $dataBrowser['aggs']['dataset']['buckets'][0]['key'];
-                $url .= '?' . http_build_query($params);
-
-                return $controller->redirect($url);
-
-            }
-            */
-
 
             $controller->set('dataBrowser', $dataBrowser);
 
@@ -2128,7 +2283,7 @@ class DataBrowserComponent extends Component
             if ($this->cover) {
 
                 $settings = $this->getSettings();
-                                         
+                                              
                 $params = array(
                     'limit' => 0,
                     'conditions' => $settings['conditions'],
@@ -2141,7 +2296,7 @@ class DataBrowserComponent extends Component
 
                 if (isset($this->cover['aggs']))
                     $params['aggs'] = array_merge($params['aggs'], $this->cover['aggs']);
-
+                                                    
                 if (isset($this->cover['conditions']))
                     $params['conditions'] = array_merge($params['conditions'], $this->cover['conditions']);
 				
@@ -2217,6 +2372,7 @@ class DataBrowserComponent extends Component
                     'dataset' => $this->dataset,
 	                'aggs_visuals_map' => $this->prepareRequests($this->aggs_visuals_map, $controller),
 	                'observe' => $this->settings['observe'],
+	                'appObserve' => isset( $this->settings['appObserve'] ) ?  $this->settings['appObserve'] : false,
 				));
 				
 				if( $controller->object ) {

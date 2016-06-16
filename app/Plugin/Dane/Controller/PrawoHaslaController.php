@@ -17,12 +17,12 @@ class PrawoHaslaController extends DataobjectsController
         $this->_prepareView();
 		
 		if( 
-			( $this->request->params['ext'] != 'json' ) && 
+			( @$this->request->params['ext'] != 'json' ) && 
 			$this->object->getData('instytucja_id')
 		) {
 			return $this->redirect( $this->object->getUrl() );
 		}
-		
+				
         $options = array(
             'searchTitle' => 'Szukaj w temacie...',
             'conditions' => array(
@@ -37,64 +37,133 @@ class PrawoHaslaController extends DataobjectsController
                     'plugin' => 'Dane',
                     'element' => 'prawo_hasla/cover',
                 ),
-                'conditions' => array(
-                    'q' => $this->object->getTitle(),
-                ),
                 'aggs' => array(
-                    'ustawy' => array(
-                        'filter' => array(
-                            'term' => array(
-                                'data.prawo.typ_id' => '1',
-                            ),
-                        ),
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 3,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    '_source' => 'data.*',
-                                ),
-                            ),
-                        ),
-                    ),
-                    'rozporzadzenia' => array(
-                        'filter' => array(
-                            'term' => array(
-                                'data.prawo.typ_id' => '3',
-                            ),
-                        ),
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 3,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    '_source' => 'data.*',
-                                ),
-                            ),
-                        ),
-                    ),
-                    'inne' => array(
-                        'filter' => array(
-                            'bool' => array(
-                                'must_not' => array(
-                                    array(
-                                        'term' => array('data.prawo.typ_id' => '1'),
-                                    ),
-                                    array(
-                                        'term' => array('data.prawo.typ_id' => '3'),
-                                    ),
-                                ),
-                            ),
-                        ),
-                        'aggs' => array(
-                            'top' => array(
-                                'top_hits' => array(
-                                    'size' => 3,
-                                    'fielddata_fields' => array('dataset', 'id'),
-                                    '_source' => 'data.*',
-                                ),
-                            ),
-                        ),
+                    
+                    'prawo' => array(
+	                    'scope' => 'global',
+	                    'filter' => array(
+		                    'bool' => array(
+			                    'must' => array(
+				                    array(
+					                    'terms' => array(
+						                    'dataset' => array('dziennik_ustaw', 'monitor_polski'),
+					                    ),
+				                    ),
+				                    array(
+					                    'nested' => array(
+						                    'path' => 'prawo-hasla',
+						                    'filter' => array(
+							                    'term' => array(
+								                    'prawo-hasla.id' => $this->object->getId(),
+							                    ),
+						                    ),
+					                    ),
+				                    ),
+			                    ),
+			                    /*
+			                    'should' => array(
+				                    array(
+					                    'multi_match' => array(
+							        		'query' => mb_convert_encoding($this->object->getData('q'), 'UTF-8', 'UTF-8'),
+								        	'fields' => array('title', 'text', 'acronym'),
+								        	// 'cutoff_frequency' => 0.001,
+										    'type' => "phrase",
+											'slop' => 5,
+						        		),
+				                    ),
+			                    ),
+			                    */
+		                    ),
+	                    ),
+	                    'aggs' => array(
+		                    'ustawy' => array(
+		                        'filter' => array(
+			                        'or' => array(
+				                        array(
+					                        'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '1',
+				                            ),
+				                        ),
+				                        array(
+					                        'term' => array(
+				                                'data.monitor_polski.typ_id' => '1',
+				                            ),
+				                        ),
+			                        ),
+		                        ),
+		                        'aggs' => array(
+		                            'top' => array(
+		                                'top_hits' => array(
+		                                    'size' => 3,
+		                                    'fielddata_fields' => array('dataset', 'id'),
+		                                    '_source' => 'data.*',
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                    'rozporzadzenia' => array(
+		                        'filter' => array(
+		                            'or' => array(
+			                            array(
+				                            'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '3',
+				                            ),
+			                            ),
+			                            array(
+				                            'term' => array(
+				                                'data.monitor_polski.typ_id' => '3',
+				                            ),
+			                            ),
+		                            ),
+		                        ),
+		                        'aggs' => array(
+		                            'top' => array(
+		                                'top_hits' => array(
+		                                    'size' => 3,
+		                                    'fielddata_fields' => array('dataset', 'id'),
+		                                    '_source' => 'data.*',
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+		                    'inne' => array(
+		                        'filter' => array(
+		                            'bool' => array(
+		                                'must_not' => array(
+		                                    array(
+			                                    'or' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '1')
+				                                    ),
+			                                    ),
+		                                    ),
+		                                    array(
+			                                    'or' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '3')
+				                                    ),
+			                                    ),
+		                                    ),
+		                                ),
+		                            ),
+		                        ),
+		                        'aggs' => array(
+		                            'top' => array(
+		                                'top_hits' => array(
+		                                    'size' => 3,
+		                                    'fielddata_fields' => array('dataset', 'id'),
+		                                    '_source' => 'data.*',
+		                                ),
+		                            ),
+		                        ),
+		                    ),
+	                    ),
                     ),
                 ),
             ),

@@ -130,7 +130,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
                     ),
                 ),
             ),
-            'apps' => true,
+            'perDatasets' => true,
         );
 
         $this->Components->load('Dane.DataBrowser', $options);

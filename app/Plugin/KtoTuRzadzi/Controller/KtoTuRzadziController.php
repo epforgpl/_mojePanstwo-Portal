@@ -30,7 +30,7 @@ class KtoTuRzadziController extends ApplicationsController
 	            'href' => '/kto_tu_rzadzi',
 	            'label' => 'Kto tu rządzi?',
             ),
-            'searchTitle' => 'Szukaj instytucji i urzędników...',
+            'searchTitle' => 'Szukaj instytucji i urzędników i jednostki samorządu terytorialnego...',
             'autocompletion' => array(
                 'dataset' => implode(',', array_keys($datasets)),
             ),
@@ -57,7 +57,7 @@ class KtoTuRzadziController extends ApplicationsController
                     ),
                 ),
             ),
-            'apps' => true,
+            'perDatasets' => true,
         );
 
         if (!isset($this->request->query['q'])) {
@@ -81,6 +81,24 @@ class KtoTuRzadziController extends ApplicationsController
 				'href' => '/kto_tu_rzadzi/instytucje',
 				'label' => 'Instytucje',
 				'icon' => 'icon-datasets-instytucje',
+			),
+			array(
+				'id' => 'gminy',
+				'href' => '/kto_tu_rzadzi/gminy',
+				'label' => 'Gminy',
+				'icon' => 'dot',
+			),
+			array(
+				'id' => 'powiaty',
+				'href' => '/kto_tu_rzadzi/powiaty',
+				'label' => 'Powiaty',
+				'icon' => 'dot',
+			),
+			array(
+				'id' => 'wojewodztwa',
+				'href' => '/kto_tu_rzadzi/wojewodztwa',
+				'label' => 'Województwa',
+				'icon' => 'dot',
 			),
 		);
 

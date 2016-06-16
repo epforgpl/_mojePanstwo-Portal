@@ -160,25 +160,29 @@ class AppController extends Controller
             ),
         ),
         'prawo' => array(
-            'prawo' => array(
-                'label' => 'Prawo powszechne',
-                'searchTitle' => 'Szukaj w prawie powszechnym...',
-                'menu_id' => 'powszechne',
-                'autocompletion' => array(
-                    'dataset' => 'prawo',
-                ),
-                'id' => 36,
+            'dziennik_ustaw' => array(
+                'label' => 'Dziennik Ustaw',
+                'searchTitle' => 'Szukaj w Dzienniku Ustaw...',
+                'menu_id' => 'dziennik_ustaw',
+                'id' => 237,
+            ),
+            'monitor_polski' => array(
+                'label' => 'Monitor Polski',
+                'searchTitle' => 'Szukaj w Monitorze Polskim...',
+                'menu_id' => 'monitor_polski',
+                'id' => 238,
             ),
             'prawo_wojewodztwa' => array(
                 'label' => 'Prawo lokalne',
                 'searchTitle' => 'Szukaj w prawie lokalnym...',
                 'menu_id' => 'lokalne',
+                'id' => 182,
             ),
             'prawo_urzedowe' => array(
                 'label' => 'Prawo urzędowe',
                 'searchTitle' => 'Szukaj w prawie urzędowym...',
                 'menu_id' => 'urzedowe',
-                'id' => 182,
+                'id' => 181,
             ),
             'prawo_hasla' => array(
                 'label' => 'Tematy w prawie',
@@ -411,6 +415,33 @@ class AppController extends Controller
                     'dataset' => 'instytucje',
                 ),
                 'id' => 7,
+            ),
+            'gminy' => array(
+                'label' => 'Gminy',
+                'menu_id' => 'gminy',
+                'order' => 'weight desc',
+                'autocompletion' => array(
+                    'dataset' => 'gminy',
+                ),
+                'id' => 6,
+            ),
+            'powiaty' => array(
+                'label' => 'Powiaty',
+                'menu_id' => 'powiaty',
+                'order' => 'weight desc',
+                'autocompletion' => array(
+                    'dataset' => 'powiaty',
+                ),
+                'id' => 35,
+            ),
+            'wojewodztwa' => array(
+                'label' => 'Województwa',
+                'menu_id' => 'wojewodztwa',
+                'order' => 'weight desc',
+                'autocompletion' => array(
+                    'dataset' => 'wojewodztwa',
+                ),
+                'id' => 104,
             ),
         ),
     );
@@ -954,6 +985,7 @@ class AppController extends Controller
 
     public function getDatasetByAlias($app_id = false, $alias = false)
     {
+	    
         if ($app_id && $alias && array_key_exists($app_id, $this->datasets)) {
             foreach ($this->datasets[$app_id] as $dataset_id => $dataset_name) {
                 if (@$dataset_name['menu_id'] == $alias) {

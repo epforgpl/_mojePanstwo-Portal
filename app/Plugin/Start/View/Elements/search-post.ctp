@@ -16,7 +16,7 @@
 		</p>
 	</div>
 	
-	<? foreach( $apps as $app ) { $href = $app['app']['href'] . '?q=' . $this->request->query['q'] ?>
+	<? foreach( $apps as $app ) { $href = $app['app']['href'] . '?q=' . $this->request->query['q']; ?>
 		
 		<div class="app-row">	
 			<div class="row">
@@ -28,8 +28,12 @@
 				</div><div class="col-md-8">
 					
 					<div class="block margin-top-0">
-						<header><a href="<?= $href ?>"><?= $app['app']['name_' . $_lang] ?></a></header>
-						<p class="search_counter"><?= pl_dopelniacz($app['doc_count'], 'wynik', 'wyniki', 'wyników') ?></p>
+																		
+						<header>
+							<a class="pull-left" href="<?= $href ?>"><?= $app['app']['name_' . $_lang] ?></a>
+							<p class="search_counter"><?= pl_dopelniacz($app['doc_count'], 'wynik', 'wyniki', 'wyników') ?></p>
+						</header>
+						
 						<section class="content">
 					        <div class="agg agg-Dataobjects">
 			                    <ul class="dataobjects img-nopadding" style="margin: 0 20px;">
@@ -47,6 +51,7 @@
 				                <a href="<?= $href ?>" class="btn btn-xs btn-primary">Zobacz więcej &raquo;</a>
 		                    </div>
 				        </section>
+				        
 					</div>
 					
 				</div>
