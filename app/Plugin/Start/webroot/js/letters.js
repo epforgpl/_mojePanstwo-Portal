@@ -696,8 +696,10 @@ function resizeHandler() {
 	if( $(window).width()>=992 ) {
 		
 		var offset = block.offset();
-		var y = $(document).height() - offset.top - block.height() + 20;
-		$(".block-adresat").sticky({topSpacing:40, bottomSpacing: y});
+		if( offset ) {
+			var y = $(document).height() - offset.top - block.height() + 20;
+			$(".block-adresat").sticky({topSpacing:40, bottomSpacing: y});
+		}
 		
 	} else {
 		
