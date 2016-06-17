@@ -460,7 +460,7 @@ class DataobjectsController extends AppController
                     ),
                 ),
             ));
-
+            
             $aggs = $this->Dataobject->getAggs();
             $tags = array();
 
