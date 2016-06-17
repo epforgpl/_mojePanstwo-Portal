@@ -241,6 +241,8 @@ if (isset($_modals) && is_array($_modals)) {
     ga('create', 'UA-37679118-4', 'mojepanstwo.pl');
     ga('send', 'pageview');
 </script>
+<script type="text/javascript" src="//blackout.mojepanstwo.pl/blackout.js"></script>
+
 
 <?php
 echo $this->Html->script('../libs/jquery/2.1.4/jquery-2.1.4.min.js');
