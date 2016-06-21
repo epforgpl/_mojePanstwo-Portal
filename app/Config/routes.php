@@ -167,7 +167,7 @@ if(
 		(preg_match('/^\/([a-zA-Z0-9\-\_]+)([\.json]*)$/i', $_SERVER['REQUEST_URI'], $match)) || 
 		(preg_match('/^\/([a-zA-Z0-9\-\_]+)\/(.*?)([\.json]*)$/i', $_SERVER['REQUEST_URI'], $match)) 
 	) && 
-	!in_array($match[1], array('krs', 'ngo', 'podatki', 'mapa', 'prawo', 'bdl', 'kto_tu_rzadzi', 'media', 'srodowisko', 'dostep_do_informacji_publicznej', 'finanse', 'handel_zagraniczny', 'zamowienia_publiczne', 'handel_zagraniczny', 'api', 'dane', 'paszport', 'pisma', 'orzecznictwo', 'sejmometr', 'pomoc', 'powiadomienia', 'wydatki_poslow', 'wyjazdy_poslow', 'moje-pisma', 'moje-kolekcje', 'moje-powiadomienia', 'oportalu', 'regulamin', 'konto', 'login', 'logout', 'admin', 'kultura'))
+	!in_array($match[1], array('krs', 'ngo', 'podatki', 'mapa', 'prawo', 'bdl', 'kto_tu_rzadzi', 'media', 'srodowisko', 'dostep_do_informacji_publicznej', 'finanse', 'handel_zagraniczny', 'zamowienia_publiczne', 'handel_zagraniczny', 'api', 'dane', 'paszport', 'pisma', 'orzecznictwo', 'sejmometr', 'pomoc', 'powiadomienia', 'wydatki_poslow', 'wyjazdy_poslow', 'moje-pisma', 'moje-kolekcje', 'moje-powiadomienia', 'oportalu', 'regulamin', 'konto', 'login', 'logout', 'admin', 'kultura', 'oauth'))
 ) {
 		
 	App::uses('ConnectionManager', 'Model');
