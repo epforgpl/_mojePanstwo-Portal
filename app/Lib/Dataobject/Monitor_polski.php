@@ -40,6 +40,9 @@ class Monitor_polski extends DocDataObject
 		if( $this->getData('sygnatura') )
 			$output[] = $this->getData('sygnatura');
 		
+		if( $this->getData('status_id')=='2' )
+			$output[] = 'Akt nieobowiązujący';
+		
 		if( $this->getData('data_publikacji') )
 			$output[] = 'Opublikowano ' . dataSlownie($this->getData('data_publikacji'));
 				

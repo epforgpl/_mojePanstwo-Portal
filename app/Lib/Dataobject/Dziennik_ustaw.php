@@ -27,8 +27,6 @@ class Dziennik_ustaw extends DocDataObject
     );
 
     public function getLabel() {
-
-        // return $this->getData('status_id');
 	    return $this->getData('label');
     }
     
@@ -36,9 +34,12 @@ class Dziennik_ustaw extends DocDataObject
 	{
 					
 		$output = array();
-		
+				
 		if( $this->getData('sygnatura') )
 			$output[] = $this->getData('sygnatura');
+			
+		if( $this->getData('status_id')=='2' )
+			$output[] = 'Akt nieobowiązujący';
 		
 		if( $this->getData('data_publikacji') )
 			$output[] = 'Opublikowano ' . dataSlownie($this->getData('data_publikacji'));

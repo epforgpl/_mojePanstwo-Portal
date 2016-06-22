@@ -12,9 +12,27 @@ $options = array(
 <div class="col-md-9">
 	
 	
+	<div class="appBanner margin-top--25 margin-bottom-30">
+        <form method="get" action="<?= $object->getUrl() ?>/wszystkie">
+            <div class="appSearch form-group">
+                <div class="input-group">
+                    <input name="q" class="form-control" placeholder="Szukaj w tym temacie..." type="text">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-primary input-md">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+					</span>
+                </div>
+            </div>
+        </form>
+    </div>
+	
     <? if (@$dataBrowser['aggs']['prawo']['ustawy']['top']['hits']['hits']) { ?>
         <div class="block block-simple">
-            <header>Ustawy</header>
+            <header>
+	            <a class="link-discrete" href="<?= $object->getUrl() ?>/ustawy">Ustawy</a>
+	            <p class="search_counter"><?= pl_dopelniacz($dataBrowser['aggs']['prawo']['ustawy']['doc_count'], 'wynik', 'wyniki', 'wyników') ?></p>
+            </header>
             <section class="aggs-init">
 
                 <div class="dataAggs">
@@ -30,8 +48,7 @@ $options = array(
                                 <? } ?>
                             </ul>
                             <div class="buttons text-center margin-top-10">
-                                <a href="<?= $object->getUrl() ?>/akty?conditions[prawo.typ_id]=1" class="btn btn-primary btn-xs">Więcej
-                                    ustaw &raquo;</a>
+                                <a href="<?= $object->getUrl() ?>/ustawy" class="btn btn-primary btn-xs">Więcej ustaw &raquo;</a>
                             </div>
                         <? } ?>
 
@@ -43,7 +60,10 @@ $options = array(
 
     <? if (@$dataBrowser['aggs']['prawo']['rozporzadzenia']['top']['hits']['hits']) { ?>
         <div class="block block-simple">
-            <header>Rozporządzenia</header>
+            <header>
+	            <a class="link-discrete" href="<?= $object->getUrl() ?>/rozporzadzenia">Rozporządzenia</a>
+	            <p class="search_counter"><?= pl_dopelniacz($dataBrowser['aggs']['prawo']['rozporzadzenia']['doc_count'], 'wynik', 'wyniki', 'wyników') ?></p>
+            </header>
             <section class="aggs-init">
 
                 <div class="dataAggs">
@@ -59,8 +79,7 @@ $options = array(
                                 <? } ?>
                             </ul>
                             <div class="buttons text-center margin-top-10">
-                                <a href="<?= $object->getUrl() ?>/akty?conditions[prawo.typ_id]=3" class="btn btn-primary btn-xs">Więcej
-                                    rozporządzeń &raquo;</a>
+                                <a href="<?= $object->getUrl() ?>/rozporzadzenia" class="btn btn-primary btn-xs">Więcej rozporządzeń &raquo;</a>
                             </div>
                         <? } ?>
 
@@ -72,7 +91,10 @@ $options = array(
 
     <? if (@$dataBrowser['aggs']['prawo']['inne']['top']['hits']['hits']) { ?>
         <div class="block block-simple">
-            <header>Pozostałe akty prawne</header>
+            <header>
+	            <a class="link-discrete" href="<?= $object->getUrl() ?>/inne">Pozostałe akty prawne</a>
+	            <p class="search_counter"><?= pl_dopelniacz($dataBrowser['aggs']['prawo']['inne']['doc_count'], 'wynik', 'wyniki', 'wyników') ?></p>
+            </header>
             <section class="aggs-init">
 
                 <div class="dataAggs">
@@ -88,7 +110,7 @@ $options = array(
                                 <? } ?>
                             </ul>
                             <div class="buttons text-center margin-top-10">
-                                <a href="<?= $object->getUrl() ?>/akty" class="btn btn-primary btn-xs">Pozostałe akty prawne &raquo;</a>
+                                <a href="<?= $object->getUrl() ?>/inne" class="btn btn-primary btn-xs">Pozostałe akty prawne &raquo;</a>
                             </div>
                         <? } ?>
 

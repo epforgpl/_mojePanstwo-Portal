@@ -6,7 +6,7 @@ $columns = isset($columns) ? $columns : array(10, 2);
 <div class="dataBrowser upper<? if (isset($class)) echo " " . $class; ?>">
 
     <div class="row dataBrowserContent">
-
+		<div class="col-md-12">
 	    <?= $this->element('Dane.DataBrowser/browser-content', array(
 	    	'displayAggs' => $displayAggs,
 	    	'columns' => $columns,
@@ -16,7 +16,7 @@ $columns = isset($columns) ? $columns : array(10, 2);
 	    	'paginatorPhrases' => isset($paginatorPhrases) ? $paginatorPhrases : null,
 	    	'afterMenuElement' => isset($afterMenuElement) ? $afterMenuElement : false,
 	    )); ?>
-
+		</div>
     </div>
 
 </div>
