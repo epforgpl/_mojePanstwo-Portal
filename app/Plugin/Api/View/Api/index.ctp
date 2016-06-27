@@ -68,7 +68,7 @@ echo $this->element('app/sidebar');
 							        
 							        <p>Do opisu udostępnianych API zdecydowaliśmy się użyć standardu Swagger. Jest to zdobywający
 				                        popularność język
-				                        i zestaw narzędzi służących do dokumentacji API, dosŧępu do nich przez graficzny interfejs,
+				                        i zestaw narzędzi służących do dokumentacji API, dostępu do nich przez graficzny interfejs,
 				                        jak i generowania klientów w wielu językach.</p>
 				
 				                    <p>Swagger-spec w wersji 2.0 dostępny jest pod adresem <a
