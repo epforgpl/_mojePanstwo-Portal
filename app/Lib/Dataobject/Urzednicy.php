@@ -33,12 +33,22 @@ class Urzednicy extends DataObject
 	public function getMetaDescriptionParts($preset = false)
 	{
 		
-		$output = array(
-			$this->getData('stanowisko'),
-		);
+		$output = array();
+		
+		if( $this->getData('stanowisko_aktywne') )
+			$output[] = 'Aktualnie urzędujący';
+		else
+			$output[] = 'Urzędujący w przeszłości';
+		
+		$output[] = $this->getData('stanowisko');
 				
 		return $output;
 		
+	}
+	
+	public function getUrl()
+	{
+		return '/dane/instytucje/' . $this->getData('instytucja_id') . '/urzednicy/' . $this->getId() . ',' . $this->getSlug();
 	}
 	
 }

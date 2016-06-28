@@ -29,8 +29,8 @@ class Sp_orzeczenia extends DataObject
 
     public function getTitle()
     {
-
-        return $this->getShortTitle() . ' - orzeczenie ' . $this->getData('dopelniacz') . ' z dnia ' . $this->dataSlownie($this->getDate());
+		
+        return $this->getShortTitle() . ' - orzeczenie ' . $this->getData('dopelniacz') . ' z dnia ' . dataSlownie($this->getDate());
 
     }
 

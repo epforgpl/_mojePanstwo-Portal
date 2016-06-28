@@ -83,6 +83,12 @@ class KtoTuRzadziController extends ApplicationsController
 				'icon' => 'icon-datasets-instytucje',
 			),
 			array(
+				'id' => 'urzednicy',
+				'href' => '/kto_tu_rzadzi/urzednicy',
+				'label' => 'Urzędnicy',
+				'icon' => 'icon-datasets-urzednicy',
+			),
+			array(
 				'id' => 'gminy',
 				'href' => '/kto_tu_rzadzi/gminy',
 				'label' => 'Gminy',
@@ -109,6 +115,18 @@ class KtoTuRzadziController extends ApplicationsController
 
 		return $output;
 
+	}
+	
+	public function urzednicy() {
+		
+		$this->loadDatasetBrowser('urzednicy', array(
+            'browserTitle' => 'Urzędnicy:',
+            'default_conditions' => array(
+	            'urzednicy.stanowisko_aktywne' => '1',
+            ),
+        ));
+        $this->set('title_for_layout', 'Urzędnicy | Kto Tu Rządzi?');
+		
 	}
 
 }

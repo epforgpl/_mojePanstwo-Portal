@@ -11,6 +11,10 @@ class UrzednicyController extends DataobjectsController
     {
 
         parent::load();
+        $url = '/dane/instytucje/' . $this->object->getData('instytucja_id') . '/urzednicy/' . $this->object->getId() . ',' . $this->object->getSlug();
+		
+		return $this->redirect( $url );
+		        
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
                 'dataset' => 'urzednicy_rejestr_korzysci',

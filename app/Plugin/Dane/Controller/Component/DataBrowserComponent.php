@@ -281,6 +281,23 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'urzednicy' => array(
+            'typ_id' => array(
+                'terms' => array(
+                    'field' => 'urzednicy.stanowisko_aktywne',
+                ),
+                'visual' => array(
+                    'label' => 'Status',
+                    'skin' => 'list',
+                    'field' => 'urzednicy.stanowisko_aktywne',
+                    'dictionary' => array(
+                        '0' => 'Urzędujący w przeszłości',
+                        '1' => 'Aktualnie urzędujący',
+                    ),
+                    'all' => 'Wszyscy urzędnicy',
+                ),
+            ),
+        ),
         'gminy' => array(
             'wojewodztwo_id' => array(
                 'terms' => array(
@@ -1246,7 +1263,7 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'dziennik_ustaw.prawo.autor_nazwa',
+                            'field' => 'data.dziennik_ustaw.autor_nazwa',
                         ),
                     ),
                 ),
@@ -1254,7 +1271,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Autorzy aktów prawnych',
                     'all' => 'Wszyscy autorzy',
                     'skin' => 'list',
-                    'field' => 'dziennik_ustaw.autor_nazwa'
+                    'field' => 'dziennik_ustaw.autor_id'
                 ),
             ),
         ),
@@ -1275,7 +1292,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Typy aktów prawnych',
                     'all' => 'Wszystkie typy aktów',
                     'skin' => 'list',
-                    'field' => 'monitor_polski.typ'
+                    'field' => 'monitor_polski.typ_id'
                 ),
             ),
             'date' => array(
@@ -1301,7 +1318,7 @@ class DataBrowserComponent extends Component
                 'aggs' => array(
                     'label' => array(
                         'terms' => array(
-                            'field' => 'monitor_polski.prawo.autor_nazwa',
+                            'field' => 'data.monitor_polski.autor_nazwa',
                         ),
                     ),
                 ),
@@ -1309,7 +1326,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Autorzy aktów prawnych',
                     'all' => 'Wszyscy autorzy',
                     'skin' => 'list',
-                    'field' => 'monitor_polski.autor_nazwa'
+                    'field' => 'monitor_polski.autor_id'
                 ),
             ),
         ),
@@ -2029,7 +2046,24 @@ class DataBrowserComponent extends Component
 
     public function beforeRender($controller)
     {
-				
+		
+		if( 
+			!isset($controller->request->query['q']) &&
+			!@isset($controller->request->query['conditions']['q']) && 
+			isset($this->settings['default_conditions'])
+		) {
+            foreach( $this->settings['default_conditions'] as $key => $value ) {
+	            if(
+		            isset($controller->request->query['conditions'][ $key ]) &&
+		            ( $controller->request->query['conditions'][ $key ]=='*' )
+	            ) {
+		            unset($controller->request->query['conditions'][ $key ]);
+	            } elseif( !isset($controller->request->query['conditions'][ $key ]) ) {
+	            	$controller->request->query['conditions'][ $key ] = $value;
+	            }
+            }
+        }
+		
 		if( ( isset($controller->request->query['q']) || @isset($controller->request->query['conditions']['q']) ) && isset($this->settings['perApps']) && $this->settings['perApps'] ) {
 					        
 	        $aggs = array();
@@ -2145,11 +2179,7 @@ class DataBrowserComponent extends Component
 
 			if( isset($this->settings['default_order']) )
             	$controller->Paginator->settings['order'] = $this->settings['default_order'];
-            	
-            if( isset($this->settings['default_conditions']) )
-            	$controller->Paginator->settings['conditions'] = array_merge($controller->Paginator->settings['conditions'], $this->settings['default_conditions']);
-
-
+                        
             $hits = $controller->Paginator->paginate('Dataobject');
             if( $hits && $this->settings['objectOptions'] ) {
 	            foreach( $hits as &$hit ) {
@@ -2521,7 +2551,11 @@ class DataBrowserComponent extends Component
 
             // Anulowanie np. wybranego typu
             $cancelQuery = $query;
-
+			
+			// debug($map);
+			// debug($cancelQuery);
+			
+			
             if (isset($map['field']) && isset($cancelQuery['conditions'][$map['field']]))
                 unset($cancelQuery['conditions'][$map['field']]);
 
@@ -2529,23 +2563,30 @@ class DataBrowserComponent extends Component
                 unset($cancelQuery['page']);
             if (isset($cancelQuery['conditions']['q']))
                 unset($cancelQuery['conditions']['q']);
-
-            $maps[$i]['cancelRequest'] = $controller->here . '?' . http_build_query($cancelQuery);
+            
+            $_cancelQuery = $cancelQuery;
+			
+			if( isset($this->settings['default_conditions']) )
+	            if( array_key_exists($map['field'], $this->settings['default_conditions']) )
+	            	$cancelQuery['conditions'][ $map['field'] ] = '*';
+            
+            
+            $maps[$i]['cancelRequest'] = $controller->here;
+            if( !empty($cancelQuery) && !empty($cancelQuery['conditions']) )
+            	$maps[$i]['cancelRequest'] .= '?' . http_build_query($cancelQuery);
 
             // Wybieranie np. danego typu
             // Nie znamy jeszcze id dlatego na końcu zostawiamy `=` np.
             // http://.../?..&conditions[type.id]=
             $chooseQuery = $query;
 
-            if (isset($cancelQuery['page']))
-                unset($cancelQuery['page']);
-
-            $r = $controller->here . '?' . http_build_query($cancelQuery);
-
-            if (isset($map['field']))
-                $r .= '&conditions[' . $map['field'] . ']=';
-
-            $maps[$i]['chooseRequest'] = $r;
+            if (isset($_cancelQuery['page']))
+                unset($_cancelQuery['page']);
+			
+			if( isset($map['field']) )
+				$_cancelQuery['conditions'][ $map['field'] ] = '';
+						
+            $maps[$i]['chooseRequest'] = $controller->here . '?' . http_build_query($_cancelQuery);
 
             if( isset($maps[$i]['forceKey']) )
             	$maps[ $maps[$i]['forceKey'] ] = $maps[$i];

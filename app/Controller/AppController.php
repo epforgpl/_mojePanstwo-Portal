@@ -416,6 +416,14 @@ class AppController extends Controller
                 ),
                 'id' => 7,
             ),
+            'urzednicy' => array(
+                'label' => 'Urzędnicy',
+                'menu_id' => 'urzednicy',
+                'autocompletion' => array(
+                    'dataset' => 'instytucje',
+                ),
+                'id' => 166,
+            ),
             'gminy' => array(
                 'label' => 'Gminy',
                 'menu_id' => 'gminy',

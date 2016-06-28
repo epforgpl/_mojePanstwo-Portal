@@ -1390,8 +1390,8 @@ class NgoController extends ApplicationsController
     public function sprawozdania_opp()
     {
         $this->loadDatasetBrowser('sprawozdania_opp', array(
-            'browserTitle' => 'Sprawozdania organizacji pożytku publicznego:',
-           'menu' => array_merge($this->submenus['ngo'], array(
+        	'browserTitle' => 'Sprawozdania organizacji pożytku publicznego:',
+            'menu' => array_merge($this->submenus['ngo'], array(
                 'selected' => 'sprawozdania_opp',
                 'base' => '/ngo'
             ))

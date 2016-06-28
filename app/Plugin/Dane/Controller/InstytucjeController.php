@@ -2033,14 +2033,81 @@ class InstytucjeController extends DataobjectsController
     {
 
         $this->load();
-        $this->Components->load('Dane.DataBrowser', array(
-            'conditions' => array(
-                'dataset' => 'urzednicy',
-                'urzednicy.instytucja_id' => $this->object->getId(),
-            ),
-        ));
-		
-        $this->set('title_for_layout', "Urzędnicy pracujący dla " . $this->object->getTitle());
+        
+        if( isset($this->request->params['subid']) ) {
+			    
+		    $urzednik = $this->Dataobject->find('first', array(
+			    'conditions' => array(
+				    'dataset' => 'urzednicy',
+				    'id' => $this->request->params['subid'],
+			    ),
+			    'aggs' => array(
+				    'rejestr_korzysci' => array(
+					    'scope' => 'global',
+					    'filter' => array(
+						    'bool' => array(
+							    'must' => array(
+								    array(
+									    'term' => array(
+										    'dataset' => 'urzednicy_rejestr_korzysci',
+									    ),
+								    ),
+								    array(
+									    'term' => array(
+										    'data.urzednicy_rejestr_korzysci.osoba_id' => $this->request->params['subid'],
+									    ),
+								    ),
+							    ),
+						    ),
+					    ),
+					    'aggs' => array(
+						    'top' => array(
+							    'top_hits' => array(
+								    'size' => 1000,
+								    '_source' => array('data.*'),
+								    'sort' => array(
+									    array(
+										    'date' => 'desc',
+									    ),
+								    ),
+							    ),
+						    ),
+					    ),
+				    ),
+			    ),
+			));
+			
+			$aggs = $this->Dataobject->getAggs();
+			$rejestr_korzysci = array();
+			
+			foreach( $aggs['rejestr_korzysci']['top']['hits']['hits'] as $h ) {
+				
+				$rejestr_korzysci[] = $h['_source']['data']['urzednicy_rejestr_korzysci'];
+				
+			}
+			
+			$this->set('urzednik', $urzednik);
+			$this->set('rejestr_korzysci', $rejestr_korzysci);
+			$this->set('title_for_layout', $urzednik->getTitle());
+			$this->render('urzednik');
+			
+		} else {
+        
+	        $this->Components->load('Dane.DataBrowser', array(
+	            'conditions' => array(
+	                'dataset' => 'urzednicy',
+	                'urzednicy.instytucja_id' => $this->object->getId(),
+	            ),
+	            'default_conditions' => array(
+		            'urzednicy.stanowisko_aktywne' => '1',
+	            ),
+	            'aggsPreset' => 'urzednicy',
+	        ));
+			
+	        $this->set('title_for_layout', "Urzędnicy pracujący dla " . $this->object->getTitle());
+        
+        }
+        
     }
 
     public function budzet()
