@@ -230,11 +230,13 @@ $options = array(
 	                'dataset' => 'poslowie_rejestr_korzysci',
 	                'label' => 'Rejestr korzyści posłów',
 	            ),
+	            /*
 	            array(
 	                'id' => 'poslowie_wspolpracownicy',
 	                'dataset' => 'poslowie_wspolpracownicy',
 	                'label' => 'Współpracownicy posłów',
 	            )
+	            */
 		    ),
 	    ));
 	    ?>

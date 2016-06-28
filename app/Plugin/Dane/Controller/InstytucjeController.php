@@ -2641,7 +2641,8 @@ class InstytucjeController extends DataobjectsController
 
         }
     }
-
+	
+	/*
     public function poslowie_wspolpracownicy()
     {
         $this->load();
@@ -2685,4 +2686,5 @@ class InstytucjeController extends DataobjectsController
             }
         }
     }
+    */
 } 
