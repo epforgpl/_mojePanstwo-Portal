@@ -76,7 +76,7 @@ class Dataobject extends AppModel
 
     }
 
-    public function paginateCount($model, $conditions = null, $recursive = 0)
+    public function paginateCount($model = false, $conditions = null, $recursive = 0)
     {
 
         return $this->getDataSource()->count;

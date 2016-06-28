@@ -70,82 +70,9 @@ class ApplicationsController extends AppController
 
 
         $this->set('appSettings', $this->settings);
-				
-		if( empty($this->app_menu[0]) )
-			foreach( $this->applications as $id => $a )
-				if( $a['tag']==1 )
-					$this->app_menu[0][] = array(
-						'id' => $id,
-						'href' => $a['href'],
-						'title' => $a['name_' . $this->lang],
-						'path' => isset( $a['path'] ) ? $a['path'] : false,
-					);
-
-
-
-		$active = false;
-		$temp = array();
-		$bufor = false;
-		
-		
-		if( isset($this->request->query['q']) && $this->request->query['q'] ) {
-			
-			$temp[] = array(
-				'id' => '',
-				'href' => '/dane?q=' . urlencode( $this->request->query['q'] ),
-				'tooltip' => 'Wszystkie wyniki wyszukiwania',
-				'title' => '',
-				'active' => ( $app && ($app['id']=='dane') ),
-				'glyphicon' => 'search',
-			);
-						
-			
-			if( $apps = @$this->viewVars['dataBrowser']['aggs']['apps']['buckets'] ) {
-			    
-			    foreach( $apps as &$a ) {
-				    
-			    	$a['app'] = $this->getApplication($a['key']);
-			    	
-			    	$path = (isset($a['app']['path']) && !empty($a['app']['path'])) ? $a['app']['path'] : $a['app']['id'];
-                    $icon_link = '/' . $path . '/icon/icon_' . $a['app']['id'] . '.svg';
-                    
-                    $a['icon_path'] = $icon_link;
-			    		
-			    }
-			    	
-			    unset($this->viewVars['dataBrowser']['aggs']['apps']);
-			    $this->set('apps', $apps);
-			    
-		    }
-			
-		}
-
-		foreach( $this->app_menu[0] as $i => $a ) {
-			
-			if( $app && ($app['id']==$a['id']) ) {
-								
-				$a['active'] = $active = true;
-				$temp[] = $a;
-
-			} else {
-				
-				if(
-					isset($this->request->query['q']) &&
-					( $q = $this->request->query['q'] )
-				)
-					$a['href'] .= '?q=' . urlencode($q);
-				
-				$temp[] = $a;
-
-			}
-
-		}
-		
-		$this->app_menu[0] = $temp;
-					
-		$this->set('app_menu', $this->app_menu);
 		$this->set('app_chapters', $this->getChapters());
-
+		
+		
         if ($this->title)
             $this->set('title_for_layout', $this->title);
         elseif (isset($this->settings['title']))

@@ -6,9 +6,7 @@
 <div class="container">
 
 	<div class="search-header">
-	<? if( @$isAdmin ) {?>
-		<p class="took pull-left"><?= $dataBrowser['took'] ?> s</p>
-	<? } ?>
+		<p class="took pull-left"><?= pl_dopelniacz($dataBrowser['count'], 'wynik', 'wyniki', 'wyników') ?></p>
 	<? if( @$dataBrowser['appObserve'] ) {?>
 		<p class="pull-right dataobject-head" data-dataset="aplikacje" data-object_id="<?= $dataBrowser['appObserve'] ?>">
 			<a href="#" class="btn-observe">

@@ -2226,7 +2226,7 @@ class DataBrowserComponent extends Component
 			$app_menu = array();
 			$app_menu_counters = array();
 			$dataBrowser['aggs'] = $controller->Dataobject->getAggs();
-			            
+						            
             if( $dataBrowser['aggs'] ) {
 	            	            
 	            foreach( $dataBrowser['aggs'] as $k => $v ) {
@@ -2365,6 +2365,7 @@ class DataBrowserComponent extends Component
 						$dataBrowser = array(
 		                    'aggs' => $aggs,
 		                    'took' => false,
+		                    'count' => $controller->Dataobject->paginateCount(),
 		                );
 						
 					} else {
@@ -2373,8 +2374,9 @@ class DataBrowserComponent extends Component
 						$dataBrowser = array(
 		                    'aggs' => $controller->Dataobject->getAggs(),
 		                    'took' => $controller->Dataobject->getPerformance(),
+		                    'count' => $controller->Dataobject->paginateCount(),
 		                );
-		                
+		                		                
 		                if( isset( $this->cover['cache'] ) ) {
 			                
 			                $cache_id = 'Cover-' . $controller->request->params['plugin'] . '-' . $controller->request->params['controller'] . '-' . $controller->request->params['action'] . '-' . md5( serialize( $params ) );
@@ -2413,10 +2415,9 @@ class DataBrowserComponent extends Component
 						'url' => $controller->object->getUrl(),
 					));
 				}
-				
-                
+				                
 	            $this->settings['sort'] = $this->prepareSort($this->settings['sort'], $this->queryData);
-	            	            	            
+	          	           	            
                 foreach( $this->routes as $key => $value ) {
 
 		            $parts = explode('/', $key);

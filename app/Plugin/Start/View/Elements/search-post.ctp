@@ -1,13 +1,11 @@
 <?
 	echo $this->element('Dane.modals/dataobject-observe');
-	echo $this->Combinator->add_libs('css', $this->Less->css('search-main', array('plugin' => 'Dane')));
+	echo $this->Combinator->add_libs('css', $this->Less->css('search-main', array('plugin' => 'Dane')));	
 ?>
 <div class="container">
 
 	<div class="search-header">
-	<? if( @$isAdmin ) {?>
-		<p class="took pull-left"><?= $dataBrowser['took'] ?> s</p>
-	<? } ?>
+		<p class="took pull-left"><?= pl_dopelniacz($dataBrowser['count'], 'wynik', 'wyniki', 'wyników') ?></p>
 		<p class="pull-right dataobject-head" data-phrase="<?= htmlspecialchars($this->request->query['q'], ENT_QUOTES, 'UTF-8') ?>">
 			<a href="#" class="btn-observe">
 			    <span class="icon"
