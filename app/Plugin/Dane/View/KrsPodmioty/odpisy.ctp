@@ -35,7 +35,7 @@ $status_dict = array(
 
                     <div class="optionsBlock text-center subscribeDiv">
                         <div class="checkbox first">
-                            <input id="subscribeCheckbox" type="checkbox" name="subscribe" value="1" checked="checked">
+                            <input id="subscribeCheckbox" type="checkbox" name="subscribe" value="1">
                             <label for="subscribeCheckbox">Powiadomiaj mnie o nowych danych dla tej organizacji</label>
                         </div>
                     </div>

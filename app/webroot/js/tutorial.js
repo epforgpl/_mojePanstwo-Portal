@@ -8,7 +8,7 @@ $(document).ready(function () {
 					steps: [{
 						type: 'modal',
 						text: '<p>Zyskaj bieżące informacje wcześniej niż inni, bądź poinformowany w waznych sprawach!</p><p>Powiadomienia pomogą Ci być na bieżąco z inicjatywami, gminami i ustawami, które chcesz obserwować. Pokażemy Ci teraz, jak to zrobić.</p><p>"Dzięki powiadomieniom, dowiedzieliśmy się, że nasz potencjany partner jest w stanie likwidacji. Dzieki temu uniknęliśmy przesięwzięcia skazanego na straty" Jacek Siadkowski z Fundacji Highlight/inaczej</p>',
-						footer: '<button class="margin-bottom-5 btn btn-default" data-dismiss="modal">Anuluj samouczek</button><button class="margin-bottom-5 btn btn-primary nextStep">Przejdź dalej</button>'
+						footer: '<button class="margin-bottom-5 btn btn-default btn-tutorial-cancel" data-dismiss="modal">Anuluj samouczek</button><button class="margin-bottom-5 btn btn-primary nextStep">Przejdź dalej</button>'
 					}, {
 						el: '#homepage ._mPSearchOutside .input-group',
 						text: 'Wpisz w wyszukiwarce gminę z której pochodzisz lub NGO, którego działalność Cię interesuje. Ważne, by był to podmiot, którego działalność chcesz obserwować. Następnie wyszukaj wpisane hasło, klikając niebieski przycisk lupy.',
@@ -252,7 +252,16 @@ $(document).ready(function () {
 
 		modal.modal({backdrop: 'static', keyboard: false});
 		modal.modal('show');
-
+		
+		if( modal.find('.btn-tutorial-cancel').length ) {
+			modal.find('.btn-tutorial-cancel').click(function(){
+				
+				mPCookie.cancel = true;
+				Cookies.set('mojePanstwo', JSON.stringify(mPCookie), {expires: 365, path: '/'});
+				
+			});
+		}
+		
 		if (modal.find('.nextStep').length) {
 			modal.find('.nextStep').one("click", function (e) {
 				var next = steps[pos + 1];
@@ -376,6 +385,7 @@ $(document).ready(function () {
 
 	var runTutorial = function () {
 		
+		console.log('runTutorial');
 		
 		var stepNumber = mPCookie.tutorial.step,
 			logic = tutorialLogic[mPCookie.tutorial.option],
@@ -416,6 +426,7 @@ $(document).ready(function () {
 	};
 
 	var userStatus = function () {
+				
 		var firstModal = $('<div></div>').addClass('modal fade gamification').attr({
 			id: 'tutorialModal',
 			tabindex: '-1',
@@ -471,10 +482,13 @@ $(document).ready(function () {
 			}
 		});
 	};
-
-	if (typeof mPCookie.tutorial !== "undefined" && mPCookie.tutorial.option !== null) {
-		runTutorial();
-	} else {
-		userStatus();
+		
+	if( mPCookie.cancel!==true ) {	
+		if (typeof mPCookie.tutorial !== "undefined" && mPCookie.tutorial.option !== null) {
+			runTutorial();
+		} else {
+			userStatus();
+		}
 	}
+	
 });
