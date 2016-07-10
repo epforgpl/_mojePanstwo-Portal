@@ -48,7 +48,9 @@ class ZamowieniaPubliczneZamawiajacyController extends DataobjectsController
 	
     public function view()
     {
-
+		
+		return $this->redirect('/zamowienia_publiczne/zamowienia?conditions[zamowienia_publiczne.zamawiajacy_id]=' . $this->request->params['id']);
+		
         $this->load();
         
         $global_aggs = array(
@@ -142,12 +144,7 @@ class ZamowieniaPubliczneZamawiajacyController extends DataobjectsController
                     'plugin' => 'Dane',
                     'element' => 'zamowienia_publiczne_zamawiajacy/cover',
                 ),
-                'aggs' => array(
-                    'all' => array(
-                        'global' => '_empty',
-                        'aggs' => $global_aggs,
-                    ),
-                ),
+                'aggs' => $global_aggs,
             ),
         ));
         $this->render('Dane.DataBrowser/browser');

@@ -8,26 +8,31 @@ class ZamowieniaPubliczneController extends ApplicationsController
 	public $components = array('RequestHandler');
 	public $helpers = array('Dane.Dataobject');
 	
+	public $menu = array(
+        array(
+            'id' => 'zamawiajacy',
+            'href' => '/zamowienia_publiczne/zamawiajacy',
+            'label' => 'Zamawiający',
+			'icon' => 'icon-datasets-zamowienia_publiczne_wykonawcy',
+        ),
+        array(
+            'id' => 'wykonawcy',
+            'href' => '/zamowienia_publiczne/wykonawcy',
+            'label' => 'Wykonawcy',
+			'icon' => 'icon-datasets-zamowienia_publiczne_wykonawcy',
+        ),
+        array(
+            'id' => 'dotacje_unijne',
+            'href' => '/zamowienia_publiczne/dotacje_unijne',
+            'label' => 'Dotacje unijne',
+			'icon' => 'icon-datasets-dotacje_ue',
+        ),
+	);
+	
     public $settings = array(
         'id' => 'zamowienia_publiczne',
         'menu' => array(
-            array(
-                'id' => '',
-                'href' => 'zamowienia_publiczne',
-                'label' => 'Zamówienia',
-            ),
-            /*
-            array(
-                'id' => 'wykonawcy',
-                'href' => 'zamowienia_publiczne/wykonawcy',
-                'label' => 'Wykonawcy',
-            ),
-            */
-            array(
-                'id' => 'dotacje_unijne',
-                'href' => 'zamowienia_publiczne/dotacje_unijne',
-                'label' => 'Dotacje unijne',
-            ),
+            
         ),
         'title' => 'Zamówienia Publiczne',
         'subtitle' => 'Znajdź zamówienie dla swojej firmy - Sprawdzaj kto dostaje zamówienia publiczne',
@@ -137,9 +142,25 @@ class ZamowieniaPubliczneController extends ApplicationsController
         $this->render('Dane.Elements/DataBrowser/browser-from-app');
     }
 
+    public function zamowienia()
+    {
+        $this->loadDatasetBrowser('zamowienia_publiczne', array(
+	        'browserTitle' => 'Zamówienia publiczne',
+        ));
+    }
+    
+    public function zamawiajacy()
+    {
+        $this->loadDatasetBrowser('zamowienia_publiczne_zamawiajacy', array(
+	        'browserTitle' => 'Zamawiający',
+        ));
+    }
+    
     public function wykonawcy()
     {
-        $this->loadDatasetBrowser('zamowienia_publiczne_wykonawcy');
+        $this->loadDatasetBrowser('zamowienia_publiczne_wykonawcy', array(
+	        'browserTitle' => 'Wykonawcy zamówień publicznych',
+        ));
     }
     
     public function rozstrzygniete()

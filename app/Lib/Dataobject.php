@@ -34,55 +34,73 @@ class Dataobject
         'position' => false,
     );
     protected $routes = array();
+    protected $fields = array();
     protected $hl_fields = array();
     protected $tiny_label = '';
 
     public function __construct($params = array(), $options = array())
     {
-
 		
 		$this->options = $options;
-        $this->data = $params['data'];
-        $this->layers = isset( $params['layers'] ) ? $params['layers'] : array();
-        $this->dataset = $params['dataset'];
-        $this->id = $params['id'];
-        $this->object_id = $params['global_id'];
-        $this->global_id = $params['global_id'];
-        $this->slug = $params['slug'];
+		
+		foreach( $params as $key => $value ) {
+			
+			if( $key == 'id' ) {
+				$this->id = $value;
+			
+			} elseif( $key == 'global_id' ) {
+				$this->object_id = $this->global_id = $value;
+				
+			} elseif( $key == 'dataset' ) {
+				$this->dataset = $value;
+			
+			} elseif( $key == 'slug' ) {
+				$this->slug = $value;
+				
+			} elseif( $key == 'data' ) {
+				$this->data = $value;
+			
+			} elseif( $key == 'layers' ) {
+				$this->layers = $value;			
+				
+			} elseif( $key == 'static' ) {
+				$this->static = $value;
+			
+			} elseif( $key == 'score' ) {
+				$this->layers['score'] = $value;
+				
+			} elseif( $key == 'highlight' ) {
+				
+				if( isset($value[0]) )
+					$this->layers['highlight'] = $value[0];
+					
+			} elseif( $key == 'contexts' ) {
+				$this->contexts = $value;
+				
+			} elseif( $key == 'subscribtion' ) {
+				$this->subscribtion = $value;
+				
+			} elseif( $key == 'subscribtions' ) {
+				$this->subscribtions = $value;
+				
+			} elseif( $key == 'inner_hits' ) {
+				$this->inner_hits = $value;
+				
+			} elseif( $key == 'collection' ) {
+				$this->collection = $value;
+				
+			} elseif( $key == 'Aggs' ) {
 
-		if (isset($params['static']))
-            $this->static = $params['static'];
-
-        if (isset($params['score']))
-            $this->layers['score'] = $params['score'];
-
-        if (isset($params['highlight']) && isset($params['highlight'][0])) {
-            $this->layers['highlight'] = $params['highlight'][0];
-        }
-
-        if (isset($params['contexts'])) {
-            $this->contexts = $params['contexts'];
-        }
-
-        if (isset($params['subscribtion'])) {
-            $this->subscribtion = $params['subscribtion'];
-        }
-
-        if (isset($params['inner_hits'])) {
-            $this->inner_hits = $params['inner_hits'];
-        }
-        
-        if (isset($params['subscribtions'])) {
-            $this->subscriptions = $params['subscribtions'];
-        }
-        
-        if (isset($params['collection'])) {
-            $this->collection = $params['collection'];
-        }
-
-        if (@$params['Aggs']['_page']['page']['hits']['hits'][0]['_source']['data']) {
-            $this->page = $params['Aggs']['_page']['page']['hits']['hits'][0]['_source']['data'];
-        }
+				if( @$value['_page']['page']['hits']['hits'][0]['_source']['data'] )
+					$this->page = $value['_page']['page']['hits']['hits'][0]['_source']['data'];
+				
+			} else {
+				
+				$this->fields[ $key ] = $value;
+				
+			}
+		}
+		
 		
         $temp = array();
         if( !empty($this->data) ) {
@@ -101,9 +119,19 @@ class Dataobject
 
         $this->routes = array_merge($this->_routes, $this->routes);
 
-        // debug( $this->getData() );
-
     }
+	
+	public function getField( $field = false ) {
+		
+		if(
+			$field && 
+			array_key_exists($field, $this->fields)
+		)
+			return $this->fields[ $field ];
+		else
+			return null;
+		
+	}
 	
 	public function getPageThumbnailUrl() {
 		return false;

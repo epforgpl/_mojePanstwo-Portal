@@ -1537,15 +1537,19 @@ class DataBrowserComponent extends Component
             ),            
         ),
         'zamowienia_publiczne' => array(
-            'wartosc_cena' => array(
-                'sum' => array(
-                    'field' => 'data.zamowienia_publiczne.wartosc_cena',
+            'status_id' => array(
+                'terms' => array(
+                    'field' => 'zamowienia_publiczne.status_id',
                 ),
                 'visual' => array(
-                    'label' => 'Wartość zamówień',
-                    'skin' => 'numeric',
-                    'field' => 'zamowienia_publiczne.wartosc_cena',
-                    'currency' => 'pln'
+                    'label' => 'Statusy zamówień',
+                    'skin' => 'list',
+                    'field' => 'zamowienia_publiczne.status_id',
+                    'all' => 'Otwarte i rozstrzygnięte',
+                    'dictionary' => array(
+	                    '0' => 'Otwarte',
+	                    '2' => 'Rozstrzygnięte',
+                    ),   
                 ),
             ),
             'tryb_id' => array(
@@ -1555,22 +1559,22 @@ class DataBrowserComponent extends Component
                         'pattern' => '0'
                     ),
                 ),
-                'aggs' => array(
-                    'label' => array(
-                        'terms' => array(
-                            'field' => 'data.zamowienia_publiczne_tryby.nazwa',
-                        ),
-                    ),
-                    'wartosc_cena' => array(
-                        'sum' => array(
-                            'field' => 'zamowienia_publiczne.wartosc_cena',
-                        ),
-                    ),
-                ),
                 'visual' => array(
                     'label' => 'Tryby zamówień',
-                    'skin' => 'zamowienia_publiczne/pie_chart',
-                    'field' => 'zamowienia_publiczne.tryb_id'
+                    'skin' => 'list',
+                    'field' => 'zamowienia_publiczne.tryb_id',
+                    'all' => 'Wszystkie tryby',
+                    'dictionary' => array(
+	                    '1' => 'Przetargi nieograniczone',
+	                    '2' => 'Zamówienia z wolnej ręki',
+	                    '3' => 'Zapytania o cenę',
+	                    '4' => 'Przetargi ograniczony',
+	                    '5' => 'Negocjacje z ogłoszeniem',
+	                    '6' => 'Licytacje elektroniczna',
+	                    '7' => 'Dialogi konkurencyjne',
+	                    '8' => 'Negocjacje bez ogłoszenia',
+	                    '9' => 'Inne',
+                    ),   
                 ),
             ),
             'date' => array(
@@ -1583,7 +1587,7 @@ class DataBrowserComponent extends Component
                     'label' => 'Liczba zamówień publicznych w czasie',
                     'skin' => 'date_histogram',
                     'field' => '_date',
-                    'all' => 'Kiedykolwiek',
+                    'all' => 'Ogłoszone kiedykolwiek',
                 ),
             ),
         ),
@@ -1605,7 +1609,7 @@ class DataBrowserComponent extends Component
                 'visual' => array(
                     'label' => 'Płeć',
                     'all' => 'Mężczyźni i kobiety',
-                    'skin' => 'pie_chart',
+                    'skin' => 'list',
                     'field' => 'krs_osoby.plec',
                     'dictionary' => array(
                         'K' => 'Kobiety',

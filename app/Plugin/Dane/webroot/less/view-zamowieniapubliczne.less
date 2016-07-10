@@ -2,6 +2,81 @@
     margin-top: 25px !important;
 }
 
+.ul_wykonawcy {
+	list-style: none;
+	overflow: auto;
+	
+	li {
+		
+		list-style: none;
+		overflow: auto;
+		margin-bottom: 10px;
+		
+		.objectRender {
+			.title {
+				font-size: 16px;
+				margin-bottom: 3px;
+			}
+			.object-icon {
+				width: 28px;
+				height: 28px;
+				font-size: 19px;
+				margin-top: -3px;
+			}
+			.object-icon-side  {
+				margin-left: 31px;
+			}
+		}
+	}
+}
+
+.ul_kryteria {
+	list-style: none;
+	overflow: auto;	
+	li {
+		margin: 5px 0;
+		padding: 5px;
+		font-size: 12px;
+		border-bottom: 1px solid #DDD;
+		
+		&:last-child {
+			border-bottom: none;
+		}
+		
+		p {
+			margin: 0;
+			padding: 0;
+			
+			&.meta.meta-desc {
+				margin: 3px 0 0;
+				padding: 0;
+			}
+		}
+		
+	}
+}
+
+.object .document_label {
+	font-weight: 400;
+	
+	.glyphicon {
+		font-size: 14px;
+		color: #157ab5;
+	}
+	
+	.title {
+		color: #157ab5;
+		font-size: 18px;
+	    line-height: 1.2em;
+	    
+	}
+	._ds {
+		color: #777;
+	    font-size: 11px;
+	    margin-left: 5px;
+	}
+}
+
 .object .panel {
     margin-top: 0;
     margin-bottom: 10px;

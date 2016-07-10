@@ -75,15 +75,31 @@ class Zamowienia_publiczne extends DataObject
     public function getMetaDescriptionParts($preset = false)
 	{
 
-        $output = array(
-			$this->getData('zamowienia_publiczne.zamawiajacy_nazwa'),
-		);
-
+        $output = array();
+		
+		if( $this->getData('status_id')=='0' )
+			$output[] = '<span class="label label-success">Zamówienie otwarte</span>';
+		elseif( $this->getData('status_id')=='2' )
+			$output[] = '<span class="label label-danger">Zamówienie rozstrzygnięte</span>';
+				
+		if( $this->getData('zamowienia_publiczne.zamawiajacy_nazwa') )
+			$output[] = 'Zamawiający: ' . $this->getData('zamowienia_publiczne.zamawiajacy_nazwa');
+		
         if( $this->getData('zamowienia_publiczne.wartosc_cena') )
-			$output[] = number_format_h($this->getData('zamowienia_publiczne.wartosc_cena')) . ' PLN';
+			$output[] = 'Wartość: ' . number_format_h($this->getData('zamowienia_publiczne.wartosc_cena')) . ' PLN';
 
         return $output;
 
+    }
+    
+    public function getDescription()
+    {
+	    return $this->getData('przedmiot');
+    }
+    
+    public function getPageDescription()
+    {
+	    return false;
     }
 
 }

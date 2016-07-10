@@ -162,6 +162,7 @@ class DataobjectsController extends AppController
                 ),
                 'layers' => $layers,
                 'aggs' => $this->initAggs,
+                'fields' => $this->fields,
             ));
                                     
             $code = (int)$this->Dataobject->getDataSource()->getLastResponseCode();

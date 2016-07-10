@@ -52,6 +52,11 @@ class ApiController extends ApplicationsController
     {
 		$this->title = 'API - KRS';
     }
+    
+    public function zamowienia_publiczne()
+    {
+		$this->title = 'API - Zamówienia publiczne';
+    }
 
     public function view($slug)
     {
@@ -73,6 +78,13 @@ class ApiController extends ApplicationsController
 			'label' => 'Krajowy Rejestr Sądowy',
 			'href' => '/api/krs',
 			'id' => 'krs',
+			'icon' => 'icon-datasets-dot',
+		);
+		
+		$items[] = array(
+			'label' => 'Zamówienia publiczne',
+			'href' => '/api/zamowienia_publiczne',
+			'id' => 'zamowienia_publiczne',
 			'icon' => 'icon-datasets-dot',
 		);
 		
