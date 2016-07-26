@@ -1,5 +1,14 @@
 function number_format(number, decimals, dec_point, thousands_sep) {
-    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+        
+    number = number + '';
+    
+    var sign = true;
+    if( number[0]=='-' ) {
+    	sign = false;
+    	number = number.substr(1);
+    }
+    
+    number = number.replace(/[^0-9+\-Ee.]/g, '');
     var n = !isFinite(+number) ? 0 : +number,
         prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
         sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
@@ -22,12 +31,25 @@ function number_format(number, decimals, dec_point, thousands_sep) {
         s[1] += new Array(prec - s[1].length + 1)
             .join('0');
     }
-    return s.join(dec);
+    
+    var ret = s.join(dec);
+    
+    if( !sign )
+    	ret = '-' + ret;
+        
+    return ret;
 }
 
 function number_format_h(n) {
 	
 	n = String(n);
+	
+	var sign = '';
+    if( n[0]=='-' ) {
+    	sign = '-';
+    	n = n.substr(1);
+    }
+	
     // first strip any formatting;
     n = (0 + n.replace(",", ""));
 
@@ -36,13 +58,14 @@ function number_format_h(n) {
 
     var $n = Math.abs(n);
     // now filter it;
-    if ($n > 1000000000000000) return Math.round((n / 1000000000000000) * 10) / 10 + ' blr.';
-    else if ($n > 1000000000000) return Math.round((n / 1000000000000) * 10) / 10 + ' bln.';
-    else if ($n > 1000000000) return Math.round((n / 1000000000) * 10) / 10 + ' mld.';
-    else if ($n > 1000000) return Math.round((n / 1000000) * 10) / 10 + ' mln';
-    else if ($n > 1000) return Math.round((n / 1000) * 10) / 10 + ' tys.';
-
-    return number_format(n, 0, '.', ' ');
+    if ($n > 1000000000000000) return sign + Math.round((n / 1000000000000000) * 10) / 10 + ' blr.';
+    else if ($n > 1000000000000) return sign + Math.round((n / 1000000000000) * 10) / 10 + ' bln.';
+    else if ($n > 1000000000) return sign + Math.round((n / 1000000000) * 10) / 10 + ' mld.';
+    else if ($n > 1000000) return sign + Math.round((n / 1000000) * 10) / 10 + ' mln';
+    else if ($n > 1000) return sign + Math.round((n / 1000) * 10) / 10 + ' tys.';
+	
+	var ret = sign + number_format(n, 0, '.', ' ');		
+    return ret;
 }
 
 var getUrlParameter = function getUrlParameter(sParam) {
@@ -224,6 +247,108 @@ $(document).ready(function () {
             }
         }
     });
+    
+    
+    
+    
+    var outcomeTypes = [];
+	var outcomeSubtypes = [];
+	
+	var items = $('#chart-outcome-types .chart_description >ul >li >.item');
+	for( var i=0; i<items.length; i++ ) {
+		
+		var item = $(items[i]);
+		var subitems = item.parents('li').find('ul li .item');
+		var value = item.data('value');
+		var color = item.data('color');
+		
+		outcomeTypes.push({
+			id: item.data('field'),
+			name: item.find('._label').text(),
+			y: Number(value),
+			color: color
+		});
+		
+		var incomeSubsourcesSum = 0;
+		
+		for( var j=0; j<subitems.length; j++ ) {
+			
+			var subitem = $(subitems[j]);
+			var subvalue = subitem.data('value');
+			var subcolor = Highcharts.Color(color).brighten((j+2)/16).get();
+			
+			outcomeSubtypes.push({
+				id: subitem.data('field'),
+				name: subitem.find('._label').text(),
+				y: Number(subvalue),
+				color: subcolor
+			});
+			
+			subitem.find('._color').css('background-color', subcolor);
+			
+			incomeSubsourcesSum += subvalue;
+			
+		}
+		
+		var diff = value - incomeSubsourcesSum;
+		if( diff > 0 ) {
+			
+			outcomeSubtypes.push({
+				name: '',
+				y: diff,
+				color: 'rgba(0,0,0,0)'
+			});
+			
+		}
+		
+	}
+		
+
+    $('#chart-outcome-types .chart').highcharts({
+        chart: {
+            type: 'pie',
+	        backgroundColor: 'rgba(0,0,0,0)'
+        },
+        title: {
+            text: ''
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                point:{
+					events : {
+						click: function(event) {
+							event.preventDefault();
+						}
+					}
+				}
+            }
+        },
+        credits: {
+	        enabled: false
+        },
+        series: [{
+            name: 'Wartość: ',
+            data: outcomeTypes,
+        }, {
+            name: 'Wartość: ',
+            data: outcomeSubtypes,
+            innerSize: '75%',
+            borderColor: 'rgba(0,0,0,0)'
+        }],
+        tooltip: {
+	        formatter: function() {
+	            return this.point.name ? this.point.name + ':<br/><b>' + number_format_h(this.y) + ' zł</b>' : false;
+            }
+        }
+    });
+    
+    
+    
     
     
     var $documentFastCheck = $('.documentFastCheck');

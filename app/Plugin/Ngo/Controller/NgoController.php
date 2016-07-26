@@ -1013,7 +1013,7 @@ class NgoController extends ApplicationsController
 
             } else {
 				
-				$selected_i = ( $key=='timerange' ) ? 1 : 0;
+				$selected_i = 0;
 				
                 $option['selected_id'] = $option['items'][$selected_i]['id'];
                 $option['selected_i'] = $selected_i;
@@ -1082,14 +1082,80 @@ class NgoController extends ApplicationsController
 	                    'percents' => array(50),
 	                ),
 	            ),
+	            'percentiles.koszty_ogolem' => array(
+	                'percentiles' => array(
+	                    'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem',
+	                    'percents' => array(50),
+	                ),
+	            ),
+	            'percentiles.koszty_kampania_procent' => array(
+	                'percentiles' => array(
+	                    'field' => 'krs_podmioty-sprawozdania_opp.koszty_kampania_procent',
+	                    'percents' => array(50),
+	                ),
+	            ),
 				'stats.przychody_ogolem' => array(
 					'stats' => array(
 						'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
 					),
 				),
+				'stats.koszty_ogolem' => array(
+					'stats' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem',
+					),
+				),
+				'stats.koszty_kampania_procent' => array(
+					'stats' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_kampania_procent',
+					),
+				),
 				'max.przychody_ogolem' => array(
 	                'terms' => array(
 	                    'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+	                    'size' => '3',
+	                    'order' => array(
+	                        '_term' => 'desc',
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'reverse' => array(
+	                        'reverse_nested' => '_empty',
+	                        'aggs' => array(
+	                            'top' => array(
+	                                'top_hits' => array(
+	                                    'size' => 1,
+	                                    '_source' => array('data.krs_podmioty.nazwa', 'slug'),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	            'max.koszty_ogolem' => array(
+	                'terms' => array(
+	                    'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem',
+	                    'size' => '3',
+	                    'order' => array(
+	                        '_term' => 'desc',
+	                    ),
+	                ),
+	                'aggs' => array(
+	                    'reverse' => array(
+	                        'reverse_nested' => '_empty',
+	                        'aggs' => array(
+	                            'top' => array(
+	                                'top_hits' => array(
+	                                    'size' => 1,
+	                                    '_source' => array('data.krs_podmioty.nazwa', 'slug'),
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	            'max.koszty_kampania_procent' => array(
+	                'terms' => array(
+	                    'field' => 'krs_podmioty-sprawozdania_opp.koszty_kampania_procent',
 	                    'size' => '3',
 	                    'order' => array(
 	                        '_term' => 'desc',
@@ -1209,6 +1275,72 @@ class NgoController extends ApplicationsController
 						'field' => 'krs_podmioty-sprawozdania_opp.przychody_inne',
 					),
 				),
+				
+				
+				'suma.koszty_ogolem' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem',
+					),
+				),
+				'suma.koszty_ogolem_procent' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem_procent',
+					),
+				),
+				'suma.koszty_dzialalnosc_nieodplatna_pozytku_publicznego' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_dzialalnosc_nieodplatna_pozytku_publicznego',
+					),
+				),
+				'suma.koszty_dzialalnosc_nieodplatna_pozytku_publicznego_procent' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_dzialalnosc_nieodplatna_pozytku_publicznego_procent',
+					),
+				),
+				'suma.koszty_dzialalnosc_odplatna_pozytku_publicznego' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_dzialalnosc_odplatna_pozytku_publicznego',
+					),
+				),
+				'suma.koszty_dzialalnosc_odplatna_pozytku_publicznego_procent' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_dzialalnosc_odplatna_pozytku_publicznego_procent',
+					),
+				),
+				'suma.koszty_pozostale_ogolem' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_pozostale_ogolem',
+					),
+				),
+				'suma.koszty_pozostale_ogolem_procent' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_pozostale_ogolem_procent',
+					),
+				),
+				'suma.koszty_dzialalnosc_gospodarcza' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_dzialalnosc_gospodarcza',
+					),
+				),
+				'suma.koszty_finansowe' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_finansowe',
+					),
+				),
+				'suma.koszty_administracyjne' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_administracyjne',
+					),
+				),	
+				
+				'suma.koszty_kampania_procent' => array(
+					'sum' => array(
+						'field' => 'krs_podmioty-sprawozdania_opp.koszty_kampania_procent',
+					),
+				),	
+				
+				
+							
 			);
 		
 		} elseif( $mode == 'histogram' ) {

@@ -1,6 +1,7 @@
 .appSwitchers {
     float: none;
     padding: 20px 0 10px;
+    margin-bottom: -5px;
     
     label {
 	    margin-bottom: 10px;
@@ -10,7 +11,13 @@
 .main_msg {
 	color: #777;
 	font-size: 13px;
-	margin: 5px;
+	margin: 35px 5px 5px;
+	text-align: center;
+}
+
+h2.border-top {
+	border-top: 1px solid #CCC;
+	padding-top: 30px;
 }
 
 .global_info {
@@ -28,9 +35,10 @@
 	margin-bottom: 35px;
 }
 
-#charts {
+.charts {
 	
 	margin-bottom: 20px;
+	padding-top: 20px;
 	
 	h2 {
 		text-align: center;
@@ -119,15 +127,29 @@
 	
 }
 
+.chapter_title {
+	background-color: #999;
+    color: #fff;
+    font-size: 36px;
+    margin: 0 0 0;
+    padding: 15px 0;
+    
+    &.percent {
+	    span {
+		    position: relative;
+		    top: 3px;
+	    }
+    }
+}
 
 .histogram_chart {
 	
 	background-color: #fff;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
-    margin-bottom: 15px;
     padding-top: 15px;
-	
+    overflow: hidden;
+
 	.histogram_cont {
         padding: 0;
         height: 222px;
