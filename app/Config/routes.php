@@ -144,6 +144,10 @@ Router::connect( '/docs/:id/download', array(
 	'controller' => 'docs',
 	'action'     => 'download'
 ), array( 'id' => '[0-9]+' ) );
+Router::connect( '/docs/:id/edit', array(
+	'controller' => 'docs',
+	'action'     => 'edit'
+), array( 'id' => '[0-9]+' ) );
 Router::connect( '/docs/:doc_id-:package_id', array(
 	'controller' => 'docs',
 	'action'     => 'viewPackage'
