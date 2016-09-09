@@ -15,6 +15,8 @@ var DataBrowser = Class.extend({
 		if (this.div.hasClass('manage')) {
 			this.initManage();
 		}
+		
+		$('.dataBrowserContentHeaderSticky').sticky({topSpacing: 44});
 	},
 
 	initManage: function () {

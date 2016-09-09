@@ -26,7 +26,7 @@ $description =
 
 ?>
 
-<div class="krsPodmioty margin-top--15">
+<div class="krsPodmioty margin-top--25">
     <div class="col-xs-12 col-md-3 objectSide">
         <? if (($page = $object->getPage()) || ($email = $object->getData('email')) || ($www = $object->getData('www'))) { ?>
             <div class="iconsList">
@@ -554,7 +554,16 @@ $description =
                     $column_width = 6;
                 }
 
-                foreach ($organy as $organ) { ?>
+                foreach ($organy as $organ) { 
+	                
+	                if( !$organ['title'] ) {
+		                
+		                if( $organ['idTag']=='reprezentacja' );
+		                	$organ['title'] = 'Organ reprezentacji';
+		                
+	                }
+	                
+                ?>
                 <div class="block noborder col-xs-12 col-sm-<?= $column_width ?>">
                     <header>
                         <div class="sm normalizeText" id="<?= $organ['idTag'] ?>"><?= $organ['title'] ?></div>
@@ -605,7 +614,7 @@ $description =
                                         } ?>
 
                                         <p itemprop="namedPosition"
-                                           class="list-group-item-text <? if ($useLabel) { ?> label label-<?= $class ?><? } ?>"><?= $osoba['funkcja'] ?></p>
+                                           class="list-group-item-text <? if ($useLabel) { ?> label label-<?= $class ?><? } ?>" title="<?= $osoba['funkcja'] ?>"><?= $this->Text->truncate($osoba['funkcja'], 50) ?></p>
                                     <? } ?>
                                     <? if (@$osoba['osoba_id'] || @$osoba['krs_id']) { ?>
                             </a>

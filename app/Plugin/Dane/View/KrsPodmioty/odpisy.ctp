@@ -64,7 +64,7 @@ $status_dict = array(
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
 
-                <p class="row margin-top-30">Część danych na profilu Twojej organizacji pochodzi z odpisów, pobieranych
+                <p class="row margin-top-30">Część danych na profilu organizacji pochodzi z odpisów, pobieranych
                     z <a href="https://ems.ms.gov.pl/krs/wyszukiwaniepodmiotu?t:lb=t" target="_blank"> Centralnej
                         Informacji Krajowego Rejestru Sądowego</a>. Te dane są stale aktualizowane, jednak jeśli są one
                     nieaktualne, możesz poprosić o pobranie nowego odpisu i zaktualizowanie informacji.</p>

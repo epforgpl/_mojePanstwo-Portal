@@ -122,10 +122,8 @@
             margin-right: 3px;
 
             .dataObjects .innerContainer .objectRender {
-                border: 1px solid #E3E3E3;
-                &:last-child {
-                    border-bottom: none;
-                }
+                border: 1px solid;
+                border-color: #e5e6e9 #dfe0e4 #d0d1d5;
             }
         }
 
@@ -598,7 +596,7 @@
 
                                     font-family: "Lato", Arial, sans-serif;
                                     font-size: 14px;
-                                    line-height: 1.2em;
+                                    line-height: 1.25em;
                                     display: block;
                                     width: 100%;
 
@@ -651,9 +649,14 @@
                 .objectRender {
                     padding: 20px 10px;
                     margin: 10px 0;
-                    border: 1px solid #E6E6E6;
+                    border: 1px solid;
+                    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
                     border-radius: 3px;
 	                background-color: #FFF;
+					
+					&.msig {
+						padding: 5px 10px;
+					}
 					
 					.subscription {
 						overflow: auto;
@@ -934,7 +937,7 @@
         }
         p {
             font-size: 16px;
-            line-height: 1.2em;
+            line-height: 1.25em;
 
             &.opis, &.m {
                 color: #999999;
@@ -947,6 +950,7 @@
     .header {
         padding-left: 0;
         margin-top: 15px;
+        min-height: 1px;
 
         .tools {
             padding-right: 0;
@@ -1235,7 +1239,7 @@
 
         .title {
             font-size: 18px;
-            line-height: 1.2em;
+            line-height: 1.25em;
             padding: 0;
             margin: -5px 7px 5px;
 
@@ -1328,7 +1332,7 @@
 
         .bigger {
             font-size: 20px;
-            line-height: 1.2em;
+            line-height: 1.25em;
             padding: 2px 8px;
             margin: 10px 0 15px;
         }
@@ -1342,6 +1346,17 @@
                     }
                 }
             }
+        }
+        
+        &.msig_pozycje {
+        	.header {
+	        	color: #789;
+	        	margin-bottom: 12px;
+        	}
+        	.object-icon {
+	        	position: relative;
+	        	top: -5px;
+        	}
         }
 
         .attachment {
@@ -1457,7 +1472,7 @@
         }
 
         .content {
-            line-height: 1.2em;
+            line-height: 1.25em;
             padding-top: 8px;
 			
 			.tags {
@@ -1515,7 +1530,7 @@
 
             .signature {
                 margin: 0;
-                line-height: 1.2em;
+                line-height: 1.25em;
                 padding: 2px 0 2px 8px;
                 font-size: 12px;
 
@@ -1550,7 +1565,7 @@
                 &.desc {
                     padding-top: 10px;
                     margin: 0;
-                    line-height: 1.2em;
+                    line-height: 1.25em;
                     font-size: 13px;
                 }
             }

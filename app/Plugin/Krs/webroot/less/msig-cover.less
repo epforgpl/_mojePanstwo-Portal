@@ -1,0 +1,77 @@
+.search_by_date {
+	margin-top: 10px;
+	padding-bottom: 10px;
+    padding-top: 15px;
+	border-top: 1px solid #CCC;
+	
+	.search_button {
+		margin-bottom: -10px;
+	    margin-top: 15px;
+	}
+	
+	.desc {
+		margin: 5px 0;
+		padding: 0;
+		font-size: 12px;
+		color: #666;
+	}
+}
+
+.block > section ul.msig_dzialy {
+	margin: 0 10px;
+	> li {
+		
+		border-bottom: 1px solid #CCC;
+		
+		&:last-child {
+			border-bottom: none;
+		}
+		
+		a {
+			
+			overflow: auto;
+			display: block;
+			padding: 10px;
+			
+			p {
+				margin: 0;
+				padding: 0;
+				
+				&.title {
+					color: #444;
+					margin-left: -5px;
+					.glyphicon {
+					    border-radius: 10px;
+					    float: left;
+					    padding: 2px 3px 3px;
+					    color: #337ab7;
+					    transition-duration: .1s;
+					}
+					.text {
+						margin-left: 30px;
+						display: block;
+					}
+				}
+				
+				&.counter {
+					text-align: center;
+					font-size: 12px;
+				    color: #666;
+				}
+				
+			}
+			
+			&:hover {
+				p.title {
+					color: #337ab7;
+					.glyphicon {
+						background-color: #337ab7;
+					    color: #fff;
+					}
+					
+				}
+			}
+			
+		}
+	}
+}

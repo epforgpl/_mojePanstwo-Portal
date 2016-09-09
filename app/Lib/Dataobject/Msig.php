@@ -3,7 +3,7 @@
 namespace MP\Lib;
 require_once('DocDataObject.php');
 
-class Msig extends DocDataObject
+class Msig extends DataObject
 {
 	
 	protected $tiny_label = 'MSiG';
@@ -41,6 +41,13 @@ class Msig extends DocDataObject
 				
 		return $output;
 		
+	}
+	
+	public function getPageDescription()
+	{
+		return dataSlownie($this->getDate(), array(
+	        'relative' => false,
+        ));
 	}
 
 }

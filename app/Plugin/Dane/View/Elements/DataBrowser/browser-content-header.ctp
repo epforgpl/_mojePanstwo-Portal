@@ -9,13 +9,12 @@
 			<? } elseif( isset($dataBrowser['browserTitle']) && $dataBrowser['browserTitle'] ) { ?>
 				<h1 class="smaller"><?= $dataBrowser['browserTitle'] ?></h1>
 			<? } ?>
-			
-			
-			<div class="appBanner margin-top-20 margin-bottom-30">
-				<div class="appSearch form-group margin-top-20">
+						
+			<div class="appBanner margin-top-0 margin-bottom-30">
+				<div class="appSearch form-group margin-top-10">
 			        <form action="" method="get">
 			            <div class="input-group">
-			                <input name="q" class="form-control" placeholder="Szukaj..." type="text" value="<?= htmlspecialchars(@$this->request->query['q']) ?>" />
+			                <input name="q" class="form-control" placeholder="<?= @$dataBrowser['searchTitle'] ? $dataBrowser['searchTitle'] : 'Szukaj...' ?>" type="text" value="<?= htmlspecialchars(@$this->request->query['q']) ?>" />
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-primary input-md">
 			                        <span class="glyphicon glyphicon-search"></span>

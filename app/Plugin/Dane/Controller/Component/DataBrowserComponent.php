@@ -10,6 +10,7 @@ class DataBrowserComponent extends Component
     private $aggs_visuals_map = array();
     private $cover = false;
     private $chapters = array();
+    private $titlePreset = false;
     private $searchTitle = false;
     private $browserTitle = false;
     private $browserTitleElement = false;
@@ -198,19 +199,29 @@ class DataBrowserComponent extends Component
                     'dict' => 'msig_dzialy_typy',
                 ),
             ),
-            'forma_prawna' => array(
+         ),
+         'msig_pozycje_wydanie' => array(
+            'dzial' => array(
                 'terms' => array(
-                    'field' => 'msig_pozycje.krs_forma_prawna_id',
+                    'field' => 'msig_dzialy.typ_id',
                     'exclude' => array(
                         'pattern' => '0'
                     ),
                 ),
+                'aggs' => array(
+                    'label' => array(
+                        'terms' => array(
+                            'field' => 'data.msig_dzialy.nazwa',
+                            'size' => 1,
+                        ),
+                    ),
+                ),
                 'visual' => array(
-                    'label' => 'Formy prawne',
+                    'label' => 'Działy',
                     'skin' => 'list',
-                    'field' => 'msig_pozycje.krs_forma_prawna_id',
-                    'all' => 'Wszystkie formy prawne',
-                    'dict' => 'krs_formy_prawne',
+                    'field' => 'msig_dzialy.typ_id',
+                    'all' => 'Wszystkie działy',
+                    'dict' => 'msig_dzialy_typy',
                 ),
             ),
          ),
@@ -226,6 +237,7 @@ class DataBrowserComponent extends Component
                     'label' => array(
                         'terms' => array(
                             'field' => 'data.bdl_wskazniki.kategoria_tytul',
+                            'size' => 1,
                         ),
                     ),
                 ),
@@ -1406,7 +1418,7 @@ class DataBrowserComponent extends Component
                     ),
                 ),
                 'visual' => array(
-	                'all' => 'Obie płcie',
+	                'all' => 'Mężczyźni i kobiety',
                     'label' => 'Płeć',
                     'skin' => 'list',
                     'field' => 'poslowie.plec',
@@ -1920,7 +1932,7 @@ class DataBrowserComponent extends Component
 
     public function __construct($collection, $settings)
     {
-		
+				
 		if (
             (
                 !isset($settings['objectOptions']) ||
@@ -2015,6 +2027,9 @@ class DataBrowserComponent extends Component
 
         if (isset($settings['searchTitle']))
             $this->searchTitle = $settings['searchTitle'];
+            
+		if (isset($settings['titlePreset']))
+            $this->titlePreset = $settings['titlePreset'];
             
         if (isset($settings['browserTitle']))
             $this->browserTitle = $settings['browserTitle'];
@@ -2202,6 +2217,7 @@ class DataBrowserComponent extends Component
                 'cover' => $this->cover,
                 'chapters' => $this->chapters,
                 'searchTitle' => $this->searchTitle,
+                'titlePreset' => $this->titlePreset,
                 'browserTitle' => $this->browserTitle,
                 'browserTitleElement' => $this->browserTitleElement,
                 'searchTag' => $this->searchTag,

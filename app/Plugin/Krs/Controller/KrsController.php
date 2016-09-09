@@ -258,5 +258,144 @@ class KrsController extends ApplicationsController
         
         }
     }
+    
+    public function msig()
+    {
+	    
+	    if( isset($this->request->query['search_by_date']) ) {
+		    
+		    if( $this->request->query['y'] ) {
+			    
+			    $range = array(
+				    'from' => array($this->request->query['y'], '01', '01'),
+				    'to' => array($this->request->query['y'], '12', '31'),
+			    );
+			    
+    		    if( $this->request->query['m'] ) {
+					$range['from'][1] = str_pad($this->request->query['m'], 2, '0', false);	    
+					$range['to'][1] = str_pad($this->request->query['m'], 2, '0', false);	    
+	    		}
+	    		
+	    		if( $this->request->query['d'] ) {
+					$range['from'][2] = str_pad($this->request->query['d'], 2, '0', false);	    
+					$range['to'][2] = str_pad($this->request->query['d'], 2, '0', false);	    
+	    		}
+	    		
+	    		$range['from'] = implode('-', $range['from']);
+	    		$range['to'] = implode('-', $range['to']);
+	    		
+	    		$url = '/krs/msig_wydania?conditions[date]=';
+	    		
+	    		if( $range['from']==$range['to'] ) {
+		    		$url .= $range['from'];
+	    		} else {
+		    		$url .= '[' . $range['from'] . ' TO ' . $range['to'] . ']';
+	    		}
+	    		
+	    		return $this->redirect($url);
+			    
+			} else {
+				return $this->redirect('/krs/msig');
+			}
+		    
+	    } else {
+	    
+		    $this->title = 'Ogłoszenia w Monitorze Sądowym i Gospodarczym';
+		    $this->set('dzialy', array(
+			    '9' => 'Wpisy do Krajowego Rejestru Sądowego',
+			    '3' => 'Ogłoszenia wymagane przez Kodeks Spółek Handlowych',
+			    '4' => 'Prawo upadłościowe i naprawcze',
+			    '5' => 'Ogłoszenia wymagane przez Kodeks Postępowania Cywilnego',
+			    '15' => 'Ogłoszenia wymagane przez ustawę o Krajowym Rejestrze Sądowym',
+			    '6' => 'Ogłoszenia wymagane przez ustawę o rachunkowości',
+			    '7' => 'Ogłoszenia inne',
+			    '8' => 'Wpisy do Krajowego Rejestru Sądowego',
+			    '28' => 'Ogłoszenia wymagane przez prawo restrukturyzacyjne',
+			    '25' => 'Ogłoszenia o zarejestrowaniu i wykreśleniu grup podatkowych',
+			    '13' => 'Ogłoszenia banków hipotecznych',
+			    '12' => 'Ogłoszenia wymgane przez prawo bankowe',
+		    ));
+		    $this->set('miesiace', array(
+			    '1' => 'Styczeń',
+			    '2' => 'Luty',
+			    '3' => 'Marzec',
+			    '4' => 'Kwiecień',
+			    '5' => 'Maj',
+			    '6' => 'Czerwiec',
+			    '7' => 'Lipiec',
+			    '8' => 'Sierpień',
+			    '9' => 'Wrzesień',
+			    '10' => 'Październik',
+			    '11' => 'Listopad',
+			    '12' => 'Grudzień',
+		    ));
+	        $this->loadDatasetBrowser('msig_pozycje', array(
+	            'browserTitle' => 'Monitor Sądowy i Gospodarczy',
+	            'menu' => array(
+	                'selected' => 'msig',
+	                'base' => '/krs/msig'
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Krs',
+	                    'element' => 'msig',
+	                ),
+	                'aggs' => array(
+		                'msig_wydania' => array(
+			                'scope' => 'global',
+			                'filter' => array(
+				                'term' => array(
+					                'dataset' => 'msig',
+				                ),
+			                ),
+			                'aggs' => array(
+				                'top' => array(
+					                'top_hits' => array(
+						                'size' => 4,
+						                'fields' => array('dataset', 'id'),
+						                '_source' => array('data.*'),
+						                'sort' => array(
+							                'date' => array(
+								                'order' => 'desc',
+							                ),
+						                ),
+					                ),
+				                ),
+				                'years' => array(
+					                'date_histogram' => array(
+						                'field' => 'date',
+						                'interval' => 'year',
+						                'format' => 'yyyy',
+						                'order' => array(
+						                	'_key' => 'desc',
+						                ),
+						            ),
+				                ),
+			                ),
+		                ),
+		                'msig_dzialy' => array(
+			                'terms' => array(
+				                'field' => 'msig_dzialy.typ_id',
+				                'size' => 100,
+			                ),
+		                ),
+	                ),
+	            ),
+	        ));
+        
+        }
+        
+    }
+    
+    public function msig_wydania()
+    {
+		$this->loadDatasetBrowser('msig', array(
+			'browserTitle' => 'Wydania Monitora Sądowego i Gospodarczego',
+			'menu' => array(
+			    'selected' => 'msig',
+			    'base' => '/krs/msig'
+			),
+		));
+    }
 
 } 

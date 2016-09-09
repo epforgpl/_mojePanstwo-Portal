@@ -43,40 +43,32 @@ if( $html )
 
         <ul class="dataHighlights overflow-auto margin-top-10">    		
 	        
-	        <li class="dataHighlight col-xs-12">
-	            <p class="_label">Monitor Sądowy i Gospodarczy</p>
-	            <p class="_value"><a href="/dane/msig/<?= $ogloszenie->getData('wydanie_id') ?>"><?= dataSlownie( $ogloszenie->getData('msig.data') ); ?></a> &mdash; <a href="/dane/msig/<?= $ogloszenie->getData('wydanie_id') ?>/dzialy/<?= $ogloszenie->getData('dzial_id') ?>"><?= $ogloszenie->getData('msig_dzialy.nazwa') ?></a></p>
-	        </li>
-	        
-	        <li class="dataHighlight col-xs-12">
-	            <p class="_label">Pozycja</p>
-	            <p class="_value"><?= $ogloszenie->getData('pozycja') ?></p>
-	        </li>
-	        
-	        <? if( @$data['sad'] || @$data['symbol'] ) {?>
-	        <div class="dataHighlight-hidden">
-	            <div class="dataHighlight-content">
-	                
-	                <? if( @$data['sad'] ) {?>
-		    		<li class="dataHighlight col-xs-12">
-			            <p class="_label">Sąd</p>
-			            <p class="_value"><?= $data['sad'] ?></p>
-			        </li>
-			        <? } ?>
-			        
-			        <? if( @$data['symbol'] ) {?>
-			        <li class="dataHighlight col-xs-12">
-			            <p class="_label">Symbol sprawy</p>
-			            <p class="_value"><?= $data['symbol'] ?></p>
-			        </li>
-			        <? } ?>
-	                
+	        <div class="objectRender readed objclass msig">
+	            <div class="main_content">
+                    <div class="content">
+                        <span class="object-icon icon-datasets-msig"></span>
+                        <div class="object-icon-side  ">
+	                        <p class="title margin-top-5">
+                                <a href="/dane/msig/<?= $ogloszenie->getData('wydanie_id') ?>">MSiG <?= $ogloszenie->getData('msig.nr') ?>/<?= $ogloszenie->getData('msig.rocznik') ?></a>
+                            </p>
+                            <p class="meta meta-desc"><?= dataSlownie($ogloszenie->getData('msig.data'), array('relative' => false)) ?></p>
+                        </div>
+                    </div>
 	            </div>
-	            <div class="dataHighlight-hidden-button text-center">
-	                <button class="dataHighlight-hidden-button-show btn btn-link btn-sm">Więcej &darr;</button>
-	                <button class="dataHighlight-hidden-button-hide btn btn-link btn-sm">Mniej &uarr;</button>
-	            </div>
-	        </div>
+			</div>
+	        		        
+	        <? if( @$data['sad'] ) {?>
+    		<li class="dataHighlight col-xs-12">
+	            <p class="_label">Sąd</p>
+	            <p class="_value"><?= $data['sad'] ?></p>
+	        </li>
+	        <? } ?>
+	        
+	        <? if( @$data['symbol'] ) {?>
+	        <li class="dataHighlight col-xs-12">
+	            <p class="_label">Symbol sprawy</p>
+	            <p class="_value"><?= $data['symbol'] ?></p>
+	        </li>
 	        <? } ?>
 		    		    
         </ul>

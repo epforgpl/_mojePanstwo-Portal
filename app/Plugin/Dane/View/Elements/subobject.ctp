@@ -35,7 +35,7 @@ $width = 12;
             </div>
 
         <? } ?>
-
+		
         <div class="data col-sm-<?= $width ?>">
             <div class="row">
                 <div class="content">
@@ -44,7 +44,7 @@ $width = 12;
                     <a data-trimlength="<?= $truncate ?>" class="trimTitle" href="<?= $object->getUrl() ?>"
                        title="<?= strip_tags($object->getTitle()) ?>">
                         <?php } ?>
-                        <?= $object->getShortTitle() ?>
+                        <?= $object->getShortTitle('subobject') ?>
                         <?php if ($show_link && ($object->getUrl() != false)){ ?>
                     </a> <? if ($object->getTitleAddon()) {
                     echo '<small>' . $object->getTitleAddon() . '</small>';

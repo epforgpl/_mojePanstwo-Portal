@@ -123,12 +123,12 @@ class AppController extends Controller
                 'menu_id' => 'osoby',
                 'id' => 136,
             ),
-            'msig' => array(
+            'msig_pozycje' => array(
                 'label' => 'Monitor Sądowy i Gospodarczy',
-                'browserTitle' => 'Wydania Monitora Sądowego i Gospodarczego',
+                'browserTitle' => 'Ogłoszenia w Monitorze Sądowym i Gospodarczym',
                 'searchTitle' => 'Szukaj w Monitorze Sądowym i Gospodarczym',
                 'menu_id' => 'msig',
-                'id' => 138,
+                'id' => 223,
             ),
         ),
         'srodowisko' => array(
@@ -1163,6 +1163,7 @@ class AppController extends Controller
 
     public function addAppBreadcrumb($app_id = false)
     {
+	    	    
         if ($app = $this->getApplication($app_id)) {
 
             $this->set('_app', array(

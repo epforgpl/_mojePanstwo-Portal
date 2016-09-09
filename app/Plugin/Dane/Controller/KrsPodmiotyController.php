@@ -284,7 +284,8 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function _prepareView($params = array())
     {
-				
+		
+		/*	
 		$aggs = array(
             'zamowienia' => array(
                 'filter' => array(
@@ -451,8 +452,11 @@ class KrsPodmiotyController extends DataobjectsController
                 ),
                 'scope' => 'global',
             ),
-            /*
-            'ogloszenia' => array(
+        );
+        */
+        
+        $aggs = array(
+	        'ogloszenia' => array(
                 'filter' => array(
                     'bool' => array(
                         'must' => array(
@@ -469,22 +473,24 @@ class KrsPodmiotyController extends DataobjectsController
                         ),
                     ),
                 ),
-                'aggs' => array(
-	                'top' => array(
-		                'top_hits' => array(
-			                'size' => 1,
-			                'sort' => array(
-		                        'date' => 'desc',
-	                        ),
-		                ),
-	                ),
-                ),
                 'scope' => 'global',
             ),
-            */
         );
+        
+        if( false ) {
+	        $aggs['ogloszenia']['aggs'] = array(
+		        'top' => array(
+	                'top_hits' => array(
+		                'size' => 1,
+		                'sort' => array(
+	                        'date' => 'desc',
+                        ),
+	                ),
+                ),
+	        );
+        }
 		
-		
+		/*		
 		if( in_array('organizacja-sprawozdania_opp', $params) ) {
 						
 			$aggs['organizacja-sprawozdania_opp'] = array(
@@ -508,7 +514,7 @@ class KrsPodmiotyController extends DataobjectsController
 	                ),
                 ),
 			);
-		}
+		}*/
 		
 		
         $this->addInitAggs($aggs);
@@ -694,6 +700,10 @@ class KrsPodmiotyController extends DataobjectsController
 	                'dataset' => 'msig_pozycje',
 	                'msig_pozycje.krs_id' => $this->object->getId(),
 	            ),
+	            'phrasesPreset' => 'msig_pozycje',
+	            'aggsPreset' => 'msig_pozycje',
+	            'searchTitle' => 'Szukaj w ogłoszeniach...',
+	            'titlePreset' => 'from_krs',
 	        ));
 	
 	        $this->set('title_for_layout', 'Ogłoszenia ' . $this->object->getData('nazwa'));
@@ -1112,8 +1122,7 @@ class KrsPodmiotyController extends DataobjectsController
 	            'label' => 'Kolekcje',
 	        );
         }
-        
-        /*
+                
         if(
         	@$this->object_aggs['ogloszenia']['doc_count'] ||
         	$this->_canEdit()
@@ -1124,7 +1133,6 @@ class KrsPodmiotyController extends DataobjectsController
                 'count' => @$this->object_aggs['zmiany']['doc_count'],
             );
         }
-        */
 		
 		if($this->object->getData('twitter_account_id')) {
             $menu['items'][] = array(

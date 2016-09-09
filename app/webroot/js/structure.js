@@ -57,4 +57,55 @@ $(document).ready(function () {
 	
 	}
 	
+	
+	$('.block.expandable').each(function(){
+		
+		var height = $(this).find('section').height();
+		
+		if( height > 160 ) {
+		
+			var exp_buttons_div = $('<div class="expandable-buttons"><a class="more" href="#">&darr; Rozwiń</a><a class="less" href="#">&uarr; Zwiń</a></div>');
+			exp_buttons_div.find('a').click(function(event){
+				
+				event.preventDefault();
+				
+				var a = $(event.target).closest('a');
+				var block = a.parents('.block');
+				
+				if( a.hasClass('more') ) {
+					
+					a.hide();
+					block.removeClass('expandable-close').removeClass('expandable-complete').addClass('expandable-open').find('.expandable-buttons .less').css({display: 'block'});
+					
+					block.find('section').animate({
+						height: height + 30
+					}, 1000, function() {
+						block.addClass('expandable-complete');
+					});
+										
+				} else if( a.hasClass('less') ) {
+					
+					a.hide();
+					block.removeClass('expandable-open').removeClass('expandable-complete').addClass('expandable-close').find('.expandable-buttons .more').css({display: 'block'});
+					
+					block.find('section').animate({
+						height: 130
+					}, 1000, function() {
+						block.addClass('expandable-complete');
+					});
+					
+				}
+				
+				
+							
+			});
+			
+			$(this).addClass('expandable-active').addClass('expandable-close').data('height', height).append( exp_buttons_div );
+		
+		}
+		
+	});
+	
+	
+		
 });

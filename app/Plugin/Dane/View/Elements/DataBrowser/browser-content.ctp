@@ -15,7 +15,7 @@ $_manage = isset( $manage ) ? $manage: false;
 
 <div class="dataBrowser upper margin-top-0<? if (isset($class)) echo " " . $class; ?>">
     <div class="container container-padding">
-        <div class="dataBrowserContent">
+        <div class="dataBrowserContent<? if( $dataBrowser['mode'] != 'cover' ) {?> dataBrowserContentHeaderSticky<? } ?>">
 			
 			<?= $this->element('Dane.DataBrowser/browser-content-modal'); ?>
 						
@@ -57,7 +57,7 @@ $_manage = isset( $manage ) ? $manage: false;
 	    ));
 		
 	} else {
-		
+			
 		echo $this->element('Dane.DataBrowser/browser-content-list', array(
 		    'dataWrap' => $dataWrap,
 		    'params' => $this->Paginator->params(),

@@ -230,7 +230,7 @@ class Dataobject
         return $this->getData($this->routes['title']);
     }
 
-    public function getShortTitle()
+    public function getShortTitle($preset = false)
     {
         return $this->getData($this->routes['shortTitle']);
     }

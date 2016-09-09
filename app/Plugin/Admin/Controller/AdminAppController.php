@@ -58,6 +58,11 @@ class AdminAppController extends AppController
             'href'  => '/admin/analyzer/krs',
         ),
         array(
+            'id'    => 'analyzer_msig',
+            'label' => 'MSiG',
+            'href'  => '/admin/analyzer/msig',
+        ),
+        array(
             'id'    => 'analyzer_indexing',
             'label' => 'Indeksownaie',
             'href'  => '/admin/analyzer/indexing',

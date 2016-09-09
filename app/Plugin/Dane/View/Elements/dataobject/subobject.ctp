@@ -26,13 +26,11 @@
 		                        </li>
 		                    <? } ?>
 		                </ul>
-		                <? } else { ?>
-		                    <?= $object->getShortLabel(); ?>
 		                <? } ?>
 		
 		                </p>
 		
-		                <div class="objectPageHeader">
+		                <div class="objectPageHeader row">
 		                    <?php
 		                    echo $this->Dataobject->render($object, 'subobject', $objectOptions);
 		                    ?>

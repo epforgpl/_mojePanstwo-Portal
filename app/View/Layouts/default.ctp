@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-    <title><?= htmlspecialchars(strip_tags(str_replace('&nbsp;', ' ', $title_for_layout))) ?></title>
+    <title><?= htmlspecialchars(strip_tags(str_replace(array('&nbsp;', '&mdash;'), array(' ', '-'), $title_for_layout))) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <?php if (isset($_META) && !empty($_META)) {
         foreach ($_META as $key => $val)

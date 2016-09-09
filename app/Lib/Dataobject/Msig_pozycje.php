@@ -5,12 +5,18 @@ namespace MP\Lib;
 class Msig_pozycje extends DataObject
 {
 		
+    public $force_hl_fields = true;
+	
+	public function getShortLabel() {
+		return "Ogłoszenie w Monitorze Sądowym i Gospodarczym";
+	}
+	
 	public function getUrl() {
 		
-		if( $this->getData('krs_slug') )
-			return '/' . $this->getData('krs_slug') . '/ogloszenia/' . $this->getId();
-		else
+		if( $this->getData('krs_id') )
 			return '/dane/krs_podmioty/' . $this->getData('krs_id') . '/ogloszenia/' . $this->getId();
+		else
+			return '/dane/msig_pozycje/' . $this->getId();
 		
 	}
 	
@@ -19,34 +25,49 @@ class Msig_pozycje extends DataObject
 		'date' => 'msig.data',
 	);
 	
-	public function getShortTitle() {
+	public function getLabel() {
+		
+		return "Ogłoszenie w Monitorze Sądowym i Gospodarczym";
+				
+	}
+	
+	public function getShortTitle($preset = false) {
+		
+		if(
+			!$preset && 
+			$this->getOptions('titlePreset')
+		)
+			$preset = $this->getOptions('titlePreset');
+				
+		$parts = array();
+		
+		if( $preset != 'from_msig' )
+			$parts[] = 'MSiG z ' . dataSlownie($this->getData('msig.data'), array('relative' => false));
+			
+		$parts[] = 'Pozycja ' . $this->getData('pozycja');
 		
 		if( 
-			$this->getOptions('from_msig') && 
-			$this->getData('nazwa')
+			(
+				!$preset || 
+				( $preset == 'from_msig' )
+			) && 
+			( $nazwa = $this->getData('nazwa') )
 		) {
 			
-			return $this->getData('nazwa');
-			
-		} else {
-		
-			switch( $this->getData('msig_dzialy.typ_id') ) {
-				case '3': return 'Ogłoszenie handlowe';
-				case '4': return 'Ogłoszenie w sprawie upadłości';
-				case '5': return 'Ogłoszenie w sprawie cywilnej';
-				case '6': return 'Zmiana adresu siedziby';
-				case '7': return 'Zmiana organu sprawującego nadzór';
-				case '8': return 'Zmiana danych rejestrowych';
-				case '12': return 'Zmiana celu działania organizacji';
-				default: return 'Ogłoszenie';
-			}
-		
+			$parts[] = $nazwa;
+
 		}
+		
+		return implode(' &mdash; ', $parts);
 		
 	}
 	
 	public function getTitle() {
 		return $this->getShortTitle();
+	}
+	
+	public function getPageDescription() {
+		return $this->getData('msig_dzialy.nazwa');
 	}
 	
 	public function getDescription() {
@@ -60,21 +81,28 @@ class Msig_pozycje extends DataObject
 	
 	public function getMetaDescriptionParts($preset = false)
 	{
-		
+				
 		$output = array();
 		
 		if( $this->getOptions('from_msig') ) {
-							
+			
+			/*	
 			if( $this->getData('krs_id') )
 				$output[] = 'KRS ' . str_pad($this->getData('krs_id'), '10', '0', 0);
+			*/
 				
-			if( $this->getData('pozycja') )
-				$output[] = 'Pozycja ' . $this->getData('pozycja');
-			
+			if( $this->getData('msig_dzialy.nazwa') )
+				$output[] = $this->getData('msig_dzialy.nazwa');
+							
 		} else {
-		
+			
+			/*
 			if( $this->getDate() )
 				$output[] = dataSlownie( $this->getDate() );
+			*/
+			
+			if( $this->getData('msig_dzialy.nazwa') )
+				$output[] = $this->getData('msig_dzialy.nazwa');
 		
 		}
 		

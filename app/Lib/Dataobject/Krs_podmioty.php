@@ -5,7 +5,7 @@ namespace MP\Lib;
 class Krs_podmioty extends DataObject
 {
 
-    public $force_hl_fields = false;
+    public $force_hl_fields = true;
 	protected $tiny_label = 'Organizacja';
 	protected $schema = array(
 		array('id', 'ID'),
@@ -63,7 +63,7 @@ class Krs_podmioty extends DataObject
 
     public function getLabel()
     {
-        return 'Organizacja';
+        return '<span class="normalizeText">' . $this->getData('forma_prawna_str') . '</span>';
     }
 
     public function hasHighlights()
@@ -73,12 +73,12 @@ class Krs_podmioty extends DataObject
 
     public function getMetaDescriptionParts($preset = false)
 	{
-				
+		
 		$output = array();
 		
 		$output[] = 'KRS ' . $this->getData('krs');
-        $output[] = '<span class="normalizeText">' . $this->getData('forma_prawna_str') . '</span>';
         $output[] = $this->getData('adres_miejscowosc');
+        $output[] = 'Rejestracja ' . dataSlownie( $this->getData('data_rejestracji') );
 				
         return $output;
 

@@ -104,16 +104,36 @@ echo $this->Element('dataobject/pageBegin'); ?>
 				</div>
 				
 				<? if (isset($details['przedmiot'])) { ?>
-	                <div class="block col-xs-12">
+	                <div class="block col-xs-12 expandable">
 	                    <header>Przedmiot zamówienia</header>
-	                    <section><?php echo(nl2br($details['przedmiot'])); ?></section>
+	                    <section class="text-typo"><?php echo(nl2br($details['przedmiot'])); ?></section>
 	                </div>
 	            <? } ?>
-	
+				
+				<? if ((isset($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop']) && ($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop']) && ($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop'] != '0000-00-00')) || @$dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce']) {
+	                ?>
+	                <div class="block col-xs-12 expandable">
+	                    <header>Składanie ofert</header>
+	                    <section class="text-typo">
+	                        <p>Oferty można składać do
+	                            <strong><?= $this->Czas->dataSlownie($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop']) ?></strong>, do
+	                            godziny
+	                            <strong><?= $dokument['zamowienia_publiczne_dokumenty']['oferty_godz'] ?></strong><? if (@$dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce']) { ?>, w:<? } ?>
+	                        </p>
+	                        <? if (@$dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce']) { ?>
+	                            <p><?= $dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce'] ?></p><? } ?>
+	                    </section>
+	                    <div class="expandable-buttons">
+		                    <a class="more" href="#" onclick="return false;">&darr; Rozwiń</a>
+		                    <a class="less" href="#" onclick="return false;">&uarr; Zwiń</a>
+	                    </div>
+	                </div>
+	            <? } ?>
+				
 	            <? if (@$details['siwz_www'] || @$details['siwz_adres']) { ?>
-	                <div class="block col-xs-12">
+	                <div class="block col-xs-12 expandable">
 	                    <header>Specyfikacja Istotnych Warunków Zamówienia</header>
-	                    <section>
+	                    <section class="text-typo">
 	                        <? if (@$details['siwz_www']) { ?>
 	                            <p>
 	                                <a target="_blank"
@@ -124,24 +144,14 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                            <p><?= $details['siwz_adres'] ?></p>
 	                        <? } ?>
 	                    </section>
+	                    <div class="expandable-buttons">
+		                    <a class="more" href="#" onclick="return false;">&darr; Rozwiń</a>
+		                    <a class="less" href="#" onclick="return false;">&uarr; Zwiń</a>
+	                    </div>
 	                </div>
 	            <? } ?>
 	
-	            <? if ((isset($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop']) && ($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop']) && ($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop'] != '0000-00-00')) || @$dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce']) {
-	                ?>
-	                <div class="block col-xs-12">
-	                    <header>Składanie ofert</header>
-	                    <section>
-	                        <p>Oferty można składać do
-	                            <strong><?= $this->Czas->dataSlownie($dokument['zamowienia_publiczne_dokumenty']['oferty_data_stop']) ?></strong>, do
-	                            godziny
-	                            <strong><?= $dokument['zamowienia_publiczne_dokumenty']['oferty_godz'] ?></strong><? if (@$dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce']) { ?>, w:<? } ?>
-	                        </p>
-	                        <? if (@$dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce']) { ?>
-	                            <p><?= $dokument['zamowienia_publiczne_dokumenty']['oferty_miejsce'] ?></p><? } ?>
-	                    </section>
-	                </div>
-	            <? } ?>
+	            
 						
 				<? if (isset($details['czesci-wykonawcy'])) { ?>
 	                <? foreach ($details['czesci-wykonawcy'] as $item) { ?>
@@ -149,7 +159,7 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	                        
 	                        <header>Oferty <? if ($item['numer']) { ?> &mdash; Część <?= $item['numer'] ?><? } ?></header>
 	                        	
-	                        <section>
+	                        <section class="text-typo">
 	                            <table class="table table-striped table-hover table-min">
 	                                <thead>
 	                                <tr>
@@ -260,9 +270,13 @@ echo $this->Element('dataobject/pageBegin'); ?>
 	            <? foreach ($details as $key => $value) {
 	                if( $value && in_array($key, $text_details_keys) ) {
 	                    ?>
-	                    <div class="block col-xs-12">
+	                    <div class="block col-xs-12 expandable">
 	                        <header><?php echo __d('dane', __('LC_DANE_VIEW_ZAMOWIENIAPUBLICZNE_' . $key)); ?></header>
-	                        <section><?php echo(nl2br($value)); ?></section>
+	                        <section class="text-typo"><?php echo(nl2br($value)); ?></section>
+	                        <div class="expandable-buttons">
+			                    <a class="more" href="#" onclick="return false;">&darr; Rozwiń</a>
+			                    <a class="less" href="#" onclick="return false;">&uarr; Zwiń</a>
+		                    </div>
 	                    </div>
 	                <? }
 	            } ?>

@@ -17,6 +17,11 @@ class AnalyzerController extends AdminAppController
             'analyzer' => 'Krs',
             'view' => 'view_krs'
         ),
+        'msig' => array(
+            'action' => 'analyzer_msig',
+            'analyzer' => 'Msig',
+            'view' => 'view_msig'
+        ),
         'zp' => array(
             'action' => 'analyzer_zp',
             'analyzer' => 'Zamowienia+Publiczne',
@@ -53,6 +58,10 @@ class AnalyzerController extends AdminAppController
 
     public function krs() {
         $this->create('krs');
+    }
+    
+    public function msig() {
+        $this->create('msig');
     }
 
     public function zp() {

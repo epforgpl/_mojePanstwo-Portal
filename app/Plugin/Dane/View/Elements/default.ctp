@@ -1,4 +1,5 @@
 <?
+	
 $objectRenderOptions = array(
     'forceLabel' => (isset($dataBrowserObjectRender) && isset($dataBrowserObjectRender['forceLabel'])) ? (boolean)$dataBrowserObjectRender['forceLabel'] : false,
 );
@@ -11,7 +12,7 @@ $file_exists = file_exists($file);
 $shortTitle = (isset($options['forceTitle'])) ?
     $options['forceTitle'] :
     $object->getShortTitle();
-
+    
 $object_content_sizes = $object->getDefaultColumnsSizes();
 
 if (!isset($truncate))

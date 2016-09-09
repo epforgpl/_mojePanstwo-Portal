@@ -56,9 +56,10 @@ $_manage = isset( $manage ) ? $manage: false;
 					                            ?>
 					                            <ul class="list-group list-dataobjects">
 					                                <?
-					
+												
 					                                $params = array(
 						                                'manage' => $_manage,
+						                                'titlePreset' => $dataBrowser['titlePreset'],
 					                                );
 					                                if (isset($truncate))
 					                                    $params['truncate'] = $truncate;
