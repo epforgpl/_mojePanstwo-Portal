@@ -44,3 +44,4 @@ Thumbs.db
 .idea
 
 app/Config/email.php
+app/composer.lock
