@@ -6,6 +6,8 @@ $this->Combinator->add_libs('css', $this->Less->css('DataBrowser', array('plugin
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy-finanse', array('plugin' => 'Dane')));
 $this->Combinator->add_libs('css', $this->Less->css('view-gminy', array('plugin' => 'Dane')));
 if ($object->getId() == '903') $this->Combinator->add_libs('css', $this->Less->css('view-gminy-krakow', array('plugin' => 'Dane')));
+$this->Combinator->add_libs('css', $this->Less->css('view-gminy-wpf', array('plugin' => 'Dane')));
+
 
 switch (Configure::read('Config.language')) {
     case 'pol':
@@ -40,6 +42,9 @@ if (!isset($_submenu['base']))
                 'menu' => $_submenu,
                 'pills' => isset($pills) ? $pills : null
             ));
+            
+	        echo $this->Element('Dane.krakow/wpf/mapy');
+
         ?>
 		</div>
 	</div>

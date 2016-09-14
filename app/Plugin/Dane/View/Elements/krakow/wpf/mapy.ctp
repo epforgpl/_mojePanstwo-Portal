@@ -6,7 +6,9 @@ $this->Combinator->add_libs('css', $this->Less->css('krakow-wpf', array('plugin'
 ?>
 <div class="col-xs-12">
     <div class="banner mapy block margin-top-0">
-        <?php echo $this->Html->image('Dane.customObject/krakow/wpf/icon_map.svg', array('width' => '82', 'alt' => 'Zobacz plany inwestycyjne na mapie', 'class' => 'pull-right')); ?>
+	    <div class="text-center">
+	        <?php echo $this->Html->image('Dane.customObject/krakow/wpf/icon_map.svg', array('width' => '82', 'alt' => 'Zobacz plany inwestycyjne na mapie')); ?>
+	    </div>
         <p><strong>Zobacz plany inwestycyjne</strong> na mapie</p>
         <a class="btn btn-primary btn-sm" href="<?= $object->getUrl() ?>/wpf_mapa">Otwórz mapę
         </a>

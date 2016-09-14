@@ -30,6 +30,9 @@ if (!isset($_submenu['base']))
                 'menu' => $_submenu,
                 'pills' => isset($pills) ? $pills : null
             ));
+            
+            echo $this->Element('Dane.krakow/wpf/mapy');
+            
         ?>
 		</div>
 	</div>
@@ -39,7 +42,6 @@ if (!isset($_submenu['base']))
 echo $this->Element('Dane.DataBrowser/browser', array(
     'menu' => $_submenu,
     'class' => 'margin-top--5',
-    'afterMenuElement' => 'Dane.krakow/wpf/mapy',
 ));
 ?>
 
