@@ -16,7 +16,7 @@ var DataBrowser = Class.extend({
 			this.initManage();
 		}
 		
-		$('.dataBrowserContentHeaderSticky').sticky({topSpacing: 44});
+		$('.dataBrowserContentHeaderSticky').sticky({topSpacing: (mPHeart.constant.domain=='PK' ? 0 : 44)});
 	},
 
 	initManage: function () {
