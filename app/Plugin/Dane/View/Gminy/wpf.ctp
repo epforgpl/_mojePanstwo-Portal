@@ -23,7 +23,7 @@ if (!isset($_submenu['base']))
 ?>
 
 <div class="row">
-	<div class="col-md-2">
+	<div class="col-md-3">
 		<div class="dataBrowser">
 		<?
 			echo $this->Element('Dane.DataBrowser/browser-menu', array(
@@ -36,7 +36,7 @@ if (!isset($_submenu['base']))
         ?>
 		</div>
 	</div>
-	<div class="col-md-10 nocontainer">
+	<div class="col-md-9 nocontainer">
 
 <?
 echo $this->Element('Dane.DataBrowser/browser', array(

@@ -6,12 +6,15 @@ $this->Combinator->add_libs('css', $this->Less->css('krakow-wpf', array('plugin'
 ?>
 <div class="col-xs-12">
     <div class="banner mapy block margin-top-0">
-	    <div class="text-center">
-	        <?php echo $this->Html->image('Dane.customObject/krakow/wpf/icon_map.svg', array('width' => '82', 'alt' => 'Zobacz plany inwestycyjne na mapie')); ?>
+	    <div style="overflow: auto;">
+	    <div>
+	        <?php echo $this->Html->image('Dane.customObject/krakow/wpf/icon_map.svg', array('width' => '82', 'alt' => 'Zobacz plany inwestycyjne na mapie', 'style' => 'float: left; margin: 10px;',)); ?>
 	    </div>
-        <p><strong>Zobacz plany inwestycyjne</strong> na mapie</p>
-        <a class="btn btn-primary btn-sm" href="<?= $object->getUrl() ?>/wpf_mapa">Otwórz mapę
-        </a>
+        <p style="width: inherit; margin-top: 15px;"><strong>Zobacz plany inwestycyjne</strong> na mapie</p>
+	    </div>
+	    <div style="text-align: center; margin-bottom: 10px;">
+	        <a class="btn btn-primary btn-sm" href="<?= $object->getUrl() ?>/wpf_mapa">Otwórz mapę</a>
+	    </div>
     </div>
     <? /*
     <div class="modal fade" id="wpfBigImageModal" tabindex="-1" role="dialog" aria-labelledby="wpfBigImageModalLabel">
