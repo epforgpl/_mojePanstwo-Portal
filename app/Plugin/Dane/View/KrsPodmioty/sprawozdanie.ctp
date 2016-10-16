@@ -402,6 +402,7 @@ $sprawozdanie->setOptions(array(
 				</section>
 			</div>
 			
+			<? if( $procent_parts ) {?>
 			<div class="block">
 				<header>Koszty kampanii 1% w <?= $sprawozdanie->getData('rocznik') ?> roku:</header>
 				<section class="content">
@@ -412,6 +413,7 @@ $sprawozdanie->setOptions(array(
 					
 				</section>
 			</div>
+			<? } ?>
 			
 			<? } ?>
 			

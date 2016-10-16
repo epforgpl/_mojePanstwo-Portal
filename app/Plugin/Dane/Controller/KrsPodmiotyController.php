@@ -114,7 +114,7 @@ class KrsPodmiotyController extends DataobjectsController
             'firmy',
         ));
 
-        $this->_prepareView();
+        $this->_prepareView(array('dzialania', 'pisma', 'kolekcje', 'sprawozdania_opp'));
 
         $desc_parts = array('Informacje gospodarcze o ' . $this->object->getShortTitle());
         $desc_bodies_parts = array();
@@ -284,9 +284,27 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function _prepareView($params = array())
     {
-		
-		/*	
-		$aggs = array(
+        
+        $aggs = array(
+	        'ogloszenia' => array(
+                'filter' => array(
+                    'bool' => array(
+                        'must' => array(
+                            array(
+                                'term' => array(
+                                    'dataset' => 'msig_pozycje',
+                                ),
+                            ),
+                            array(
+                                'term' => array(
+	                                'data.msig_pozycje.krs_id' => $this->request->params['id'],
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'scope' => 'global',
+            ),
             'zamowienia' => array(
                 'filter' => array(
                     'bool' => array(
@@ -338,47 +356,11 @@ class KrsPodmiotyController extends DataobjectsController
                         ),
                     ),
                 ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'fielddata_fields' => array('dataset', 'id'),
-	                        'size' => 3,
-	                        'sort' => array(
-		                        'date' => 'desc',
-	                        ),
-                        ),
-                    ),
-                ),
                 'scope' => 'global',
             ),
             'sprawozdania_opp' => array(
                 'nested' => array(
 	                'path' => 'krs_podmioty-sprawozdania_opp',
-                ),
-                'aggs' => array(
-	                'rocznik' => array(
-		                'terms' => array(
-			                'field' => 'krs_podmioty-sprawozdania_opp.rocznik',
-			                'size' => 1,
-			                'order' => array(
-				                '_term' => 'desc',
-			                ),
-		                ),
-		                'aggs' => array(
-			                'przychody' => array(
-				                'terms' => array(
-					                'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
-					                'size' => 1,
-				                ),
-			                ),
-			                'koszty' => array(
-				                'terms' => array(
-					                'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem',
-					                'size' => 1,
-				                ),
-			                ),
-		                ),
-	                ),
                 ),
             ),
             'pisma' => array(
@@ -400,18 +382,6 @@ class KrsPodmiotyController extends DataobjectsController
                                     'data.pisma.page_object_id' => $this->request->params['id'],
                                 ),
                             ),
-                        ),
-                    ),
-                ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'fields' => array('dataset', 'id'),
-                            '_source' => array('data'),
-	                        'size' => 3,
-	                        'sort' => array(
-		                        'date' => 'desc',
-	                        ),
                         ),
                     ),
                 ),
@@ -439,45 +409,51 @@ class KrsPodmiotyController extends DataobjectsController
                         ),
                     ),
                 ),
-                'aggs' => array(
-                    'top' => array(
-                        'top_hits' => array(
-                            'fielddata_fields' => array('dataset', 'id'),
-	                        'size' => 3,
-	                        'sort' => array(
-		                        'date' => 'desc',
-	                        ),
-                        ),
-                    ),
-                ),
-                'scope' => 'global',
-            ),
-        );
-        */
-        
-        $aggs = array(
-	        'ogloszenia' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'msig_pozycje',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-	                                'data.msig_pozycje.krs_id' => $this->request->params['id'],
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
                 'scope' => 'global',
             ),
         );
         
-        if( false ) {
+        if( in_array('dzialania', $params) ) 
+	        $aggs['dzialania']['aggs'] = array(
+                'top' => array(
+                    'top_hits' => array(
+                        'fielddata_fields' => array('dataset', 'id'),
+                        'size' => 3,
+                        'sort' => array(
+	                        'date' => 'desc',
+                        ),
+                    ),
+                ),
+            );
+        
+        if( in_array('pisma', $params) ) 
+        	$aggs['pisma']['aggs'] = array(
+	        	'top' => array(
+                    'top_hits' => array(
+                        'fields' => array('dataset', 'id'),
+                        '_source' => array('data'),
+                        'size' => 3,
+                        'sort' => array(
+	                        'date' => 'desc',
+                        ),
+                    ),
+                ),
+        	);
+        	
+        if( in_array('kolekcje', $params) ) 
+        	$aggs['pisma']['aggs'] = array(
+	        	'top' => array(
+                    'top_hits' => array(
+                        'fielddata_fields' => array('dataset', 'id'),
+                        'size' => 3,
+                        'sort' => array(
+	                        'date' => 'desc',
+                        ),
+                    ),
+                ),
+        	);
+        
+        if( in_array('ogloszenia', $params) ) 
 	        $aggs['ogloszenia']['aggs'] = array(
 		        'top' => array(
 	                'top_hits' => array(
@@ -488,11 +464,35 @@ class KrsPodmiotyController extends DataobjectsController
 	                ),
                 ),
 	        );
-        }
 		
-		/*		
-		if( in_array('organizacja-sprawozdania_opp', $params) ) {
-						
+		if( in_array('sprawozdania_opp', $params) ) 
+	        $aggs['sprawozdania_opp']['aggs'] = array(
+                'rocznik' => array(
+	                'terms' => array(
+		                'field' => 'krs_podmioty-sprawozdania_opp.rocznik',
+		                'size' => 1,
+		                'order' => array(
+			                '_term' => 'desc',
+		                ),
+	                ),
+	                'aggs' => array(
+		                'przychody' => array(
+			                'terms' => array(
+				                'field' => 'krs_podmioty-sprawozdania_opp.przychody_ogolem',
+				                'size' => 1,
+			                ),
+		                ),
+		                'koszty' => array(
+			                'terms' => array(
+				                'field' => 'krs_podmioty-sprawozdania_opp.koszty_ogolem',
+				                'size' => 1,
+			                ),
+		                ),
+	                ),
+                ),
+            );
+		
+		if( in_array('organizacja-sprawozdania_opp', $params) ) 
 			$aggs['organizacja-sprawozdania_opp'] = array(
 				'nested' => array(
 	                'path' => 'krs_podmioty-sprawozdania_opp',
@@ -501,7 +501,7 @@ class KrsPodmiotyController extends DataobjectsController
 	                'rocznik' => array(
 		                'filter' => array(
 			                'term' => array(
-				                'krs_podmioty-sprawozdania_opp.rocznik' => $this->sprawozdanie->getData('rocznik'),
+				                'krs_podmioty-sprawozdania_opp.id' => $this->request->params['subid'],
 			                ),
 		                ),
 		                'aggs' => array(
@@ -514,8 +514,6 @@ class KrsPodmiotyController extends DataobjectsController
 	                ),
                 ),
 			);
-		}*/
-		
 		
         $this->addInitAggs($aggs);
 		
@@ -821,11 +819,11 @@ class KrsPodmiotyController extends DataobjectsController
 	            'layers' => array(
 		            'czesci'
 	            ),
-            ));
+            ));	
+					
             
             $sprawozdanie_aggs = $this->Dataobject->getAggs();
             
-            $this->sprawozdanie = $sprawozdanie;
             $this->_prepareView(array(
             	'organizacja-sprawozdania_opp',
         	));
@@ -1083,7 +1081,7 @@ class KrsPodmiotyController extends DataobjectsController
             ),
             'base' => $this->object->getUrl(),
         );
-				
+					
         if(
         	@$this->object_aggs['dzialania']['doc_count'] ||
         	$this->_canEdit()

@@ -2655,7 +2655,7 @@ class GminyController extends DataobjectsController
             $this->set('dzielnica', $dzielnica);
             $this->set('title_for_layout', $title_for_layout);
             $this->render('dzielnica-' . $subaction);
-
+            
         } else {
 
             $this->set('title_for_layout', 'Dzielnice miasta ' . $this->object->getData('nazwa'));

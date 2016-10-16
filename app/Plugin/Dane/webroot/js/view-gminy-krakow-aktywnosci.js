@@ -30,7 +30,7 @@ $(document).ready(function () {
 				type: 'bar',
 				spacingRight: 60,
 				backgroundColor: null,
-				height: 1600
+				height: 1100
 			},
 			title: {
 				text: ''

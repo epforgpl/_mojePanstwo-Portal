@@ -22,7 +22,7 @@ $options = array(
 	                        'gmina_id' => $object->getId(),
                         ),
                         'more' => array(
-                        	'url' => $object->getUrl() . '/zamowienia_rozstrzygniete',
+                        	'url' => $object->getUrl() . '/zamowienia?q',
                         	'convert' => true,
                         ),
                         'aggs' => array(

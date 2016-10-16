@@ -54,11 +54,12 @@ if (!isset($mode))
                                      data-agg_id="dokumenty" <?= printf('data-agg_params="%s"', htmlspecialchars(json_encode($aggs['dokumenty']), ENT_QUOTES, 'UTF-8')) ?>></div>
                                 
                             </section>
-                            <div class="buttons" style="display: none;">
+                            <? if( isset($more) ) {?>
+                            <div class="buttons">
                                 <a <?= printf('data-more="%s"', htmlspecialchars(json_encode($more), ENT_QUOTES, 'UTF-8')) ?>
                                     href="#" class="btn btn-default btn-xs btn-more">Zobacz więcej</a>
                             </div>
-
+							<? } ?>
 
                         </div>
 

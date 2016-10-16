@@ -34,19 +34,38 @@ jQuery(document).ready(function () {
 					href;
 
                 if (more) {
-					href = more['url'] + '?' + $.param({
-                            conditions: {
-                                date: '[' + request['date_min'] + ' TO ' + request['date_max'] + ']'
-                            }
-                        });
+	                console.log('more', more);
+	                
+	            href = more['url'];
+	            
+	            if(
+		            !href.length || 
+		            ( href.substring( href.length-1 ) !== '?' ) 
+	            )
+	            	href += '?';
+	            
+				href += $.param({
+                        conditions: {
+                            date: '[' + request['date_min'] + ' TO ' + request['date_max'] + ']'
+                        }
+                    });
                 }
 
                 var _href = btn.attr('data-href');
                 if (_href) {
-					href = _href + '?' + $.param({
-                            date_min: request['date_min'],
-                            date_max: request['date_max']
-                        });
+	                
+	                href = _href;
+	                
+	                if(
+			            !_href.length || 
+			            ( _href.substring( _href.length-1 ) !== '?' ) 
+		            )
+		            	_href += '?';
+	                
+					href += $.param({
+                        date_min: request['date_min'],
+                        date_max: request['date_max']
+                    });
                 }
 
                 btn.attr('href', href);
