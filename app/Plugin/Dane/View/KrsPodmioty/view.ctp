@@ -230,6 +230,13 @@ $description =
                 </div>
             </div>
         </ul>
+        
+        <? if ($object->getData('wykreslony')) { ?>
+        <div class="alert alert-sticky alert-danger margin-top-30 margin-bottom-0">
+            Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+        </div>
+        <? } ?>
+        
         <? if ($obszary = $object->getPage('obszary_dzialan')) { ?>
             <? if (is_array($obszary) && count($obszary)) { ?>
                 <ul class="dataHighlights overflow-auto">
@@ -722,7 +729,7 @@ $description =
 
 </div></div>
 
-<div class="powiazania block block-simple col-xs-12">
+<div class="powiazania block block-simple col-xs-12"<? if( $object->getData('wykreslony') ) {?> style="z-index: -1"<? } ?>>
     <section id="connectionGraph" data-id="<?php echo $object->getId() ?>" data-url="krs_podmioty">
         <div class="spinner grey">
             <div class="bounce1"></div>

@@ -182,6 +182,10 @@ jQuery(document).ready(function () {
 	
     /*STICKY MENU*/
 	$("#stickyMenu").sticky();
+	$('.alert-sticky').sticky({
+		topSpacing: 30,
+		zIndex: 100
+	});
 	
 	var notowania_div = $('.block.gpw');
     if( notowania_div.length ) {
