@@ -1,0 +1,115 @@
+#zbiorkiPubliczne .sections .section {
+  padding-bottom: 10px;
+}
+#zbiorkiPubliczne .sections .section h2 {
+  margin: 0;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+#zbiorkiPubliczne .sections .sectionsBtn {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+#zbiorkiPubliczne .formularz {
+  background-color: #ffffff;
+}
+#zbiorkiPubliczne .formularz,
+#zbiorkiPubliczne .formularz td {
+  border: 1px solid #000000;
+  line-height: 2.5em;
+}
+#zbiorkiPubliczne .formularz .grey {
+  background-color: #E0E0E0;
+}
+#zbiorkiPubliczne .formularz .semigrey {
+  background-color: #F3F3F3;
+}
+#zbiorkiPubliczne .formularz td > input,
+#zbiorkiPubliczne .formularz td > textarea {
+  width: 100%;
+}
+#zbiorkiPubliczne .formularz td > input.has-error,
+#zbiorkiPubliczne .formularz td > textarea.has-error {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+#zbiorkiPubliczne .formularz td > input.has-error:focus,
+#zbiorkiPubliczne .formularz td > textarea.has-error:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 6px #ce8483;
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 6px #ce8483;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 6px #ce8483;
+}
+#zbiorkiPubliczne .formularz td > label {
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+#zbiorkiPubliczne .formularz td input[name="organizacja_nazwa"].loading {
+  background-position: center right;
+}
+#zbiorkiPubliczne .formularz .currency-pln {
+  width: 80%;
+  text-align: right;
+  float: left;
+}
+#zbiorkiPubliczne .formularz .datepicker.range > label,
+#zbiorkiPubliczne .formularz .datepicker.range > input {
+  float: left;
+}
+#zbiorkiPubliczne .formularz .datepicker.range input {
+  width: 43%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+@media print {
+  @page {
+    size: 7in 9.25in;
+    margin: 0.1rem 0.6rem;
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+  td {
+    page-break-inside: avoid;
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+  html,
+  body {
+    background: white !important;
+    font-size: 6pt;
+    line-height: 1em;
+    margin: 0;
+  }
+  #portal-header-sticky-wrapper,
+  #portal-header,
+  footer.footer,
+  .app-sidebar,
+  .appBanner,
+  #zbiorkiPubliczne .sectionsBtn,
+  #debug-kit-toolbar {
+    display: none;
+  }
+  #_wrapper #_main {
+    min-height: inherit;
+    margin-bottom: 0;
+  }
+  #zbiorkiPubliczne,
+  #zbiorkiPubliczne .sections {
+    width: 100% !important;
+    margin: 0;
+    float: none !important;
+  }
+  #zbiorkiPubliczne .formularz {
+    margin-bottom: 0;
+  }
+  #zbiorkiPubliczne .formularz tr,
+  #zbiorkiPubliczne .formularz td {
+    line-height: 1em !important;
+  }
+}
