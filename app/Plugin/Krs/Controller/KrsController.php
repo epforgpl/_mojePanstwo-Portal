@@ -86,6 +86,12 @@ class KrsController extends ApplicationsController
 				'label' => 'Monitor Sądowy i Gospodarczy',
 				'icon' => 'icon-datasets-msig',
 			),
+			array(
+				'id' => 'dane_osobowe',
+				'href' => '/krs/dane_osobowe',
+				'label' => 'Dane osobowe',
+				'icon' => 'icon-datasets-krs_osoby',
+			),
 		);
 
         $output = array(
@@ -396,6 +402,12 @@ class KrsController extends ApplicationsController
 			    'base' => '/krs/msig'
 			),
 		));
+    }
+    
+    public function dane_osobowe()
+    {
+	    
+	    
     }
 
 } 
