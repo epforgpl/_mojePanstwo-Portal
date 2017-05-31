@@ -25,10 +25,35 @@ echo $this->element('app/sidebar');
 					</div>
 					
 					<div class="block" style="padding: 30px; font-size: 15px; line-height: 23px;">
-						<p>Administratorem danych osobowych jest Fundacja ePaństwo z siedzibą w Zgorzale ul. Pliszki 2B/1 05-500 Mysiadło zarejestrowana pod numerem KRS 0000359730. Dane osobowe zostały pozyskane z dostępnych źródeł pozostających trwale w obiegu publicznym i są publikowane na podstawie ustawy z dnia 20 sierpnia 1997 r. o Krajowym Rejestrze Sądowym (Dz.U. z 2015 r. poz. 1142) w Krajowym Rejestrze Sądowym oraz Monitorze Sądowym i Gospodarczym.</p>
 						
-						<p>Zgodnie z art. 8 ust. 1 powołanej ustawy rejestr jest jawny, a istotą Monitora Sądowego i Gospodarczego jest umieszczenie go obiegu publicznym (art. 13 ust. 1 ustawy). Zgodnie z brzmieniem art. 35 ust. 1 ustawy o ochronie danych osobowych realizacja żądania, o którym mowa w art. 32 ust. 1 pkt 6 ustawy nie jest prowadzona gdy dotyczy to danych osobowych, w odniesieniu do których tryb ich uzupełnienia, uaktualnienia lub sprostowania określają odrębne ustawy. Na podstawie art. 32 ust. 1 pkt 7 ustawy przysługuje prawo wniesienia pisemnego, umotywowanego żądania zaprzestania przetwarzania danych ze względu na szczególną sytuację.
-						</p>
+						<p><span>Zgodnie z treścią art. 25 ust. 1 ustawy z dnia 29 sierpnia 1997 roku o ochronie danych osobowych </span><span>(Dz. U. 1997 Nr 133 poz. 883)</span><span>, Fundacja ePaństwo jako wydawca portalu </span><span><a href="https://mojepanstwo.pl">mojePaństwo</a></span><span>&nbsp;informuje, że: </span></p>
+<p><span></span></p>
+<ol>
+   <li style="margin-bottom: 10px;"><span>Administratorem danych osobowych przetwarzanych w ramach portalu </span><span><a href="https://mojepanstwo.pl">mojePaństwo</a></span><span>&nbsp;w aplikacji </span><span><a href="https://mojepanstwo.pl/krs">Krajowy Rejestr Sądowy</a></span><span>&nbsp;jest Fundacja ePaństwo z siedzibą w Zgorzale ul. Pliszki 2B/1 05-500 Mysiadło (KRS: 0000359730), zwana dalej Fundacją. </span></li>
+   <li><span>Dane osobowe zawarte w aplikacji Krajowy Rejestr Sądowy są przetwarzane w celu </span><span>wspierania jawności i pewności obrotu gospodarczego, poprzez</span><span>&nbsp;prowadzenie przez Fundację</span><span>&nbsp;</span><span>niekomercyjnej działalności</span><span>&nbsp;</span><span>polegającej na: </span>
+   
+   	  <ul type="disc">
+	   <li><span>udostępnianiu informacji pochodzących z Krajowego Rejestru Sądowego oraz z Monitora Sądowego i Gospodarczego tj. informacji o podmiotach gospodarczych i społecznych, informacji o osobach pełniących funkcje w tych podmiotach.</span></li>
+	   <li><span>udostępnianiu do pobrania informacji odpowiadającej odpisom z Krajowego Rejestru Sądowego.</span></li>
+	  </ul>
+   
+   </li>
+
+   <li style="margin-bottom: 10px;"><span>Zakres danych osobowych przetwarzanych przez Fundację obejmuje: </span><span>imiona, nazwiska, datę urodzenia, wiek, numer PESEL oraz informacje o pełnionych funkcjach</span><span>. </span></li>
+   <li style="margin-bottom: 10px;"><span>Fundacja pobiera ww. dane osobowe ze źródeł powszechnie dostępnych tj. z Monitora Sądowego i Gospodarczego oraz z Krajowego Rejestru Sądowego.</span></li>
+   <li style="margin-bottom: 10px;"><span>Odbiorcami ww. danych osobowych są użytkownicy serwisu </span><span><a href="https://mojepanstwo.pl">mojePaństwo</a></span><span>.</span></li>
+   <li style="margin-bottom: 10px;"><span>Osoba, której dane osobowe są przetwarzane przez Fundację ma prawo dostępu do treści swoich danych oraz </span><span>do ich poprawiania</span><span>.</span></li>
+   <li style="margin-bottom: 10px;"><span>W razie wykazania przez osobę, której dane osobowe dotyczą, że dane pochodzące z Krajowego Rejestru Sądowego lub Monitora Sądowego i Gospodarczego prezentowane przez Fundację są niekompletne, nieaktualne lub nieprawdziwe - Fundacja bez zbędnej zwłoki uzupełni, uaktualni, lub odpowiednio sprostuje dane. </span></li>
+   <li><span>Osobie, której dane osobowe są przetwarzane przez Fundację przysługuje:</span>
+    <ul type="disc">
+     <li><span>prawo wniesienia pisemnego, umotywowanego żądania zaprzestania przetwarzania jej danych osobowych ze względu na jej szczególną sytuację oraz</span></li>
+     <li><span>prawo wniesienia sprzeciwu wobec przetwarzania danych osobowych w celach marketingowych lub wobec przekazywania ich innemu administratorowi danych.</span></li>
+    </ul>
+   </li>
+   <li style="margin-bottom: 10px;"><span>Korespondencję w sprawach dotyczących danych osobowych prosimy kierować na ad</span><span>res: ul. Nowogrodzka 25/37, 00-511 Warszawa.</span></li>
+</ol>
+
+
 						
 					</div>
 					

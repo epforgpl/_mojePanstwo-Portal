@@ -207,13 +207,6 @@
 
 <?
 
-/*GAMIFICATION*/
-if ($this->request->params['plugin'] == 'Krs') {
-    echo $this->Element('modals/exit-krs-modal');
-} else {
-    echo $this->Element('modals/exit-modal');
-}
-
 /*MODALS SYSTEM*/
 echo $this->Element('modalViewController');
 if (isset($_modals) && is_array($_modals)) {
@@ -269,12 +262,6 @@ $this->Combinator->add_libs('js', 'mpbase', false);
 $this->Combinator->add_libs('js', 'portal', false);
 $this->Combinator->add_libs('js', 'suggester');
 $this->Combinator->add_libs('js', 'appheader');
-
-/* TUTORIAL ENGINE */
-if (AuthComponent::user('id')) {
-    echo $this->Html->css($this->Less->css('modals/exit-modal'));
-    $this->Combinator->add_libs('js', 'tutorial');
-}
 
 /* BLOCK FOR SPECIAL SCRIPTS LIKE PROTOTYPE THAT CANNOT BE MERGE TO ONE FILE*/
 echo $this->fetch('scriptBlock');
