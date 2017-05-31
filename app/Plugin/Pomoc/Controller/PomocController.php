@@ -118,14 +118,6 @@ class PomocController extends ApplicationsController
             'icon' => 'icon-datasets-dot',
         );
 
-        $items[] = array(
-            'label' => 'Dane osobowe w Krajowym Rejestrze Sądowym',
-            'href' => '/pomoc/dane_osobowe',
-            'id' => 'dane_osobowe',
-            'icon' => 'icon-datasets-dot',
-        );
-
-
         $output = array(
             'items' => $items,
             'selected' => ($this->chapter_selected == 'view') ? false : $this->chapter_selected,
