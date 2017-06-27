@@ -55,7 +55,10 @@ class mpAPISource extends DataSource {
  */
     public function __construct($config) {
         parent::__construct($config);
-        $this->Http = new HttpSocket();
+        $this->Http = new HttpSocket(array(
+	        'ssl_verify_peer'       => false,
+			'ssl_verify_host'       => false,
+        ));
 		// $this->Http->configAuth('Basic', 'portal', '');
     }
 
@@ -316,7 +319,8 @@ class mpAPISource extends DataSource {
 	    $method = ( isset($params['method']) && in_array($params['method'], $this->allowed_methods) ) ? $params['method'] : 'GET';
 	    $data = isset($params['data']) ? $params['data'] : false;
 	    $request = isset($params['request']) ? $params['request'] : array();
-	      
+	    	    
+	    try{
 	    switch( $method ) {
 		    case 'GET': { $response = $this->Http->get($path, $data, $request); break; }
 		    case 'POST': { $response = $this->Http->post($path, $data, $request); break; }
@@ -325,7 +329,10 @@ class mpAPISource extends DataSource {
 		    case 'PUT': { $response = $this->Http->put($path, $data, $request); break; }
             default: throw new CakeException("Unrecognized method: " . $method);
 	    }
-	    
+	    } catch(Exception $e) {
+		    debug($e);
+	    }
+	    	    
 	    if( $this->config['verbose'] ) {
 		    debug(array(
 		    	'endpoint' => urldecode($this->Http->request['line']),
@@ -334,7 +341,7 @@ class mpAPISource extends DataSource {
 		    	'response' => $response,
 		    ));
 	    }
-	    	    
+	        
 	    $res = json_decode($response, true);
 	    	    
         if (is_null($res)) {

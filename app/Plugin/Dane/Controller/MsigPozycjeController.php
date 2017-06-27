@@ -1,8 +1,8 @@
 <?php
 
-App::uses('DataObjectsController', 'Dane.Controller');
+App::uses('DataobjectsController', 'Dane.Controller');
 
-class MsigPozycjeController extends DataObjectsController
+class MsigPozycjeController extends DataobjectsController
 {
 
 	public $initLayers = array('data');
