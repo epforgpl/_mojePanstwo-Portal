@@ -1,0 +1,2 @@
+msgid "LC_DANE_NAGLOSNIJ"
+msgstr "Nagłośnij"
