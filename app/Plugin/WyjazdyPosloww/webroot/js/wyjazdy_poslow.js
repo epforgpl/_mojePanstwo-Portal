@@ -125,9 +125,20 @@ $(function () {
 										);
 
 										$.each(that.poslowie, function () {
+											
+											var name = this.osoba;
+											
+											if( this.posel ) {
+												name = this.posel;
+												
+												if( this.klub_skrot ) {
+													name += ' (' + this.klub_skrot + ')';
+												}
+											}
+																						
 											$detailInfo.find('table:last').append(
 												$('<tr></tr>').append(
-													$('<td></td>').text(this.posel + ' (' + this.klub_skrot + ')')
+													$('<td></td>').text(name)
 												).append(
 													$('<td></td>').text(this.koszt_transport)
 												).append(
