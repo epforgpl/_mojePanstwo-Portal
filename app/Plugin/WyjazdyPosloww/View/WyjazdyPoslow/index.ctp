@@ -14,6 +14,368 @@ echo $this->element('headers/main');
 echo $this->element('app/sidebar');
 ?>
 
+<style>
+.appMenu {
+  display: none;
+}
+#_wrapper #_main {
+  margin: 0;
+  background: #29292F;
+}
+#_wrapper #_main .baner {
+  background-color: #4eafe1;
+  margin: 15px 5px;
+  display: block;
+  height: 80px;
+}
+#_wrapper #_main .baner .inner {
+  background: url(/WyjazdyPoslow/img/banerhead.png) 54px center no-repeat;
+  height: 80px;
+  position: relative;
+  color: #ffffff;
+}
+#_wrapper #_main .baner .inner .text {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+#_wrapper #_main .baner .inner .text p {
+  padding-left: 135px;
+  padding-right: 35px;
+  font-size: 18px;
+  margin-bottom: 5px;
+  line-height: 1em;
+  font-weight: 300;
+  color: #FFFFFF;
+}
+#_wrapper #_main .baner .inner .text p:first-of-type {
+  font-weight: 400;
+}
+#_wrapper #_main .baner .inner i,
+#_wrapper #_main .baner .inner > span {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+#_wrapper #_main .containerHandler {
+  background-color: #e9eaed;
+  padding: 20px 0;
+}
+#_wrapper #_main .stats {
+  margin: 10px 0;
+}
+#_wrapper #_main .stats .bigger {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+}
+#_wrapper #_main .stats .bigger ._value {
+  font-size: 18px;
+  margin-top: 3px;
+}
+#_wrapper #_main .stats ._label {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+#_wrapper #_main .stats ._value {
+  font-size: 14px;
+  color: green;
+  font-weight: 400;
+}
+#_wrapper #_main .stats ._value strong {
+  font-weight: 500;
+}
+#_wrapper #_main .maplabel {
+  position: relative;
+  padding: 10px 0 20px;
+}
+#_wrapper #_main .maplabel > p {
+  color: #ddd;
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 300;
+  text-align: center;
+}
+#_wrapper #_main .maplabel > .naglosnijHandler {
+  position: absolute;
+  right: 2%;
+  top: 6px;
+}
+#_wrapper #_main #wyjazdyPoslowMap {
+  position: relative;
+  min-height: 500px;
+  max-height: 80vh;
+  display: block;
+  margin-bottom: 30px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .loading {
+  width: 100%;
+  min-height: 500px;
+  max-height: 80vh;
+  background: url(/img/loader/search-loading.png) no-repeat center center;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfoBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo {
+  width: 90vw;
+  max-width: 960px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9000;
+  border: 1px solid #7cb5ec;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background-color: #f9f9f9;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #333333;
+  -webkit-transform: translate(-50%, -46%);
+  -moz-transform: translate(-50%, -46%);
+  -ms-transform: translate(-50%, -46%);
+  -o-transform: translate(-50%, -46%);
+  transform: translate(-50%, -46%);
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .detailInfoClose {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 26px;
+  height: 26px;
+  padding: 5px 0;
+  cursor: pointer;
+  border: 1px solid #7cb5ec;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  background-color: #f9f9f9;
+  text-align: center;
+  font-size: 14px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .detail-header {
+  background-color: #157ab5;
+  color: #FFF;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content {
+  height: auto;
+  max-height: 85vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content > div {
+  padding: 5px 12px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content.loading {
+  min-height: 150px;
+  display: block;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content .kraj,
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content .ilosc,
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content .koszt {
+  font-size: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content .koszt {
+  text-align: right;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content .miasto,
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content .nazwa {
+  padding-bottom: 5px;
+  line-height: 14px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content .delegacja {
+  font-size: 15px;
+  margin: 10px 0 5px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content table {
+  font-size: 10px;
+  padding-bottom: 16px;
+  background-color: #FFF;
+  border-radius: 5px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content table td {
+  padding: 5px;
+}
+#_wrapper #_main #wyjazdyPoslowMap .detailInfo .content table thead > td {
+  color: #999;
+  font-size: 9px;
+}
+#_wrapper #_main .block h3 {
+  margin: 0 0 5px;
+  padding: 0;
+}
+#_wrapper #_main .block ul li {
+  border-bottom: 1px solid #ddd;
+  margin: 0 10px;
+  padding: 10px 0;
+}
+#_wrapper #_main .block ul li:last-child {
+  border-bottom: none;
+}
+#_wrapper #_main .block ul li img.border {
+  border: 1px solid #DDD;
+}
+#_wrapper #_main .block ul li .title {
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+}
+#_wrapper #_main .block ul li .title .klub {
+  font-size: 12px;
+  color: #999;
+}
+#_wrapper #_main .block ul li .loc {
+  font-weight: 500;
+  font-size: 12px;
+}
+#_wrapper #_main .block ul li .desc {
+  padding: 0;
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: green;
+}
+#_wrapper #_main .block ul li .desc ._number,
+#_wrapper #_main .block ul li .desc ._currency {
+  font-weight: 500;
+  color: green;
+  font-size: 13px;
+}
+#_wrapper #_main .block ul li .desc-loc-cont {
+  margin-top: 5px;
+  overflow: auto;
+}
+#_wrapper #_main .block ul li .desc-loc-cont .desc {
+  margin: 0;
+  padding: 0;
+}
+#_wrapper #_main .block ul li .desc-loc-cont .loc {
+  margin: 2px 0 0;
+  padding: 0;
+}
+#_wrapper #_main .block .klubyTitle img {
+  float: left;
+  width: 30px;
+  -webkit-transform: translate(0px, -25%);
+  -moz-transform: translate(0px, -25%);
+  -ms-transform: translate(0px, -25%);
+  -o-transform: translate(0px, -25%);
+  transform: translate(0px, -25%);
+}
+#_wrapper #_main .block .klubyTitle span {
+  display: block;
+  margin-left: 35px;
+  font-size: 13px;
+}
+#_wrapper #_main ul.controversy {
+  list-style: none;
+  padding: 0;
+}
+#_wrapper #_main ul.controversy li {
+  list-style: outside none none;
+  margin: 15px 0;
+  padding: 5px 0 25px;
+  border-bottom: 1px solid #DDD;
+}
+#_wrapper #_main ul.controversy li:last-child {
+  border-bottom: none;
+}
+#_wrapper #_main ul.controversy li .poslowie {
+  margin: 0;
+  padding: 0;
+  background-color: #FCFCFC;
+  border-radius: 5px;
+}
+#_wrapper #_main ul.controversy li .poslowie li {
+  padding: 5px;
+  margin: 5px;
+  min-height: 33px;
+  border-bottom: 1px solid #EEE;
+}
+#_wrapper #_main ul.controversy li .poslowie li:last-child {
+  border-bottom: none;
+}
+#_wrapper #_main ul.controversy li .poslowie li span.label {
+  margin: 0 3px 3px 0;
+  float: left;
+}
+#_wrapper #_main ul.controversy li p {
+  margin: 0;
+  padding: 0;
+}
+#_wrapper #_main ul.controversy li p.event {
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 2px;
+  margin-left: 8px;
+}
+#_wrapper #_main ul.controversy li p.dates {
+  margin-left: 8px;
+}
+#_wrapper #_main ul.controversy li p.dates .label {
+  padding: 2px 6px;
+}
+#_wrapper #_main ul.controversy li .title {
+  margin-left: 5px;
+  font-size: 15px;
+}
+#_wrapper #_main ul.controversy li .w_title {
+  font-size: 18px;
+}
+#_wrapper #_main ul.controversy li ._currency {
+  font-size: 12px;
+}
+#_wrapper #_main ul.controversy li .loc {
+  overflow: auto;
+}
+#_wrapper #_main ul.controversy li .desc {
+  font-size: 12px;
+  padding: 5px 5px 10px;
+  color: green;
+}
+#_wrapper #_main ul.controversy li .licza_dni {
+  color: green;
+  position: relative;
+  top: 1px;
+}
+#_wrapper #_main ul.controversy li .licza_dni strong {
+  font-weight: 500;
+}
+#_wrapper #_main ul.controversy li .klub {
+  color: #999;
+  font-size: 10px;
+  font-weight: 600;
+}
+#_wrapper #_main ul.controversy li .klub a {
+  color: #777;
+}
+#_wrapper #_main ul.controversy li .klub a:hover {
+  color: #157ab5;
+}
+</style>
+
 <div class="maplabel">
     <p>Kliknij na podświetlone Państwo, aby poznać szczegóły wyjazdów.</p>
 </div>
@@ -28,7 +390,7 @@ echo $this->element('app/sidebar');
         <div class="stats text-center">
 
             <div class="bigger">
-                <p class="_label">Na podróże posłów w VII Kadencji Sejmu, wydaliśmy:</p>
+                <p class="_label">Na podróże w VIII Kadencji Sejmu, wydaliśmy:</p>
 
                 <p class="_value"><?= $this->Waluta->slownie($stats['koszta']['calosc']) ?></p>
             </div>

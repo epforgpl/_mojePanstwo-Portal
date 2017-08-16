@@ -104,7 +104,7 @@ $(function () {
 											).append(
 												$('<table></table>').addClass('table table-condensed col-xs-12').append(
 													$('<thead></thead>').append(
-														$('<td>').text('Poseł')
+														$('<td>').text('Osoba')
 													).append(
 														$('<td>').html('Transport')
 													).append(
@@ -116,13 +116,9 @@ $(function () {
 													).append(
 														$('<td>').html('Ubezpieczenie')
 													).append(
-														$('<td>').html('Wydatkowany<br>fundusz')
+														$('<td>').html('Pobrane<br>zaliczki')
 													).append(
-														$('<td>').html('Różnice<br>kursowe')
-													).append(
-														$('<td>').html('Nierozliczone<br>zaliczki')
-													).append(
-														$('<td>').html('Koszt')
+														$('<td>').html('Koszt całkowity')
 													)
 												)
 											)
@@ -140,10 +136,6 @@ $(function () {
 													$('<td></td>').text(this.koszt_hotel)
 												).append(
 													$('<td></td>').text(this.koszt_dojazd)
-												).append(
-													$('<td></td>').text(this.koszt_ubezpieczenie)
-												).append(
-													$('<td></td>').text(this.koszt_fundusz)
 												).append(
 													$('<td></td>').text(this.koszt_kurs)
 												).append(
