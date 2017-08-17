@@ -220,8 +220,9 @@ if ( ! function_exists( 'endsWith' ) ) {
 #    by james at bandit.co.nz
 
 function _currency( $value ) {
-	$parts = explode( ',', number_format( $value, 2, ',', '&nbsp;' ) );
-
+	$parts = explode( ',', number_format( $value, 2, ',', ' ' ) );
+	$parts[0] = str_replace(' ', '&nbsp;', $parts[0]);
+	
 	return '<span class="_currency">' . $parts[0] . '<span class="_subcurrency">,' . $parts[1] . '&nbsp;PLN</span></span>';
 }
 
