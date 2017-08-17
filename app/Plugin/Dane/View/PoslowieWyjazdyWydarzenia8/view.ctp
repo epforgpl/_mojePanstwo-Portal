@@ -93,7 +93,7 @@
 
                     <? if ($object->getData('wartosc_koszt_zaliczki')) { ?>
                         <li class="dataHighlight">
-                            <p class="_label">Nierozliczone zaliczki</p>
+                            <p class="_label">Pobrane zaliczki</p>
 
                             <p class="_value"><?= _currency($object->getData('wartosc_koszt_zaliczki')) ?></p>
                         </li>
