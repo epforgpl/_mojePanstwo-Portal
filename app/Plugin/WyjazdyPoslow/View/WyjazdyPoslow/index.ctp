@@ -458,7 +458,7 @@ echo $this->element('app/sidebar');
                 </div>
                 <div class="col-md-7">
 
-                    <h3>Średnio na posła, według klubów</h3>
+                    <h3>Średnio na posła, według klubów i kół poselskich</h3>
 
                     <?php
                     $klubowoChartData = array();
