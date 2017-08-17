@@ -100,7 +100,7 @@ $(function () {
 
 										$detailInfo.find('.content').append(
 											$('<div></div>').addClass('slice').append(
-												$('<div></div>').addClass('nazwa col-xs-12 row').html("<p class=\"delegacja\"><a onclick='return false;' href=\"/dane/poslowie_wyjazdy_wydarzenia/" + that.wydarzenie_id + "\">" + that.delegacja + "</a></p>")
+												$('<div></div>').addClass('nazwa col-xs-12 row').html("<p class=\"delegacja\"><a href=\"/dane/poslowie_wyjazdy_wydarzenia8/" + that.wydarzenie_id + "\">" + that.delegacja + "</a></p>")
 											).append(
 												$('<table></table>').addClass('table table-condensed col-xs-12').append(
 													$('<thead></thead>').append(

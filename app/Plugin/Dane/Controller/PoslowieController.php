@@ -56,6 +56,16 @@ class PoslowieController extends DataobjectsController
 
     }
 
+    public function wyjazdy7()
+    {
+
+        $this->addInitLayers(array('wyjazdy7'));
+        parent::view();
+
+        $this->set('title_for_layout', "Wyjazdy zagraniczne " . $this->object->getData('dopelniacz'));
+
+    }
+    
     public function wyjazdy()
     {
 

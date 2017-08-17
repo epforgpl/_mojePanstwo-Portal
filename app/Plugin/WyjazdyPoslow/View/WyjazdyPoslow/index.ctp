@@ -437,7 +437,7 @@ echo $this->element('app/sidebar');
                                          src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
                                 </div>
                                 <div class="col-md-10">
-                                    <p class="title"><a onclick="return false;"
+                                    <p class="title"><a 
                                             href="/dane/poslowie/<?= $i['id'] ?>/wyjazdy"><?= $i['nazwa'] ?></a>
                                     <span class="klub">(<a
                                             href="/dane/sejm_kluby/<?= $i['klub_id'] ?>"><?= $i['skrot'] ?></a>)</span>
@@ -451,7 +451,7 @@ echo $this->element('app/sidebar');
                         <? } ?>
                     </ul>
 
-                    <p class="text-center"><a onclick="return false;" class="btn btn-sm btn-primary"
+                    <p class="text-center"><a onclick="return false;" class="btn btn-sm btn-primary" style="display: none;"
                                               href="/dane/poslowie?order=wartosc_wyjazdow desc">Zobacz
                             pełny ranking</a></p>
 
@@ -496,7 +496,7 @@ echo $this->element('app/sidebar');
 
                                 <div class="col-md-12">
                                     <p class="title">
-                                        <a onclick="return false;" href="/dane/poslowie_wyjazdy_wydarzenia/<?= $i['id'] ?>"><?= $i['delegacja'] ?></a>
+                                        <a href="/dane/poslowie_wyjazdy_wydarzenia8/<?= $i['id'] ?>"><?= $i['delegacja'] ?></a>
                                     </p>
 
                                     <p class="loc">
@@ -515,7 +515,7 @@ echo $this->element('app/sidebar');
                     </ul>
 
                     <p class="text-center">
-                        <a class="btn btn-sm btn-primary" onclick="return false;"
+                        <a class="btn btn-sm btn-primary" style="display: none;" onclick="return false;"
                            href="/dane/poslowie_wyjazdy_wydarzenia?order=wartosc_koszt desc">Zobacz pełny
                             ranking</a>
                     </p>
@@ -549,7 +549,7 @@ echo $this->element('app/sidebar');
                     </ul>
 
                     <p class="text-center">
-                        <a onclick="return false;" class="btn btn-sm btn-primary" href="/dane/poslowie_wyjazdy?order=wartosc_koszt desc">Zobacz
+                        <a style="display: none;" onclick="return false;" class="btn btn-sm btn-primary" href="/dane/poslowie_wyjazdy?order=wartosc_koszt desc">Zobacz
                             pełny ranking</a>
                     </p>
                 </div>

@@ -222,7 +222,7 @@ if ( ! function_exists( 'endsWith' ) ) {
 function _currency( $value ) {
 	$parts = explode( ',', number_format( $value, 2, ',', ' ' ) );
 
-	return '<span class="_currency">' . $parts[0] . '<span class="_subcurrency">,' . $parts[1] . ' PLN</span></span>';
+	return '<span class="_currency">' . $parts[0] . '<span class="_subcurrency">,' . $parts[1] . '&nbsp;PLN</span></span>';
 }
 
 function _number( $value ) {

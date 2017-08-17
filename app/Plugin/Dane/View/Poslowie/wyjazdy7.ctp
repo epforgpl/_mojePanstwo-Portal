@@ -25,8 +25,8 @@ echo $this->Element('dataobject/pageBegin');
                 <tbody>
                 <? foreach ($object->getLayer('wyjazdy') as $ev) { ?>
                     <tr>
-                        <td><?= $ev['kraj'] ?></td>
-                        <td><a href="/dane/poslowie_wyjazdy_wydarzenia8/<?= $ev['id'] ?>"><?= $ev['delegacja'] ?></a>
+                        <td><?= $ev['kraj'] ?>, <?= $ev['miasto'] ?></td>
+                        <td><a href="/dane/poslowie_wyjazdy_wydarzenia/<?= $ev['id'] ?>"><?= $ev['delegacja'] ?></a>
                         </td>
                         <td style="text-align: right;"><?= _currency($ev['koszt_suma']) ?></td>
                         <td><?= $this->Czas->dataSlownie($ev['od']) ?></td>
