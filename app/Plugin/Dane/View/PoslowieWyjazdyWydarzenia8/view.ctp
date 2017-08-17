@@ -152,13 +152,13 @@
                                     <td>
                                         <? if($u['sejm_kluby.id']) {?><a href="/dane/sejm_kluby/<?= $u['sejm_kluby.id'] ?>"><?= $u['sejm_kluby.skrot'] ?></a><? } ?>
                                     </td>
-                                    <td><? if ($u['koszt_transport'] > 0) echo _currency($u['koszt_transport']); ?></td>
-                                    <td><? if ($u['koszt_dieta'] > 0) echo _currency($u['koszt_dieta']); ?></td>
-                                    <td><? if ($u['koszt_hotel'] > 0) echo _currency($u['koszt_hotel']); ?></td>
-                                    <td><? if ($u['koszt_dojazd'] > 0) echo _currency($u['koszt_dojazd']); ?></td>
-                                    <td><? if ($u['koszt_ubezpieczenie'] > 0) echo _currency($u['koszt_ubezpieczenie']); ?></td>
-                                    <td><? if ($u['koszt_zaliczki'] > 0) echo _currency($u['koszt_zaliczki']); ?></td>
-                                    <td><? if ($u['koszt'] > 0) echo _currency($u['koszt']); ?></td>
+                                    <td><? echo _currency($u['koszt_transport']); ?></td>
+                                    <td><? echo _currency($u['koszt_dieta']); ?></td>
+                                    <td><? echo _currency($u['koszt_hotel']); ?></td>
+                                    <td><? echo _currency($u['koszt_dojazd']); ?></td>
+                                    <td><? echo _currency($u['koszt_ubezpieczenie']); ?></td>
+                                    <td><? echo _currency($u['koszt_zaliczki']); ?></td>
+                                    <td><? echo _currency($u['koszt']); ?></td>
                                 </tr>
                             <? } ?>
                             </tbody>

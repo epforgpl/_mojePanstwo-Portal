@@ -5,10 +5,10 @@ echo $this->Element('dataobject/pageBegin');
 
     <div class="mpanel" style="padding: 20px; margin: 20px;">
 
-        <? if ($object->getData('liczba_wyjazdow') && $object->getData('wartosc_wyjazdow')) { ?>
+        <? if ($object->getData('liczba_wyjazdow8') && $object->getData('wartosc_wyjazdow8')) { ?>
             <p style="color: green;"
-               class="stat text-center"><?= pl_dopelniacz($object->getData('liczba_wyjazdow'), 'wyjazd', 'wyjazdy', 'wyjazdów') ?>
-                na kwotę <?= _currency($object->getData('wartosc_wyjazdow')) ?></p>
+               class="stat text-center"><?= pl_dopelniacz($object->getData('liczba_wyjazdow8'), 'wyjazd', 'wyjazdy', 'wyjazdów') ?>
+                na kwotę <?= _currency($object->getData('wartosc_wyjazdow8')) ?></p>
         <? } ?>
 
         <? if ($object->getLayer('wyjazdy')) { ?>

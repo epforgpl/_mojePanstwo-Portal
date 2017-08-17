@@ -148,7 +148,7 @@ $(function () {
 												).append(
 													$('<td></td>').text(this.koszt_dojazd)
 												).append(
-													$('<td></td>').text(this.koszt_kurs)
+													$('<td></td>').text(this.koszt_ubezpieczenie)
 												).append(
 													$('<td></td>').text(this.koszt_zaliczki)
 												).append(
