@@ -8,7 +8,7 @@ $(function () {
 			$wyjazdyPoslowMap = $('#wyjazdyPoslowMap'),
 			$detailInfo;
 
-		$.getJSON('https://api.mojepanstwo.pl/wyjazdyposlow/world', function (statsData) {
+		$.getJSON('https://api-v3.mojepanstwo.pl/wyjazdyposlow/world8', function (statsData) {
 			$.each(statsData, function () {
 				this.value = this.ilosc_wyjazdow;
 				this.laczna_kwota = this.laczna_kwota.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1 ');
@@ -82,7 +82,7 @@ $(function () {
 									$detailInfo.find('.content').empty();
 								}
 
-								$.getJSON('https://api.mojepanstwo.pl/wyjazdyposlow/countryDetails/' + e.point.code.toLowerCase(), function (detail) {
+								$.getJSON('https://api-v3.mojepanstwo.pl/wyjazdyposlow/countryDetails8/' + e.point.code.toLowerCase(), function (detail) {
 									$detailInfo.find('.content').removeClass('loading').append(
 										$('<div></div>').addClass('row').addClass('detail-header').append(
 											$('<div></div>').addClass('ilosc col-xs-12 col-sm-6 col-md-4').html("Państwo:&nbsp;<b>" + e.point.kraj + "</b>")
@@ -100,11 +100,11 @@ $(function () {
 
 										$detailInfo.find('.content').append(
 											$('<div></div>').addClass('slice').append(
-												$('<div></div>').addClass('nazwa col-xs-12 row').html("<p class=\"delegacja\"><a href=\"/dane/poslowie_wyjazdy_wydarzenia/" + that.wydarzenie_id + "\">" + that.delegacja + "</a></p>")
+												$('<div></div>').addClass('nazwa col-xs-12 row').html("<p class=\"delegacja\"><a onclick='return false;' href=\"/dane/poslowie_wyjazdy_wydarzenia/" + that.wydarzenie_id + "\">" + that.delegacja + "</a></p>")
 											).append(
 												$('<table></table>').addClass('table table-condensed col-xs-12').append(
 													$('<thead></thead>').append(
-														$('<td>').text('Poseł')
+														$('<td>').text('Osoba')
 													).append(
 														$('<td>').html('Transport')
 													).append(
@@ -116,22 +116,29 @@ $(function () {
 													).append(
 														$('<td>').html('Ubezpieczenie')
 													).append(
-														$('<td>').html('Wydatkowany<br>fundusz')
+														$('<td>').html('Pobrane<br>zaliczki')
 													).append(
-														$('<td>').html('Różnice<br>kursowe')
-													).append(
-														$('<td>').html('Nierozliczone<br>zaliczki')
-													).append(
-														$('<td>').html('Koszt')
+														$('<td>').html('Koszt całkowity')
 													)
 												)
 											)
 										);
 
 										$.each(that.poslowie, function () {
+											
+											var name = this.osoba;
+											
+											if( this.posel ) {
+												name = this.posel;
+												
+												if( this.klub_skrot ) {
+													name += ' (' + this.klub_skrot + ')';
+												}
+											}
+																						
 											$detailInfo.find('table:last').append(
 												$('<tr></tr>').append(
-													$('<td></td>').text(this.posel + ' (' + this.klub_skrot + ')')
+													$('<td></td>').text(name)
 												).append(
 													$('<td></td>').text(this.koszt_transport)
 												).append(
@@ -140,10 +147,6 @@ $(function () {
 													$('<td></td>').text(this.koszt_hotel)
 												).append(
 													$('<td></td>').text(this.koszt_dojazd)
-												).append(
-													$('<td></td>').text(this.koszt_ubezpieczenie)
-												).append(
-													$('<td></td>').text(this.koszt_fundusz)
 												).append(
 													$('<td></td>').text(this.koszt_kurs)
 												).append(

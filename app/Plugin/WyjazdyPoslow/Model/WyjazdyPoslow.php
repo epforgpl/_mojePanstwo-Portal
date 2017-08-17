@@ -9,7 +9,7 @@ class WyjazdyPoslow extends AppModel
     public function getStats()
     {
 
-        $res = $this->getDataSource()->request('wyjazdyposlow/stats', array(
+        $res = $this->getDataSource()->request('wyjazdyposlow/stats8', array(
             'method' => 'GET',
         ));
 
