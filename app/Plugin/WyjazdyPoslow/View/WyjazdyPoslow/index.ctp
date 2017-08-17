@@ -1,5 +1,5 @@
 <?php
-$this->Combinator->add_libs('css', $this->Less->css('wyjazdy_poslow', array('plugin' => 'WyjazdyPoslow')));
+// $this->Combinator->add_libs('css', $this->Less->css('wyjazdy_poslow', array('plugin' => 'WyjazdyPoslow')));
 $this->Combinator->add_libs('css', $this->Less->css('naglosnij', array('plugin' => 'Dane')));
 
 $this->Combinator->add_libs('js', '../plugins/highstock/js/highstock');
