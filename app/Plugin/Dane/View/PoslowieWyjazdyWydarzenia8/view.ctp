@@ -136,7 +136,6 @@
                                 <th>Ubezpieczenie</th>
                                 <th>Pobrana zaliczka</th>
                                 <th>Koszt</th>
-                                <th>Uwagi</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -160,10 +159,6 @@
                                     <td><? if ($u['koszt_ubezpieczenie'] > 0) echo _currency($u['koszt_ubezpieczenie']); ?></td>
                                     <td><? if ($u['koszt_zaliczki'] > 0) echo _currency($u['koszt_zaliczki']); ?></td>
                                     <td><? if ($u['koszt'] > 0) echo _currency($u['koszt']); ?></td>
-                                    <td><? if ($u['glosowania_daty']) { ?><span data-toggle="tooltip"
-                                                                                title="Ten poseł głosował w Sejmie podczas trwania wydarzenia na które wyjechał. Poseł był obecny w Sejmie w dniach: <?= implode(', ', explode(',', $u['glosowania_daty'])) ?>"
-                                                                                style="color: red; font-size: 18px;"
-                                                                                class=""></span><? } ?></td>
                                 </tr>
                             <? } ?>
                             </tbody>

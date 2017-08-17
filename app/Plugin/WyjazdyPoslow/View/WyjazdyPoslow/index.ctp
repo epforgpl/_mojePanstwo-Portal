@@ -532,7 +532,7 @@ echo $this->element('app/sidebar');
                                          src="http://resources.sejmometr.pl/mowcy/a/2/<?= $i['mowca_id'] ?>.jpg"/>
                                 </div>
                                 <div class="col-md-10">
-                                    <p class="title"><a onclick="return false;"
+                                    <p class="title"><a
                                             href="/dane/poslowie/<?= $i['id'] ?>/wyjazdy"><?= $i['nazwa'] ?></a>
                                     <span class="klub">(<a onclick="return false;"
                                             href="/dane/sejm_kluby/<?= $i['klub_id'] ?>"><?= $i['skrot'] ?></a>)</span>
