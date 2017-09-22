@@ -10,7 +10,7 @@ switch (Configure::read('Config.language')) {
         $lang = "en-EN";
         break;
 };
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&libraries=places&language=' . $lang, array('block' => 'scriptBlock'));
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?libraries=places&language=' . $lang . '&key=AIzaSyCIb1zfiLb3_Q_hW8UP118RCz-Ghdp4mZw', array('block' => 'scriptBlock'));
 
 $this->Combinator->add_libs('js', 'Dane.view-gminy-wpf_mapa');
 
