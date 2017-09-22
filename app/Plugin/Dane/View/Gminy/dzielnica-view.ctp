@@ -29,8 +29,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
 ?>
 
 <div class="dataBrowser margin-top--5">
-    <div class="row">
-        <div class="dataBrowserContent">
+    <div class="dataBrowserContent">
+	    <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-1-5 dataAggsContainer">
 				<div class="mp-sticky mp-sticky-disable-sm-4" data-widthFromWrapper="false">
 				
@@ -128,7 +128,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 					                                <? if ($dataBrowser['aggs']['radni']['top']['hits']['hits']) { ?>
 					                                    <ul class="dataobjects row radni_dzielnic">
 					                                        <? foreach ($dataBrowser['aggs']['radni']['top']['hits']['hits'] as $doc) { ?>
-					                                            <li class="col-md-6<? if($doc['fields']['source'][0]['data']['radni_dzielnic.avatar']) {?> avatar<?}?>">
+					                                            <li class="col-md-6<? if(@$doc['fields']['source'][0]['data']['radni_dzielnic.avatar']) {?> avatar<?}?>">
 					                                                <?
 					                                                echo $this->Dataobject->render($doc, 'default');
 					                                                ?>
@@ -229,7 +229,7 @@ echo $this->Element('Dane.dataobject/subobject', array(
 									foreach($open_data as $o => $od) {
 										if(!isset($od['count'])) continue;
 										foreach($radni as $radny) {
-											$f = $radny['fields']['source'][0]['data'][$od['field']];
+											$f = @$radny['fields']['source'][0]['data'][$od['field']];
 											if($f != '' && $f != '-') {
 												$open_data[$o]['count']++;
 											}
