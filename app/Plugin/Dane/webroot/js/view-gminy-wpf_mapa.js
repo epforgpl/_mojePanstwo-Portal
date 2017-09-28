@@ -26,7 +26,7 @@ $(document).ready(function () {
 			strokeColor: '#0000aa'
 		},
 		base = ($wpfMapa.attr('data-pk')) ? '/wpf/' : '/dane/gminy/903,krakow/wpf/',
-		$places = $.parseJSON($wpfMapa.attr('data-json')),
+		$places = $wpfMapa.data('json'),
 		markers = [],
 		infowindow = null,
 		map = new google.maps.Map(document.getElementById('wpfMapa'), {
