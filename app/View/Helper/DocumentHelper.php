@@ -3,10 +3,41 @@
 class DocumentHelper extends AppHelper
 {
 
-    public function place($id, $options = array())
-    {
+    public function place($id, $options = array()) {
+	    
+	    $options = $this->getOptions($options);		
+		App::import("Model", "Document");  
+		$Document = new Document();  
+									
+		$doc = $Document->load($id, $options['package']);
 		
-		$_options = array();
+        return $this->_View->element('Document/view', array(
+            'document' => $doc,
+            'toolbar' => isset( $options['toolbar'] ) ? $options['toolbar'] : true,
+        ));
+	    
+    }
+    
+    public function place2($id, $options = array()) {
+	    
+	    $options = $this->getOptions($options);		
+		App::import("Model", "Document");  
+		$Document = new Document();  
+									
+		$doc = $Document->load($id, $options['package']);
+		$css = $Document->loadCss($id);
+				
+        return $this->_View->element('Document/view', array(
+            'document' => $doc,
+            'toolbar' => isset( $options['toolbar'] ) ? $options['toolbar'] : true,
+            'css' => $css,
+        ));
+	    
+    }
+    
+    private function getOptions($options = array()) {
+	    
+	    $_options = array();
 		
 		if( $options ) {
 		
@@ -27,18 +58,8 @@ class DocumentHelper extends AppHelper
 			
 		}
 		
-		$options = $_options;		
-		
-		App::import("Model", "Document");  
-		$Document = new Document();  
-									
-		$doc = $Document->load($id, $options['package']);
-		
-        return $this->_View->element('Document/view', array(
-            'document' => $doc,
-            'toolbar' => isset( $options['toolbar'] ) ? $options['toolbar'] : true,
-        ));
-        
+		return $_options;	
+	    
     }
 
 }

@@ -8,13 +8,20 @@ class Document extends AppModel
 
     public function load($id, $options = array())
     {
-
         try {
             return $this->getDataSource()->loadDocument($id, $options);
         } catch (Exception $e) {
             return false;
         }
-
+    }
+    
+    public function loadCss($id, $options = array())
+    {
+        try {
+            return $this->getDataSource()->loadDocumentCss($id);
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function save_document($data, $id)

@@ -3,7 +3,11 @@
 $this->Combinator->add_libs('css', $this->Less->css('htmlexDocMain_v2'));
 $this->Combinator->add_libs('css', $this->Less->css('htmlexDoc', array('plugin' => 'Dane')));
 
-echo $this->Html->css('https://mojepanstwo.pl/htmlex/' . $document['Document']['id'] . '/' . $document['Document']['id'] . '.css');
+if( isset($css) ) {
+	echo '<style>' . $css . '</style>';
+} else {
+	echo $this->Html->css('https://mojepanstwo.pl/htmlex/' . $document['Document']['id'] . '/' . $document['Document']['id'] . '.css');
+}
 ?>
 
 <div class="htmlexDoc" data-packages="<?php echo $document['Document']['packages_count']; ?>"
@@ -15,7 +19,7 @@ echo $this->Html->css('https://mojepanstwo.pl/htmlex/' . $document['Document']['
         'document' => $document['Document'],
     )); ?>
 
-    <div class="document">
+    <div class="document doc<?php echo $document['Document']['id']; ?>">
         <div class="canvas">
             <?php echo(isset($document['Package']) ? $document['Package'] : false) ?>
         </div>

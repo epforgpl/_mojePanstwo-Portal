@@ -28,12 +28,12 @@ echo $this->Document->place($interpelacja->getData('dokument_id'), array('toolba
 
 if ($interpelacja->getData('odp1_dokument_id')) {
     echo "<h2 class=\"light\">Odpowiedź</h2>";
-    echo $this->Document->place($interpelacja->getData('odp1_dokument_id'), array('toolbar' => false));
+    echo $this->Document->place2($interpelacja->getData('odp1_dokument_id'), array('toolbar' => false));
 }
 
 if ($interpelacja->getData('odp2_dokument_id')) {
     echo "<h2 class=\"light\">Odpowiedź</h2>";
-    echo $this->Document->place($interpelacja->getData('odp2_dokument_id'), array('toolbar' => false));
+    echo $this->Document->place2($interpelacja->getData('odp2_dokument_id'), array('toolbar' => false));
 }
 ?>
 

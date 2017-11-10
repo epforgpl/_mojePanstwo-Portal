@@ -361,6 +361,18 @@ class mpAPISource extends DataSource {
 	        ),
         ));
     }
+    
+    public function loadDocumentCss($id)
+    {
+	    $ch = curl_init(); 
+        curl_setopt($ch, CURLOPT_URL, 'https://mojepanstwo.pl/htmlex/' . $id . '/' . $id . '.css'); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        $css = curl_exec($ch); 
+        curl_close($ch);
+                
+        $css = preg_replace('/\.([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)/', '.doc' . $id . ' .$1$2$3', $css);
+        return $css;
+    }
 
     public function login($email, $password) {
         $response = $this->request('paszport/login', array(
