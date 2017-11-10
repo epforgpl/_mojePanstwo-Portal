@@ -569,6 +569,7 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                 ),
+                /*
                 'zamowienia_publiczne' => array(
                     'filter' => array(
                         'bool' => array(
@@ -595,6 +596,7 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                 ),
+                */
                 'urzad_zamowienia' => array(
                     'filter' => array(
                         'bool' => array(
@@ -624,7 +626,7 @@ class GminyController extends DataobjectsController
             	( count($parts)>1 )
         	) {
 
-	        	foreach(array('osoby', 'organizacje', 'pomoc_publiczna', 'radni_gminy', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'darczyncy', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'zamowienia_publiczne', 'urzad_zamowienia') as $a)
+	        	foreach(array('osoby', 'organizacje', 'pomoc_publiczna', 'radni_gminy', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'darczyncy', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'urzad_zamowienia') as $a)
 	        		$aggs[$a]['aggs']['top']['top_hits']['sort'] = array(
 		        		$parts[0] => array(
 			        		'order' => $parts[1],
@@ -636,7 +638,7 @@ class GminyController extends DataobjectsController
             $options = array(
                 'searchTitle' => 'Szukaj powiązań w Krakowie...',
                 'conditions' => array(
-                    'dataset' => array('krakow_pomoc_publiczna', 'krs_osoby', 'krakow_darczyncy', 'radni_gmin', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'zamowienia_publiczne', 'krs_podmioty', 'krakow_zamowienia_publiczne'),
+                    'dataset' => array('krakow_pomoc_publiczna', 'krs_osoby', 'krakow_darczyncy', 'radni_gmin', 'rady_gmin_interpelacje', 'rady_druki', 'krakow_rada_uchwaly', 'krakow_komisje', 'krakow_zarzadzenia', 'krakow_umowy', 'krakow_jednostki', 'krakow_urzednicy', 'dzielnice', 'krs_podmioty', 'krakow_zamowienia_publiczne'),
                 ),
                 'cover' => array(
                     'view' => array(
@@ -737,10 +739,12 @@ class GminyController extends DataobjectsController
                     'title' => 'Dzielnice Miasta Kraków',
                     'href' => $this->object->getUrl() . '/dzielnice',
                 ),
+                /*
                 'zamowienia_publiczne' => array(
                     'title' => 'Zamówienia publiczne w Krakowie',
                     'href' => $this->object->getUrl() . '/zamowienia',
                 ),
+                */
                 'urzad_zamowienia' => array(
                     'title' => 'Zamówienia publiczne Urzędu Miasta Kraków',
                     'href' => $this->object->getUrl() . '/urzad_zamowienia',
@@ -752,6 +756,7 @@ class GminyController extends DataobjectsController
         } else {
 
             $global_aggs = array(
+	            /*
                 'zamowienia' => array(
                     'filter' => array(
                         'bool' => array(
@@ -771,6 +776,7 @@ class GminyController extends DataobjectsController
                     ),
                     'scope' => 'global',
                 ),
+                */
                 'dzialania' => array(
                     'filter' => array(
                         'bool' => array(
@@ -811,6 +817,7 @@ class GminyController extends DataobjectsController
                     ),
                     'scope' => 'global',
                 ),
+                /*
                 'zamowienia_publiczne_dokumenty' => array(
                     'filter' => array(
                         'bool' => array(
@@ -871,6 +878,7 @@ class GminyController extends DataobjectsController
                         ),
                     ),
                 ),
+                */
                 'krs_podmioty' => array(
                     'filter' => array(
                         'bool' => array(
@@ -1219,6 +1227,7 @@ class GminyController extends DataobjectsController
 
         if ($this->request->action != 'view')
             $this->addInitAggs(array(
+                /*
                 'zamowienia' => array(
                     'filter' => array(
                         'bool' => array(
@@ -1238,6 +1247,7 @@ class GminyController extends DataobjectsController
                     ),
                     'scope' => 'global',
                 ),
+                */
                 'prawo' => array(
                     'filter' => array(
                         'bool' => array(
@@ -5629,10 +5639,12 @@ class GminyController extends DataobjectsController
                 'id' => 'dzielnice',
                 'label' => 'Dzielnice',
             );
+            /*
             $menu['items'][] = array(
                 'id' => 'zamowienia',
                 'label' => 'Zamówienia publiczne',
             );
+            */
             $menu['items'][] = array(
                 'id' => 'organizacje',
                 'label' => 'KRS',
@@ -5657,14 +5669,16 @@ class GminyController extends DataobjectsController
                     'id' => 'prawo',
                     'count' => $aggs['prawo']['doc_count'],
                 );
-
+			
+			/*
             if (isset($aggs['zamowienia']) && $aggs['zamowienia']['doc_count'])
                 $menu['items'][] = array(
                     'label' => 'Zamówienia publiczne',
                     'id' => 'zamowienia',
                     'count' => $aggs['zamowienia']['doc_count'],
                 );
-
+			*/
+			
             $menu['items'][] = array(
                 'label' => 'KRS',
                 'id' => 'organizacje',
