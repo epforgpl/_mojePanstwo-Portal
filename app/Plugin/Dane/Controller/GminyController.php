@@ -1679,22 +1679,23 @@ class GminyController extends DataobjectsController
                     'id' => $this->request->params['subid'],
                 ),
                 'layers' => array('neighbours', 'terms'),
-            ));
-
-
+            ));			
+			
             $this->set('posiedzenie', $posiedzenie);
             $this->set('title_for_layout', strip_tags($posiedzenie->getTitle()));
 
-
-            $_submenu = array(
-                'items' => array(
-                    array(
-                        'id' => '',
-                        'label' => 'Punkty porządku dziennego',
-                    ),
-                ),
-            );
-
+			$_submenu = array(
+				'items' => array(),
+			);
+			
+			if( $posiedzenie->getData('liczba_punktow') ) {
+			
+				$_submenu['items'][] = array(
+	                'id' => '',
+	                'label' => 'Punkty porządku dziennego',
+	            );
+            
+            }
 
             if ($posiedzenie->getData('zwolanie_dokument_id')) {
                 $_submenu['items'][] = array(
@@ -1790,23 +1791,32 @@ class GminyController extends DataobjectsController
                 }
 
                 default: {
-
-                    $_submenu['selected'] = '';
-                    $submenu['selected'] = 'punkty';
-                    $render_view = 'posiedzenie-punkty';
-
-                    $this->Components->load('Dane.DataBrowser', array(
-                        'conditions' => array(
-                            'dataset' => 'krakow_posiedzenia_punkty',
-                            'krakow_posiedzenia_punkty.posiedzenie_id' => $posiedzenie->getId(),
-                        ),
-                        'order' => 'krakow_posiedzenia_punkty._ord asc',
-                        'limit' => 1000,
-                        'browserTitle' => 'Punkty porządku dziennego na posiedzeniu',
-                    ));
-
-                    $this->set('title_for_layout', 'Posiedzenie Rady Miasta Kraków');
-                    // $this->set('DataBrowserTitle', 'Organizacje w gminie ' . $this->object->getData('nazwa'));
+					
+					if( $posiedzenie->getData('liczba_punktow') ) {
+					
+	                    $_submenu['selected'] = '';
+	                    $submenu['selected'] = 'punkty';
+	                    $render_view = 'posiedzenie-punkty';
+	
+	                    $this->Components->load('Dane.DataBrowser', array(
+	                        'conditions' => array(
+	                            'dataset' => 'krakow_posiedzenia_punkty',
+	                            'krakow_posiedzenia_punkty.posiedzenie_id' => $posiedzenie->getId(),
+	                        ),
+	                        'order' => 'krakow_posiedzenia_punkty._ord asc',
+	                        'limit' => 1000,
+	                        'browserTitle' => 'Punkty porządku dziennego na posiedzeniu',
+	                    ));
+	
+	                    $this->set('title_for_layout', 'Posiedzenie Rady Miasta Kraków');
+	                    // $this->set('DataBrowserTitle', 'Organizacje w gminie ' . $this->object->getData('nazwa'));
+	                    
+                    } else {
+	                    
+	                    $_submenu['selected'] = 'informacja';
+	                    $render_view = 'posiedzenie-informacja';
+	                    
+                    }
 
 
                     break;
@@ -1880,7 +1890,7 @@ class GminyController extends DataobjectsController
                 ),
                 'layers' => array('neighbours', 'wystapienia'),
             ));
-			
+						
 			$global_aggs = array(
                 'druk' => array(
                     'filter' => array(
