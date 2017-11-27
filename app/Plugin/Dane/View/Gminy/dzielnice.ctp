@@ -11,7 +11,7 @@ switch (Configure::read('Config.language')) {
         $lang = "en-EN";
         break;
 };
-echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&language=' . $lang, array('block' => 'scriptBlock'));
+echo $this->Html->script('//maps.googleapis.com/maps/api/js?v=3.21&key=' . GOOGLE_MAPS_KEY . '&language=' . $lang, array('block' => 'scriptBlock'));
 
 $this->Combinator->add_libs('js', 'Dane.view-gminy-krakow-dzielnice');
 
