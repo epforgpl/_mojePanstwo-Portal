@@ -163,7 +163,12 @@
             placeholder: 'Szukaj w danych publicznych...',
             fullSearch: 'Pełne wyszukiwanie'
         },
-        translation: JSON.parse('<?php echo json_encode($translation); ?>')
+        translation: JSON.parse('<?php echo json_encode($translation); ?>'),
+        keys: {
+	        google: {
+		        maps: '<?php echo GOOGLE_MAPS_KEY; ?>'
+	        }
+        }
 
     }
 </script>

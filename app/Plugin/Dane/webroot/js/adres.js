@@ -4,7 +4,21 @@ var googleMap, panorama, addLatLng, marker;
 function initialize() {
     "use strict";
     //SETTING DEFAULT CENTER TO GOOGLE MAP AT POLAND//
-
+	
+	$('.mp-adres').each(function(){
+		var el = $(this);
+		var bg = el.find('.bg');
+		if( el.length && bg.length ) {
+			var url = el.data('adres');
+			if( url ) {
+				
+				var width = bg.width();
+				bg.append('<img class="googleMapImage" src="https://maps.googleapis.com/maps/api/staticmap?center=' + url + '&markers=' + url + '&zoom=15&sensor=false&scale=2&feature:road&size=' + width + 'x270&language=' + mPHeart.language.twoPerThreeDig + '" />');
+				
+			}
+		}
+	});
+	
     var infowindow,
         element,
         contentStringHeightTemp,
@@ -18,7 +32,7 @@ function initialize() {
 
     googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 
-    contentString.innerHTML = googleMapAdres + '<a href="https://maps.google.com/maps?daddr=' + googleMapAdres.replace(/ /g, '+') + '&t=m" target="_blank" class="btn btn-info">Dojazd</a>';
+    contentString.innerHTML = googleMapAdres + '<a href="https://maps.google.com/maps?key=' + mPHeart.keys.google.maps + '&daddr=' + googleMapAdres.replace(/ /g, '+') + '&t=m" target="_blank" class="btn btn-info">Dojazd</a>';
     contentString.id = "googleMapsContent";
     contentString.style.width = "360px";
 
@@ -125,7 +139,7 @@ function loadScript() {
     } else {
         var script = document.createElement('script');
         script.type = 'text/javascript';
-		script.src = 'https://maps.googleapis.com/maps/api/js?v=3.21&sensor=false&language=' + mPHeart.language.twoPerThreeDig + '&' + 'callback=initialize';
+		script.src = 'https://maps.googleapis.com/maps/api/js?v=3.21&key=' + mPHeart.keys.google.maps + '&sensor=false&language=' + mPHeart.language.twoPerThreeDig + '&' + 'callback=initialize';
         document.body.appendChild(script);
     }
 }

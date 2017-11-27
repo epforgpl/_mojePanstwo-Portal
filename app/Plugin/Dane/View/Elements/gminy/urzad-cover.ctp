@@ -23,6 +23,7 @@ $options = array(
 
     } ?>
     <?
+
         if ($adres = $object->getData('adres')) {
             $adres = $adres . ', Polska';
             echo $this->element('Dane.adres', array(
@@ -30,7 +31,6 @@ $options = array(
                 'label' => 'Urząd gminy',
             ));
         }
-
 
         $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
         $this->Combinator->add_libs('css', $this->Less->css('pisma-button', array('plugin' => 'Pisma')));
