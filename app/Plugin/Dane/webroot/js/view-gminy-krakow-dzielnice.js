@@ -21,6 +21,8 @@ function mapHoverIn(dzielnicaName) {
 			featureName = feature['G']['Name'];
 		else if (feature['H'] !== undefined)
 			featureName = feature['H']['Name'];
+		else if (feature['f'] !== undefined)
+			featureName = feature['f']['Name'];
 
 		if (featureName == dzielnicaName) {
 			return featureHoverStyle;
@@ -82,6 +84,7 @@ function initialize() {
 	});
 
 	google.maps.event.addListener(map.data, 'click', function (event) {
+		
 		var name = null;
 		if (event.feature['A'] !== undefined)
 			name = event.feature['A']['Name'];
@@ -89,6 +92,8 @@ function initialize() {
 			name = event.feature['G']['Name'];
 		else if (event.feature['H'] !== undefined)
 			name = event.feature['H']['Name'];
+		else if (event.feature['f'] !== undefined)
+			name = event.feature['f']['Name'];
 
 		$('.dzielniceList a[data-dzielnica="' + name + '"]')[0].click();
 	});
@@ -101,6 +106,8 @@ function initialize() {
 			name = event.feature['G']['Name'];
 		else if (event.feature['H'] !== undefined)
 			name = event.feature['H']['Name'];
+		else if (event.feature['f'] !== undefined)
+			name = event.feature['f']['Name'];
 
 		$('.dzielniceList a[data-dzielnica="' + name + '"]').addClass('hover');
 		mapHoverIn(name);
