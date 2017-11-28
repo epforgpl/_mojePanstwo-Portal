@@ -78,6 +78,10 @@ class GminyController extends DataobjectsController
                     'label' => 'Umowy',
                 ),
                 array(
+                    'id' => 'praca',
+                    'label' => 'Praca',
+                ),
+                array(
                     'id' => 'pomoc_publiczna',
                     'label' => 'Pomoc publiczna',
                 ),
@@ -226,7 +230,6 @@ class GminyController extends DataobjectsController
     public function view()
     {
 
-
         $_layers = array('szef', 'channels', 'udzialy');
         $this->addInitLayers($_layers);
 
@@ -240,7 +243,6 @@ class GminyController extends DataobjectsController
             isset($this->request->query['q']) &&
             $this->request->query['q']
         ) {
-
 
             $aggs = array(
                 'osoby' => array(
@@ -2228,6 +2230,46 @@ class GminyController extends DataobjectsController
             $this->set('title_for_layout', 'Zarządzenia Prezydenta Krakowa');
             $this->set('_submenu', array_merge($this->submenus['urzad'], array(
                 'selected' => 'zarzadzenia',
+            )));
+
+        }
+    }
+    
+    public function praca()
+    {
+
+        $this->_prepareView();
+        $this->request->params['action'] = 'praca';
+
+        if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
+
+            $ogloszenie = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_praca',
+                    'id' => $this->request->params['subid'],
+                ),
+                'layers' => array('html'),
+            ));
+
+            $this->set('ogloszenie', $ogloszenie);
+            $this->set('title_for_layout', $ogloszenie->getTitle());
+            $this->render('praca-ogloszenie');
+
+        } else {
+
+            $this->Components->load('Dane.DataBrowser', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_praca',
+                ),
+                'aggsPreset' => 'krakow_praca',
+                'sortPreset' => 'krakow_praca',
+                'searchTitle' => 'Szukaj w ogłoszeniach o pracę...',
+                'browserTitle' => 'Ogłoszenia o pracę',
+            ));
+
+            $this->set('title_for_layout', 'Ogłoszenia o pracę w Krakowie');
+            $this->set('_submenu', array_merge($this->submenus['urzad'], array(
+                'selected' => 'praca',
             )));
 
         }
