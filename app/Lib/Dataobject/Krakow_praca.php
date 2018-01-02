@@ -39,7 +39,7 @@ class Krakow_praca extends DataObject
 	
 	public function getMetaDescriptionParts($preset = false)
 	{
-		$output = [];
+		$output = array();
 		
 		if( $this->getData('typ')==='urzad' ) {
 			$output[] = 'Ogłoszenie Urzędu Miasta';
