@@ -724,6 +724,38 @@ class DataBrowserComponent extends Component
                 ),
             ),
         ),
+        'krakow_praca' => array(
+            'nabor' => array(
+                'terms' => array(
+                    'field' => 'krakow_praca.aktywne',
+                ),
+                'visual' => array(
+	                'all' => 'Wszystkie nabory',
+	                'label' => 'Status',
+                    'skin' => 'list',
+                    'field' => 'krakow_praca.aktywne',
+                    'dictionary' => array(
+                        '0' => 'Nabory zakończone',
+                        '1' => 'Nabory trwające',
+                    ),
+                ),
+            ),
+            'typ' => array(
+                'terms' => array(
+                    'field' => 'krakow_praca.typ',
+                ),
+                'visual' => array(
+	                'all' => 'Urząd miasta i jednostki organizacyjne',
+	                'label' => 'Typ jednostki',
+                    'skin' => 'list',
+                    'field' => 'krakow_praca.typ',
+                    'dictionary' => array(
+                        'urzad' => 'Urząd miasta',
+                        'jednostka' => 'Jednostki organizacyjne',
+                    ),
+                ),
+            ),
+        ),
         'krakow_rada_uchwaly' => array(
             'typ_id' => array(
                 'terms' => array(

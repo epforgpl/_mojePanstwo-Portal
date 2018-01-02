@@ -88,8 +88,8 @@ echo $this->Element('Dane.dataobject/subobject', array(
         </div>
 
         <div class="col-md-9 objectMain">
-	            
-            <div class="block praca-ogloszenie">
+	        	          
+            <div class="block praca-ogloszenie <? echo $ogloszenie->getData('typ') ?>">
 	            <? echo $ogloszenie->getLayer('html'); ?>
             </div>
 	            

@@ -41,17 +41,18 @@ class Krakow_praca extends DataObject
 	{
 		$output = [];
 		
-		if( $this->getData('aktywne') ) {
-			$output[] = 'Nabór trwa';
-		} {
-			$output[] = 'Nabór zakończony';
+		if( $this->getData('typ')==='urzad' ) {
+			$output[] = 'Ogłoszenie Urzędu Miasta';
 		}
 		
+		if( $this->getData('aktywne') ) {
+			$output[] = '<span class="label label-success">Nabór trwa</span>';
+		} else {
+			$output[] = 'Nabór zakończony';
+		}
+				
         if( $this->getData('wiecej') )
 			$output[] = $this->getData('wiecej');
-			
-		if( $this->getData('opis') )
-			$output[] = $this->getData('opis');
 
         return $output;
 
@@ -59,7 +60,7 @@ class Krakow_praca extends DataObject
     
     public function getDescription()
     {
-	    return false;
+	    return $this->getData('opis');
     }
 
 }
