@@ -141,9 +141,9 @@ CakeLog::config( 'debug', array(
 	'file'   => 'debug',
 ) );
 CakeLog::config( 'error', array(
-	'engine' => 'File',
+	'engine' => 'ConsoleLog',
 	'types'  => array( 'warning', 'error', 'critical', 'alert', 'emergency' ),
-	'file'   => 'error',
+//	'file'   => 'error',
 ) );
 
 //setlocale(LC_ALL, 'pl_PL');
