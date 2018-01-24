@@ -78,11 +78,11 @@ class Radni_gmin extends DataObject
     public function getThumbnailUrl($size = '0')
     {
     	if( $this->getData('avatar')=='1' )
-	        return 'http://resources.sejmometr.pl/avatars/5/' . $this->getData('avatar_id') . '.jpg';
+    		return 'https://s3.eu-central-1.amazonaws.com/epf.cdn/avatars/5/' . $this->getData('avatar_id') . '.jpg';
 	    elseif( $this->getData('plec')=='K' )
-	        return 'http://resources.sejmometr.pl/avatars/g/w.png';
+    		return 'https://s3.eu-central-1.amazonaws.com/epf.cdn/avatars/w.png';
 	    else 
-	        return 'http://resources.sejmometr.pl/avatars/g/m.png';
+    		return 'https://s3.eu-central-1.amazonaws.com/epf.cdn/avatars/m.png';
     }
     
     public function getMetaDescriptionParts($preset = false)
