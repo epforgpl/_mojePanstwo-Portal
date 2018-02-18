@@ -274,8 +274,7 @@ class MapaController extends ApplicationsController
                         'top' => array(
                             'top_hits' => array(
                                 'size' => 1,
-                                'fielddata_fields' => array('adres.punkt_id', 'adres.lokal', 'adres.geo.lat', 'adres.geo.lon'),
-                                '_source' => false,
+                                '_source' => array('adres.*'),
                                 'fields' => array(),
                             ),
                         ),
@@ -464,12 +463,12 @@ class MapaController extends ApplicationsController
 	            foreach ($data['grid']['buckets'] as &$b) {
 	
 	                if ($b['doc_count'] === 1) {
-											
+																
 	                    $b['location'] = array(
-	                        'punkt_id' => $b['top']['hits']['hits'][0]['fields']['adres.punkt_id'][0],
-	                        'lokal' => $b['top']['hits']['hits'][0]['fields']['adres.lokal'][0],
-	                        'lat' => $b['top']['hits']['hits'][0]['fields']['adres.geo.lat'][0],
-	                        'lon' => $b['top']['hits']['hits'][0]['fields']['adres.geo.lon'][0],
+	                        'punkt_id' => $b['top']['hits']['hits'][0]['_source']['adres']['punkt_id'],
+	                        'lokal' => $b['top']['hits']['hits'][0]['_source']['adres']['lokal'],
+	                        'lat' => $b['top']['hits']['hits'][0]['_source']['adres']['geo']['lat'],
+	                        'lon' => $b['top']['hits']['hits'][0]['_source']['adres']['geo']['lon'],
 	                    );
 	
 	                    unset($b['top']);

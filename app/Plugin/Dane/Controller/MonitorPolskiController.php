@@ -27,7 +27,7 @@ class MonitorPolskiController extends DataobjectsController
                 'filter' => array(
                     'nested' => array(
 		        		'path' => 'prawo-powiazania',
-		        		'filter' => array(
+		        		'query' => array(
 			        		'term' => array(
 				        		'prawo-powiazania.' . $field => $this->request->params['id'],
 			        		),
