@@ -38,7 +38,6 @@ class PrawoHaslaController extends DataobjectsController
                     'element' => 'prawo_hasla/cover',
                 ),
                 'aggs' => array(
-                    
                     'prawo' => array(
 	                    'scope' => 'global',
 	                    'filter' => array(
@@ -52,7 +51,7 @@ class PrawoHaslaController extends DataobjectsController
 				                    array(
 					                    'nested' => array(
 						                    'path' => 'prawo-hasla',
-						                    'filter' => array(
+						                    'query' => array(
 							                    'term' => array(
 								                    'prawo-hasla.id' => $this->object->getId(),
 							                    ),
@@ -65,16 +64,18 @@ class PrawoHaslaController extends DataobjectsController
 	                    'aggs' => array(
 		                    'ustawy' => array(
 		                        'filter' => array(
-			                        'or' => array(
-				                        array(
-					                        'term' => array(
-				                                'data.dziennik_ustaw.typ_id' => '1',
-				                            ),
-				                        ),
-				                        array(
-					                        'term' => array(
-				                                'data.monitor_polski.typ_id' => '1',
-				                            ),
+			                        'bool' => array(
+				                        'should' => array(
+					                        array(
+						                        'term' => array(
+					                                'data.dziennik_ustaw.typ_id' => '1',
+					                            ),
+					                        ),
+					                        array(
+						                        'term' => array(
+					                                'data.monitor_polski.typ_id' => '1',
+					                            ),
+					                        ),
 				                        ),
 			                        ),
 		                        ),
@@ -103,18 +104,20 @@ class PrawoHaslaController extends DataobjectsController
 		                    ),
 		                    'rozporzadzenia' => array(
 		                        'filter' => array(
-		                            'or' => array(
-			                            array(
-				                            'term' => array(
-				                                'data.dziennik_ustaw.typ_id' => '3',
+			                        'bool' => array(
+				                        'should' => array(
+					                        array(
+					                            'term' => array(
+					                                'data.dziennik_ustaw.typ_id' => '3',
+					                            ),
 				                            ),
-			                            ),
-			                            array(
-				                            'term' => array(
-				                                'data.monitor_polski.typ_id' => '3',
+				                            array(
+					                            'term' => array(
+					                                'data.monitor_polski.typ_id' => '3',
+					                            ),
 				                            ),
-			                            ),
-		                            ),
+				                        ),
+			                        ),
 		                        ),
 		                        'aggs' => array(
 		                            'top' => array(
@@ -144,22 +147,26 @@ class PrawoHaslaController extends DataobjectsController
 		                            'bool' => array(
 		                                'must_not' => array(
 		                                    array(
-			                                    'or' => array(
-				                                    array(
-					                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
-				                                    ),
-				                                    array(
-					                                    'term' => array('data.monitor_polski.typ_id' => '1')
+			                                    'bool' => array(
+				                                    'should' => array(
+					                                    array(
+						                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
+					                                    ),
+					                                    array(
+						                                    'term' => array('data.monitor_polski.typ_id' => '1')
+					                                    ),
 				                                    ),
 			                                    ),
 		                                    ),
 		                                    array(
-			                                    'or' => array(
-				                                    array(
-					                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
-				                                    ),
-				                                    array(
-					                                    'term' => array('data.monitor_polski.typ_id' => '3')
+			                                    'bool' => array(
+				                                    'should' => array(
+					                                    array(
+						                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
+					                                    ),
+					                                    array(
+						                                    'term' => array('data.monitor_polski.typ_id' => '3')
+					                                    ),
 				                                    ),
 			                                    ),
 		                                    ),
@@ -272,7 +279,7 @@ class PrawoHaslaController extends DataobjectsController
 			                    array(
 				                    'nested' => array(
 					                    'path' => 'prawo-hasla',
-					                    'filter' => array(
+					                    'query' => array(
 						                    'term' => array(
 							                    'prawo-hasla.id' => $this->object->getId(),
 						                    ),
@@ -285,34 +292,38 @@ class PrawoHaslaController extends DataobjectsController
                     'aggs' => array(
 	                    'ustawy' => array(
 	                        'filter' => array(
-		                        'or' => array(
-			                        array(
-				                        'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '1',
-			                            ),
-			                        ),
-			                        array(
-				                        'term' => array(
-			                                'data.monitor_polski.typ_id' => '1',
-			                            ),
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+					                        'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '1',
+				                            ),
+				                        ),
+				                        array(
+					                        'term' => array(
+				                                'data.monitor_polski.typ_id' => '1',
+				                            ),
+				                        ),
 			                        ),
 		                        ),
 	                        ),
 	                    ),
 	                    'rozporzadzenia' => array(
 	                        'filter' => array(
-	                            'or' => array(
-		                            array(
-			                            'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '3',
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+				                            'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-		                            array(
-			                            'term' => array(
-			                                'data.monitor_polski.typ_id' => '3',
+			                            array(
+				                            'term' => array(
+				                                'data.monitor_polski.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-	                            ),
+			                        ),
+		                        ),
 	                        ),
 	                    ),
 	                    'inne' => array(
@@ -320,22 +331,26 @@ class PrawoHaslaController extends DataobjectsController
 	                            'bool' => array(
 	                                'must_not' => array(
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '1')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '1')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '3')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '3')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),
@@ -380,7 +395,7 @@ class PrawoHaslaController extends DataobjectsController
 			                    array(
 				                    'nested' => array(
 					                    'path' => 'prawo-hasla',
-					                    'filter' => array(
+					                    'query' => array(
 						                    'term' => array(
 							                    'prawo-hasla.id' => $this->object->getId(),
 						                    ),
@@ -393,34 +408,38 @@ class PrawoHaslaController extends DataobjectsController
                     'aggs' => array(
 	                    'ustawy' => array(
 	                        'filter' => array(
-		                        'or' => array(
-			                        array(
-				                        'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '1',
-			                            ),
-			                        ),
-			                        array(
-				                        'term' => array(
-			                                'data.monitor_polski.typ_id' => '1',
-			                            ),
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+					                        'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '1',
+				                            ),
+				                        ),
+				                        array(
+					                        'term' => array(
+				                                'data.monitor_polski.typ_id' => '1',
+				                            ),
+				                        ),
 			                        ),
 		                        ),
 	                        ),
 	                    ),
 	                    'rozporzadzenia' => array(
 	                        'filter' => array(
-	                            'or' => array(
-		                            array(
-			                            'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '3',
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+				                            'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-		                            array(
-			                            'term' => array(
-			                                'data.monitor_polski.typ_id' => '3',
+			                            array(
+				                            'term' => array(
+				                                'data.monitor_polski.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-	                            ),
+			                        ),
+		                        ),
 	                        ),
 	                    ),
 	                    'inne' => array(
@@ -428,22 +447,26 @@ class PrawoHaslaController extends DataobjectsController
 	                            'bool' => array(
 	                                'must_not' => array(
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '1')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '1')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '3')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '3')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),
@@ -486,7 +509,7 @@ class PrawoHaslaController extends DataobjectsController
 			                    array(
 				                    'nested' => array(
 					                    'path' => 'prawo-hasla',
-					                    'filter' => array(
+					                    'query' => array(
 						                    'term' => array(
 							                    'prawo-hasla.id' => $this->object->getId(),
 						                    ),
@@ -499,34 +522,38 @@ class PrawoHaslaController extends DataobjectsController
                     'aggs' => array(
 	                    'ustawy' => array(
 	                        'filter' => array(
-		                        'or' => array(
-			                        array(
-				                        'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '1',
-			                            ),
-			                        ),
-			                        array(
-				                        'term' => array(
-			                                'data.monitor_polski.typ_id' => '1',
-			                            ),
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+					                        'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '1',
+				                            ),
+				                        ),
+				                        array(
+					                        'term' => array(
+				                                'data.monitor_polski.typ_id' => '1',
+				                            ),
+				                        ),
 			                        ),
 		                        ),
 	                        ),
 	                    ),
 	                    'rozporzadzenia' => array(
 	                        'filter' => array(
-	                            'or' => array(
-		                            array(
-			                            'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '3',
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+				                            'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-		                            array(
-			                            'term' => array(
-			                                'data.monitor_polski.typ_id' => '3',
+			                            array(
+				                            'term' => array(
+				                                'data.monitor_polski.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-	                            ),
+			                        ),
+		                        ),
 	                        ),
 	                    ),
 	                    'inne' => array(
@@ -534,22 +561,26 @@ class PrawoHaslaController extends DataobjectsController
 	                            'bool' => array(
 	                                'must_not' => array(
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '1')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '1')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '3')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '3')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),
@@ -576,7 +607,6 @@ class PrawoHaslaController extends DataobjectsController
                 'prawo-hasla:prawo-hasla.id' => $this->object->getId(),
             ),
             'aggs' => array(
-                    
                 'prawo' => array(
                     'scope' => 'global',
                     'filter' => array(
@@ -590,7 +620,7 @@ class PrawoHaslaController extends DataobjectsController
 			                    array(
 				                    'nested' => array(
 					                    'path' => 'prawo-hasla',
-					                    'filter' => array(
+					                    'query' => array(
 						                    'term' => array(
 							                    'prawo-hasla.id' => $this->object->getId(),
 						                    ),
@@ -603,34 +633,38 @@ class PrawoHaslaController extends DataobjectsController
                     'aggs' => array(
 	                    'ustawy' => array(
 	                        'filter' => array(
-		                        'or' => array(
-			                        array(
-				                        'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '1',
-			                            ),
-			                        ),
-			                        array(
-				                        'term' => array(
-			                                'data.monitor_polski.typ_id' => '1',
-			                            ),
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+					                        'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '1',
+				                            ),
+				                        ),
+				                        array(
+					                        'term' => array(
+				                                'data.monitor_polski.typ_id' => '1',
+				                            ),
+				                        ),
 			                        ),
 		                        ),
 	                        ),
 	                    ),
 	                    'rozporzadzenia' => array(
 	                        'filter' => array(
-	                            'or' => array(
-		                            array(
-			                            'term' => array(
-			                                'data.dziennik_ustaw.typ_id' => '3',
+		                        'bool' => array(
+			                        'should' => array(
+				                        array(
+				                            'term' => array(
+				                                'data.dziennik_ustaw.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-		                            array(
-			                            'term' => array(
-			                                'data.monitor_polski.typ_id' => '3',
+			                            array(
+				                            'term' => array(
+				                                'data.monitor_polski.typ_id' => '3',
+				                            ),
 			                            ),
-		                            ),
-	                            ),
+			                        ),
+		                        ),
 	                        ),
 	                    ),
 	                    'inne' => array(
@@ -638,22 +672,26 @@ class PrawoHaslaController extends DataobjectsController
 	                            'bool' => array(
 	                                'must_not' => array(
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '1')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '1')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '1')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),
 	                                    array(
-		                                    'or' => array(
-			                                    array(
-				                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
-			                                    ),
-			                                    array(
-				                                    'term' => array('data.monitor_polski.typ_id' => '3')
+		                                    'bool' => array(
+			                                    'should' => array(
+				                                    array(
+					                                    'term' => array('data.dziennik_ustaw.typ_id' => '3')
+				                                    ),
+				                                    array(
+					                                    'term' => array('data.monitor_polski.typ_id' => '3')
+				                                    ),
 			                                    ),
 		                                    ),
 	                                    ),

@@ -317,7 +317,7 @@ class KrsPodmiotyController extends DataobjectsController
                             array(
                                 'nested' => array(
                                     'path' => 'zamowienia_publiczne-wykonawcy',
-                                    'filter' => array(
+                                    'query' => array(
                                         'term' => array(
                                             'zamowienia_publiczne-wykonawcy.krs_id' => $this->request->params['id'],
                                         ),
