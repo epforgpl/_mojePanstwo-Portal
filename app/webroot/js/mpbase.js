@@ -140,14 +140,14 @@ jQuery.extend(jQuery.ui.dialog.prototype.options, {
 	}
 
 	/*COOKIE LAW CONTROLER*/
-	if (mPCookie === undefined || mPCookie.law === undefined) {
+	if (!("mPCookie" in window) || mPCookie === undefined || mPCookie.law === undefined) {
 		$('.cookieLaw .btn').click(function () {
 			/*Cookies can be change between page start and button clicked*/
-			mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
-
+			var mPCookie = $.extend(true, mPCookie, Cookies.getJSON('mojePanstwo'));
+	
 			mPCookie.law = true;
 			$(this).parents('.cookieLaw').fadeOut();
-
+	
 			cookieSave(mPCookie);
 		});
 	}
