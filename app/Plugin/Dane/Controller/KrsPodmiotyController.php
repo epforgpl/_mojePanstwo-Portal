@@ -35,7 +35,9 @@ class KrsPodmiotyController extends DataobjectsController
     private $twitterAccountType = '0';
     private $twitterTimerange = '1W';
 	private $sprawozdanie;
-	
+    
+    public $noindex = array(349039);
+    
     public function beforeFilter()
     {
 

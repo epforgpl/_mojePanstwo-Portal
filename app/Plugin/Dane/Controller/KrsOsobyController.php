@@ -23,6 +23,8 @@ class KrsOsobyController extends DataobjectsController
         'itemtype' => 'http://schema.org/Person',
         'titleprop' => 'name',
     );
+    
+    public $noindex = array(752774, 752775);
 
     public function view()
     {

@@ -33,6 +33,7 @@ class DataobjectsController extends AppController
     public $appSelected = '';
     public $addDatasetBreadcrumb = true;
     public $editables = array();
+    public $noindex = array();
 
     /**
      * @desc Czy mogę w tym obiekcie dodawać działania?
@@ -133,7 +134,11 @@ class DataobjectsController extends AppController
             is_numeric($id)
         ) {
 
-
+			
+			if( in_array($id, $this->noindex) ) {
+				$this->set('_noindex', true);
+			}
+			
 			if( empty($this->forceLayers) ) {
 
 	            if (@$this->request->params['ext'] == 'json') {
