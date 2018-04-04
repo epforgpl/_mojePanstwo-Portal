@@ -273,12 +273,14 @@ $description =
                 ));
                 echo '</div>';
             }
-
+			
+			/*
             $page = $object->getLayer('page');
             if (!$page['moderated'])
                 echo $this->element('tools/admin', array(
                     'href' => '/dane/krs_podmioty/' . $object->getId() . '/odpis',
                 ));
+            */
 
         } ?>
     </div>

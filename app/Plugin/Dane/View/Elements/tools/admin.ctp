@@ -1,3 +1,4 @@
+<?php /*
 <?php $this->Combinator->add_libs('css', $this->Less->css('tool-uprawnienia', array('plugin' => 'Dane'))) ?>
 <?php $this->Combinator->add_libs('js', 'Dane.view-tools-admin'); ?>
 
@@ -89,3 +90,4 @@
         </div>
     </div>
 </div>
+*/ ?>
