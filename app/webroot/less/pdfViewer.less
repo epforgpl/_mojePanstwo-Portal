@@ -1,0 +1,62 @@
+.pdfViewer {
+
+  .page {
+    direction: ltr;
+    width: 816px;
+    height: 1056px;
+    position: relative;
+    overflow: visible;
+    background-color: #EEE;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .textLayer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      opacity: 0.2;
+      line-height: 1.0;
+
+      > div {
+        color: transparent;
+        position: absolute;
+        white-space: pre;
+        cursor: text;
+        -webkit-transform-origin: 0% 0%;
+        -moz-transform-origin: 0% 0%;
+        -o-transform-origin: 0% 0%;
+        -ms-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+      }
+
+      .endOfContent {
+        display: block;
+        position: absolute;
+        left: 0px;
+        top: 100%;
+        right: 0px;
+        bottom: 0px;
+        z-index: -1;
+        cursor: default;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+
+        &.active {
+          top: 0px;
+        }
+
+      }
+
+      ::selection {
+        background: rgb(0, 0, 255);
+      }
+      ::-moz-selection {
+        background: rgb(0, 0, 255);
+      }
+    }
+  }
+}

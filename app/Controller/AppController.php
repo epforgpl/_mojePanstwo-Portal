@@ -852,7 +852,8 @@ class AppController extends Controller
                         'pisma.pisma',
                         'pisma.szablony',
                         'zamowieniapubliczne.zamowieniapubliczne',
-                        'finanse.gminy'
+                        'finanse.gminy', 
+                        '.docs'
                     )) &&
                     !$cross_domain
                 ) {

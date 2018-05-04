@@ -5,7 +5,6 @@ class DocsController extends AppController
 
     public $components = array('RequestHandler', 'S3');
 
-
     public function view()
     {
 
@@ -74,6 +73,33 @@ class DocsController extends AppController
         $doc = $this->Document->load($this->request->params['id']);
         $this->redirect($doc['Document']['url']);
 
+    }
+    
+    public function stream()
+    {
+	    $id = $this->request->params['id'];
+	    $url = 'http://docs.sejmometr.pl/pdf/' . $id . '.pdf';
+	    if(
+	    	( $headers = get_headers($url) ) && 
+	    	isset($headers[0]) && 
+	    	( stripos($headers[0], '200 Ok') )
+	    ) {
+			// do nothing		    
+	    } else {
+		    $url = 'http://docs.sejmometr.pl/originals/' . $id;
+	    }
+	    
+        header('Content-Type: application/pdf');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 500);
+        curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $data) {
+            echo $data;
+            return strlen($data);
+        });
+        curl_exec($ch);
+        curl_close($ch);
     }
 
     public function viewPackage()
