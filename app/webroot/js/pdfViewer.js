@@ -53189,12 +53189,14 @@ DefaultTextLayerFactory.prototype = {
         if( url ) {
 
             PDFJS.getDocument(url).then(function (pdf) {
-
+				
+				div.find('.loadingPage').remove();
                 for (var i = 1; i <= pdf.numPages; i++) {
                     renderPage(div, pdf, i);
                 }
 
             }, function (reason) {
+	            div.find('.loadingPage').remove();
                 console.error(reason);
             });
 
