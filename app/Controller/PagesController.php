@@ -66,7 +66,7 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
 
-        if ($page == 'home' || $page == 'about_us' || $page == 'regulations' || $page == 'report_bug') {
+        if ($page == 'home' || $page == 'about_us' || $page == 'regulations' || $page == 'privacy_policy' || $page == 'report_bug') {
             $this->setLayout(array(
                 'header' => array(
 	                'element' => 'main',

@@ -661,18 +661,19 @@
 					var tr = $('<li></li>').append(
 						$('<div></div>').addClass('row')
 					);
-
+					
+					/*
 					if (label === 'privacy_level' && Number(value) === 1) {
 						birthdayPrivacy = true;
 					}
-
+					
 					if (label === 'data_urodzenia') {
 						if (birthdayPrivacy) {
 							return;
 						}
 						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_DATA_URODZENIA;
 						value = ((value) ? value.split("-")[0] : ' - ');
-					} else if (label === 'plec') {
+					} elseif (label === 'plec') {
 						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_PLEC;
 						if (value === 'K') {
 							value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_KOBIETA;
@@ -680,7 +681,10 @@
 							value = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_MEZCZYZNA;
 						}
 					}
-					else if (label === 'nazwisko') {
+					else
+					*/
+					
+					if (label === 'nazwisko') {
 						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_NAZWISKO;
 					} else if (label === 'imiona') {
 						label = mPHeart.translation.LC_DANE_VIEW_KRSPODMIOTY_IMIONA;

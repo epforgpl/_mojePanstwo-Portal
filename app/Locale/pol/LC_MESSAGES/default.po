@@ -82,6 +82,9 @@ msgstr "API"
 msgid "LC_FOOTER_REGULATIONS"
 msgstr "Regulamin"
 
+msgid "LC_FOOTER_PRIVACY"
+msgstr "Polityka prywatności"
+
 msgid "LC_FOOTER_REPORT_BUG"
 msgstr "Zgłoś błąd"
 

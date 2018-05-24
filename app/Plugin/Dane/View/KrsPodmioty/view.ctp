@@ -596,6 +596,7 @@ $description =
                                         itemtype="http://schema.org/OrganizationPerson">
                                         <span itemprop="name"><?= $osoba['nazwa'] ?></span>
                                         <? if (
+	                                        false && 
                                             ($osoba['privacy_level'] != '1') &&
                                             $osoba['data_urodzenia'] &&
                                             $osoba['data_urodzenia'] != '0000-00-00'
@@ -671,7 +672,7 @@ $description =
                                                 <h4 class="list-group-item-heading col-xs-6" itemprop="member" itemscope
                                                     itemtype="http://schema.org/Organization<?= $class ?>">
                                                     <span itemprop="name"><?= $osoba['nazwa'] ?></span>
-                                                    <? if (($osoba['privacy_level'] != '1') && $osoba['data_urodzenia'] && $osoba['data_urodzenia'] != '0000-00-00') { ?>
+                                                    <? if (false && ($osoba['privacy_level'] != '1') && $osoba['data_urodzenia'] && $osoba['data_urodzenia'] != '0000-00-00') { ?>
                                                         <span itemprop="birthDate"
                                                               datetime="<?= substr($osoba['data_urodzenia'], 0, 4) ?>"
                                                               class="wiek"><?= substr($osoba['data_urodzenia'], 0, 4) ?>

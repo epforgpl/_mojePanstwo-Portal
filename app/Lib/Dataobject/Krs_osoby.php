@@ -58,6 +58,7 @@ class Krs_osoby extends DataObject
 
     public function getTitleAddon()
     {
+	    return false;
         if ($this->data['privacy'] == '1')
             return false;
         else

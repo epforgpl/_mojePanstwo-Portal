@@ -17,6 +17,8 @@
                 <span class="separator">&mdash;</span>
                 <?php echo $this->Html->link(__('LC_FOOTER_REGULATIONS'), '/regulamin', array('target' => '_self', 'class' => '')); ?>
                                 <span class="separator">&mdash;</span>
+                <?php echo $this->Html->link(__('LC_FOOTER_PRIVACY'), '/polityka-prywatnosci', array('target' => '_self', 'class' => '')); ?>
+                                <span class="separator">&mdash;</span>
                 <?php echo $this->Html->link(__('LC_FOOTER_API'), '/api', array('target' => '_self', 'class' => '')); ?>
             </div>
         </div>
