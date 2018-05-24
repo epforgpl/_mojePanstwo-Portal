@@ -33,7 +33,7 @@ echo $this->element('Dane.modals/dataobject-observe');
 
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
 
             <?
             $this->Combinator->add_libs('css', $this->Less->css('banners-box', array('plugin' => 'Dane')));
@@ -55,12 +55,7 @@ echo $this->element('Dane.modals/dataobject-observe');
             </div>
 
         </div>
-        <div class="col-md-4">
-
-            <?= $this->Element('Ngo.ngo-email-subscription') ?>
-
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
 
             <div class="banner block margin-top-0">
                 <div>
