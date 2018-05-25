@@ -190,6 +190,16 @@ $description =
                     <p class="_value"><?= $regon ?></p>
                 </li>
             <? } ?>
+            
+            <?
+            $forma_prawna = $object->getData('forma_prawna_str');
+            if (isset($regon) && !empty($regon)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Forma prawna</p>
+
+                    <p class="_value"><?= $forma_prawna ?></p>
+                </li>
+            <? } ?>
 
             <?
             $wartosc_kapital_zakladowy = $object->getData('wartosc_kapital_zakladowy');
