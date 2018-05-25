@@ -200,16 +200,88 @@ $description =
                     <p class="_value"><?= number_format_h($wartosc_kapital_zakladowy); ?> PLN</p>
                 </li>
             <? } ?>
-
+						
             <?
-            $data_rejestracji = $object->getData('data_rejestracji');
-            if (isset($data_rejestracji) && !empty($data_rejestracji)) { ?>
+            $data = $object->getData('data_rejestracji_przedsiebiorcy');
+            if (!empty($data)) { ?>
                 <li class="dataHighlight col-xs-12">
-                    <p class="_label">Data rejestracji</p>
+                    <p class="_label">Data wpisu do Rejestru Przedsiębiorców</p>
 
-                    <p class="_value"><?= $this->Czas->dataSlownie($data_rejestracji, array(
-                            'itemprop' => 'foundingDate',
-                        )); ?></p>
+                    <p class="_value"><?= $this->Czas->dataSlownie($data, array(
+                        'itemprop' => 'foundingDate',
+                    )); ?></p>
+                </li>
+            <? } ?>
+            
+            <?
+            $data = $object->getData('data_wyrejestrowania_przedsiebiorcy');
+            if (!empty($data)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data wykreślenia z Rejestru Przedsiębiorców</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data); ?></p>
+                </li>
+            <? } ?>
+            
+            <?
+            $data = $object->getData('data_rejestracji_stowarzyszenia');
+            if (!empty($data)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data wpisu do Rejestru Stowarzyszeń</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data, array(
+                        'itemprop' => 'foundingDate',
+                    )); ?></p>
+                </li>
+            <? } ?>
+            
+            <?
+            $data = $object->getData('data_wykreslenia_stowarzyszenia');
+            if (!empty($data)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data wykreślenia z Rejestru Stowarzyszeń</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data); ?></p>
+                </li>
+            <? } ?>
+            
+            <?
+            $data = $object->getData('data_uprawomocnienia_wykreslenia');
+            if (!empty($data)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data uprawomocnienia wykreślenia z KRS</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data); ?></p>
+                </li>
+            <? } ?>
+			
+			<?
+            $data = $object->getData('data_wpisu_opp');
+            if (!empty($data)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data przyznania statusu OPP</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data); ?></p>
+                </li>
+            <? } ?>
+            
+            <?
+            $data = $object->getData('data_zawieszenia_dzialanosci');
+            if (!empty($data)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data zawieszenia działalności</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data); ?></p>
+                </li>
+            <? } ?>
+            
+            <?
+            $data = $object->getData('data_wznowienia_dzialanosci');
+            if (!empty($data)) { ?>
+                <li class="dataHighlight col-xs-12">
+                    <p class="_label">Data wznowienia działalności</p>
+
+                    <p class="_value"><?= $this->Czas->dataSlownie($data); ?></p>
                 </li>
             <? } ?>
 
@@ -233,7 +305,14 @@ $description =
         
         <? if ($object->getData('wykreslony')) { ?>
         <div class="alert alert-sticky alert-danger margin-top-30 margin-bottom-0">
-            Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+	        <? if($object->getData('data_wyrejestrowania_przedsiebiorcy')) { ?>
+	        	<p>Ten podmiot został wykreślony z KRS <b><?= $this->Czas->dataSlownie($object->getData('data_wyrejestrowania_przedsiebiorcy')); ?></b></p>
+	        <? } elseif($object->getData('data_wykreslenia_stowarzyszenia')) { ?>
+	        	<p>Ten podmiot został wykreślony z KRS <b><?= $this->Czas->dataSlownie($object->getData('data_wykreslenia_stowarzyszenia')); ?></b></p>
+	        <? } else { ?>
+	        	<p>Ten podmiot został wykreślony z KRS.</p>
+	        <? } ?>
+            <? if($object->getData('data_sprawdzenia')) {?><p>Prezentowane dane pochodzą z <b><?= $this->Czas->dataSlownie($object->getData('data_sprawdzenia')); ?></b></p><? } ?>
         </div>
         <? } ?>
         
@@ -290,7 +369,14 @@ $description =
 
             <? if ($object->getData('wykreslony')) { ?>
             <div class="alert alert-danger margin-top-30 margin-bottom-0">
-                Prezentowane dane dotyczą chwili, w której podmiot był wykreślany z KRS.
+                <? if($object->getData('data_wyrejestrowania_przedsiebiorcy')) { ?>
+		        	<p>Ten podmiot został wykreślony z KRS <b><?= $this->Czas->dataSlownie($object->getData('data_wyrejestrowania_przedsiebiorcy')); ?></b></p>
+		        <? } elseif($object->getData('data_wykreslenia_stowarzyszenia')) { ?>
+		        	<p>Ten podmiot został wykreślony z KRS <b><?= $this->Czas->dataSlownie($object->getData('data_wykreslenia_stowarzyszenia')); ?></b></p>
+		        <? } else { ?>
+		        	<p>Ten podmiot został wykreślony z KRS.</p>
+		        <? } ?>
+	            <? if($object->getData('data_sprawdzenia')) {?><p>Prezentowane dane pochodzą z <b><?= $this->Czas->dataSlownie($object->getData('data_sprawdzenia')); ?></b></p><? } ?>
             </div>
             <? } ?>
 
