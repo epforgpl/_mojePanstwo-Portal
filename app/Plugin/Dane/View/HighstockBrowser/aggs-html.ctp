@@ -29,13 +29,55 @@
 <? } ?>
 
 <? if (@$aggs['wykonawcy']['buckets']) { 
-	
-	$id = 'wykonawcy';
-	
+	$id = 'wykonawcy';	
 ?>
 	
 	<div class="agg agg-ColumnsHorizontal"<? if( isset($id) ){?> data-agg_id=<?= $id ?><? } ?> data-choose-request="#"
          data-chart="<?= htmlentities(json_encode($aggs['wykonawcy'])) ?>" data-counter_field="<?= 'wartosc_brutto' ?>">
+        <div class="chart"></div>
+    </div>
+	
+<? } ?>
+
+<? if (@$aggs['rodzaje_budzet']['buckets']) { 
+	$id = 'rodzaje_budzet';	
+?>
+	
+	<div class="agg agg-PieChart"<? if( isset($id) ){?> data-agg_id=<?= $id ?><? } ?> data-choose-request="#"
+         data-chart="<?= htmlentities(json_encode($aggs['rodzaje_budzet'])) ?>" data-counter_field="<?= 'wartosc_brutto' ?>">
+        <div class="chart"></div>
+    </div>
+	
+<? } ?>
+
+<? if (@$aggs['rodzaje_wolumen']['buckets']) { 
+	$id = 'rodzaje_wolumen';	
+?>
+	
+	<div class="agg agg-PieChart"<? if( isset($id) ){?> data-agg_id=<?= $id ?><? } ?> data-choose-request="#"
+         data-chart="<?= htmlentities(json_encode($aggs['rodzaje_wolumen'])) ?>">
+        <div class="chart"></div>
+    </div>
+	
+<? } ?>
+
+<? if (@$aggs['jednostki']['buckets']) { 
+	$id = 'jednostki';	
+?>
+	
+	<div class="agg agg-PieChart"<? if( isset($id) ){?> data-agg_id=<?= $id ?><? } ?> data-choose-request="#"
+         data-chart="<?= htmlentities(json_encode($aggs['jednostki'])) ?>">
+        <div class="chart"></div>
+    </div>
+	
+<? } ?>
+
+<? if (@$aggs['tryby']['buckets']) { 
+	$id = 'tryby';	
+?>
+	
+	<div class="agg agg-PieChart"<? if( isset($id) ){?> data-agg_id=<?= $id ?><? } ?> data-choose-request="#"
+         data-chart="<?= htmlentities(json_encode($aggs['tryby'])) ?>">
         <div class="chart"></div>
     </div>
 	

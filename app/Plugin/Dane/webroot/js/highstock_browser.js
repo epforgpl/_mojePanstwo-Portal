@@ -1,3 +1,105 @@
+Number.prototype.round = function(p) {
+  p = p || 10;
+  return parseFloat( this.toFixed(p) );
+};
+
+function rodzaje_budzet(target_div) {
+	li = $(target_div);
+	var data = $.parseJSON(li.attr('data-chart')),
+		pie_chart_data = [],
+		pie_chart_keys = [],
+		choose_request = li.attr('data-choose-request'),
+		chart_options;
+
+	try {
+		chart_options = $.parseJSON(li.attr('data-chart-options'));
+	} catch (err) {
+		chart_options = false;
+	}
+
+	for (var i = 0; i < data.buckets.length; i++) {
+		var label = ( typeof data.buckets[i].label.buckets[0] == 'undefined' ) ? '' : data.buckets[i].label.buckets[0].key;
+		var value = parseFloat(data.buckets[i]['wartosc_brutto']['value']);
+		value = Math.round(value);
+		
+		pie_chart_data[i] = [
+			label,
+			value
+		];
+
+		pie_chart_keys[i] = data.buckets[i].key;
+	}
+
+	var options = {
+		chart: {
+			backgroundColor: null,
+			plotBackgroundColor: null,
+			plotBorderWidth: null,
+			plotShadow: false,
+			height: 300,
+			events: {
+				load: function () {
+					var chart = this,
+						legend = chart.legend;
+
+					for (var i = 0, len = legend.allItems.length; i < len; i++) {
+						legend.allItems[i].legendItem.on('mouseover', function () {
+							chart.series[0].points[i].onMouseOver();
+						});
+					}
+				}
+			}
+		},
+		title: {
+			text: ''
+		},
+		tooltip: {
+			pointFormat: '<b>{point.y} PLN</b>'
+		},
+		credits: {
+			enabled: false
+		},
+		plotOptions: {
+			pie: {
+				allowPointSelect: false,
+				cursor: 'pointer',
+				dataLabels: {
+					enabled: false
+				},
+				showInLegend: true,
+				point: {
+					events: {
+						legendItemClick: function () {
+							return false;
+						}
+					}
+				}
+			}
+		},
+		series: [{
+			type: 'pie',
+			name: 'Liczba',
+			data: pie_chart_data
+		}]
+	};
+
+	options.legend = {
+		useHTML: true,
+		labelFormatter: function () {
+			var name = this.name;
+			if (name.length > 18) {
+				name = name.substring(0, 15) + '...';
+			}
+			return name;
+		},
+		itemWidth: 150,
+		itemStyle: {
+			'font-weight': 'normal'
+		}
+	};
+	li.find('.chart').highcharts(options);
+}
+
 jQuery(document).ready(function () {
     $('.mp-highstock_browser').each(function () {
         var div = $(this),
@@ -70,8 +172,25 @@ jQuery(document).ready(function () {
                             if (src_div.length) {
                                 target_div.html(src_div.html()).attr('class', src_div.attr('class')).attr('data-chart', src_div.attr('data-chart')).attr('data-counter_field', src_div.attr('data-counter_field'));
 
-                                if (agg_id == 'wykonawcy')
+                                if (agg_id == 'wykonawcy') {
                                     DataBrowsers[0].initAggColumnsHorizontal(target_div);
+                                }
+                                
+                                if (agg_id == 'rodzaje_budzet') {
+                                    rodzaje_budzet(target_div);
+                                }
+                                
+                                if (agg_id == 'rodzaje_wolumen') {
+                                    DataBrowsers[0].initAggPieChart(target_div);
+                                }
+                                
+                                if (agg_id == 'jednostki') {
+                                    DataBrowsers[0].initAggPieChart(target_div);
+                                }
+                                
+                                if (agg_id == 'tryby') {
+                                    DataBrowsers[0].initAggPieChart(target_div);
+                                }
                             }
                         }
                     }

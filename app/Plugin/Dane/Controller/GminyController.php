@@ -3784,62 +3784,78 @@ class GminyController extends DataobjectsController
 
         $this->_prepareView();
         $this->request->params['action'] = 'urzad';
+		
+		if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
 
-
-        $global_aggs = array(
-            'umowy' => array(
-                'filter' => array(
-                    'bool' => array(
-                        'must' => array(
-                            array(
-                                'term' => array(
-                                    'dataset' => 'krakow_umowy',
-                                ),
-                            ),
-                        ),
-                    ),
+            $umowa = $this->Dataobject->find('first', array(
+                'conditions' => array(
+                    'dataset' => 'krakow_contracts',
+                    'id' => $this->request->params['subid'],
                 ),
-                'scope' => 'global',
-                'aggs' => array(
-                    'dni' => array(
-                        'date_histogram' => array(
-                            'field' => 'date',
-                            'interval' => 'day',
-                        ),
-                        'aggs' => array(
-                            'suma' => array(
-                                'sum' => array(
-                                    'field' => 'data.krakow_umowy.wartosc_brutto',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+            ));
+            
+            $this->set('umowa', $umowa);
+            $this->set('title_for_layout', $umowa->getTitle());
+            $this->render('umowa');
 
+        } else {
 
-        $options = array(
-            'searchTitle' => 'Szukaj w umowach...',
-            'conditions' => array(
-                'dataset' => 'krakow_umowy',
-            ),
-            'cover' => array(
-                'view' => array(
-                    'plugin' => 'Dane',
-                    'element' => 'gminy/umowy-cover',
-                ),
-                'aggs' => $global_aggs,
-            ),
-
-        );
-
-        $this->Components->load('Dane.DataBrowser', $options);
-
-        $this->set('title_for_layout', 'Umowy zawierane przez Urząd Miasta Kraków');
-        $this->set('_submenu', array_merge($this->submenus['urzad'], array(
-            'selected' => 'umowy',
-        )));
+	        $global_aggs = array(
+	            'umowy' => array(
+	                'filter' => array(
+	                    'bool' => array(
+	                        'must' => array(
+	                            array(
+	                                'term' => array(
+	                                    'dataset' => 'krakow_contracts',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	                'scope' => 'global',
+	                'aggs' => array(
+	                    'dni' => array(
+	                        'date_histogram' => array(
+	                            'field' => 'date',
+	                            'interval' => 'day',
+	                        ),
+	                        'aggs' => array(
+	                            'suma' => array(
+	                                'sum' => array(
+	                                    'field' => 'data.krakow_contracts.kwota',
+	                                ),
+	                            ),
+	                        ),
+	                    ),
+	                ),
+	            ),
+	        );
+	
+	
+	        $options = array(
+	            'searchTitle' => 'Szukaj w umowach...',
+	            'conditions' => array(
+	                'dataset' => 'krakow_contracts',
+	            ),
+	            'cover' => array(
+	                'view' => array(
+	                    'plugin' => 'Dane',
+	                    'element' => 'gminy/umowy-cover',
+	                ),
+	                'aggs' => $global_aggs,
+	            ),
+	
+	        );
+	
+	        $this->Components->load('Dane.DataBrowser', $options);
+	
+	        $this->set('title_for_layout', 'Umowy zawierane przez Urząd Miasta Kraków');
+	        $this->set('_submenu', array_merge($this->submenus['urzad'], array(
+	            'selected' => 'umowy',
+	        )));
+        
+        }
 
     }
 
