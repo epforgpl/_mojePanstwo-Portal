@@ -3845,6 +3845,8 @@ class GminyController extends DataobjectsController
 	                ),
 	                'aggs' => $global_aggs,
 	            ),
+	            'searchTitle' => 'Szukaj w umowach...',
+                'browserTitle' => 'Umowy zawierane przez Urząd Miasta Kraków',
 	
 	        );
 	
