@@ -1006,6 +1006,13 @@ class MediaController extends ApplicationsController
 		    'icon' => 'icon-datasets-twitter',
 	    );
 	    
+	    $items[] = array(
+		    'id' => 'dane_osobowe',
+			'label' => 'Dane osobowe',
+			'href' => '/media/dane_osobowe',
+			'icon' => 'icon-datasets-sprawozdania_opp'
+	    );
+	    
 	    
 	    
 	    
@@ -1042,6 +1049,12 @@ class MediaController extends ApplicationsController
 	        ),
         ));
 	    
+    }
+    
+    public function dane_osobowe()
+    {
+        $this->set('title_for_layout', 'Informacja o ochronie danych osobowych');
+        $this->render('Pages/personal_data');
     }
     
 }

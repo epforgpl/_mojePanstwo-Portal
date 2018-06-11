@@ -502,7 +502,7 @@ class AppController extends Controller
         'kultura' => array(
             'name_pol' => 'Kultura',
             'subname_pol' => 'Badanie postrzegania kultury w Polsce',
-            'desc_pol' => 'Poznaj dane o jakości powietrza w Polsce. Sprawdzaj indeks jakości powietrza i stężenia niebezpiecznych gazów w atmosferze.',
+            'desc_pol' => 'Sprawdź jak Polacy postrzegają kulturę. Jak często chodzą to kina, do teatru, ile książek czytają, jak często korzystają z Internetu?',
             'name_eng' => 'CULTURE',
             'subname_eng' => 'LEARN ABOUT CULTURE CONSUMPTION ',
             'desc_eng' => 'Check culture consumption in Poland: how often people go to the cinema and the theatre, how many books they read, and how often they use the Internet.',
@@ -578,6 +578,7 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe602;',
         ),
+        /*
         'zamowienia_publiczne' => array(
             'name_pol' => 'Zamówienia publiczne',
             'subname_pol' => 'Kontroluj wydawanie publicznych pieniędzy i sprawdzaj do kogo trafiają',
@@ -611,6 +612,7 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe900;',
         ),
+        */
         'api' => array(
             'name_pol' => 'API',
             'name_eng' => 'API',
@@ -684,6 +686,7 @@ class AppController extends Controller
             'tag' => 3,
             'icon' => '&#xe60b;',
         ),
+        /*
         'orzecznictwo' => array(
             'name_pol' => 'Orzecznictwo',
             'subname_pol' => 'Przeglądaj potężną bazę wyroków sądów',
@@ -695,6 +698,7 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe617;',
         ),
+        */
         'sejmometr' => array(
             'name_pol' => 'Sejmometr',
             'subname_pol' => 'Monitoruj pracę i działania Sejmu',

@@ -106,6 +106,12 @@ class KtoTuRzadziController extends ApplicationsController
 				'label' => 'Województwa',
 				'icon' => 'dot',
 			),
+			array(
+				'id' => 'dane_osobowe',
+				'label' => 'Dane osobowe',
+				'href' => '/prawo/dane_osobowe',
+				'icon' => 'icon-datasets-sprawozdania_opp'
+			),
 		);
 
         $output = array(

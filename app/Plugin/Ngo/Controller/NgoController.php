@@ -86,6 +86,12 @@ class NgoController extends ApplicationsController
 			'icon' => 'dot',
 			'href' => '/ngo/pozostale',
 		),
+		'dane_osobowe' => array(
+			'id' => 'dane_osobowe',
+			'label' => 'Dane osobowe',
+			'href' => '/ngo/dane_osobowe',
+			'icon' => 'icon-datasets-sprawozdania_opp'
+		),
 	);
 
     public $_aggs = array(
@@ -1647,5 +1653,11 @@ class NgoController extends ApplicationsController
         $this->set('title_for_layout', 'Zbiórka publiczna - Formularz');
         $this->set('edit', false);
         $this->set('data', $this->data);
+    }
+    
+    public function dane_osobowe()
+    {
+        $this->set('title_for_layout', 'Informacja o ochronie danych osobowych');
+        $this->render('Pages/personal_data');
     }
 }

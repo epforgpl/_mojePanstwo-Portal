@@ -50,6 +50,12 @@ class PrawoController extends ApplicationsController
 			'icon' => 'icon-datasets-prawo',
 			'href' => '/prawo/urzedowe',
 		),
+		'dane_osobowe' => array(
+			'id' => 'dane_osobowe',
+			'label' => 'Dane osobowe',
+			'href' => '/prawo/dane_osobowe',
+			'icon' => 'icon-datasets-sprawozdania_opp'
+		),
 	);
 	
 	public $_aggs = array(
@@ -342,6 +348,12 @@ class PrawoController extends ApplicationsController
     
     public function powszechne() {
         return $this->redirect('/prawo/dziennik_ustaw');
+    }
+    
+    public function dane_osobowe()
+    {
+        $this->set('title_for_layout', 'Informacja o ochronie danych osobowych');
+        $this->render('Pages/personal_data');
     }
 	
 } 

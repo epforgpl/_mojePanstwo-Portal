@@ -13,6 +13,7 @@ Router::connect('/media/:id', array('plugin' => 'Media', 'controller' => 'Media'
 	'id' => 'politycy|ngo|komentatorzy|urzedy|miasta|media|partie'
 ));
 Router::connect('/media/usuniete', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'usuniete',));
+Router::connect('/media/dane_osobowe', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'dane_osobowe',));
 Router::connect('/media/:id', array('plugin' => 'Media', 'controller' => 'Media', 'action' => 'action',));
 
 /*
