@@ -73,9 +73,11 @@ echo $this->Element('Dane.dataobject/subobject', array(
                     <? if($umowa->getData('kontrahent')) {?>
                     <li class="dataHighlight">
                         <p class="_label">Kontrahent</p>
-                        <p class="_value"><?= $umowa->getData('kontrahent') ?></p>
+                        <p class="_value"><?= $umowa->getData('kontrahent') ?><? if($umowa->getData('nip')) {?><br/>NIP: <?= $umowa->getData('nip') ?><? } ?></p>
                     </li>
                     <? } ?>
+                    
+                   
                     
                     <? if($umowa->getData('kwota_netto')) {?>
                     <li class="dataHighlight">
