@@ -659,12 +659,15 @@ $description =
                     $column_width = 6;
                 }
 
-                foreach ($organy as $organ) { 
-	                
+                foreach ($organy as $organ) {
+	                	                
 	                if( !$organ['title'] ) {
 		                
-		                if( $organ['idTag']=='reprezentacja' );
+		                if( $organ['idTag']=='reprezentacja' ) {
 		                	$organ['title'] = 'Organ reprezentacji';
+		                } elseif( $organ['idTag']=='nadzor' ) {
+		                	$organ['title'] = 'Organ nadzoru';
+		                }
 		                
 	                }
 	                
