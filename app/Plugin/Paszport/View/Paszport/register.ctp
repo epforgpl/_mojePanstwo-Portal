@@ -12,7 +12,7 @@ $this->Combinator->add_libs('js', 'Paszport.paszport-register.js');
                 <div class="modal-header">
                     <h4 class="modal-title"><?php echo __d('paszport', 'LC_PASZPORT_FOOTER_REGISTER'); ?></h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="margin-bottom: 0;">
                     <?php echo $this->Form->create('User', array(
                         'id' => 'UserRegisterForm',
                         'url' => $this->Html->url(array(
@@ -23,9 +23,7 @@ $this->Combinator->add_libs('js', 'Paszport.paszport-register.js');
                         ))
                     )); ?>
 
-                    <div class="slide or col-xs-12">
-                        <?php echo __d('paszport', 'LC_PASZPORT_MODAL_REGISTER_VIA_EMAIL') ?>
-                    </div>
+                    
 
                     <div class="slide inputForm col-xs-12 hide">
                         <div class="control-group">
@@ -120,40 +118,6 @@ $this->Combinator->add_libs('js', 'Paszport.paszport-register.js');
                         )); ?>
                     </div>
 
-                    <div class="slide inputForm sendForm checkbox col-xs-12 padding-bottom-5">
-                        <?php echo $this->Form->checkbox('is_ngo'); ?>
-                        <label for="UserIsNgo">Działam w organizacji pozarządowej i potrzebuję narzędzi, które pomogą mi
-                            w spełnianiu moich zamiarów.</label>
-                    </div>
-
-                    <div class="slide inputForm col-xs-12 selectOrganization" style="display: none;">
-                        <div class="form-group">
-                            <label for="organizationNameInput">Organizacja</label>
-                            <div class="suggesterBlockPisma">
-                                <?= $this->element('Start.letters-searcher', array('q' => '', 'notRequired' => true, 'dataset' => 'krs_podmioty', 'placeholder' => 'Zacznij pisać aby znaleźć organizacje...')) ?>
-                            </div>
-                            <input type="hidden" name="krs_pozycje_nazwa" value=""/>
-                            <input type="hidden" name="organization_object_id" value="0"/>
-                        </div>
-
-                        <div class="form-group margin-top-10">
-                            <label for="organizationFirstNameInput">Imię</label>
-                            <input type="text" name="organization_firstname" class="form-control" id="organizationFirstNameInput" placeholder="Imię">
-                        </div>
-                        <div class="form-group">
-                            <label for="organizationLastNameInput">Nazwisko</label>
-                            <input type="text" name="organization_lastname" class="form-control" id="organizationLastNameInput" placeholder="Nazwisko">
-                        </div>
-                        <div class="form-group">
-                            <label for="organizationFunctionInput">Funkcja</label>
-                            <input type="text" name="organization_function" class="form-control" id="organizationFunctionInput" placeholder="Funkcja">
-                        </div>
-                        <div class="form-group">
-                            <label for="organizationPhoneNumberInput">Telefon</label>
-                            <input type="text" name="organization_phone_number" class="form-control" id="organizationPhoneNumberInput" placeholder="Telefon">
-                        </div>
-                    </div>
-
                     <div class="slide inputForm sendForm col-xs-12">
                         <?php echo $this->Form->submit(__d('paszport', 'LC_PASZPORT_REGISTER_BUTTON'), array('class' => 'btn btn-primary sendForm')); ?>
                     </div>
@@ -170,10 +134,39 @@ $this->Combinator->add_libs('js', 'Paszport.paszport-register.js');
                                 'action' => 'fblogin'
                             ), array('class' => 'btn btn-social btn-facebook btn-md', 'escape' => false)); ?>
                         </div>
-
-                        <p class="help-block small margin-top-20">
-                            Administratorem danych osobowych użytkowników  jest Fundacja ePaństwo zarejestrowana pod numerem KRS 0000359730 Regon: 142445947, NIP: 1231216692. Dane osobowe będą przetwarzane  w celu korzystania z usług świadczonych w ramach portalu mojepanstwo.pl oraz przesyłania informacji związanych z portalem. Użytkownikom przysługuje prawo dostępu do treści dotyczących ich danych i ich poprawiania. Podanie danych osobowych jest dobrowolne jednak niezbędne do korzystania z usług administratora.
-                        </p>
+                    </div>
+                    
+                    <div class="col-xs-12" style="border-top: 3px solid #ECEEEF; margin-top: 15px;">
+                        <div class="help-block margin-top-20" id="law_confirmation">
+	                        <div id="law_confirmation_checkbox_wrapper">
+		                        <input type="checkbox" name="law_confirmed" value="1" id="law_confirmation_checkbox" />
+	                        </div>
+	                        <label for="law_confirmation_checkbox">Potwierdzam, że zapoznałam(em) się z treścią <a href="/regulamin" target="_blank">Regulaminu</a>, w tym <a href="/polityka-prywatnosci" target="_blank">Polityką Prywatności</a> i akceptuję jego postanowienia.</label>
+                        </div>                        
+                        
+                        <div class="" id="registration_law_intro">
+							<p>Administratorem Twoich danych osobowych jest Fundacja ePaństwo z siedzibą w Zgorzale przy ul. Pliszki 2B/1 05-500 Mysiadło.
+Twoje dane osobowe będą przetwarzane w celu rejestracji i obsługi konta użytkownika w serwisie mojepanstwo.pl, a także w celach statystycznych i analitycznych administratora.<br/>
+<a id="registration_law_link_more" href="#">Więcej informacji na temat przetwarzania danych osobowych</a>.</p>	                        
+                        </div>
+                        
+                        <div id="registration_law" style="display: none;">
+	                        <ol type="1">
+		                        <li>Administratorem Twoich danych osobowych jest Fundacja ePaństwo z siedzibą w Zgorzale przy ul. Pliszki 2B/1 05-500 Mysiadło („Fundacja”).</li>
+		                        <li>Kontakt z Fundacją jest możliwy poprzez adres e-mail: biuro@epf.org.pl lub pisemnie na adres: Nowogrodzka 25/37, 00-511 Warszawa.</li>
+		                        <li>Twoje dane osobowe podane podczas rejestracji konta będą przetwarzane:
+		                        	<ol type="a">
+			                        	<li>w celu obsługi konta oraz świadczenia usług dostępnych w serwisie mojepanstwo.pl na zasadach opisanych w regulaminie serwisu – podstawą prawną jest niezbędność przetwarzania do wykonania umowy, której jesteś stroną (art. 6 ust. 1 lit b ogólnego rozporządzenia o ochronie danych osobowych nr 2016/679 (“Rozporządzenie 2016/679”);</li>
+			                        	<li>w celu ustalenia lub dochodzenia ewentualnych roszczeń lub obrony przed takimi roszczeniami przez Fundację – podstawą prawną przetwarzania danych jest prawnie uzasadniony interes Fundacji (art. 6 ust. 1 lit f Rozporządzenia 2016/679), prawnie uzasadnionym interesem Fundacji jest umożliwienie ustalenia, dochodzenia lub obrony przed roszczeniami.</li>
+		                        	</ol>
+		                        </li>
+			                    <li>Twoje dane osobowe mogą być przekazywane podmiotom świadczącym usługi na rzecz Fundacji, takim jak dostawcy systemów informatycznych i usług IT.</li>
+			                    <li>Twoje dane osobowe będą przetwarzane przez okres świadczenia usług, do czasu usunięcia konta w serwisie mojepanstwo.pl. Okres przetwarzania może zostać każdorazowo przedłużony o okres przedawnienia roszczeń, jeżeli przetwarzanie Twoich danych osobowych będzie niezbędne dla ustalenia lub dochodzenia ewentualnych roszczeń lub obrony przed takimi roszczeniami przez Fundację.</li>
+			                    <li>Przysługuje Ci prawo dostępu do Twoich danych oraz prawo żądania ich sprostowania, ich usunięcia lub ograniczenia ich przetwarzania, prawo sprzeciwu względem przetwarzania danych, prawo do przenoszenia danych oraz prawo wniesienia skargi do organu nadzorczego zajmującego się ochroną danych osobowych w państwie członkowskim Twojego zwykłego pobytu, miejsca pracy lub miejsca popełnienia domniemanego naruszenia.</li>
+			                    <li>Podanie danych jest wymagane przez Fundację. Brak podania danych w zakresie wymaganym w formularzu uniemożliwi dokonanie rejestracji konta w serwisie.</li>
+	                        </ol>
+                        </div>
+                        
                     </div>
                     <?php echo $this->Form->end(); ?>
                 </div>

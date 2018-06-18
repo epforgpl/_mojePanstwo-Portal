@@ -1,9 +1,9 @@
 <?php
 
 Router::connect('/login', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'login'));
+Router::connect('/register', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'register'));
 Router::connect('/paszport', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'profile'));
 Router::connect('/logout', array('plugin' => 'paszport', 'controller' => 'users', 'action' => 'logout'));
-// Router::connect('/register', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'register'));
 Router::connect('/forgot', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'forgot'));
 
 Router::connect('/paszport/klucze', array('plugin' => 'paszport', 'controller' => 'paszport', 'action' => 'keys'));

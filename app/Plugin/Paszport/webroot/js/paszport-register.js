@@ -1,4 +1,3 @@
-
 var $P = {
     objects: {
         adresaci: {}
@@ -6,26 +5,15 @@ var $P = {
 };
 
 $(document).ready(function() {
-
-    var $checkboxIsNGO = $('#UserIsNgo'),
-        $selectOrganizationForm = $('.inputForm.selectOrganization').first(),
-        $form = $('#UserRegisterForm'),
-        $inputKrsName = $('input[name=krs_pozycje_nazwa]').first(),
-        $inputObjectId = $('input[name=organization_object_id]').first();
-
-    $checkboxIsNGO.click(function() {
-        if($(this).is(':checked') === true) {
-            $selectOrganizationForm.slideDown('slow', function() {});
-        } else {
-            $selectOrganizationForm.slideUp('slow', function() {});
-        }
+	$('#registration_law_link_more').click(function(event){
+		event.preventDefault();
+		$('#registration_law').slideToggle();
+	});
+    
+    $('#UserRegisterForm').submit(function(event){
+	    if( !$('#law_confirmation_checkbox').prop('checked') ) {
+		    alert('Aby dokończyć rejestrację potwierdź zapoznanie się z treścią regulaminu');
+		    event.preventDefault();
+	    }	    
     });
-
-    $form.submit(function() {
-        if(typeof $P.objects.adresaci.object_id != 'undefined') {
-            $inputKrsName.val($P.objects.adresaci.title);
-            $inputObjectId.val($P.objects.adresaci.object_id);
-        }
-    });
-
 });
