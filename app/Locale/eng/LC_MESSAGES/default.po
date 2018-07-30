@@ -152,7 +152,7 @@ msgid "LC_ABOUT_US_CONTACT_H2"
 msgstr "Contact us:"
 
 msgid "LC_ABOUT_US_CONTACT_SECTION"
-msgstr "E-mail: <a href=\"mailto:biuro@epf.org.pl\">biuro@epf.org.pl<\/a><br\/>Telephone: <a href=\"skype:0048224074204\">00 48 (22) 40 74 204<\/a>"
+msgstr "E-mail: <a href=\"mailto:biuro@epf.org.pl\">biuro@epf.org.pl<\/a>"
 
 msgid "LC_ABOUT_US_PORTAL_H2"
 msgstr "About the portal:"
