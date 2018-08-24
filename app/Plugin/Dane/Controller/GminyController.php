@@ -2942,6 +2942,7 @@ class GminyController extends DataobjectsController
             switch ($subaction) {
                 case 'view': {
                     $global_aggs = array(
+                        /*
                         'wystapienia' => array(
                             'filter' => array(
                                 'bool' => array(
@@ -2973,6 +2974,7 @@ class GminyController extends DataobjectsController
                             ),
                             'scope' => 'global'
                         ),
+                        */
                         /*
                         'oswiadczenia' => array(
                             'filter' => array(
@@ -3095,6 +3097,7 @@ class GminyController extends DataobjectsController
                             ),
                             'scope' => 'global'
                         ),
+                        /*
                         'glosowania' => array(
                             'filter' => array(
                                 'bool' => array(
@@ -3128,6 +3131,7 @@ class GminyController extends DataobjectsController
                             ),
                             'scope' => 'global'
                         ),
+                        */
                         'oswiadczenia' => array(
                             'filter' => array(
                                 'bool' => array(
