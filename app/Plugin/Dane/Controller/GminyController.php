@@ -57,10 +57,12 @@ class GminyController extends DataobjectsController
                     'id' => 'okregi',
                     'label' => 'Okręgi wyborcze',
                 ),
+                /*
                 array(
                     'id' => 'aktywnosci',
                     'label' => 'Aktywność radnych',
                 ),
+                */
             ),
         ),
         'urzad' => array(
@@ -5399,6 +5401,7 @@ class GminyController extends DataobjectsController
         )));
     }
 
+	/*
     public function aktywnosci() {
         $this->request->params['action'] = 'rada';
         $this->_prepareView();
@@ -5424,6 +5427,7 @@ class GminyController extends DataobjectsController
 
         $this->set('title_for_layout', 'Ranking aktywności Rady Miasta Kraków');
     }
+    */
 
     public function glosuj() {
         $this->_prepareView();
