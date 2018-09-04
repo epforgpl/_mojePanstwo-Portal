@@ -24,7 +24,13 @@ $this->Combinator->add_libs('js', 'Start.homepage.js');
         </div>
 
     </div>
-
+	
+	<div class="alert alert-registry text-center mt-4">
+		<h3 class="alert-heading">Szukasz danych z Krajowego Rejestru Sądowego?</h3>
+        <p>Przenieśliśmy je na nasz nowy portal <a href="https://rejestr.io">Rejestr.io</a></p>
+        <p><a href="https://rejestr.io"><img src="http://registry.local/img/logo.svg" /></a></p>
+        <p><a href="https://rejestr.io">Przejdź do portalu Rejestr.io &raquo;</a></p>
+	</div>
 
     <div class="appContent row">
         <div class="appsList">

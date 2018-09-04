@@ -2886,6 +2886,10 @@ class GminyController extends DataobjectsController
                         'label' => 'Dane',
                     ),
                     array(
+                        'label' => 'Dyżury',
+                        'id' => 'dyzury',
+                    ),
+                    array(
                         'label' => 'Wystąpienia',
                         'id' => 'wystapienia',
                     ),

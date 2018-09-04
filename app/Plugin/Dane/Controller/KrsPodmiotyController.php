@@ -100,7 +100,6 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function view()
     {
-				
         $this->addInitLayers(array(
             'channels',
             'subscription',
@@ -286,7 +285,9 @@ class KrsPodmiotyController extends DataobjectsController
 
     public function _prepareView($params = array())
     {
-        
+	    $url = 'https://rejestr.io/krs/' . $this->request->params['id'];
+	    return $this->redirect($url);
+	    
         $aggs = array(
 	        'ogloszenia' => array(
                 'filter' => array(

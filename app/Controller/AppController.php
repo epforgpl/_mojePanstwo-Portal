@@ -105,6 +105,7 @@ class AppController extends Controller
         ),
     );
     public $datasets = array(
+	    /*
         'krs' => array(
             'krs_podmioty' => array(
                 'label' => 'Organizacje',
@@ -131,6 +132,7 @@ class AppController extends Controller
                 'id' => 223,
             ),
         ),
+        */
         'srodowisko' => array(
             'srodowisko_stacje_pomiarowe' => array(
                 'label' => 'Stacje pomiarowe',
@@ -454,6 +456,7 @@ class AppController extends Controller
         ),
     );
     public $applications = array(
+	    /*
         'krs' => array(
             'name_pol' => 'Krajowy Rejestr Sądowy',
             'subname_pol' => 'Przeglądaj firmy i organizacje pozarządowe zarejestrowane w KRS',
@@ -465,6 +468,7 @@ class AppController extends Controller
             'tag' => 1,
             'icon' => '&#xe605;',
         ),
+        */
         'ngo' => array(
             'name_pol' => 'NGO',
             'subname_pol' => 'Znajdź oraz zarządzaj kontem swojej organizacji i docieraj do wspierających',

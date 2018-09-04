@@ -56,7 +56,7 @@ class Krs_podmioty extends DataObject
 
         if( !empty($this->data) )
 	        foreach( $this->data as $key => &$val )
-		        if( !trim(str_replace('-', '', $val)) )
+		        if( @!trim(str_replace('-', '', $val)) )
 		        	$val = false;
 
     }

@@ -136,7 +136,7 @@ class KrsController extends ApplicationsController
                 'dataset' => 'krs_podmioty,krs_osoby',
             ),
             'conditions' => array(
-                'dataset' => array_keys($datasets)
+                'dataset' => @array_keys($datasets)
             ),
             'cover' => array(
                 'cache' => true,
@@ -267,7 +267,7 @@ class KrsController extends ApplicationsController
     
     public function msig()
     {
-	    
+	    return $this->redirect('/krs');
 	    if( isset($this->request->query['search_by_date']) ) {
 		    
 		    if( $this->request->query['y'] ) {
@@ -395,6 +395,7 @@ class KrsController extends ApplicationsController
     
     public function msig_wydania()
     {
+	    return $this->redirect('/krs');
 		$this->loadDatasetBrowser('msig', array(
 			'browserTitle' => 'Wydania Monitora Sądowego i Gospodarczego',
 			'menu' => array(
@@ -406,8 +407,12 @@ class KrsController extends ApplicationsController
     
     public function dane_osobowe()
     {
-	    
-	    
+	    return $this->redirect('/krs');
+    }
+    
+    public function action()
+    {
+	    return $this->redirect('/krs');
     }
 
 } 

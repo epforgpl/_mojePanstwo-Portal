@@ -200,6 +200,11 @@ class PaszportController extends ApplicationsController
         }
     }
 
+	public function beforeFilter()
+	{
+		return $this->redirect('/');
+	}
+	
     public function login()
     {
         $this->setLayout(array(

@@ -79,6 +79,7 @@ class PaszportAppController extends AppController
 
     public function beforeFilter()
     {
+	    return $this->redirect('/');
         parent::beforeFilter();
 
         $this->Auth->deny(); // default is to deny all

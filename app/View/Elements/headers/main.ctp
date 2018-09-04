@@ -127,6 +127,7 @@
             </a>
         </div>
         <? } ?>
+        <?php /*
         <ul class="user-icons pull-right">
             <li class="login<?php if ($this->Session->read('Auth.User.id')) {
                 echo ' logged';
@@ -175,5 +176,6 @@
                 <?php } ?>
             </li>
         </ul>
+        */ ?>
     </div>
 </div>

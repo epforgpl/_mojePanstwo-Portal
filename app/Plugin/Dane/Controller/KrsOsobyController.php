@@ -28,6 +28,9 @@ class KrsOsobyController extends DataobjectsController
 
     public function view()
     {
+	    $url = 'https://rejestr.io/krs/osoby/' . $this->request->params['id'];
+	    return $this->redirect($url);
+	    
         parent::view();
         $powiazania = $this->object->getLayer('powiazania');
 		
