@@ -70,6 +70,13 @@ echo $this->Element('Dane.dataobject/subobject', array(
                     </li>
                     <? } ?>
                     
+                    <? if($umowa->getData('data_wprowadzenia')) {?>
+                    <li class="dataHighlight">
+                        <p class="_label">Data wprowadzenia</p>
+                        <p class="_value"><?= dataSlownie($umowa->getData('data_wprowadzenia')) ?></p>
+                    </li>
+                    <? } ?>
+                    
                     <? if($umowa->getData('kontrahent')) {?>
                     <li class="dataHighlight">
                         <p class="_label">Kontrahent</p>
@@ -92,7 +99,14 @@ echo $this->Element('Dane.dataobject/subobject', array(
                         <p class="_value"><?= _currency($umowa->getData('kwota_uzupelnienia')) ?></p>
                     </li>
                     <? } ?>
-                                        
+                    
+                    <? if($umowa->getData('przypisy')) {?>
+                    <li class="dataHighlight">
+                        <p class="_label">Przypisy</p>
+                        <p class="_value"><?= _currency($umowa->getData('do_realizacji')) ?></p>
+                    </li>
+                    <? } ?>
+
                     <? if($umowa->getData('jednostka_realizująca_rozwiniecie')) {?>
                     <li class="dataHighlight">
                         <p class="_label">Jednostka realizująca</p>

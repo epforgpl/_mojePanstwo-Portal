@@ -34,8 +34,11 @@ class Krakow_contracts extends DocDataObject
 		if( $this->getData('kontrahent') )
 			$output[] = $this->getData('kontrahent');
 			
-		if( $this->getData('data_zawarcia') )
+		if( $this->getData('data_zawarcia') ) {
 			$output[] = dataSlownie($this->getData('data_zawarcia'));
+		} elseif ($this->getData('data_wprowadzenia')) {
+			$output[] = dataSlownie($this->getData('data_wprowadzenia'));
+		}
 									
 		return $output;
 		
