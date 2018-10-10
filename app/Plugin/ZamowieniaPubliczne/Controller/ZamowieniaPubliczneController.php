@@ -192,7 +192,7 @@ class ZamowieniaPubliczneController extends ApplicationsController
 		    'method' => 'GET',
 		    'data' => $this->request->query,
 	    ));
-	    	    
+	    	    	    	    
 	    $this->set('data', $data);
 	    
 	    if( @$this->request->params['ext']=='html' ) {

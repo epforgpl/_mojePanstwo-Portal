@@ -104,14 +104,15 @@ class DataobjectHelper extends AppHelper
 		            	if( !empty($d) )
 			            	foreach( $d as $dk => $dv )
 			            		$data[ $k . '.' . $dk ] = $dv;
-	            									
+	            	            	
 	            $object = array(
 	                'dataset' => $object['fields']['dataset'][0],
 	                'global_id' => $object['_id'],
-	                'id' => $object['fields']['id'][0],
+	                'id' => @isset($object['_source']['id']) ? $object['_source']['id'] : $object['fields']['id'][0],
 	                'data' => $data,
 	                'static' => isset($object['_source']['static']) ? $object['_source']['static'] : false,
 	                'slug' => isset($object['_source']['slug']) ? $object['_source']['slug'] : false,
+	                'inner_hits' => @isset($object['inner_hits']) ? $object['inner_hits'] : null,
 	            );
             
             }

@@ -1,23 +1,23 @@
-<? if (@$data['aggregations']['stats']) { ?>
+<? if (@$data['aggregations']['announcements']['range']['stats']) { ?>
 	<div class="agg stats" data-agg_id="stats">
-		<? if( $data['aggregations']['stats']['count'] || $data['aggregations']['stats']['sum'] ) {?>
+		<? if( $data['aggregations']['announcements']['range']['stats']['count'] || $data['aggregations']['announcements']['range']['stats']['sum'] ) {?>
 		<div class="row">
 			<div class="col-md-12">
-				<p><?= pl_dopelniacz($data['aggregations']['stats']['count'], 'zamówienie', 'zamówienia', 'zamówień') ?>, na sumę <strong><?= number_format_h($data['aggregations']['stats']['sum']) ?> PLN</strong></p>
+				<p><?= pl_dopelniacz($data['aggregations']['announcements']['range']['stats']['count'], 'rozstrzygnięcie', 'rozstrzygnięcia', 'rozstrzygnięć') ?>, na sumę <strong><?= number_format_h($data['aggregations']['announcements']['range']['stats']['sum']) ?> PLN</strong></p>
 			</div>
 		</div>
 		<? } ?>
 	</div>
 <? } ?>
 
-<? if (@$data['aggregations']['dokumenty']) { ?>
+<? if (@$data['hits']['hits']) { ?>
 	<div class="agg agg-Dataobjects dokumenty" data-agg_id="dokumenty">
-	    <? if (@$data['aggregations']['dokumenty']['hits']['hits']) { ?>
+	    <? if (@$data['hits']['hits']) { ?>
 	        <ul class="dataobjects">
-	            <? foreach ($data['aggregations']['dokumenty']['hits']['hits'] as $doc) {?>
+	            <? foreach ($data['hits']['hits'] as $doc) {?>
 	                <li>
 	                    <?
-	                      echo $this->Dataobject->render($doc, 'zamowienia_publiczne_dokumenty');
+	                      echo $this->Dataobject->render($doc);
 	                    ?>
 	                </li>
 	            <? } ?>
@@ -26,10 +26,10 @@
 	</div>
 <? } ?>
 
-<? if (@$data['aggregations']['wykonawcy']['wykonawca']['buckets']) {
+<? if (@$data['aggregations']['announcements']['range']['contractors']['ranking']['buckets']) {
 	echo $this->element('Dane.DataBrowser/zamowienia_publiczne-wykonawcy', array(
         'id' => 'wykonawcy',
-        'data' => $data['aggregations']['wykonawcy']['wykonawca'],
+        'data' => $data['aggregations']['announcements']['range']['contractors']['ranking'],
         'map' => array(
             'chooseRequest' => '#',
             'field' => 'wykonawca_id',

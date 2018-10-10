@@ -6,24 +6,7 @@ $this->Combinator->add_libs('js', 'Dane.zamowienia_publiczne');
 
 $output = array();
 foreach ($histogram as $b) {
-
-    if (
-        isset($b['wykonawcy']['waluty']) &&
-        isset($b['wykonawcy']['waluty']['buckets']) &&
-        !empty($b['wykonawcy']['waluty']['buckets'])
-    ) {
-
-        $waluty = array();
-        foreach (@$b['wykonawcy']['waluty']['buckets'] as $w)
-            $waluty[$w['key']] = $w['suma']['value'];
-
-        if (isset($waluty['PLN']))
-            $output[] = array(
-                $b['key'], $waluty['PLN'],
-            );
-
-    }
-
+	$output[] = array($b['key'], $b['total_value']['value']);
 }
 
 if (!isset($mode))
@@ -51,7 +34,7 @@ if (!isset($mode))
                             <header>Największe zamówienia:</header>
                             <section class="margin-sides-10">
                                 <div class="agg"
-                                     data-agg_id="dokumenty" <?= printf('data-agg_params="%s"', htmlspecialchars(json_encode($aggs['dokumenty']), ENT_QUOTES, 'UTF-8')) ?>></div>
+                                     data-agg_id="dokumenty" <? if(isset($aggs['dokumenty'])) { printf('data-agg_params="%s"', htmlspecialchars(json_encode($aggs['dokumenty']), ENT_QUOTES, 'UTF-8')); } ?>></div>
                                 
                             </section>
                             <? if( isset($more) ) {?>
@@ -67,7 +50,7 @@ if (!isset($mode))
                     </div>
                     <div class="col-md-4 margin-top-15">
 
-                        <div class="block block-size-sm block-simple col-xs-12">
+                        <div class="block block-size-sm block-simple col-xs-12 block-contractors">
                             <header>Największe zamówienia otrzymali:</header>
                             <section>
                                 <div class="agg"

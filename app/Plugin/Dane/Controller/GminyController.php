@@ -3877,69 +3877,71 @@ class GminyController extends DataobjectsController
         $this->_prepareView();
 
         $global_aggs = array(
-            'zamowienia_publiczne_dokumenty' => array(
+            'procurements' => array(
                 'filter' => array(
                     'bool' => array(
                         'must' => array(
                             array(
                                 'term' => array(
-                                    'dataset' => 'zamowienia_publiczne_dokumenty',
+                                    'dataset' => 'procurements',
                                 ),
                             ),
                             array(
                                 'term' => array(
-                                    'data.zamowienia_publiczne_dokumenty.typ_id' => '3',
-                                ),
-                            ),
-                            array(
-                                'term' => array(
-                                    'data.zamowienia_publiczne_dokumenty.gmina_id' => $this->request->params['id'],
-                                ),
-                            ),
-                            array(
-                                'range' => array(
-                                    'date' => array(
-                                        'gt' => 'now-1y'
-                                    ),
+                                    'data.procurements_purchasers.gmina_id' => $this->request->params['id'],
                                 ),
                             ),
                         ),
                     ),
                 ),
                 'aggs' => array(
-                    'dni' => array(
-                        'date_histogram' => array(
-                            'field' => 'date',
-                            'interval' => 'day',
-                        ),
-                        'aggs' => array(
-                            'wykonawcy' => array(
-                                'nested' => array(
-                                    'path' => 'zamowienia_publiczne-wykonawcy',
-                                ),
-                                'aggs' => array(
-                                    'waluty' => array(
-                                        'terms' => array(
-                                            'field' => 'zamowienia_publiczne-wykonawcy.waluta',
-                                        ),
-                                        'aggs' => array(
-                                            'suma' => array(
-                                                'sum' => array(
-                                                    'field' => 'zamowienia_publiczne-wykonawcy.cena',
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
+	                'announcements' => array(
+		                'nested' => array(
+			                'path' => 'procurements-announcements',
+			            ),
+			            'aggs' => array(
+				            'pln' => array(
+					            'filter' => array(
+						            'bool' => array(
+							            'must' => array(
+								            array(
+									            'terms' => array(
+										            'procurements-announcements.cena_waluta' => array('pln', 'PLN', 'zł', 'ZŁ'), 
+									            ),
+								            ),
+								            array(
+									            'range' => array(
+				                                    'procurements-announcements.data_udzielenia_zamowienia' => array(
+				                                        'gt' => 'now-3M'
+				                                    ),
+				                                ),
+								            ),
+							            ),
+						            ),
+					            ),
+					            'aggs' => array(
+						            'histogram' => array(
+				                        'date_histogram' => array(
+				                            'field' => 'procurements-announcements.data_udzielenia_zamowienia',
+				                            'interval' => 'day',
+				                        ),
+				                        'aggs' => array(
+					                        'total_value' => array(
+						                        'sum' => array(
+							                        'field' => 'procurements-announcements.wartosc_umowy',
+						                        ),
+					                        ),
+				                        ),
+				                    ),
+					            ),
+				            ),
+		                ),
+	                ),
                 ),
                 'scope' => 'global'
             ),
         );
-
-
+		
         $options = array(
             'searchTitle' => 'Szukaj w zamówieniach publicznych...',
             'conditions' => array(
@@ -5721,12 +5723,10 @@ class GminyController extends DataobjectsController
                 'id' => 'dzielnice',
                 'label' => 'Dzielnice',
             );
-            /*
             $menu['items'][] = array(
                 'id' => 'zamowienia',
                 'label' => 'Zamówienia publiczne',
             );
-            */
             $menu['items'][] = array(
                 'id' => 'organizacje',
                 'label' => 'KRS',

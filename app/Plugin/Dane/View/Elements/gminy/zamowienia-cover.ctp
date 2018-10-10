@@ -9,27 +9,25 @@ $options = array(
 
 ?>
 <div class="col-md-12">
-
     <div class="blocks">
 
-		<? if (@$dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets']) { ?>
+		<? if (@$dataBrowser['aggs']['procurements']['announcements']['pln']['histogram']['buckets']) { ?>
             <div class="block block-simple nobg block-size-sm col-xs-12">
                 <header>Rozstrzygnięcia zamówień publicznych:</header>
                 <section>
                     <?= $this->element('Dane.zamowienia_publiczne', array(
-                        'histogram' => $dataBrowser['aggs']['zamowienia_publiczne_dokumenty']['dni']['buckets'],
+                        'histogram' => $dataBrowser['aggs']['procurements']['announcements']['pln']['histogram']['buckets'],
                         'request' => array(
 	                        'gmina_id' => $object->getId(),
                         ),
+                        /*
                         'more' => array(
                         	'url' => $object->getUrl() . '/zamowienia?q',
                         	'convert' => true,
                         ),
+                        */
                         'aggs' => array(
                         	'stats' => array(),
-                        	'dokumenty' => array(
-	                        	'size' => 5,
-                        	),
                         	'wykonawcy' => array(),
                         ),
                         'mode' => 'medium',
@@ -39,5 +37,4 @@ $options = array(
         <? } ?>
 
     </div>
-
 </div>
