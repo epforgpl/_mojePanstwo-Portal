@@ -4,7 +4,7 @@
 		<? foreach($object->inner_hits['announcements']['hits']['hits'] as $hit) { ?>
 			<li>
 				<?
-					$contractors_names = [];
+					$contractors_names = array();
 					foreach ($hit['_source']['contractors'] as $c) {
 						if ($v = $c['Nazwa']) {
 							$contractors_names[] = $v;
