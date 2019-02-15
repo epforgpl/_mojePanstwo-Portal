@@ -20,13 +20,6 @@ class StartController extends ApplicationsController
     {
 
         $options = array(
-            'searchTag' => array(
-	            'href' => '/krs',
-	            'label' => 'KRS',
-            ),
-            'autocompletion' => array(
-                'dataset' => 'krs_podmioty,krs_osoby',
-            ),
             'cover' => array(
                 'view' => array(
                     'plugin' => 'Start',

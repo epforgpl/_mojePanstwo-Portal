@@ -4024,7 +4024,7 @@ class GminyController extends DataobjectsController
 
     public function organizacje()
     {
-
+		return $this->redirect('https://rejestr.io');
         $this->_prepareView();
         $this->Components->load('Dane.DataBrowser', array(
             'conditions' => array(
@@ -4044,7 +4044,7 @@ class GminyController extends DataobjectsController
 
     public function osoby()
     {
-
+		return $this->redirect('https://rejestr.io');
         $this->request->params['action'] = 'organizacje';
         $this->_prepareView();
         $this->Components->load('Dane.DataBrowser', array(
@@ -4065,7 +4065,7 @@ class GminyController extends DataobjectsController
 
     public function biznes()
     {
-
+		return $this->redirect('https://rejestr.io');
         $this->request->params['action'] = 'organizacje';
         $this->_prepareView();
         $this->Components->load('Dane.DataBrowser', array(
@@ -4087,7 +4087,6 @@ class GminyController extends DataobjectsController
 
     public function prawo()
     {
-
         $this->_prepareView();
 
         if (isset($this->request->params['subid']) && is_numeric($this->request->params['subid'])) {
@@ -4121,7 +4120,7 @@ class GminyController extends DataobjectsController
 
     public function ngo()
     {
-
+		return $this->redirect('https://rejestr.io');
         $this->request->params['action'] = 'organizacje';
         if (isset($this->request->query['export'])) {
             $this->addInitLayers(array('ngo_export'));
@@ -4151,7 +4150,7 @@ class GminyController extends DataobjectsController
 
     public function spzoz()
     {
-
+		return $this->redirect('https://rejestr.io');
         $this->request->params['action'] = 'organizacje';
         $this->_prepareView();
         $this->Components->load('Dane.DataBrowser', array(
