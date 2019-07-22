@@ -30,42 +30,47 @@ class ApiController extends ApplicationsController
 
     public function index()
     {
-		$this->title = 'API - Buduj aplikacje w oparciu o dane publiczne';
+        header('Location: https://rejestr.io/api');
+        $this->title = 'API - Buduj aplikacje w oparciu o dane publiczne';
     }
     
     public function bdl()
     {
-		$this->title = 'API - Bank Danych Lokalnych';
+        header('Location: https://rejestr.io/api');
+        $this->title = 'API - Bank Danych Lokalnych';
     }
     
     public function sejmometr()
     {
-		$this->title = 'API - Sejmometr';
+        header('Location: https://rejestr.io/api');
+        $this->title = 'API - Sejmometr';
     }
     
     public function finanse()
     {
-		$this->title = 'API - Finanse';
+        header('Location: https://rejestr.io/api');
+        $this->title = 'API - Finanse';
     }
     
     public function krs()
     {
-		$this->title = 'API - KRS';
+        header('Location: https://rejestr.io/api');
+        $this->title = 'API - KRS';
     }
     
     public function zamowienia_publiczne()
     {
-		$this->title = 'API - Zamówienia publiczne';
+        header('Location: https://rejestr.io/api');
+        $this->title = 'API - Zamówienia publiczne';
     }
 
     public function view($slug)
     {
+        header('Location: https://rejestr.io/api');
         $uiRoot = Router::url(array('plugin' => 'api', 'controller' => 'api', 'action' => 'view', 'slug' => $slug), false);
 
         $this->chapter_selected = '';
         $this->set(compact('uiRoot', 'slug'));
-        
-        
     }
         
     public function getChapters() {
