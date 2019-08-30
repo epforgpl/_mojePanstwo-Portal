@@ -1,0 +1,23 @@
+<?php
+class DATABASE_CONFIG {
+
+    public $mpapiObjects = array(
+        'datasource' => 'mpapiObjectsSource',
+        'key' => '',
+        'database' => false,
+    );
+
+    public $dummy = array(
+        'datasource' => 'DummySource',
+        'database' => false,
+    );
+
+// wymaga użytkownika w API-Server, którego apiKey tu trzeba dodać
+    public $mpAPI = array(
+        'datasource' => 'mpAPISource',
+        'host' => '${API_url}',
+        'apiKey'     => '${API_CONSTANS_ROOT_API_KEY}',
+        'verbose'    => true,
+        'verbose'    => false,
+    );
+}

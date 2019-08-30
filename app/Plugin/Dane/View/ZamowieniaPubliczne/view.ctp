@@ -359,4 +359,30 @@ echo $this->Element('dataobject/pageBegin'); ?>
     
 </div>
 
+<div class="row">
+<div class="col-sm-offset-2 col-sm-7">
+<div class="text-center margin-top-20 margin-bottom-20">
+	<a href="#legal-text" onclick="document.getElementById('legal-text').style.display = 'block'; return false;">Informacja dla osób, których dane osobowe z publicznie dostępnych źródeł – tj. z baz danych prowadzonych przez Urząd Zamówień Publicznych – są przetwarzane przez Fundację ePaństwo</a>
+	<div class="text-left" id="legal-text" name="legal-text" style="display: none;">
+
+                    <ol class="margin-top-20">
+                        <li>Administratorem Pani/Pana danych osobowych jest Fundacja ePaństwo z siedzibą w Zgorzale przy ul. Pliszki 2B/1 05-500 Mysiadło („<b>Fundacja</b>”).</li>
+                        <li>Kontakt z Fundacją jest możliwy poprzez adres email: daneosobowe@mojepanstwo.pl lub pisemnie na adres do doręczeń Fundacji tj. ul. Nowogrodzka 25/37 00-511 Warszawa.</li>
+                        <li>Pani/Pana dane osobowe będą przetwarzane w celu ich udostępniania w serwisach internetowych prowadzonych przez Fundację dla wspierania jawności sfery publicznej w Polsce, z wykorzystaniem profilowania (więcej w pkt 6 poniżej) – podstawą prawną jest prawnie uzasadniony interes Fundacji (art. 6 ust. 1 lit. f ogólnego rozporządzenia o ochronie danych osobowych nr 2016/679 („<b>RODO</b>”), prawnie uzasadnionym interesem Fundacji jest udostępnianie danych osobowych w serwisach internetowych prowadzonych przez Fundację dla wspierania jawności sfery publicznej w Polsce.</li>
+                        <li>Fundacja pobiera dane osobowe ze źródeł publicznie dostępnych tj. z baz danych prowadzonych przez Urząd Zamówień Publicznych.</li>
+                        <li>Kategorie danych osobowych przetwarzanych przez Fundację są tożsame z kategoriami danych osobowych ujawnionych w bazach danych prowadzonych przez Urząd Zamówień Publicznych  – są to w szczególności: imię, nazwisko, informacje o udzielonych danej osobie zamówieniach publicznych.</li>
+                        <li>Profilowanie, o którym mowa w pkt 3 powyżej, polega na automatycznym łączeniu danych osobowych z danymi pobranymi z innych rejestrów oraz na prezentowaniu powiązań i relacji.</li>
+                        <li>Pani/Pana dane osobowe mogą być przekazywane użytkownikom usług dostępnych w serwisie Rejestr.io oraz podmiotom świadczącym usługi na rzecz Fundacji takim jak: dostawcy systemów informatycznych, dostawcy usług IT, podmioty świadczące usługi prawne.</li>
+                        <li>Pani/Pana dane osobowe będą przetwarzane przez okres trwania uzasadnionego interesu Fundacji. Okres przetwarzania może zostać każdorazowo przedłużony o okres przedawnienia roszczeń, jeżeli przetwarzanie Pani/Pana danych osobowych będzie niezbędne dla ustalenia lub dochodzenia ewentualnych roszczeń lub obrony przed takimi roszczeniami przez Fundację.</li>
+                        <li>Przysługuje Pani/Panu prawo dostępu do swoich danych oraz – w przypadkach określonych przez RODO – prawo żądania ich sprostowania, ich usunięcia lub ograniczenia ich przetwarzania.</li>
+                        <li>Przysługuje Pani/Panu prawo wniesienia skargi do organu nadzorczego zajmującego się ochroną danych osobowych w państwie członkowskim Pani/Pana zwykłego pobytu, miejsca pracy lub miejsca popełnienia domniemanego naruszenia.</li>
+                        <li>Na zasadach określonych w art. 21 RODO przysługuje Pani/Panu prawo sprzeciwu względem przetwarzania danych osobowych, w tym względem profilowania.</li>
+                        <li>Bez uszczerbku dla dostępnych administracyjnych lub pozasądowych środków ochrony prawnej, w tym prawa do wniesienia skargi do organu nadzorczego, każda osoba, której dane dotyczą, ma prawo do skutecznego środka ochrony prawnej przed sądem, jeżeli uzna ona, że prawa przysługujące jej na mocy RODO zostały naruszone w wyniku przetwarzania jego danych osobowych z naruszeniem RODO.</li>
+                    </ol>
+
+                </div>
+</div>
+</div>
+</div>
+
 <?= $this->Element('dataobject/pageEnd'); ?>
